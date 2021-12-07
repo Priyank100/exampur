@@ -8,7 +8,6 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  final AppRouter _appRouter = AppRouter();
 
   MyApp({
     Key? key,
