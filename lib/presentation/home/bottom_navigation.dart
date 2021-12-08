@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'home.dart';
+import 'home_page.dart';
 
 class ItemClass {
   const ItemClass(this.index, this.label, this.icon);

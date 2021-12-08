@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:exampur_mobile/presentation/home/home.dart';
+import 'package:exampur_mobile/presentation/home/home_page.dart';
 
 class Notifications extends StatefulWidget {
   const Notifications({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
-import 'package:exampur_mobile/presentation/home/home.dart';
+import 'package:exampur_mobile/presentation/home/home_page.dart';
 import 'package:exampur_mobile/presentation/widgets/test_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
