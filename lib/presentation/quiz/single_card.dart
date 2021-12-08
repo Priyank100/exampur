@@ -3,12 +3,14 @@ import 'package:exampur_mobile/presentation/quiz/test_series.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
+import 'answer.dart';
+
+class SingleCard extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _SingleCardState createState() => _SingleCardState();
 }
 
-class _HomeState extends State<Home> {
+class _SingleCardState extends State<SingleCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +26,14 @@ class _HomeState extends State<Home> {
                 style: TextStyle(color: Colors.black),
               )),
         ),
-        body: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => TestSeries(),
-              ),
-            );
-          }, child: Text("Test Series"),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Text("Question 1"),
+              Answer()
+
+            ],
+          ),
         ));
   }
 }
