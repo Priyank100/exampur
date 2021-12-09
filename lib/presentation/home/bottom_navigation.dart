@@ -6,8 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'home_page.dart';
+import 'package:exampur_mobile/presentation/home/home.dart';
 
 class ItemClass {
   const ItemClass(this.index, this.label, this.icon);
@@ -54,7 +53,13 @@ class _BottomNavigationState extends State<BottomNavigation>
     super.dispose();
   }
 
-  final List<Widget> widgetList = [Home(), Demo(), MyCourses(), Downloads(), Help()];
+  final List<Widget> widgetList = [
+    Home(),
+    Demo(),
+    MyCourses(),
+    Downloads(),
+    Help()
+  ];
   final List<String> widgetNames = [
     "Home",
     "Demo",
