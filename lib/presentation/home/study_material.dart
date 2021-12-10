@@ -26,8 +26,6 @@ class _StudyMaterialState extends State<StudyMaterial> {
           aspectRatio: 3 / 4,
           disableCenter: true,
           viewportFraction: 1,
-          autoPlayAnimationDuration: Duration(milliseconds: 200),
-          autoPlay: true,
           enlargeCenterPage: true,
           autoPlayCurve: Curves.fastOutSlowIn,
           onPageChanged: (index, reason) {

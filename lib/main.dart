@@ -2,8 +2,11 @@ import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(debug: true);
   runApp(const MyApp());
 }
 
@@ -22,6 +25,7 @@ class MyApp extends StatefulWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final platform = Theme.of(context).platform;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
