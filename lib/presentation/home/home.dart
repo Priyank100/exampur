@@ -20,40 +20,168 @@ class _HomeState extends State<Home> {
         drawer: Drawer(
           elevation: 0,
           child: Container(
-            color: Theme.of(context).cardColor,
-            child: Column(
-              children: [
-                DrawerHeader(
-                  child: Text("Exampur"),
+              color: Theme.of(context).cardColor,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      height: 200,
+                      child: DrawerHeader(
+                        child: Column(
+                          children: [
+                            Text("Exampur image"),
+
+                          ]
+                        )
+                      ),
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.subHeading(context),
+                                  text: "App Tutorial" //'Select Class: ',
+                                  ),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.subHeading(context),
+                                  text: "Choose Category"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.subHeading(context),
+                                  text: "Downloads"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.subHeading(context),
+                                  text: "My Purchase"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.subHeading(context),
+                                  text: "My Timetable"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.subHeading(context),
+                                  text: "Settings"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.subHeading(context),
+                                  text: "Eligibility Calculator"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.subHeading(context),
+                                  text: "Share Now"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.subHeading(context),
+                                  text: "Rate Us"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.subHeading(context),
+                                  text: "Help and Feedback"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.subHeading(context),
+                                  text: "Log Out"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                  ],
                 ),
-                ListTile(
-                  title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                              style: CustomTextStyle.subHeading(context),
-                              text: "Edit Profile" //'Select Class: ',
-                              ),
-                        ),
-                      ]),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                              style: CustomTextStyle.subHeading(context),
-                              text: "Welcome"),
-                        ),
-                      ]),
-                  onTap: () {},
-                ),
-              ],
-            ),
-          ),
+              )),
         ),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(65.0),

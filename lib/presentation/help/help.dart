@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:exampur_mobile/presentation/help/dropdown_menu.dart';
+// import 'package:exampur_mobile/presentation/help/dropdown_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -132,7 +132,7 @@ class HelpState extends State<Help> {
                   ),
                 ),
               ),*/
-              child: DropDown(),
+              child: Text("test"),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20.0,right: 20.0,top: 20.0),
