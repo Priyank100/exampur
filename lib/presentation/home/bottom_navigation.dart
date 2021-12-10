@@ -3,6 +3,8 @@ import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/help/help.dart';
 import 'package:exampur_mobile/presentation/home/study_material.dart';
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
+import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
+import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -117,6 +119,206 @@ class _BottomNavigationState extends State<BottomNavigation>
         return false;
       },
       child: Scaffold(
+        appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.black),
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: Builder(builder: (BuildContext context) {
+            return IconButton(
+                icon: FaIcon(FontAwesomeIcons.bars),
+                onPressed: () => Scaffold.of(context).openDrawer());
+          }),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search_outlined,
+                  color: Colors.black,
+                  size: 30.0,
+                )),
+            const SizedBox(
+              width: 20.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Notifications()));
+                  },
+                  icon: const Icon(
+                    Icons.notifications,
+                    color: Colors.black,
+                    size: 30.0,
+                  )),
+            ),
+          ],
+        ),
+        drawer: Drawer(
+          elevation: 0,
+          child: Container(
+              color: Theme.of(context).cardColor,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      height: 200,
+                      child: DrawerHeader(
+                          child: Column(children: [
+                            Text("Exampur images"),
+                          ])),
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: "App Tutorial" //'Select Class: ',
+                              ),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: "Choose Category"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: "Downloads"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: "My Purchase"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: "My Timetable"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: "Settings"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: "Eligibility Calculator"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: "Share Now"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: "Rate Us"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: "Help and Feedback"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: "Log Out"),
+                            ),
+                          ]),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              )),
+        ),
         body: SafeArea(
           top: false,
           child: Stack(
