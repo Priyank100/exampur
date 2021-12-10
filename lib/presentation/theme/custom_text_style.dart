@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 // Todo: define all possible texts here
 
 class CustomTextStyle {
-  static TextStyle type1(BuildContext context) {
+  static TextStyle drawerText(BuildContext context) {
     return Theme.of(context).textTheme.bodyText1!.copyWith(
-      fontSize: 15.0,
+      fontSize: 12.0,
     );
   }
 
