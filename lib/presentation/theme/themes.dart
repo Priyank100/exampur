@@ -23,7 +23,7 @@ class CustomTheme with ChangeNotifier {
     return ThemeData(
       hintColor: Color(0xff0670ED),
       brightness: Brightness.light,
-      primaryColor: Color(0xffFFD331),
+      primaryColor: Color(0xffE0B229),
       secondaryHeaderColor: Color(0xFFE1EFFE),
       accentColor: Color(0xff0670ED),
       scaffoldBackgroundColor: Color(0xffF6F7F9),

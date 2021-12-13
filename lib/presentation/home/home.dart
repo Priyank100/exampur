@@ -1,4 +1,7 @@
 import 'dart:io' show Platform;
+import 'package:exampur_mobile/presentation/home/current_affairs.dart';
+import 'package:exampur_mobile/presentation/home/job_alerts.dart';
+import 'package:exampur_mobile/presentation/home/study_material.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/large_carousel.dart';
 import 'package:flutter/cupertino.dart';
@@ -348,7 +351,12 @@ class _HomeState extends State<Home> {
                   padding:
                       const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>  CurrentAffairs()));
+                    },
                     child: Container(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 15.0),
@@ -455,7 +463,12 @@ class _HomeState extends State<Home> {
                   padding:
                       const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>  JobAlerts()));
+                    },
                     child: Container(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 15.0),
@@ -506,7 +519,12 @@ class _HomeState extends State<Home> {
                     child: Padding(
                   padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>  StudyMaterial()));
+                    },
                     child: Container(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 30.0),
