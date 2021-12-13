@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/shared/course_card.dart';
 import 'package:flutter/material.dart';
 
 class PaidCourses extends StatefulWidget {
@@ -10,9 +11,15 @@ class PaidCourses extends StatefulWidget {
 class _PaidCoursesState extends State<PaidCourses> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text('Paid Courses'),
+        child: ListView(
+          children: [
+            CourseCard(subject: "English", name: "IAS PCS 2022-23 BATCH"),
+            CourseCard(subject: "English", name: "IAS PCS 2022-23 BATCH"),
+            CourseCard(subject: "English", name: "IAS PCS 2022-23 BATCH"),
+          ],
+        ),
       ),
     );
   }
