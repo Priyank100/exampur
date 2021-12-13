@@ -75,16 +75,10 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                       child: Text("View",
                                           style: TextStyle(fontSize: 13)))),
                               SizedBox(
-                                width: 10,
+                                width: 15,
                               ),
-                              FaIcon(
-                                FontAwesomeIcons.eye,
-                                size: 10,
-                              ),
-                              Text("1000", style: TextStyle(fontSize: 13)),
-                              SizedBox(
-                                width: 10,
-                              ),
+
+
                               FaIcon(
                                 FontAwesomeIcons.shareAlt,
                                 size: 15,
