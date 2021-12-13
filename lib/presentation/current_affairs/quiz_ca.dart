@@ -1,4 +1,4 @@
-import 'package:exampur_mobile/widgets/quiz_card_ca.dart';
+import 'package:exampur_mobile/shared/quiz_card_ca.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

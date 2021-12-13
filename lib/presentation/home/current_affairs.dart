@@ -28,16 +28,16 @@ class CurrentAffairsState extends State<CurrentAffairs> {
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: true,
-            //title: Text(AppLocalizations.of(context)!.courses),
             backgroundColor: Colors.transparent,
-
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
             elevation: 0,
             centerTitle: true,
             title: Text(
               'Logo',
               style: TextStyle(color: Colors.black),
             ),
-
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(65.0),
               child: Column(
@@ -50,28 +50,32 @@ class CurrentAffairsState extends State<CurrentAffairs> {
                       style: CustomTextStyle.headingBold(context),
                     ),
                   ),
-                  TabBar(
-                    unselectedLabelColor: Colors.grey,
-                    indicatorColor: Theme.of(context).primaryColor,
-                    labelColor: Theme.of(context).primaryColor,
-                    tabs: <Widget>[
-                      Tab(
-                        text: "Videos",
-                        //'My Courses',
-                      ),
-                      Tab(
-                        text: "Daily",
-                      ),
-                      Tab(
-                        text: "Monthly",
-                      ),
-                      Tab(
-                        text: "Quiz",
-                      ),
-                      Tab(
-                        text: "Bytes",
-                      ),
-                    ],
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TabBar(
+                      isScrollable: true,
+                      unselectedLabelColor: Colors.grey,
+                      indicatorColor: Theme.of(context).primaryColor,
+                      labelColor: Theme.of(context).primaryColor,
+                      tabs: <Widget>[
+                        Tab(
+                          text: "Videos",
+                          //'My Courses',
+                        ),
+                        Tab(
+                          text: "Daily",
+                        ),
+                        Tab(
+                          text: "Monthly",
+                        ),
+                        Tab(
+                          text: "Quiz",
+                        ),
+                        Tab(
+                          text: "Bytes",
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

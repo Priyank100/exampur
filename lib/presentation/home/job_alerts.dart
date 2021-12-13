@@ -24,39 +24,47 @@ class JobAlertsState extends State<JobAlerts> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: DefaultTabController(
-        initialIndex: 0,
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: true,
-            //title: Text(AppLocalizations.of(context)!.courses),
-            backgroundColor: Colors.transparent,
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          //title: Text(AppLocalizations.of(context)!.courses),
+          backgroundColor: Colors.transparent,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            'Logo',
+            style: TextStyle(color: Colors.black),
+          ),
 
-            elevation: 0,
-            centerTitle: true,
-            title: Text(
-              'Logo',
-              style: TextStyle(color: Colors.black),
-            ),
-
-            bottom: PreferredSize(
-              preferredSize: Size.fromHeight(65.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      "Job Alerts",
-                      style: CustomTextStyle.headingBold(context),
-                    ),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(65.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    "Job Alerts",
+                    style: CustomTextStyle.headingBold(context),
                   ),
-                  TabBar(
+                ),
+                Align(
+                  alignment:Alignment.centerLeft,
+                  child: TabBar(
+                    isScrollable: true,
                     unselectedLabelColor: Colors.grey,
-                    indicatorColor: Theme.of(context).primaryColor,
-                    labelColor: Theme.of(context).primaryColor,
+                    indicatorColor: Theme
+                        .of(context)
+                        .primaryColor,
+                    labelColor: Theme
+                        .of(context)
+                        .primaryColor,
                     tabs: <Widget>[
                       Tab(
                         text: "Vacancy",
@@ -70,15 +78,16 @@ class JobAlertsState extends State<JobAlerts> {
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          body: TabBarView(
-            children: <Widget>[Vacancy(), Results(), AdmitCard()],
-          ),
+        ),
+        body: TabBarView(
+          children: <Widget>[Vacancy(), Results(), AdmitCard()],
         ),
       ),
+
     );
   }
 }

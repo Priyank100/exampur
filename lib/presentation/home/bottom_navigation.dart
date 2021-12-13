@@ -215,7 +215,12 @@ class _BottomNavigationState extends State<BottomNavigation>
                                   text: "Downloads"),
                             ),
                           ]),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>  Downloads()));
+                      },
                     ),
                     ListTile(
                       dense: true,
