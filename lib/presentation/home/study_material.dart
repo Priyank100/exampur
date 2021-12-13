@@ -31,7 +31,7 @@ class _StudyMaterialState extends State<StudyMaterial> {
               child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
-                    "Study Material",
+                    "Study Material",textAlign: TextAlign.start,
                     style: CustomTextStyle.headingBold(context),
                   )))),
       body: CarouselSlider(
