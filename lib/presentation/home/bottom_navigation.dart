@@ -1,6 +1,10 @@
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/drawer/app_tutorial.dart';
+import 'package:exampur_mobile/presentation/drawer/eligibility_calculator.dart';
+import 'package:exampur_mobile/presentation/drawer/my_purchases.dart';
+import 'package:exampur_mobile/presentation/drawer/settings.dart';
+import 'package:exampur_mobile/presentation/drawer/time_table.dart';
 import 'package:exampur_mobile/presentation/help/help.dart';
 import 'package:exampur_mobile/presentation/home/study_material.dart';
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
@@ -233,7 +237,12 @@ class _BottomNavigationState extends State<BottomNavigation>
                                   text: "My Purchase"),
                             ),
                           ]),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>  MyPurchases()));
+                      },
                     ),
                     ListTile(
                       dense: true,
@@ -246,7 +255,12 @@ class _BottomNavigationState extends State<BottomNavigation>
                                   text: "My Timetable"),
                             ),
                           ]),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>  MyTimeTable()));
+                      },
                     ),
                     ListTile(
                       dense: true,
@@ -259,7 +273,12 @@ class _BottomNavigationState extends State<BottomNavigation>
                                   text: "Settings"),
                             ),
                           ]),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>  Settings()));
+                      },
                     ),
                     ListTile(
                       dense: true,
@@ -272,7 +291,12 @@ class _BottomNavigationState extends State<BottomNavigation>
                                   text: "Eligibility Calculator"),
                             ),
                           ]),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>  EligibilityCalculator()));
+                      },
                     ),
                     ListTile(
                       dense: true,

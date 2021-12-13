@@ -1,21 +1,17 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
-import 'package:exampur_mobile/shared/video_card_app_tutorial.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AppTutorial extends StatefulWidget {
-  AppTutorial({
+class EligibilityCalculator extends StatefulWidget {
+  EligibilityCalculator({
     Key? key,
   }) : super(key: key);
 
   @override
-  _AppTutorialState createState() => _AppTutorialState();
+  _EligibilityCalculatorState createState() => _EligibilityCalculatorState();
 }
 
-class _AppTutorialState extends State<AppTutorial> {
-
-
+class _EligibilityCalculatorState extends State<EligibilityCalculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,17 +26,18 @@ class _AppTutorialState extends State<AppTutorial> {
                 preferredSize: Size.fromHeight(20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
-                        "App Tutorial",
-
-                        style: CustomTextStyle.headingBold(context),
-                      ))],
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Text(
+                          "Eligibilty Calcultoe",
+                          style: CustomTextStyle.headingBold(context),
+                        ))
+                  ],
                 ))),
         body: SingleChildScrollView(
             child: Column(
-          children: [VideoCardAT()],
+          children: [Text("eleifinl")],
         )));
   }
 }
