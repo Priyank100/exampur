@@ -4,18 +4,16 @@ import 'package:exampur_mobile/shared/video_card_app_tutorial.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AppTutorial extends StatefulWidget {
-  AppTutorial({
+class MyPurchases extends StatefulWidget {
+  MyPurchases({
     Key? key,
   }) : super(key: key);
 
   @override
-  _AppTutorialState createState() => _AppTutorialState();
+  _MyPurchasesState createState() => _MyPurchasesState();
 }
 
-class _AppTutorialState extends State<AppTutorial> {
-
-
+class _MyPurchasesState extends State<MyPurchases> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,17 +28,18 @@ class _AppTutorialState extends State<AppTutorial> {
                 preferredSize: Size.fromHeight(20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
-                        "App Tutorial",
-
-                        style: CustomTextStyle.headingBold(context),
-                      ))],
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Text(
+                          "My Purchases",
+                          style: CustomTextStyle.headingBold(context),
+                        ))
+                  ],
                 ))),
         body: SingleChildScrollView(
             child: Column(
-          children: [VideoCardAT()],
+          children: [Text("My Purcahses")],
         )));
   }
 }
