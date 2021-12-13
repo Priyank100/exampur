@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Hello, Qwerty !",
+              "Hello, Students !",
               style: CustomTextStyle.headingBold(context),
             ),
             SizedBox(height: 10),
