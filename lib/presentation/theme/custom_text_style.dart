@@ -12,6 +12,7 @@ class CustomTextStyle {
   static TextStyle headingBold(BuildContext context) {
     return Theme.of(context).textTheme.headline6!.copyWith(
       fontSize: 20.0,
+      color: Colors.black
     );
   }
 
