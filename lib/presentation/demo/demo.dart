@@ -1,7 +1,7 @@
 import 'dart:io';
+import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class Demo extends StatefulWidget {
   @override
@@ -17,7 +17,19 @@ class DemoState extends State<Demo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(child: Text("Demo"),)
-    );
+        appBar: AppBar(
+            title: Text(
+              "Demo Classes",
+              style: CustomTextStyle.headingBold(context),
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0),
+        body: Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Text("Live class")
+              ],
+            )));
   }
 }
