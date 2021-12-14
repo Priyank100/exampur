@@ -40,7 +40,6 @@ class TestSeriesState extends State<TestSeries> {
                   preferredSize: Size.fromHeight(65.0),
                   child: Align(alignment: Alignment.centerLeft,
                     child: Column(
-
                         children: [
                       Text(
                         "Test series",

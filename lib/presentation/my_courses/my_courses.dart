@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,17 @@ class MyCoursesState extends State<MyCourses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(child: Text("My Courses"),)
-    );
+        appBar: AppBar(
+            title: Text(
+              "My Courses",
+              style: CustomTextStyle.headingBold(context),
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0),
+        body: Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              children: [Text("My courses class")],
+            )));
   }
 }

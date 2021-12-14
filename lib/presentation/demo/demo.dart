@@ -27,9 +27,7 @@ class DemoState extends State<Demo> {
         body: Padding(
             padding: EdgeInsets.all(10),
             child: Column(
-              children: [
-                Text("Live class")
-              ],
+              children: [Text("Live class")],
             )));
   }
 }
