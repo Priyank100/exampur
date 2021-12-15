@@ -5,7 +5,6 @@ abstract class UserEvent extends Equatable {
 }
 
 class FetchUser extends UserEvent {
-
   const FetchUser();
 
   @override
