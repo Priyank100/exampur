@@ -1,20 +1,9 @@
-import 'package:exampur_mobile/presentation/current_affairs/bytes_ca.dart';
-import 'package:exampur_mobile/presentation/current_affairs/daily_ca.dart';
-import 'package:exampur_mobile/presentation/current_affairs/monthly_ca.dart';
-import 'package:exampur_mobile/presentation/current_affairs/quiz_ca.dart';
-import 'package:exampur_mobile/presentation/current_affairs/videos_ca.dart';
-import 'package:exampur_mobile/presentation/quiz/test_series.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs/bytes_ca.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs/daily_ca.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs/monthly_ca.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs/quiz_ca.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
-import 'package:exampur_mobile/presentation/widgets/dropdown_selector.dart';
-import 'package:exampur_mobile/presentation/widgets/multi_selector.dart';
-import 'package:exampur_mobile/shared/big_course_card.dart';
-import 'package:exampur_mobile/shared/books_card.dart';
-import 'package:exampur_mobile/shared/course_card.dart';
-import 'package:exampur_mobile/shared/ebooks_card.dart';
-import 'package:exampur_mobile/shared/free_course_card.dart';
-import 'package:exampur_mobile/shared/one_two_one_card.dart';
-import 'package:exampur_mobile/shared/online_batches_card.dart';
-import 'package:exampur_mobile/shared/test_series_card.dart';
 import 'package:flutter/material.dart';
 
 class PaidCourses extends StatefulWidget {
