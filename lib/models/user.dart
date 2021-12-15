@@ -37,12 +37,12 @@ class User {
   bool phoneConf;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        phoneExt: json["phone_ext"] == "" ? null : json["phone_ext"],
+        phoneExt: json["phone_ext"] == null ? "" : json["phone_ext"],
         phone: json["phone"] == null ? "" : json["phone"],
-        firstName: json["first_name"] == "" ? null : json["first_name"],
-        lastName: json["last_name"] == "" ? null : json["last_name"],
-        language: json["language"] == "" ? null : json["language"],
-        emailId: json["email_id"] == "" ? null : json["email_id"],
+        firstName: json["first_name"] == null ? "" : json["first_name"],
+        lastName: json["last_name"] == null ? "" : json["last_name"],
+        language: json["language"] == null ? "" : json["language"],
+        emailId: json["email_id"] == null ? "" : json["email_id"],
         city: json["city"] == null ? "" : json["city"],
         state: json["state"] == null ? "" : json["state"],
         country: json["country"] == null ? "" : json["country"],

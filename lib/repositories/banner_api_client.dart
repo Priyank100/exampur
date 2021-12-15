@@ -1,15 +1,15 @@
 import 'dart:convert';
-import 'package:exampur_mobile/models/user.dart';
+import 'package:exampur_mobile/models/banner.dart';
 import 'package:http/http.dart' as http;
 
 import '../main.dart';
 
-class UserApiClient {
-  UserApiClient();
+class BannerApiClient {
+  BannerApiClient();
 
-  Future<User> fetcher() async {
-    User temp;
-    String url = "$baseUrl/user";
+  Future<BannerList> fetcher() async {
+    BannerList _localList = new BannerList(bannerList: []);
+    String url = "$baseUrl/banner";
     final response = await http.get(
       Uri.parse(url),
       headers: <String, String>{
@@ -18,12 +18,10 @@ class UserApiClient {
     );
     if (response.statusCode == 200) {
       print(response.body);
-      temp = userFromJson(response.body);
-
     } else {
       print('got no response ' + response.body);
-      throw Exception('Sorry fetching imp user failed');
+      throw Exception('Sorry fetching imp banner failed');
     }
-    return temp;
+    return _localList;
   }
 }

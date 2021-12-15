@@ -38,3 +38,9 @@ class Banner {
         "type_id": typeId == null ? null : typeId,
       };
 }
+
+class BannerList {
+  final List<Banner> bannerList;
+
+  BannerList({required this.bannerList});
+}

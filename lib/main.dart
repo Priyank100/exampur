@@ -1,5 +1,7 @@
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
+import 'package:exampur_mobile/repositories/banner_api_client.dart';
+import 'package:exampur_mobile/repositories/banner_repository.dart';
 import 'package:exampur_mobile/repositories/user_api_client.dart';
 import 'package:exampur_mobile/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +9,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 
+import 'logic/bloc/banner_bloc.dart';
 import 'logic/bloc/user_bloc.dart';
 
-String baseUrl = "xxxx"; //todo: change accordingly
+String baseUrl = "https://6b07f566-12f7-4b32-8f2f-8b6046fa0957.mock.pstmn.io"; //todo: change accordingly
 String jwtToken = "xxx";
 
 void main() async {
@@ -33,6 +36,9 @@ class _MyAppState extends State<MyApp> {
   final UserRepository userRepository = UserRepository(
     userApiClient: UserApiClient(),
   );
+  final BannerRepository bannerRepository = BannerRepository(
+    bannerApiClient: BannerApiClient(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +51,9 @@ class _MyAppState extends State<MyApp> {
         providers: [
           BlocProvider(
             create: (context) => UserBloc(repository: userRepository),
+          ),
+          BlocProvider(
+            create: (context) => BannerBloc(repository: bannerRepository),
           ),
         ],
         child: MaterialApp(
