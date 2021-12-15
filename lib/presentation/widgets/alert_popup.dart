@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../../widgets/custom_round_button.dart';
+import 'custom_round_button.dart';
+
 
 showAlertDialogPopup(
     BuildContext context, String alertText, String buttonText, Function() fun, ) {

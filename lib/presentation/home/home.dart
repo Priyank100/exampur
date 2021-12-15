@@ -1,15 +1,15 @@
 import 'dart:io' show Platform;
-import 'package:exampur_mobile/presentation/home/current_affairs.dart';
-import 'package:exampur_mobile/presentation/home/job_alerts.dart';
-import 'package:exampur_mobile/presentation/home/study_material.dart';
-import 'package:exampur_mobile/presentation/quiz/test_series.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
+import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
+import 'package:exampur_mobile/presentation/home/study_material/study_material.dart';
+import 'package:exampur_mobile/presentation/home/quiz/test_series.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/large_carousel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:exampur_mobile/presentation/paid_courses/paid_courses.dart';
+import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
