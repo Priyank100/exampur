@@ -20,46 +20,8 @@ class _BooksScreenState extends State<BooksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<UserBloc, UserState>(
-        builder: (context, state) {
-          if (state is UserEmpty) {
-            BlocProvider.of<UserBloc>(context).add(FetchUser());
-          }
-          if (state is UserError) {
-            return RefreshIndicator(
-              onRefresh: refresh,
-              color: Theme.of(context).primaryColor,
-              child: ListView.builder(
-                  itemCount: 1,
-                  itemBuilder: (context, i) {
-                    return Text("bjb");
-                  }),
-            );
-          }
-          if (state is UserLoaded) {
-            if (state.userList.userList.length == 0)
-              return RefreshIndicator(
-                onRefresh: refresh,
-                color: Theme.of(context).primaryColor,
-                child: ListView.builder(
-                    itemCount: 1,
-                    itemBuilder: (context, i) {
-                      return Text("null");
-                    }),
-              );
-            return RefreshIndicator(
-              color: Theme.of(context).primaryColor,
-              onRefresh: refresh,
-              child: ListView.builder(
-                  itemCount: state.userList.userList.length,
-                  itemBuilder: (context, i) {
-                    return Text("habi");
-                  }),
-            );
-          }
-          return LoadingIndicator(context);
-        },
-      ),
-    );
+        body: SingleChildScrollView(
+      child: Column(children: [Text("column")]),
+    ));
   }
 }

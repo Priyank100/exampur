@@ -33,10 +33,22 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-            Text(
-              "Hello, Students !",
-              style: CustomTextStyle.headingBold(context),
+            BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) {
+                if (state is UserEmpty) {
+                  BlocProvider.of<UserBloc>(context).add(FetchUser());
+                }
+                if (state is UserError) {
+                  return Text("Error");
+                }
+                if (state is UserLoaded) {
+                  return Text(
+                    "Hello, ${state.user.firstName}!",
+                    style: CustomTextStyle.headingBold(context),
+                  );
+                }
+                return LoadingIndicator(context);
+              },
             ),
             SizedBox(height: 10),
             LargeCarousel(image: [
