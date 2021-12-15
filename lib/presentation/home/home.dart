@@ -1,4 +1,5 @@
 import 'dart:io' show Platform;
+import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
 import 'package:exampur_mobile/presentation/home/study_material/study_material.dart';
@@ -99,7 +100,12 @@ class _HomeState extends State<Home> {
                   padding:
                       const EdgeInsets.only(right: 8.0, top: 8.0, bottom: 8.0),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>Books()));
+                    },
                     child: Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
