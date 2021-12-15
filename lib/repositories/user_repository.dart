@@ -7,7 +7,7 @@ class UserRepository {
 
   UserRepository({required this.userApiClient});
 
-  Future<User> fetcher() async {
+  Future<UserList> fetcher() async {
     return await userApiClient.fetcher();
   }
 }

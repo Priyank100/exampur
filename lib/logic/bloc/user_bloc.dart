@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:exampur_mobile/logic/bloc/user_events.dart';
-import 'package:exampur_mobile/logic/bloc/user_state.dart';
 import 'package:exampur_mobile/models/user.dart';
 import 'package:exampur_mobile/repositories/user_repository.dart';
+
+import 'user_events.dart';
+import 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final UserRepository repository;
@@ -14,8 +15,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (event is FetchUser) {
       yield UserLoading();
       try {
-        final User announcement = await repository.fetcher();
-        yield UserLoaded(announcement: announcement);
+        final UserList userList = await repository.fetcher();
+        yield UserLoaded(userList: userList);
       } catch (_) {
         yield UserError();
       }

@@ -13,12 +13,12 @@ class UserEmpty extends UserState {}
 class UserLoading extends UserState {}
 
 class UserLoaded extends UserState {
-  final User announcement;
+  final UserList userList;
 
-  const UserLoaded({required this.announcement});
+  const UserLoaded({required this.userList});
 
   @override
-  List<Object> get props => [announcement];
+  List<Object> get props => [userList];
 }
 
 class UserError extends UserState {}

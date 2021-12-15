@@ -1,14 +1,17 @@
 import 'dart:convert';
 import 'package:exampur_mobile/models/user.dart';
 import 'package:http/http.dart' as http;
+
 import '../main.dart';
 
 class UserApiClient {
   UserApiClient();
 
-  Future<User> fetcher() async {
-    late User _localList; //= new UserList(userList: []);
-    String url = '$baseUrl/user';
+  Future<UserList> fetcher() async {
+    UserList _localList = new UserList(userList: []);
+    //print(jwtToken);
+    String url = "$baseUrl/"; //'$baseUrl/users?subject=${sub}&class=${clas}';
+    print(url);
     final response = await http.get(
       Uri.parse(url),
       headers: <String, String>{
@@ -16,9 +19,9 @@ class UserApiClient {
       },
     );
     if (response.statusCode == 200) {
-      var json = jsonDecode(response.body);
-      User temp=User(phoneExt: "phoneExt", phone: "phone", firstName: "firstName", lastName: "lastName", language: "language", emailId: "emailId", city: "city", state: "state", country: "country", emailConf: false, phoneConf: false);
-      _localList = temp;
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      var jsonData = jsonDecode(response.body);
     } else {
       print('got no response ' + response.body);
       throw Exception('Sorry fetching imp user failed');

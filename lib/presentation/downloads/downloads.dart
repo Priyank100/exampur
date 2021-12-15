@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:exampur_mobile/presentation/current_affairs/daily_ca.dart';
-import 'package:exampur_mobile/presentation/current_affairs/videos_ca.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs/daily_ca.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

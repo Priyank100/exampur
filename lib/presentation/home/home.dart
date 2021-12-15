@@ -1,4 +1,7 @@
 import 'dart:io' show Platform;
+import 'package:exampur_mobile/logic/bloc/user_bloc.dart';
+import 'package:exampur_mobile/logic/bloc/user_events.dart';
+import 'package:exampur_mobile/logic/bloc/user_state.dart';
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
@@ -6,9 +9,11 @@ import 'package:exampur_mobile/presentation/home/study_material/study_material.d
 import 'package:exampur_mobile/presentation/home/quiz/test_series.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/large_carousel.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 
@@ -28,6 +33,28 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) {
+                if (state is UserEmpty) {
+                  BlocProvider.of<UserBloc>(context).add(FetchUser());
+                }
+                if (state is UserError) {
+                  return Text("faield");
+                }
+                if (state is UserLoaded) {
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        if (state.userList.userList.length == 0) Text("None"),
+                        for (var item in state.userList.userList)
+                          Text("Card here")
+                      ],
+                    ),
+                  );
+                }
+                return LoadingIndicator(context);
+              },
+            ),
             Text(
               "Hello, Students !",
               style: CustomTextStyle.headingBold(context),
@@ -101,10 +128,8 @@ class _HomeState extends State<Home> {
                       const EdgeInsets.only(right: 8.0, top: 8.0, bottom: 8.0),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>Books()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Books()));
                     },
                     child: Container(
                       child: Row(
