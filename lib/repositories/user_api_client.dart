@@ -9,9 +9,7 @@ class UserApiClient {
 
   Future<UserList> fetcher() async {
     UserList _localList = new UserList(userList: []);
-    //print(jwtToken);
-    String url = "$baseUrl/"; //'$baseUrl/users?subject=${sub}&class=${clas}';
-    print(url);
+    String url = "$baseUrl";
     final response = await http.get(
       Uri.parse(url),
       headers: <String, String>{
@@ -22,6 +20,7 @@ class UserApiClient {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       var jsonData = jsonDecode(response.body);
+
     } else {
       print('got no response ' + response.body);
       throw Exception('Sorry fetching imp user failed');
