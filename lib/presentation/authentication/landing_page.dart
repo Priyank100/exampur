@@ -1,7 +1,7 @@
 import 'package:exampur_mobile/presentation/authentication/sign_in.dart';
 import 'package:exampur_mobile/presentation/authentication/sign_up.dart';
-import 'package:exampur_mobile/widgets/custom_outlined_button.dart';
-import 'package:exampur_mobile/widgets/custom_text_button.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_outlined_button.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

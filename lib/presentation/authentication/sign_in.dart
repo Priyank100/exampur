@@ -1,7 +1,6 @@
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
-import 'package:exampur_mobile/widgets/custom_outlined_button.dart';
-import 'package:exampur_mobile/widgets/custom_text_button.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
