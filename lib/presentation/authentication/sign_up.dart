@@ -1,7 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
-import 'package:exampur_mobile/widgets/custom_text_button.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -59,28 +59,13 @@ class SignUpState extends State<SignUp> {
                     style: CustomTextStyle.headingBold(context),
                   ),
                   SizedBox(height: 20),
-                  CustomTextField(
-                      initialText: "Name", labelText: "", value: (value) {}),
-                  CustomTextField(
-                      initialText: "E-mail", labelText: "", value: (value) {}),
-                  CustomTextField(
-                      initialText: "Password",
-                      labelText: "",
-                      value: (value) {}),
-                  CustomTextField(
-                      initialText: "Username",
-                      labelText: "",
-                      value: (value) {}),
-                  CustomTextField(
-                      initialText: "Phone number",
-                      labelText: "",
-                      value: (value) {}),
-                  CustomTextField(
-                      initialText: "Password",
-                      labelText: "",
-                      value: (value) {}),
-                  CustomTextField(
-                      initialText: "City", labelText: "", value: (value) {}),
+                  CustomTextField(hintText: "Name", value: (value) {}),
+                  CustomTextField(hintText: "E-mail", value: (value) {}),
+                  CustomTextField(hintText: "Password", value: (value) {}),
+                  CustomTextField(hintText: "Username", value: (value) {}),
+                  CustomTextField(hintText: "Phone number", value: (value) {}),
+                  CustomTextField(hintText: "Password", value: (value) {}),
+                  CustomTextField(hintText: "City", value: (value) {}),
                   SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),

@@ -1,7 +1,6 @@
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
-import 'package:exampur_mobile/widgets/custom_outlined_button.dart';
-import 'package:exampur_mobile/widgets/custom_text_button.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,10 +39,8 @@ class SignInState extends State<SignIn> {
                     style: CustomTextStyle.headingBold(context),
                   ),
                   SizedBox(height: 20),
-                  CustomTextField(
-                      initialText: "E-mail", labelText: "", value: (value) {}),
-                  CustomTextField(
-                      initialText: "Password", labelText: "", value: (value) {}),
+                  CustomTextField(hintText: "E-mail", value: (value) {}),
+                  CustomTextField(hintText: "Password", value: (value) {}),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -71,7 +68,8 @@ class SignInState extends State<SignIn> {
                           child: Center(
                             child: Text(
                               "Log In",
-                              style: TextStyle(fontSize: 18, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
                             ),
                           ),
                         ),

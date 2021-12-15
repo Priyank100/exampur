@@ -26,14 +26,21 @@ class PaidCourses extends StatefulWidget {
 
 class _PaidCoursesState extends State<PaidCourses> {
   Set<String> selected = new Set<String>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomTabBar(length: 5, names: ["Videos", "Daily", "Monthly", "Quiz", "Bytes"], routes: [VideosCA(),
-        DailyCA(),
-        MonthlyCA(),
-        QuizCA(),
-        BytesCA(),], title: "Paid Courses"),
+      body: CustomTabBar(
+          length: 5,
+          names: ["Videos", "Daily", "Monthly", "Quiz", "Bytes"],
+          routes: [
+            VideosCA(),
+            DailyCA(),
+            MonthlyCA(),
+            QuizCA(),
+            BytesCA(),
+          ],
+          title: "Paid Courses"),
       // body: Center(
       //   child: ListView(
       //     children: [
