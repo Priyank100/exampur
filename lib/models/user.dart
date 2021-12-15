@@ -64,3 +64,9 @@ class User {
         "phone_conf": phoneConf == null ? null : phoneConf,
       };
 }
+
+class UserList {
+  final List<User> userList;
+
+  UserList({required this.userList});
+}

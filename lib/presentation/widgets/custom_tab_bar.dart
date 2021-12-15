@@ -26,7 +26,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
-      length: 5,
+      length: widget.length,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
@@ -60,23 +60,6 @@ class _CustomTabBarState extends State<CustomTabBar> {
                     indicatorColor: Theme.of(context).primaryColor,
                     labelColor: Theme.of(context).primaryColor,
                     tabs: [for (var i in widget.names) Tab(text: i)],
-                    // tabs: <Widget>[
-                    //   Tab(
-                    //     text: "Videos",   //'My Courses',
-                    //   ),
-                    //   Tab(
-                    //     text: "Daily",
-                    //   ),
-                    //   Tab(
-                    //     text: "Monthly",
-                    //   ),
-                    //   Tab(
-                    //     text: "Quiz",
-                    //   ),
-                    //   Tab(
-                    //     text: "Bytes",
-                    //   ),
-                    // ],
                   ),
                 ),
               ],
@@ -85,14 +68,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
         ),
         body: TabBarView(
           children: widget.routes,
-            // children: <Widget>[
-            // VideosCA(),
-            // DailyCA(),
-            // MonthlyCA(),
-            // QuizCA(),
-            // BytesCA(),
-            // ],
-            ),
+        ),
       ),
     );
   }
