@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:exampur_mobile/models/user.dart';
 import 'package:exampur_mobile/repositories/user_repository.dart';
-
 import 'user_events.dart';
 import 'user_state.dart';
 

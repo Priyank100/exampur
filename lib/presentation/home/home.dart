@@ -33,28 +33,7 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BlocBuilder<UserBloc, UserState>(
-              builder: (context, state) {
-                if (state is UserEmpty) {
-                  BlocProvider.of<UserBloc>(context).add(FetchUser());
-                }
-                if (state is UserError) {
-                  return Text("faield");
-                }
-                if (state is UserLoaded) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        if (state.userList.userList.length == 0) Text("None"),
-                        for (var item in state.userList.userList)
-                          Text("Card here")
-                      ],
-                    ),
-                  );
-                }
-                return LoadingIndicator(context);
-              },
-            ),
+
             Text(
               "Hello, Students !",
               style: CustomTextStyle.headingBold(context),

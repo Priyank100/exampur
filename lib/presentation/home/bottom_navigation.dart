@@ -1,3 +1,5 @@
+import 'package:exampur_mobile/logic/bloc/user_bloc.dart';
+import 'package:exampur_mobile/logic/bloc/user_events.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
@@ -14,6 +16,7 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 
@@ -42,6 +45,7 @@ class _BottomNavigationState extends State<BottomNavigation>
   @override
   void initState() {
     super.initState();
+
     _faders = widgetList.map<AnimationController>((item) {
       return AnimationController(
         duration: Duration(milliseconds: 300),
