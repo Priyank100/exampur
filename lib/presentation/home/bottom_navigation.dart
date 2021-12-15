@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/drawer/app_tutorial.dart';
@@ -136,7 +137,10 @@ class _BottomNavigationState extends State<BottomNavigation>
           }),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LandingPage()));
+                },
                 icon: const Icon(
                   Icons.search_outlined,
                   color: Colors.black,
@@ -173,8 +177,8 @@ class _BottomNavigationState extends State<BottomNavigation>
                       height: 200,
                       child: DrawerHeader(
                           child: Column(children: [
-                            Text("Exampur images"),
-                          ])),
+                        Text("Exampur images"),
+                      ])),
                     ),
                     ListTile(
                       dense: true,
@@ -185,14 +189,14 @@ class _BottomNavigationState extends State<BottomNavigation>
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
                                   text: "App Tutorial" //'Select Class: ',
-                              ),
+                                  ),
                             ),
                           ]),
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  AppTutorial()));
+                                builder: (context) => AppTutorial()));
                       },
                     ),
                     ListTile(
@@ -223,7 +227,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  Downloads()));
+                                builder: (context) => Downloads()));
                       },
                     ),
                     ListTile(
@@ -241,7 +245,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  MyPurchases()));
+                                builder: (context) => MyPurchases()));
                       },
                     ),
                     ListTile(
@@ -259,7 +263,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  MyTimeTable()));
+                                builder: (context) => MyTimeTable()));
                       },
                     ),
                     ListTile(
@@ -277,7 +281,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  Settings()));
+                                builder: (context) => Settings()));
                       },
                     ),
                     ListTile(
@@ -295,7 +299,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  EligibilityCalculator()));
+                                builder: (context) => EligibilityCalculator()));
                       },
                     ),
                     ListTile(
