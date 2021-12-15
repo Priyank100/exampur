@@ -40,10 +40,8 @@ class SignInState extends State<SignIn> {
                     style: CustomTextStyle.headingBold(context),
                   ),
                   SizedBox(height: 20),
-                  CustomTextField(
-                      initialText: "E-mail", labelText: "", value: (value) {}),
-                  CustomTextField(
-                      initialText: "Password", labelText: "", value: (value) {}),
+                  CustomTextField(hintText: "E-mail", value: (value) {}),
+                  CustomTextField(hintText: "Password", value: (value) {}),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -71,7 +69,8 @@ class SignInState extends State<SignIn> {
                           child: Center(
                             child: Text(
                               "Log In",
-                              style: TextStyle(fontSize: 18, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
                             ),
                           ),
                         ),

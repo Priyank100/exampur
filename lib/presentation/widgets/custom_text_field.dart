@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
-  final String initialText;
-  final String labelText;
+  final String hintText;
   final Function(String) value;
   final bool? obscureText;
   final bool? autofocus;
 
   const CustomTextField({
     Key? key,
-    required this.initialText,
-    required this.labelText,
+    required this.hintText,
     required this.value,
     this.obscureText,
     this.autofocus,
@@ -27,7 +25,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     super.initState();
-    fieldController = new TextEditingController(text: widget.initialText);
+    fieldController = new TextEditingController(text: "");
     _focusNode.addListener(() {
       setState(() {});
     });
@@ -43,7 +41,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
       child: TextField(
-        autofocus: widget.autofocus == null ? false:true,
+        autofocus: widget.autofocus == null ? false : true,
         obscureText: widget.obscureText == null ? false : true,
         focusNode: _focusNode,
         autocorrect: false,
@@ -62,7 +60,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               color: Colors.transparent,
             ),
           ),
-          hintText: widget.initialText,
+          hintText: widget.hintText,
           hintStyle: TextStyle(
             color: Colors.grey[600],
           ),
@@ -72,7 +70,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
             borderSide: BorderSide(color: Colors.white),
           ),
         ),
-
       ),
     );
   }
