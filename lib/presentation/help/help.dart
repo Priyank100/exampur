@@ -2,6 +2,7 @@ import 'dart:io';
 
 // import 'package:exampur_mobile/presentation/help/dropdown_menu.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
+import 'package:exampur_mobile/presentation/widgets/dropdown_selector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +37,6 @@ class HelpState extends State<Help> {
               ),
             ),
           ),
-          CustomTextField(initialText: "help", labelText: "ik", value: (value) {}),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
             child: TextField(
@@ -110,32 +110,19 @@ class HelpState extends State<Help> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
-            /*child: TextField(
-                cursorColor: Colors.amber,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                    ),
-                  ),
-                  border: InputBorder.none,
-                  hintText: 'Select Issue',
-                  hintStyle: TextStyle(
-                    color: Colors.grey[600],
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey[300],
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                ),
-              ),*/
-            child: Text("test"),
+            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 2.0, bottom: 0, left: 40, right: 25),
+                child: DropDownSelector(items: ["select issue", "App Crashing", "Exam Guidance", "Study Help", "Purchase help", "Other"], setValue: (val) {}),
+              ),
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
             child: TextField(
               cursorColor: Colors.amber,
               decoration: InputDecoration(

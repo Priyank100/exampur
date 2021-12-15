@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class CustomSmallerElevatedButton extends StatefulWidget {
   final VoidCallback onPressed;
   final String text;
+  final Color color;
   const CustomSmallerElevatedButton({
     Key? key,
+    required this.color,
     required this.onPressed,
     required this.text,
   }) : super(key: key);
@@ -22,18 +24,18 @@ class _CustomSmallerElevatedButtonState
     return ElevatedButton(
       style: ButtonStyle(
         backgroundColor:
-            MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+            MaterialStateProperty.all<Color>(widget.color),
       ),
       onPressed: () {
         widget.onPressed();
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 5),
+        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 3),
         child: Text(
           widget.text,
           style: TextStyle(
             fontSize: 18,
-            color: Colors.black
+            color: Colors.white
           ),
         ),
       ),
