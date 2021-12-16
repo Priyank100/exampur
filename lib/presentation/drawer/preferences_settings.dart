@@ -26,7 +26,7 @@ class _PreferencesSettingsState extends State<PreferencesSettings> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
                   child: Padding(
