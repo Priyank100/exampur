@@ -32,6 +32,7 @@ class _DropDownSelectorState extends State<DropDownSelector> {
           dropdownvalue = value.toString();
         });
       },
+      underline:Container(),
       items: widget.items
           .map((String items) => DropdownMenuItem(
                 value: items,

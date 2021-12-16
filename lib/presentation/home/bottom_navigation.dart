@@ -4,6 +4,7 @@ import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/drawer/app_tutorial.dart';
+import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
 import 'package:exampur_mobile/presentation/drawer/eligibility_calculator.dart';
 import 'package:exampur_mobile/presentation/drawer/my_purchases.dart';
 import 'package:exampur_mobile/presentation/drawer/settings.dart';
@@ -214,7 +215,12 @@ class _BottomNavigationState extends State<BottomNavigation>
                                   text: "Choose Category"),
                             ),
                           ]),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChooseCategory()));
+                      },
                     ),
                     ListTile(
                       dense: true,
