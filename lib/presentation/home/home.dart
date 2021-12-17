@@ -107,8 +107,13 @@ class _HomeState extends State<Home> {
                       ),
                       height: 80.0,
                       decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [Colors.purple, Colors.purpleAccent]),
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.purple,
+                       // color: Colors.purple,
+
                       ),
                     ),
                   ),
@@ -146,7 +151,11 @@ class _HomeState extends State<Home> {
                       height: 80.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.green[700],
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [Colors.green, Colors.green.shade300]),
+                        //color: Colors.green[700],
                       ),
                     ),
                   ),
@@ -258,7 +267,11 @@ class _HomeState extends State<Home> {
                       height: 80.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.red,
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [Colors.red, Colors.red]),
+                        // color: Colors.red,
                       ),
                     ),
                   ),
