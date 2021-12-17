@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +48,7 @@ class _BooksCardState extends State<BooksCard> {
                   height: MediaQuery.of(context).size.width * 0.7 * 9 / 16,
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: Image(
-                    image: AssetImage(""),
+                    image: AssetImage(Images.studymaterial),
                   ),
                 ),
                 SizedBox(
@@ -82,11 +83,12 @@ class _BooksCardState extends State<BooksCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      CupertinoIcons.share_up,
-                      size: 26,
-                      color: Colors.black,
-                    ),
+                    Image.asset(Images.share,height: 23,width: 23,),
+                    // Icon(
+                    //   Icons.share,
+                    //   size: 23,
+                    //   color: Colors.black,
+                    // ),
                     SizedBox(
                       width: 8,
                     ),

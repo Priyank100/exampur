@@ -1,6 +1,10 @@
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
+import 'package:exampur_mobile/shared/one_two_one_card.dart';
+import 'package:exampur_mobile/shared/pdf_card_ca.dart';
+import 'package:exampur_mobile/shared/quiz_card_ca.dart';
+import 'package:exampur_mobile/shared/test_series_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -100,6 +104,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                 text: "Next",
               ),
             ),
+
           ],
         )));
   }

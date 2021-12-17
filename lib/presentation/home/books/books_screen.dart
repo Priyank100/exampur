@@ -21,7 +21,9 @@ class _BooksScreenState extends State<BooksScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      child: Column(children: [Text("column")]),
+      child: Column(children: [
+        BooksCard(subject: '', name: '',)
+      ]),
     ));
   }
 }
