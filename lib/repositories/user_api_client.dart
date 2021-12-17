@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:exampur_mobile/logic/globals.dart';
 import 'package:exampur_mobile/models/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,7 +20,6 @@ class UserApiClient {
     if (response.statusCode == 200) {
       print(response.body);
       temp = userFromJson(response.body);
-
     } else {
       print('got no response ' + response.body);
       throw Exception('Sorry fetching imp user failed');

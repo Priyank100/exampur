@@ -38,3 +38,8 @@ class Notification {
         "action": action == null ? null : action,
       };
 }
+class NotificationList {
+  final List<Notification> notificationList;
+
+  NotificationList({required this.notificationList});
+}

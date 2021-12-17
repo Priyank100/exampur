@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
                   BlocProvider.of<UserBloc>(context).add(FetchUser());
                 }
                 if (state is UserError) {
-                  return Text("Error");
+                  return Text("Error no");
                 }
                 if (state is UserLoaded) {
                   return Text(
