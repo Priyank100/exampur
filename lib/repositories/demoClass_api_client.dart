@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/logic/globals.dart';
 import 'package:exampur_mobile/models/demo_class.dart';
 import 'package:http/http.dart' as http;
 

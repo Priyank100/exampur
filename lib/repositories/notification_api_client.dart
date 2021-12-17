@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:exampur_mobile/logic/globals.dart';
 import 'package:exampur_mobile/models/notification.dart';
 import 'package:http/http.dart' as http;
 

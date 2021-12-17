@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:exampur_mobile/logic/globals.dart';
 import 'package:exampur_mobile/models/banner.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,7 +10,7 @@ class BannerApiClient {
 
   Future<BannerList> fetcher() async {
     BannerList _localList = new BannerList(bannerList: []);
-    String url = "$baseUrl/banner";
+    String url = "${baseUrl}/banner";
     final response = await http.get(
       Uri.parse(url),
       headers: <String, String>{

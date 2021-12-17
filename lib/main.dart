@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/logic/globals.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/repositories/banner_api_client.dart';
@@ -14,18 +15,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-
 import 'logic/bloc/banner_bloc.dart';
 import 'logic/bloc/demo_class_bloc.dart';
 import 'logic/bloc/featured_course_bloc.dart';
 import 'logic/bloc/notification_bloc.dart';
 import 'logic/bloc/user_bloc.dart';
 
-String baseUrl =
-    "https://6b07f566-12f7-4b32-8f2f-8b6046fa0957.mock.pstmn.io"; //todo: change accordingly
-String jwtToken = "xxx";
+
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true);
   runApp(const MyApp());
