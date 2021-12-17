@@ -13,7 +13,7 @@ class Course {
   Course({
     required this.examCategory,
     required this.title,
-    required this.bannerPath,
+    required this.featuredCoursePath,
     required this.logoPath,
     required this.description,
     required this.videoPath,
@@ -27,7 +27,7 @@ class Course {
 
   String examCategory;
   String title;
-  String bannerPath;
+  String featuredCoursePath;
   String logoPath;
   String description;
   String videoPath;
@@ -41,7 +41,7 @@ class Course {
   factory Course.fromJson(Map<String, dynamic> json) => Course(
     examCategory: json["exam_category"] == null ? "" : json["exam_category"],
     title: json["title"] == null ? "" : json["title"],
-    bannerPath: json["banner_path"] == null ? "" : json["banner_path"],
+    featuredCoursePath: json["featuredCourse_path"] == null ? "" : json["featuredCourse_path"],
     logoPath: json["logo_path"] == null ? "" : json["logo_path"],
     description: json["description"] == null ? "" : json["description"],
     videoPath: json["video_path"] == null ? "" : json["video_path"],
@@ -56,7 +56,7 @@ class Course {
   Map<String, dynamic> toJson() => {
     "exam_category": examCategory == null ? null : examCategory,
     "title": title == null ? null : title,
-    "banner_path": bannerPath == null ? null : bannerPath,
+    "featuredCourse_path": featuredCoursePath == null ? null : featuredCoursePath,
     "logo_path": logoPath == null ? null : logoPath,
     "description": description == null ? null : description,
     "video_path": videoPath == null ? null : videoPath,
@@ -87,4 +87,9 @@ class Macro {
     "icon": icon == null ? null : icon,
     "title": title == null ? null : title,
   };
+}
+class FeaturedCourseList {
+  final List<Course> featuredCourseList;
+
+  FeaturedCourseList({required this.featuredCourseList});
 }
