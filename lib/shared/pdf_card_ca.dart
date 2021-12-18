@@ -11,6 +11,7 @@ class PDFCardCA extends StatefulWidget {
 }
 
 class _PDFCardCAState extends State<PDFCardCA> {
+
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
@@ -32,6 +33,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
               child: Row(
                 children: [
                   Container(
+                    padding: EdgeInsets.only(left: 10),
                       width: MediaQuery.of(context).size.width * 0.25,
                       //flex: 1,
                       child: FadeInImage(
@@ -66,13 +68,13 @@ class _PDFCardCAState extends State<PDFCardCA> {
                           Row(
                             children: [
                               Container(
-                                  width: 50,
+                                  width: 80,
                                   height: 20,
                                   decoration: BoxDecoration(
                                     border: Border.all(color: Colors.black),
                                   ),
                                   child: Center(
-                                      child: Text("View",
+                                      child: Text("View PDF",
                                           style: TextStyle(fontSize: 13)))),
                               SizedBox(
                                 width: 15,
@@ -83,6 +85,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                 FontAwesomeIcons.shareAlt,
                                 size: 15,
                               ),
+                              SizedBox(width: 5,),
                               Text("Share", style: TextStyle(fontSize: 13))
                             ],
                           ),

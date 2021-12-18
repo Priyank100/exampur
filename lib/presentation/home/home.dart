@@ -10,6 +10,8 @@ import 'package:exampur_mobile/presentation/home/quiz/test_series.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/large_carousel.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
@@ -54,7 +56,7 @@ class _HomeState extends State<Home> {
             LargeCarousel(image: [
               "https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"
             ]),
-            SizedBox(height: 10),
+            SizedBox(height: Dimensions.FONT_SIZE_DEFAULT),
             Row(
               children: [
                 Expanded(
@@ -72,10 +74,11 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.movie_filter_outlined,
-                              size: 45.0,
-                              color: Colors.white,
+                            Image.asset(
+
+                              Images.paidcourse,
+                              height: 45.0,
+
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 25.0),
@@ -107,8 +110,14 @@ class _HomeState extends State<Home> {
                       ),
                       height: 80.0,
                       decoration: BoxDecoration(
+
+                          gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [Colors.purple, Colors.purpleAccent]),
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.purple,
+                       // color: Colors.purple,
+
                       ),
                     ),
                   ),
@@ -125,11 +134,12 @@ class _HomeState extends State<Home> {
                     child: Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.book,
-                            size: 45.0,
-                            color: Colors.white,
+                        children:  [
+                          Image.asset(
+
+                            Images.book,
+                            height: 45.0,
+
                           ),
                           SizedBox(
                             width: 20.0,
@@ -146,7 +156,11 @@ class _HomeState extends State<Home> {
                       height: 80.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.green[700],
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [Colors.green, Colors.green.shade300]),
+                        //color: Colors.green[700],
                       ),
                     ),
                   ),
@@ -166,10 +180,11 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.movie_rounded,
-                              size: 45.0,
-                              color: Colors.white,
+                            Image.asset(
+
+                              Images.free_course,
+                              height: 45.0,
+
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 25.0),
@@ -202,7 +217,11 @@ class _HomeState extends State<Home> {
                       height: 80.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.deepOrange,
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [ Colors.deepOrange,Colors.deepOrange.shade200]),
+                        //color: Colors.deepOrange,
                       ),
                     ),
                   ),
@@ -222,10 +241,11 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(left: 30.0),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.fact_check,
-                              size: 45.0,
-                              color: Colors.white,
+                            Image.asset(
+
+                              Images.testseries,
+                              height: 45.0,
+
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 20.0),
@@ -258,7 +278,11 @@ class _HomeState extends State<Home> {
                       height: 80.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.red,
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [ Colors.red.shade700,Colors.redAccent.shade100]),
+                        // color: Colors.red,
                       ),
                     ),
                   ),
@@ -278,10 +302,11 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.account_balance,
-                              size: 45.0,
-                              color: Colors.white,
+                            Image.asset(
+
+                              Images.one2one,
+                              height: 45.0,
+
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 25.0),
@@ -314,7 +339,11 @@ class _HomeState extends State<Home> {
                       height: 80.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.green,
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [ Colors.green,Colors.green.shade300]),
+                       // color: Colors.green,
                       ),
                     ),
                   ),
@@ -329,10 +358,11 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(left: 30.0),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.room_preferences,
-                              size: 45.0,
-                              color: Colors.white,
+                            Image.asset(
+
+                              Images.offlinebatch,
+                              height: 45.0,
+
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 20.0),
@@ -365,7 +395,11 @@ class _HomeState extends State<Home> {
                       height: 80.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.brown,
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [ Colors.brown,Colors.brown.shade300]),
+                        //color: Colors.brown,
                       ),
                     ),
                   ),
@@ -390,10 +424,11 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.next_week_sharp,
-                              size: 45.0,
-                              color: Colors.white,
+                            Image.asset(
+
+                              Images.current_affair,
+                              height: 45.0,
+
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 25.0),
@@ -426,7 +461,11 @@ class _HomeState extends State<Home> {
                       height: 80.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.grey,
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [ Colors.grey,Colors.grey.shade300]),
+                       // color: Colors.grey,
                       ),
                     ),
                   ),
@@ -441,10 +480,11 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(left: 30.0),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.quiz,
-                              size: 45.0,
-                              color: Colors.white,
+                            Image.asset(
+
+                              Images.dailyquiz,
+                              height: 45.0,
+
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 30.0),
@@ -477,7 +517,11 @@ class _HomeState extends State<Home> {
                       height: 80.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.blue,
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [ Colors.blue,Colors.blue.shade300]),
+                        //color: Colors.blue,
                       ),
                     ),
                   ),
@@ -500,10 +544,11 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.library_add_check_rounded,
-                              size: 45.0,
-                              color: Colors.white,
+                          Image.asset(
+
+                             Images.jobalert,
+                              height: 45.0,
+
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 25.0),
@@ -536,7 +581,11 @@ class _HomeState extends State<Home> {
                       height: 80.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.green[900],
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [ Colors.green,Colors.green.shade200]),
+                       // color: Colors.green[900],
                       ),
                     ),
                   ),
@@ -556,10 +605,11 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(left: 30.0),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.shop_two,
-                              size: 45.0,
-                              color: Colors.white,
+                            Image.asset(
+
+                              Images.studymaterial,
+                              height: 45.0,
+
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 20.0),
@@ -592,7 +642,11 @@ class _HomeState extends State<Home> {
                       height: 80.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.orangeAccent,
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [ Colors.orangeAccent,Colors.orangeAccent.shade100]),
+                        //color: Colors.orangeAccent,
                       ),
                     ),
                   ),

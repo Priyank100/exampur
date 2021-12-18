@@ -27,7 +27,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 60),
         child: Text(
           widget.text,
-          style: TextStyle(fontSize: 18, color: Colors.black),
+          style: TextStyle(fontSize: 18, color: Colors.white),
         ),
       ),
     );

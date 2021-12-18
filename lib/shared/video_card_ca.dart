@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +15,16 @@ class _VideoCardCAState extends State<VideoCardCA> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(
-            Radius.circular(10),
+            Radius.circular(15),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 3,
+              blurRadius: 5,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
           color: Theme.of(context).backgroundColor,
         ),
         child: Material(
@@ -33,6 +42,7 @@ class _VideoCardCAState extends State<VideoCardCA> {
                     topLeft: Radius.circular(10),
                   ),
                   child: Container(
+                    padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
                       Radius.circular(10),
@@ -66,15 +76,41 @@ class _VideoCardCAState extends State<VideoCardCA> {
                     ],
                   ),
                 ),
-                Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
-                      color: Theme.of(context).primaryColor,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('gvhxsbvxs'),
+                    Column(
+                      children: [
+                        RaisedButton(onPressed: (){},child: Text('View details',style: TextStyle(color: Colors.white)),color: Colors.amber,),
+                        RaisedButton(onPressed: (){},child: Text('Buy Course',style: TextStyle(color: Colors.white),),color: Colors.amber),
+                        SizedBox(height: 10,),
+                        Row(
+                          children: [
+                            Image.asset(Images.share,height: 20,width: 20,),
+                            SizedBox(width: 5,),
+                            Text('Share')
+                          ],
+                        ),
+
+                      ],
                     ),
-                    height: 40,
-                    child: Center(child: Text("Watch Now")))
+
+                  ],),
+                ),
+                // Container(
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.only(
+                //           bottomLeft: Radius.circular(10),
+                //           bottomRight: Radius.circular(10)),
+                //       color: Theme.of(context).primaryColor,
+                //     ),
+                //     height: 40,
+                //     child: Center(child: Text("Watch Now")))
               ],
             ),
           ),

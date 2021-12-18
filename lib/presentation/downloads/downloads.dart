@@ -27,6 +27,7 @@ class DownloadsState extends State<Downloads> {
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
             elevation: 0,
+            leading: InkWell(onTap:(){Navigator.pop(context);},child: Icon(Icons.arrow_back,color: Colors.black,)),
             title: Text(
               'Downloads',
               style: CustomTextStyle.headingBold(context),

@@ -166,7 +166,7 @@ class HelpState extends State<Help> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0,bottom: 10),
             child: SizedBox(
               height: 45.0,
               width: MediaQuery.of(context).size.width * 1,
