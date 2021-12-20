@@ -106,7 +106,6 @@ class Macro {
         "title": title == null ? null : title,
       };
 }
-
 class FeaturedCourseList {
   final List<Course> featuredCourseList;
 
