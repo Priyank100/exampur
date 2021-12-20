@@ -11,7 +11,6 @@ class PDFCardCA extends StatefulWidget {
 }
 
 class _PDFCardCAState extends State<PDFCardCA> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,7 +33,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
               child: Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(left: 10),
+                      padding: EdgeInsets.only(left: 10),
                       width: MediaQuery.of(context).size.width * 0.25,
                       //flex: 1,
                       child: FadeInImage(
@@ -56,16 +55,29 @@ class _PDFCardCAState extends State<PDFCardCA> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "fbdsfnjfnwiue fewfhuwe fweouf weuuh feiuf efuie fiuf euhff eiufwe fwiujf",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
+                          // const Text(
+                          //   "fbdsfnjfnwiue fewfhuwe fweouf weuuh feiuf efuie fiuf euhff eiufwe fwiujf",
+                          //   maxLines: 2,
+                          //   overflow: TextOverflow.ellipsis,
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.w500,
+                          //     fontSize: 15,
+                          //   ),
+                          // ),
+                          SizedBox(
+                            width: 200.0,
+                            child: MarqueeWidget(
+                              direction: Axis.horizontal,
+                              child: Text("This text is to long to be shown in just one line", maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15,),
                             ),
+                          ),),
+                          SizedBox(
+                            height: 10,
                           ),
-                          SizedBox(height: 5,),
                           Row(
                             children: [
                               Container(
@@ -80,13 +92,13 @@ class _PDFCardCAState extends State<PDFCardCA> {
                               const SizedBox(
                                 width: 15,
                               ),
-
-
                               const FaIcon(
                                 FontAwesomeIcons.shareAlt,
                                 size: 15,
                               ),
-                              SizedBox(width: 5,),
+                              SizedBox(
+                                width: 5,
+                              ),
                               Text("Share", style: TextStyle(fontSize: 13))
                             ],
                           ),
@@ -101,5 +113,72 @@ class _PDFCardCAState extends State<PDFCardCA> {
         ),
       ),
     );
+  }
+}
+
+
+
+class MarqueeWidget extends StatefulWidget {
+  final Widget child;
+  final Axis direction;
+  final Duration animationDuration, backDuration, pauseDuration;
+
+  const MarqueeWidget({
+    Key? key,
+    required this.child,
+    this.direction = Axis.horizontal,
+    this.animationDuration = const Duration(milliseconds: 6000),
+    this.backDuration = const Duration(milliseconds: 800),
+    this.pauseDuration = const Duration(milliseconds: 800),
+  }) : super(key: key);
+
+  @override
+  _MarqueeWidgetState createState() => _MarqueeWidgetState();
+}
+
+class _MarqueeWidgetState extends State<MarqueeWidget> {
+  late ScrollController scrollController;
+
+  @override
+  void initState() {
+    scrollController = ScrollController(initialScrollOffset: 50.0);
+    WidgetsBinding.instance!.addPostFrameCallback(scroll);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: widget.child,
+      scrollDirection: widget.direction,
+      controller: scrollController,
+    );
+  }
+
+  void scroll(_) async {
+    while (scrollController.hasClients) {
+      await Future.delayed(widget.pauseDuration);
+      if (scrollController.hasClients) {
+        await scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: widget.animationDuration,
+          curve: Curves.ease,
+        );
+      }
+      await Future.delayed(widget.pauseDuration);
+      if (scrollController.hasClients) {
+        await scrollController.animateTo(
+          0.0,
+          duration: widget.backDuration,
+          curve: Curves.easeOut,
+        );
+      }
+    }
   }
 }
