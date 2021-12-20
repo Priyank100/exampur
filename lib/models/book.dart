@@ -91,3 +91,9 @@ class Macro {
         "title": title == null ? null : title,
       };
 }
+
+class BookList {
+  final List<Book> bookList;
+
+  BookList({required this.bookList});
+}
