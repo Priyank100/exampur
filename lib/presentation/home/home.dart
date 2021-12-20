@@ -2,7 +2,7 @@ import 'dart:io' show Platform;
 import 'package:exampur_mobile/logic/bloc/user_bloc.dart';
 import 'package:exampur_mobile/logic/bloc/user_events.dart';
 import 'package:exampur_mobile/logic/bloc/user_state.dart';
-import 'package:exampur_mobile/presentation/TestSeries/testseries.dart';
+
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
@@ -20,7 +20,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 
-import '../oofline_course.dart';
+
+import 'TestSeries/testseries.dart';
+import 'exampurone2one/exampurone2oneview.dart';
+import 'offlinebatches/oofline_course.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -299,7 +302,10 @@ class _HomeState extends State<Home> {
                   padding:
                       const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) =>Exampuron2oneView()));
+                    },
                     child: Container(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 15.0),

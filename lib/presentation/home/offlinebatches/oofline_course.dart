@@ -4,6 +4,8 @@ import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 
+import 'offlinebatchesexam.dart';
+
 class OfflineCourse extends StatefulWidget {
   const OfflineCourse({Key? key}) : super(key: key);
 
@@ -45,11 +47,27 @@ class _OfflineCourseState extends State<OfflineCourse> {
               itemCount: a.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context,int index){
-              return Card(
-                child:ListTile(
-                  leading: Image.asset(a[index].image,height: 40,width: 60,),
-                  title: Text(a[index].place,style:CustomTextStyle.headingBold(context),),
-                  trailing: Icon(Icons.arrow_forward_ios_sharp)
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: const [
+                      BoxShadow(color: Color.fromRGBO(64, 64, 64, 0.12), blurRadius: 16)
+                    ],
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                  child:ListTile(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OfflineBatchesExam()));
+                    },
+                    leading: Image.asset(a[index].image,height: 40,width: 60,),
+                    title: Text(a[index].place,style:CustomTextStyle.headingBold(context),),
+                    trailing: Icon(Icons.arrow_forward_ios_sharp)
+                  ),
                 ),
               );
             })
