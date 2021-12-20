@@ -11,12 +11,7 @@ import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
-
-
 import 'TestSeries/testseries.dart';
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/oofline_course.dart';
