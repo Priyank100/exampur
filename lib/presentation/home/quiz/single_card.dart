@@ -10,6 +10,7 @@ class SingleCard extends StatefulWidget {
 }
 
 class _SingleCardState extends State<SingleCard> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +29,7 @@ class _SingleCardState extends State<SingleCard> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Text("Question 1"),
-              Answer()
+
 
             ],
           ),

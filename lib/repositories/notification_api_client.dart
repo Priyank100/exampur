@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:exampur_mobile/logic/globals.dart';
+import 'package:exampur_mobile/logic/jwt_token.dart';
 import 'package:exampur_mobile/models/notification.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,11 +11,11 @@ class NotificationApiClient {
 
   Future<NotificationList> fetcher() async {
     NotificationList _localList = new NotificationList(notificationList: []);
-    String url = "$baseUrl/notification";
+    String url = "${Globals.baseUrl}/notification";
     final response = await http.get(
       Uri.parse(url),
       headers: <String, String>{
-        'authorization': jwtToken,
+        'authorization': jwt.jwtToken,
       },
     );
     if (response.statusCode == 200) {

@@ -11,13 +11,15 @@ class PDFCardCA extends StatefulWidget {
 }
 
 class _PDFCardCAState extends State<PDFCardCA> {
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(color: Color.fromRGBO(64, 64, 64, 0.12), blurRadius: 16)
           ],
           color: Theme.of(context).backgroundColor,
@@ -32,6 +34,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
               child: Row(
                 children: [
                   Container(
+                    padding: EdgeInsets.only(left: 10),
                       width: MediaQuery.of(context).size.width * 0.25,
                       //flex: 1,
                       child: FadeInImage(
@@ -43,7 +46,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
                           );
                         },
                       )),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   Flexible(
@@ -53,7 +56,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "fbdsfnjfnwiue fewfhuwe fweouf weuuh feiuf efuie fiuf euhff eiufwe fwiujf",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -66,23 +69,24 @@ class _PDFCardCAState extends State<PDFCardCA> {
                           Row(
                             children: [
                               Container(
-                                  width: 50,
+                                  width: 80,
                                   height: 20,
                                   decoration: BoxDecoration(
                                     border: Border.all(color: Colors.black),
                                   ),
-                                  child: Center(
-                                      child: Text("View",
+                                  child: const Center(
+                                      child: Text("View PDF",
                                           style: TextStyle(fontSize: 13)))),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
 
 
-                              FaIcon(
+                              const FaIcon(
                                 FontAwesomeIcons.shareAlt,
                                 size: 15,
                               ),
+                              SizedBox(width: 5,),
                               Text("Share", style: TextStyle(fontSize: 13))
                             ],
                           ),

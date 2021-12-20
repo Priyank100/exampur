@@ -1,10 +1,13 @@
 import 'package:exampur_mobile/logic/globals.dart';
+import 'package:exampur_mobile/logic/jwt_token.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/repositories/banner_api_client.dart';
 import 'package:exampur_mobile/repositories/banner_repository.dart';
-import 'package:exampur_mobile/repositories/demoClass_api_client.dart';
-import 'package:exampur_mobile/repositories/demoClass_repository.dart';
+import 'package:exampur_mobile/repositories/book_api_client.dart';
+import 'package:exampur_mobile/repositories/book_repository.dart';
+import 'package:exampur_mobile/repositories/demo_class_api_client.dart';
+import 'package:exampur_mobile/repositories/demo_class_repository.dart';
 import 'package:exampur_mobile/repositories/featured_course_api_client.dart';
 import 'package:exampur_mobile/repositories/featured_course_repository.dart';
 import 'package:exampur_mobile/repositories/notification_api_client.dart';
@@ -16,15 +19,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'logic/bloc/banner_bloc.dart';
+import 'logic/bloc/book_bloc.dart';
 import 'logic/bloc/demo_class_bloc.dart';
 import 'logic/bloc/featured_course_bloc.dart';
 import 'logic/bloc/notification_bloc.dart';
 import 'logic/bloc/user_bloc.dart';
 
-
-
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true);
   runApp(const MyApp());
@@ -58,9 +59,13 @@ class _MyAppState extends State<MyApp> {
       FeaturedCourseRepository(
     featuredCourseApiClient: FeaturedCourseApiClient(),
   );
+  final BookRepository bookRepository = BookRepository(
+    bookApiClient: BookApiClient(),
+  );
 
   @override
   Widget build(BuildContext context) {
+    jwt = JwtToken(jwtToken: "jwtToken");
     final platform = Theme.of(context).platform;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -84,6 +89,9 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(
             create: (context) =>
                 FeaturedCourseBloc(repository: featuredCourseRepository),
+          ),
+          BlocProvider(
+            create: (context) => BookBloc(repository: bookRepository),
           ),
         ],
         child: MaterialApp(

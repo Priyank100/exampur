@@ -4,6 +4,7 @@ import 'package:exampur_mobile/presentation/home/current_affairs/monthly_ca.dart
 import 'package:exampur_mobile/presentation/home/current_affairs/quiz_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
+import 'package:exampur_mobile/shared/video_card_ca.dart';
 import 'package:flutter/material.dart';
 
 class PaidCourses extends StatefulWidget {
@@ -20,14 +21,23 @@ class _PaidCoursesState extends State<PaidCourses> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomTabBar(
-          length: 5,
-          names: ["Videos", "Daily", "Monthly", "Quiz", "Bytes"],
+          length:14 ,
+          names: ["Home", "AllCourse", "Teaching", "Defence", "Civil Services","Banking","UPSSSC","Rajasthan","Railways","All Competetive Exam","ENGINEERING","OFFLINE","State Police","IT"],
           routes: [
             VideosCA(),
             DailyCA(),
             MonthlyCA(),
             QuizCA(),
             BytesCA(),
+            VideosCA(),
+            VideosCA(),
+            VideosCA(),
+            VideosCA(),
+            VideosCA(),
+            VideosCA(),
+            VideosCA(),
+            VideosCA(),
+            VideosCA(),
           ],
           title: "Paid Courses"),
       // body: Center(

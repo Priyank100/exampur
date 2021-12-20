@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/logic/globals.dart';
+import 'package:exampur_mobile/logic/jwt_token.dart';
 import 'package:exampur_mobile/models/demo_class.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,11 +10,11 @@ class DemoClassApiClient {
 
   Future<DemoClassList> fetcher() async {
     DemoClassList _localList = new DemoClassList(demoClassList: []);
-    String url = "$baseUrl/demoClass";
+    String url = "${Globals.baseUrl}/demoClass";
     final response = await http.get(
       Uri.parse(url),
       headers: <String, String>{
-        'authorization': jwtToken,
+        'authorization': jwt.jwtToken,
       },
     );
     if (response.statusCode == 200) {

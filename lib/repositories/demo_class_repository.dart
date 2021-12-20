@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:exampur_mobile/models/demo_class.dart';
-import 'demoClass_api_client.dart';
+import 'demo_class_api_client.dart';
 
 class DemoClassRepository {
   final DemoClassApiClient demoClassApiClient;

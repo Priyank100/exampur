@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:exampur_mobile/models/demo_class.dart';
-import 'package:exampur_mobile/repositories/demoClass_repository.dart';
+import 'package:exampur_mobile/repositories/demo_class_repository.dart';
 import 'demo_class_events.dart';
 import 'demoClass_state.dart';
 

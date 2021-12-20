@@ -1,6 +1,10 @@
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
+import 'package:exampur_mobile/shared/one_two_one_card.dart';
+import 'package:exampur_mobile/shared/pdf_card_ca.dart';
+import 'package:exampur_mobile/shared/quiz_card_ca.dart';
+import 'package:exampur_mobile/shared/test_series_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +55,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                     Radius.circular(5.0) //
                 ),
               ),
-              child: Text('Please enter all the details to calculator your      eligbility for different exam', style: CustomTextStyle.headingSemiBold(context),),
+              child: Text('Please enter all the details to calculator \nyour eligbility for different exam', style: CustomTextStyle.headingSemiBold(context),),
             ),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
@@ -100,6 +104,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                 text: "Next",
               ),
             ),
+
           ],
         )));
   }
