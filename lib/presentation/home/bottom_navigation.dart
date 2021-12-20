@@ -1,5 +1,3 @@
-import 'package:exampur_mobile/logic/bloc/user_bloc.dart';
-import 'package:exampur_mobile/logic/bloc/user_events.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
@@ -101,7 +99,9 @@ class _BottomNavigationState extends State<BottomNavigation>
         1,
         //'Courses',
         "Demo",
-        FaIcon(FontAwesomeIcons.graduationCap,),
+        FaIcon(
+          FontAwesomeIcons.graduationCap,
+        ),
         //Icon(BottomNavBarIcons.course_icon),
       ),
       ItemClass(
@@ -192,8 +192,15 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                           Image.asset(Images.apptutorial,width: 30,height: 20,color: Colors.amber,),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                            Image.asset(
+                              Images.apptutorial,
+                              width: 30,
+                              height: 20,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
@@ -213,8 +220,15 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Image.asset(Images.category,width: 30,height: 20,color: Colors.amber,),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                            Image.asset(
+                              Images.category,
+                              width: 30,
+                              height: 20,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
@@ -233,8 +247,15 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Image.asset(Images.download,width: 30,height: 20,color: Colors.amber,),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                            Image.asset(
+                              Images.download,
+                              width: 30,
+                              height: 20,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
@@ -253,8 +274,15 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Image.asset(Images.mypurchase,width: 30,height: 20,color: Colors.amber,),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                            Image.asset(
+                              Images.mypurchase,
+                              width: 30,
+                              height: 20,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
@@ -273,8 +301,15 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Image.asset(Images.timetable,width: 30,height: 20,color: Colors.amber,),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                            Image.asset(
+                              Images.timetable,
+                              width: 30,
+                              height: 20,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
@@ -293,8 +328,13 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(Icons.settings,color: Colors.amber,),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                            Icon(
+                              Icons.settings,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
@@ -313,8 +353,15 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Image.asset(Images.calculator,width: 30,height: 20,color: Colors.amber,),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                            Image.asset(
+                              Images.calculator,
+                              width: 30,
+                              height: 20,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
@@ -333,8 +380,13 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(Icons.share,color: Colors.amber,),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                            Icon(
+                              Icons.share,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
@@ -348,8 +400,13 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(Icons.star_border,color: Colors.amber,),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                            Icon(
+                              Icons.star_border,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
@@ -363,8 +420,13 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(Icons.feedback_outlined,color: Colors.amber,),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                            Icon(
+                              Icons.feedback_outlined,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
@@ -372,10 +434,8 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Help()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Help()));
                       },
                     ),
                     ListTile(
@@ -383,8 +443,13 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(Icons.login,color: Colors.amber,),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                            Icon(
+                              Icons.login,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
