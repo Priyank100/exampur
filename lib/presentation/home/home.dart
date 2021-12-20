@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 import 'package:exampur_mobile/logic/bloc/user_bloc.dart';
 import 'package:exampur_mobile/logic/bloc/user_events.dart';
 import 'package:exampur_mobile/logic/bloc/user_state.dart';
+import 'package:exampur_mobile/presentation/TestSeries/testseries.dart';
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
@@ -18,6 +19,8 @@ import 'package:exampur_mobile/presentation/notifications/notification_screen.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
+
+import '../oofline_course.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -234,7 +237,7 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TestSeries()));
+                              builder: (context) => TestSeriesview()));
                     },
                     child: Container(
                       child: Padding(
@@ -352,7 +355,11 @@ class _HomeState extends State<Home> {
                     child: Padding(
                   padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) =>OfflineCourse()));
+
+                    },
                     child: Container(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 30.0),
