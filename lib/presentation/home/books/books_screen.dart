@@ -11,7 +11,6 @@ class BooksScreen extends StatefulWidget {
 }
 
 class _BooksScreenState extends State<BooksScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
