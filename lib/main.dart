@@ -2,28 +2,9 @@ import 'package:exampur_mobile/logic/globals.dart';
 import 'package:exampur_mobile/logic/jwt_token.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
-import 'package:exampur_mobile/repositories/banner_api_client.dart';
-import 'package:exampur_mobile/repositories/banner_repository.dart';
-import 'package:exampur_mobile/repositories/book_api_client.dart';
-import 'package:exampur_mobile/repositories/book_repository.dart';
-import 'package:exampur_mobile/repositories/demo_class_api_client.dart';
-import 'package:exampur_mobile/repositories/demo_class_repository.dart';
-import 'package:exampur_mobile/repositories/featured_course_api_client.dart';
-import 'package:exampur_mobile/repositories/featured_course_repository.dart';
-import 'package:exampur_mobile/repositories/notification_api_client.dart';
-import 'package:exampur_mobile/repositories/notification_repository.dart';
-import 'package:exampur_mobile/repositories/user_api_client.dart';
-import 'package:exampur_mobile/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'logic/bloc/banner_bloc.dart';
-import 'logic/bloc/book_bloc.dart';
-import 'logic/bloc/demo_class_bloc.dart';
-import 'logic/bloc/featured_course_bloc.dart';
-import 'logic/bloc/notification_bloc.dart';
-import 'logic/bloc/user_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,26 +24,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final AppRouter _appRouter = AppRouter();
 
-  final UserRepository userRepository = UserRepository(
-    userApiClient: UserApiClient(),
-  );
-  final BannerRepository bannerRepository = BannerRepository(
-    bannerApiClient: BannerApiClient(),
-  );
-  final NotificationRepository notificationRepository = NotificationRepository(
-    notificationApiClient: NotificationApiClient(),
-  );
-  final DemoClassRepository demoClassRepository = DemoClassRepository(
-    demoClassApiClient: DemoClassApiClient(),
-  );
-  final FeaturedCourseRepository featuredCourseRepository =
-      FeaturedCourseRepository(
-    featuredCourseApiClient: FeaturedCourseApiClient(),
-  );
-  final BookRepository bookRepository = BookRepository(
-    bookApiClient: BookApiClient(),
-  );
-
   @override
   Widget build(BuildContext context) {
     jwt = JwtToken(jwtToken: "jwtToken");
@@ -71,36 +32,13 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => UserBloc(repository: userRepository),
-          ),
-          BlocProvider(
-            create: (context) => BannerBloc(repository: bannerRepository),
-          ),
-          BlocProvider(
-            create: (context) =>
-                NotificationBloc(repository: notificationRepository),
-          ),
-          BlocProvider(
-            create: (context) => DemoClassBloc(repository: demoClassRepository),
-          ),
-          BlocProvider(
-            create: (context) =>
-                FeaturedCourseBloc(repository: featuredCourseRepository),
-          ),
-          BlocProvider(
-            create: (context) => BookBloc(repository: bookRepository),
-          ),
-        ],
-        child: MaterialApp(
+    return MaterialApp(
           title: 'Exampur',
           theme: CustomTheme.lightTheme,
           //darkTheme: CustomTheme.darkTheme,
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.system,
           onGenerateRoute: _appRouter.onGenerateRoute,
-        ));
+        );
   }
 }
