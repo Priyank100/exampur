@@ -1,8 +1,4 @@
 import 'dart:io' show Platform;
-import 'package:exampur_mobile/logic/bloc/user_bloc.dart';
-import 'package:exampur_mobile/logic/bloc/user_events.dart';
-import 'package:exampur_mobile/logic/bloc/user_state.dart';
-
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
@@ -41,23 +37,7 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BlocBuilder<UserBloc, UserState>(
-              builder: (context, state) {
-                if (state is UserEmpty) {
-                  BlocProvider.of<UserBloc>(context).add(FetchUser());
-                }
-                if (state is UserError) {
-                  return Text("Error no");
-                }
-                if (state is UserLoaded) {
-                  return Text(
-                    "Hello, ${state.user.firstName}!",
-                    style: CustomTextStyle.headingBold(context),
-                  );
-                }
-                return LoadingIndicator(context);
-              },
-            ),
+            Text("hello Mayank"),
             SizedBox(height: 10),
             LargeCarousel(image: [
               "https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"
