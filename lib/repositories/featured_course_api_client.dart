@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:exampur_mobile/logic/globals.dart';
+import 'package:exampur_mobile/logic/jwt_token.dart';
 import 'package:exampur_mobile/models/course.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,11 +12,11 @@ class FeaturedCourseApiClient {
   Future<FeaturedCourseList> fetcher() async {
     FeaturedCourseList _localList =
         new FeaturedCourseList(featuredCourseList: []);
-    String url = "$baseUrl/featuredCourse";
+    String url = "${Globals.baseUrl}/featuredCourse";
     final response = await http.get(
       Uri.parse(url),
       headers: <String, String>{
-        'authorization': jwtToken,
+        'authorization': jwt.jwtToken,
       },
     );
     if (response.statusCode == 200) {

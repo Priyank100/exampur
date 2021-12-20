@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:exampur_mobile/logic/globals.dart';
+import 'package:exampur_mobile/logic/jwt_token.dart';
 import 'package:exampur_mobile/models/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,11 +11,11 @@ class UserApiClient {
 
   Future<User> fetcher() async {
     User temp;
-    String url = "$baseUrl/user";
+    String url = "${Globals.baseUrl}/user";
     final response = await http.get(
       Uri.parse(url),
       headers: <String, String>{
-        'authorization': jwtToken,
+        'authorization': jwt.jwtToken,
       },
     );
     if (response.statusCode == 200) {

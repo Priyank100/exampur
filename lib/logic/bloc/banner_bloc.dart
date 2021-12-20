@@ -15,6 +15,9 @@ class BannerBloc extends Bloc<BannerEvent, BannerState> {
       yield BannerLoading();
       try {
         final BannerList bannerList = await repository.fetcher();
+        if (bannerList.bannerList.isEmpty) {
+          yield BannerEmpty();
+        }
         yield BannerLoaded(bannerList: bannerList);
       } catch (_) {
         yield BannerError();
