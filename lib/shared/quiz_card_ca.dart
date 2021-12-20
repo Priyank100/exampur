@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -34,6 +35,7 @@ class _QuizCardCAState extends State<QuizCardCA> {
                   Container(
                       width: MediaQuery.of(context).size.width * 0.25,
                       //flex: 1,
+                      padding: EdgeInsets.only(left: Dimensions.FONT_SIZE_SMALL),
                       child: FadeInImage(
                         image: NetworkImage("widget.instance.image"),
                         placeholder: AssetImage("assets/images/no_image.jpg"),
@@ -69,8 +71,8 @@ class _QuizCardCAState extends State<QuizCardCA> {
                                   width: 60,
                                   height: 25,
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black),
-                                    color: Colors.black
+                                   // border: Border.all(color: Colors.black),
+                                    color: Colors.amber
                                   ),
                                   child: Center(
                                       child: Text("Attempt",
@@ -78,14 +80,14 @@ class _QuizCardCAState extends State<QuizCardCA> {
                               SizedBox(
                                 width: 10,
                               ),
-                              FaIcon(
-                                FontAwesomeIcons.eye,
-                                size: 10,
-                              ),
-                              Text("1000", style: TextStyle(fontSize: 13)),
-                              SizedBox(
-                                width: 10,
-                              ),
+                              // FaIcon(
+                              //   FontAwesomeIcons.eye,
+                              //   size: 10,
+                              // ),
+                              // Text("1000", style: TextStyle(fontSize: 13)),
+                              // SizedBox(
+                              //   width: 10,
+                              // ),
 
                             ],
                           ),

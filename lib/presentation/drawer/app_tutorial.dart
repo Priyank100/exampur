@@ -34,8 +34,7 @@ class _AppTutorialState extends State<AppTutorial> {
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Text(
                         "App Tutorial",
-
-                        style: CustomTextStyle.headingBold(context),
+                        style: CustomTextStyle.headingBigBold(context),
                       ))],
                 ))),
         body: SingleChildScrollView(

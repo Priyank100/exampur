@@ -371,7 +371,12 @@ class _BottomNavigationState extends State<BottomNavigation>
                                   text: "Help and Feedback"),
                             ),
                           ]),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Help()));
+                      },
                     ),
                     ListTile(
                       dense: true,
