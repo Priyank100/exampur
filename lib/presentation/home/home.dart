@@ -1,4 +1,6 @@
 import 'dart:io' show Platform;
+
+
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
@@ -11,7 +13,12 @@ import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
+
+
 import 'TestSeries/testseries.dart';
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/oofline_course.dart';
@@ -32,7 +39,7 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("hello Mayank"),
+
             SizedBox(height: 10),
             LargeCarousel(image: [
               "https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"
