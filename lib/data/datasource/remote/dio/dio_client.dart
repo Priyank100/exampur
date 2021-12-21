@@ -8,31 +8,32 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'logging_incepactor.dart';
 
 class DioClient {
-  final String? baseUrl;
-  final LoggingInterceptor? loggingInterceptor;
-  final SharedPreferences? sharedPreferences;
+  final String baseUrl;
+  final LoggingInterceptor loggingInterceptor;
+  final SharedPreferences sharedPreferences;
 
-  Dio? dio;
+  Dio dio=Dio();
   String? token;
 
-  DioClient(this.baseUrl,
+  DioClient(
+      this.baseUrl,
       Dio dioC, {
-        this.loggingInterceptor,
-        this.sharedPreferences,
+        required this.loggingInterceptor,
+        required this.sharedPreferences,
       }) {
-    token = sharedPreferences!.getString(AppConstants.TOKEN)!;
+    token = sharedPreferences.getString(AppConstants.TOKEN)!;
     print("NNNN $token");
-    dio = dioC ?? Dio();
-    dio!
-      ..options.baseUrl = baseUrl!
+   // dio = dioC ?? Dio();
+    dio
+      ..options.baseUrl = baseUrl
       ..options.connectTimeout = 30000
       ..options.receiveTimeout = 30000
       ..httpClientAdapter
       ..options.headers = {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token'
+        'Authorization': '$token'
       };
-    dio!.interceptors.add(loggingInterceptor!);
+    dio.interceptors.add(loggingInterceptor);
   }
 
   Future<Response> get(String uri, {
@@ -42,7 +43,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      var response = await dio!.get(
+      var response = await dio.get(
         uri,
         queryParameters: queryParameters,
         options: options,
@@ -68,7 +69,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      var response = await dio!.post(
+      var response = await dio.post(
         uri,
         data: data,
         queryParameters: queryParameters,
@@ -94,7 +95,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      var response = await dio!.put(
+      var response = await dio.put(
         uri,
         data: data,
         queryParameters: queryParameters,
@@ -118,7 +119,7 @@ class DioClient {
     CancelToken? cancelToken,
   }) async {
     try {
-      var response = await dio!.delete(
+      var response = await dio.delete(
         uri,
         data: data,
         queryParameters: queryParameters,

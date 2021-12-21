@@ -1,21 +1,27 @@
 
+import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
-
+import 'package:exampur_mobile/provider/user_info_provider.dart';
+import 'di_container.dart' as di;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-
+import 'package:provider/provider.dart';
 
 
 void main() async {
-
+  await di.init();
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true);
-  runApp(const MyApp());
+  runApp(MultiProvider(
+          providers: [
+          ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
+      ],
+    child:  MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -47,7 +53,7 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.system,
           onGenerateRoute: _appRouter.onGenerateRoute,
-      home: Home(),
+      home:BottomNavigation(),
         );
 
 
