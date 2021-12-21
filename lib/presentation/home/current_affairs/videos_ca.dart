@@ -1,5 +1,9 @@
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/shared/test_series_card.dart';
+import 'package:exampur_mobile/shared/video_card_app_tutorial.dart';
 import 'package:exampur_mobile/shared/video_card_ca.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

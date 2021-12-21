@@ -20,7 +20,6 @@ import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart'
 
 
 import 'TestSeries/testseries.dart';
-import 'dummytest.dart';
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/oofline_course.dart';
 
@@ -413,7 +412,7 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Dummytest()));
+                              builder: (context) => CurrentAffairs()));
                     },
                     child: Container(
                       child: Padding(

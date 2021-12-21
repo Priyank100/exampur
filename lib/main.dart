@@ -14,14 +14,15 @@ import 'package:provider/provider.dart';
 
 
 void main() async {
-  await di.init();
+ // await di.init();
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true);
-  runApp(MultiProvider(
-          providers: [
-          ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
-      ],
-    child:  MyApp()));
+  runApp(
+      // MultiProvider(
+      //     providers: [
+      //    // ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
+      // ],
+      MyApp());
 }
 
 class MyApp extends StatefulWidget {

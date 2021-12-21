@@ -38,7 +38,7 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text('Offline Batches',
+            Text('Exampur One2One',
               style: CustomTextStyle.headingBold(context),
             ),
             SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
@@ -51,8 +51,16 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        boxShadow: const [
-                          BoxShadow(color: Color.fromRGBO(64, 64, 64, 0.12), blurRadius: 16)
+                        boxShadow:const [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset:  Offset(
+                              0.0,
+                              0.0,
+                            ),
+                            blurRadius: 4.0,
+                            spreadRadius: 0.0,
+                          ),
                         ],
                         color: Theme.of(context).backgroundColor,
                       ),
@@ -65,7 +73,7 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
                           },
                           leading: Image.asset(a[index].image,height: 40,width: 60,),
                           title: Text(a[index].place,style:CustomTextStyle.headingBold(context),),
-                          trailing: Icon(Icons.arrow_forward_ios_sharp)
+                          trailing: Icon(Icons.arrow_forward_ios_sharp,size: 18,color: Colors.black,)
                       ),
                     ),
                   );

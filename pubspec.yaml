@@ -76,3 +76,12 @@ flutter:
     - assets/images/
 
 
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/titillium/Poppins-Regular.ttf
+        - asset: assets/fonts/titillium/Poppins-Italic.ttf
+        - asset: assets/fonts/titillium/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/titillium/Poppins-Bold.ttf
+          weight: 700
