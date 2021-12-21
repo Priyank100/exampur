@@ -1,4 +1,6 @@
 import 'dart:io' show Platform;
+
+
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
@@ -37,7 +39,7 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("hello Mayank"),
+
             SizedBox(height: 10),
             LargeCarousel(image: [
               "https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"

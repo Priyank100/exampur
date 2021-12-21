@@ -33,7 +33,7 @@ class _VideoCardATState extends State<VideoCardAT> {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width * 0.3,
-padding: EdgeInsets.only(left: 5),
+                      padding: EdgeInsets.only(left: 5),
                       child: FadeInImage(
                         image: NetworkImage("widget.instance.image"),
                         placeholder: AssetImage("assets/images/no_image.jpg"),
