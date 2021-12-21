@@ -1,6 +1,4 @@
-import 'package:exampur_mobile/logic/bloc/user_bloc.dart';
-import 'package:exampur_mobile/logic/bloc/user_events.dart';
-import 'package:exampur_mobile/logic/bloc/user_state.dart';
+
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/shared/books_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,9 +11,7 @@ class BooksScreen extends StatefulWidget {
 }
 
 class _BooksScreenState extends State<BooksScreen> {
-  Future<void> refresh() async {
-    BlocProvider.of<UserBloc>(context).add(FetchUser());
-  }
+
 
   @override
   Widget build(BuildContext context) {
