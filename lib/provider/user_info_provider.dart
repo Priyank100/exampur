@@ -3,6 +3,7 @@ import 'package:exampur_mobile/data/model/Userinfo.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/user_repo.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:convert';
 
 class AuthProvider extends ChangeNotifier {
   final AuthRepo authRepo;
@@ -10,7 +11,7 @@ class AuthProvider extends ChangeNotifier {
   AuthProvider({required this.authRepo});
 
   //List<UserInfo> _userList = [];
-  UserInfo _userInfo=UserInfo();
+  UserInfo _userInfo = UserInfo();
 
   //List<UserInfo> get userList => _userList;
   UserInfo get userInfo => _userInfo;
@@ -23,7 +24,7 @@ class AuthProvider extends ChangeNotifier {
     } else if (apiResponse.response!.statusCode == 200) {
       print(apiResponse.response);
       //Map map = apiResponse.response!.data;
-      _userInfo=UserInfo(firstName: "mayakfnkf");
+      _userInfo = UserInfo.fromJson(json.decode(apiResponse.response!.data.toString()));
       //_userList.add(UserInfo.fromJson(apiResponse.response!.data));
     } else {
       print("init address fail");

@@ -1,7 +1,6 @@
 
 import 'dart:convert';
 
-
 class UserInfo {
   UserInfo({
     this.phoneExt,
@@ -30,8 +29,8 @@ class UserInfo {
   bool? phoneConf;
 
   UserInfo.fromJson(Map<String, dynamic> json) {
-    phoneExt = json['phoneExt'];
-    firstName = json['firstName'];
+    phoneExt = json[''];
+    firstName = json['first_name'];
     lastName = json['lastName'];
     language = json['language'];
     emailId = json['emailId'];

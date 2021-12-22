@@ -16,10 +16,8 @@ Future<void> init() async {
   // Core
   //sl.registerLazySingleton(() => NetworkInfo(sl()));
   sl.registerLazySingleton(() => DioClient(AppConstants.BASE_URL, sl(), loggingInterceptor: sl(), sharedPreferences: sl()));
-
   // Repository
   sl.registerLazySingleton(() => AuthRepo(dioClient: sl()));
-
   // Provider
   sl.registerFactory(() => AuthProvider(authRepo: sl()));
 
