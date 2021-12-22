@@ -23,19 +23,20 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
           Navigator.pop(context);
         },child: Icon(Icons.arrow_back,color: Colors.black,)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
+      body:  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Offline Batches',
-              style: CustomTextStyle.headingBold(context),
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0),
+              child: Text('Offline Batches',
+                style: CustomTextStyle.headingBold(context),
+              ),
             ),
             SizedBox(height: 5,),
             OfflineBatches()
           ],
         ),
-      ),
+
     );
   }
 }

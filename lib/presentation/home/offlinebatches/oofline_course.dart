@@ -33,14 +33,15 @@ class _OfflineCourseState extends State<OfflineCourse> {
           Navigator.pop(context);
         },child: Icon(Icons.arrow_back,color: Colors.black,)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
+      body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text('Offline Batches',
-            style: CustomTextStyle.headingBold(context),
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0),
+              child: Text('Offline Batches',
+              style: CustomTextStyle.headingBold(context),
+              ),
             ),
             SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
             ListView.builder(
@@ -48,7 +49,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context,int index){
               return Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -81,7 +82,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
             })
           ],
         ),
-      ),
+
     );
   }
 }

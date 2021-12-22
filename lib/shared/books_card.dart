@@ -83,7 +83,7 @@ class _BooksCardState extends State<BooksCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(Images.share,height: 23,width: 23,),
+                    Image.asset(Images.share,height: 15,width: 20,),
                     // Icon(
                     //   Icons.share,
                     //   size: 23,
@@ -93,7 +93,7 @@ class _BooksCardState extends State<BooksCard> {
                       width: 8,
                     ),
                     Text(
-                      "share",
+                      "Share",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,

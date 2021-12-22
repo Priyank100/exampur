@@ -5,6 +5,8 @@ class CustomTextField extends StatefulWidget {
   final Function(String) value;
   final bool? obscureText;
   final bool? autofocus;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
 
   const CustomTextField({
     Key? key,
@@ -12,6 +14,8 @@ class CustomTextField extends StatefulWidget {
     required this.value,
     this.obscureText,
     this.autofocus,
+    this.controller,
+    this.focusNode
   }) : super(key: key);
 
   @override
@@ -20,12 +24,12 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   FocusNode _focusNode = FocusNode();
-  TextEditingController fieldController = TextEditingController();
+ // TextEditingController fieldController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    fieldController = new TextEditingController(text: "");
+    //fieldController = new TextEditingController(text: "");
     _focusNode.addListener(() {
       setState(() {});
     });
@@ -43,9 +47,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       child: TextField(
         autofocus: widget.autofocus == null ? false : true,
         obscureText: widget.obscureText == null ? false : true,
-        focusNode: _focusNode,
+        focusNode: widget.focusNode,
         autocorrect: false,
-        controller: fieldController,
+        controller: widget.controller,
         onChanged: (s) {
           widget.value(s);
         },
@@ -55,7 +59,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         cursorColor: Colors.amber,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(
               color: Colors.transparent,
             ),
@@ -66,8 +70,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           filled: true,
           fillColor: Colors.grey[300],
-          enabledBorder: const UnderlineInputBorder(
+          enabledBorder:  UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(10.0),
           ),
         ),
       ),

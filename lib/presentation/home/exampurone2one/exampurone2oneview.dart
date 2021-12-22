@@ -38,8 +38,11 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text('Exampur One2One',
-              style: CustomTextStyle.headingBold(context),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text('Exampur One2One',
+                style: CustomTextStyle.headingBold(context),
+              ),
             ),
             SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
             ListView.builder(

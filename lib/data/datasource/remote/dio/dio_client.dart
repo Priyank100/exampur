@@ -13,7 +13,7 @@ class DioClient {
   final SharedPreferences sharedPreferences;
 
   Dio dio=Dio();
-  String? token;
+  String token="";
 
   DioClient(
       this.baseUrl,
@@ -21,7 +21,7 @@ class DioClient {
         required this.loggingInterceptor,
         required this.sharedPreferences,
       }) {
-    token = sharedPreferences.getString(AppConstants.TOKEN)!;
+    token = sharedPreferences.getString(AppConstants.TOKEN)?? "no_token";
     print("NNNN $token");
    // dio = dioC ?? Dio();
     dio
