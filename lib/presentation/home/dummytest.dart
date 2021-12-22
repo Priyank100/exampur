@@ -1,6 +1,7 @@
 import 'package:exampur_mobile/provider/user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 class Dummytest extends StatefulWidget {
   const Dummytest({Key? key}) : super(key: key);
 
@@ -8,28 +9,22 @@ class Dummytest extends StatefulWidget {
   _DummytestState createState() => _DummytestState();
 }
 
-
 class _DummytestState extends State<Dummytest> {
   @override
   void initState() {
     super.initState();
-    final postMdl = Provider.of<AuthProvider>(context, listen: false);
-    postMdl.initAddressList(context);
+    //final postMdl = Provider.of<AuthProvider>(context, listen: false).userInfo;
+    //postMdl.initAddressList(context);
   }
-  Widget build(BuildContext context) {
-    final postMdl = Provider.of<AuthProvider>(context);
-    return Scaffold(
-      appBar: AppBar(),
-body: ListView.builder(
-  itemCount: postMdl.userList.length,
-    itemBuilder: (BuildContext context,int index)
-{
-  return Container(
-    child:Text(postMdl.userList[index].phoneConf.toString()) ,
-  );
-}
-),
 
-    );
+  Widget build(BuildContext context) {
+    final postMdl = Provider.of<AuthProvider>(context, listen: false).userInfo;
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Tes"),
+        ),
+        body: Column(
+          children: [Text(postMdl.firstName.toString())],
+        ));
   }
 }

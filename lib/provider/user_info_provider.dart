@@ -5,21 +5,28 @@ import 'package:exampur_mobile/data/repository/user_repo.dart';
 import 'package:flutter/cupertino.dart';
 
 class AuthProvider extends ChangeNotifier {
-  final AuthRepo? authRepo;
-  AuthProvider({this.authRepo});
+  final AuthRepo authRepo;
 
- late List<UserInfo> _userList;
-  List< UserInfo> get userList =>_userList;
+  AuthProvider({required this.authRepo});
 
+  //List<UserInfo> _userList = [];
+  UserInfo _userInfo=UserInfo();
 
+  //List<UserInfo> get userList => _userList;
+  UserInfo get userInfo => _userInfo;
 
   ///userinfo request
   Future<void> initAddressList(BuildContext context) async {
-    ApiResponse apiResponse = await authRepo!.getUserList();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      _userList = [];
-      apiResponse.response!.data.forEach((user) => _userList.add(UserInfo.fromJson(user)));
+    ApiResponse apiResponse = await authRepo.getUserList();
+    if (apiResponse.response == null) {
+      ApiChecker.checkApi(context, apiResponse);
+    } else if (apiResponse.response!.statusCode == 200) {
+      print(apiResponse.response);
+      //Map map = apiResponse.response!.data;
+      _userInfo=UserInfo(firstName: "mayakfnkf");
+      //_userList.add(UserInfo.fromJson(apiResponse.response!.data));
     } else {
+      print("init address fail");
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
