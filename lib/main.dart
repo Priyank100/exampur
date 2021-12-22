@@ -2,7 +2,8 @@ import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
-import 'package:exampur_mobile/provider/user_info_provider.dart';
+import 'package:exampur_mobile/provider/Authprovider.dart';
+
 import 'di_container.dart' as di;
 
 import 'package:flutter/material.dart';

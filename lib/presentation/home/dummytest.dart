@@ -1,4 +1,5 @@
-import 'package:exampur_mobile/provider/user_info_provider.dart';
+import 'package:exampur_mobile/provider/Authprovider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +25,7 @@ class _DummytestState extends State<Dummytest> {
           title: Text("Tes"),
         ),
         body: Column(
-          children: [Text(postMdl.firstName.toString())],
+          children: [Text(postMdl.first_name.toString())],
         ));
   }
 }

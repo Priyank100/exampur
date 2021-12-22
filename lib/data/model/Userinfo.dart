@@ -1,60 +1,60 @@
-
 import 'dart:convert';
+
 
 class UserInfo {
   UserInfo({
-    this.phoneExt,
+    this.phone_ext,
     this.phone,
-    this.firstName,
-    this.lastName,
+    this.first_name,
+    this.last_name,
     this.language,
-    this.emailId,
+    this.email_id,
     this.city,
     this.state,
     this.country,
-    this.emailConf,
-    this.phoneConf,
+    this.email_conf,
+    this.phone_conf,
   });
 
-  String? phoneExt;
+  String? phone_ext;
   String? phone;
-  String? firstName;
-  String? lastName;
+  String? first_name;
+  String? last_name;
   String? language;
-  String? emailId;
+  String? email_id;
   String? city;
   String? state;
   String? country;
-  bool? emailConf;
-  bool? phoneConf;
+  bool? email_conf;
+  bool? phone_conf;
 
   UserInfo.fromJson(Map<String, dynamic> json) {
-    phoneExt = json[''];
-    firstName = json['first_name'];
-    lastName = json['lastName'];
+    phone_ext = json['phone_ext'];
+    first_name = json['first_name'];
+    last_name = json['last_name'];
     language = json['language'];
-    emailId = json['emailId'];
+    email_id = json['email_id'];
     phone = json['phone'];
     city = json['city'];
     state = json['state'];
     country = json['country'];
-    emailConf = json['emailConf'];
-    phoneConf = json['phoneConf'];
+    email_conf = json['email_conf'];
+    phone_conf = json['phone_conf'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['phoneExt'] = this.phoneExt;
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
+    data['phone_ext'] = this.phone_ext;
+    data['first_name'] = this.first_name;
+    data['last_name'] = this.last_name;
     data['language'] = this.language;
-    data['emailId'] = this.emailId;
+    data['email_id'] = this.email_id;
     data['phone'] = this.phone;
     data['city'] = this.city;
     data['state'] = this.state;
     data['country'] = this.country;
-    data['emailConf'] = this.emailConf;
-    data['phoneConf'] = this.phoneConf;
+    data['email_conf'] = this.email_conf;
+    data['phone_conf'] = this.phone_conf;
     return data;
   }
 }

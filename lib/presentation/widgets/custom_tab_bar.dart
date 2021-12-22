@@ -57,6 +57,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                   child: TabBar(
                     isScrollable: true,
                     unselectedLabelColor: Colors.grey,
+                    indicatorSize: TabBarIndicatorSize.label,
                     indicatorColor: Theme.of(context).primaryColor,
                     labelColor: Theme.of(context).primaryColor,
                     tabs: [for (var i in widget.names) Tab(text: i)],

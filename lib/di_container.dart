@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
-import 'package:exampur_mobile/provider/user_info_provider.dart';
+import 'package:exampur_mobile/provider/Authprovider.dart';
+
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Helper/network_info.dart';
 import 'data/datasource/remote/dio/dio_client.dart';
 import 'data/datasource/remote/dio/logging_incepactor.dart';
-import 'data/repository/user_repo.dart';
+import 'data/repository/Authrepo.dart';
+
 
 final sl = GetIt.instance;
 

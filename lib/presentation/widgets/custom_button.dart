@@ -17,6 +17,12 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+
+              )
+          ),
         backgroundColor:
             MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
       ),
@@ -24,7 +30,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         widget.onPressed();
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 60),
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 100),
         child: Text(
           widget.text,
           style: TextStyle(fontSize: 18, color: Colors.white),

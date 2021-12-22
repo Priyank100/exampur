@@ -17,8 +17,12 @@ class _BooksScreenState extends State<BooksScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      child: Column(children: [
-        BooksCard(subject: '', name: '',)
+      child: Column(
+          children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: BooksCard(subject: '', name: '',),
+        )
       ]),
     ));
   }

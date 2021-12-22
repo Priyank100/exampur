@@ -19,8 +19,16 @@ class _OfflineBatchesState extends State<OfflineBatches> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          boxShadow: const [
-            BoxShadow(color: Color.fromRGBO(64, 64, 64, 0.12), blurRadius: 16)
+          boxShadow:const [
+            BoxShadow(
+              color: Colors.grey,
+              offset:  Offset(
+                0.0,
+                0.0,
+              ),
+              blurRadius: 4.0,
+              spreadRadius: 0.0,
+            ),
           ],
           color: Theme.of(context).backgroundColor,
         ),
@@ -75,8 +83,8 @@ class _OfflineBatchesState extends State<OfflineBatches> {
                                   padding:  EdgeInsets.all(5),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(color: Colors.black),
-                                    color: Colors.black
+                                    border: Border.all(color:Color(0xFF060929)),
+                                    color: Color(0xFF060929)
                                       
                                   ),
                                   child: const Center(
