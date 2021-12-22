@@ -54,19 +54,21 @@ class _StudyMaterialState extends State<StudyMaterial> {
             builder: (BuildContext context) {
               return Container(
                 height: 500,
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(color: Colors.transparent),
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                decoration: BoxDecoration(color: Colors.transparent,
+               // border: Border.all(width: 3,color: Colors.red)
+                ),
                 child: GestureDetector(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: FadeInImage(
                         fit: BoxFit.contain,
-                        image: NetworkImage(
+                        image: const NetworkImage(
                             "https://static.photocdn.pt/images/articles/2018/05/07/articles/2017_8/how_to_take_vertical_landscape_photos.jpg"),
-                        placeholder: AssetImage("assets/images/no_image.jpg"),
+                        placeholder: const AssetImage("assets/images/no_image.jpg"),
                         imageErrorBuilder: (context, error, stackTrace) {
                           return Image.asset(
-                            'assets/images/no_image.jpg',
+                            'assets/images/no_image.jpg'
                           );
                         },
                       ),
