@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _VideoCardCAState extends State<VideoCardCA> {
           child: InkWell(
             borderRadius: BorderRadius.circular(10),
             onTap: () {
-              print("tapped");
+              AppConstants.printLog("tapped");
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

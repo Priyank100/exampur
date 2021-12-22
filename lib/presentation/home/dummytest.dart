@@ -1,4 +1,6 @@
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,20 +14,20 @@ class Dummytest extends StatefulWidget {
 
 class _DummytestState extends State<Dummytest> {
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
-    //final postMdl = Provider.of<AuthProvider>(context, listen: false).userInfo;
-    //postMdl.initAddressList(context);
+    await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context);
+   // postMdl.(context);
   }
 
   Widget build(BuildContext context) {
-    final postMdl = Provider.of<AuthProvider>(context, listen: false).userInfo;
+    final postMdl = Provider.of<HomeBannerProvider>(context, listen: false).homeBannerModel;
     return Scaffold(
         appBar: AppBar(
           title: Text("Tes"),
         ),
         body: Column(
-          children: [Text(postMdl.first_name.toString())],
+          children: [Text(postMdl.length.toString())],
         ));
   }
 }

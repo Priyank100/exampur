@@ -4,6 +4,7 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -105,12 +106,13 @@ class SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 20),
                     CustomTextField(hintText: "Phone No.",  focusNode: _phoneNode,
-
+textInputType: TextInputType.number,
                       controller: _phoneController,
                       value: (value) {},),
                     CustomTextField(hintText: "Password",
                         focusNode: _passNode,
                         controller: _passwordController,
+                        obscureText: true,
                         value: (value) {}),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -141,8 +143,10 @@ class SignInState extends State<SignIn> {
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Theme.of(context).primaryColor),
                           ),
-                          onPressed: () {loginUser;
-                          print('anchal');
+                          onPressed: () {
+                            FocusScope.of(context).unfocus();
+                            loginUser();
+                            AppConstants.printLog('anchal');
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(

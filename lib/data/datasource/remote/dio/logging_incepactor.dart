@@ -1,20 +1,21 @@
 import 'package:dio/dio.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 
 class LoggingInterceptor extends InterceptorsWrapper {
   int maxCharactersPerLine = 200;
 
   @override
   Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    print("--> ${options.method} ${options.path}");
-    print("Headers: ${options.headers.toString()}");
-    print("<-- END HTTP");
+    AppConstants.printLog("--> ${options.method} ${options.path}");
+    AppConstants.printLog("Headers: ${options.headers.toString()}");
+    AppConstants.printLog("<-- END HTTP");
 
     return super.onRequest(options, handler);
   }
 
   @override
   Future onResponse(Response response, ResponseInterceptorHandler handler) async {
-    print(
+    AppConstants.printLog(
         "<-- ${response.statusCode} ${response.requestOptions.method} ${response.requestOptions.path}");
 
     String responseAsString = response.data.toString();
@@ -26,21 +27,21 @@ class LoggingInterceptor extends InterceptorsWrapper {
         if (endingIndex > responseAsString.length) {
           endingIndex = responseAsString.length;
         }
-        print(
+        AppConstants.printLog(
             responseAsString.substring(i * maxCharactersPerLine, endingIndex));
       }
     } else {
-      print(response.data);
+      AppConstants.printLog(response.data);
     }
 
-    print("<-- END HTTP");
+    AppConstants.printLog("<-- END HTTP");
 
     return super.onResponse(response, handler);
   }
 
   @override
   Future onError(DioError err, ErrorInterceptorHandler handler) async {
-    print("ERROR[${err.response!.statusCode}] => PATH: ${err.requestOptions.path}");
+    AppConstants.printLog("ERROR[${err.response!.statusCode}] => PATH: ${err.requestOptions.path}");
     return super.onError(err, handler);
   }
 }

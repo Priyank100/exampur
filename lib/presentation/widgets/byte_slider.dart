@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,7 @@ class _ByteSliderState extends State<ByteSlider> {
         onPageChanged: (index, reason) {
           setState(() {
             _current = index;
-            print("${_current}");
+            AppConstants.printLog("${_current}");
           });
         },
       ),

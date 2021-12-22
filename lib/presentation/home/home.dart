@@ -1,13 +1,16 @@
 import 'dart:io' show Platform;
 
+import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
+import 'package:exampur_mobile/presentation/home/dummyBanner.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
 import 'package:exampur_mobile/presentation/home/study_material/study_material.dart';
 import 'package:exampur_mobile/presentation/home/quiz/test_series.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/large_carousel.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
+import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,6 +24,7 @@ import 'TestSeries/testseries.dart';
 import 'dummytest.dart';
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/oofline_course.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -31,6 +35,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  void initState()  {
+    super.initState();
+    callProvider();
+  }
+
+  Future<void> callProvider() async {
+    await Provider.of<HomeBannerProvider>(context, listen: false)
+        .getHomeBannner(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
@@ -39,9 +54,27 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 10),
-            LargeCarousel(image: [
-              "https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"
-            ]),
+            // LargeCarousel(image: ["https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"]),
+
+            Consumer<HomeBannerProvider>(
+                builder: (context, bannerProvider, child) {
+              print("BannerSize>> " +
+                  bannerProvider.homeBannerModel.length.toString());
+              return  bannerProvider.homeBannerModel.length!= 0 ?
+              LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
+                child: FadeInImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage('assets/images/no_image.jpg'),
+                  placeholder: AssetImage("assets/images/no_image.jpg"),
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/no_image.jpg',
+                    );
+                  },
+                ),
+              ),);
+            }),
+
             SizedBox(height: Dimensions.FONT_SIZE_DEFAULT),
             Row(
               children: [
@@ -406,7 +439,7 @@ class _HomeState extends State<Home> {
                           context,
                           MaterialPageRoute(
                               // builder: (context) => CurrentAffairs()));
-                          builder: (context) => Dummytest()));
+                              builder: (context) => Dummytest()));
                     },
                     child: Container(
                       child: Padding(

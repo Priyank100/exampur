@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomOutlinedButton extends StatefulWidget {
@@ -35,7 +36,7 @@ class _CustomOutlinedButtonState extends State<CustomOutlinedButton> {
                   style: TextStyle(color: Colors.blue, fontSize: 20),
                 ))),
             onTap: () {
-              print("tapped");
+              AppConstants.printLog("tapped");
               widget.onPressed();
             }),
       ),
