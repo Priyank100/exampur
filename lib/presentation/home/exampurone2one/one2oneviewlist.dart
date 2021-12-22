@@ -23,19 +23,20 @@ class _One2onelistState extends State<One2onelist> {
           Navigator.pop(context);
         },child: Icon(Icons.arrow_back,color: Colors.black,)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
+      body:  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Exampur One2One',
-              style: CustomTextStyle.headingBold(context),
+            Padding(
+              padding: const EdgeInsets.only(left: 14.0),
+              child: Text('Exampur One2One',
+                style: CustomTextStyle.headingBold(context),
+              ),
             ),
             SizedBox(height: 5,),
             One2OneListView()
           ],
         ),
-      ),
+
     );
   }
 }

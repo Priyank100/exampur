@@ -26,8 +26,8 @@ class CurrentAffairsState extends State<CurrentAffairs> {
             length: 5,
             names: ["Videos", "Daily", "Monthly", "Quiz", "Bytes"],
             routes: [
-              VideoCardAT(),
-             // VideosCA(),
+              //VideoCardAT(),
+              VideosCA(),
               DailyCA(),
               MonthlyCA(),
               QuizCA(),

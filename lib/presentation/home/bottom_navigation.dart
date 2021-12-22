@@ -12,7 +12,8 @@ import 'package:exampur_mobile/presentation/home/study_material/study_material.d
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
 import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
-import 'package:exampur_mobile/provider/user_info_provider.dart';
+import 'package:exampur_mobile/provider/Authprovider.dart';
+
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
@@ -89,7 +90,7 @@ class _BottomNavigationState extends State<BottomNavigation>
     // return NotificationListener<ScrollNotification>(
     // onNotification: _handleScrollNotification,
     // child: Scaffold(
-    Provider.of<AuthProvider>(context, listen: false).initAddressList(context);
+    Provider.of<AuthProvider>(context, listen: false).initUserList(context);
     List<ItemClass> allItems = <ItemClass>[
       ItemClass(
         0,

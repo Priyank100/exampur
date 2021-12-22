@@ -405,7 +405,8 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Dummytest()));
+                              // builder: (context) => CurrentAffairs()));
+                          builder: (context) => Dummytest()));
                     },
                     child: Container(
                       child: Padding(
