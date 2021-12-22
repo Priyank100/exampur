@@ -6,6 +6,7 @@ import 'package:exampur_mobile/data/model/loginmodel.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/response/Base/error_response.dart';
 import 'package:exampur_mobile/data/repository/Authrepo.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'package:flutter/cupertino.dart';
 
@@ -27,14 +28,14 @@ class AuthProvider extends ChangeNotifier {
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
-      print(apiResponse.response);
+      AppConstants.printLog(apiResponse.response);
      // Map map = apiResponse.response!.data;
       _userInfo=UserInfo.fromJson(jsonDecode(apiResponse.response!.data.toString()));
-      print("init address fail");
-      print(_userInfo.first_name);
+      AppConstants.printLog("init address fail");
+      AppConstants.printLog(_userInfo.first_name);
       //_userList.add(UserInfo.fromJson(apiResponse.response!.data));
     } else {
-      print("init address fail");
+      AppConstants.printLog("init address fail");
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -47,21 +48,31 @@ class AuthProvider extends ChangeNotifier {
     ApiResponse apiResponse = await authRepo.login(loginBody);
     _isLoading = false;
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      print('anchal');
+      AppConstants.printLog(apiResponse.response);
      // Map map = apiResponse.response!.data;
      // String token = map["token"];
      // authRepo.saveUserToken(token);
      // await authRepo.updateToken();
      // callback(true, token);
+
+      // AppConstants.printLog(apiResponse.response!.data['statusCode']);
+
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if(statusCode == '200') {
+
+      } else {
+        callback(false, apiResponse.response!.data['data'].toString());
+      }
+
       notifyListeners();
     } else {
       String errorMessage;
       if (apiResponse.error is String) {
-        print(apiResponse.error.toString());
+        AppConstants.printLog(apiResponse.error.toString());
         errorMessage = apiResponse.error.toString();
       } else {
         ErrorResponse errorResponse = apiResponse.error;
-        print(errorResponse.errors![0].message);
+        AppConstants.printLog(errorResponse.errors![0].message);
         errorMessage = errorResponse.errors![0].message!;
       }
       callback(false, errorMessage);

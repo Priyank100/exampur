@@ -3,6 +3,7 @@ import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 
 import 'di_container.dart' as di;
 
@@ -18,6 +19,7 @@ void main() async {
   await FlutterDownloader.initialize(debug: true);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<HomeBannerProvider>()),
   ], child: MyApp()));
 }
 

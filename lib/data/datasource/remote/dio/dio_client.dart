@@ -22,7 +22,7 @@ class DioClient {
         required this.sharedPreferences,
       }) {
     token = sharedPreferences.getString(AppConstants.TOKEN)?? "no_token";
-    print("NNNN $token");
+    AppConstants.printLog("NNNN $token");
    // dio = dioC ?? Dio();
     dio
       ..options.baseUrl = baseUrl
@@ -42,6 +42,7 @@ class DioClient {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
+    AppConstants.printLog("URL> ${uri.toString()}");
     try {
       var response = await dio.get(
         uri,
@@ -68,6 +69,8 @@ class DioClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
+    AppConstants.printLog("URL> ${uri.toString()}");
+    AppConstants.printLog("Param> ${data.toString()}");
     try {
       var response = await dio.post(
         uri,

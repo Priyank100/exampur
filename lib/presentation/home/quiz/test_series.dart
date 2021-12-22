@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:exampur_mobile/presentation/home/quiz/single_card.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -51,7 +52,7 @@ class TestSeriesState extends State<TestSeries> {
                           indicatorColor: Colors.black,
                           tabs: List<Widget>.generate(categories.length,
                               (int index) {
-                            print(categories[index]);
+                                AppConstants.printLog(categories[index]);
                             return Tab(text: categories[index]);
                           })),
                     ]),

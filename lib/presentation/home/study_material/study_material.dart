@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class _StudyMaterialState extends State<StudyMaterial> {
           onPageChanged: (index, reason) {
             setState(() {
               _current = index;
-              print("${_current}");
+              AppConstants.printLog("${_current}");
             });
           },
         ),

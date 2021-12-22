@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:get_it/get_it.dart';
@@ -10,6 +11,7 @@ import 'Helper/network_info.dart';
 import 'data/datasource/remote/dio/dio_client.dart';
 import 'data/datasource/remote/dio/logging_incepactor.dart';
 import 'data/repository/Authrepo.dart';
+import 'data/repository/HomeBanner_repo.dart';
 
 
 final sl = GetIt.instance;
@@ -21,9 +23,12 @@ Future<void> init() async {
 
   // Repository
   sl.registerLazySingleton(() => AuthRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => HomeBannerRepo(dioClient: sl()));
+
 
   // Provider
   sl.registerFactory(() => AuthProvider(authRepo: sl()));
+  sl.registerFactory(() => HomeBannerProvider(homeBannerRepo: sl()));
 
   //External
   final sharedPreferences = await SharedPreferences.getInstance();
