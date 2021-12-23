@@ -2,6 +2,8 @@ import 'package:exampur_mobile/presentation/authentication/sign_in.dart';
 import 'package:exampur_mobile/presentation/authentication/sign_up.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_outlined_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +27,11 @@ class LandingPageState extends State<LandingPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Logo"),
+                Image.asset(Images.exampur_logo,
+                  height: Dimensions.ICON_SIZE_BigLogo,
+                  width: Dimensions.ICON_SIZE_BigLogo,
+                  alignment: Alignment.center,
+                ),
                 SizedBox(height: 20),
                 CustomOutlinedButton(onPressed: () {
                   Navigator.push(context,
@@ -46,6 +52,7 @@ class LandingPageState extends State<LandingPage> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 12.0, horizontal: 60),
                     child: Container(
+                      height: Dimensions.PADDING_SIZE_EXTRA_LARGES,
                       width: MediaQuery.of(context).size.width,
                       child: Center(
                         child: Text(

@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
@@ -116,34 +117,43 @@ List<ChooseCateogryModel>selectedcourse= [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.black,
-          ),
-          title: Text("Logo", style: TextStyle(color: Colors.black)),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          bottom: PreferredSize(
-              preferredSize: Size.fromHeight(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
-                        "Select Categorires",
-                        style: CustomTextStyle.headingBigBold(context),
-                      )),
-
-                ],
-              ))),
+        // appBar: AppBar(
+        //   iconTheme: IconThemeData(
+        //     color: Colors.black,
+        //   ),
+        //   title: Text("Logo", style: TextStyle(color: Colors.black)),
+        //   backgroundColor: Colors.transparent,
+        //   elevation: 0,
+        //   bottom: PreferredSize(
+        //       preferredSize: Size.fromHeight(20.0),
+        //       child: Row(
+        //         mainAxisAlignment: MainAxisAlignment.start,
+        //         children: [
+        //           Padding(
+        //               padding: EdgeInsets.symmetric(horizontal: 15),
+        //               child: Text(
+        //                 "Select Categorires",
+        //                 style: CustomTextStyle.headingBigBold(context),
+        //               )),
+        //
+        //         ],
+        //       ))),
+      appBar: CustomAppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
 
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: Dimensions.FONT_SIZE_SMALL,bottom: Dimensions.FONT_SIZE_SMALL),
+                  child: Text(
+                    'Select Categories',
+                    style: CustomTextStyle.headingBigBold(context),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
                   child: Container(

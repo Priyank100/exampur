@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class CustomOutlinedButton extends StatefulWidget {
@@ -19,6 +20,7 @@ class _CustomOutlinedButtonState extends State<CustomOutlinedButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: Dimensions.Login_Button_height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         border: Border.all(color: Colors.blue, width: 2),

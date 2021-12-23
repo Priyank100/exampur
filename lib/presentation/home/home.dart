@@ -1,5 +1,7 @@
 import 'dart:io' show Platform;
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/UserInformationModel.dart';
 import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
@@ -10,6 +12,7 @@ import 'package:exampur_mobile/presentation/home/quiz/test_series.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/large_carousel.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
+import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -41,8 +44,8 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> callProvider() async {
-    await Provider.of<HomeBannerProvider>(context, listen: false)
-        .getHomeBannner(context);
+    await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context);
+  // await Provider.of<AuthProvider>(context,listen: false).login();
   }
 
   @override
@@ -53,7 +56,13 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+        // Consumer<UserInformationModel>(
+        // builder: (context, userInformationProvider, child) {
+        //   return Text(userInformationProvider.data!.firstName.toString());
+        // }),
+//Text(getTranslated('VALLEY', context)!),
             SizedBox(height: 10),
+
             // LargeCarousel(image: ["https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"]),
 
             Consumer<HomeBannerProvider>(

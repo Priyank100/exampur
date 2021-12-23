@@ -1,9 +1,13 @@
+import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
+import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
+import 'package:exampur_mobile/provider/ValidTokenProvider.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'di_container.dart' as di;
 
@@ -20,6 +24,7 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<HomeBannerProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<ValidTokenProvider>()),
   ], child: MyApp()));
 }
 
@@ -42,6 +47,10 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    List<Locale> _locals = [];
+    AppConstants.languages.forEach((language) {
+      _locals.add(Locale(language.languageCode!, language.countryCode));
+    });
     return MaterialApp(
       title: 'Exampur',
       theme: CustomTheme.lightTheme,
@@ -49,7 +58,8 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       onGenerateRoute: _appRouter.onGenerateRoute,
-      home: BottomNavigation(),
+      supportedLocales: _locals,
+      home: SplashScreen(),
     );
   }
 }

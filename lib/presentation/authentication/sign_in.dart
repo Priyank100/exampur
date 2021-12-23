@@ -5,6 +5,8 @@ import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -65,8 +67,12 @@ class SignInState extends State<SignIn> {
         //   Provider.of<AuthProvider>(context, listen: false).clearUserEmailAndPassword();
         // }
 
-        loginBody.phone = _phone;
-        loginBody.password = _password;
+        loginBody.phoneExt = '91';
+        // loginBody.phone = _phone;
+        // loginBody.password = _password;
+
+        loginBody.phone = '9099998988';
+        loginBody.password = '@Zakir123';
         await Provider.of<AuthProvider>(context, listen: false).login(loginBody, route);
       }
     }
@@ -92,19 +98,28 @@ class SignInState extends State<SignIn> {
         body:Form(
           key: _formKeyLogin,
           child: SingleChildScrollView(
-            child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
+            child:
+              Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Logo"),
-                    SizedBox(height: 20),
-                    Text(
-                      "Let's login",
-                      style: CustomTextStyle.headingBold(context),
+                   Padding(
+                     padding: const EdgeInsets.only(left:Dimensions.ICON_SIZE_SingPage ),
+                     child: Image.asset(Images.exampur_title,
+                     height: Dimensions.ICON_SIZE_Title,
+                       width: Dimensions.ICON_SIZE_Title,
+                       alignment: Alignment.center,
+                     ),
+                   ),
+                   // SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(left:Dimensions.PADDING_SIZE_EXTRA_LARGE),
+                      child: Text(
+                        "Let's login",
+                        style: CustomTextStyle.headingBigBold(context),
+                      ),
                     ),
-                    SizedBox(height: 20),
+
                     CustomTextField(hintText: "Phone No.",  focusNode: _phoneNode,
 textInputType: TextInputType.number,
                       controller: _phoneController,
@@ -146,7 +161,6 @@ textInputType: TextInputType.number,
                           onPressed: () {
                             FocusScope.of(context).unfocus();
                             loginUser();
-                            AppConstants.printLog('anchal');
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -176,6 +190,6 @@ textInputType: TextInputType.number,
                   ],
                 )),
           ),
-        ));
+    );
   }
 }
