@@ -30,5 +30,5 @@ class Dimensions {
   static const double ICON_SIZE_Title = 150.0;
   static const double ICON_SIZE_BigLogo = 200.0;
 
-  static const double Login_Button_height = 70.0;
+  static const double Login_Button_height = 60.0;
 }

@@ -4,6 +4,7 @@ import 'package:exampur_mobile/Helper/api_checker.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/UserInformationModel.dart';
 import 'package:exampur_mobile/data/model/Userinfo.dart';
+import 'package:exampur_mobile/data/model/createUserModel.dart';
 import 'package:exampur_mobile/data/model/loginmodel.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/response/Base/error_response.dart';
@@ -30,23 +31,23 @@ class AuthProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   ///userinfo request
-  Future<void> initUserList(BuildContext context) async {
-    ApiResponse apiResponse = await authRepo.getUserList();
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response);
-     // Map map = apiResponse.response!.data;
-      _userInfo=UserInfo.fromJson(jsonDecode(apiResponse.response!.data.toString()));
-      AppConstants.printLog("init address fail");
-      AppConstants.printLog(_userInfo.first_name);
-      //_userList.add(UserInfo.fromJson(apiResponse.response!.data));
-    } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
-    }
-    notifyListeners();
-  }
+  // Future<void> initUserList(BuildContext context) async {
+  //   ApiResponse apiResponse = await authRepo.getUserList();
+  //   if (apiResponse.response == null) {
+  //     ApiChecker.checkApi(context, apiResponse);
+  //   } else if (apiResponse.response!.statusCode == 200) {
+  //     AppConstants.printLog(apiResponse.response);
+  //    // Map map = apiResponse.response!.data;
+  //     _userInfo=UserInfo.fromJson(jsonDecode(apiResponse.response!.data.toString()));
+  //     AppConstants.printLog("init address fail");
+  //     AppConstants.printLog(_userInfo.first_name);
+  //     //_userList.add(UserInfo.fromJson(apiResponse.response!.data));
+  //   } else {
+  //     AppConstants.printLog("init address fail");
+  //     ApiChecker.checkApi(context, apiResponse);
+  //   }
+  //   notifyListeners();
+  // }
 
   ///login
   Future login(LoginModel loginBody, Function callback) async {
@@ -63,12 +64,16 @@ class AuthProvider extends ChangeNotifier {
 
       // AppConstants.printLog(apiResponse.response!.data['statusCode']);
 
-      _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
-
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if(statusCode == '200') {
+        _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
         SharedPref.saveSharedPref(AppConstants.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN2>> ${_informationModel.data!.authToken}');
+
+        List<UserInformationModel> _userData = [];
+        _userData.add(_informationModel);
+        await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
+
         callback(true, '');
       } else {
         callback(false, apiResponse.response!.data['data'].toString());
@@ -91,13 +96,48 @@ class AuthProvider extends ChangeNotifier {
   }
 
 
-  String getUserPhone() {
-    return authRepo.getUserPhone() ;
+
+
+  ///userRegister
+  Future userResgister(CreateUserModel registerModel, Function callback) async {
+    _isLoading = true;
+    ApiResponse apiResponse = await authRepo.registerUser(registerModel);
+    _isLoading = false;
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      AppConstants.printLog(apiResponse.response);
+
+
+
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if(statusCode == '200') {
+        _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
+
+        SharedPref.saveSharedPref(AppConstants.TOKEN, _informationModel.data!.authToken.toString());
+        AppConstants.printLog('ToKEN2>> ${_informationModel.data!.authToken}');
+
+        List<UserInformationModel> _userData = [];
+        _userData.add(_informationModel);
+        await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
+
+        callback(true, '');
+      } else {
+        callback(false, apiResponse.response!.data['data'].toString());
+      }
+
+      notifyListeners();
+    } else {
+      String errorMessage;
+      if (apiResponse.error is String) {
+        AppConstants.printLog(apiResponse.error.toString());
+        errorMessage = apiResponse.error.toString();
+      } else {
+        ErrorResponse errorResponse = apiResponse.error;
+        AppConstants.printLog(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message!;
+      }
+      callback(false, errorMessage);
+      notifyListeners();
+    }
   }
 
-
-
-  String getUserPassword() {
-    return authRepo.getUserPassword() ;
-  }
 }

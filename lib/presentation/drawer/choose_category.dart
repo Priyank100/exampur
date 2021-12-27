@@ -1,5 +1,7 @@
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
@@ -117,27 +119,7 @@ List<ChooseCateogryModel>selectedcourse= [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //   iconTheme: IconThemeData(
-        //     color: Colors.black,
-        //   ),
-        //   title: Text("Logo", style: TextStyle(color: Colors.black)),
-        //   backgroundColor: Colors.transparent,
-        //   elevation: 0,
-        //   bottom: PreferredSize(
-        //       preferredSize: Size.fromHeight(20.0),
-        //       child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.start,
-        //         children: [
-        //           Padding(
-        //               padding: EdgeInsets.symmetric(horizontal: 15),
-        //               child: Text(
-        //                 "Select Categorires",
-        //                 style: CustomTextStyle.headingBigBold(context),
-        //               )),
-        //
-        //         ],
-        //       ))),
+
       appBar: CustomAppBar(),
       body: SafeArea(
         child: Padding(
@@ -155,16 +137,12 @@ List<ChooseCateogryModel>selectedcourse= [];
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
                   child: Container(
+                    width: 300,
                     decoration: BoxDecoration(
                       border:Border.all(color: Colors.grey,width: 2),
-
-                      // gradient: LinearGradient(
-                      //     begin: Alignment.centerLeft,
-                      //     end: Alignment.centerRight,
-                      //     colors: [Colors.purple, Colors.purpleAccent]),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   child:   TextField(
 
@@ -178,46 +156,74 @@ List<ChooseCateogryModel>selectedcourse= [];
                           FocusScope.of(context).nextFocus();
                         },
                         cursorColor: Colors.amber,
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide: const BorderSide(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          hintText: 'Enter state',
-                          hintStyle: TextStyle(
-                            color: Colors.grey[600],
-                          ),
-                          filled: true,
-                          fillColor: Colors.grey[300],
-                          enabledBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                        ),
+                        // decoration: InputDecoration(
+                        //   focusedBorder: OutlineInputBorder(
+                        //     borderRadius: BorderRadius.circular(5.0),
+                        //     borderSide: const BorderSide(
+                        //       color: Colors.grey,
+                        //     ),
+                        //   ),
+                        //   hintText: 'Search Category',
+                        //   hintStyle: TextStyle(
+                        //     color: Colors.grey[600],
+                        //   ),
+                        //   filled: true,
+                        //   fillColor: Colors.grey[200],
+                        //   enabledBorder: const UnderlineInputBorder(
+                        //     borderSide: BorderSide(color: Colors.white),
+                        //   ),
+                        // ),
+                    decoration: InputDecoration(
+                      hintText: 'Search Category',
+                     // icon: Icon(Icons.search,size: 30,),
+                      // focusedBorder: OutlineInputBorder(
+                      //     borderRadius: BorderRadius.circular(10.0),
+                      //     borderSide: const BorderSide(
+                      //       color: Colors.transparent,
+                      //     ),
+                      //   ),
+                      hintStyle: TextStyle(
+                        color: Colors.grey[600],
+                      ),
+                      // filled: true,
+                      // fillColor: Colors.grey[300],
+                      contentPadding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 10),
+                      isDense: true,
+                      counterText: '',
+                      // focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+                      //hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
+                      errorStyle: TextStyle(height: 1.5),
+                      border: InputBorder.none,
+                    ),
                       ),
                     ),
                   ),
-
-                Expanded(
-                  flex: 8,
-                  child: GridView.builder(
-              itemCount: a.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 0.0,
-                  mainAxisSpacing: 0.0
-              ),
-                      itemBuilder: (BuildContext context, int index) {
-                        // return item
-                        return ContactItem(
-                         a[index].name,
-                         a[index].course,
-                         a[index].isSelected,
-                          index,
-                        );
-                      }),
+          Expanded(
+            flex: 4,
+            child: CustomScrollView(
+              slivers: [
+                SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                      return ContactItem(
+                                     a[index].name,
+                                     a[index].course,
+                                     a[index].isSelected,
+                                      index,
+                                    );
+                    },
+                    childCount: a.length,
+                  ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 15,
+                    crossAxisSpacing: 15,
+                    childAspectRatio: 2.0,
+                  ),
                 ),
+              ]),
+          ),
+
                 selectedcourse.length > 0 ? Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 25,
@@ -225,7 +231,11 @@ List<ChooseCateogryModel>selectedcourse= [];
                   ),
                   // child: SizedBox(
                   //   width: double.infinity,
-                    child:Container(
+                    child:InkWell(
+                      onTap: (){
+                        SharedPref.saveSharedPref(AppConstants.SELECT_CATEGORY_LENGTH, selectedcourse.length.toString());
+                      },
+                      child: Container(
           height: 50,
           width: double.infinity,
           decoration: const BoxDecoration(
@@ -239,10 +249,12 @@ List<ChooseCateogryModel>selectedcourse= [];
           child:  Center(child: Text(
               "Save (${selectedcourse.length})",style: TextStyle(color: Colors.white, fontSize: 20),)),
         ),
+                    ),
 
 
                 ): Container( height: 50,
                   width: double.infinity,
+                  margin: EdgeInsets.all(10),
                   decoration: const BoxDecoration(
                     color: Colors.amber,
                     //border: Border.all( color: Colors.amber,),
@@ -263,60 +275,10 @@ List<ChooseCateogryModel>selectedcourse= [];
   }
   Widget ContactItem(
       String name, String phoneNumber, bool isSelected, int index) {
-  // return  GestureDetector(
-  //   onTap: (){
-  //     setState(() {
-  //       a[index].isSelected = !a[index].isSelected;
-  //       if (a[index].isSelected == true) {
-  //         selectedcourse.add(ChooseCateogryModel(a[index].name, a[index].course, true));
-  //       } else if (selectedcourse[index].isSelected == false) {
-  //         selectedcourse
-  //             .removeWhere((element) => element.name == a[index].name);
-  //       }
-  //     });
-  //   },
-    // child: Container(
-    //
-    //                          decoration: BoxDecoration(
-    //                            border: isSelected?Border.all(color: Colors.amber,
-    //                              width: 1,):null,
-    //                            borderRadius: BorderRadius.circular(10),
-    //                            //color: Colors.amber,
-    //                          ),
-    //
-    //
-    //                           child: Column(
-    //                             crossAxisAlignment: CrossAxisAlignment.start,
-    //                               mainAxisAlignment: MainAxisAlignment.start,
-    //                               children:[
-    //                             Padding(
-    //                               padding: const EdgeInsets.only(top: 18.0,left: 10,right: 10),
-    //                               child: Row(
-    //                                 crossAxisAlignment: CrossAxisAlignment.start,
-    //                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                                 children: [
-    //                                   Text(name,style: const TextStyle(color: Colors.black),),
-    //                               CircleAvatar(
-    //                                     backgroundColor: Colors.green[700],
-    //                                     child: Icon(
-    //                                       Icons.person_outline_outlined,
-    //                                       color: Colors.white,
-    //                                     ),
-    //                                   ),
-    //                                 ],
-    //                               ),
-    //
-    //                             ),
-    //                                 Padding(
-    //                                   padding: const EdgeInsets.only(top: 18.0,left: 10,right: 10),
-    //                                   child: Text('SSc,upsc'),
-    //                                 )
-    //                               ]),
-    //
-    //             ),
+
  return
  Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(0),
           child: InkWell(
             onTap: () {
     setState(() {
@@ -361,7 +323,7 @@ List<ChooseCateogryModel>selectedcourse= [];
                         Image.asset(
 
                           Images.paidcourse,
-                          height: 45.0,
+                          height: 35.0,
 
                         ),
                       ],
@@ -376,7 +338,7 @@ List<ChooseCateogryModel>selectedcourse= [];
                   ],
                 ),
               ),
-              height: 80.0,
+              height: 70.0,
               decoration: BoxDecoration(
     border: isSelected?Border.all(color: Colors.amber,
                                  width: 3,):null,
@@ -384,12 +346,12 @@ List<ChooseCateogryModel>selectedcourse= [];
               boxShadow: [
               BoxShadow(
               color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: Offset(0, 3), // changes position of shadow
+              spreadRadius: 2,
+              blurRadius: 2,
+              offset: Offset(0, 2), // changes position of shadow
             ),
               ],
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(10),
                 color: Colors.grey.shade200,
 
               ),

@@ -31,7 +31,7 @@ class DioClient {
       ..httpClientAdapter
       ..options.headers = {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': '$token'
+        'appAuthToken': '$token'
       };
     dio.interceptors.add(loggingInterceptor);
   }

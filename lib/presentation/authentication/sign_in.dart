@@ -51,13 +51,18 @@ class SignInState extends State<SignIn> {
 
       if (_phone.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('EMAIL_MUST_BE_REQUIRED',),
-          backgroundColor: Colors.red,
+          //elevation: 6.0,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text('Please enter complete Email Id'),
+          backgroundColor: Colors.black,
         ));
       } else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('PASSWORD_MUST_BE_REQUIRED'),
-          backgroundColor: Colors.red,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text('Invalid Login Credentail'),
+          backgroundColor: Colors.black,
         ));
       } else {
 
@@ -99,96 +104,95 @@ class SignInState extends State<SignIn> {
           key: _formKeyLogin,
           child: SingleChildScrollView(
             child:
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                   Padding(
-                     padding: const EdgeInsets.only(left:Dimensions.ICON_SIZE_SingPage ),
-                     child: Image.asset(Images.exampur_title,
-                     height: Dimensions.ICON_SIZE_Title,
-                       width: Dimensions.ICON_SIZE_Title,
-                       alignment: Alignment.center,
-                     ),
-                   ),
-                   // SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.only(left:Dimensions.PADDING_SIZE_EXTRA_LARGE),
-                      child: Text(
-                        "Let's login",
-                        style: CustomTextStyle.headingBigBold(context),
-                      ),
-                    ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
-                    CustomTextField(hintText: "Phone No.",  focusNode: _phoneNode,
-textInputType: TextInputType.number,
-                      controller: _phoneController,
-                      value: (value) {},),
-                    CustomTextField(hintText: "Password",
-                        focusNode: _passNode,
-                        controller: _passwordController,
-                        obscureText: true,
-                        value: (value) {}),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 20,
+                        Center(
+                          child: Image.asset(Images.exampur_title,
+                     //  height: Dimensions.ICON_SIZE_Title,
+                          // width: Dimensions.ICON_SIZE_Title,
+                           alignment: Alignment.center,
+                       ),
                         ),
-                        Text("Forgot Password?"),
-                        CustomTextButton(onPressed: () {}, text: "Reset")
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Container(
-                          margin: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 30),
-                          child: Provider.of<AuthProvider>(context).isLoading
-                              ? Center(
-                            child: CircularProgressIndicator(
-                              valueColor: new AlwaysStoppedAnimation<Color>(
-                                Theme.of(context).primaryColor,
+
+                      SizedBox(height: 20),
+                       Text(
+                          "Let's Login",
+                          style: CustomTextStyle.headingBigBold(context),
+                        ),
+                      SizedBox(height: 20),
+
+                      CustomTextField(hintText: "Phone No.",  focusNode: _phoneNode,
+textInputType: TextInputType.number,
+                        controller: _phoneController,
+                        value: (value) {},),
+                      SizedBox(height: 20,),
+                      CustomTextField(hintText: "Password",
+                          focusNode: _passNode,
+                          controller: _passwordController,
+                          obscureText: true,
+                          value: (value) {}),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+
+                          Text("Forgot Password?",style: TextStyle(color: Colors.grey.shade600),),
+                          CustomTextButton(onPressed: () {}, text: "Reset")
+                        ],
+                      ),
+
+                     Container(
+                            margin: EdgeInsets.only( bottom: 20, top: 30),
+                            child: Provider.of<AuthProvider>(context).isLoading
+                                ? Center(
+                              child: CircularProgressIndicator(
+                                valueColor: new AlwaysStoppedAnimation<Color>(
+                                  Theme.of(context).primaryColor,
+                                ),
                               ),
+                            )
+                                :
+                           ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Theme.of(context).primaryColor),
                             ),
-                          )
-                              :
-                         ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Theme.of(context).primaryColor),
-                          ),
-                          onPressed: () {
-                            FocusScope.of(context).unfocus();
-                            loginUser();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 12.0, horizontal: 60),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: Center(
-                                child: Text(
-                                  "Log In",
-                                  style:
-                                      TextStyle(fontSize: 18, color: Colors.white),
+                            onPressed: () {
+                              FocusScope.of(context).unfocus();
+                              loginUser();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 12.0, horizontal: 60),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: Center(
+                                  child: Text(
+                                    "Log In",
+                                    style:
+                                        TextStyle(fontSize: 18, color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Facing problem in signing in?"),
-                        CustomTextButton(onPressed: () {}, text: "Call us")
-                      ],
-                    )
-                  ],
-                )),
+
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Facing problem in signing in?",style: TextStyle(color: Colors.grey.shade600)),
+                          CustomTextButton(onPressed: () { AppConstants.makePhoneCall('tel:'+AppConstants.Mobile_number);}, text: "Call us")
+                        ],
+                      )
+                    ],
+                  ),
+              )),
           ),
     );
   }

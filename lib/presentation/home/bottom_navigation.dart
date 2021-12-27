@@ -92,7 +92,7 @@ class _BottomNavigationState extends State<BottomNavigation>
     // return NotificationListener<ScrollNotification>(
     // onNotification: _handleScrollNotification,
     // child: Scaffold(
-    Provider.of<AuthProvider>(context, listen: false).initUserList(context);
+    //Provider.of<AuthProvider>(context, listen: false).initUserList(context);
     List<ItemClass> allItems = <ItemClass>[
       ItemClass(
         0,
@@ -145,7 +145,7 @@ class _BottomNavigationState extends State<BottomNavigation>
           elevation: 0,
           leading: Builder(builder: (BuildContext context) {
             return IconButton(
-                icon: FaIcon(FontAwesomeIcons.bars),
+                icon: Image.asset(Images.menu_icon,width: Dimensions.ICON_SIZE_LARGE,color: Colors.black,),
                 onPressed: () => Scaffold.of(context).openDrawer());
           }),
           actions: [

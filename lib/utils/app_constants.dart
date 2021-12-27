@@ -1,6 +1,7 @@
 import 'package:exampur_mobile/data/model/response/languagemodel.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppConstants {
   static const String BASE_URL = 'https://6b07f566-12f7-4b32-8f2f-8b6046fa0957.mock.pstmn.io/';
@@ -20,7 +21,13 @@ class AppConstants {
   static const String USER_EMAIL = 'user_email';
   static const String USER_PASSWORD = 'user_password';
 
+  static const String USER_DATA = 'user_data';
+
   static bool isPrint = true;
+  static String SELECT_CATEGORY_LENGTH = 'category_length';
+
+
+  static String Mobile_number = '9873111552';
 
   static void printLog(message) {
     if(isPrint)
@@ -28,7 +35,16 @@ class AppConstants {
     else
       print('Exampur');
   }
+  static Future<void> makePhoneCall(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
+  static const String COUNTRY_CODE = 'country_code';
+  static const String LANGUAGE_CODE = 'language_code';
 
   static List<LanguageModel> languages = [
     LanguageModel(imageUrl: '', languageName: 'English', countryCode: 'US', languageCode: 'en'),

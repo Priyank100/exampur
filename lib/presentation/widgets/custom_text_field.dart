@@ -45,41 +45,79 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
-      child: TextField(
-        autofocus: widget.autofocus == null ? false : true,
-        obscureText: widget.obscureText == null ? false : true,
-        focusNode: widget.focusNode,
-        autocorrect: false,
-        keyboardType: widget.textInputType,
-        controller: widget.controller,
-        onChanged: (s) {
-          widget.value(s);
-        },
-        onEditingComplete: () {
-          FocusScope.of(context).nextFocus();
-        },
-        cursorColor: Colors.amber,
-        decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(
-              color: Colors.transparent,
-            ),
-          ),
-          hintText: widget.hintText,
-          hintStyle: TextStyle(
-            color: Colors.grey[600],
-          ),
-          filled: true,
-          fillColor: Colors.grey[300],
-          enabledBorder:  UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(10.0),
+    return  Container(
+        width: double.infinity,
+
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+
+          borderRadius:  BorderRadius.all(const Radius.circular(8)),
+    //       border: Border(
+    //   left: BorderSide(10)
+    // ),
+          boxShadow: [
+            BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
+          ],
+        ),
+        child: TextField(
+          autofocus: widget.autofocus == null ? false : true,
+          obscureText: widget.obscureText == null ? false : true,
+          focusNode: widget.focusNode,
+          autocorrect: false,
+          keyboardType: widget.textInputType,
+          controller: widget.controller,
+          onChanged: (s) {
+            widget.value(s);
+          },
+          onEditingComplete: () {
+            FocusScope.of(context).nextFocus();
+          },
+          cursorColor: Colors.amber,
+          // decoration: InputDecoration(
+          //   focusedBorder: OutlineInputBorder(
+          //     borderRadius: BorderRadius.circular(10.0),
+          //     borderSide: const BorderSide(
+          //       color: Colors.transparent,
+          //     ),
+          //   ),
+          //   hintText: widget.hintText,
+          //   hintStyle: TextStyle(
+          //     color: Colors.grey[600],
+          //   ),
+          //   filled: true,
+          //   fillColor: Colors.grey[300],
+          //   enabledBorder:  UnderlineInputBorder(
+          //     borderSide: BorderSide(color: Colors.white),
+          //     borderRadius: BorderRadius.circular(10.0),
+          //
+          //   ),
+          //   errorStyle: TextStyle(height: 1.5),
+          //   border: InputBorder.none,
+          // ),
+
+          decoration: InputDecoration(
+            hintText: widget.hintText,
+    // focusedBorder: OutlineInputBorder(
+    //     borderRadius: BorderRadius.circular(10.0),
+    //     borderSide: const BorderSide(
+    //       color: Colors.transparent,
+    //     ),
+    //   ),
+    hintStyle: TextStyle(
+        color: Colors.grey[600],
+      ),
+            // filled: true,
+            // fillColor: Colors.grey[300],
+            contentPadding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
+            isDense: true,
+            counterText: '',
+            // focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            //hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
+            errorStyle: TextStyle(height: 1.5),
+            border: InputBorder.none,
           ),
         ),
-      ),
+
     );
   }
 }

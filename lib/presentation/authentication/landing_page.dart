@@ -2,6 +2,7 @@ import 'package:exampur_mobile/presentation/authentication/sign_in.dart';
 import 'package:exampur_mobile/presentation/authentication/sign_up.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_outlined_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
@@ -67,8 +68,10 @@ class LandingPageState extends State<LandingPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Facing problem in signing in?"),
-                    CustomTextButton(onPressed: () {}, text: "Call us")
+                    Text("Facing problem in signing in?",style: TextStyle(color: Colors.grey.shade600)),
+                    CustomTextButton(onPressed: () {
+                      AppConstants.makePhoneCall('tel:'+AppConstants.Mobile_number);
+                    }, text: "Call us")
                   ],
                 )
               ],

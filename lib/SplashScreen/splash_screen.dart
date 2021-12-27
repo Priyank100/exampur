@@ -4,6 +4,7 @@ import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/provider/ValidTokenProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class SplashScreen extends StatefulWidget {
@@ -25,9 +26,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: double.maxFinite,
+        width:double.maxFinite ,
         color: Colors.white,
         alignment: Alignment.center,
-        child: Text('Exampur Splash'),
+        child: Image.asset(Images.exampur_logo)
       ),
     );
   }
@@ -42,15 +45,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future validateToken(token) async {
     if(token != null && token.toString() != 'null') {
-      Timer(Duration(seconds: 3),
-              ()=>Navigator.pushReplacement(context,
-              MaterialPageRoute(builder:
-                  (context) =>
-              BottomNavigation()
-              )
-          )
+      Timer(Duration(seconds: 1),
+              ()=>
+                  Provider.of<ValidTokenProvider>(context, listen: false).tokenValidation(context)
       );
-     // Provider.of<ValidTokenProvider>(context, listen: false).tokenValidation;
+
     } else {
       Timer(Duration(seconds: 3),
               ()=>Navigator.pushReplacement(context,
