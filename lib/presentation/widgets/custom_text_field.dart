@@ -8,7 +8,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final TextInputType? textInputType;
-
+ final bool? readOnly;
 
   const CustomTextField({
     Key? key,
@@ -18,7 +18,8 @@ class CustomTextField extends StatefulWidget {
     this.autofocus,
     this.controller,
     this.focusNode,
-    this.textInputType
+    this.textInputType,
+    this.readOnly
   }) : super(key: key);
 
   @override
@@ -60,8 +61,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ],
         ),
         child: TextField(
+
           autofocus: widget.autofocus == null ? false : true,
           obscureText: widget.obscureText == null ? false : true,
+          readOnly: widget.readOnly==null?false:true,
           focusNode: widget.focusNode,
           autocorrect: false,
           keyboardType: widget.textInputType,

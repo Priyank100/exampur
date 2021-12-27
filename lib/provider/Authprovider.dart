@@ -27,6 +27,9 @@ class AuthProvider extends ChangeNotifier {
   UserInformationModel _informationModel=UserInformationModel();
   UserInformationModel get informationModel =>_informationModel;
 
+  CreateUserModel _userupdate =CreateUserModel();
+  CreateUserModel get uerupdate =>_userupdate;
+
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
@@ -136,6 +139,44 @@ class AuthProvider extends ChangeNotifier {
         errorMessage = errorResponse.errors![0].message!;
       }
       callback(false, errorMessage);
+      notifyListeners();
+    }
+  }
+
+///UpdateUser
+  Future updateUserProfile(CreateUserModel registerModel,  ) async {
+    _isLoading = true;
+    ApiResponse apiResponse = await authRepo.updateprofile(registerModel);
+    _isLoading = false;
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      AppConstants.printLog(apiResponse.response);
+
+
+
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if(statusCode == '200') {
+        // _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
+        // List<UserInformationModel> _userData = [];
+        // _userData.add(_informationModel);
+        // await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
+
+        //callback(true, '');
+      } else {
+        //callback(false, apiResponse.response!.data['data'].toString());
+      }
+
+      notifyListeners();
+    } else {
+      String errorMessage;
+      if (apiResponse.error is String) {
+        AppConstants.printLog(apiResponse.error.toString());
+        errorMessage = apiResponse.error.toString();
+      } else {
+        ErrorResponse errorResponse = apiResponse.error;
+        AppConstants.printLog(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message!;
+      }
+
       notifyListeners();
     }
   }

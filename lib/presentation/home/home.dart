@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>PaidCourses()));
+                              builder: (context) =>Dummytest()));
                     },
                     child: Container(
                       child: Padding(

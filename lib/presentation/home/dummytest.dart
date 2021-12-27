@@ -1,5 +1,7 @@
+import 'package:exampur_mobile/data/model/CoursesModel.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
+import 'package:exampur_mobile/provider/courses_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 
@@ -14,53 +16,75 @@ class Dummytest extends StatefulWidget {
 }
 
 class _DummytestState extends State<Dummytest> {
-  @override
-  // initState()   {
-  //   super.initState();
-  //   callProvider();
-  //   // postMdl.(context);
-  // }
-  // Future<void> callProvider() async {
-  //   await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context);
-  //   // await Provider.of<AuthProvider>(context,listen: false).login();
-  // }
 
+  @override
+  initState()   {
+    super.initState();
+    // final postMdl = Provider.of<CoursesProvider>(context, listen: false);
+    // postMdl.getCoursesList(context);
+  // var data= callProvider();
+    // postMdl.(context);
+    callProvider();
+  }
+
+  Future<void> callProvider() async {
+    await Provider.of<CoursesProvider>(context, listen: false).getCoursesList(context);
+    // setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    //final postMdl = Provider.of<HomeBannerProvider>(context, listen: false).homeBannerModel;
+    // final postMdl = Provider.of<CoursesProvider>(context);
     return Scaffold(
         appBar: AppBar(
           title: Text("Test"),
         ),
         body:
-        CustomScrollView(
-          slivers: [
+        // CustomScrollView(
+        //   slivers: [
+        //
+        //     SliverGrid(
+        //       delegate: SliverChildBuilderDelegate(
+        //             (context, index) {
+        //           return Container(
+        //             alignment: Alignment.center,
+        //             color: Colors.teal[100 * (index % 9)],
+        //             child: Text('grid item $index'),
+        //           );
+        //         },
+        //         childCount: 10,
+        //       ),
+        //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        //         crossAxisCount: 2,
+        //         mainAxisSpacing: 15,
+        //         crossAxisSpacing: 15,
+        //         childAspectRatio: 2.0,
+        //       ),
+        //     ),
+        //
+        //
+        //   ],
+        // )
 
-            SliverGrid(
-              delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                  return Container(
-                    alignment: Alignment.center,
-                    color: Colors.teal[100 * (index % 9)],
-                    child: Text('grid item $index'),
-                  );
-                },
-                childCount: 10,
-              ),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 15,
-                childAspectRatio: 2.0,
-              ),
-            ),
+      // ListView.builder(itemCount: postMdl.coursesModel.length,
+      //     itemBuilder: (BuildContext context,int index){
+      //   print(postMdl.coursesModel[index].courses!.first.amount.toString());
+      //   return Container(child: Text(postMdl.coursesModel[index].courses!.first.amount.toString()),);
+      // })
 
-
-          ],
-        )
+        Consumer<CoursesProvider>(
+      builder: (context, courseProvider, child) {
+        return ListView.builder(itemCount: courseProvider.coursesModel.courses!.length,
+            itemBuilder: (BuildContext context,int index){
+              print(courseProvider.coursesModel.courses![index].title.toString());
+              return Container(child: Text(courseProvider.coursesModel.courses![index].title.toString()),);
+            });
+      }),
     );
   }
 }
 
+/*
 class Choice {
   const Choice({this.title, this.icon});
   final String? title;
@@ -97,4 +121,4 @@ class SelectCard extends StatelessWidget {
         )
     );
   }
-}
+}*/

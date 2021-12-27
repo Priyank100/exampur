@@ -5,15 +5,18 @@ import 'package:url_launcher/url_launcher.dart';
 
 class AppConstants {
   static const String BASE_URL = 'https://6b07f566-12f7-4b32-8f2f-8b6046fa0957.mock.pstmn.io/';
-  static const String User_URL = 'user';
-
   static const String BASE_URL2 = 'https://auth.exampur.xyz/';
+  static const String BASE_URL3 = 'https://static.exampur.xyz/';
 
+  static const String User_URL          = 'user';
 
-  static const String Login_URL = BASE_URL2 + 'auth/login';
-  static const String Valid_Token_URL = BASE_URL2 + 'user';
+  static const String homeBanner_URL    = BASE_URL + 'banners';
 
-  static const String homeBanner_URL = BASE_URL + 'banners';
+  static const String Login_URL         = BASE_URL2 + 'auth/login';
+  static const String Valid_Token_URL   = BASE_URL2 + 'user';
+  static const String Update_User_URL   = BASE_URL2 + 'user';
+
+  static const String Courses_URL       = BASE_URL3 + 'courses/free/5/0';
 
   // sharePreference
   static const String TOKEN = 'Token';

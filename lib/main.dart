@@ -7,6 +7,7 @@ import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/ValidTokenProvider.dart';
+import 'package:exampur_mobile/provider/courses_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'di_container.dart' as di;
@@ -25,6 +26,7 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<HomeBannerProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<ValidTokenProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl< CoursesProvider>()),
   ], child: MyApp()));
 }
 
