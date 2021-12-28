@@ -74,6 +74,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           },
           onEditingComplete: () {
             FocusScope.of(context).nextFocus();
+
           },
           cursorColor: Colors.amber,
           // decoration: InputDecoration(

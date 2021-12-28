@@ -79,616 +79,64 @@ class _HomeState extends State<Home> {
 
             // LargeCarousel(image: ["https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"]),
 
-            Consumer<HomeBannerProvider>(
-                builder: (context, bannerProvider, child) {
-              return  bannerProvider.homeBannerModel.length!= 0 ?
-              LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
-                child: FadeInImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage('assets/images/no_image.jpg'),
-                  placeholder: AssetImage("assets/images/no_image.jpg"),
-                  imageErrorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      'assets/images/no_image.jpg',
-                    );
-                  },
-                ),
-              ),);
-            }),
+            // Consumer<HomeBannerProvider>(
+            //     builder: (context, bannerProvider, child) {
+            //   return  bannerProvider.homeBannerModel.length!= 0 ?
+            //   LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
+            //     child: FadeInImage(
+            //       fit: BoxFit.cover,
+            //       image: NetworkImage('assets/images/no_image.jpg'),
+            //       placeholder: AssetImage("assets/images/no_image.jpg"),
+            //       imageErrorBuilder: (context, error, stackTrace) {
+            //         return Image.asset(
+            //           'assets/images/no_image.jpg',
+            //         );
+            //       },
+            //     ),
+            //   ),);
+            // }),
 
             SizedBox(height: Dimensions.FONT_SIZE_DEFAULT),
+
+
+
             Row(
               children: [
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>Dummytest()));
-                    },
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              Images.paidcourse,
-                              height: 45.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 25.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Paid',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    'Courses',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [Colors.purple, Colors.purpleAccent]),
-                        borderRadius: BorderRadius.circular(12),
-                        // color: Colors.purple,
-                      ),
-                    ),
-                  ),
-                )),
-                Expanded(
-                    child: Padding(
-                  padding:
-                      const EdgeInsets.only(right: 8.0, top: 8.0, bottom: 8.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Books()));
-                    },
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            Images.book,
-                            height: 45.0,
-                          ),
-                          SizedBox(
-                            width: 20.0,
-                          ),
-                          Text(
-                            'Books',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [Colors.green, Colors.green.shade300]),
-                        //color: Colors.green[700],
-                      ),
-                    ),
-                  ),
-                )),
+                SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:Dummytest()),
+                SizedBox(width: 10,),
+                SquareButton(image: Images.book, title: 'Books',color: Colors.green, navigateTo:Books()),
               ],
             ),
+            SizedBox(height: 10,),
             Row(
               children: [
-                Expanded(
-                    child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-                  child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              Images.free_course,
-                              height: 45.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 25.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Free',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    'Courses',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [
-                              Colors.deepOrange,
-                              Colors.deepOrange.shade200
-                            ]),
-                        //color: Colors.deepOrange,
-                      ),
-                    ),
-                  ),
-                )),
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TestSeriesview()));
-                    },
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              Images.testseries,
-                              height: 45.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Test',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    'Series',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [
-                              Colors.red.shade700,
-                              Colors.redAccent.shade100
-                            ]),
-                        // color: Colors.red,
-                      ),
-                    ),
-                  ),
-                )),
+                SquareButton(image: Images.free_course, title: 'Free courses',color: Colors.deepOrange, navigateTo:StudyMaterial()),
+                SizedBox(width: 10,),
+                SquareButton(image: Images.testseries, title: 'Test Series',color: Colors.red, navigateTo:TestSeriesview()),
               ],
             ),
+            SizedBox(height: 10,),
             Row(
               children: [
-                Expanded(
-                    child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Exampuron2oneView()));
-                    },
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              Images.one2one,
-                              height: 45.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 25.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Exampur',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    'One2One',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [Colors.green, Colors.green.shade300]),
-                        // color: Colors.green,
-                      ),
-                    ),
-                  ),
-                )),
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => OfflineCourse()));
-                    },
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              Images.offlinebatch,
-                              height: 45.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Offline',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    'Batches',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [Colors.brown, Colors.brown.shade300]),
-                        //color: Colors.brown,
-                      ),
-                    ),
-                  ),
-                )),
+                SquareButton(image: Images.one2one, title: 'Exampur one2one',color: Colors.green, navigateTo:Exampuron2oneView()),
+                SizedBox(width: 10,),
+                SquareButton(image: Images.offlinebatch, title: 'offline Batches',color: Colors.brown, navigateTo:OfflineCourse()),
               ],
             ),
+            SizedBox(height: 10,),
             Row(
               children: [
-                Expanded(
-                    child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                               builder: (context) => CurrentAffairs()));
-                              //builder: (context) => Dummytest()));
-                    },
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              Images.current_affair,
-                              height: 45.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 25.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Current',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    'Affairs',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [Colors.grey, Colors.grey.shade300]),
-                        // color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                )),
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-                  child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              Images.dailyquiz,
-                              height: 45.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 30.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Daily',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    'Quiz',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [Colors.blue, Colors.blue.shade300]),
-                        //color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                )),
+                SquareButton(image: Images.current_affair, title: 'Current Affairs',color: Colors.grey, navigateTo:CurrentAffairs()),
+                SizedBox(width: 10,),
+                SquareButton(image: Images.dailyquiz, title: 'Daily Quiz',color: Colors.blue, navigateTo:StudyMaterial()),
               ],
             ),
+            SizedBox(height: 10,),
             Row(
               children: [
-                Expanded(
-                    child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => JobAlerts()));
-                    },
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              Images.jobalert,
-                              height: 45.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 25.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Job',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    'Alerts',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [Colors.green, Colors.green.shade200]),
-                        // color: Colors.green[900],
-                      ),
-                    ),
-                  ),
-                )),
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => StudyMaterial()));
-                    },
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              Images.studymaterial,
-                              height: 45.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Study',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    'Materials',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [
-                              Colors.orangeAccent,
-                              Colors.orangeAccent.shade100
-                            ]),
-                        //color: Colors.orangeAccent,
-                      ),
-                    ),
-                  ),
-                )),
+                SquareButton(image: Images.jobalert, title: 'Job Alerts',color: Colors.green, navigateTo:JobAlerts()),
+                SizedBox(width: 10,),
+                SquareButton(image: Images.studymaterial, title: 'Studu Materials',color: Colors.orangeAccent, navigateTo:StudyMaterial()),
               ],
             ),
           ],
@@ -696,4 +144,47 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+}
+
+class SquareButton extends StatelessWidget {
+  final String? image;
+  final String? title;
+  final Widget? navigateTo;
+  final Color? color;
+
+  SquareButton({@required this.image, @required this.title, @required this.navigateTo,this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width - 40;
+    return InkWell(
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => navigateTo!)),
+      child: Container(
+          width: width / 2,
+          height: 80,
+          padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+              color: color!
+          ),
+          child: Row(
+            children: [
+              Image.asset(image!, ),
+              SizedBox(width: 15,),
+              Flexible(
+                  child: new Text(title!,style: TextStyle(color: Colors.white),))
+            ],
+          ),
+        ),
+
+
+    );
+  }
+}
+class FrontStyleModel {
+  late String name;
+  String image;
+  final color;
+
+  FrontStyleModel(this.name, this.color, this.image);
 }

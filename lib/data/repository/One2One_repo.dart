@@ -9,16 +9,16 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CoursesRepo {
+class One2OneRepo {
   final DioClient dioClient;
 
 
-  CoursesRepo ({required this.dioClient});
+  One2OneRepo({required this.dioClient});
 
-  Future<ApiResponse> coursesRepo() async {
+  Future<ApiResponse> one2oneRepo() async {
     try {
       int currentPage = 1;
-      const url = '${AppConstants.Courses_URL}';
+      const url = '${AppConstants.e_Books_URL}';
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

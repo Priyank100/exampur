@@ -31,6 +31,8 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
 
+  bool isLoading = false;
+
   Future<void> getSharedPrefData() async {
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
     AppConstants.printLog('priyank>> ${jsonValue.toString()}');
@@ -38,6 +40,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     Mobile = jsonValue[0]['data']['phone'].toString();
     Email = jsonValue[0]['data']['email_id'].toString();
     Name = jsonValue[0]['data']['first_name'].toString();
+    _emailController.text = Email;
     setState(() {
     });
   }
@@ -45,6 +48,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   @override
   void initState()  {
     super.initState();
+    _formKeyLogin =GlobalKey<FormState>();
     getSharedPrefData();
   }
   @override
@@ -77,35 +81,33 @@ SizedBox(height: 10,),
                   Text('UserName',style: TextStyle(color: Colors.black)),
                   SizedBox(height: 10,),
                   CustomTextField(hintText: '${userName}', value: (value) {},readOnly: true,),
+                  SizedBox(height: 90,),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      //margin: EdgeInsets.symmetric(horizontal: Dimensions.MARGIN_SIZE_LARGE, vertical: Dimensions.MARGIN_SIZE_SMALL),
+                      child: !isLoading
+                          ?  InkWell(onTap:(){
 
+                        setState(() {
+                          isLoading = true;
+                        });
+                        _updateUserAccount();
+                      },
+                          child: Container(height: 50, width: 300,color: Colors.amber,child: Center(child: Text('Save Profile',style: TextStyle(color: Colors.white),)),))
+                          :
+                      Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.amber))),
+                    ),
+                  ),
                 ],
               ),
             ),
-
           ),
-
-
-
-        ///save profile button
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child:Container(
-          //margin: EdgeInsets.symmetric(horizontal: Dimensions.MARGIN_SIZE_LARGE, vertical: Dimensions.MARGIN_SIZE_SMALL),
-          child: !Provider.of<AuthProvider>(context).isLoading
-              ?  InkWell(onTap:(){
-                _updateUserAccount();
-          },
-              child: Container(height: 50, width: 300,color: Colors.amber,child: Center(child: Text('Save Profile',style: TextStyle(color: Colors.white),)),))
-              :
-          Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.amber))),
-        ),
-
-      ),
     );
   }
 
 
-
+//
 //   void UserProfile() async {
 //     if (_formKeyLogin.currentState!.validate()) {
 //       _formKeyLogin.currentState!.save();
@@ -159,26 +161,21 @@ SizedBox(height: 10,),
 //     } else {
 //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage), backgroundColor: Colors.red));
 //     }
-//   }
+//    }
   _updateUserAccount() async {
     String _firstName = _nameController.text.trim();
 
     String _email = _emailController.text.trim();
 
 
-    if(Provider.of<AuthProvider>(context, listen: false).uerupdate.firstName== _nameController.text
-        && Provider.of<AuthProvider>(context, listen: false).uerupdate.emailId == _emailController.text
-       ) {
-      _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text('Change something to update'), backgroundColor: Colors.black));
-    }else if (_firstName.isEmpty || _email.isEmpty) {
-      _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text('NAME_FIELD_MUST_BE_REQUIRED',), backgroundColor: Colors.black));
+    if (_firstName.isEmpty || _email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('NAME_FIELD_MUST_BE_REQUIRED',), backgroundColor: Colors.black));
     }else if (_email.isEmpty) {
-      _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text('EMAIL_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('EMAIL_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
     }else {
       CreateUserModel updateUserInfoModel = Provider.of<AuthProvider>(context, listen: false).uerupdate;
       updateUserInfoModel.firstName = _nameController.text ;
       updateUserInfoModel.emailId = _emailController.text ;
-      //updateUserInfoModel.emailId = _emailController.text;
        updateUserInfoModel.language = 'Hindi' ;
       updateUserInfoModel.country = 'Hindi' ;
       updateUserInfoModel.city = 'Hindi' ;
@@ -187,20 +184,17 @@ SizedBox(height: 10,),
 
 
 
-      await Provider.of<AuthProvider>(context, listen: false).updateUserProfile(
-        updateUserInfoModel,
-      );
-        //   .then((response) {
-        // print(response);
-        // if(response) {
-        //   print(response);
-        //   _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text('Updated Successfully'), backgroundColor: Colors.green));
-        //   setState(() {});
-        // }else {
-        //   _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text(response.message), backgroundColor: Colors.red));
-        // }
-     // }
-  //  );
+      await Provider.of<AuthProvider>(context, listen: false).updateUserProfile(updateUserInfoModel)
+          .then((response) {
+        isLoading = false;
+        if(response) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Updated Successfully'), backgroundColor: Colors.green));
+        }else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.message), backgroundColor: Colors.red));
+        }
+        setState(() {});
+     }
+   );
     }
   }
 
