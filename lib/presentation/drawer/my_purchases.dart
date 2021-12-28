@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/shared/video_card_app_tutorial.dart';
+import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,29 +19,18 @@ class _MyPurchasesState extends State<MyPurchases> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            iconTheme: IconThemeData(
-              color: Colors.black,
-            ),
-            title: Text("Logo", style: TextStyle(color: Colors.black)),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            bottom: PreferredSize(
-                preferredSize: Size.fromHeight(20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Text(
-                          "My Purchases",
-                          style: CustomTextStyle.headingBold(context),
-                        ))
-                  ],
-                ))),
+        appBar: CustomAppBar(),
         body: SingleChildScrollView(
             child: Column(
-          children: [Text("My Purcahses")],
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: Dimensions.FONT_SIZE_SMALL,bottom: Dimensions.FONT_SIZE_SMALL),
+              child: Text(
+                'My Purcahses',
+                style: CustomTextStyle.headingBigBold(context),
+              ),
+            ),
+           ],
         )));
   }
 }

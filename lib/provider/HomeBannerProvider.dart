@@ -36,7 +36,7 @@ class HomeBannerProvider extends ChangeNotifier {
       // //AppConstants.printLog(_homeBannerList);
       //
       _homeBannerList=List<HomeBannerModel>.from(json.decode(apiResponse.response!.data).map((x) => HomeBannerModel.fromJson(x)));
-      AppConstants.printLog("Length> ${_homeBannerList.length}");
+      // AppConstants.printLog("Length> ${_homeBannerList.length}");
       //for(var item in _homeBannerList)
 
 

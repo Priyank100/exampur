@@ -20,6 +20,15 @@ class CustomTextStyle {
 
     );
   }
+  static TextStyle headingMediumBold(BuildContext context) {
+    return Theme.of(context).textTheme.headline6!.copyWith(
+      fontSize: 25.0,
+      color: Colors.black,
+      fontFamily:'Poppins',
+      fontWeight: FontWeight.bold,
+
+    );
+  }
   static TextStyle headingBigBold(BuildContext context) {
     return Theme.of(context).textTheme.headline6!.copyWith(
         fontSize: 30.0,

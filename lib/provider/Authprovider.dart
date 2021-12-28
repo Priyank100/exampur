@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/data/model/UserInformationModel.dart';
 import 'package:exampur_mobile/data/model/Userinfo.dart';
+import 'package:exampur_mobile/data/model/createUserModel.dart';
 import 'package:exampur_mobile/data/model/loginmodel.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/response/Base/error_response.dart';
@@ -16,12 +19,17 @@ class AuthProvider extends ChangeNotifier {
   AuthProvider({required this.authRepo});
 
   //List<UserInfo> _userList = [];
-  UserInfo _userInfo=UserInfo();
-
   //List<UserInfo> get userList => _userList;
+
+  UserInfo _userInfo=UserInfo();
   UserInfo get userInfo => _userInfo;
+
+  UserInformationModel _informationModel=UserInformationModel();
+  UserInformationModel get informationModel =>_informationModel;
+
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+
   ///userinfo request
   Future<void> initUserList(BuildContext context) async {
     ApiResponse apiResponse = await authRepo.getUserList();
@@ -44,12 +52,11 @@ class AuthProvider extends ChangeNotifier {
   ///login
   Future login(LoginModel loginBody, Function callback) async {
     _isLoading = true;
-    notifyListeners();
     ApiResponse apiResponse = await authRepo.login(loginBody);
     _isLoading = false;
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
-     // Map map = apiResponse.response!.data;
+      // Map map = apiResponse.response!.data;
      // String token = map["token"];
      // authRepo.saveUserToken(token);
      // await authRepo.updateToken();
@@ -59,7 +66,15 @@ class AuthProvider extends ChangeNotifier {
 
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if(statusCode == '200') {
+        _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
+        SharedPref.saveSharedPref(AppConstants.TOKEN, _informationModel.data!.authToken.toString());
+        AppConstants.printLog('ToKEN2>> ${_informationModel.data!.authToken}');
 
+        List<UserInformationModel> _userData = [];
+        _userData.add(_informationModel);
+        await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
+
+        callback(true, '');
       } else {
         callback(false, apiResponse.response!.data['data'].toString());
       }
@@ -81,13 +96,48 @@ class AuthProvider extends ChangeNotifier {
   }
 
 
-  String getUserPhone() {
-    return authRepo.getUserPhone() ;
+
+
+  ///userRegister
+  Future userResgister(CreateUserModel registerModel, Function callback) async {
+    _isLoading = true;
+    ApiResponse apiResponse = await authRepo.registerUser(registerModel);
+    _isLoading = false;
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      AppConstants.printLog(apiResponse.response);
+
+
+
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if(statusCode == '200') {
+        _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
+
+        SharedPref.saveSharedPref(AppConstants.TOKEN, _informationModel.data!.authToken.toString());
+        AppConstants.printLog('ToKEN2>> ${_informationModel.data!.authToken}');
+
+        List<UserInformationModel> _userData = [];
+        _userData.add(_informationModel);
+        await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
+
+        callback(true, '');
+      } else {
+        callback(false, apiResponse.response!.data['data'].toString());
+      }
+
+      notifyListeners();
+    } else {
+      String errorMessage;
+      if (apiResponse.error is String) {
+        AppConstants.printLog(apiResponse.error.toString());
+        errorMessage = apiResponse.error.toString();
+      } else {
+        ErrorResponse errorResponse = apiResponse.error;
+        AppConstants.printLog(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message!;
+      }
+      callback(false, errorMessage);
+      notifyListeners();
+    }
   }
 
-
-
-  String getUserPassword() {
-    return authRepo.getUserPassword() ;
-  }
 }

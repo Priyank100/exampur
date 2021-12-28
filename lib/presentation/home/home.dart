@@ -1,5 +1,9 @@
+import 'dart:convert';
 import 'dart:io' show Platform;
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/data/model/UserInformationModel.dart';
 import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
@@ -10,7 +14,9 @@ import 'package:exampur_mobile/presentation/home/quiz/test_series.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/large_carousel.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
+import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,15 +40,26 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String userName = '';
+
   @override
   void initState()  {
     super.initState();
     callProvider();
+    getSharedPrefData();
   }
 
   Future<void> callProvider() async {
-    await Provider.of<HomeBannerProvider>(context, listen: false)
-        .getHomeBannner(context);
+    await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context);
+  // await Provider.of<AuthProvider>(context,listen: false).login();
+  }
+
+  Future<void> getSharedPrefData() async {
+    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
+    AppConstants.printLog('priyank>> ${jsonValue.toString()}');
+    userName = jsonValue[0]['data']['first_name'].toString();
+    setState(() {
+    });
   }
 
   @override
@@ -53,13 +70,17 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10),
+        // Consumer<UserInformationModel>(
+        // builder: (context, userInformationProvider, child) {
+        //   return Text(userInformationProvider.data!.firstName.toString());
+        // }),
+            Text('Hello,${userName} !', style:CustomTextStyle.headingMediumBold(context),),
+            SizedBox(height: 15),
+
             // LargeCarousel(image: ["https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"]),
 
             Consumer<HomeBannerProvider>(
                 builder: (context, bannerProvider, child) {
-              print("BannerSize>> " +
-                  bannerProvider.homeBannerModel.length.toString());
               return  bannerProvider.homeBannerModel.length!= 0 ?
               LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
                 child: FadeInImage(
@@ -86,7 +107,7 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const PaidCourses()));
+                              builder: (context) => const Dummytest()));
                     },
                     child: Container(
                       child: Padding(
@@ -438,8 +459,8 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              // builder: (context) => CurrentAffairs()));
-                              builder: (context) => Dummytest()));
+                               builder: (context) => CurrentAffairs()));
+                              //builder: (context) => Dummytest()));
                     },
                     child: Container(
                       child: Padding(

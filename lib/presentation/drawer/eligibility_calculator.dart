@@ -5,6 +5,8 @@ import 'package:exampur_mobile/shared/one_two_one_card.dart';
 import 'package:exampur_mobile/shared/pdf_card_ca.dart';
 import 'package:exampur_mobile/shared/quiz_card_ca.dart';
 import 'package:exampur_mobile/shared/test_series_card.dart';
+import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,31 +23,19 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            iconTheme: IconThemeData(
-              color: Colors.black,
-            ),
-            title: Text("Logo", style: TextStyle(color: Colors.black)),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            bottom: PreferredSize(
-                preferredSize: Size.fromHeight(20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Text(
-                          "Eligibilty Calculator",
-                          style: CustomTextStyle.headingBigBold(context),
-                        ))
-                  ],
-                ))),
+        appBar: CustomAppBar(),
         body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Padding(
+              padding: const EdgeInsets.only(left: Dimensions.FONT_SIZE_SMALL,bottom: Dimensions.FONT_SIZE_SMALL),
+              child: Text(
+                'Eligibility Calculator',
+                style: CustomTextStyle.headingBigBold(context),
+              ),
+            ),
             Container(
               margin: const EdgeInsets.all(15.0),
               padding: const EdgeInsets.all(10.0),

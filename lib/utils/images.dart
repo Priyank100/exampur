@@ -17,4 +17,7 @@ class Images {
   static const String studymaterial = 'assets/images/study_material.png';
   static const String testseries = 'assets/images/test_series.png';
   static const String share = 'assets/images/share.png';
+  static const String exampur_title = 'assets/images/exampur_title.png';
+  static const String exampur_logo = 'assets/images/exampur_logo.png';
+  static const String menu_icon = 'assets/images/menu_icon.png';
 }

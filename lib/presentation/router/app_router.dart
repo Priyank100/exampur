@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/help/help.dart';
@@ -35,6 +36,10 @@ class AppRouter {
       case '/help':
         return MaterialPageRoute(
           builder: (_) => Help(),
+        );
+        case '/landingPage':
+        return MaterialPageRoute(
+          builder: (_) => LandingPage(),
         );
 
       default:

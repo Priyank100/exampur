@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:exampur_mobile/data/datasource/remote/dio/dio_client.dart';
 import 'package:exampur_mobile/data/datasource/remote/exception/api_error_handler.dart';
+import 'package:exampur_mobile/data/model/createUserModel.dart';
 import 'package:exampur_mobile/data/model/loginmodel.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -30,6 +31,17 @@ class AuthRepo {
       Response response = await dioClient.post(
         AppConstants.Login_URL,
         data: loginBody.toJson(),
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+  Future<ApiResponse> registerUser(CreateUserModel registerModel) async {
+    try {
+      Response response = await dioClient.post(
+        AppConstants.Valid_Token_URL,
+        data: registerModel.toJson(),
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {

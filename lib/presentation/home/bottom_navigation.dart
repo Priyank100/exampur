@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
@@ -13,6 +14,7 @@ import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
 import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -143,7 +145,7 @@ class _BottomNavigationState extends State<BottomNavigation>
           elevation: 0,
           leading: Builder(builder: (BuildContext context) {
             return IconButton(
-                icon: FaIcon(FontAwesomeIcons.bars),
+                icon: Image.asset(Images.menu_icon,width: Dimensions.ICON_SIZE_LARGE,color: Colors.black,),
                 onPressed: () => Scaffold.of(context).openDrawer());
           }),
           actions: [
@@ -184,15 +186,23 @@ class _BottomNavigationState extends State<BottomNavigation>
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    // Container(
+                    //  // height: 200,
+                    //   child: DrawerHeader(
+                    //     child:  Image.asset(Images.exampur_logo,
+                    //       width: Dimensions.ICON_SIZE_Logo,
+                    //       height: Dimensions.ICON_SIZE_Logo,
+                    //     ),),
+                    // ),
                     Container(
-                      height: 200,
-                      child: DrawerHeader(
-                          child: Column(children: const [
-                        Text("Exampur images"),
-                      ])),
+                      margin: EdgeInsets.fromLTRB(0,50,0,20),
+                      child: Image.asset(Images.exampur_logo,
+                        width: Dimensions.ICON_SIZE_Logo,
+                        height: Dimensions.ICON_SIZE_Logo,
+                      )
                     ),
                     ListTile(
-                      dense: true,
+                     dense: true,
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -460,7 +470,11 @@ class _BottomNavigationState extends State<BottomNavigation>
                                   text: "Log Out"),
                             ),
                           ]),
-                      onTap: () {},
+                      onTap: () {
+                        SharedPref.clearSharedPref(AppConstants.TOKEN);
+                        Navigator.of(context)
+                            .pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
+                      },
                     ),
                   ],
                 ),
