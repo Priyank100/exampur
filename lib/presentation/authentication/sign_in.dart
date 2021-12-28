@@ -51,13 +51,18 @@ class SignInState extends State<SignIn> {
 
       if (_phone.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('EMAIL_MUST_BE_REQUIRED',),
-          backgroundColor: Colors.red,
+          //elevation: 6.0,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text('Please enter complete Email Id'),
+          backgroundColor: Colors.black,
         ));
       } else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('PASSWORD_MUST_BE_REQUIRED'),
-          backgroundColor: Colors.red,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text('Invalid Login Credentail'),
+          backgroundColor: Colors.black,
         ));
       } else {
 

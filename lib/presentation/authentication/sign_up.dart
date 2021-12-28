@@ -236,42 +236,58 @@ class SignUpState extends State<SignUp> {
           content: Text(
             'Please enter your Name',
           ),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
         ));
       } else if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Email Id'),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
         ));
       } else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter atleast 6 letter Password'),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
         ));
       } else if (_userName.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Username'),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
         ));
       } else if (_phone.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Phone Number'),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
         ));
       } else if (state.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please select State'),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
         ));
       } else if (_city.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter City'),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
         ));
       } else if (!_isCheckTerms) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Agree the Terms and Conditions to proceed.'),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
         ));
       } else {
         // if (Provider.of<AuthProvider>(context, listen: false).isRemember) {

@@ -17,15 +17,15 @@ class AuthRepo {
 
   AuthRepo({required this.dioClient,this.sharedPreferences});
 
-  Future<ApiResponse> getUserList() async {
-    try {
-      final url = '${AppConstants.BASE_URL}${AppConstants.USER}';
-      final response = await dioClient.get(url);
-      return ApiResponse.withSuccess(response);
-    } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
-    }
-  }
+  // Future<ApiResponse> getUserList() async {
+  //   try {
+  //     final url = '${AppConstants.BASE_URL}${AppConstants.USER}';
+  //     final response = await dioClient.get(url);
+  //     return ApiResponse.withSuccess(response);
+  //   } catch (e) {
+  //     return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+  //   }
+  // }
   Future<ApiResponse> login(LoginModel loginBody) async {
     try {
       Response response = await dioClient.post(

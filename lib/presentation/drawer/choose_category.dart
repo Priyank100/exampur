@@ -175,7 +175,7 @@ List<ChooseCateogryModel>selectedcourse= [];
                         // ),
                     decoration: InputDecoration(
                       hintText: 'Search Category',
-                      icon: new Icon(Icons.search),
+                     // icon: Icon(Icons.search,size: 30,),
                       // focusedBorder: OutlineInputBorder(
                       //     borderRadius: BorderRadius.circular(10.0),
                       //     borderSide: const BorderSide(

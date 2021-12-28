@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
         // builder: (context, userInformationProvider, child) {
         //   return Text(userInformationProvider.data!.firstName.toString());
         // }),
-            Text('Hello,${userName} !', style:CustomTextStyle.headingMediumBold(context),),
+            Text('Hello, ${userName} !', style:CustomTextStyle.headingMediumBold(context),),
             SizedBox(height: 15),
 
             // LargeCarousel(image: ["https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"]),
@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Dummytest()));
+                              builder: (context) =>PaidCourses()));
                     },
                     child: Container(
                       child: Padding(

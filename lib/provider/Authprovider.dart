@@ -31,23 +31,23 @@ class AuthProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   ///userinfo request
-  Future<void> initUserList(BuildContext context) async {
-    ApiResponse apiResponse = await authRepo.getUserList();
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response);
-     // Map map = apiResponse.response!.data;
-      _userInfo=UserInfo.fromJson(jsonDecode(apiResponse.response!.data.toString()));
-      AppConstants.printLog("init address fail");
-      AppConstants.printLog(_userInfo.first_name);
-      //_userList.add(UserInfo.fromJson(apiResponse.response!.data));
-    } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
-    }
-    notifyListeners();
-  }
+  // Future<void> initUserList(BuildContext context) async {
+  //   ApiResponse apiResponse = await authRepo.getUserList();
+  //   if (apiResponse.response == null) {
+  //     ApiChecker.checkApi(context, apiResponse);
+  //   } else if (apiResponse.response!.statusCode == 200) {
+  //     AppConstants.printLog(apiResponse.response);
+  //    // Map map = apiResponse.response!.data;
+  //     _userInfo=UserInfo.fromJson(jsonDecode(apiResponse.response!.data.toString()));
+  //     AppConstants.printLog("init address fail");
+  //     AppConstants.printLog(_userInfo.first_name);
+  //     //_userList.add(UserInfo.fromJson(apiResponse.response!.data));
+  //   } else {
+  //     AppConstants.printLog("init address fail");
+  //     ApiChecker.checkApi(context, apiResponse);
+  //   }
+  //   notifyListeners();
+  // }
 
   ///login
   Future login(LoginModel loginBody, Function callback) async {

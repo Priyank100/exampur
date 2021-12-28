@@ -92,7 +92,7 @@ class _BottomNavigationState extends State<BottomNavigation>
     // return NotificationListener<ScrollNotification>(
     // onNotification: _handleScrollNotification,
     // child: Scaffold(
-    Provider.of<AuthProvider>(context, listen: false).initUserList(context);
+    //Provider.of<AuthProvider>(context, listen: false).initUserList(context);
     List<ItemClass> allItems = <ItemClass>[
       ItemClass(
         0,

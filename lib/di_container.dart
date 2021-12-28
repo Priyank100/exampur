@@ -21,7 +21,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   // Core
   //sl.registerLazySingleton(() => NetworkInfo(sl()));
-  sl.registerLazySingleton(() => DioClient(AppConstants.BASE_URL, sl(), loggingInterceptor: sl(), sharedPreferences: sl()));
+  sl.registerLazySingleton(() => DioClient(AppConstants.BASE_URL2, sl(), loggingInterceptor: sl(), sharedPreferences: sl()));
 
   // Repository
   sl.registerLazySingleton(() => AuthRepo(dioClient: sl()));
