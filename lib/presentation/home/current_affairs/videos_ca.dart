@@ -22,7 +22,7 @@ class _VideosCAState extends State<VideosCA> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Fetured Course',  style: CustomTextStyle.headingBold(context),),
+            child: Text('Featured Course',  style: CustomTextStyle.headingBold(context),),
           ),
           VideoCardCA()
         ],

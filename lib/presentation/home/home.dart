@@ -5,6 +5,7 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/UserInformationModel.dart';
 import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
+import 'package:exampur_mobile/dummy2.dart';
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/dummyBanner.dart';
@@ -46,20 +47,20 @@ class _HomeState extends State<Home> {
   void initState()  {
     super.initState();
     callProvider();
-    getSharedPrefData();
+    // getSharedPrefData();
   }
 
   Future<void> callProvider() async {
-    await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context);
-  // await Provider.of<AuthProvider>(context,listen: false).login();
+    // await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context);
+    userName = await Provider.of<AuthProvider>(context, listen: false).informationModel.data!.firstName.toString();
+    setState(() {});
   }
 
   Future<void> getSharedPrefData() async {
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
     AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override

@@ -109,9 +109,11 @@ const List<Choice> choices = const <Choice>[
   const Choice(title: 'Album', icon: Icons.photo_album),
   const Choice(title: 'WiFi', icon: Icons.wifi),
 ];
+
 class SelectCard extends StatelessWidget {
   const SelectCard({ this.choice}) : super();
   final Choice? choice;
+
   @override
   Widget build(BuildContext context) {
     //final TextStyle textStyle = Theme.of(context).textTheme.display1;

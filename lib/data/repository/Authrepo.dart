@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/dio/dio_client.dart';
 import 'package:exampur_mobile/data/datasource/remote/exception/api_error_handler.dart';
 import 'package:exampur_mobile/data/model/Userinfo.dart';
@@ -14,19 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthRepo {
   final DioClient dioClient;
 
-  final SharedPreferences? sharedPreferences;
+  AuthRepo({required this.dioClient});
 
-  AuthRepo({required this.dioClient,this.sharedPreferences});
-
-  // Future<ApiResponse> getUserList() async {
-  //   try {
-  //     final url = '${AppConstants.BASE_URL}${AppConstants.USER}';
-  //     final response = await dioClient.get(url);
-  //     return ApiResponse.withSuccess(response);
-  //   } catch (e) {
-  //     return ApiResponse.withError(ApiErrorHandler.getMessage(e));
-  //   }
-  // }
   Future<ApiResponse> login(LoginModel loginBody) async {
     try {
       Response response = await dioClient.post(
@@ -38,9 +28,6 @@ class AuthRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-
-
-
 
   Future<ApiResponse> registerUser(CreateUserModel registerModel) async {
     try {
@@ -54,7 +41,7 @@ class AuthRepo {
     }
   }
 
-  Future<ApiResponse> updateprofile(CreateUserModel updateprofileBody) async {
+  Future<ApiResponse> updateProfile(CreateUserModel updateprofileBody) async {
     try {
       Response response = await dioClient.put(
         AppConstants.Update_User_URL,
@@ -66,11 +53,17 @@ class AuthRepo {
     }
   }
 
-  String getUserPhone() {
-    return sharedPreferences!.getString(AppConstants.USER_EMAIL) ?? "";
-  }
-
-  String getUserPassword() {
-    return sharedPreferences!.getString(AppConstants.USER_PASSWORD) ?? "";
+  Future<ApiResponse> checkVaildToken() async {
+    String token = await SharedPref.getSharedPref(AppConstants.TOKEN);
+    try {
+      Map<String, dynamic> header = {
+        "appAuthToken": token,
+      };
+      final url = '${AppConstants.Valid_Token_URL}';
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
   }
 }

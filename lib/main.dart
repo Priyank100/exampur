@@ -8,7 +8,6 @@ import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/BooksProvider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
-import 'package:exampur_mobile/provider/ValidTokenProvider.dart';
 import 'package:exampur_mobile/provider/courses_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 
@@ -27,7 +26,7 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<HomeBannerProvider>()),
-    ChangeNotifierProvider(create: (context) => di.sl<ValidTokenProvider>()),
+    // ChangeNotifierProvider(create: (context) => di.sl<ValidTokenProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl< CoursesProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<BooksProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<One2OneProvider>()),
