@@ -79,22 +79,22 @@ class _HomeState extends State<Home> {
 
             // LargeCarousel(image: ["https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"]),
 
-            // Consumer<HomeBannerProvider>(
-            //     builder: (context, bannerProvider, child) {
-            //   return  bannerProvider.homeBannerModel.length!= 0 ?
-            //   LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
-            //     child: FadeInImage(
-            //       fit: BoxFit.cover,
-            //       image: NetworkImage('assets/images/no_image.jpg'),
-            //       placeholder: AssetImage("assets/images/no_image.jpg"),
-            //       imageErrorBuilder: (context, error, stackTrace) {
-            //         return Image.asset(
-            //           'assets/images/no_image.jpg',
-            //         );
-            //       },
-            //     ),
-            //   ),);
-            // }),
+            Consumer<HomeBannerProvider>(
+                builder: (context, bannerProvider, child) {
+              return  bannerProvider.homeBannerModel.length!= 0 ?
+              LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
+                child: FadeInImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage('assets/images/no_image.jpg'),
+                  placeholder: AssetImage("assets/images/no_image.jpg"),
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/no_image.jpg',
+                    );
+                  },
+                ),
+              ),);
+            }),
 
             SizedBox(height: Dimensions.FONT_SIZE_DEFAULT),
 
