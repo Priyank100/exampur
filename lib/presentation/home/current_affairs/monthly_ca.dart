@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/shared/daily_monthly_card.dart';
 import 'package:exampur_mobile/shared/pdf_card_ca.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ class _MonthlyCAState extends State<MonthlyCA> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              PDFCardCA(),
+              // PDFCardCA(),
+              DailyMonthlyCard()
             ],
           ),
         ));

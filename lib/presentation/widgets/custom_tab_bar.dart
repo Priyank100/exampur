@@ -1,4 +1,6 @@
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatefulWidget {
@@ -36,9 +38,9 @@ class _CustomTabBarState extends State<CustomTabBar> {
           ),
           elevation: 0,
           centerTitle: true,
-          title: Text(
-            'Logo',
-            style: TextStyle(color: Colors.black),
+          title: Image.asset(Images.exampur_title,
+            width: Dimensions.ICON_SIZE_Title,
+            height: Dimensions.ICON_SIZE_Title,
           ),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(65.0),

@@ -1,5 +1,4 @@
 import 'package:exampur_mobile/shared/pdf_card_ca.dart';
-import 'package:exampur_mobile/shared/video_card_ca.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

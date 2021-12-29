@@ -4,7 +4,6 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/createUserModel.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
-import 'package:exampur_mobile/shared/video_card_ca.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';

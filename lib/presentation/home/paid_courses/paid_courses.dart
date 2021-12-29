@@ -4,7 +4,6 @@ import 'package:exampur_mobile/presentation/home/current_affairs/monthly_ca.dart
 import 'package:exampur_mobile/presentation/home/current_affairs/quiz_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
-import 'package:exampur_mobile/shared/video_card_ca.dart';
 import 'package:flutter/material.dart';
 
 class PaidCourses extends StatefulWidget {

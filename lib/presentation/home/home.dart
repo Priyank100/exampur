@@ -3,9 +3,6 @@ import 'dart:io' show Platform;
 
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
-import 'package:exampur_mobile/data/model/UserInformationModel.dart';
-import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
-import 'package:exampur_mobile/dummy2.dart';
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/dummyBanner.dart';
