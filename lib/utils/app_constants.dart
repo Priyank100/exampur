@@ -29,6 +29,7 @@ class AppConstants {
   static const String USER_DATA = 'user_data';
 
   static bool isPrint = true;
+  static bool isAuth = false;
   static String SELECT_CATEGORY_LENGTH = 'category_length';
 
 
