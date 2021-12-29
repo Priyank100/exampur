@@ -1,10 +1,13 @@
+import 'package:exampur_mobile/data/model/DummyModel.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/bytes_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/daily_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/monthly_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/quiz_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
+import 'package:exampur_mobile/presentation/home/paid_courses/teaching_list.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/shared/video_card_ca.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 
 class PaidCourses extends StatefulWidget {
@@ -14,20 +17,59 @@ class PaidCourses extends StatefulWidget {
   _PaidCoursesState createState() => _PaidCoursesState();
 }
 
-class _PaidCoursesState extends State<PaidCourses> {
+class _PaidCoursesState extends State<PaidCourses> with TickerProviderStateMixin {
   Set<String> selected = new Set<String>();
 
+  List<DummyModel> teachingList = [];
+  List<DummyModel> defenceList = [];
+
+  late TabController _controller;
+  int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    // Create TabController for getting the index of current tab
+    _controller = TabController(length: 14, vsync: this);
+
+    _controller.addListener(() {
+      setState(() {
+        _selectedIndex = _controller.index;
+      });
+      print("Selected Index: " + _controller.index.toString());
+      switch( _controller.index) {
+        case 0:
+          break;
+        case 1:
+          break;
+        case 2:
+          teachingList.add(DummyModel(imagePath: Images.exampur_logo,title: 't1',target: 'tg1'));
+          teachingList.add(DummyModel(imagePath: Images.exampur_logo,title: 't2',target: 'tg2'));
+          teachingList.add(DummyModel(imagePath: Images.exampur_logo,title: 't3',target: 'tg3'));
+          teachingList.add(DummyModel(imagePath: Images.exampur_logo,title: 't4',target: 'tg4'));
+          break;
+        case 3:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomTabBar(
+      body: TabBarDemo(
+        controller: _controller,
           length:14 ,
           names: ["Home", "AllCourse", "Teaching", "Defence", "Civil Services","Banking","UPSSSC","Rajasthan","Railways","All Competetive Exam","ENGINEERING","OFFLINE","State Police","IT"],
           routes: [
             VideosCA(),
             DailyCA(),
-            MonthlyCA(),
-            QuizCA(),
+            TeachingList(teachingList),
+            TeachingList(defenceList),
             BytesCA(),
             VideosCA(),
             VideosCA(),
@@ -39,7 +81,7 @@ class _PaidCoursesState extends State<PaidCourses> {
             VideosCA(),
             VideosCA(),
           ],
-          title: "Paid Courses"),
+          title: ""),
       // body: Center(
       //   child: ListView(
       //     children: [

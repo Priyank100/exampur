@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/shared/couses_container.dart';
 import 'package:exampur_mobile/shared/test_series_card.dart';
 import 'package:exampur_mobile/shared/video_card_app_tutorial.dart';
 import 'package:exampur_mobile/shared/video_card_ca.dart';
@@ -24,7 +25,7 @@ class _VideosCAState extends State<VideosCA> {
             padding: const EdgeInsets.all(8.0),
             child: Text('Featured Course',  style: CustomTextStyle.headingBold(context),),
           ),
-          VideoCardCA()
+          ContainerwithBuyandView(image: Images.one2one,title: 'hello ng',)
         ],
       ),
     ));

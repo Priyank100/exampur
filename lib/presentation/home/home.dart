@@ -103,7 +103,7 @@ class _HomeState extends State<Home> {
 
             Row(
               children: [
-                SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:Dummytest()),
+                SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:PaidCourses()),
                 SizedBox(width: 10,),
                 SquareButton(image: Images.book, title: 'Books',color: Colors.green, navigateTo:Books()),
               ],
