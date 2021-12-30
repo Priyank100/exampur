@@ -1,7 +1,6 @@
-import 'package:exampur_mobile/data/model/DummyModel.dart';
+// import 'package:exampur_mobile/data/model/DummyModel.dart';
+import 'package:exampur_mobile/data/model/dummy_model.dart';
 import 'package:exampur_mobile/shared/teaching_container.dart';
-import 'package:exampur_mobile/shared/video_card_ca.dart';
-import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:flutter/material.dart';
 
 class TeachingList extends StatefulWidget {

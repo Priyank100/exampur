@@ -1,5 +1,4 @@
-import 'package:exampur_mobile/data/model/DummyModel.dart';
-import 'package:exampur_mobile/presentation/widgets/custom_outlined_button.dart';
+import 'package:exampur_mobile/data/model/dummy_model.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
