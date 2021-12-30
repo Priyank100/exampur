@@ -10,6 +10,8 @@ import 'package:exampur_mobile/shared/video_card_ca.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 
+import 'home_list.dart';
+
 class PaidCourses extends StatefulWidget {
   const PaidCourses({Key? key}) : super(key: key);
 
@@ -22,7 +24,7 @@ class _PaidCoursesState extends State<PaidCourses> with TickerProviderStateMixin
 
   List<DummyModel> teachingList = [];
   List<DummyModel> defenceList = [];
-
+  List<DummyModel> allcourses = [];
   late TabController _controller;
   int _selectedIndex = 0;
 
@@ -41,8 +43,16 @@ class _PaidCoursesState extends State<PaidCourses> with TickerProviderStateMixin
       print("Selected Index: " + _controller.index.toString());
       switch( _controller.index) {
         case 0:
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't1',target: 'tg1'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't2',target: 'tg2'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't3',target: 'tg3'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't4',target: 'tg4'));
           break;
         case 1:
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't1',target: 'tg1'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't2',target: 'tg2'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't3',target: 'tg3'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't4',target: 'tg4'));
           break;
         case 2:
           teachingList.add(DummyModel(imagePath: Images.exampur_logo,title: 't1',target: 'tg1'));
@@ -55,6 +65,57 @@ class _PaidCoursesState extends State<PaidCourses> with TickerProviderStateMixin
           defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
           defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
           break;
+        case 4:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 5:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 6:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 7:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 8:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 9:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 10:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 12:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 13:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 14:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+
       }
     });
   }
@@ -66,20 +127,21 @@ class _PaidCoursesState extends State<PaidCourses> with TickerProviderStateMixin
           length:14 ,
           names: ["Home", "AllCourse", "Teaching", "Defence", "Civil Services","Banking","UPSSSC","Rajasthan","Railways","All Competetive Exam","ENGINEERING","OFFLINE","State Police","IT"],
           routes: [
-            VideosCA(),
-            DailyCA(),
+            HomeList(allcourses),
+            HomeList(allcourses),
             TeachingList(teachingList),
             TeachingList(defenceList),
-            BytesCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+
           ],
           title: ""),
       // body: Center(

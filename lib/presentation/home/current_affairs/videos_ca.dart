@@ -25,7 +25,7 @@ class _VideosCAState extends State<VideosCA> {
             padding: const EdgeInsets.all(8.0),
             child: Text('Featured Course',  style: CustomTextStyle.headingBold(context),),
           ),
-          ContainerwithBuyandView(image: Images.one2one,title: 'hello ng',)
+         // ContainerwithBuyandView()
         ],
       ),
     ));

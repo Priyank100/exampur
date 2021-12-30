@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/data/model/DummyModel.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_outlined_button.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -6,11 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class ContainerwithBuyandView extends StatelessWidget {
-  final String image;
-  final String title;
-  final Widget? navigateTo;
 
-  const ContainerwithBuyandView({required this.image, required this.title, this.navigateTo});
+  final List<DummyModel> list;
+  final int index;
+  const  ContainerwithBuyandView (this.list, this.index) : super();
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +41,14 @@ child: Row(
   children: [
  Padding(
    padding: const EdgeInsets.only(top: 10),
-   child: Image.asset(image,height: 50,width: 50,),
+   child: Image.asset(list[index].imagePath.toString(),height: 50,width: 50,),
  ),
   SizedBox(width: 10,),
   Flexible(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,maxLines: 3,softWrap:false, overflow: TextOverflow.ellipsis,),
+        Text(list[index].title.toString(),maxLines: 3,softWrap:false, overflow: TextOverflow.ellipsis,),
         SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
         Row(
           children: [
