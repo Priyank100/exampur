@@ -1,4 +1,5 @@
-import 'package:exampur_mobile/data/model/DummyModel.dart';
+// import 'package:exampur_mobile/data/model/DummyModel.dart';
+import 'package:exampur_mobile/data/model/dummy_model.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';

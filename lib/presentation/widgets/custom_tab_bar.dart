@@ -38,9 +38,9 @@ class _CustomTabBarState extends State<CustomTabBar> {
           ),
           elevation: 0,
           centerTitle: true,
-          title: Text(
-            'Logo',
-            style: TextStyle(color: Colors.black),
+          title: Image.asset(Images.exampur_title,
+            width: Dimensions.ICON_SIZE_Title,
+            height: Dimensions.ICON_SIZE_Title,
           ),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(65.0),

@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:exampur_mobile/presentation/home/current_affairs/daily_ca.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs/daily_monthly_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,8 +56,8 @@ class DownloadsState extends State<Downloads> {
           ),
           body: TabBarView(
             children: <Widget>[
-              VideosCA(),
-              DailyCA(),
+              // VideosCA(),
+              // DailyCA(),
             ],
           ),
         ),
