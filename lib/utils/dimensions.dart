@@ -38,4 +38,7 @@ class Dimensions {
 
   static const double DailyMonthlyImageWidth = 80.0;
   static const double DailyMonthlyImageHeight = 80.0;
+
+  static const double DailyMonthlyViewBtnWidth = 70.0;
+  static const double DailyMonthlyViewBtnHeight = 25.0;
 }

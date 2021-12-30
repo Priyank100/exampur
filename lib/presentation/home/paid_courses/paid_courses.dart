@@ -1,6 +1,5 @@
 import 'package:exampur_mobile/presentation/home/current_affairs/bytes_ca.dart';
-import 'package:exampur_mobile/presentation/home/current_affairs/daily_ca.dart';
-import 'package:exampur_mobile/presentation/home/current_affairs/monthly_ca.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs/daily_monthly_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/quiz_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
@@ -23,20 +22,20 @@ class _PaidCoursesState extends State<PaidCourses> {
           length:14 ,
           names: ["Home", "AllCourse", "Teaching", "Defence", "Civil Services","Banking","UPSSSC","Rajasthan","Railways","All Competetive Exam","ENGINEERING","OFFLINE","State Police","IT"],
           routes: [
-            VideosCA(),
-            DailyCA(),
-            MonthlyCA(),
-            QuizCA(),
-            BytesCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
+            // VideosCA(),
+            // DailyCA(),
+            // MonthlyCA(),
+            // QuizCA(),
+            // BytesCA(),
+            // VideosCA(),
+            // VideosCA(),
+            // VideosCA(),
+            // VideosCA(),
+            // VideosCA(),
+            // VideosCA(),
+            // VideosCA(),
+            // VideosCA(),
+            // VideosCA(),
           ],
           title: "Paid Courses"),
       // body: Center(

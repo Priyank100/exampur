@@ -1,40 +1,32 @@
+import 'package:exampur_mobile/data/model/video_ca_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class VideosCA extends StatefulWidget {
+  final List<VideoCaModel> list;
+  const VideosCA(this.list) : super();
+
   @override
   _VideosCAState createState() => _VideosCAState();
 }
 
 class _VideosCAState extends State<VideosCA> {
-  List<String> videoList = [
-    'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-    'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-    'https://www.youtube.com/watch?v=ZoOwI3P5POo'
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Current Affairs',  style: CustomTextStyle.headingBold(context),),
-          ),
-          ListView.builder(
-              itemCount: videoList.length,
+          child: ListView.builder(
+              itemCount: widget.list.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return myCard(index);
-              }
-          ),
-        ],
-      ),
-    ));
+              }),
+        )
+    );
   }
 
   Widget myCard(index) {
@@ -44,22 +36,18 @@ class _VideosCAState extends State<VideosCA> {
       child: Card(
         child: Column(
           children: [
-            Align(
-              alignment: FractionalOffset.topCenter,
-              child: InkWell(
-                  onTap: () {},
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width/2.2,
-                    child: Image.asset(Images.exampur_logo),
-                  )
-              ),
+            InkWell(
+                onTap: () {},
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width/2.2,
+                  child: Image.asset(widget.list[index].imagePath.toString(), fit: BoxFit.fill),
+                )
             ),
             Expanded(
               child: Container(
                   padding: EdgeInsets.all(10),
-                  child: Text(
-                      "Abcd efghij klmn opqrs tuvwx yz.")
+                  child: Text(widget.list[index].title.toString())
               ),
             ),
             Align(
