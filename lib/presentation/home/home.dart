@@ -3,6 +3,9 @@ import 'dart:io' show Platform;
 
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/data/model/UserInformationModel.dart';
+import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
+
 import 'package:exampur_mobile/presentation/home/books/books.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/dummyBanner.dart';
@@ -77,22 +80,22 @@ class _HomeState extends State<Home> {
 
             // LargeCarousel(image: ["https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"]),
 
-            // Consumer<HomeBannerProvider>(
-            //     builder: (context, bannerProvider, child) {
-            //   return  bannerProvider.homeBannerModel.length!= 0 ?
-            //   LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
-            //     child: FadeInImage(
-            //       fit: BoxFit.cover,
-            //       image: NetworkImage('assets/images/no_image.jpg'),
-            //       placeholder: AssetImage("assets/images/no_image.jpg"),
-            //       imageErrorBuilder: (context, error, stackTrace) {
-            //         return Image.asset(
-            //           'assets/images/no_image.jpg',
-            //         );
-            //       },
-            //     ),
-            //   ),);
-            // }),
+            Consumer<HomeBannerProvider>(
+                builder: (context, bannerProvider, child) {
+              return  bannerProvider.homeBannerModel.length!= 0 ?
+              LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
+                child: FadeInImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage('assets/images/no_image.jpg'),
+                  placeholder: AssetImage("assets/images/no_image.jpg"),
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/no_image.jpg',
+                    );
+                  },
+                ),
+              ),);
+            }),
 
             SizedBox(height: Dimensions.FONT_SIZE_DEFAULT),
 
@@ -100,7 +103,7 @@ class _HomeState extends State<Home> {
 
             Row(
               children: [
-                SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:Dummytest()),
+                SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:PaidCourses()),
                 SizedBox(width: 10,),
                 SquareButton(image: Images.book, title: 'Books',color: Colors.green, navigateTo:Books()),
               ],
