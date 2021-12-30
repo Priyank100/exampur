@@ -14,7 +14,7 @@ class _VacancyState extends State<Vacancy> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              PDFCardCA()
+            //  PDFCardCA()
             ],
           ),
         ));

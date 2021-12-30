@@ -14,7 +14,7 @@ class _ResultsState extends State<Results> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              PDFCardCA()
+              //PDFCardCA()
             ],
           ),
         ));

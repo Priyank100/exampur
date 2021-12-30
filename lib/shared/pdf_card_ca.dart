@@ -1,10 +1,13 @@
+
+
+import 'package:exampur_mobile/data/model/DummyModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PDFCardCA extends StatefulWidget {
-  PDFCardCA({
-    Key? key,
-  }) : super(key: key);
+  final List<DummyModel> list;
+  final int index;
+  const  PDFCardCA(this.list, this.index) : super();
 
   @override
   _PDFCardCAState createState() => _PDFCardCAState();
@@ -13,16 +16,15 @@ class PDFCardCA extends StatefulWidget {
 class _PDFCardCAState extends State<PDFCardCA> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          boxShadow: const [
-            BoxShadow(color: Color.fromRGBO(64, 64, 64, 0.12), blurRadius: 16)
-          ],
-          color: Theme.of(context).backgroundColor,
-        ),
+    return  Container(
+        // decoration: BoxDecoration(
+        //   borderRadius: BorderRadius.all(Radius.circular(10)),
+        //   boxShadow: const [
+        //     BoxShadow(color: Color.fromRGBO(64, 64, 64, 0.12), blurRadius: 16)
+        //   ],
+          //color: Theme.of(context).backgroundColor,
+      color:widget. index % 2 == 0 ? Theme.of(context).backgroundColor : Colors.transparent,
+       // ),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
@@ -34,14 +36,14 @@ class _PDFCardCAState extends State<PDFCardCA> {
                 children: [
                   Container(
                       padding: EdgeInsets.only(left: 10),
-                      width: MediaQuery.of(context).size.width * 0.25,
+                      width: MediaQuery.of(context).size.width * 0.18,
                       //flex: 1,
                       child: FadeInImage(
-                        image: NetworkImage("widget.instance.image"),
+                        image: NetworkImage(widget.list[widget.index].imagePath.toString()),
                         placeholder: AssetImage("assets/images/no_image.jpg"),
                         imageErrorBuilder: (context, error, stackTrace) {
                           return Image.asset(
-                            'assets/images/no_image.jpg',
+                              widget.list[widget.index].imagePath.toString()
                           );
                         },
                       )),
@@ -64,22 +66,23 @@ class _PDFCardCAState extends State<PDFCardCA> {
                           //     fontSize: 15,
                           //   ),
                           // ),
-                          SizedBox(
-                            width: 200.0,
-                            child: MarqueeWidget(
+                          widget. index % 2 == 0 ?     MarqueeWidget(
                               direction: Axis.horizontal,
-                              child: Text("This text is to long to be shown in just one line", maxLines: 2,
+                              child: Text(widget.list[widget.index].title.toString(),softWrap: true, maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    fontSize: 15,),
+                                    fontSize: 17,),
                             ),
-                          ),),
+                          ):Text(widget.list[widget.index].title.toString(),softWrap: true, maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17,)),
                           SizedBox(
                             height: 10,
                           ),
-                          Row(
-                            children: [
+
                               Container(
                                   width: 80,
                                   height: 20,
@@ -89,20 +92,9 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                   child: const Center(
                                       child: Text("View PDF",
                                           style: TextStyle(fontSize: 13)))),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              const FaIcon(
-                                FontAwesomeIcons.shareAlt,
-                                size: 15,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text("Share", style: TextStyle(fontSize: 13))
+
                             ],
-                          ),
-                        ],
+
                       ),
                     ),
                   ),
@@ -111,7 +103,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
             ),
           ),
         ),
-      ),
+
     );
   }
 }
@@ -128,8 +120,8 @@ class MarqueeWidget extends StatefulWidget {
     required this.child,
     this.direction = Axis.horizontal,
     this.animationDuration = const Duration(milliseconds: 6000),
-    this.backDuration = const Duration(milliseconds: 800),
-    this.pauseDuration = const Duration(milliseconds: 800),
+    this.backDuration = const Duration(milliseconds: 600),
+    this.pauseDuration = const Duration(milliseconds: 400),
   }) : super(key: key);
 
   @override

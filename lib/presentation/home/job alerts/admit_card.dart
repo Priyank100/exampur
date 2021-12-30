@@ -14,7 +14,7 @@ class _AdmitCardState extends State<AdmitCard> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              PDFCardCA()
+              //PDFCardCA()
             ],
           ),
         ));
