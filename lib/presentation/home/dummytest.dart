@@ -1,5 +1,9 @@
+import 'package:exampur_mobile/data/model/CoursesModel.dart';
+import 'package:exampur_mobile/data/model/response/E-booksModel.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/provider/BooksProvider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
+import 'package:exampur_mobile/provider/courses_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 
@@ -14,59 +18,87 @@ class Dummytest extends StatefulWidget {
 }
 
 class _DummytestState extends State<Dummytest> {
+  List<Book> bookList = [];
+
   @override
-  // initState()   {
-  //   super.initState();
-  //   callProvider();
-  //   // postMdl.(context);
-  // }
-  // Future<void> callProvider() async {
-  //   await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context);
-  //   // await Provider.of<AuthProvider>(context,listen: false).login();
-  // }
+  initState()   {
+    callProvider();
+    super.initState();
 
+  }
+
+  Future<void> callProvider() async {
+   bookList = (await Provider.of<BooksProvider>(context, listen: false).getE_booksList(context))!;
+   // bookList = (await Provider.of<BooksProvider>(context, listen: false).ebooksModel.books)!;
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    //final postMdl = Provider.of<HomeBannerProvider>(context, listen: false).homeBannerModel;
+    // final postMdl = Provider.of<CoursesProvider>(context);
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Test"),
-        ),
-        body:
-        CustomScrollView(
-          slivers: [
+      appBar: AppBar(
+        title: Text("Test"),
+      ),
+      body:
+      // CustomScrollView(
+      //   slivers: [
+      //
+      //     SliverGrid(
+      //       delegate: SliverChildBuilderDelegate(
+      //             (context, index) {
+      //           return Container(
+      //             alignment: Alignment.center,
+      //             color: Colors.teal[100 * (index % 9)],
+      //             child: Text('grid item $index'),
+      //           );
+      //         },
+      //         childCount: 10,
+      //       ),
+      //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      //         crossAxisCount: 2,
+      //         mainAxisSpacing: 15,
+      //         crossAxisSpacing: 15,
+      //         childAspectRatio: 2.0,
+      //       ),
+      //     ),
+      //
+      //
+      //   ],
+      // )
 
-            SliverGrid(
-              delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                  return Container(
-                    alignment: Alignment.center,
-                    color: Colors.teal[100 * (index % 9)],
-                    child: Text('grid item $index'),
-                  );
-                },
-                childCount: 10,
-              ),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 15,
-                childAspectRatio: 2.0,
-              ),
-            ),
+      // ListView.builder(itemCount: postMdl.coursesModel.length,
+      //     itemBuilder: (BuildContext context,int index){
+      //   print(postMdl.coursesModel[index].courses!.first.amount.toString());
+      //   return Container(child: Text(postMdl.coursesModel[index].courses!.first.amount.toString()),);
+      // })
 
+      // Consumer<BooksProvider>(
+      //     builder: (context, bookProvider, child) {
+      //       return  bookProvider != null ?
+      //        ListView.builder(itemCount: bookProvider.ebooksModel.books!.length,
+      //           itemBuilder: (BuildContext context,int index){
+      //             print(bookProvider.ebooksModel.books![index].title);
+      //             return Container(child: Text(bookProvider.ebooksModel.books![index].title.toString()),);
+      //           }) : CircularProgressIndicator();
+      //     }),
 
-          ],
-        )
+      bookList.length != 0 ?
+      ListView.builder(itemCount: bookList.length,
+          itemBuilder: (BuildContext context,int index){
+            print(bookList[index].title);
+            return Container(child: Text(bookList[index].title.toString()),);
+          }) : CircularProgressIndicator()
     );
   }
 }
 
+/*
 class Choice {
   const Choice({this.title, this.icon});
   final String? title;
   final IconData? icon;
 }
-
 const List<Choice> choices = const <Choice>[
   const Choice(title: 'Home', icon: Icons.home),
   const Choice(title: 'Contact', icon: Icons.contacts),
@@ -97,4 +129,4 @@ class SelectCard extends StatelessWidget {
         )
     );
   }
-}
+}*/

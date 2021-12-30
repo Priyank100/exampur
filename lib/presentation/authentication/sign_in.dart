@@ -5,6 +5,7 @@ import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/custompassword_textfield.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
@@ -131,11 +132,14 @@ textInputType: TextInputType.number,
                         controller: _phoneController,
                         value: (value) {},),
                       SizedBox(height: 20,),
-                      CustomTextField(hintText: "Password",
-                          focusNode: _passNode,
-                          controller: _passwordController,
-                          obscureText: true,
-                          value: (value) {}),
+                      CustomPasswordTextField(
+                        hintTxt: 'Password',
+                        controller: _passwordController,
+                         focusNode:  _passNode,
+                        //  nextNode: _confirmPasswordFocus,
+                        textInputAction: TextInputAction.next,
+                      ),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
-import 'package:exampur_mobile/provider/ValidTokenProvider.dart';
+import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
@@ -45,9 +45,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future validateToken(token) async {
     if(token != null && token.toString() != 'null') {
-      Timer(Duration(seconds: 1),
-              ()=>
-                  Provider.of<ValidTokenProvider>(context, listen: false).tokenValidation(context)
+      // Timer(Duration(seconds: 1), ()=> Provider.of<ValidTokenProvider>(context, listen: false).tokenValidation(context)
+      Timer(Duration(seconds: 1), ()=> Provider.of<AuthProvider>(context, listen: false).tokenValidation(context)
       );
 
     } else {

@@ -1,11 +1,10 @@
-import 'package:exampur_mobile/presentation/home/current_affairs/bytes_ca.dart';
-import 'package:exampur_mobile/presentation/home/current_affairs/daily_ca.dart';
-import 'package:exampur_mobile/presentation/home/current_affairs/monthly_ca.dart';
-import 'package:exampur_mobile/presentation/home/current_affairs/quiz_ca.dart';
-import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
+import 'package:exampur_mobile/data/model/dummy_model.dart';
+import 'package:exampur_mobile/presentation/home/paid_courses/teaching_list.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
-import 'package:exampur_mobile/shared/video_card_ca.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
+
+import 'home_list.dart';
 
 class PaidCourses extends StatefulWidget {
   const PaidCourses({Key? key}) : super(key: key);
@@ -14,32 +13,131 @@ class PaidCourses extends StatefulWidget {
   _PaidCoursesState createState() => _PaidCoursesState();
 }
 
-class _PaidCoursesState extends State<PaidCourses> {
+class _PaidCoursesState extends State<PaidCourses> with TickerProviderStateMixin {
   Set<String> selected = new Set<String>();
 
+  List<DummyModel> teachingList = [];
+  List<DummyModel> defenceList = [];
+  List<DummyModel> allcourses = [];
+  late TabController _controller;
+  int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    // Create TabController for getting the index of current tab
+    _controller = TabController(length: 14, vsync: this);
+
+    _controller.addListener(() {
+      setState(() {
+        _selectedIndex = _controller.index;
+      });
+      print("Selected Index: " + _controller.index.toString());
+      switch( _controller.index) {
+        case 0:
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't1',target: 'tg1'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't2',target: 'tg2'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't3',target: 'tg3'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't4',target: 'tg4'));
+          break;
+        case 1:
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't1',target: 'tg1'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't2',target: 'tg2'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't3',target: 'tg3'));
+          allcourses.add(DummyModel(imagePath: Images.exampur_logo,title: 't4',target: 'tg4'));
+          break;
+        case 2:
+          teachingList.add(DummyModel(imagePath: Images.exampur_logo,title: 't1',target: 'tg1'));
+          teachingList.add(DummyModel(imagePath: Images.exampur_logo,title: 't2',target: 'tg2'));
+          teachingList.add(DummyModel(imagePath: Images.exampur_logo,title: 't3',target: 'tg3'));
+          teachingList.add(DummyModel(imagePath: Images.exampur_logo,title: 't4',target: 'tg4'));
+          break;
+        case 3:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 4:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 5:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 6:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 7:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 8:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 9:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 10:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 12:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 13:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+        case 14:
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd1',target: 'dg1'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd2',target: 'dg2'));
+          defenceList.add(DummyModel(imagePath: Images.exampur_logo,title: 'd3',target: 'dg3'));
+          break;
+
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomTabBar(
+      body: TabBarDemo(
+        controller: _controller,
           length:14 ,
           names: ["Home", "AllCourse", "Teaching", "Defence", "Civil Services","Banking","UPSSSC","Rajasthan","Railways","All Competetive Exam","ENGINEERING","OFFLINE","State Police","IT"],
           routes: [
-            VideosCA(),
-            DailyCA(),
-            MonthlyCA(),
-            QuizCA(),
-            BytesCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
-            VideosCA(),
+            HomeList(allcourses),
+            HomeList(allcourses),
+            TeachingList(teachingList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+            TeachingList(defenceList),
+
           ],
-          title: "Paid Courses"),
+          title: ""),
       // body: Center(
       //   child: ListView(
       //     children: [

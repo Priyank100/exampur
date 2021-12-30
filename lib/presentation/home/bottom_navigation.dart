@@ -1,8 +1,8 @@
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
-import 'package:exampur_mobile/presentation/drawer/app_tutorial.dart';
 import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
 import 'package:exampur_mobile/presentation/drawer/eligibility_calculator.dart';
 import 'package:exampur_mobile/presentation/drawer/my_purchases.dart';

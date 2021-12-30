@@ -22,6 +22,8 @@ class HomeBannerProvider extends ChangeNotifier {
 
   List<HomeBannerModel> get homeBannerModel => _homeBannerList;
  // HomeBannerModel get homeBannerModel => _homeBannerList;
+ //  HomeBannerModel _homeBannerList=HomeBannerModel();
+ //  HomeBannerModel get homeBannerModel => _homeBannerList;
 
   ///homeBanner request
   Future<void> getHomeBannner(BuildContext context) async {

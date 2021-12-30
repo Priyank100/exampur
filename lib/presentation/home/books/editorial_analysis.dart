@@ -14,7 +14,9 @@ class _EditorialAnalysisState extends State<EditorialAnalysis> {
     return Scaffold(
         body: SingleChildScrollView(
       child: Column(
-        children: [PDFCardCA()],
+        children: [
+         // PDFCardCA()
+        ],
       ),
     ));
   }

@@ -7,6 +7,8 @@ import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/custompassword_textfield.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -118,10 +120,15 @@ class SignUpState extends State<SignUp> {
                     SizedBox(
                       height: 15,
                     ),
-                    CustomTextField(
-                        hintText: "Password",
+
+                    CustomPasswordTextField(
+                        hintTxt: 'Password',
                         controller: _passwordController,
-                        value: (value) {}),
+                       // focusNode:  _passwordController,
+                      //  nextNode: _confirmPasswordFocus,
+                        textInputAction: TextInputAction.next,
+                      ),
+
                     SizedBox(
                       height: 15,
                     ),
