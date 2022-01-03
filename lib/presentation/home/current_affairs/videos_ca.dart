@@ -16,32 +16,52 @@ class _VideosCAState extends State<VideosCA> {
 
   @override
   Widget build(BuildContext context) {
+    // return Scaffold(
+    //     body: SingleChildScrollView(
+    //       child: ListView.builder(
+    //           itemCount: widget.list.length,
+    //           shrinkWrap: true,
+    //           physics: NeverScrollableScrollPhysics(),
+    //           itemBuilder: (context, index) {
+    //             return myCard(index);
+    //           }),
+    //     )
+    // );
     return Scaffold(
-        body: SingleChildScrollView(
-          child: ListView.builder(
-              itemCount: widget.list.length,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return myCard(index);
-              }),
-        )
+      body: widget.list.length == 0
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+          itemCount: widget.list.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return myCard(index);
+          }),
     );
   }
 
   Widget myCard(index) {
     return Container(
       height: MediaQuery.of(context).size.width/1.1,
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.all(5),
       child: Card(
+        elevation: 5,
         child: Column(
           children: [
             InkWell(
                 onTap: () {},
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.width/2.2,
-                  child: Image.asset(widget.list[index].imagePath.toString(), fit: BoxFit.fill),
+                  height: MediaQuery.of(context).size.width/2.1,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(5),
+                      topRight: Radius.circular(5),
+                    ),
+                    image: DecorationImage(
+                      image: AssetImage(widget.list[index].imagePath.toString()),
+                      fit: BoxFit.fill
+                    ),
+                  ),
                 )
             ),
             Expanded(
@@ -55,10 +75,16 @@ class _VideosCAState extends State<VideosCA> {
               child: InkWell(
                 onTap: () {},
                 child: Container(
-                  height: 50,
-                  color: Colors.amber,
+                  height: 40,
                   alignment: Alignment.center,
-                  child: Text('Watch Now', style: TextStyle(color: Colors.white),),
+                  decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(5),
+                      bottomLeft: Radius.circular(5),
+                    ),
+                  ),
+                  child: Text('Watch Now', style: TextStyle(color: Colors.white)),
                 ),
               ),
             ),

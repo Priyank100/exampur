@@ -34,6 +34,11 @@ class AppConstants {
 
 
   static String Mobile_number = '9873111552';
+  static String playStoreAppUrl = 'https://play.google.com/store/apps/details?id=com.edudrive.exampur';
+  static String androidId = 'com.edudrive.exampur';
+  static String iosId = '';
+
+  static String shareAppContent = 'Hey check out EXAMPUR App at: ' + playStoreAppUrl;
 
   static void printLog(message) {
     if(isPrint)

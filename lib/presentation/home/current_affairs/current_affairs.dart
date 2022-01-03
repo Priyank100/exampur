@@ -18,6 +18,7 @@ class CurrentAffairs extends StatefulWidget {
 class CurrentAffairsState extends State<CurrentAffairs> {
   List<VideoCaModel> videoList = [];
   List<DailyMonthlyCaModel> dailyCaList = [];
+  List<DailyMonthlyCaModel> monthlyCaList = [];
 
   @override
   void initState() {
@@ -104,6 +105,35 @@ class CurrentAffairsState extends State<CurrentAffairs> {
         viewCount: '100,000+',
         shareText: 'Current affairs daily'
     ));
+
+    monthlyCaList.add(DailyMonthlyCaModel(
+        imagePath: Images.exampur_logo,
+        title: '15 Days Free Foundation Batch Class',
+        viewId: '123',
+        viewCount: '100,000+',
+        shareText: 'Current affairs daily'
+    ));
+    monthlyCaList.add(DailyMonthlyCaModel(
+        imagePath: Images.exampur_logo,
+        title: '15 Days Free Foundation Batch Class',
+        viewId: '123',
+        viewCount: '100,000+',
+        shareText: 'Current affairs daily'
+    ));
+    monthlyCaList.add(DailyMonthlyCaModel(
+        imagePath: Images.exampur_logo,
+        title: '15 Days Free Foundation Batch Class',
+        viewId: '123',
+        viewCount: '100,000+',
+        shareText: 'Current affairs daily'
+    ));
+    monthlyCaList.add(DailyMonthlyCaModel(
+        imagePath: Images.exampur_logo,
+        title: '15 Days Free Foundation Batch Class',
+        viewId: '123',
+        viewCount: '100,000+',
+        shareText: 'Current affairs daily'
+    ));
   }
 
   Widget build(BuildContext context) {
@@ -114,7 +144,7 @@ class CurrentAffairsState extends State<CurrentAffairs> {
             routes: [
               VideosCA(videoList),
               DailyMonthlyCA(dailyCaList),
-              DailyMonthlyCA(dailyCaList),
+              DailyMonthlyCA(monthlyCaList),
               QuizCA(),
               BytesCA(),
             ],

@@ -24,6 +24,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:provider/provider.dart';
 
 class ItemClass {
@@ -427,7 +428,9 @@ class _BottomNavigationState extends State<BottomNavigation>
                                   text: "Rate Us"),
                             ),
                           ]),
-                      onTap: () {},
+                      onTap: () {
+                        LaunchReview.launch(androidAppId: AppConstants.androidId, iOSAppId: AppConstants.iosId);
+                      },
                     ),
                     ListTile(
                       dense: true,
