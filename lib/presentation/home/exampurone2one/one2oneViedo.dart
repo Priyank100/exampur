@@ -4,16 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class OnlineBatchesVideo extends StatefulWidget {
+class One2OneVideo extends StatefulWidget {
   final String videoPath;
   final String title;
-  const OnlineBatchesVideo(this.videoPath, this.title) : super();
+  const One2OneVideo(this.videoPath, this.title) : super();
 
   @override
-  _OnlineBatchesVideoState createState() => _OnlineBatchesVideoState();
+  _One2OneVideoState createState() => _One2OneVideoState();
 }
 
-class _OnlineBatchesVideoState extends State<OnlineBatchesVideo> {
+class _One2OneVideoState extends State<One2OneVideo> {
   String videoID = '';
   late YoutubePlayerController _controller;
 
@@ -83,9 +83,9 @@ class _OnlineBatchesVideoState extends State<OnlineBatchesVideo> {
                 width: 120,
                 child: Center(
                     child: Text(
-                      'Buy',
-                      style: TextStyle(color: Colors.white),
-                    )),
+                  'Buy',
+                  style: TextStyle(color: Colors.white),
+                )),
               ),
             )
           ],
@@ -141,8 +141,8 @@ class _OnlineBatchesVideoState extends State<OnlineBatchesVideo> {
                 Container(height: 40,width: 120,
                   //padding: EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.all(Radius.circular(7))),
+                  color: Colors.amber,
+                    borderRadius: BorderRadius.all(Radius.circular(7))),
                   child: Center(
                     child: Text(
                       'Apply coupon',

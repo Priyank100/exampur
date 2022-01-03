@@ -46,8 +46,16 @@ class _SplashScreenState extends State<SplashScreen> {
   Future validateToken(token) async {
     if(token != null && token.toString() != 'null') {
       // Timer(Duration(seconds: 1), ()=> Provider.of<ValidTokenProvider>(context, listen: false).tokenValidation(context)
-      Timer(Duration(seconds: 1), ()=> Provider.of<AuthProvider>(context, listen: false).tokenValidation(context)
+     // Timer(Duration(seconds: 1), ()=> Provider.of<AuthProvider>(context, listen: false).tokenValidation(context)
+      Timer(Duration(seconds: 3),
+              ()=>Navigator.pushReplacement(context,
+              MaterialPageRoute(builder:
+                  (context) =>
+                  BottomNavigation()
+              )
+          )
       );
+
 
     } else {
       Timer(Duration(seconds: 3),

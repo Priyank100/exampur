@@ -1,9 +1,12 @@
 import 'dart:io';
-import 'package:exampur_mobile/presentation/home/job%20alerts/admit_card.dart';
-import 'package:exampur_mobile/presentation/home/job%20alerts/results.dart';
-import 'package:exampur_mobile/presentation/home/job%20alerts/vacancy.dart';
+import 'package:exampur_mobile/data/model/job_alert_model.dart';
+import 'package:exampur_mobile/presentation/home/job_alerts/admit_card.dart';
+import 'package:exampur_mobile/presentation/home/job_alerts/results.dart';
+import 'package:exampur_mobile/presentation/home/job_alerts/vacancy.dart';
 import 'package:exampur_mobile/presentation/home/quiz/single_card.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,76 +15,55 @@ class JobAlerts extends StatefulWidget {
   JobAlertsState createState() => JobAlertsState();
 }
 
-class JobAlertsState extends State<JobAlerts> {
+class JobAlertsState extends State<JobAlerts> with TickerProviderStateMixin {
+  Set<String> selected = new Set<String>();
+  List<JobAlertModel > vaccancy = [];
+
+  late TabController _controller;
+  int _selectedIndex = 0;
   @override
   void initState() {
     super.initState();
+    _controller = TabController(length: 3, vsync: this);
+
+    _controller.addListener(() {
+      setState(() {
+        _selectedIndex = _controller.index;
+      });
+      print("Selected Index: " + _controller.index.toString());
+      switch( _controller.index) {
+        case 0:
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't1',target: 'tg1'));
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't2',target: 'tg2'));
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't3',target: 'tg3'));
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't4',target: 'tg4'));
+          break;
+        case 1:
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't1',target: 'tg1'));
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't2',target: 'tg2'));
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't3',target: 'tg3'));
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't4',target: 'tg4'));
+          break;
+        case 3:
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't1',target: 'tg1'));
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't2',target: 'tg2'));
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't3',target: 'tg3'));
+          vaccancy.add(JobAlertModel(imagePath: Images.exampur_logo,title: 't4',target: 'tg4'));
+          break;
+      }
+    });
   }
-
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 0,
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          //title: Text(AppLocalizations.of(context)!.courses),
-          backgroundColor: Colors.transparent,
-          iconTheme: IconThemeData(
-            color: Colors.black,
-          ),
-          elevation: 0,
-          centerTitle: true,
-          title: Text(
-            'Logo',
-            style: TextStyle(color: Colors.black),
-          ),
+    return Scaffold(
 
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(65.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
-                    "Job Alerts",
-                    style: CustomTextStyle.headingBold(context),
-                  ),
-                ),
-                Align(
-                  alignment:Alignment.centerLeft,
-                  child: TabBar(
-                    isScrollable: true,
-                    unselectedLabelColor: Colors.grey,
-                    indicatorColor: Theme
-                        .of(context)
-                        .primaryColor,
-                    labelColor: Theme
-                        .of(context)
-                        .primaryColor,
-                    tabs: <Widget>[
-                      Tab(
-                        text: "Vacancy",
-                        //'My Courses',
-                      ),
-                      Tab(
-                        text: "Results",
-                      ),
-                      Tab(
-                        text: "Admit Card",
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+        body: TabBarDemo(
+            controller: _controller,
+            length:3,
+            names:["Vaccancy","Results","Admit Card"],
+            routes: [Vacancy(vaccancy),Vacancy(vaccancy),Vacancy(vaccancy)], title: 'Job Alerts',
+         // children: <Widget>[Vacancy(), Results(), AdmitCard()],
         ),
-        body: TabBarView(
-          children: <Widget>[Vacancy(), Results(), AdmitCard()],
-        ),
-      ),
+
 
     );
   }

@@ -56,6 +56,8 @@ class DownloadsState extends State<Downloads> {
           ),
           body: TabBarView(
             children: <Widget>[
+              Text('iuytgf'),
+              Text('iuytgf'),
               // VideosCA(),
               // DailyCA(),
             ],

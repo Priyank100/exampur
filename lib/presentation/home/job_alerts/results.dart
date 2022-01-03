@@ -2,19 +2,19 @@ import 'package:exampur_mobile/shared/pdf_card_ca.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AdmitCard extends StatefulWidget {
+class Results extends StatefulWidget {
   @override
-  _AdmitCardState createState() => _AdmitCardState();
+  _ResultsState createState() => _ResultsState();
 }
 
-class _AdmitCardState extends State<AdmitCard> {
+class _ResultsState extends State<Results> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
           child: Column(
             children: [
-              PDFCardCA()
+              //PDFCardCA()
             ],
           ),
         ));
