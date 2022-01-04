@@ -113,18 +113,14 @@ class HelpState extends State<Help> {
                 keyboardType: TextInputType.phone,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 2.0, bottom: 0, left: 40, right: 25),
-                  child: DropDownSelector(items: ["select issue", "App Crashing", "Exam Guidance", "Study Help", "Purchase help", "Other"], setValue: (val) {}),
-                ),
-              ),
-            ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+
+                    child: DropDownSelector(items: ["select issue", "App Crashing", "Exam Guidance", "Study Help", "Purchase help", "Other"], setValue: (val) {})),
+
+
+
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
               child: TextField(

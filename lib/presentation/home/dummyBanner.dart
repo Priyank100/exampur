@@ -43,7 +43,7 @@ class _LargeBannerState extends State<LargeBanner> {
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5.0),
+                    margin: EdgeInsets.symmetric(horizontal: 10.0),
                     decoration: BoxDecoration(color: Colors.transparent),
                     child: GestureDetector(
                         child: ClipRRect(

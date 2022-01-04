@@ -9,21 +9,21 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class BooksRepo {
+class ChooseCategoryRepo {
   final DioClient dioClient;
 
 
-  BooksRepo({required this.dioClient});
+  ChooseCategoryRepo({required this.dioClient});
 
-  Future<ApiResponse> eBooksRepo(int page, String search) async {
+  Future<ApiResponse> chooseCategoryRepo() async {
     try {
-      int currentPage = 1;
-      final url = 'https://static.exampur.xyz/books/ebook/search?query=$search&per_page=10&page=$page';
+
+      final url =  '${AppConstants.Choose_category_URL}';
       AppConstants.printLog(url);
-      final response = await dioClient.get("https://static.exampur.xyz/books/ebook/search?query=$search&per_page=10&page=$page");
+      final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-  }
+}

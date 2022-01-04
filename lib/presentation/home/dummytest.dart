@@ -18,80 +18,90 @@ class Dummytest extends StatefulWidget {
 }
 
 class _DummytestState extends State<Dummytest> {
+  final ScrollController _controller = ScrollController();
   List<Book> bookList = [];
 
   @override
-  initState()   {
+  initState() {
     callProvider();
     super.initState();
-
+    _controller.addListener(_scrollListener);
   }
 
   Future<void> callProvider() async {
-   bookList = (await Provider.of<BooksProvider>(context, listen: false).getE_booksList(context))!;
-   // bookList = (await Provider.of<BooksProvider>(context, listen: false).ebooksModel.books)!;
+    bookList =
+    (await Provider.of<BooksProvider>(context, listen: false).getE_booksList(
+        context))!;
+    // bookList = (await Provider.of<BooksProvider>(context, listen: false).ebooksModel.books)!;
     setState(() {});
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // final postMdl = Provider.of<CoursesProvider>(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Test"),
-      ),
-      body:
-      // CustomScrollView(
-      //   slivers: [
-      //
-      //     SliverGrid(
-      //       delegate: SliverChildBuilderDelegate(
-      //             (context, index) {
-      //           return Container(
-      //             alignment: Alignment.center,
-      //             color: Colors.teal[100 * (index % 9)],
-      //             child: Text('grid item $index'),
-      //           );
-      //         },
-      //         childCount: 10,
-      //       ),
-      //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      //         crossAxisCount: 2,
-      //         mainAxisSpacing: 15,
-      //         crossAxisSpacing: 15,
-      //         childAspectRatio: 2.0,
-      //       ),
-      //     ),
-      //
-      //
-      //   ],
-      // )
-
-      // ListView.builder(itemCount: postMdl.coursesModel.length,
-      //     itemBuilder: (BuildContext context,int index){
-      //   print(postMdl.coursesModel[index].courses!.first.amount.toString());
-      //   return Container(child: Text(postMdl.coursesModel[index].courses!.first.amount.toString()),);
-      // })
-
-      // Consumer<BooksProvider>(
-      //     builder: (context, bookProvider, child) {
-      //       return  bookProvider != null ?
-      //        ListView.builder(itemCount: bookProvider.ebooksModel.books!.length,
-      //           itemBuilder: (BuildContext context,int index){
-      //             print(bookProvider.ebooksModel.books![index].title);
-      //             return Container(child: Text(bookProvider.ebooksModel.books![index].title.toString()),);
-      //           }) : CircularProgressIndicator();
-      //     }),
-
-      bookList.length != 0 ?
-      ListView.builder(itemCount: bookList.length,
-          itemBuilder: (BuildContext context,int index){
-            print(bookList[index].title);
-            return Container(child: Text(bookList[index].title.toString()),);
-          }) : CircularProgressIndicator()
-    );
+  void _scrollListener() {
+    if (_controller.position.pixels == _controller.position.maxScrollExtent) {
+      callProvider();
+    }
   }
-}
+    @override
+    Widget build(BuildContext context) {
+      // final postMdl = Provider.of<CoursesProvider>(context);
+      return Scaffold(
+          appBar: AppBar(
+            title: Text("Test"),
+          ),
+          body:
+          // CustomScrollView(
+          //   slivers: [
+          //
+          //     SliverGrid(
+          //       delegate: SliverChildBuilderDelegate(
+          //             (context, index) {
+          //           return Container(
+          //             alignment: Alignment.center,
+          //             color: Colors.teal[100 * (index % 9)],
+          //             child: Text('grid item $index'),
+          //           );
+          //         },
+          //         childCount: 10,
+          //       ),
+          //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          //         crossAxisCount: 2,
+          //         mainAxisSpacing: 15,
+          //         crossAxisSpacing: 15,
+          //         childAspectRatio: 2.0,
+          //       ),
+          //     ),
+          //
+          //
+          //   ],
+          // )
+
+          // ListView.builder(itemCount: postMdl.coursesModel.length,
+          //     itemBuilder: (BuildContext context,int index){
+          //   print(postMdl.coursesModel[index].courses!.first.amount.toString());
+          //   return Container(child: Text(postMdl.coursesModel[index].courses!.first.amount.toString()),);
+          // })
+
+          // Consumer<BooksProvider>(
+          //     builder: (context, bookProvider, child) {
+          //       return  bookProvider != null ?
+          //        ListView.builder(itemCount: bookProvider.ebooksModel.books!.length,
+          //           itemBuilder: (BuildContext context,int index){
+          //             print(bookProvider.ebooksModel.books![index].title);
+          //             return Container(child: Text(bookProvider.ebooksModel.books![index].title.toString()),);
+          //           }) : CircularProgressIndicator();
+          //     }),
+
+          bookList.length != 0 ?
+          ListView.builder(controller: _controller,
+              itemCount: bookList.length,
+              itemBuilder: (BuildContext context, int index) {
+                print(bookList[index].title);
+                return Container(
+                  child: Text(bookList[index].title.toString()),);
+              }) : CircularProgressIndicator()
+      );
+    }
+  }
 
 /*
 class Choice {

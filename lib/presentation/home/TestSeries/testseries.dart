@@ -1,22 +1,50 @@
 import 'dart:io';
 
+import 'package:exampur_mobile/data/model/Test_series.dart';
 import 'package:exampur_mobile/presentation/home/TestSeries/testseriesview.dart';
 import 'package:exampur_mobile/presentation/home/quiz/single_card.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'aatempttestseries.dart';
 
 class TestSeriesview extends StatefulWidget {
   @override
   TestSeriesviewState createState() => TestSeriesviewState();
 }
 
-class TestSeriesviewState extends State<TestSeriesview> {
+class TestSeriesviewState extends State<TestSeriesview> with TickerProviderStateMixin{
+  late TabController _controller;
+  int _selectedIndex = 0;
+  List<TestSeriesModel> testseriesList = [];
+
   @override
   void initState() {
     super.initState();
+    _controller = TabController(length: 4, vsync: this);
+
+    _controller.addListener(() {
+      setState(() {
+        _selectedIndex = _controller.index;
+      });
+      print("Selected Index: " + _controller.index.toString());
+      switch( _controller.index) {
+        case 0:
+          setState(() {
+
+          });
+          break;
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+  }  });
   }
 
   List<String> categories = [
@@ -28,49 +56,18 @@ class TestSeriesviewState extends State<TestSeriesview> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: categories.length,
-        child: Scaffold(
-          appBar: AppBar(
-              iconTheme: IconThemeData(
-                color: Colors.black,
-              ),
-              title: Text(
-                "Logo",
-                style: CustomTextStyle.headingBold(context),
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(65.0),
-                  child: Align(alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left:8),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Test series",
-                              style: CustomTextStyle.headingBold(context),
-                            ),
-                            TabBar(
-                                isScrollable: true,
-                                unselectedLabelColor: Colors.grey,
-                                indicatorColor: Colors.black,
-                                tabs: List<Widget>.generate(categories.length,
-                                        (int index) {
-                                          AppConstants.printLog(categories[index]);
-                                      return Tab(text: categories[index]);
-                                    })),
-                          ]),
-                    ),
-                  ))),
-          body: TabBarView(
-              physics: NeverScrollableScrollPhysics(),
-              children: List<Widget>.generate(categories.length, (int index) {
-                return TestSeriesCardView();
-              })),
+    return Scaffold(
+        body: TabBarDemo(
+          controller: _controller,
+          length: 4,
+          names: [
+            "Live Test Series",
+            "My Test Series",
+            "All Test Series",
+            "Preivous year Papers"
+          ], title: '', routes: [TestSeriesCardView(),AttemptSeries(),AttemptSeries(),AttemptSeries(
 
-        ));
+        )],));
+
   }
 }

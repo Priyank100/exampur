@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/createUserModel.dart';
+import 'package:exampur_mobile/presentation/authentication/terms_condition.dart';
 import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
@@ -172,7 +173,8 @@ class SignUpState extends State<SignUp> {
                           ),
                         ),
                         InkWell(
-                            onTap: () {},
+                            onTap: () {
+    Navigator.push(context, MaterialPageRoute(builder: (_) =>TermsAndConditions()));},
                             child: Text(
                               'Terms and Conditions',
                               style: TextStyle(
