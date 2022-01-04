@@ -28,6 +28,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 
 import 'TestSeries/testseries.dart';
+import 'dummycategory.dart';
 import 'dummytest.dart';
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/oofline_course.dart';
@@ -80,22 +81,22 @@ class _HomeState extends State<Home> {
 
             // LargeCarousel(image: ["https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"]),
 
-            // Consumer<HomeBannerProvider>(
-            //     builder: (context, bannerProvider, child) {
-            //   return  bannerProvider.homeBannerModel.length!= 0 ?
-            //   LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
-            //     child: FadeInImage(
-            //       fit: BoxFit.cover,
-            //       image: NetworkImage('assets/images/no_image.jpg'),
-            //       placeholder: AssetImage("assets/images/no_image.jpg"),
-            //       imageErrorBuilder: (context, error, stackTrace) {
-            //         return Image.asset(
-            //           'assets/images/no_image.jpg',
-            //         );
-            //       },
-            //     ),
-            //   ),);
-            // }),
+            Consumer<HomeBannerProvider>(
+                builder: (context, bannerProvider, child) {
+              return  bannerProvider.homeBannerModel.length!= 0 ?
+              LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
+                child: FadeInImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage('assets/images/no_image.jpg'),
+                  placeholder: AssetImage("assets/images/no_image.jpg"),
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/no_image.jpg',
+                    );
+                  },
+                ),
+              ),);
+            }),
 
             SizedBox(height: Dimensions.FONT_SIZE_DEFAULT),
 
@@ -103,7 +104,7 @@ class _HomeState extends State<Home> {
 
             Row(
               children: [
-                SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:PaidCourses()),
+                SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:Dummycategorytest()),
                 SizedBox(width: 10,),
                 SquareButton(image: Images.book, title: 'Books',color: Colors.green, navigateTo:Books()),
               ],
@@ -137,7 +138,7 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(image: Images.jobalert, title: 'Job Alerts',color: Colors.green, navigateTo:JobAlerts()),
                 SizedBox(width: 10,),
-                SquareButton(image: Images.studymaterial, title: 'Studu Materials',color: Colors.orangeAccent, navigateTo:StudyMaterial()),
+                SquareButton(image: Images.studymaterial, title: 'Study Materials',color: Colors.orangeAccent, navigateTo:StudyMaterial()),
               ],
             ),
           ],

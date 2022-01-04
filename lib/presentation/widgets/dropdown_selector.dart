@@ -24,21 +24,27 @@ class _DropDownSelectorState extends State<DropDownSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton(
-      value: dropdownvalue,
-      onChanged: (String? value) {
-        widget.setValue(value!);
-        setState(() {
-          dropdownvalue = value.toString();
-        });
-      },
-      underline:Container(),
-      items: widget.items
-          .map((String items) => DropdownMenuItem(
-                value: items,
-                child: Text(items),
-              ))
-          .toList(),
+    return Container(
+      color: Colors.grey.shade300,
+      margin: EdgeInsets.only(left: 10,right: 10),
+      width: MediaQuery.of(context).size.width * 1,
+      //padding: EdgeInsets.only(left: 10,right: 20),
+      child: DropdownButton(
+        value: dropdownvalue,
+        onChanged: (String? value) {
+          widget.setValue(value!);
+          setState(() {
+            dropdownvalue = value.toString();
+          });
+        },
+        underline:Container(),
+        items: widget.items
+            .map((String items) => DropdownMenuItem(
+                  value: items,
+                  child: Text(items),
+                ))
+            .toList(),
+      ),
     );
   }
 }

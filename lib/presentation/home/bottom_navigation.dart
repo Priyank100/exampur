@@ -99,8 +99,7 @@ class _BottomNavigationState extends State<BottomNavigation>
         0,
         //'Home',
         "Home",
-
-        FaIcon(FontAwesomeIcons.home),
+         _currIndex==0? Image.asset(Images.home,height: 30,width: 25,color: Colors.amber):Image.asset(Images.home,height: 30,width: 25,)
       ),
       ItemClass(
         1,
@@ -120,12 +119,12 @@ class _BottomNavigationState extends State<BottomNavigation>
       ItemClass(
         3,
         "Downloads",
-        FaIcon(FontAwesomeIcons.download),
+          _currIndex==3?   Image.asset(Images.download,height: 30,width: 25,color: Colors.amber,):Image.asset(Images.download,height: 30,width: 25,)
       ),
       ItemClass(
         4,
         "Help",
-        FaIcon(FontAwesomeIcons.question),
+          _currIndex==4?  Image.asset(Images.help,height: 30,width: 25,color: Colors.amber): Image.asset(Images.help,height: 30,width: 25,)
       ),
     ];
 
@@ -160,9 +159,9 @@ class _BottomNavigationState extends State<BottomNavigation>
                   color: Colors.black,
                   size: 30.0,
                 )),
-            const SizedBox(
-              width: 20.0,
-            ),
+            // const SizedBox(
+            //   width: 20.0,
+            // ),
             Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -521,17 +520,24 @@ class _BottomNavigationState extends State<BottomNavigation>
           type: BottomNavigationBarType.fixed,
           currentIndex: _currIndex,
           showUnselectedLabels: true,
-          fixedColor: Theme.of(context).primaryColor,
-          unselectedItemColor: Colors.grey,
+        //  fixedColor: Theme.of(context).primaryColor,
+        //  unselectedItemColor: Colors.black,
           onTap: (index) {
             setState(() {
               _currIndex = index;
             });
           },
+          iconSize: 20,
+selectedItemColor: Colors.amber,
+
+          unselectedFontSize: 12,
+          selectedFontSize: 12,
+          //unselectedLabelStyle: TextStyle(color: Colors.amber),
           items: allItems.map((item) {
             return BottomNavigationBarItem(
               icon: item.icon,
               label: item.label,
+
             );
           }).toList(),
         ),

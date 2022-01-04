@@ -8,7 +8,7 @@ class AppConstants {
   static const String BASE_URL2 = 'https://auth.exampur.xyz/';
   static const String BASE_URL3 = 'https://static.exampur.xyz/';
 static const String BASE_URL4 = 'https://auth.exampur.work/';
-
+  static const String BASE_URL5 =  'https://static.exampur.work/';
   static const String User_URL          = 'user';
 
   static const String homeBanner_URL    = BASE_URL3 + 'banners';
@@ -20,6 +20,12 @@ static const String BASE_URL4 = 'https://auth.exampur.work/';
   static const String Courses_URL       = BASE_URL3 + 'courses/free/5/0';
   static const String e_Books_URL       = BASE_URL3 + 'books/ebook/10/0';
   static const String One2One_URL       = BASE_URL3 + 'courses/onetoone/10/0';
+  static const String Choose_category_URL =BASE_URL5 + 'app_category';
+
+
+  static const String Terms_and_Conditions ='https://exampur.com/';
+
+
 
   // sharePreference
   static const String TOKEN = 'Token';

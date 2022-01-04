@@ -21,4 +21,6 @@ class Images {
   static const String exampur_logo = 'assets/images/exampur_logo.png';
   static const String menu_icon = 'assets/images/menu_icon.png';
   static const String img_dummy = 'assets/images/img_dummy.PNG';
+  static const String help = 'assets/images/help.png';
+  static const String home = 'assets/images/home.png';
 }

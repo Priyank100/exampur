@@ -27,13 +27,33 @@ class BooksProvider extends ChangeNotifier {
   EBooksModel _ebooksModel = EBooksModel();
   EBooksModel get ebooksModel => _ebooksModel;
 
+
+  int _page = 1;
+  int get page => _page;
+
+  set page(int value) {
+    _page = value;
+    notifyListeners();
+  }
+
+
+
+  set ebooks(List<EBooksModel> value) {
+    _ebooksModel = value as EBooksModel;
+    notifyListeners();
+  }
+
+
   Future<List<Book>?> getE_booksList(BuildContext context) async {
-    ApiResponse apiResponse = await booksRepo.eBooksRepo();
+    ApiResponse apiResponse = await booksRepo.eBooksRepo(_page, 'nature');
     if (apiResponse.response == null) {
+      _page = _page + 1;
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
       _ebooksModel = EBooksModel.fromJson(json.decode(apiResponse.response.toString()));
+
+
       return _ebooksModel.books;
 
 
@@ -46,4 +66,9 @@ class BooksProvider extends ChangeNotifier {
   }
 
 
+
+// void addPhotosToList(List<EBooksModel> eBookData) {
+//   _ebooksModel.addAll(eBookData);
+//   notifyListeners();
+// }
 }
