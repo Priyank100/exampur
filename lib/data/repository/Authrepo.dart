@@ -66,4 +66,16 @@ class AuthRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+  Future<ApiResponse> changePassword(param) async {
+    try {
+      Response response = await dioClient.post(
+        AppConstants.Change_Password_URL,
+        data: param,
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 }

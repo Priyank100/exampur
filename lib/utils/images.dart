@@ -19,6 +19,7 @@ class Images {
   static const String share = 'assets/images/share.png';
   static const String exampur_title = 'assets/images/exampur_title.png';
   static const String exampur_logo = 'assets/images/exampur_logo.png';
+  static const String splash_img = 'assets/images/img_splash.jpg';
   static const String menu_icon = 'assets/images/menu_icon.png';
   static const String img_dummy = 'assets/images/img_dummy.PNG';
 }

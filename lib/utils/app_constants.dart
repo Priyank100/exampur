@@ -4,18 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppConstants {
-  static const String BASE_URL = 'https://6b07f566-12f7-4b32-8f2f-8b6046fa0957.mock.pstmn.io/';
-  static const String BASE_URL2 = 'https://auth.exampur.xyz/';
+  static const String BASE_URL =  'https://6b07f566-12f7-4b32-8f2f-8b6046fa0957.mock.pstmn.io/';
+  // static const String BASE_URL2 = 'https://auth.exampur.xyz/';
+  static const String BASE_URL2 = 'https://auth.exampur.work/';
   static const String BASE_URL3 = 'https://static.exampur.xyz/';
-static const String BASE_URL4 = 'https://auth.exampur.work/';
 
-  static const String User_URL          = 'user';
+  static const String User_URL            = 'user';
+  static const String Login_URL           = BASE_URL2 + 'auth/login';
+  static const String Valid_Token_URL     = BASE_URL2 + 'user';
+  static const String Update_User_URL     = BASE_URL2 + 'user';
+  static const String Change_Password_URL = BASE_URL2 + 'auth/changePassword';
 
   static const String homeBanner_URL    = BASE_URL3 + 'banners';
-
-  static const String Login_URL         = BASE_URL4 + 'auth/login';
-  static const String Valid_Token_URL   = BASE_URL2 + 'user';
-  static const String Update_User_URL   = BASE_URL2 + 'user';
 
   static const String Courses_URL       = BASE_URL3 + 'courses/free/5/0';
   static const String e_Books_URL       = BASE_URL3 + 'books/ebook/10/0';

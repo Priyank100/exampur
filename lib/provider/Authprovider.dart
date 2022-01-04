@@ -227,4 +227,36 @@ class AuthProvider extends ChangeNotifier {
     });
   }
 
+  Future changePasswordPro(parameters) async {
+    ApiResponse apiResponse = await authRepo.changePassword(parameters);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      AppConstants.printLog(apiResponse.response);
+
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if(statusCode == '200') {
+        // _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
+        // List<UserInformationModel> _userData = [];
+        // _userData.add(_informationModel);
+        // await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
+        notifyListeners();
+        return true;
+      } else {
+        notifyListeners();
+        return false;
+      }
+
+    } else {
+      String errorMessage = '';
+      if (apiResponse.error is String) {
+        AppConstants.printLog(apiResponse.error.toString());
+        errorMessage = apiResponse.error.toString();
+      } else {
+        ErrorResponse errorResponse = apiResponse.error;
+        AppConstants.printLog(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message!;
+      }
+      notifyListeners();
+    }
+  }
+
 }

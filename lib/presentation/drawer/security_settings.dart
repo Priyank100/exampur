@@ -1,6 +1,11 @@
-import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
+import 'dart:convert';
+
+import 'package:exampur_mobile/data/datasource/remote/dio/dio_client.dart';
+import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/utils/custompassword_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SecuritySettings extends StatefulWidget {
   @override
@@ -8,6 +13,12 @@ class SecuritySettings extends StatefulWidget {
 }
 
 class _SecuritySettingsState extends State<SecuritySettings> {
+  TextEditingController _currentPasswordController = new TextEditingController();
+  TextEditingController _newPasswordController = new TextEditingController();
+  TextEditingController _confirmPasswordController = new TextEditingController();
+  bool isLoading = false;
+  late DioClient dioClient;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,44 +32,129 @@ class _SecuritySettingsState extends State<SecuritySettings> {
 
                 Text('Current Paasword',style: TextStyle(color: Colors.black,)),
                 const SizedBox(height: 15,),
-                CustomTextField(hintText: "", value: (value) {}),
+                CustomPasswordTextField(
+                  controller: _currentPasswordController,
+                  textInputAction: TextInputAction.next,
+                ),
                 const SizedBox(height: 15,),
                Text('New Password',style: TextStyle(color: Colors.black,)),
                 const SizedBox(height: 15,),
-                CustomTextField(hintText: "", value: (value) {}),
+                CustomPasswordTextField(
+                  controller: _newPasswordController,
+                  textInputAction: TextInputAction.next,
+                ),
                 const SizedBox(height: 15,),
                  Text('Confirm Password',style: TextStyle(color: Colors.black,)),
                 const SizedBox(height: 15,),
-                CustomTextField(hintText: "", value: (value) {}),
-               const SizedBox(height: 15,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 20),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).primaryColor),
-                    ),
-                    onPressed: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12.0, horizontal: 60),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Center(
-                          child: Text(
-                            "Change Password",
-                            style:
-                            TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                CustomPasswordTextField(
+                  controller: _confirmPasswordController,
+                  textInputAction: TextInputAction.next,
                 ),
+                const SizedBox(height: 40),
+                buttonChangePassword()
               ],
             ),
           ),
-        ));
+        )
+    );
+  }
+
+  Widget buttonChangePassword() {
+    if(isLoading) {
+      return CircularProgressIndicator();
+    } else {
+      return ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+              Theme.of(context).primaryColor),
+        ),
+        onPressed: () {
+          FocusScope.of(context).unfocus();
+          validation();
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              vertical: 12.0, horizontal: 60),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Center(
+              child: Text(
+                "Change Password",
+                style:
+                TextStyle(fontSize: 18, color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+  }
+
+  void validation() async {
+    String currentPassword = _currentPasswordController.text.trim();
+    String newPassword = _newPasswordController.text.trim();
+    String confirmPassword = _confirmPasswordController.text.trim();
+
+    if (currentPassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        margin: EdgeInsets.all(20),
+        behavior: SnackBarBehavior.floating,
+        content: Text('Please enter current password'),
+        backgroundColor: Colors.black,
+      ));
+    } else if (newPassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        margin: EdgeInsets.all(20),
+        behavior: SnackBarBehavior.floating,
+        content: Text('Please enter new password'),
+        backgroundColor: Colors.black,
+      ));
+    } else if (newPassword.length < 8) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        margin: EdgeInsets.all(20),
+        behavior: SnackBarBehavior.floating,
+        content: Text('Please enter atleast 8 letter Password'),
+        backgroundColor: Colors.black,
+      ));
+    } else if (confirmPassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        margin: EdgeInsets.all(20),
+        behavior: SnackBarBehavior.floating,
+        content: Text('Please enter confirm password'),
+        backgroundColor: Colors.black,
+      ));
+    } else if (confirmPassword.length < 8) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        margin: EdgeInsets.all(20),
+        behavior: SnackBarBehavior.floating,
+        content: Text('Please enter atleast 8 letter Password'),
+        backgroundColor: Colors.black,
+      ));
+    } else if (newPassword != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        margin: EdgeInsets.all(20),
+        behavior: SnackBarBehavior.floating,
+        content: Text('Confirm password is not matched'),
+        backgroundColor: Colors.black,
+      ));
+    } else {
+      isLoading = true;
+      String param = '{"current_password":"${currentPassword}",'
+          '"confirm_password":"${confirmPassword}",'
+          '"password":"${newPassword}"}';
+      await Provider.of<AuthProvider>(context, listen: false).changePasswordPro(jsonDecode(param)).then((response) {
+        isLoading = false;
+        if(response) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Changed Successfully'), backgroundColor: Colors.green));
+          _currentPasswordController.text = '';
+          _newPasswordController.text = '';
+          _confirmPasswordController.text = '';
+        }else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.message), backgroundColor: Colors.red));
+        }
+        setState(() {});
+      });
+    }
   }
 }
 
