@@ -13,24 +13,29 @@ class ChooseCategoryProvider extends ChangeNotifier {
 
   ChooseCategoryProvider({required this.chooseCategoryRepo});
 
+  // List<String> _category = [];
+  // List<String> get category=> _category;
+
   CategoriesModel _categoryModel = CategoriesModel();
   CategoriesModel get categoryModel =>_categoryModel;
 
-  Future<List<Category>?> getChooseCategoryList(BuildContext context) async {
-    ApiResponse apiResponse = await chooseCategoryRepo.chooseCategory();
+  Future<List<Category>?> getchooseCategoryList(BuildContext context) async {
+    ApiResponse apiResponse = await chooseCategoryRepo.chooseCategoryRepo();
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response!.data);
 
-      _categoryModel = CategoriesModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _categoryModel.categories;
+_categoryModel = CategoriesModel.fromJson(json.decode(apiResponse.response.toString()));
+return _categoryModel.categories;
+
 
     } else {
       AppConstants.printLog("init address fail");
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
+    throw '';
   }
 
 

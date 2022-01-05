@@ -8,6 +8,7 @@ class Service {
 
   static Future<http.Response> post(String url, {var body, encoding}) async {
     String token = await SharedPref.getSharedPref(AppConstants.TOKEN);
+    AppConstants.printLog(token);
     var postBody = json.encode(body);
     AppConstants.printLog(url + " Param " + postBody);
     try {
@@ -15,12 +16,12 @@ class Service {
           .post(Uri.parse(url),
           body: utf8.encode(postBody),
           headers: {
-            "Authorization": token,
+            "appAuthToken": token,
             "Content-Type": "application/json"
           },
           encoding: encoding)
           .then((response) {
-        AppConstants.printLog(url + " Param " + postBody + " Response " + response.body);
+        AppConstants.printLog(url + " Param " + postBody + " header " + token + " Response " + response.body);
         return response;
       });
     } catch (error) {
@@ -37,3 +38,4 @@ class Service {
     }
   }
 }
+
