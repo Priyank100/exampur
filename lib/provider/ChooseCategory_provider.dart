@@ -16,18 +16,22 @@ class ChooseCategoryProvider extends ChangeNotifier {
   // List<String> _category = [];
   // List<String> get category=> _category;
 
-  CategoriesModel _categoryModel = CategoriesModel();
-  CategoriesModel get categoryModel =>_categoryModel;
+  //CategoriesModel _categoryModel = CategoriesModel();
+ // CategoriesModel get categoryModel =>_categoryModel;
+  ChooseCategory _categoryModel = ChooseCategory();
+  ChooseCategory get categoryModel =>_categoryModel;
 
-  Future<List<Category>?> getchooseCategoryList(BuildContext context) async {
+  Future<List<Data>?> getchooseCategoryList(BuildContext context) async {
     ApiResponse apiResponse = await chooseCategoryRepo.chooseCategory();
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response!.data);
 
-_categoryModel = CategoriesModel.fromJson(json.decode(apiResponse.response.toString()));
-return _categoryModel.categories;
+//_categoryModel = CategoriesModel.fromJson(json.decode(apiResponse.response.toString()));
+_categoryModel = ChooseCategory.fromJson(json.decode(apiResponse.response.toString()));
+//return _categoryModel.categories;
+    return _categoryModel.data;
 
 
     } else {

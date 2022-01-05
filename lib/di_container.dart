@@ -5,6 +5,7 @@ import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
+import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/provider/courses_provider.dart';
 
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -19,6 +20,7 @@ import 'data/repository/Books_EBooks_repo.dart';
 import 'data/repository/ChooseCategory_repo.dart';
 import 'data/repository/HomeBanner_repo.dart';
 import 'data/repository/One2One_repo.dart';
+import 'data/repository/PaidCourse.dart';
 import 'data/repository/courserepo.dart';
 
 
@@ -37,6 +39,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => BooksEBooksRepo(dioClient: sl()));
   sl.registerLazySingleton(() => One2OneRepo(dioClient: sl()));
   sl.registerLazySingleton(() => ChooseCategoryRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => PaidCoursesRepo(dioClient: sl()));
 
 
   // Provider
@@ -47,6 +50,7 @@ Future<void> init() async {
   sl.registerFactory(() =>  BooksEBooksProvider(booksEbooksRepo: sl()));
   sl.registerFactory(() =>  One2OneProvider(one2oneRepo: sl()));
   sl.registerFactory(() =>  ChooseCategoryProvider(chooseCategoryRepo: sl()));
+  sl.registerFactory(() =>  PaidCoursesProvider(paidcoursesRepo: sl()));
 
   //External
   final sharedPreferences = await SharedPreferences.getInstance();
