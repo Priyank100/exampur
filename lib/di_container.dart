@@ -1,7 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
-import 'package:exampur_mobile/provider/BooksProvider.dart';
+import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
@@ -15,7 +15,7 @@ import 'Helper/network_info.dart';
 import 'data/datasource/remote/dio/dio_client.dart';
 import 'data/datasource/remote/dio/logging_incepactor.dart';
 import 'data/repository/Authrepo.dart';
-import 'data/repository/Books_repo.dart';
+import 'data/repository/Books_EBooks_repo.dart';
 import 'data/repository/ChooseCategory_repo.dart';
 import 'data/repository/HomeBanner_repo.dart';
 import 'data/repository/One2One_repo.dart';
@@ -34,7 +34,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => HomeBannerRepo(dioClient: sl()));
   // sl.registerLazySingleton(() => ValidTokenRepo(dioClient: sl()));
   sl.registerLazySingleton(() => CoursesRepo(dioClient: sl()));
-  sl.registerLazySingleton(() => BooksRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => BooksEBooksRepo(dioClient: sl()));
   sl.registerLazySingleton(() => One2OneRepo(dioClient: sl()));
   sl.registerLazySingleton(() => ChooseCategoryRepo(dioClient: sl()));
 
@@ -44,7 +44,7 @@ Future<void> init() async {
   sl.registerFactory(() => HomeBannerProvider(homeBannerRepo: sl()));
   // sl.registerFactory(() => ValidTokenProvider(validTokenRepo: sl()));
   sl.registerFactory(() =>  CoursesProvider(courseRepo: sl()));
-  sl.registerFactory(() =>  BooksProvider(booksRepo: sl()));
+  sl.registerFactory(() =>  BooksEBooksProvider(booksEbooksRepo: sl()));
   sl.registerFactory(() =>  One2OneProvider(one2oneRepo: sl()));
   sl.registerFactory(() =>  ChooseCategoryProvider(chooseCategoryRepo: sl()));
 

@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -38,10 +39,10 @@ class _QuizCardCAState extends State<QuizCardCA> {
                       padding: EdgeInsets.only(left: Dimensions.FONT_SIZE_SMALL),
                       child: FadeInImage(
                         image: NetworkImage("widget.instance.image"),
-                        placeholder: AssetImage("assets/images/no_image.jpg"),
+                        placeholder: AssetImage(Images.noimage),
                         imageErrorBuilder: (context, error, stackTrace) {
                           return Image.asset(
-                            'assets/images/no_image.jpg',
+                            Images.noimage,
                           );
                         },
                       )),

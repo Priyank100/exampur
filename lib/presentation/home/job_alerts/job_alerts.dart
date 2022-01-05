@@ -53,6 +53,7 @@ class JobAlertsState extends State<JobAlerts> with TickerProviderStateMixin {
       }
     });
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
 

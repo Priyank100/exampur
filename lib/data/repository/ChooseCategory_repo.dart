@@ -15,7 +15,7 @@ class ChooseCategoryRepo {
 
   ChooseCategoryRepo({required this.dioClient});
 
-  Future<ApiResponse> chooseCategoryRepo() async {
+  Future<ApiResponse> chooseCategory() async {
     try {
 
       final url =  '${AppConstants.Choose_category_URL}';

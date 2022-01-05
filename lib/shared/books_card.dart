@@ -1,22 +1,16 @@
-import 'package:exampur_mobile/data/model/DummyModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:exampur_mobile/data/model/books_model.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
-import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BooksCard extends StatefulWidget {
-  // String subject;
-  // String name;
-  //
-  // BooksCard({
-  //   Key? key,
-  //   required this.subject,
-  //   required this.name,
-  // }) : super(key: key);
-  final List<DummyModel> list;
+  final List<Books> booksList;
   final int index;
-  const  BooksCard(this.list, this.index) : super();
+
+  const BooksCard(this.booksList, this.index) : super();
+
   @override
   _BooksCardState createState() => _BooksCardState();
 }
@@ -24,109 +18,18 @@ class BooksCard extends StatefulWidget {
 class _BooksCardState extends State<BooksCard> {
   @override
   Widget build(BuildContext context) {
-    // return Padding(
-    //   padding: EdgeInsets.all(25),
-    //   child: Material(
-    //     elevation: 10,
-    //     shadowColor: Colors.black,
-    //     borderRadius: BorderRadius.all(
-    //       Radius.circular(20),
-    //     ),
-    //     child: Container(
-    //       decoration: BoxDecoration(
-    //         color: Colors.white10,
-    //         border: Border.all(
-    //           color: Colors.white24,
-    //           width: 2,
-    //         ),
-    //         borderRadius: BorderRadius.all(
-    //           Radius.circular(20),
-    //         ),
-    //       ),
-    //       child: Padding(
-    //         padding: const EdgeInsets.all(10.0),
-    //         child: Column(
-    //           children: [
-    //             Container(
-    //               height: MediaQuery.of(context).size.width * 0.7 * 9 / 16,
-    //               width: MediaQuery.of(context).size.width * 0.7,
-    //               child: Image(
-    //                 image: AssetImage(Images.studymaterial),
-    //               ),
-    //             ),
-    //             SizedBox(
-    //               height: 20,
-    //             ),
-    //             Padding(
-    //               padding: const EdgeInsets.symmetric(
-    //                 horizontal: 12.0,
-    //                 vertical: 2,
-    //               ),
-    //               child: Flexible(
-    //                 child: Text(
-    //                   widget.name,
-    //                   maxLines: 3,
-    //                   overflow: TextOverflow.ellipsis,
-    //                   style: TextStyle(
-    //                     color: Colors.black,
-    //                     fontSize: 26,
-    //                     fontWeight: FontWeight.bold,
-    //                   ),
-    //                 ),
-    //               ),
-    //             ),
-    //             SizedBox(
-    //               height: 15,
-    //             ),
-    //             CustomElevatedButton(
-    //               onPressed: () {},
-    //               text: "Buy Now",
-    //             ),
-    //             SizedBox(height: 15,),
-    //             Row(
-    //               mainAxisAlignment: MainAxisAlignment.center,
-    //               children: [
-    //                 Image.asset(Images.share,height: 15,width: 20,),
-    //                 // Icon(
-    //                 //   Icons.share,
-    //                 //   size: 23,
-    //                 //   color: Colors.black,
-    //                 // ),
-    //                 SizedBox(
-    //                   width: 8,
-    //                 ),
-    //                 Text(
-    //                   "Share",
-    //                   style: TextStyle(
-    //                     color: Colors.black,
-    //                     fontSize: 16,
-    //                   ),
-    //                 ),
-    //                 SizedBox(
-    //                   width: 10,
-    //                 ),
-    //               ],
-    //             ),
-    //
-    //           ],
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
     return Container(
       padding: EdgeInsets.all(8),
-      margin: EdgeInsets.only(left: 15,right: 15,top: 10),
-     // height: 250,
+      margin: EdgeInsets.only(left: 15, right: 15, top: 10),
       decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.all(
-                Radius.circular(8),
-              ),
-        boxShadow:const [
+          Radius.circular(8),
+        ),
+        boxShadow: const [
           BoxShadow(
             color: Colors.grey,
-            offset:  Offset(
+            offset: Offset(
               0.0,
               0.0,
             ),
@@ -134,43 +37,76 @@ class _BooksCardState extends State<BooksCard> {
             spreadRadius: 0.0,
           ),
         ],
-            ),
+      ),
       child: Column(
         children: [
-Image.asset(widget.list[widget.index].imagePath.toString()),
-          SizedBox(height: 10,),
-          Text(widget.list[widget.index].title.toString(),softWrap: true,style: TextStyle(fontSize: 18),),
-          Text(widget.list[widget.index].target.toString(),softWrap: true,style: TextStyle(fontSize: 18),),
-      SizedBox(height: 10,),
-      CustomElevatedButton(
-                      onPressed: () {},
-                      text: "Buy Now",
-                    ),
-          SizedBox(height: 10,),
-      Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(Images.share,height: 15,width: 20,),
-                        // Icon(
-                        //   Icons.share,
-                        //   size: 23,
-                        //   color: Colors.black,
-                        // ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          "Share",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                      ],
-                    ),
+          // Image.network(
+          //   widget.list[widget.index].bannerPath.toString(),
+          //   fit: BoxFit.fill,
+          //   loadingBuilder: (BuildContext context, Widget child,
+          //       ImageChunkEvent? loadingProgress) {
+          //     if (loadingProgress == null) return child;
+          //     return Center(
+          //       child: CircularProgressIndicator(
+          //         value: loadingProgress.expectedTotalBytes != null
+          //             ? loadingProgress.cumulativeBytesLoaded /
+          //             loadingProgress.expectedTotalBytes!
+          //             : null,
+          //       ),
+          //     );
+          //   },
+          // ),
+          CachedNetworkImage(
+            imageUrl: widget.booksList[widget.index].bannerPath.toString(),
+            // placeholder: (context, url) => new CircularProgressIndicator(),
+            errorWidget: (context, url, error) => new Icon(Icons.error),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            widget.booksList[widget.index].title.toString(),
+            softWrap: true,
+            style: TextStyle(fontSize: 18),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          CustomElevatedButton(
+            onPressed: () {},
+            text: "Buy Now",
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                Images.share,
+                height: 15,
+                width: 20,
+              ),
+              // Icon(
+              //   Icons.share,
+              //   size: 23,
+              //   color: Colors.black,
+              // ),
+              SizedBox(
+                width: 8,
+              ),
+              Text(
+                "Share",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+            ],
+          ),
         ],
       ),
     );

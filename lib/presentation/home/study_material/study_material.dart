@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -53,10 +54,10 @@ class _StudyMaterialState extends State<StudyMaterial> {
                         fit: BoxFit.fill,
                         image: const NetworkImage(
                             "https://static.photocdn.pt/images/articles/2018/05/07/articles/2017_8/how_to_take_vertical_landscape_photos.jpg"),
-                        placeholder: const AssetImage("assets/images/no_image.jpg"),
+                        placeholder: const AssetImage(Images.noimage),
                         imageErrorBuilder: (context, error, stackTrace) {
                           return Image.asset(
-                            'assets/images/no_image.jpg'
+                              Images.noimage
                           );
                         },
                       ),

@@ -61,10 +61,10 @@ class _TeachingContainerState extends State<TeachingContainer> {
                     //   fit: BoxFit.cover,
                     //   image: NetworkImage(
                     //       "https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"),
-                    //   placeholder: AssetImage("assets/images/no_image.jpg"),
+                    //   placeholder: AssetImage(Images.noimage),
                     //   imageErrorBuilder: (context, error, stackTrace) {
                     //     return Image.asset(
-                    //       'assets/images/no_image.jpg',
+                    //       Images.noimage,
                     //     );
                     //   },
                     // ),

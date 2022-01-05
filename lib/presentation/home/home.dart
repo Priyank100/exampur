@@ -6,7 +6,7 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/UserInformationModel.dart';
 import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
 
-import 'package:exampur_mobile/presentation/home/books/books.dart';
+import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/dummyBanner.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
@@ -87,11 +87,11 @@ class _HomeState extends State<Home> {
               LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
                 child: FadeInImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage('assets/images/no_image.jpg'),
-                  placeholder: AssetImage("assets/images/no_image.jpg"),
+                  image: NetworkImage(Images.noimage),
+                  placeholder: AssetImage(Images.noimage),
                   imageErrorBuilder: (context, error, stackTrace) {
                     return Image.asset(
-                      'assets/images/no_image.jpg',
+                      Images.noimage,
                     );
                   },
                 ),
@@ -106,7 +106,7 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:Dummycategorytest()),
                 SizedBox(width: 10,),
-                SquareButton(image: Images.book, title: 'Books',color: Colors.green, navigateTo:Books()),
+                SquareButton(image: Images.book, title: 'Books',color: Colors.green, navigateTo:BooksEbook()),
               ],
             ),
             SizedBox(height: 10,),

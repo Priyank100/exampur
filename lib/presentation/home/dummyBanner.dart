@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,10 +51,10 @@ class _LargeBannerState extends State<LargeBanner> {
                           child: FadeInImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(i.imagePath.toString()),
-                            placeholder: AssetImage("assets/images/no_image.jpg"),
+                            placeholder: AssetImage(Images.noimage),
                             imageErrorBuilder: (context, error, stackTrace) {
                               return Image.asset(
-                                'assets/images/no_image.jpg',
+                                Images.noimage,
                               );
                             },
                           ),

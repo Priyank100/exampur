@@ -1,7 +1,7 @@
 import 'package:exampur_mobile/data/model/CoursesModel.dart';
-import 'package:exampur_mobile/data/model/response/E-booksModel.dart';
+import 'package:exampur_mobile/data/model/e_books_model.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
-import 'package:exampur_mobile/provider/BooksProvider.dart';
+import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/courses_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -19,7 +19,7 @@ class Dummytest extends StatefulWidget {
 
 class _DummytestState extends State<Dummytest> {
   final ScrollController _controller = ScrollController();
-  List<Book> bookList = [];
+  List<EBooks> bookList = [];
 
   @override
   initState() {
@@ -29,10 +29,7 @@ class _DummytestState extends State<Dummytest> {
   }
 
   Future<void> callProvider() async {
-    bookList =
-    (await Provider.of<BooksProvider>(context, listen: false).getE_booksList(
-        context))!;
-    // bookList = (await Provider.of<BooksProvider>(context, listen: false).ebooksModel.books)!;
+    // bookList = (await Provider.of<BooksEBooksProvider>(context, listen: false).getE_booksList(context))!;
     setState(() {});
   }
 

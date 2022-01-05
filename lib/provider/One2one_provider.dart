@@ -9,7 +9,7 @@ import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/response/Base/error_response.dart';
 import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
 import 'package:exampur_mobile/data/repository/Authrepo.dart';
-import 'package:exampur_mobile/data/repository/Books_repo.dart';
+import 'package:exampur_mobile/data/repository/Books_EBooks_repo.dart';
 import 'package:exampur_mobile/data/repository/HomeBanner_repo.dart';
 import 'package:exampur_mobile/data/repository/One2One_repo.dart';
 import 'package:exampur_mobile/data/repository/courserepo.dart';

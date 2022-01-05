@@ -1,13 +1,12 @@
-
-
-import 'package:exampur_mobile/data/model/DummyModel.dart';
+import 'package:exampur_mobile/data/model/e_books_model.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PDFCardCA extends StatefulWidget {
-  final List<DummyModel> list;
+  final List<EBooks> eBookList;
   final int index;
-  const  PDFCardCA(this.list, this.index) : super();
+
+  const PDFCardCA(this.eBookList, this.index) : super();
 
   @override
   _PDFCardCAState createState() => _PDFCardCAState();
@@ -16,99 +15,96 @@ class PDFCardCA extends StatefulWidget {
 class _PDFCardCAState extends State<PDFCardCA> {
   @override
   Widget build(BuildContext context) {
-    return  Container(
-        // decoration: BoxDecoration(
-        //   borderRadius: BorderRadius.all(Radius.circular(10)),
-        //   boxShadow: const [
-        //     BoxShadow(color: Color.fromRGBO(64, 64, 64, 0.12), blurRadius: 16)
-        //   ],
-          //color: Theme.of(context).backgroundColor,
-      color:widget. index % 2 == 0 ? Theme.of(context).backgroundColor : Colors.transparent,
-       // ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            onTap: () {},
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                children: [
-                  Container(
-                      padding: EdgeInsets.only(left: 10),
-                      width: MediaQuery.of(context).size.width * 0.18,
-                      //flex: 1,
-                      child: FadeInImage(
-                        image: NetworkImage(widget.list[widget.index].imagePath.toString()),
-                        placeholder: AssetImage("assets/images/no_image.jpg"),
-                        imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                              widget.list[widget.index].imagePath.toString()
-                          );
-                        },
-                      )),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // const Text(
-                          //   "fbdsfnjfnwiue fewfhuwe fweouf weuuh feiuf efuie fiuf euhff eiufwe fwiujf",
-                          //   maxLines: 2,
-                          //   overflow: TextOverflow.ellipsis,
-                          //   style: TextStyle(
-                          //     fontWeight: FontWeight.w500,
-                          //     fontSize: 15,
-                          //   ),
-                          // ),
-                          widget. index % 2 == 0 ?     MarqueeWidget(
-                              direction: Axis.horizontal,
-                              child: Text(widget.list[widget.index].title.toString(),softWrap: true, maxLines: 2,
+    return Container(
+      color: widget.index % 2 == 0
+          ? Theme.of(context).backgroundColor
+          : Colors.transparent,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          onTap: () {},
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              children: [
+                Container(
+                    padding: EdgeInsets.only(left: 10),
+                    width: MediaQuery.of(context).size.width * 0.18,
+                    child: Image.asset(Images.pdfIcon)),
+                const SizedBox(
+                  width: 15,
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        widget.index % 2 == 0
+                            ? MarqueeWidget(
+                                direction: Axis.horizontal,
+                                child: Text(
+                                  widget.eBookList[widget.index].title
+                                      .toString(),
+                                  softWrap: true,
+                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    fontSize: 17,),
-                            ),
-                          ):Text(widget.list[widget.index].title.toString(),softWrap: true, maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,)),
-                          SizedBox(
-                            height: 10,
-                          ),
-
-                              Container(
-                                  width: 80,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black),
+                                    fontSize: 17,
                                   ),
-                                  child: const Center(
-                                      child: Text("View PDF",
-                                          style: TextStyle(fontSize: 13)))),
-
-                            ],
-
-                      ),
+                                ),
+                              )
+                            : Text(
+                                widget.eBookList[widget.index].title.toString(),
+                                softWrap: true,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17,
+                                )),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black),
+                                ),
+                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                child: Center(child: Text(
+                                    widget.eBookList[widget.index].amount != 0 ?
+                                    widget.eBookList[widget.index].amount.toString() : "View PDF",
+                                    style: TextStyle(fontSize: 12)))
+                            ),
+                            SizedBox(width: 10),
+                            widget.eBookList[widget.index].amount != 0 ?
+                            Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                                  color: Colors.red,
+                                ),
+                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                child: Center(child: Text("Buy Now", style: TextStyle(fontSize: 12, color: Colors.white)))
+                            ) : SizedBox(),
+                          ],
+                        )
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-
+      ),
     );
   }
 }
-
-
 
 class MarqueeWidget extends StatefulWidget {
   final Widget child;

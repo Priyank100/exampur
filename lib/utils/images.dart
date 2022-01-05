@@ -10,7 +10,7 @@ class Images {
   static const String dailyquiz = 'assets/images/daily_quiz.png';
   static const String free_course = 'assets/images/free_courses.png';
   static const String jobalert = 'assets/images/job_alert.png';
-  static const String noimage = 'assets/images/no_image.png';
+  static const String noimage = 'assets/images/no_image.jpg';
   static const String offlinebatch = 'assets/images/offline_batches.png';
   static const String one2one = 'assets/images/one2one.png';
   static const String paidcourse = 'assets/images/paid_courses.png';
@@ -24,4 +24,5 @@ class Images {
   static const String img_dummy = 'assets/images/img_dummy.PNG';
   static const String help = 'assets/images/help.png';
   static const String home = 'assets/images/home.png';
+  static const String pdfIcon = 'assets/images/ic_pdf.png';
 }

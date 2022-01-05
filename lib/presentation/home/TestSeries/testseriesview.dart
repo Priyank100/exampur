@@ -78,7 +78,7 @@ class _TestSeriesCardViewState extends State<TestSeriesCardView> {
                                       child: FadeInImage(
                                         image: NetworkImage(a[index].image),
                                         placeholder: AssetImage(
-                                            "assets/images/no_image.jpg"),
+                                            Images.noimage),
                                         imageErrorBuilder:
                                             (context, error, stackTrace) {
                                           return Image.asset(

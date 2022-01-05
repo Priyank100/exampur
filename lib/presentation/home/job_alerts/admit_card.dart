@@ -1,4 +1,3 @@
-import 'package:exampur_mobile/data/model/DummyModel.dart';
 import 'package:exampur_mobile/data/model/job_alert_model.dart';
 import 'package:exampur_mobile/shared/pdf_card_ca.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';

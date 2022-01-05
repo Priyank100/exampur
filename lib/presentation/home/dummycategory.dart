@@ -1,13 +1,6 @@
 import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
-import 'package:exampur_mobile/data/model/CoursesModel.dart';
-import 'package:exampur_mobile/data/model/response/E-booksModel.dart';
-import 'package:exampur_mobile/provider/Authprovider.dart';
-import 'package:exampur_mobile/provider/BooksProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
-import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
-import 'package:exampur_mobile/provider/courses_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-import 'package:exampur_mobile/utils/images.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +14,7 @@ class Dummycategorytest extends StatefulWidget {
 
 class _DummycategorytestState extends State<Dummycategorytest> {
 
-  List<CategoriesModel> bookList = [];
+  List<Category> categoryList = [];
 
   @override
   initState() {
@@ -31,10 +24,11 @@ class _DummycategorytestState extends State<Dummycategorytest> {
   }
 
   Future<void> callProvider() async {
-    bookList = Provider.of<ChooseCategoryProvider>(context, listen: false).getchooseCategoryList(
-        context) as List<CategoriesModel> ;
-    // bookList = (await Provider.of<BooksProvider>(context, listen: false).ebooksModel.books)!;
-    setState(() {});
+
+    categoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getChooseCategoryList(context))!;
+    setState(() {
+      AppConstants.printLog('CategoryList>> ${categoryList.length.toString()}');
+    });
   }
 
 
@@ -88,13 +82,13 @@ class _DummycategorytestState extends State<Dummycategorytest> {
         //           }) : CircularProgressIndicator();
         //     }),
 
-        bookList.length != 0 ?
+        categoryList.length != 0 ?
         ListView.builder(
-            itemCount: bookList.length,
+            itemCount: categoryList.length,
             itemBuilder: (BuildContext context, int index) {
-              print(bookList[index].categories);
+              // print(bookList[index].categories);
               return Container(
-                child: Text(bookList[index].categories!.first.name.toString()),);
+                child: Text('bookList[index].categories!.first.name.toString()'),);
             }) : CircularProgressIndicator()
     );
   }

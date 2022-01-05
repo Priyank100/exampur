@@ -78,7 +78,7 @@ class _One2onelistState extends State<One2onelist> {
                             child: FadeInImage(
                               image: NetworkImage("widget.instance.image"),
                               placeholder:
-                                  AssetImage("assets/images/no_image.jpg"),
+                                  AssetImage(Images.noimage),
                               imageErrorBuilder: (context, error, stackTrace) {
                                 return Image.asset(
                                     widget.list[widget.index].imagePath.toString(),
