@@ -20,7 +20,7 @@ class ChooseCategoryProvider extends ChangeNotifier {
   CategoriesModel get categoryModel =>_categoryModel;
 
   Future<List<Category>?> getchooseCategoryList(BuildContext context) async {
-    ApiResponse apiResponse = await chooseCategoryRepo.chooseCategoryRepo();
+    ApiResponse apiResponse = await chooseCategoryRepo.chooseCategory();
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
