@@ -21,7 +21,8 @@ class AppConstants {
   static const String Courses_URL         = BASE_URL3 + 'courses/free/5/0';
   static const String e_Books_URL         = BASE_URL3 + 'books/ebook/10/0';
   static const String One2One_URL         = BASE_URL3 + 'courses/onetoone/10/0';
-  static const String Choose_category_URL = BASE_URL3 + 'app_category';
+  static const String Choose_category_URL = BASE_URL3 + 'exam_category';
+  static const String Update_Choose_category_URL = BASE_URL3 + 'user/updateCategory';
 
 
   static const String Terms_and_Conditions ='https://exampur.com/';

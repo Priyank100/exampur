@@ -46,6 +46,7 @@ class Category {
   String? description;
   String? name;
   int? sorting;
+  bool isSelected=false;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
     id: json["_id"],

@@ -18,9 +18,9 @@ class BooksRepo {
   Future<ApiResponse> eBooksRepo(int page, String search) async {
     try {
       int currentPage = 1;
-      final url = 'https://static.exampur.xyz/books/ebook/search?query=$search&per_page=10&page=$page';
+      final url = 'https://static.exampur.work/books/ebook/search?query=$search&per_page=10&page=$page';
       AppConstants.printLog(url);
-      final response = await dioClient.get("https://static.exampur.xyz/books/ebook/search?query=$search&per_page=10&page=$page");
+      final response = await dioClient.get("https://static.exampur.work/books/ebook/10/0");
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
