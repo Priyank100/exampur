@@ -58,6 +58,7 @@ dependencies:
   launch_review: ^3.0.1
   webview_flutter: ^3.0.0
   cached_network_image: ^3.2.0
+  share: ^2.0.4
 
 
 dev_dependencies:

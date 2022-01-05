@@ -26,6 +26,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 class ItemClass {
   const ItemClass(this.index, this.label, this.icon);
@@ -407,7 +408,9 @@ class _BottomNavigationState extends State<BottomNavigation>
                                   text: "Share Now"),
                             ),
                           ]),
-                      onTap: () {},
+                      onTap: () {
+                        Share.share(AppConstants.shareAppContent);
+                      },
                     ),
                     ListTile(
                       dense: true,

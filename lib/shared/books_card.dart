@@ -4,6 +4,7 @@ import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class BooksCard extends StatefulWidget {
   final List<Books> booksList;
@@ -16,6 +17,7 @@ class BooksCard extends StatefulWidget {
 }
 
 class _BooksCardState extends State<BooksCard> {
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -79,34 +81,45 @@ class _BooksCardState extends State<BooksCard> {
           SizedBox(
             height: 10,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                Images.share,
-                height: 15,
-                width: 20,
-              ),
-              // Icon(
-              //   Icons.share,
-              //   size: 23,
-              //   color: Colors.black,
-              // ),
-              SizedBox(
-                width: 8,
-              ),
-              Text(
-                "Share",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
+          InkWell(
+            onTap: () {
+              String shareContent =
+                  'Get "' +
+                  widget.booksList[widget.index].title.toString() +
+                  '" Book from Exampur Now.\n' +
+                  'https://exampur.com/';
+              // Share.share(shareContent);
+              Share.shareFiles([widget.booksList[widget.index].logoPath.toString()], text: shareContent);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Images.share,
+                  height: 15,
+                  width: 20,
                 ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-            ],
-          ),
+                // Icon(
+                //   Icons.share,
+                //   size: 23,
+                //   color: Colors.black,
+                // ),
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  "Share",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
