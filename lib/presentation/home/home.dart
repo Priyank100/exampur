@@ -9,6 +9,7 @@ import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/dummyBanner.dart';
+import 'package:exampur_mobile/presentation/home/free_courses/free_course_screen.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
 import 'package:exampur_mobile/presentation/home/study_material/study_material.dart';
 import 'package:exampur_mobile/presentation/home/quiz/test_series.dart';
@@ -104,7 +105,7 @@ class _HomeState extends State<Home> {
 
             Row(
               children: [
-                SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:Dummycategorytest()),
+                SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:FreeCourseScreen(1)),
                 SizedBox(width: 10,),
                 SquareButton(image: Images.book, title: 'Books',color: Colors.green, navigateTo:BooksEbook()),
               ],
@@ -112,7 +113,7 @@ class _HomeState extends State<Home> {
             SizedBox(height: 10,),
             Row(
               children: [
-                SquareButton(image: Images.free_course, title: 'Free courses',color: Colors.deepOrange, navigateTo:StudyMaterial()),
+                SquareButton(image: Images.free_course, title: 'Free courses',color: Colors.deepOrange, navigateTo:FreeCourseScreen(0)),
                 SizedBox(width: 10,),
                 SquareButton(image: Images.testseries, title: 'Test Series',color: Colors.red, navigateTo:TestSeriesview()),
               ],

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:exampur_mobile/data/datasource/remote/dio/dio_client.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/custompassword_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class _SecuritySettingsState extends State<SecuritySettings> {
 
   Widget buttonChangePassword() {
     if(isLoading) {
-      return CircularProgressIndicator();
+      return Center(child: CircularProgressIndicator());
     } else {
       return ElevatedButton(
         style: ButtonStyle(
@@ -150,7 +151,7 @@ class _SecuritySettingsState extends State<SecuritySettings> {
           _newPasswordController.text = '';
           _confirmPasswordController.text = '';
         }else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.message), backgroundColor: Colors.red));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Server Error'), backgroundColor: Colors.red));
         }
         setState(() {});
       });

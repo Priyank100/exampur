@@ -1,6 +1,5 @@
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
-import 'package:exampur_mobile/shared/free_course_card.dart';
 import 'package:exampur_mobile/shared/selection_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

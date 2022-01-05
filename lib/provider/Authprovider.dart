@@ -246,16 +246,17 @@ class AuthProvider extends ChangeNotifier {
       }
 
     } else {
-      String errorMessage = '';
-      if (apiResponse.error is String) {
-        AppConstants.printLog(apiResponse.error.toString());
-        errorMessage = apiResponse.error.toString();
-      } else {
-        ErrorResponse errorResponse = apiResponse.error;
-        AppConstants.printLog(errorResponse.errors![0].message);
-        errorMessage = errorResponse.errors![0].message!;
-      }
+      // String errorMessage = '';
+      // if (apiResponse.error is String) {
+      //   AppConstants.printLog(apiResponse.error.toString());
+      //   errorMessage = apiResponse.error.toString();
+      // } else {
+      //   ErrorResponse errorResponse = apiResponse.error;
+      //   AppConstants.printLog(errorResponse.errors![0].message);
+      //   errorMessage = errorResponse.errors![0].message!;
+      // }
       notifyListeners();
+      return false;
     }
   }
 

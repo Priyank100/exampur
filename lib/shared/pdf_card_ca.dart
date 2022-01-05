@@ -3,10 +3,10 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 
 class PDFCardCA extends StatefulWidget {
-  final List<EBooks> eBookList;
+  final EBooks eBooks;
   final int index;
 
-  const PDFCardCA(this.eBookList, this.index) : super();
+  const PDFCardCA(this.eBooks, this.index) : super();
 
   @override
   _PDFCardCAState createState() => _PDFCardCAState();
@@ -23,7 +23,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          onTap: () {},
+          // onTap: () {},
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Row(
@@ -42,23 +42,8 @@ class _PDFCardCAState extends State<PDFCardCA> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        widget.index % 2 == 0
-                            ? MarqueeWidget(
-                                direction: Axis.horizontal,
-                                child: Text(
-                                  widget.eBookList[widget.index].title
-                                      .toString(),
-                                  softWrap: true,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 17,
-                                  ),
-                                ),
-                              )
-                            : Text(
-                                widget.eBookList[widget.index].title.toString(),
+                            Text(
+                                widget.eBooks.title.toString(),
                                 softWrap: true,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -71,26 +56,36 @@ class _PDFCardCAState extends State<PDFCardCA> {
                         ),
                         Row(
                           children: [
-                            Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black),
-                                ),
-                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                child: Center(child: Text(
-                                    widget.eBookList[widget.index].amount != 0 ?
-                                    widget.eBookList[widget.index].amount.toString() : "View PDF",
-                                    style: TextStyle(fontSize: 12)))
+                            InkWell(
+                              onTap: () {
+                                if(widget.eBooks.amount == 0) {
+                                  //view pdf
+                                }
+                              },
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                  child: Center(child: Text(
+                                      widget.eBooks.amount != 0 ?
+                                      widget.eBooks.amount.toString() : "View PDF",
+                                      style: TextStyle(fontSize: 12)))
+                              ),
                             ),
                             SizedBox(width: 10),
-                            widget.eBookList[widget.index].amount != 0 ?
-                            Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                                  color: Colors.red,
-                                ),
-                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                child: Center(child: Text("Buy Now", style: TextStyle(fontSize: 12, color: Colors.white)))
-                            ) : SizedBox(),
+                            widget.eBooks.amount != 0 ?
+                                InkWell(
+                                  onTap: () {},
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                        color: Colors.red,
+                                      ),
+                                      padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                      child: Center(child: Text("Buy Now", style: TextStyle(fontSize: 12, color: Colors.white)))
+                                  )
+                                ) : SizedBox(),
                           ],
                         )
                       ],

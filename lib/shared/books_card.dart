@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/data/model/books_model.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
+import 'package:exampur_mobile/shared/place_order_screen.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
 class BooksCard extends StatefulWidget {
-  final List<Books> booksList;
-  final int index;
+  final Books books;
 
-  const BooksCard(this.booksList, this.index) : super();
+  const BooksCard(this.books) : super();
 
   @override
   _BooksCardState createState() => _BooksCardState();
@@ -43,7 +43,7 @@ class _BooksCardState extends State<BooksCard> {
       child: Column(
         children: [
           // Image.network(
-          //   widget.list[widget.index].bannerPath.toString(),
+          //   widget.widget.books.bannerPath.toString(),
           //   fit: BoxFit.fill,
           //   loadingBuilder: (BuildContext context, Widget child,
           //       ImageChunkEvent? loadingProgress) {
@@ -59,23 +59,26 @@ class _BooksCardState extends State<BooksCard> {
           //   },
           // ),
           CachedNetworkImage(
-            imageUrl: widget.booksList[widget.index].bannerPath.toString(),
+            imageUrl: widget.books.bannerPath.toString(),
             // placeholder: (context, url) => new CircularProgressIndicator(),
             errorWidget: (context, url, error) => new Icon(Icons.error),
           ),
-          SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: 10),
           Text(
-            widget.booksList[widget.index].title.toString(),
+            widget.books.title.toString(),
             softWrap: true,
             style: TextStyle(fontSize: 18),
           ),
-          SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: 10),
           CustomElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder:
+                      (context) =>
+                      PlaceOrderScreen(widget.books)
+                  )
+              );
+            },
             text: "Buy Now",
           ),
           SizedBox(
@@ -85,11 +88,10 @@ class _BooksCardState extends State<BooksCard> {
             onTap: () {
               String shareContent =
                   'Get "' +
-                  widget.booksList[widget.index].title.toString() +
+                  widget.books.title.toString() +
                   '" Book from Exampur Now.\n' +
                   'https://exampur.com/';
-              // Share.share(shareContent);
-              Share.shareFiles([widget.booksList[widget.index].logoPath.toString()], text: shareContent);
+              Share.share(shareContent);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

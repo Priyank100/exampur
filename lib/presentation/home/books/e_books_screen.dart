@@ -21,7 +21,7 @@ class _EBooksScreenState extends State<EBooksScreen> {
             itemCount: widget.eBooksList.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext context,int index){
-              return  PDFCardCA(widget.eBooksList, index);
+              return  PDFCardCA(widget.eBooksList[index], index);
             })
     );
   }

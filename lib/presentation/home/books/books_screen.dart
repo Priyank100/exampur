@@ -23,7 +23,7 @@ class _BooksScreenState extends State<BooksScreen> {
             itemCount: widget.booksList.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext context,int index){
-          return  BooksCard(widget.booksList, index);
+          return  BooksCard(widget.booksList[index]);
         })
     );
   }
