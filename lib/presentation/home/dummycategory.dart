@@ -29,7 +29,8 @@ class Dummycategorytest extends StatefulWidget {
 }
 
 class _DummycategorytestState extends State<Dummycategorytest> {
-  List<Category> chooseList = [];
+  //List<Category> chooseList = [];
+  List<Data> chooseList = [];
   List<String> selectedCountries = [];
 
   // late final List<Category> selectedList;
@@ -195,7 +196,17 @@ class _DummycategorytestState extends State<Dummycategorytest> {
                                                               .logoPath
                                                               .toString()),
                                                   radius: 20.0,
-                                                )
+                                                ),
+                                                // ClipOval(
+                                                //   clipper: MyClip(),
+                                                //   child: FadeInImage.assetNetwork(
+                                                //     placeholder: Images.noimage,
+                                                //     image: chooseList[index]
+                                                //         .logoPath
+                                                //         .toString(),
+                                                //     fit: BoxFit.fill,
+                                                //   ),
+                                                // ),
                                               ],
                                             ),
                                             Flexible(
@@ -329,6 +340,7 @@ class _DummycategorytestState extends State<Dummycategorytest> {
                               )),
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -353,4 +365,13 @@ class _DummycategorytestState extends State<Dummycategorytest> {
   }
 
 
+}
+class MyClip extends CustomClipper<Rect> {
+  Rect getClip(Size size) {
+    return Rect.fromLTWH(0, 0, 10, 10);
+  }
+
+  bool shouldReclip(oldClipper) {
+    return false;
+  }
 }

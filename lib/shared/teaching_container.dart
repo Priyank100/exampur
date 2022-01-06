@@ -1,14 +1,15 @@
 // import 'package:exampur_mobile/data/model/DummyModel.dart';
 import 'package:exampur_mobile/data/model/dummy_model.dart';
+import 'package:exampur_mobile/data/model/paid_course_model.dart';
+import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TeachingContainer extends StatefulWidget {
-  final List<DummyModel> list;
-  final int index;
-  const  TeachingContainer (this.list, this.index) : super();
+  final Courses paidcourseList;
+  const  TeachingContainer (this.paidcourseList) : super();
 
   @override
   _TeachingContainerState createState() => _TeachingContainerState();
@@ -68,7 +69,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                     //     );
                     //   },
                     // ),
-                    child: Image.asset(widget.list[widget.index].imagePath.toString()),
+                    child: Image.network(widget.paidcourseList.bannerPath.toString()),
                   ),
                 ),
 
@@ -84,13 +85,13 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    widget.list[widget.index].title.toString(),
+                                    widget.paidcourseList.title.toString(),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(fontSize: 18),
                                     ),
                                   Text(
-                                    widget.list[widget.index].target.toString(),
+                                    widget.paidcourseList.description.toString(),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(fontSize: 18),
@@ -98,7 +99,15 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                 ],
                               ),
                             ),
-
+                            // ClipOval(
+                            //   clipper: MyClip(),
+                            //   child: FadeInImage.assetNetwork(
+                            //     placeholder: Images.noimage,
+                            //     image: widget.paidcourseList[widget.index].logoPath.toString(),
+                            //
+                            //     fit: BoxFit.fill,
+                            //   ),
+                            // ),
                             ClipOval(
                               child: Image.asset(
                                Images.exampur_logo,
@@ -136,8 +145,14 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                       Column(
                         children: [
-                          Container(height: 30,width: 120,decoration: BoxDecoration( color: Color(0xFF060929),
-                            borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text('View details',style: TextStyle(color: Colors.white)))),
+                          InkWell(onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                PaidCourseDetails(widget.paidcourseList)
+                            ));
+                          },
+                            child: Container(height: 30,width: 120,decoration: BoxDecoration( color: Color(0xFF060929),
+                              borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text('View details',style: TextStyle(color: Colors.white)))),
+                          ),
                           SizedBox(height: 10,),
                           Container(height: 30,width: 110,decoration: BoxDecoration( color: Color(0xFF060929),
                               borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text('Buy Course',style: TextStyle(color: Colors.white)))),
@@ -192,5 +207,14 @@ class RowTile extends StatelessWidget {
 
       ],),
     );
+  }
+}
+class MyClip extends CustomClipper<Rect> {
+  Rect getClip(Size size) {
+    return Rect.fromLTWH(0, 0, 25, 25);
+  }
+
+  bool shouldReclip(oldClipper) {
+    return false;
   }
 }
