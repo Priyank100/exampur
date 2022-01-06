@@ -27,16 +27,11 @@ class _PaidCoursesState extends State<PaidCourses> with TickerProviderStateMixin
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     callProvider();
-    // Create TabController for getting the index of current tab
     _controller = TabController(length: 14, vsync: this);
 
     _controller.addListener(() async{
-      // setState(() {
-      //   _selectedIndex = _controller.index;
-      // });
       print("Selected Index: " + _controller.index.toString());
       switch( _controller.index) {
         case 0:
@@ -122,42 +117,8 @@ class _PaidCoursesState extends State<PaidCourses> with TickerProviderStateMixin
             TeachingList(courseList),
             TeachingList(courseList),
             TeachingList(courseList),
-
           ],
           title: ""),
-      // body: Center(
-      //   child: ListView(
-      //     children: [
-      //       // todo:just pass the objects of the models (which are yet to be created)
-      //       // CourseCard(subject: "English", name: "IAS PCS 2022-23 BATCH"),
-      //       // BigCourseCard(subject: "English", name: "IAS PCS 2022-23 BATCH"),
-      //       // BooksCard(subject: "English", name: "IAS PCS 2022-23 BATCH"),
-      //       // EBooksCard(subject: "English", name: "April Magzine"),
-      //       // FreeCourseCard(subject: "subject", name: "UPHES / General Studies"),
-      //       // One2OneCard(subject: "subject", name: "BPSC TARGET BATCH 01"),
-      //       // OnlineBatchesCard(subject: "subject", name: "AGRA"),
-      //       // DropDownSelector(items: ["name", "address", "age", "class", "aadhar no.", "etc"], setValue: (value) {}),
-      //       MultiSelect(
-      //         function: (value) {
-      //           setState(() {
-      //             selected = value;
-      //           });
-      //         },
-      //         options: [
-      //           "subject1",
-      //           "subject2",
-      //           "subject3",
-      //           "subject4",
-      //           "subject5",
-      //           "subject6",
-      //           "subject7",
-      //           "subject8"
-      //         ],
-      //         selected: selected,
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
   @override

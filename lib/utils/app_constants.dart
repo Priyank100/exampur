@@ -26,8 +26,8 @@ class AppConstants {
   static const String E_Books_URL         = BASE_URL3 + 'books/ebook/10/0';
 
 //PaidCourse/PaidcourseTab
-  static const String PaidCourses_URL         = BASE_URL3 + 'courses/paid/61cad845da1d8532b6f33fd1/10/0';
-  static const String PaidCoursesTab_URL         = BASE_URL3 + 'category/course_paid';
+  static const String PaidCoursesTab_URL      = BASE_URL3 + 'category/course_paid';
+  static const String PaidCoursesDetail_URL   = BASE_URL3 + 'courses/paid/61cad845da1d8532b6f33fd1/10/0';
 
   static const String Courses_URL         = BASE_URL3 + 'courses/free/5/0';
 

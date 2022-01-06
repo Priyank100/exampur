@@ -10,7 +10,7 @@ import 'package:exampur_mobile/data/model/paid_course_tab.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/e_books_model.dart';
 import 'package:exampur_mobile/data/repository/Books_EBooks_repo.dart';
-import 'package:exampur_mobile/data/repository/PaidCourse.dart';
+import 'package:exampur_mobile/data/repository/paid_course_repo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 

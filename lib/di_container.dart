@@ -20,7 +20,7 @@ import 'data/repository/Books_EBooks_repo.dart';
 import 'data/repository/ChooseCategory_repo.dart';
 import 'data/repository/HomeBanner_repo.dart';
 import 'data/repository/One2One_repo.dart';
-import 'data/repository/PaidCourse.dart';
+import 'data/repository/paid_course_repo.dart';
 import 'data/repository/courserepo.dart';
 
 

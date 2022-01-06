@@ -69,10 +69,10 @@ class _FreeCourseScreenState extends State<FreeCourseScreen> with SingleTickerPr
                   routes:
                     widget.courseType==1?
                     [
-                      for (var i = 0; i < paidCourseList.length; i++) TeachingList(paidCourseList)
+                      // for (var i = 0; i < paidCourseList.length; i++) TeachingList(paidCourseList)
                     ]:
                     [
-                      for (var i = 0; i < freeCourseList.length; i++) TeachingList(freeCourseList)
+                      // for (var i = 0; i < freeCourseList.length; i++) TeachingList(freeCourseList)
                     ],
                   title: "")
           );
