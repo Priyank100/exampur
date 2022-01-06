@@ -1,4 +1,3 @@
-// import 'package:exampur_mobile/data/model/DummyModel.dart';
 import 'package:exampur_mobile/data/model/dummy_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
@@ -8,8 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TeachingContainer extends StatefulWidget {
-  final Courses paidcourseList;
-  const  TeachingContainer (this.paidcourseList) : super();
+  final Courses courseData;
+  const  TeachingContainer (this.courseData) : super();
 
   @override
   _TeachingContainerState createState() => _TeachingContainerState();
@@ -69,7 +68,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                     //     );
                     //   },
                     // ),
-                    child: Image.network(widget.paidcourseList.bannerPath.toString()),
+                    child: Image.network(widget.courseData.bannerPath.toString()),
                   ),
                 ),
 
@@ -85,13 +84,13 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    widget.paidcourseList.title.toString(),
+                                    widget.courseData.title.toString(),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(fontSize: 18),
                                     ),
                                   Text(
-                                    widget.paidcourseList.description.toString(),
+                                    widget.courseData.description.toString(),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(fontSize: 18),
@@ -147,7 +146,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                         children: [
                           InkWell(onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                PaidCourseDetails(widget.paidcourseList)
+                                PaidCourseDetails(widget.courseData)
                             ));
                           },
                             child: Container(height: 30,width: 120,decoration: BoxDecoration( color: Color(0xFF060929),

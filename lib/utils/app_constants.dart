@@ -25,17 +25,19 @@ class AppConstants {
   static const String Books_URL           = BASE_URL3 + 'books/printed/10/0';
   static const String E_Books_URL         = BASE_URL3 + 'books/ebook/10/0';
 
-//PaidCourse/PaidcourseTab
+  //PaidCourse
   static const String PaidCoursesTab_URL      = BASE_URL3 + 'category/course_paid';
-  static const String PaidCoursesDetail_URL   = BASE_URL3 + 'courses/paid/61cad845da1d8532b6f33fd1/10/0';
+  static const String PaidCoursesDetail_URL   = BASE_URL3 + 'courses/paid/' + 'PAID_COURSE_ID' + '/10/0';
+
+  //FreeCourse
+  static const String FreeCoursesTab_URL      = BASE_URL3 + 'category/course_free';
+  static const String FreeCoursesDetail_URL   = BASE_URL3 + 'courses/free/' + 'FREE_COURSE_ID' + '/10/0';
+
 
   static const String Courses_URL         = BASE_URL3 + 'courses/free/5/0';
 
 
   static const String One2One_URL         = BASE_URL3 + 'courses/onetoone/10/0';
-
-
-
   static const String Terms_and_Conditions ='https://exampur.com/';
 
 

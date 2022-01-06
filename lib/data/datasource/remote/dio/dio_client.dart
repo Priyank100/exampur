@@ -42,8 +42,8 @@ class DioClient {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
-    AppConstants.printLog("URL> ${uri.toString()}");
     try {
+      AppConstants.printLog("URL> ${uri.toString()}");
       var response = await dio.get(
         uri,
         queryParameters: queryParameters,
@@ -69,9 +69,10 @@ class DioClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    AppConstants.printLog("URL> ${uri.toString()}");
-    AppConstants.printLog("Param> ${data.toString()}");
+
     try {
+      AppConstants.printLog("URL> ${uri.toString()}");
+      AppConstants.printLog("Param> ${data.toString()}");
       var response = await dio.post(
         uri,
         data: data,
@@ -98,6 +99,8 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
+      AppConstants.printLog("URL> ${uri.toString()}");
+      AppConstants.printLog("Param> ${data.toString()}");
       var response = await dio.put(
         uri,
         data: data,

@@ -16,7 +16,6 @@ import 'package:flutter/cupertino.dart';
 
 class PaidCoursesProvider extends ChangeNotifier {
   final PaidCoursesRepo paidcoursesRepo;
-
   PaidCoursesProvider({required this.paidcoursesRepo});
 
   PaidCourseModel _paidcourseModel = PaidCourseModel();
@@ -26,8 +25,24 @@ class PaidCoursesProvider extends ChangeNotifier {
   PaidCourseTab get paidcoursetabModel => _paidcoursetabModel;
 
 
-  Future<List<Courses>?> getPaidCourseList(BuildContext context) async {
-    ApiResponse apiResponse = await paidcoursesRepo.paid_coursesRepo();
+  Future<List<Data>?> getPaidCourseTabList(BuildContext context) async {
+    ApiResponse apiResponse = await paidcoursesRepo.paid_courses_Tab();
+    if (apiResponse.response == null) {
+      ApiChecker.checkApi(context, apiResponse);
+    } else if (apiResponse.response!.statusCode == 200) {
+      AppConstants.printLog(apiResponse.response);
+      _paidcoursetabModel = PaidCourseTab.fromJson(json.decode(apiResponse.response.toString()));
+      return _paidcoursetabModel.data;
+
+    } else {
+      AppConstants.printLog("init address fail");
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+  }
+
+  Future<List<Courses>?> getPaidCourseList(BuildContext context, String id) async {
+    ApiResponse apiResponse = await paidcoursesRepo.paid_coursesRepo(id);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
@@ -43,14 +58,30 @@ class PaidCoursesProvider extends ChangeNotifier {
   }
 
 
-  Future<List<Data>?> getPaidCourseTabList(BuildContext context) async {
-    ApiResponse apiResponse = await paidcoursesRepo.paid_courses_Tab();
+  Future<List<Data>?> getFreeCourseTabList(BuildContext context) async {
+    ApiResponse apiResponse = await paidcoursesRepo.free_courses_Tab();
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
       _paidcoursetabModel = PaidCourseTab.fromJson(json.decode(apiResponse.response.toString()));
       return _paidcoursetabModel.data;
+
+    } else {
+      AppConstants.printLog("init address fail");
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+  }
+
+  Future<List<Courses>?> getFreeCourseList(BuildContext context, String id) async {
+    ApiResponse apiResponse = await paidcoursesRepo.free_coursesRepo(id);
+    if (apiResponse.response == null) {
+      ApiChecker.checkApi(context, apiResponse);
+    } else if (apiResponse.response!.statusCode == 200) {
+      AppConstants.printLog(apiResponse.response);
+      _paidcourseModel = PaidCourseModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _paidcourseModel.courses;
 
     } else {
       AppConstants.printLog("init address fail");
