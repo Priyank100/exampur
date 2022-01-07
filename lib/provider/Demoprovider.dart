@@ -6,6 +6,7 @@ import 'package:exampur_mobile/data/model/one2_one_model.dart';
 
 
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
+import 'package:exampur_mobile/data/repository/Demorepo.dart';
 
 import 'package:exampur_mobile/data/repository/One2One_repo.dart';
 
@@ -13,10 +14,10 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'package:flutter/cupertino.dart';
 
-class One2OneProvider extends ChangeNotifier {
-  final One2OneRepo one2oneRepo;
+class DemoProvider extends ChangeNotifier {
+  final DemoRepo demoRepo;
 
-  One2OneProvider({required this.one2oneRepo});
+  DemoProvider({required this.demoRepo});
 
 
 
@@ -24,7 +25,7 @@ class One2OneProvider extends ChangeNotifier {
   One2OneModel get one2oneModel => _one2oneModel;
 
   Future<List<Courses>?> getOne2OneList(BuildContext context) async {
-    ApiResponse apiResponse = await one2oneRepo.one2oneRepo();
+    ApiResponse apiResponse = await demoRepo.demoRepo();
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {

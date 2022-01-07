@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/data/model/on2one_model.dart';
+import 'package:exampur_mobile/data/model/one2_one_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/shared/one_two_one_card.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -11,10 +12,10 @@ import 'package:lottie/lottie.dart';
 import 'one2oneViedo.dart';
 
 class One2onelist extends StatefulWidget {
-  final List<One2oneModel> list;
+  final List<Courses> one2oneList;
   final int index;
 
-  const One2onelist(this.list, this.index) : super();
+  const One2onelist(this.one2oneList, this.index) : super();
 
   @override
   _One2onelistState createState() => _One2onelistState();
@@ -64,8 +65,7 @@ class _One2onelistState extends State<One2onelist> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => One2OneVideo(widget.list[widget.index].videoPath.toString(),
-                                widget.list[widget.index].title.toString())));
+                            builder: (context) => One2OneVideo(widget.one2oneList[widget.index])));
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
@@ -81,7 +81,7 @@ class _One2onelistState extends State<One2onelist> {
                                   AssetImage(Images.noimage),
                               imageErrorBuilder: (context, error, stackTrace) {
                                 return Image.asset(
-                                    widget.list[widget.index].imagePath.toString(),
+                                    widget.one2oneList[widget.index].bannerPath.toString(),
                                 );
                               },
                             )),
@@ -101,7 +101,7 @@ class _One2onelistState extends State<One2onelist> {
                                    children: [
 
                                      Text(
-                                      widget.list[widget.index].title.toString(),
+                                      widget.one2oneList[widget.index].title.toString(),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(

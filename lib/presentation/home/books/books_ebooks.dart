@@ -58,7 +58,7 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
                       "e-Books",
                     ],
                     routes: [
-                      booksList.length == 0 ? Center(child: CircularProgressIndicator()) :
+                      booksList.length == 0 ? Center(child: CircularProgressIndicator(color: Colors.amber,)) :
                       BooksScreen(booksList),
                       EBooksScreen(eBooksList)
                     ],

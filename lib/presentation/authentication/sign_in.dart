@@ -55,7 +55,7 @@ class SignInState extends State<SignIn> {
           //elevation: 6.0,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
-          content: Text('Please enter complete Email Id'),
+          content: Text('Please enter complete pHONE No.'),
           backgroundColor: Colors.black,
         ));
       } else if (_password.isEmpty) {

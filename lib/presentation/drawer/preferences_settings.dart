@@ -30,7 +30,7 @@ class _PreferencesSettingsState extends State<PreferencesSettings> {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 2.0, bottom: 0, left: 40, right: 25),
-                    child: DropDownSelector(items: ["select issue", "Hindi", "English"], setValue: (val) {}),
+                    child: DropDownSelector(isExpanded:false,items: ["select issue", "Hindi", "English"], setValue: (val) {}),
                   ),
                 ),
               ),
