@@ -84,6 +84,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/language/
+    - assets/Statejson/State.json
 
 
   fonts:

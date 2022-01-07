@@ -21,11 +21,11 @@ class CustomTheme with ChangeNotifier {
 
   static ThemeData get lightTheme {
     return ThemeData(
-      hintColor: Color(0xff0670ED),
+      hintColor: Color(0xffE0B229),
       brightness: Brightness.light,
       primaryColor: Color(0xffE0B229),
       secondaryHeaderColor: Color(0xFFE1EFFE),
-      accentColor: Color(0xff0670ED),
+      accentColor: Color(0xffE0B229),
       scaffoldBackgroundColor: Color(0xffF6F7F9),
       backgroundColor: Colors.white,
       shadowColor: Colors.grey.withOpacity(0.5),

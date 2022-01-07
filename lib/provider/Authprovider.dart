@@ -11,6 +11,7 @@ import 'package:exampur_mobile/data/model/response/Base/error_response.dart';
 import 'package:exampur_mobile/data/repository/Authrepo.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
+import 'package:exampur_mobile/presentation/home/LandingChooseCategory.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 
@@ -213,7 +214,8 @@ class AuthProvider extends ChangeNotifier {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
-                ChooseCategory()
+                //ChooseCategory()
+                LandingChooseCategory()
             )
         )
       } else {

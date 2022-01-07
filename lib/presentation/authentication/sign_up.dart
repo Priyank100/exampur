@@ -3,6 +3,7 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/createUserModel.dart';
 import 'package:exampur_mobile/presentation/authentication/terms_condition.dart';
 import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
+import 'package:exampur_mobile/presentation/home/LandingChooseCategory.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
@@ -100,8 +101,9 @@ class SignUpState extends State<SignUp> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(child: Image.asset(Images.exampur_title)),
-                    SizedBox(height: 20),
+                    Center(child: Image.asset(Images.exampur_title, height: Dimensions.ICON_SIZE_Title,
+                      width: Dimensions.ICON_SIZE_Title,)),
+                   // SizedBox(height: 20),
                     Text(
                       "Let's Register",
                       style: CustomTextStyle.headingBigBold(context),
@@ -148,6 +150,7 @@ class SignUpState extends State<SignUp> {
                       height: 15,
                     ),
                     // CustomTextField(hintText: "", controller:_passwordController,value: (value) {}),
+
                     CustomTextField(
                         hintText: "City",
                         controller: _cityController,
@@ -326,7 +329,7 @@ class SignUpState extends State<SignUp> {
       SharedPref.saveSharedPref(AppConstants.SELECT_CATEGORY_LENGTH, '0');
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => ChooseCategory()),
+          MaterialPageRoute(builder: (_) => LandingChooseCategory()),
           (route) => false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
