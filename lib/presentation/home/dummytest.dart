@@ -15,6 +15,7 @@ class _UploadImageState extends State<MyApp> {
   bool _isLoading = false;
   List<Object> objectList =[];
   late String selectedFruit;
+
   Future<String> loadFromAssets() async {
     return await rootBundle.loadString('assets/Statejson/State.json');
   }

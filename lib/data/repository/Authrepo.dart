@@ -41,11 +41,11 @@ class AuthRepo {
     }
   }
 
-  Future<ApiResponse> updateProfile(CreateUserModel updateprofileBody) async {
+  Future<ApiResponse> updateProfile(CreateUserModel updateProfileBody) async {
     try {
       Response response = await dioClient.put(
         AppConstants.Update_User_URL,
-        data: updateprofileBody.toJson(),
+        data: updateProfileBody.toJson(),
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {

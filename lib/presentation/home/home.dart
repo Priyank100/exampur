@@ -239,7 +239,6 @@ class SquareButton extends StatelessWidget {
     );
   }
 }
-
 class FrontStyleModel {
   late String name;
   String image;

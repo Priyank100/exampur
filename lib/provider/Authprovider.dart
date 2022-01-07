@@ -118,9 +118,7 @@ class AuthProvider extends ChangeNotifier {
 
 ///UpdateUser
   Future updateUserProfile(CreateUserModel registerModel) async {
-    // _isLoading = true;
     ApiResponse apiResponse = await authRepo.updateProfile(registerModel);
-    // _isLoading = false;
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
 
@@ -131,14 +129,10 @@ class AuthProvider extends ChangeNotifier {
         _userData.add(_informationModel);
         await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
         return true;
-
-       // callback(true, '');
       } else {
         return false;
-      //  callback(false, apiResponse.response!.data['data'].toString());
       }
-
-      notifyListeners();
+      // notifyListeners();
     } else {
       String errorMessage;
       if (apiResponse.error is String) {
@@ -149,8 +143,8 @@ class AuthProvider extends ChangeNotifier {
         AppConstants.printLog(errorResponse.errors![0].message);
         errorMessage = errorResponse.errors![0].message!;
       }
-
       notifyListeners();
+      return false;
     }
   }
 

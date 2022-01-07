@@ -10,7 +10,6 @@ class AppConstants {
   // static const String BASE_URL3 = 'https://static.exampur.xyz/';
   static const String BASE_URL3 = 'https://static.exampur.work/';
 
-  static const String User_URL            = 'user';
   static const String Login_URL           = BASE_URL2 + 'auth/login';
   static const String Valid_Token_URL     = BASE_URL2 + 'user';
   static const String Update_User_URL     = BASE_URL2 + 'user';

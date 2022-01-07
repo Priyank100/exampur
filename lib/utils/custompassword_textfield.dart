@@ -58,7 +58,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
         decoration: InputDecoration(
             suffixIcon: IconButton(icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility,color: Colors.amber,), onPressed: _toggle),
             hintText: widget.hintTxt ?? '',
-            contentPadding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
+            contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
             isDense: true,
             //filled: true,
             hintStyle: TextStyle(

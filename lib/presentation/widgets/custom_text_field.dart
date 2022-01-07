@@ -9,6 +9,7 @@ class CustomTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final TextInputType? textInputType;
  final bool? readOnly;
+ final int? maxLength;
 
   const CustomTextField({
     Key? key,
@@ -19,7 +20,8 @@ class CustomTextField extends StatefulWidget {
     this.controller,
     this.focusNode,
     this.textInputType,
-    this.readOnly
+    this.readOnly,
+    this.maxLength
   }) : super(key: key);
 
   @override
@@ -69,6 +71,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           autocorrect: false,
           keyboardType: widget.textInputType,
           controller: widget.controller,
+          maxLength: widget.maxLength,
           onChanged: (s) {
             widget.value(s);
           },
@@ -112,7 +115,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
             // filled: true,
             // fillColor: Colors.grey[300],
-            contentPadding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
+            contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
             isDense: true,
             counterText: '',
             // focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),

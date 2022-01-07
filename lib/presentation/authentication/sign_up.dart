@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/createUserModel.dart';
+import 'package:exampur_mobile/data/model/state_json.dart';
 import 'package:exampur_mobile/presentation/authentication/terms_condition.dart';
 import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
 import 'package:exampur_mobile/presentation/home/LandingChooseCategory.dart';
@@ -14,6 +15,7 @@ import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 class SignUp extends StatefulWidget {
@@ -29,8 +31,22 @@ class SignUpState extends State<SignUp> {
   late TextEditingController _phoneController;
   late TextEditingController _cityController;
   late GlobalKey<FormState> _formKeySignUp;
-  String state = 'Delhi';
   bool _isCheckTerms = false;
+
+  String selectedState='';
+  List<States> stateList = [];
+
+  Future<String> loadJsonFromAssets() async {
+    return await rootBundle.loadString('assets/Statejson/State.json');
+  }
+
+  void getStateList() async {
+    String jsonString = await loadJsonFromAssets();
+    final StateResponse = stateJsonFromJson(jsonString);
+    stateList = StateResponse.states!;
+    selectedState = stateList[0].name.toString();
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -42,26 +58,8 @@ class SignUpState extends State<SignUp> {
     _passwordController = TextEditingController();
     _userNameController = TextEditingController();
     _cityController = TextEditingController();
+    getStateList();
   }
-
-  String dropdownValue = "fe";
-  List<String> categories = [
-    "fe",
-    'fw',
-    "fs",
-    'efw',
-    'wfee',
-    'wefwef',
-    'wefwe',
-    'fewfs',
-    'gwgg',
-    'xcx',
-    's',
-    'g',
-    'nhyn',
-    'nyr',
-    'ht4e'
-  ];
 
   @override
   void dispose() {
@@ -74,12 +72,6 @@ class SignUpState extends State<SignUp> {
     super.dispose();
   }
 
-  FocusNode _nameNode = FocusNode();
-  FocusNode _emailNode = FocusNode();
-  FocusNode _passNode = FocusNode();
-  FocusNode _userNameNode = FocusNode();
-  FocusNode _phoneNode = FocusNode();
-  FocusNode _cityNode = FocusNode();
   CreateUserModel CreateUserbody = CreateUserModel();
 
   @override
@@ -103,7 +95,6 @@ class SignUpState extends State<SignUp> {
                   children: [
                     Center(child: Image.asset(Images.exampur_title, height: Dimensions.ICON_SIZE_Title,
                       width: Dimensions.ICON_SIZE_Title,)),
-                   // SizedBox(height: 20),
                     Text(
                       "Let's Register",
                       style: CustomTextStyle.headingBigBold(context),
@@ -119,6 +110,7 @@ class SignUpState extends State<SignUp> {
                     CustomTextField(
                         hintText: "E-mail",
                         controller: _emailController,
+                        textInputType: TextInputType.emailAddress,
                         value: (value) {}),
                     SizedBox(
                       height: 15,
@@ -127,8 +119,6 @@ class SignUpState extends State<SignUp> {
                     CustomPasswordTextField(
                         hintTxt: 'Password',
                         controller: _passwordController,
-                       // focusNode:  _passwordController,
-                      //  nextNode: _confirmPasswordFocus,
                         textInputAction: TextInputAction.next,
                       ),
 
@@ -145,16 +135,48 @@ class SignUpState extends State<SignUp> {
                     CustomTextField(
                         hintText: "Phone number",
                         controller: _phoneController,
+                        textInputType: TextInputType.number,
+                        maxLength: 10,
                         value: (value) {}),
                     SizedBox(
                       height: 15,
                     ),
-                    // CustomTextField(hintText: "", controller:_passwordController,value: (value) {}),
 
                     CustomTextField(
                         hintText: "City",
                         controller: _cityController,
                         value: (value) {}),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius:  BorderRadius.all(const Radius.circular(8)),
+                        boxShadow: [
+                          BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1))
+                        ],
+                      ),
+                      padding: EdgeInsets.only(left: 10),
+                      child: DropdownButton(
+                        underline: SizedBox(),
+                        isExpanded: true,
+                        value: selectedState,
+                        items: stateList.map((value) {
+                          return DropdownMenuItem(
+                            value: value.name,
+                            child: Text(value.name.toString()),
+                          );
+                        }).toList(),
+                        onChanged: (selected) {
+                          setState(() {
+                            selectedState = selected.toString();
+                          });
+                        },
+                      ),
+                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -215,14 +237,12 @@ class SignUpState extends State<SignUp> {
                         ),
                       ),
                     ),
-                    // SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Facing problem in signing in?",style: TextStyle(color: Colors.grey.shade600),),
                         CustomTextButton(onPressed: () {
                          AppConstants.makePhoneCall('tel:'+AppConstants.Mobile_number);
-
                         }, text: "Call us")
                       ],
                     )
@@ -280,9 +300,9 @@ class SignUpState extends State<SignUp> {
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      } else if (state.isEmpty) {
+      } else if (_phone.length < 10) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please select State'),
+          content: Text('Please enter valid Phone Number'),
           backgroundColor: Colors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
@@ -290,6 +310,13 @@ class SignUpState extends State<SignUp> {
       } else if (_city.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter City'),
+          backgroundColor: Colors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+        ));
+      } else if (selectedState=='Select States') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Please select State'),
           backgroundColor: Colors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
@@ -302,18 +329,13 @@ class SignUpState extends State<SignUp> {
           behavior: SnackBarBehavior.floating,
         ));
       } else {
-        // if (Provider.of<AuthProvider>(context, listen: false).isRemember) {
-        //   Provider.of<AuthProvider>(context, listen: false).saveUserEmail(_phone, _password);
-        // } else {
-        //   Provider.of<AuthProvider>(context, listen: false).clearUserEmailAndPassword();
-        // }
         CreateUserbody.phoneExt = '91';
         CreateUserbody.firstName = _name;
         CreateUserbody.emailId = _email;
         CreateUserbody.password = _password;
         CreateUserbody.phone = _phone;
         CreateUserbody.lastName = _userName;
-        CreateUserbody.state = state;
+        CreateUserbody.state = selectedState;
         CreateUserbody.city = _city;
         CreateUserbody.country = "India";
         CreateUserbody.language = 'English';
