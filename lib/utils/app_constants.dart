@@ -19,14 +19,14 @@ class AppConstants {
   static const String homeBanner_URL      = BASE_URL3 + 'banners';
 
   static const String Choose_category_URL = BASE_URL3 + 'category/all';
-  static const String Update_Choose_category_URL = BASE_URL3 + 'user/updateCategory';
+  static const String Update_Choose_category_URL = BASE_URL2 + 'user/updateCategory';
 
   //Book/E-Book
   static const String Books_URL           = BASE_URL3 + 'books/printed/10/0';
   static const String E_Books_URL         = BASE_URL3 + 'books/ebook/10/0';
 
 //PaidCourse/PaidcourseTab
-  static const String PaidCourses_URL         = BASE_URL3 + 'courses/paid/61cad845da1d8532b6f33fd1/10/0';
+  static const String PaidCourses_URL         = BASE_URL3 + 'courses/paid/61d2cca81cea2fdab6e9cb08/10/0';
   static const String PaidCoursesTab_URL         = BASE_URL3 + 'category/course_paid';
 
   static const String Courses_URL         = BASE_URL3 + 'courses/free/5/0';

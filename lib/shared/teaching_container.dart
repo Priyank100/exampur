@@ -154,8 +154,13 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text('View details',style: TextStyle(color: Colors.white)))),
                           ),
                           SizedBox(height: 10,),
-                          Container(height: 30,width: 110,decoration: BoxDecoration( color: Color(0xFF060929),
-                              borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text('Buy Course',style: TextStyle(color: Colors.white)))),
+                          InkWell(
+                            onTap: (){
+                              showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
+                            },
+                            child: Container(height: 30,width: 110,decoration: BoxDecoration( color: Color(0xFF060929),
+                                borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text('Buy Course',style: TextStyle(color: Colors.white)))),
+                          ),
 
                           SizedBox(height: 10,),
                           Row(

@@ -5,6 +5,7 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/UserInformationModel.dart';
 import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
+import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
@@ -28,7 +29,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 
 import 'TestSeries/testseries.dart';
-import 'dummycategory.dart';
+import 'LandingChooseCategory.dart';
 import 'dummytest.dart';
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/oofline_course.dart';
@@ -45,7 +46,7 @@ class _HomeState extends State<Home> {
   String userName = '';
 
   @override
-  void initState()  {
+  void initState() {
     super.initState();
     callProvider();
     // getSharedPrefData();
@@ -53,12 +54,17 @@ class _HomeState extends State<Home> {
 
   Future<void> callProvider() async {
     // await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context);
-    userName = await Provider.of<AuthProvider>(context, listen: false).informationModel.data!.firstName.toString();
+    userName = await Provider.of<AuthProvider>(context, listen: false)
+        .informationModel
+        .data!
+        .firstName
+        .toString();
     setState(() {});
   }
 
   Future<void> getSharedPrefData() async {
-    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
+    var jsonValue =
+        jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
     AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     setState(() {});
@@ -72,73 +78,139 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-        // Consumer<UserInformationModel>(
-        // builder: (context, userInformationProvider, child) {
-        //   return Text(userInformationProvider.data!.firstName.toString());
-        // }),
-            Text('Hello, ${userName} !', style:CustomTextStyle.headingMediumBold(context),),
+            // Consumer<UserInformationModel>(
+            // builder: (context, userInformationProvider, child) {
+            //   return Text(userInformationProvider.data!.firstName.toString());
+            // }),
+            Text(
+              'Hello, ${userName} !',
+              style: CustomTextStyle.headingMediumBold(context),
+            ),
             SizedBox(height: 15),
 
             // LargeCarousel(image: ["https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"]),
 
             Consumer<HomeBannerProvider>(
                 builder: (context, bannerProvider, child) {
-              return  bannerProvider.homeBannerModel.length!= 0 ?
-              LargeBanner(bannerModel: bannerProvider.homeBannerModel):Container( child: ClipRRect(
-                child: FadeInImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(Images.noimage),
-                  placeholder: AssetImage(Images.noimage),
-                  imageErrorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      Images.noimage,
+              return bannerProvider.homeBannerModel.length != 0
+                  ? LargeBanner(bannerModel: bannerProvider.homeBannerModel)
+                  : Container(
+                      child: ClipRRect(
+                        child: FadeInImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(Images.noimage),
+                          placeholder: AssetImage(Images.noimage),
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              Images.noimage,
+                            );
+                          },
+                        ),
+                      ),
                     );
-                  },
-                ),
-              ),);
             }),
 
             SizedBox(height: Dimensions.FONT_SIZE_DEFAULT),
 
-
-
             Row(
               children: [
-                SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:Dummycategorytest()),
-                SizedBox(width: 10,),
-                SquareButton(image: Images.book, title: 'Books',color: Colors.green, navigateTo:BooksEbook()),
+                SquareButton(
+                    image: Images.paidcourse,
+                    title: 'Paid Courses',
+                    color: Colors.purple,
+                    navigateTo:
+                   // MyApp()
+                   PaidCourses()
+                     //LandingChooseCategory()
+                    ),
+                SizedBox(
+                  width: 10,
+                ),
+                SquareButton(
+                    image: Images.book,
+                    title: 'Books',
+                    color: Colors.green,
+                    navigateTo: BooksEbook()),
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: [
-                SquareButton(image: Images.free_course, title: 'Free courses',color: Colors.deepOrange, navigateTo:StudyMaterial()),
-                SizedBox(width: 10,),
-                SquareButton(image: Images.testseries, title: 'Test Series',color: Colors.red, navigateTo:TestSeriesview()),
+                SquareButton(
+                    image: Images.free_course,
+                    title: 'Free courses',
+                    color: Colors.deepOrange,
+                    navigateTo: StudyMaterial()),
+                SizedBox(
+                  width: 10,
+                ),
+                SquareButton(
+                    image: Images.testseries,
+                    title: 'Test Series',
+                    color: Colors.red,
+                    navigateTo: TestSeriesview()),
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: [
-                SquareButton(image: Images.one2one, title: 'Exampur one2one',color: Colors.green, navigateTo:Exampuron2oneView()),
-                SizedBox(width: 10,),
-                SquareButton(image: Images.offlinebatch, title: 'offline Batches',color: Colors.brown, navigateTo:OfflineCourse()),
+                SquareButton(
+                    image: Images.one2one,
+                    title: 'Exampur one2one',
+                    color: Colors.green,
+                    navigateTo: Exampuron2oneView()),
+                SizedBox(
+                  width: 10,
+                ),
+                SquareButton(
+                    image: Images.offlinebatch,
+                    title: 'offline Batches',
+                    color: Colors.brown,
+                    navigateTo: OfflineCourse()),
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: [
-                SquareButton(image: Images.current_affair, title: 'Current Affairs',color: Colors.grey, navigateTo:CurrentAffairs()),
-                SizedBox(width: 10,),
-                SquareButton(image: Images.dailyquiz, title: 'Daily Quiz',color: Colors.blue, navigateTo:StudyMaterial()),
+                SquareButton(
+                    image: Images.current_affair,
+                    title: 'Current Affairs',
+                    color: Colors.grey,
+                    navigateTo: CurrentAffairs()),
+                SizedBox(
+                  width: 10,
+                ),
+                SquareButton(
+                    image: Images.dailyquiz,
+                    title: 'Daily Quiz',
+                    color: Colors.blue,
+                    navigateTo: StudyMaterial()),
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: [
-                SquareButton(image: Images.jobalert, title: 'Job Alerts',color: Colors.green, navigateTo:JobAlerts()),
-                SizedBox(width: 10,),
-                SquareButton(image: Images.studymaterial, title: 'Study Materials',color: Colors.orangeAccent, navigateTo:StudyMaterial()),
+                SquareButton(
+                    image: Images.jobalert,
+                    title: 'Job Alerts',
+                    color: Colors.green,
+                    navigateTo: JobAlerts()),
+                SizedBox(
+                  width: 10,
+                ),
+                SquareButton(
+                    image: Images.studymaterial,
+                    title: 'Study Materials',
+                    color: Colors.orangeAccent,
+                    navigateTo: StudyMaterial()),
               ],
             ),
           ],
@@ -154,35 +226,44 @@ class SquareButton extends StatelessWidget {
   final Widget? navigateTo;
   final Color? color;
 
-  SquareButton({@required this.image, @required this.title, @required this.navigateTo,this.color});
+  SquareButton(
+      {@required this.image,
+      @required this.title,
+      @required this.navigateTo,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width - 40;
     return InkWell(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => navigateTo!)),
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (_) => navigateTo!)),
       child: Container(
-          width: width / 2,
-          height: 80,
-          padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-              color: color!
-          ),
-          child: Row(
-            children: [
-              Image.asset(image!, ),
-              SizedBox(width: 15,),
-              Flexible(
-                  child: new Text(title!,style: TextStyle(color: Colors.white),))
-            ],
-          ),
+        width: width / 2,
+        height: 80,
+        padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: color!),
+        child: Row(
+          children: [
+            Image.asset(
+              image!,
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            Flexible(
+                child: new Text(
+              title!,
+              style: TextStyle(color: Colors.white),
+            ))
+          ],
         ),
-
-
+      ),
     );
   }
 }
+
 class FrontStyleModel {
   late String name;
   String image;

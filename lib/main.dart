@@ -66,6 +66,7 @@ class _MyAppState extends State<MyApp> {
       //darkTheme: CustomTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
+
       onGenerateRoute: _appRouter.onGenerateRoute,
       supportedLocales: _locals,
       home: SplashScreen(),

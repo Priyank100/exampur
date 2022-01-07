@@ -114,13 +114,14 @@ class SignInState extends State<SignIn> {
 
                         Center(
                           child: Image.asset(Images.exampur_title,
-                     //  height: Dimensions.ICON_SIZE_Title,
-                          // width: Dimensions.ICON_SIZE_Title,
-                           alignment: Alignment.center,
+                      height: Dimensions.ICON_SIZE_Title,
+                          width: Dimensions.ICON_SIZE_Title,
+
+                           //alignment: Alignment.center,
                        ),
                         ),
 
-                      SizedBox(height: 20),
+                     // SizedBox(height: 10),
                        Text(
                           "Let's Login",
                           style: CustomTextStyle.headingBigBold(context),

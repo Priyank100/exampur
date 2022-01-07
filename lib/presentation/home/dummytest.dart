@@ -1,139 +1,154 @@
-import 'package:exampur_mobile/data/model/CoursesModel.dart';
-import 'package:exampur_mobile/data/model/e_books_model.dart';
-import 'package:exampur_mobile/provider/Authprovider.dart';
-import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
-import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
-import 'package:exampur_mobile/provider/courses_provider.dart';
-import 'package:exampur_mobile/utils/app_constants.dart';
-import 'package:exampur_mobile/utils/images.dart';
+import 'dart:convert';
 
+import 'package:exampur_mobile/data/model/state_json.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
-class Dummytest extends StatefulWidget {
-  const Dummytest({Key? key}) : super(key: key);
-
+class MyApp extends StatefulWidget {
   @override
-  _DummytestState createState() => _DummytestState();
+  _UploadImageState createState() => _UploadImageState();
 }
 
-class _DummytestState extends State<Dummytest> {
-  final ScrollController _controller = ScrollController();
-  List<EBooks> bookList = [];
+class _UploadImageState extends State<MyApp> {
+  bool _isLoading = false;
+  List<Object> objectList =[];
+  late String selectedFruit;
+  Future<String> loadFromAssets() async {
+    return await rootBundle.loadString('assets/Statejson/State.json');
+  }
 
   @override
-  initState() {
-    callProvider();
+  void initState() {
+    // TODO: implement initState
     super.initState();
-    _controller.addListener(_scrollListener);
+    loadYourData();
   }
 
-  Future<void> callProvider() async {
-    // bookList = (await Provider.of<BooksEBooksProvider>(context, listen: false).getE_booksList(context))!;
-    setState(() {});
+  loadYourData() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    String jsonString = await loadFromAssets();
+    final StateResponse = stateJsonFromJson(jsonString);
+    objectList = StateResponse.states!.cast<Object>();
+    setState(() {
+      _isLoading = true;
+    });
   }
-
-  void _scrollListener() {
-    if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-      callProvider();
-    }
-  }
-    @override
-    Widget build(BuildContext context) {
-      // final postMdl = Provider.of<CoursesProvider>(context);
-      return Scaffold(
-          appBar: AppBar(
-            title: Text("Test"),
-          ),
-          body:
-          // CustomScrollView(
-          //   slivers: [
-          //
-          //     SliverGrid(
-          //       delegate: SliverChildBuilderDelegate(
-          //             (context, index) {
-          //           return Container(
-          //             alignment: Alignment.center,
-          //             color: Colors.teal[100 * (index % 9)],
-          //             child: Text('grid item $index'),
-          //           );
-          //         },
-          //         childCount: 10,
-          //       ),
-          //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          //         crossAxisCount: 2,
-          //         mainAxisSpacing: 15,
-          //         crossAxisSpacing: 15,
-          //         childAspectRatio: 2.0,
-          //       ),
-          //     ),
-          //
-          //
-          //   ],
-          // )
-
-          // ListView.builder(itemCount: postMdl.coursesModel.length,
-          //     itemBuilder: (BuildContext context,int index){
-          //   print(postMdl.coursesModel[index].courses!.first.amount.toString());
-          //   return Container(child: Text(postMdl.coursesModel[index].courses!.first.amount.toString()),);
-          // })
-
-          // Consumer<BooksProvider>(
-          //     builder: (context, bookProvider, child) {
-          //       return  bookProvider != null ?
-          //        ListView.builder(itemCount: bookProvider.ebooksModel.books!.length,
-          //           itemBuilder: (BuildContext context,int index){
-          //             print(bookProvider.ebooksModel.books![index].title);
-          //             return Container(child: Text(bookProvider.ebooksModel.books![index].title.toString()),);
-          //           }) : CircularProgressIndicator();
-          //     }),
-
-          bookList.length != 0 ?
-          ListView.builder(controller: _controller,
-              itemCount: bookList.length,
-              itemBuilder: (BuildContext context, int index) {
-                print(bookList[index].title);
-                return Container(
-                  child: Text(bookList[index].title.toString()),);
-              }) : CircularProgressIndicator()
-      );
-    }
-  }
-
-/*
-class Choice {
-  const Choice({this.title, this.icon});
-  final String? title;
-  final IconData? icon;
-}
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Home', icon: Icons.home),
-  const Choice(title: 'Contact', icon: Icons.contacts),
-  const Choice(title: 'Map', icon: Icons.map),
-  const Choice(title: 'Phone', icon: Icons.phone),
-  const Choice(title: 'Camera', icon: Icons.camera_alt),
-  const Choice(title: 'Setting', icon: Icons.settings),
-  const Choice(title: 'Album', icon: Icons.photo_album),
-  const Choice(title: 'WiFi', icon: Icons.wifi),
-];
-
-class SelectCard extends StatelessWidget {
-  const SelectCard({ this.choice}) : super();
-  final Choice? choice;
 
   @override
   Widget build(BuildContext context) {
-    //final TextStyle textStyle = Theme.of(context).textTheme.display1;
-    return Card(
-        color: Colors.orange,
-        child: Center(child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Expanded(child: Icon(choice!.icon, size:50.0,)),
-              Text(choice!.title.toString(),),
-            ]
+    String selectedFruit;
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(5.0),
+                //   border: Border.all(
+                //       color: Colors.red, style: BorderStyle.solid, width: 0.80),
+                 ),
+                child: DropdownButton(
+                   // value: selectedFruit,
+                    isExpanded: true,
+                    icon: Padding(
+                      padding: const EdgeInsets.only(left: 15.0),
+                      child: Icon(Icons.arrow_drop_down),
+                    ),
+                    iconSize: 25,
+                    underline: SizedBox(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        print(newValue);
+                       // selectedFruit = newValue;
+                      });
+                     // print(selectedFruit);
+                    },
+                    hint: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Select'),
+                    ),
+                    items: objectList.map((data) {
+                      return DropdownMenuItem(
+                        value: data.name.toString(),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Text(
+                            data.name!,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList()),
+              ),
+            ),
+          ),
         ),
-        )
+      ),
     );
   }
-}*/
+}
+
+
+
+
+FruitResponse fruitResponseFromJson(String str) => FruitResponse.fromJson(json.decode(str));
+
+String fruitResponseToJson(FruitResponse data) => json.encode(data.toJson());
+
+class FruitResponse {
+  List<Object>? objects;
+
+
+  FruitResponse({
+    this.objects,
+
+  });
+
+  factory FruitResponse.fromJson(Map<String, dynamic> json) => FruitResponse(
+    objects: List<Object>.from(json["objects"].map((x) => Object.fromJson(x))),
+
+  );
+
+  Map<String, dynamic> toJson() => {
+    "objects": List<dynamic>.from(objects!.map((x) => x.toJson())),
+
+  };
+}
+
+class Object {
+
+  String? name;
+
+
+  Object({
+
+    this.name,
+
+  });
+
+  factory Object.fromJson(Map<String, dynamic> json) => Object(
+
+    name: json["name"],
+
+  );
+
+  Map<String, dynamic> toJson() => {
+
+    "name": name,
+
+  };
+}
