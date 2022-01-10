@@ -28,9 +28,9 @@ class LandingPageState extends State<LandingPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(Images.exampur_logo,
-                  height: Dimensions.ICON_SIZE_BigLogo,
-                  width: Dimensions.ICON_SIZE_BigLogo,
+                Image.asset(Images.login,
+                  height: Dimensions.ICON_SIZE_BigsLogo ,
+                  width: Dimensions.ICON_SIZE_BigsLogo ,
                   alignment: Alignment.center,
                 ),
                 SizedBox(height: 20),

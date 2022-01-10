@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/data/model/one2_one_model.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class One2OneVideo extends StatefulWidget {
-  final String videoPath;
-  final String title;
-  const One2OneVideo(this.videoPath, this.title) : super();
+  final Courses one2oneList;
+
+  const One2OneVideo(this.one2oneList) : super();
 
   @override
   _One2OneVideoState createState() => _One2OneVideoState();
@@ -20,7 +21,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
   @override
   void initState() {
     try {
-      videoID = YoutubePlayer.convertUrlToId(widget.videoPath)!;
+      videoID = YoutubePlayer.convertUrlToId(widget.one2oneList.videoPath.toString())!;
       _controller = YoutubePlayerController(
         initialVideoId: videoID,
         flags: YoutubePlayerFlags(
@@ -55,7 +56,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
             SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(widget.title,
+              child: Text(widget.one2oneList.title.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             )
@@ -68,7 +69,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '\u{20B9}  ${-1}',
+              '\u{20B9}  ${widget.one2oneList.amount}',
               style: TextStyle(color: Colors.black, fontSize: 25),
             ),
             InkWell(

@@ -25,4 +25,5 @@ class Images {
   static const String help = 'assets/images/help.png';
   static const String home = 'assets/images/home.png';
   static const String pdfIcon = 'assets/images/ic_pdf.png';
+  static const String login = 'assets/images/hindilogo.png';
 }

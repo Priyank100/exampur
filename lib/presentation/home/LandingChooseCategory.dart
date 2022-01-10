@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
@@ -137,6 +139,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                         });
                                       },
                                       child: Container(
+
                                         padding: EdgeInsets.all(8),
                                         child: Column(
                                           crossAxisAlignment:
@@ -203,7 +206,10 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                                   color: Colors.amber,
                                                   width: 3,
                                                 )
-                                              : null,
+                                              :Border.all(
+                                            color: Colors.white,
+                                            width: 3,
+                                          ) ,
                                           boxShadow: [
                                             BoxShadow(
                                               color:
@@ -251,13 +257,8 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                   //     selectedCountries.length.toString());
                                   AppConstants.printLog(selectedCountries.length.toString());
                                   if(selectedCountries.length >0){
-                                    UpdateChoosecategory(selectedCountries.toString());
-                                    Navigator.pushReplacement(context,
-                                            MaterialPageRoute(builder:
-                                                (context) =>
-                                                    BottomNavigation()
-                                            )
-                                        );
+                                    UpdateChoosecategory(selectedCountries);
+
                                   }
                                   else {
                                     AppConstants.printLog('test');
@@ -320,17 +321,38 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
               )));
   }
 
-  UpdateChoosecategory(String? categories) async {
+  UpdateChoosecategory(List? categories) async {
     // Map<String, dynamic> args = {"categories": categories};
-    var body = {"categories": [
-      "61cad845da1d8532b6f33fd1", "61d2cc701cea2fdab6e9cb06"
-    ]};
-   // var body = {"categories": categories};
+    // var body = {"categories": [
+    //   "61cad845da1d8532b6f33fd1", "61d2cc701cea2fdab6e9cb06"
+    // ]};
+    var body = {"categories": categories};
     await Service.post(
       AppConstants.Update_Choose_category_URL,
       body: body,
-    ).then((value) async {
-      print(value.toString());
+    ).then((response) async {
+      print(response.body.toString());
+      if (response == null) {
+        var snackBar = SnackBar( margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text('Server Error'),backgroundColor: Colors.red,);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            } else if (response.statusCode == 200) {
+        AppConstants.printLog(response.body.toString());
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder:
+                (context) =>
+                BottomNavigation()
+            )
+        );
+      } else {
+        AppConstants.printLog("init address fail");
+       final body = json.decode(response.body);
+        var snackBar = SnackBar( margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text(body['data'].toString()),backgroundColor: Colors.red,);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
     });
   }
 }

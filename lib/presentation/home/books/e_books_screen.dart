@@ -16,7 +16,7 @@ class _EBooksScreenState extends State<EBooksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:widget.eBooksList.length==0 ? Center(child: CircularProgressIndicator()) :
+        body:widget.eBooksList.length==0 ? Center(child: CircularProgressIndicator(color: Colors.amber,)) :
         ListView.builder(
             itemCount: widget.eBooksList.length,
             shrinkWrap: true,

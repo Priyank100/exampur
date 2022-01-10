@@ -1,10 +1,13 @@
-import 'package:exampur_mobile/data/model/on2one_model.dart';
-import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
-import 'package:exampur_mobile/utils/appBar.dart';
-import 'package:exampur_mobile/utils/dimensions.dart';
-import 'package:exampur_mobile/utils/images.dart';
-import 'package:flutter/material.dart';
 
+import 'package:exampur_mobile/data/model/one2_one_model.dart';
+import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/provider/One2one_provider.dart';
+import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'one2oneviewlist.dart';
 
 class Exampuron2oneView extends StatefulWidget {
@@ -15,49 +18,32 @@ class Exampuron2oneView extends StatefulWidget {
 }
 
 class _Exampuron2oneViewState extends State<Exampuron2oneView> {
-  List<One2oneModel> list = [];
+  List<Courses> one2oneList= [];
   @override
   void initState() {
-    list.add(One2oneModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: ' Batch Class',teacher: 'Sheetal mam'));
-    list.add(One2oneModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: ' Foundation Batch Class',teacher: 'Sheetal mam'));
-    list.add(One2oneModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: 'Foundation Batch Class',teacher: 'Sheetal mam'));
-    list.add(One2oneModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: 'Foundation Batch Class',teacher: 'Sheetal mam'));
-    list.add(One2oneModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: 'Batch Class'));
-    list.add(One2oneModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: 'Batch Class'));
-    list.add(One2oneModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: '15 Days Free Foundation Batch Class'));
-    list.add(One2oneModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: 'Foundation Batch Class'));
+
+    super.initState();
+    getone2oneList();
   }
+
+  Future<void> getone2oneList() async {
+    AppConstants.printLog(one2oneList);
+    one2oneList = (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context))!;
+    setState(() {});
+   // return one2oneList;
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: list.length == 0
-          ? Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
+      body:
+      one2oneList.length == 0
+          ? Center(child: CircularProgressIndicator(color: Colors.amber,))
+          :
+      SingleChildScrollView(
             child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -72,7 +58,7 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
               ),
               SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
               ListView.builder(
-                  itemCount: list.length,
+                  itemCount: one2oneList.length,
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context,int index){
@@ -88,7 +74,7 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
                                 0.0,
                                 0.0,
                               ),
-                              blurRadius: 1.0,
+                              blurRadius: 0.95,
                               spreadRadius: 0.0,
                             ),
                           ],
@@ -100,14 +86,14 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => One2onelist(list,index)));
+                                      builder: (context) => One2onelist(one2oneList,index)));
                             },
-                            leading: Image.asset(list[index].imagePath.toString(),height: 40,width: 60,),
+                            //leading: Image.asset(one2oneList[index].logoPath.toString(),height: 40,width: 60,),
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(list[index].title.toString(),style:CustomTextStyle.drawerText(context),),
-                                Text(list[index].teacher.toString(),style:CustomTextStyle.drawerText(context),),
+                                Text(one2oneList[index].title.toString(),style:CustomTextStyle.drawerText(context),),
+                                Text(one2oneList[index].description.toString(),style:CustomTextStyle.drawerText(context),),
                               ],
                             ),
                             trailing: Icon(Icons.arrow_forward_ios_sharp,size: 18,color: Colors.black,)

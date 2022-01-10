@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/dropdown_selector.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -46,18 +47,20 @@ class HelpState extends State<Help> {
               child: TextField(
                 cursorColor: Colors.amber,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                    ),
-                  ),
+
+                  // focusedBorder: OutlineInputBorder(
+                  //   borderRadius: BorderRadius.circular(10.0),
+                  //   borderSide: const BorderSide(
+                  //     color: Colors.transparent,
+                  //   ),
+                  // ),
                   hintText: 'Name',
                   hintStyle: TextStyle(
                     color: Colors.grey[600],
                   ),
                   filled: true,
-                  fillColor: Colors.grey[300],
+                  fillColor:Colors.grey.shade300,
+                  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
                   enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
@@ -81,7 +84,8 @@ class HelpState extends State<Help> {
                     color: Colors.grey[600],
                   ),
                   filled: true,
-                  fillColor: Colors.grey[300],
+                  fillColor:Colors.grey.shade300,
+                  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
                   enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
@@ -105,7 +109,8 @@ class HelpState extends State<Help> {
                     color: Colors.grey[600],
                   ),
                   filled: true,
-                  fillColor: Colors.grey[300],
+                  fillColor: Colors.grey.shade300,
+                  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
                   enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
@@ -115,14 +120,14 @@ class HelpState extends State<Help> {
             ),
 
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:  const EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
 
-                    child: DropDownSelector(items: ["select issue", "App Crashing", "Exam Guidance", "Study Help", "Purchase help", "Other"], setValue: (val) {})),
+                    child: DropDownSelector(isExpanded:true,items: ["select issue", "App Crashing", "Exam Guidance", "Study Help", "Purchase help", "Other"], setValue: (val) {})),
 
 
 
             Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0),
               child: TextField(
                 cursorColor: Colors.amber,
                 decoration: InputDecoration(
@@ -138,10 +143,9 @@ class HelpState extends State<Help> {
                     color: Colors.grey[600],
                   ),
                   filled: true,
-                  fillColor: Colors.grey[300],
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
+                  fillColor: Colors.grey.shade300,
+                  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+
                 ),
                 maxLines: 5,
               ),
@@ -149,11 +153,11 @@ class HelpState extends State<Help> {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
               child: SizedBox(
-                height: 45.0,
+                height: 55.0,
                 width: MediaQuery.of(context).size.width * 1,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.amber,
+                      primary: AppConstants.Dark,
                       elevation: 5.0,
                     ),
                     onPressed: () {},
@@ -168,11 +172,11 @@ class HelpState extends State<Help> {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0,bottom: 10),
               child: SizedBox(
-                height: 45.0,
+                height: 55.0,
                 width: MediaQuery.of(context).size.width * 1,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.amber,
+                      primary:  AppConstants.Dark,
                       elevation: 5.0,
                     ),
                     onPressed: () {},

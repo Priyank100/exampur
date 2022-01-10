@@ -5,6 +5,8 @@ import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'Demo_container.dart';
+
 class Demo extends StatefulWidget {
   @override
   DemoState createState() => DemoState();
@@ -22,7 +24,7 @@ class DemoState extends State<Demo> {
         appBar: AppBar(
             title: Text(
               "Demo Classes",
-              style: CustomTextStyle.headingBold(context),
+              style: CustomTextStyle.headingBigBold(context),
             ),
             backgroundColor: Colors.transparent,
             elevation: 0),
@@ -38,7 +40,14 @@ class DemoState extends State<Demo> {
                   padding: const EdgeInsets.only(left: 10),
                   child: TitleRow(title: 'Recorded', onTap: () {  },  ),
                 ),
-                // VideoCardAT(),
+               Expanded(
+                 child: ListView.builder(
+                   shrinkWrap: true,
+                   itemCount: 3,
+                     itemBuilder: (BuildContext context, index){
+                   return DemoContainer();
+                 }),
+               )
 
               ],
             )));

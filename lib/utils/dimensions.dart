@@ -29,12 +29,15 @@ class Dimensions {
   static const double ICON_SIZE_SingPage = 120.0;
   static const double ICON_SIZE_Title = 180.0;
   static const double ICON_SIZE_BigLogo = 200.0;
+  static const double ICON_SIZE_BigsLogo = 250.0;
+
 
   static const double Login_Button_height = 60.0;
 
   static const double AppTutorialImageWidth = 130.0;
   static const double AppTutorialImageHeight = 80.0;
   static const double WatchButtonWidth = 120.0;
+  static const double WatchsButtonWidth = 95.0;
 
   static const double DailyMonthlyImageWidth = 80.0;
   static const double DailyMonthlyImageHeight = 80.0;

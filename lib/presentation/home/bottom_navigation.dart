@@ -28,6 +28,8 @@ import 'package:launch_review/launch_review.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
+import 'LandingChooseCategory.dart';
+
 class ItemClass {
   const ItemClass(this.index, this.label, this.icon);
 
@@ -254,7 +256,9 @@ class _BottomNavigationState extends State<BottomNavigation>
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ChooseCategory()));
+                                builder: (context) =>LandingChooseCategory()
+                                  //  ChooseCategory()
+                            ));
                       },
                     ),
                     ListTile(

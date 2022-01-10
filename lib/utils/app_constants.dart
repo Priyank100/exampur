@@ -82,4 +82,10 @@ class AppConstants {
     LanguageModel(imageUrl: '', languageName: 'English', countryCode: 'US', languageCode: 'en'),
     LanguageModel(imageUrl: '', languageName: 'Hindi', countryCode: 'SA', languageCode: 'ar'),
   ];
+
+
+
+  ///colors///////////////////////////////////////
+
+  static const Color Dark = Color(0xFFd19d0f);
 }
