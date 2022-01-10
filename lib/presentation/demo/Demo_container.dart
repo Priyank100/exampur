@@ -1,4 +1,5 @@
 
+import 'package:exampur_mobile/data/model/demo_models.dart';
 import 'package:exampur_mobile/presentation/home/study_material/study_material.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -6,9 +7,12 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'DemovideoVeiw.dart';
+
 class DemoContainer extends StatefulWidget {
-  final index;
-  const DemoContainer({this.index}) : super();
+  final List<Courses> demoList;
+  final int index;
+  const DemoContainer(this.demoList,this.index) : super();
 
   @override
   _DemoContainerState createState() => _DemoContainerState();
@@ -27,14 +31,14 @@ class _DemoContainerState extends State<DemoContainer> {
            Container(
                width: Dimensions.AppTutorialImageWidth,
                height: Dimensions.AppTutorialImageHeight,
-               child: Image.asset(Images.img_dummy, fit: BoxFit.fill)
+               child: Image.network(AppConstants.BANNER_BASE+widget.demoList[widget.index].bannerPath.toString(), fit: BoxFit.fill)
            ),
            SizedBox(width: 10),
            Flexible(
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
                children: [
-                 Text('widget.list[widget.index].title.toString()',overflow: TextOverflow.ellipsis, maxLines: 2,),
+                 Text(widget.demoList[widget.index].title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
                  SizedBox(height: 25,),
                  Row(
                    children: [
@@ -111,15 +115,15 @@ class _DemoContainerState extends State<DemoContainer> {
           ),
           ),
           SizedBox(height: 10,),
-          CustomButton(navigateTo: StudyMaterial(),title: '480p',),
+          CustomButton(navigateTo:  DemoViedoView(widget.demoList[widget.index]),title: '480p',),
           SizedBox(height: 10,),
-          CustomButton(navigateTo: StudyMaterial(),title: '360p',),
+          CustomButton(navigateTo:  DemoViedoView(widget.demoList[widget.index]),title: '360p',),
           SizedBox(height: 10,),
-          CustomButton(navigateTo: StudyMaterial(),title: '240p',),
+          CustomButton(navigateTo: DemoViedoView(widget.demoList[widget.index]),title: '240p',),
           SizedBox(height: 10,),
-          CustomButton(navigateTo: StudyMaterial(),title: '140p',),
+          CustomButton(navigateTo:  DemoViedoView(widget.demoList[widget.index]),title: '140p',),
           SizedBox(height: 10,),
-          CustomButton(navigateTo: StudyMaterial(),title: 'Audio Only',),
+          CustomButton(navigateTo:  DemoViedoView(widget.demoList[widget.index]),title: 'Audio Only',),
           SizedBox(height: 10,),
 
         ],
@@ -154,8 +158,9 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width - 60;
     return InkWell(
-      onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (_) => navigateTo!)),
+      onTap: () {  Navigator.pop(context);
+        Navigator.push(
+          context, MaterialPageRoute(builder: (_) => navigateTo!));},
       child: Container(
         width: width / 2,
         height: 40,

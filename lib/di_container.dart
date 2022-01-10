@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
+import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
@@ -18,6 +19,7 @@ import 'data/datasource/remote/dio/logging_incepactor.dart';
 import 'data/repository/Authrepo.dart';
 import 'data/repository/Books_EBooks_repo.dart';
 import 'data/repository/ChooseCategory_repo.dart';
+import 'data/repository/Demorepo.dart';
 import 'data/repository/HomeBanner_repo.dart';
 import 'data/repository/One2One_repo.dart';
 import 'data/repository/paid_course_repo.dart';
@@ -40,6 +42,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => One2OneRepo(dioClient: sl()));
   sl.registerLazySingleton(() => ChooseCategoryRepo(dioClient: sl()));
   sl.registerLazySingleton(() => PaidCoursesRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => DemoRepo(dioClient: sl()));
 
 
   // Provider
@@ -51,6 +54,7 @@ Future<void> init() async {
   sl.registerFactory(() =>  One2OneProvider(one2oneRepo: sl()));
   sl.registerFactory(() =>  ChooseCategoryProvider(chooseCategoryRepo: sl()));
   sl.registerFactory(() =>  PaidCoursesProvider(paidcoursesRepo: sl()));
+  sl.registerFactory(() =>  DemoProvider(demoRepo: sl()));
 
   //External
   final sharedPreferences = await SharedPreferences.getInstance();

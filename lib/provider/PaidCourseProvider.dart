@@ -48,7 +48,7 @@ class PaidCoursesProvider extends ChangeNotifier {
     } else if (apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
       _paidcourseModel = PaidCourseModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _paidcourseModel.courses;
+      return _paidcourseModel.data;
 
     } else {
       AppConstants.printLog("init address fail");
@@ -81,7 +81,7 @@ class PaidCoursesProvider extends ChangeNotifier {
     } else if (apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
       _paidcourseModel = PaidCourseModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _paidcourseModel.courses;
+      return _paidcourseModel.data;
 
     } else {
       AppConstants.printLog("init address fail");

@@ -45,7 +45,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                     Radius.circular(5.0) //
                 ),
               ),
-              child: Text('Please enter all the details to calculator \nyour eligbility for different exam', style: CustomTextStyle.headingSemiBold(context),),
+              child: Flexible(child: Text('Please enter all the details to calculator your eligbility for different exam', style: CustomTextStyle.headingSemiBold(context),)),
             ),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),

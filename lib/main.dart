@@ -7,6 +7,7 @@ import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
+import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
@@ -34,6 +35,7 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl<One2OneProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<ChooseCategoryProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<PaidCoursesProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<DemoProvider>()),
   ], child: MyApp()));
 }
 

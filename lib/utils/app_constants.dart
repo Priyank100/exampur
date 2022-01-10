@@ -51,6 +51,7 @@ class AppConstants {
 
   static bool isPrint = true;
   static bool isAuth = false;
+  static String BANNER_BASE = '';
   static String SELECT_CATEGORY_LENGTH = 'category_length';
 
 
