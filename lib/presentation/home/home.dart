@@ -3,13 +3,12 @@ import 'dart:io' show Platform;
 
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
-import 'package:exampur_mobile/data/model/UserInformationModel.dart';
-import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
+import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
-import 'package:exampur_mobile/presentation/home/dummyBanner.dart';
+import 'package:exampur_mobile/presentation/home/home_banner.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
 import 'package:exampur_mobile/presentation/home/study_material/study_material.dart';
 import 'package:exampur_mobile/presentation/home/quiz/test_series.dart';
@@ -44,6 +43,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String userName = '';
+  List<BannerData> bannerList = [];
 
   @override
   void initState() {
@@ -53,18 +53,17 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> callProvider() async {
-    // await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context);
     userName = await Provider.of<AuthProvider>(context, listen: false)
         .informationModel
         .data!
         .firstName
         .toString();
+    bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context))!;
     setState(() {});
   }
 
   Future<void> getSharedPrefData() async {
-    var jsonValue =
-        jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
     AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     setState(() {});
@@ -88,12 +87,7 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(height: 15),
 
-            // LargeCarousel(image: ["https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"]),
-
-            Consumer<HomeBannerProvider>(
-                builder: (context, bannerProvider, child) {
-              return bannerProvider.homeBannerModel.length != 0
-                  ? LargeBanner(bannerModel: bannerProvider.homeBannerModel)
+            bannerList.length != 0 ? LargeBanner(bannerList: bannerList)
                   : Container(
                       child: ClipRRect(
                         child: FadeInImage(
@@ -107,8 +101,7 @@ class _HomeState extends State<Home> {
                           },
                         ),
                       ),
-                    );
-            }),
+                    ),
 
             SizedBox(height: Dimensions.FONT_SIZE_DEFAULT),
 

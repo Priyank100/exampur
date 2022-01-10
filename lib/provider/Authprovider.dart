@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/UserInformationModel.dart';
 import 'package:exampur_mobile/data/model/Userinfo.dart';
 import 'package:exampur_mobile/data/model/createUserModel.dart';
@@ -157,26 +158,26 @@ class AuthProvider extends ChangeNotifier {
       AppConstants.printLog(apiResponse.response);
 
       var statusCode = apiResponse.response!.data['statusCode'].toString();
+      String data = apiResponse.response!.data['data'].toString();
 
       if (statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
         SharedPref.saveSharedPref(AppConstants.TOKEN, _informationModel.data!.authToken.toString());
-        AppConstants.printLog('ToKEN2>> ${_informationModel.data!.authToken}');
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
         await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
 
-        checkSelectCategory(context);
+        // checkSelectCategory(context);
+        getBannerBaseUrl(context);
 
       } else {
-        String msg = _informationModel.data.toString();
-        AppConstants.printLog(_informationModel.data.toString());
+        // String msg = _informationModel.data.toString();
+        // AppConstants.printLog('priyank>>'+_informationModel.data.toString());
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(msg),
-          backgroundColor: Colors.red,
+          content: Text('Logged Out'),
+          backgroundColor: Colors.black,
         ));
-        // go to login page
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
@@ -184,7 +185,6 @@ class AuthProvider extends ChangeNotifier {
             )
         );
       }
-
       notifyListeners();
     } else {
       String errorMessage;
@@ -199,6 +199,31 @@ class AuthProvider extends ChangeNotifier {
       //callback(false, errorMessage);
       notifyListeners();
     }
+  }
+
+  Future<void> getBannerBaseUrl(context) async {
+    await Service.get(AppConstants.BANNER_BASE_URL).then((response) async {
+      // {"statusCode":200,"data":"https://exampur-mumbai.b-cdn.net"}
+      if(response != null && response.statusCode == 200) {
+        var jsonObject =  jsonDecode(response.body);
+        if(jsonObject['statusCode'].toString() == '200') {
+          await SharedPref.saveSharedPref(AppConstants.BANNER_BASE_SP, jsonObject['data'].toString());
+          AppConstants.BANNER_BASE = jsonObject['data'].toString() + '/';
+          checkSelectCategory(context);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(jsonObject['data'].toString()),
+            backgroundColor: Colors.red,
+          ));
+        }
+
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Server Error'),
+          backgroundColor: Colors.red,
+        ));
+      }
+    });
   }
 
   Future<void> checkSelectCategory(context) async {

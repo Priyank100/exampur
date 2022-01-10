@@ -56,7 +56,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           Radius.circular(10),
                         )),
                     width: double.infinity,
-                    height: 200,
+                    // height: 200,
                     // child: FadeInImage(
                     //   fit: BoxFit.cover,
                     //   image: NetworkImage(
@@ -68,12 +68,11 @@ class _TeachingContainerState extends State<TeachingContainer> {
                     //     );
                     //   },
                     // ),
-                    child: Image.network(widget.courseData.bannerPath.toString()),
+                    child: Image.network(AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString()),
                   ),
                 ),
 
-
-                      Padding(
+                Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,

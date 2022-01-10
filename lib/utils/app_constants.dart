@@ -10,6 +10,8 @@ class AppConstants {
   // static const String BASE_URL3 = 'https://static.exampur.xyz/';
   static const String BASE_URL3 = 'https://static.exampur.work/';
 
+  static const String BANNER_BASE_URL = 'https://static.exampur.work/get_cdn';
+
   static const String Login_URL           = BASE_URL2 + 'auth/login';
   static const String Valid_Token_URL     = BASE_URL2 + 'user';
   static const String Update_User_URL     = BASE_URL2 + 'user';
@@ -43,7 +45,7 @@ class AppConstants {
 
   // sharePreference
   static const String TOKEN = 'Token';
-  static const String USER = 'user';
+  static const String BANNER_BASE_SP = 'Banner_Base';
   static const String USER_EMAIL = 'user_email';
   static const String USER_PASSWORD = 'user_password';
 
@@ -51,6 +53,7 @@ class AppConstants {
 
   static bool isPrint = true;
   static bool isAuth = false;
+  static String BANNER_BASE = '';
   static String SELECT_CATEGORY_LENGTH = 'category_length';
 
 

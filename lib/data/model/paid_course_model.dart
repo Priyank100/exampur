@@ -17,9 +17,9 @@ class PaidCourseModel {
 
   PaidCourseModel.fromJson(dynamic json) {
     _statusCode = json['statusCode'];
-    if (json['courses'] != null) {
+    if (json['data'] != null) {
       _courses = [];
-      json['courses'].forEach((v) {
+      json['data'].forEach((v) {
         _courses?.add(Courses.fromJson(v));
       });
     }
@@ -37,7 +37,7 @@ class PaidCourseModel {
     final map = <String, dynamic>{};
     map['statusCode'] = _statusCode;
     if (_courses != null) {
-      map['courses'] = _courses?.map((v) => v.toJson()).toList();
+      map['data'] = _courses?.map((v) => v.toJson()).toList();
     }
     map['totalCount'] = _totalCount;
     return map;

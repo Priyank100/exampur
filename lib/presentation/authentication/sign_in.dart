@@ -55,7 +55,7 @@ class SignInState extends State<SignIn> {
           //elevation: 6.0,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
-          content: Text('Please enter complete pHONE No.'),
+          content: Text('Please enter complete PHONE No.'),
           backgroundColor: Colors.black,
         ));
       } else if (_password.isEmpty) {
@@ -74,11 +74,11 @@ class SignInState extends State<SignIn> {
         // }
 
         loginBody.phoneExt = '91';
-        // loginBody.phone = _phone;
-        // loginBody.password = _password;
+        loginBody.phone = _phone;
+        loginBody.password = _password;
 
-        loginBody.phone = '9099998988';
-        loginBody.password = '@Zakir123';
+        // loginBody.phone = '9099998988';
+        // loginBody.password = '@Zakir123';
         await Provider.of<AuthProvider>(context, listen: false).login(loginBody, route);
       }
     }
@@ -132,6 +132,7 @@ class SignInState extends State<SignIn> {
                       CustomTextField(hintText: "Phone No.",  focusNode: _phoneNode,
 textInputType: TextInputType.number,
                         controller: _phoneController,
+                        maxLength: 10,
                         value: (value) {},),
                       SizedBox(height: 20,),
                       CustomPasswordTextField(

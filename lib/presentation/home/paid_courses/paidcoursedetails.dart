@@ -1,6 +1,7 @@
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -332,7 +333,7 @@ height: MediaQuery.of(context).size.height/1.88,
                     child: FadeInImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                          widget.paidcourseList.bannerPath.toString()
+                          AppConstants.BANNER_BASE + widget.paidcourseList.bannerPath.toString()
                       ),
                       placeholder: AssetImage(Images.noimage),
 

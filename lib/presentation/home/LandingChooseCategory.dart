@@ -168,7 +168,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                                       Colors.transparent,
                                                   backgroundImage:
                                                       new NetworkImage(
-                                                          chooseList[index]
+                                                          AppConstants.BANNER_BASE + chooseList[index]
                                                               .logoPath
                                                               .toString()),
                                                   radius: 20.0,

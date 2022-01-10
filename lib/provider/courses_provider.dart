@@ -6,7 +6,6 @@ import 'package:exampur_mobile/data/model/Userinfo.dart';
 import 'package:exampur_mobile/data/model/loginmodel.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/response/Base/error_response.dart';
-import 'package:exampur_mobile/data/model/response/HomeBannerModel.dart';
 import 'package:exampur_mobile/data/repository/Authrepo.dart';
 import 'package:exampur_mobile/data/repository/HomeBanner_repo.dart';
 import 'package:exampur_mobile/data/repository/courserepo.dart';

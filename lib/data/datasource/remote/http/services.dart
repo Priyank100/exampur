@@ -30,7 +30,9 @@ class Service {
   }
 
   static Future<http.Response> get(String url) async {
+    AppConstants.printLog('URL> $url');
     final response = await http.get(Uri.parse(url));
+    AppConstants.printLog('Response> ${response.body.toString()}');
     if (response.statusCode == 200) {
       return response;
     } else {
