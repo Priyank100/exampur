@@ -101,9 +101,10 @@ class SignUpState extends State<SignUp> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(child: Image.asset(Images.exampur_title, height: Dimensions.ICON_SIZE_Title,
+                    Center(child: Image.asset(Images.exampur_title,
+                      //height: Dimensions.ICON_SIZE_Title,
                       width: Dimensions.ICON_SIZE_Title,)),
-                   // SizedBox(height: 20),
+                    SizedBox(height: 20),
                     Text(
                       "Let's Register",
                       style: CustomTextStyle.headingBigBold(context),

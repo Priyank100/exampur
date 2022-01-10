@@ -88,7 +88,7 @@ class SignInState extends State<SignIn> {
     if (isRoute) {
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => BottomNavigation()), (route) => false);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage), backgroundColor: Colors.red));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage), backgroundColor: Colors.grey,));
     }
   }
   @override
@@ -113,15 +113,16 @@ class SignInState extends State<SignIn> {
                     children: [
 
                         Center(
-                          child: Image.asset(Images.exampur_title,
-                      height: Dimensions.ICON_SIZE_Title,
-                          width: Dimensions.ICON_SIZE_Title,
+                          child:
+                          Image.asset(Images.exampur_title,
+                     // height: Dimensions.ICON_SIZE_Title,
+                          width: Dimensions.ICON_SIZE_BigLogo ,
 
                            //alignment: Alignment.center,
                        ),
                         ),
 
-                     // SizedBox(height: 10),
+                      SizedBox(height: 20),
                        Text(
                           "Let's Login",
                           style: CustomTextStyle.headingBigBold(context),
