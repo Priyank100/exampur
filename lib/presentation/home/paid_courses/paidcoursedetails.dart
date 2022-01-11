@@ -159,7 +159,7 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
       child: Padding(
         padding: EdgeInsets.only(bottom: bottom),
         child: Container(
-          height: 210,
+         // height: 210,
           color: Colors.white,
           padding: EdgeInsets.all(12),
           child: Column(
@@ -184,9 +184,9 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
                 child: Row(
                   children: [
                     Image.asset(
-                      Images.paidcourse,
-                      height: 15,
-                      width: 15,
+                      Images.payment,
+                      height: 25,
+                      width: 25,
                     ),
                     SizedBox(
                       width: 25,
@@ -202,8 +202,9 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
               InkWell(
                 onTap: (){
                   setState(() {
-                    isVisible = !isVisible;
+                    isVisible = true;
                   });
+                  FocusScope.of(context).requestFocus(new FocusNode());
                  // visibilityObs ? null : _changed(true, "obs");
                 },
                 child: Container(height: 40,width: 120,
@@ -220,18 +221,20 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
                 ),
               ),
               SizedBox(height: 10,),
+
               Visibility(
                 visible: isVisible,
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
-                child: Row(crossAxisAlignment: CrossAxisAlignment.end,
+                // maintainSize: true,
+                // maintainAnimation: true,
+                // maintainState: true,
+                child:  Row(crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Expanded(
-                        flex:4,
+                        flex:3,
                         child: Container(
-                          width: 100,
-                          height: 40,
+                          width: 70,
+                          height: 45,
+                          padding: EdgeInsets.only(left: 8,top: 4),
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
 
@@ -245,11 +248,14 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
                           ),
                           child: TextField(
                             maxLines: 1,
+                           cursorColor:Colors.amber ,
+
                            // focusNode: inputNode,
                             autofocus:true,
                             // style: Theme.of(context).textTheme.title,
                             decoration: new InputDecoration(
-
+hintText: 'Discount Coupon',
+                                hintStyle: TextStyle(color: Colors.grey.shade400),
                                 isDense: true,
                               fillColor: Colors.grey.withOpacity(0.1),border: InputBorder.none
                             ),
@@ -259,13 +265,16 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
                       ),
                       SizedBox(width: 20,),
                       Expanded(
-                        flex:1,
+                        flex:2,
                         child: Container(
-                          height: 30,color: Colors.amber,child: Center(child: Text('Apply',style: TextStyle(color: Colors.white),)),
+                          decoration: BoxDecoration(color: Colors.amber,
+                            borderRadius:  BorderRadius.all(const Radius.circular(12)),
+                          ),
+                          height: 45,child: Center(child: Text('Apply',style: TextStyle(color: Colors.white),)),
                         ),
                       )
                 ])
-              ),
+              )
 
             ],
           ),
@@ -295,7 +304,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
             color: Colors.white   ),
 
 
-height: MediaQuery.of(context).size.height/1.88,
+//height: MediaQuery.of(context).size.height/1.88,
         // padding: EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -334,7 +343,7 @@ height: MediaQuery.of(context).size.height/1.88,
                       child: FadeInImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                            widget.paidcourseList.bannerPath.toString()
+                         AppConstants.BANNER_BASE+   widget.paidcourseList.bannerPath.toString()
                         ),
                         placeholder: AssetImage(Images.noimage),
 

@@ -26,4 +26,6 @@ class Images {
   static const String home = 'assets/images/home.png';
   static const String pdfIcon = 'assets/images/ic_pdf.png';
   static const String login = 'assets/images/hindilogo.png';
+  static const String payment = 'assets/images/mobile-payment.png';
+  static const String live_lottie = 'assets/images/live.json';
 }

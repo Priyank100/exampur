@@ -80,15 +80,15 @@ class _BottomNavigationState extends State<BottomNavigation>
     Home(),
     Demo(),
     MyCourses(),
-    Downloads(),
-    Help()
+    // Downloads(),
+    // Help()
   ];
   final List<String> widgetNames = [
     "Home",
     "Demo",
     "My Courses",
-    "Downloads",
-    "Help"
+    // "Downloads",
+    // "Help"
   ];
 
   @override
@@ -119,16 +119,16 @@ class _BottomNavigationState extends State<BottomNavigation>
         "My Courses",
         FaIcon(FontAwesomeIcons.camera),
       ),
-      ItemClass(
-        3,
-        "Downloads",
-          _currIndex==3?   Image.asset(Images.download,height: 30,width: 25,color: Colors.amber,):Image.asset(Images.download,height: 30,width: 25,)
-      ),
-      ItemClass(
-        4,
-        "Help",
-          _currIndex==4?  Image.asset(Images.help,height: 30,width: 25,color: Colors.amber): Image.asset(Images.help,height: 30,width: 25,)
-      ),
+      // ItemClass(
+      //   3,
+      //   "Downloads",
+      //     _currIndex==3?   Image.asset(Images.download,height: 30,width: 25,color: Colors.amber,):Image.asset(Images.download,height: 30,width: 25,)
+      // ),
+      // ItemClass(
+      //   4,
+      //   "Help",
+      //     _currIndex==4?  Image.asset(Images.help,height: 30,width: 25,color: Colors.amber): Image.asset(Images.help,height: 30,width: 25,)
+      // ),
     ];
 
     return WillPopScope(

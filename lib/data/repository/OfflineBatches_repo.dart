@@ -9,28 +9,16 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ChooseCategoryRepo {
+class OfflineBatchesRepo {
   final DioClient dioClient;
 
 
-  ChooseCategoryRepo({required this.dioClient});
+  OfflineBatchesRepo ({required this.dioClient});
 
-  Future<ApiResponse> chooseCategory() async {
+  Future<ApiResponse> offlineBatchRepo() async {
     try {
-
-      final url =  '${AppConstants.Choose_category_URL}';
-      AppConstants.printLog(url);
-      final response = await dioClient.get(url);
-      return ApiResponse.withSuccess(response);
-    } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
-    }
-  }
-
-  Future<ApiResponse> selectCategory() async {
-    try {
-
-      final url =  '${AppConstants.Select_Choose_category_URL}';
+      int currentPage = 1;
+      const url = '${AppConstants.offline_batches}';
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

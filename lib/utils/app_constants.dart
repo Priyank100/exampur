@@ -20,7 +20,8 @@ class AppConstants {
   static const String homeBanner_URL      = BASE_URL3 + 'banners';
 
   static const String Choose_category_URL = BASE_URL3 + 'category/all';
-  static const String Update_Choose_category_URL = BASE_URL3 + 'user/updateCategory';
+  static const String Update_Choose_category_URL = BASE_URL2 + 'user/updateCategory';
+  static const String Select_Choose_category_URL = BASE_URL2 + 'user/getCategory';
 
   //Book/E-Book
   static const String Books_URL           = BASE_URL3 + 'books/printed/10/0';
@@ -37,10 +38,13 @@ class AppConstants {
 
   static const String Courses_URL         = BASE_URL3 + 'courses/free/5/0';
 
-
+//one2one
   static const String One2One_URL         = BASE_URL3 + 'courses/onetoone/10/0';
   static const String Terms_and_Conditions ='https://exampur.com/';
 
+
+  //offlinebatches
+  static const String offline_batches =BASE_URL3 +'offline_centers/findall/10/0';
 
 
   // sharePreference
