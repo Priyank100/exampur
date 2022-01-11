@@ -56,12 +56,11 @@ class _LargeBannerState extends State<LargeBanner> {
                             errorWidget: (context, url, error) => new Icon(Icons.error),
                           ),
                         ),
-                        onTap: () {
-                        }),
+                        onTap: () {}),
                   );
                 },
               );
-            }).toList(),
+            } ).toList(),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
