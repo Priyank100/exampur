@@ -77,16 +77,11 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Consumer<UserInformationModel>(
-            // builder: (context, userInformationProvider, child) {
-            //   return Text(userInformationProvider.data!.firstName.toString());
-            // }),
             Text(
               'Hello, ${userName} !',
               style: CustomTextStyle.headingMediumBold(context),
             ),
             SizedBox(height: 15),
-
             bannerList.length != 0 ? LargeBanner(bannerList: bannerList)
                   : Container(
                       child: ClipRRect(
