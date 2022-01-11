@@ -144,7 +144,6 @@ class _TeachingContainerState extends State<TeachingContainer> {
                       Column(
                         children: [
                           InkWell(onTap: (){
-                            Navigator.pop(context);
                             Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 PaidCourseDetails(widget.courseData)
                             ));
@@ -155,7 +154,6 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           SizedBox(height: 10,),
                           InkWell(
                             onTap: (){
-                              Navigator.pop(context);
                               showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>
                                   BottomSheeet1(widget.courseData));
                             },

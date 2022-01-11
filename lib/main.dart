@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
+import 'package:exampur_mobile/presentation/authentication/otp_screen.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';

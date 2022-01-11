@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    checkSharedPrefToken();
+    callProvider();
   }
 
   @override
@@ -57,11 +57,16 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
+  Future<void> callProvider() async {
+    await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context).then((value) {
+      checkSharedPrefToken();
+    });
+  }
 
   Future<void> checkSharedPrefToken() async {
-    await SharedPref.getSharedPref(AppConstants.TOKEN).then((value) => {
-      AppConstants.printLog('TOKEN>> $value'),
-      validateToken(value)
+    await SharedPref.getSharedPref(AppConstants.TOKEN).then((value) {
+      AppConstants.printLog('TOKEN>> $value');
+      validateToken(value);
     });
   }
 
@@ -77,7 +82,6 @@ class _SplashScreenState extends State<SplashScreen> {
      //          )
      //      )
      //  );
-
 
     } else {
       Timer(Duration(seconds: 3),

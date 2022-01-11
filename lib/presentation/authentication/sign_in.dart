@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/data/model/loginmodel.dart';
+import 'package:exampur_mobile/presentation/authentication/otp_screen.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
@@ -148,7 +149,12 @@ textInputType: TextInputType.number,
                         children: [
 
                           Text("Forgot Password?",style: TextStyle(color: Colors.grey.shade600),),
-                          CustomTextButton(onPressed: () {}, text: "Reset")
+                          CustomTextButton(onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => OtpScreen()));
+                          }, text: "Reset")
                         ],
                       ),
 

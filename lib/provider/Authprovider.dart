@@ -152,7 +152,7 @@ class AuthProvider extends ChangeNotifier {
 
   ///TokenValidate
   Future<void> tokenValidation(BuildContext context) async {
-    ApiResponse apiResponse = await authRepo.checkVaildToken();
+    ApiResponse apiResponse = await authRepo.checkValidToken();
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
@@ -168,8 +168,7 @@ class AuthProvider extends ChangeNotifier {
         _userData.add(_informationModel);
         await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
 
-        // checkSelectCategory(context);
-        getBannerBaseUrl(context);
+        checkSelectCategory(context);
 
       } else {
         // String msg = _informationModel.data.toString();
@@ -196,7 +195,10 @@ class AuthProvider extends ChangeNotifier {
         AppConstants.printLog(errorResponse.errors![0].message);
         errorMessage = errorResponse.errors![0].message!;
       }
-      //callback(false, errorMessage);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Server Error'),
+        backgroundColor: Colors.black,
+      ));
       notifyListeners();
     }
   }
@@ -209,7 +211,6 @@ class AuthProvider extends ChangeNotifier {
         if(jsonObject['statusCode'].toString() == '200') {
           await SharedPref.saveSharedPref(AppConstants.BANNER_BASE_SP, jsonObject['data'].toString());
           AppConstants.BANNER_BASE = jsonObject['data'].toString() + '/';
-          checkSelectCategory(context);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(jsonObject['data'].toString()),
@@ -248,34 +249,34 @@ class AuthProvider extends ChangeNotifier {
     });
   }
 
-  Future changePasswordPro(parameters) async {
+  Future changePasswordPro(context, parameters) async {
     ApiResponse apiResponse = await authRepo.changePassword(parameters);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
 
       var statusCode = apiResponse.response!.data['statusCode'].toString();
+      var msg = apiResponse.response!.data['data'].toString();
       if(statusCode == '200') {
-        // _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
-        // List<UserInformationModel> _userData = [];
-        // _userData.add(_informationModel);
-        // await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
+        AppConstants.showBottomMessage(context, msg, Colors.black);
         notifyListeners();
         return true;
       } else {
+        AppConstants.showBottomMessage(context, msg, Colors.black);
         notifyListeners();
         return false;
       }
 
     } else {
-      // String errorMessage = '';
-      // if (apiResponse.error is String) {
-      //   AppConstants.printLog(apiResponse.error.toString());
-      //   errorMessage = apiResponse.error.toString();
-      // } else {
-      //   ErrorResponse errorResponse = apiResponse.error;
-      //   AppConstants.printLog(errorResponse.errors![0].message);
-      //   errorMessage = errorResponse.errors![0].message!;
-      // }
+      String errorMessage = '';
+      if (apiResponse.error is String) {
+        AppConstants.printLog(apiResponse.error.toString());
+        errorMessage = apiResponse.error.toString();
+      } else {
+        ErrorResponse errorResponse = apiResponse.error;
+        AppConstants.printLog(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message!;
+      }
+      AppConstants.showBottomMessage(context, errorMessage, Colors.red);
       notifyListeners();
       return false;
     }

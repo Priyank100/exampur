@@ -142,16 +142,13 @@ class _SecuritySettingsState extends State<SecuritySettings> {
       isLoading = true;
       String param = '{"current_password":"${currentPassword}",'
           '"confirm_password":"${confirmPassword}",'
-          '"password":"${newPassword}"}';
-      await Provider.of<AuthProvider>(context, listen: false).changePasswordPro(jsonDecode(param)).then((response) {
+          '"new_password":"${newPassword}"}';
+      await Provider.of<AuthProvider>(context, listen: false).changePasswordPro(context, jsonDecode(param)).then((response) {
         isLoading = false;
         if(response) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Changed Successfully'), backgroundColor: Colors.green));
           _currentPasswordController.text = '';
           _newPasswordController.text = '';
           _confirmPasswordController.text = '';
-        }else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Server Error'), backgroundColor: Colors.red));
         }
         setState(() {});
       });

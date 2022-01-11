@@ -1,6 +1,7 @@
 import 'package:exampur_mobile/data/model/response/languagemodel.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppConstants {
@@ -16,11 +17,13 @@ class AppConstants {
   static const String Valid_Token_URL     = BASE_URL2 + 'user';
   static const String Update_User_URL     = BASE_URL2 + 'user';
   static const String Change_Password_URL = BASE_URL2 + 'auth/changePassword';
+  static const String Send_OTP_URL        = BASE_URL2 + 'otp';
+  static const String Reset_Password_URL  = BASE_URL2 + 'auth/resetPassword';
 
   static const String homeBanner_URL      = BASE_URL3 + 'banners';
 
   static const String Choose_category_URL = BASE_URL3 + 'category/all';
-  static const String Update_Choose_category_URL = BASE_URL3 + 'user/updateCategory';
+  static const String Update_Choose_category_URL = BASE_URL2 + 'user/updateCategory';
 
   //Book/E-Book
   static const String Books_URL           = BASE_URL3 + 'books/printed/10/0';
@@ -28,11 +31,11 @@ class AppConstants {
 
   //PaidCourse
   static const String PaidCoursesTab_URL      = BASE_URL3 + 'category/course_paid';
-  static const String PaidCoursesDetail_URL   = BASE_URL3 + 'courses/paid/' + 'PAID_COURSE_ID' + '/10/0';
+  static const String PaidCoursesList_URL   = BASE_URL3 + 'courses/paid/' + 'PAID_COURSE_ID' + '/10/0';
 
   //FreeCourse
   static const String FreeCoursesTab_URL      = BASE_URL3 + 'category/course_free';
-  static const String FreeCoursesDetail_URL   = BASE_URL3 + 'courses/free/' + 'FREE_COURSE_ID' + '/10/0';
+  static const String FreeCoursesList_URL   = BASE_URL3 + 'courses/free/' + 'FREE_COURSE_ID' + '/10/0';
 
 
   static const String Courses_URL         = BASE_URL3 + 'courses/free/5/0';
@@ -46,10 +49,8 @@ class AppConstants {
   // sharePreference
   static const String TOKEN = 'Token';
   static const String BANNER_BASE_SP = 'Banner_Base';
-  static const String USER_EMAIL = 'user_email';
-  static const String USER_PASSWORD = 'user_password';
-
   static const String USER_DATA = 'user_data';
+
 
   static bool isPrint = true;
   static bool isAuth = false;
@@ -76,6 +77,31 @@ class AppConstants {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  static void showBottomMessage(context, message, bgColor) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      margin: EdgeInsets.all(20),
+      behavior: SnackBarBehavior.floating,
+      content: Text(message),
+      backgroundColor: bgColor,
+    ));
+  }
+
+  static void showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 10),child:Text("Loading..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
   }
 
   static const String COUNTRY_CODE = 'country_code';

@@ -22,7 +22,7 @@ class PaidCoursesRepo {
 
   Future<ApiResponse> paid_coursesRepo(String id) async {
     try {
-      String url = AppConstants.PaidCoursesDetail_URL.replaceAll('PAID_COURSE_ID', id);
+      String url = AppConstants.PaidCoursesList_URL.replaceAll('PAID_COURSE_ID', id);
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
@@ -45,7 +45,7 @@ class PaidCoursesRepo {
 
   Future<ApiResponse> free_coursesRepo(String id) async {
     try {
-      String url = AppConstants.FreeCoursesDetail_URL.replaceAll('FREE_COURSE_ID', id);
+      String url = AppConstants.FreeCoursesList_URL.replaceAll('FREE_COURSE_ID', id);
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

@@ -53,7 +53,7 @@ class AuthRepo {
     }
   }
 
-  Future<ApiResponse> checkVaildToken() async {
+  Future<ApiResponse> checkValidToken() async {
     String token = await SharedPref.getSharedPref(AppConstants.TOKEN);
     try {
       Map<String, dynamic> header = {

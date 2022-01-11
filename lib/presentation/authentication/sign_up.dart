@@ -93,8 +93,8 @@ class SignUpState extends State<SignUp> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(child: Image.asset(Images.exampur_title, height: Dimensions.ICON_SIZE_Title,
-                      width: Dimensions.ICON_SIZE_Title,)),
+                    Center(child: Image.asset(Images.exampur_title, width: 200,)
+                    ),
                     Text(
                       "Let's Register",
                       style: CustomTextStyle.headingBigBold(context),
@@ -138,14 +138,7 @@ class SignUpState extends State<SignUp> {
                         textInputType: TextInputType.number,
                         maxLength: 10,
                         value: (value) {}),
-                    SizedBox(
-                      height: 15,
-                    ),
 
-                    CustomTextField(
-                        hintText: "City",
-                        controller: _cityController,
-                        value: (value) {}),
                     SizedBox(
                       height: 15,
                     ),
@@ -177,6 +170,16 @@ class SignUpState extends State<SignUp> {
                         },
                       ),
                     ),
+
+                    SizedBox(
+                      height: 15,
+                    ),
+
+                    CustomTextField(
+                        hintText: "City",
+                        controller: _cityController,
+                        value: (value) {}),
+
                     SizedBox(
                       height: 10,
                     ),
@@ -281,7 +284,7 @@ class SignUpState extends State<SignUp> {
         ));
       } else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please enter atleast 6 letter Password'),
+          content: Text('Please enter atleast 8 letter Password'),
           backgroundColor: Colors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,

@@ -295,7 +295,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
             color: Colors.white   ),
 
 
-height: MediaQuery.of(context).size.height/1.88,
+//height: MediaQuery.of(context).size.height/1.88,
         // padding: EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
