@@ -1,5 +1,7 @@
-import 'package:exampur_mobile/data/model/on2one_model.dart';
-import 'package:exampur_mobile/data/model/one2_one_model.dart';
+
+
+
+import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/shared/one_two_one_card.dart';
 import 'package:exampur_mobile/utils/appBar.dart';

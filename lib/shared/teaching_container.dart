@@ -122,28 +122,29 @@ class _TeachingContainerState extends State<TeachingContainer> {
                 Padding(
                   padding: const EdgeInsets.only(right: 8),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Expanded(
-                        child: ListView.builder(
-                            itemCount: 4,
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context,int index){
-                              return Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        RowTile(title: 'jhgcf', ),
-
-                                      ],
-                                    );
-                        }),
-                      ),
+                      // Expanded(
+                      //   child: ListView.builder(
+                      //       itemCount: 4,
+                      //       shrinkWrap: true,
+                      //       itemBuilder: (BuildContext context,int index){
+                      //         return Column(
+                      //                 crossAxisAlignment: CrossAxisAlignment.start,
+                      //                 mainAxisAlignment: MainAxisAlignment.start,
+                      //                 children: [
+                      //                   RowTile(title: 'jhgcf', ),
+                      //
+                      //                 ],
+                      //               );
+                      //   }),
+                      // ),
 
                       Column(
                         children: [
                           InkWell(onTap: (){
+                            Navigator.pop(context);
                             Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 PaidCourseDetails(widget.courseData)
                             ));
@@ -154,7 +155,9 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           SizedBox(height: 10,),
                           InkWell(
                             onTap: (){
-                              showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>BottomSheeet1(widget.courseData));
+                              Navigator.pop(context);
+                              showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>
+                                  BottomSheeet1(widget.courseData));
                             },
                             child: Container(height: 30,width: 110,decoration: BoxDecoration( color: Color(0xFF060929),
                                 borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text('Buy Course',style: TextStyle(color: Colors.white)))),

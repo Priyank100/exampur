@@ -288,141 +288,143 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
   @override
   Widget build(BuildContext context) {
     return
-      Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(28),topRight: Radius.circular(28)),
-          color: Colors.white   ),
+      SingleChildScrollView(
+        child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(28),topRight: Radius.circular(28)),
+            color: Colors.white   ),
 
 
 height: MediaQuery.of(context).size.height/1.88,
-      // padding: EdgeInsets.all(8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 20,
-            width: double.infinity,
-            decoration: BoxDecoration(
+        // padding: EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 20,
+              width: double.infinity,
+              decoration: BoxDecoration(
 
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(28),topRight: Radius.circular(28)),
-                color: Colors.amber   ),),
-          Padding(
-            padding: const EdgeInsets.all(19.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.paidcourseList.title.toString(),
-                  style: TextStyle(fontSize: 20),
-                ),
-                SizedBox(height: 10,),
-
-                ClipRRect(
-                  borderRadius: BorderRadius.all( Radius.circular(10),
-                    // bottomRight: Radius.circular(20),
-                    // bottomLeft: Radius.circular(20),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(28),topRight: Radius.circular(28)),
+                  color: Colors.amber   ),),
+            Padding(
+              padding: const EdgeInsets.all(19.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.paidcourseList.title.toString(),
+                    style: TextStyle(fontSize: 20),
                   ),
-                  child: Container(
-                    //padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        )),
-                    width: double.infinity,
-                    height: 200,
-                    child: FadeInImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                          AppConstants.BANNER_BASE + widget.paidcourseList.bannerPath.toString()
+                  SizedBox(height: 10,),
+
+                  ClipRRect(
+                    borderRadius: BorderRadius.all( Radius.circular(10),
+                      // bottomRight: Radius.circular(20),
+                      // bottomLeft: Radius.circular(20),
+                    ),
+                    child: Container(
+                      //padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          )),
+                      width: double.infinity,
+                      height: 200,
+                      child: FadeInImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            widget.paidcourseList.bannerPath.toString()
+                        ),
+                        placeholder: AssetImage(Images.noimage),
+
+
                       ),
-                      placeholder: AssetImage(Images.noimage),
-
 
                     ),
-
                   ),
-                ),
-                SizedBox(height: 10,),
-                Text(
-                  widget.paidcourseList.title.toString(),maxLines: 2,
-                  style: TextStyle(fontSize: 20),
-                ),
+                  SizedBox(height: 10,),
+                  Text(
+                    widget.paidcourseList.title.toString(),maxLines: 2,
+                    style: TextStyle(fontSize: 20),
+                  ),
 
-                Row(
-                  children: [
-                    Text(
-                      '\u{20B9}',
-                      style: TextStyle(color: Colors.black, fontSize: 25),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      widget.paidcourseList.amount.toString(),
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: (){
-                        showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>Bottomsheet2());
-                        // _SkipBottomSheet(
-                        //   context,
-                        // );
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(8),
+                  Row(
+                    children: [
+                      Text(
+                        '\u{20B9}',
+                        style: TextStyle(color: Colors.black, fontSize: 25),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        widget.paidcourseList.amount.toString(),
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: (){
+                          showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>Bottomsheet2());
+                          // _SkipBottomSheet(
+                          //   context,
+                          // );
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8),
+                              ),
+                              border: Border.all(color: Colors.amber, width: 2)),
+                          padding: EdgeInsets.all(8),
+                          child:
+                          Center(
+                            child: Text(
+                              'Skip',
+                              style: TextStyle(color: Colors.amber,fontSize: 20),
                             ),
-                            border: Border.all(color: Colors.amber, width: 2)),
-                        padding: EdgeInsets.all(8),
-                        child:
-                        Center(
-                          child: Text(
-                            'Skip',
-                            style: TextStyle(color: Colors.amber,fontSize: 20),
                           ),
-                        ),
 
-                      ),
-                    ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => DeliveryDetailScreen()),
-                        );
-                      },
-                      child: Container(
-                        height: 50, width: 100,
-                        //padding: EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.all(Radius.circular(7))),
-                        child: Center(
-                          child: Text(
-                            'Add',
-                            style: TextStyle(color: Colors.white),
-                          ),
                         ),
                       ),
-                    )
-                  ],
-                ),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => DeliveryDetailScreen()),
+                          );
+                        },
+                        child: Container(
+                          height: 50, width: 100,
+                          //padding: EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.all(Radius.circular(7))),
+                          child: Center(
+                            child: Text(
+                              'Add',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
 
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+    ),
+      );
   }
   }
 

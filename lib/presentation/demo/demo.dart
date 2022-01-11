@@ -1,21 +1,35 @@
 import 'dart:io';
+import 'package:exampur_mobile/data/model/demo_models.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/shared/tile_row.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'Demo_container.dart';
 
 class Demo extends StatefulWidget {
+
   @override
   DemoState createState() => DemoState();
 }
 
 class DemoState extends State<Demo> {
+   List<Courses> demoList= [];
   @override
   void initState() {
     super.initState();
+    getDemoList();
+  }
+
+  Future<void> getDemoList() async {
+    AppConstants.printLog(demoList);
+    demoList= (await Provider.of<DemoProvider>(context, listen: false).getdemosList(context))!;
+    setState(() {});
+    // return one2oneList;
+
   }
 
   @override
@@ -28,7 +42,7 @@ class DemoState extends State<Demo> {
             ),
             backgroundColor: Colors.transparent,
             elevation: 0),
-        body: Padding(
+        body:demoList.length==0?Center(child: CircularProgressIndicator(color: Colors.amber,)) :Padding(
             padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,9 +57,9 @@ class DemoState extends State<Demo> {
                Expanded(
                  child: ListView.builder(
                    shrinkWrap: true,
-                   itemCount: 3,
+                   itemCount: demoList.length,
                      itemBuilder: (BuildContext context, index){
-                   return DemoContainer();
+                   return DemoContainer(demoList,index);
                  }),
                )
 

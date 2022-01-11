@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
-import 'package:exampur_mobile/data/model/one2_one_model.dart';
+import 'package:exampur_mobile/data/model/demo_models.dart';
+
 
 
 
@@ -21,10 +22,10 @@ class DemoProvider extends ChangeNotifier {
 
 
 
-  One2OneModel _one2oneModel = One2OneModel();
-  One2OneModel get one2oneModel => _one2oneModel;
+  DemoModels _demoModel = DemoModels();
+  DemoModels get demoModel => _demoModel;
 
-  Future<List<Courses>?> getOne2OneList(BuildContext context) async {
+  Future<List<Courses>?> getdemosList(BuildContext context) async {
     ApiResponse apiResponse = await demoRepo.demoRepo();
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
@@ -33,8 +34,8 @@ class DemoProvider extends ChangeNotifier {
 
 
       AppConstants.printLog(apiResponse.response);
-      _one2oneModel =One2OneModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _one2oneModel.courses;
+      _demoModel =DemoModels.fromJson(json.decode(apiResponse.response.toString()));
+      return _demoModel.data;
 
 
 

@@ -1,5 +1,6 @@
 
-import 'package:exampur_mobile/data/model/one2_one_model.dart';
+
+import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -18,7 +19,7 @@ class Exampuron2oneView extends StatefulWidget {
 }
 
 class _Exampuron2oneViewState extends State<Exampuron2oneView> {
-  List<Courses> one2oneList= [];
+ List<Courses> one2oneList= [];
   @override
   void initState() {
 
@@ -93,7 +94,7 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(one2oneList[index].title.toString(),style:CustomTextStyle.drawerText(context),),
-                                Text(one2oneList[index].description.toString(),style:CustomTextStyle.drawerText(context),),
+                               // Text(one2oneList[index].description.toString(),style:CustomTextStyle.drawerText(context),),
                               ],
                             ),
                             trailing: Icon(Icons.arrow_forward_ios_sharp,size: 18,color: Colors.black,)

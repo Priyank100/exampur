@@ -1,4 +1,5 @@
-import 'package:exampur_mobile/data/model/one2_one_model.dart';
+
+import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';

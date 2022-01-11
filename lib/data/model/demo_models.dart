@@ -1,43 +1,43 @@
 import 'dart:convert';
 /// statusCode : 200
-/// courses : [{"_id":"61c98d223a7d50ce67803edb","title":"Course 1","banner_path":"banner_path_1.jpg","logo_path":"logo_path_1.jpg","description":"Description for Course 1","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","amount":1999,"flag":"New","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"category":{"_id":"61d2cc8c1cea2fdab6e9cb07","name":"RAJASTHAN SPECIAL"}},{"_id":"61c98f4f3a7d50ce67803ee8","title":"Course 2","banner_path":"https://downloadexampur.appx.co.in/paid_course/0.0618913895695287761640973487144.jpeg","logo_path":"https://downloadexampur.appx.co.in/paid_course/0.9844409933133141640973457488.png","description":"Description for Course 2","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","amount":1999,"flag":"New","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"category":{"_id":"61d2cc8c1cea2fdab6e9cb07","name":"RAJASTHAN SPECIAL"}}]
-/// totalCount : 2
+/// courses : [{"_id":"61c98f583a7d50ce67803ee9","title":"Course 3","banner_path":"course/xhDZxhs1-banner_course_2.jpeg","logo_path":"course/A4UH9efn-logo_course_2.png","description":"Description for Course 3","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","amount":1999,"macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"category":[{"_id":"61cad845da1d8532b6f33fd1","name":"HARYANA SPECIAL"},{"_id":"61d2cca81cea2fdab6e9cb08","name":"POLICE EXAMS"}]},{"_id":"61c98f683a7d50ce67803eeb","title":"Course 5","banner_path":"course/fjLMxz7U-banner_course_2.jpeg","logo_path":"course/Pa2eiWbA-logo_course_2.png","description":"Description for Course 5","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","amount":1999,"macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"category":[{"_id":"61cad845da1d8532b6f33fd1","name":"HARYANA SPECIAL"},{"_id":"61d2cca81cea2fdab6e9cb08","name":"POLICE EXAMS"}]},{"_id":"61c98f913a7d50ce67803ef1","title":"Course 11","banner_path":"course/gzlMU7rs-banner_course_2.jpeg","logo_path":"course/sjY2AdDt-logo_course_2.png","description":"Description for Course 11","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","amount":0,"macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"category":[{"_id":"61cad845da1d8532b6f33fd1","name":"HARYANA SPECIAL"},{"_id":"61d2cc8c1cea2fdab6e9cb07","name":"RAJASTHAN SPECIAL"}]}]
+/// totalCount : 3
 
-One2OneModel one2OneModelFromJson(String str) => One2OneModel.fromJson(json.decode(str));
-String one2OneModelToJson(One2OneModel data) => json.encode(data.toJson());
-class One2OneModel {
-  One2OneModel({
+DemoModels demoModelsFromJson(String str) => DemoModels.fromJson(json.decode(str));
+String demoModelsToJson(DemoModels data) => json.encode(data.toJson());
+class DemoModels {
+  DemoModels({
       int? statusCode, 
-      List<Courses>? courses, 
+      List<Courses>? data,
       int? totalCount,}){
     _statusCode = statusCode;
-    _courses = courses;
+    _data = data;
     _totalCount = totalCount;
 }
 
-  One2OneModel.fromJson(dynamic json) {
+  DemoModels.fromJson(dynamic json) {
     _statusCode = json['statusCode'];
-    if (json['courses'] != null) {
-      _courses = [];
-      json['courses'].forEach((v) {
-        _courses?.add(Courses.fromJson(v));
+    if (json['data'] != null) {
+      _data = [];
+      json['data'].forEach((v) {
+        _data?.add(Courses.fromJson(v));
       });
     }
     _totalCount = json['totalCount'];
   }
   int? _statusCode;
-  List<Courses>? _courses;
+  List<Courses>? _data;
   int? _totalCount;
 
   int? get statusCode => _statusCode;
-  List<Courses>? get courses => _courses;
+  List<Courses>? get data => _data;
   int? get totalCount => _totalCount;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['statusCode'] = _statusCode;
-    if (_courses != null) {
-      map['courses'] = _courses?.map((v) => v.toJson()).toList();
+    if (_data != null) {
+      map['courses'] = _data?.map((v) => v.toJson()).toList();
     }
     map['totalCount'] = _totalCount;
     return map;
@@ -45,16 +45,15 @@ class One2OneModel {
 
 }
 
-/// _id : "61c98d223a7d50ce67803edb"
-/// title : "Course 1"
-/// banner_path : "banner_path_1.jpg"
-/// logo_path : "logo_path_1.jpg"
-/// description : "Description for Course 1"
+/// _id : "61c98f583a7d50ce67803ee9"
+/// title : "Course 3"
+/// banner_path : "course/xhDZxhs1-banner_course_2.jpeg"
+/// logo_path : "course/A4UH9efn-logo_course_2.png"
+/// description : "Description for Course 3"
 /// video_path : "https://www.youtube.com/watch?v=ZoOwI3P5POo"
 /// amount : 1999
-/// flag : "New"
 /// macro : [{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}]
-/// category : {"_id":"61d2cc8c1cea2fdab6e9cb07","name":"RAJASTHAN SPECIAL"}
+/// category : [{"_id":"61cad845da1d8532b6f33fd1","name":"HARYANA SPECIAL"},{"_id":"61d2cca81cea2fdab6e9cb08","name":"POLICE EXAMS"}]
 
 Courses coursesFromJson(String str) => Courses.fromJson(json.decode(str));
 String coursesToJson(Courses data) => json.encode(data.toJson());
@@ -67,9 +66,8 @@ class Courses {
       String? description, 
       String? videoPath, 
       int? amount, 
-      String? flag, 
       List<Macro>? macro, 
-      Category? category,}){
+      List<Category>? category,}){
     _id = id;
     _title = title;
     _bannerPath = bannerPath;
@@ -77,7 +75,6 @@ class Courses {
     _description = description;
     _videoPath = videoPath;
     _amount = amount;
-    _flag = flag;
     _macro = macro;
     _category = category;
 }
@@ -90,14 +87,18 @@ class Courses {
     _description = json['description'];
     _videoPath = json['video_path'];
     _amount = json['amount'];
-    _flag = json['flag'];
     if (json['macro'] != null) {
       _macro = [];
       json['macro'].forEach((v) {
         _macro?.add(Macro.fromJson(v));
       });
     }
-    _category = json['category'] != null ? Category.fromJson(json['category']) : null;
+    if (json['category'] != null) {
+      _category = [];
+      json['category'].forEach((v) {
+        _category?.add(Category.fromJson(v));
+      });
+    }
   }
   String? _id;
   String? _title;
@@ -106,9 +107,8 @@ class Courses {
   String? _description;
   String? _videoPath;
   int? _amount;
-  String? _flag;
   List<Macro>? _macro;
-  Category? _category;
+  List<Category>? _category;
 
   String? get id => _id;
   String? get title => _title;
@@ -117,9 +117,8 @@ class Courses {
   String? get description => _description;
   String? get videoPath => _videoPath;
   int? get amount => _amount;
-  String? get flag => _flag;
   List<Macro>? get macro => _macro;
-  Category? get category => _category;
+  List<Category>? get category => _category;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -130,20 +129,19 @@ class Courses {
     map['description'] = _description;
     map['video_path'] = _videoPath;
     map['amount'] = _amount;
-    map['flag'] = _flag;
     if (_macro != null) {
       map['macro'] = _macro?.map((v) => v.toJson()).toList();
     }
     if (_category != null) {
-      map['category'] = _category?.toJson();
+      map['category'] = _category?.map((v) => v.toJson()).toList();
     }
     return map;
   }
 
 }
 
-/// _id : "61d2cc8c1cea2fdab6e9cb07"
-/// name : "RAJASTHAN SPECIAL"
+/// _id : "61cad845da1d8532b6f33fd1"
+/// name : "HARYANA SPECIAL"
 
 Category categoryFromJson(String str) => Category.fromJson(json.decode(str));
 String categoryToJson(Category data) => json.encode(data.toJson());
