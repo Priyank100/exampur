@@ -142,7 +142,7 @@ class _TabBarDemoState extends State<TabBarDemo>
           ),
           bottom:
           PreferredSize(
-            preferredSize: Size.fromHeight(65.0),
+            preferredSize: Size.fromHeight(77.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

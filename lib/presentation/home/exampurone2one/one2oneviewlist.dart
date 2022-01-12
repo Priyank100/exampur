@@ -5,6 +5,7 @@ import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/shared/one_two_one_card.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -64,10 +65,10 @@ class _One2onelistState extends State<One2onelist> {
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => One2OneVideo(widget.one2oneList[widget.index])));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => One2OneVideo(widget.one2oneList[widget.index])));
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
@@ -78,12 +79,12 @@ class _One2onelistState extends State<One2onelist> {
                             width: MediaQuery.of(context).size.width * 0.17,
                             //flex: 1,
                             child: FadeInImage(
-                              image: NetworkImage("widget.instance.image"),
+                              image: NetworkImage(AppConstants.BANNER_BASE+  widget.one2oneList[widget.index].logoPath.toString(),),
                               placeholder:
                                   AssetImage(Images.noimage),
                               imageErrorBuilder: (context, error, stackTrace) {
-                                return Image.asset(
-                                    widget.one2oneList[widget.index].bannerPath.toString(),
+                                return Image.network(
+                                    AppConstants.BANNER_BASE+  widget.one2oneList[widget.index].logoPath.toString(),
                                 );
                               },
                             )),
@@ -129,7 +130,7 @@ class _One2onelistState extends State<One2onelist> {
                                          child: Row(
                                            children: [
                                              Lottie.network(
-                                                 'https://assets7.lottiefiles.com/packages/lf20_buuuwhvb.json'),
+                                                 'https://assets2.lottiefiles.com/packages/lf20_HztQu8.json'),
                                              Text("New Batch",
                                                  style: TextStyle(
                                                    fontSize: 10,
@@ -143,22 +144,30 @@ class _One2onelistState extends State<One2onelist> {
                                 ),
                                 Row(
                                   children: [
-                                    Container(
-                                        width: 100,
-                                        height: 30,
-                                        margin: EdgeInsets.all(5),
-                                        padding: EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            border: Border.all(
-                                                color: Color(0xFF060929)),
-                                            color: Color(0xFF060929)),
-                                        child: const Center(
-                                            child: Text("View Details",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.white)))),
+                                    InkWell(
+                                      onTap: (){
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => One2OneVideo(widget.one2oneList[widget.index])));
+                                      },
+                                      child: Container(
+                                          width: 100,
+                                          height: 30,
+                                          margin: EdgeInsets.all(5),
+                                          padding: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              border: Border.all(
+                                                  color: Color(0xFF060929)),
+                                              color: Color(0xFF060929)),
+                                          child: const Center(
+                                              child: Text("View Details",
+                                                  style: TextStyle(
+                                                      fontSize: 10,
+                                                      color: Colors.white)))),
+                                    ),
                                     const SizedBox(
                                       width: 10,
                                     ),

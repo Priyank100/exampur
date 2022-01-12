@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
 import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
+import 'package:exampur_mobile/data/model/GetcategoruModel.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,13 +14,12 @@ class ChooseCategoryProvider extends ChangeNotifier {
 
   ChooseCategoryProvider({required this.chooseCategoryRepo});
 
-  // List<String> _category = [];
-  // List<String> get category=> _category;
 
-  //CategoriesModel _categoryModel = CategoriesModel();
- // CategoriesModel get categoryModel =>_categoryModel;
   ChooseCategory _categoryModel = ChooseCategory();
   ChooseCategory get categoryModel =>_categoryModel;
+
+  GetCategoriesModel _getCategoriesModel =GetCategoriesModel();
+  GetCategoriesModel get getCategoriesModel => _getCategoriesModel;
 
   Future<List<Data>?> getchooseCategoryList(BuildContext context) async {
     ApiResponse apiResponse = await chooseCategoryRepo.chooseCategory();
@@ -28,9 +28,8 @@ class ChooseCategoryProvider extends ChangeNotifier {
     } else if (apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response!.data);
 
-//_categoryModel = CategoriesModel.fromJson(json.decode(apiResponse.response.toString()));
 _categoryModel = ChooseCategory.fromJson(json.decode(apiResponse.response.toString()));
-//return _categoryModel.categories;
+
     return _categoryModel.data;
 
 
@@ -42,5 +41,24 @@ _categoryModel = ChooseCategory.fromJson(json.decode(apiResponse.response.toStri
     throw '';
   }
 
+  Future<List<String>?> getSelectchooseCategoryList(BuildContext context) async {
+    ApiResponse apiResponse = await chooseCategoryRepo.selectCategory();
+    if (apiResponse.response == null) {
+      ApiChecker.checkApi(context, apiResponse);
+    } else if (apiResponse.response!.statusCode == 200) {
+      AppConstants.printLog(apiResponse.response!.data);
+
+      _getCategoriesModel = GetCategoriesModel.fromJson(json.decode(apiResponse.response.toString()));
+
+      return _getCategoriesModel.data;
+
+
+    } else {
+      AppConstants.printLog("init address fail");
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+    throw '';
+  }
 
 }

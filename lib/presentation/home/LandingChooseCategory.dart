@@ -31,6 +31,7 @@ class LandingChooseCategory extends StatefulWidget {
 class _LandingChooseCategoryState extends State<LandingChooseCategory> {
 
   List<Data> chooseList = [];
+  List<String> getSelectList = [];
   List<String> selectedCountries = [];
 
   // late final List<Category> selectedList;
@@ -47,9 +48,28 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
     chooseList =
         (await Provider.of<ChooseCategoryProvider>(context, listen: false)
             .getchooseCategoryList(context))!;
+    getSelectList =
+    (await Provider.of<ChooseCategoryProvider>(context, listen: false)
+        .getSelectchooseCategoryList(context))!;
+
+    // if (getSelectList.every((item) => chooseList.contains(item))) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+
+    for(int i=0; i < getSelectList.length; i++) {
+      for(int j=0; j<chooseList.length; j++) {
+        if(getSelectList[i] == chooseList[j].id) {
+          chooseList[j].isSelected = true;
+          selectedCountries.add(chooseList[j].id.toString());
+        }
+      }
+    }
 
     setState(() {});
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +221,8 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
 
                                         //height: 100.0,
                                         decoration: BoxDecoration(
-                                          border: chooseList[index].isSelected
+                                          border:
+                                          chooseList[index].isSelected
                                               ? Border.all(
                                                   color: Colors.amber,
                                                   width: 3,

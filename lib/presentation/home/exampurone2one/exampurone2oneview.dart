@@ -89,7 +89,7 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
                                   MaterialPageRoute(
                                       builder: (context) => One2onelist(one2oneList,index)));
                             },
-                            //leading: Image.asset(one2oneList[index].logoPath.toString(),height: 40,width: 60,),
+                            leading: Image.network(AppConstants.BANNER_BASE+one2oneList[index].logoPath.toString(),height: 40,width: 60,),
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
