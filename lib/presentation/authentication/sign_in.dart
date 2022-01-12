@@ -75,11 +75,11 @@ class SignInState extends State<SignIn> {
         // }
 
         loginBody.phoneExt = '91';
-        // loginBody.phone = _phone;
-        // loginBody.password = _password;
+        loginBody.phone = _phone;
+        loginBody.password = _password;
 
-        loginBody.phone = '9099998988';
-        loginBody.password = '@Zakir123';
+        // loginBody.phone = '9099998988';
+        // loginBody.password = '@Zakir123';
         await Provider.of<AuthProvider>(context, listen: false).login(loginBody, route);
       }
     }
@@ -153,7 +153,7 @@ textInputType: TextInputType.number,
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => OtpScreen()));
+                                    builder: (context) => OtpScreen(true)));
                           }, text: "Reset")
                         ],
                       ),

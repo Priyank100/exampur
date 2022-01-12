@@ -18,6 +18,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'otp_screen.dart';
 class SignUp extends StatefulWidget {
   @override
   SignUpState createState() => SignUpState();
@@ -352,10 +354,10 @@ class SignUpState extends State<SignUp> {
   route(bool isRoute, String errorMessage) async {
     if (isRoute) {
       SharedPref.saveSharedPref(AppConstants.SELECT_CATEGORY_LENGTH, '0');
-      Navigator.pushAndRemoveUntil(
+      Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => LandingChooseCategory()),
-          (route) => false);
+              MaterialPageRoute(builder: (_) => OtpScreen(false)));
+
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(errorMessage), backgroundColor: Colors.red));
