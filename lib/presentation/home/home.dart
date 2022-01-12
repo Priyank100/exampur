@@ -77,10 +77,7 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Hello, ${userName} !',
-              style: CustomTextStyle.headingMediumBold(context),
-            ),
+            Text('Hello, ${userName} !', style: CustomTextStyle.headingMediumBold(context),),
             SizedBox(height: 15),
             bannerList.length != 0 ? LargeBanner(bannerList: bannerList)
                   : Container(
