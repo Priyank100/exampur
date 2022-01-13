@@ -31,7 +31,7 @@ import 'TestSeries/testseries.dart';
 import 'LandingChooseCategory.dart';
 import 'dummytest.dart';
 import 'exampurone2one/exampurone2oneview.dart';
-import 'offlinebatches/oofline_course.dart';
+import 'offlinebatches/offline_course.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {

@@ -19,6 +19,7 @@ class AppConstants {
   static const String Change_Password_URL = BASE_URL2 + 'auth/changePassword';
   static const String Send_OTP_URL        = BASE_URL2 + 'otp';
   static const String Reset_Password_URL  = BASE_URL2 + 'auth/resetPassword';
+  static const String Verify_OTP_URL      = BASE_URL2 + 'auth/verification';
 
   static const String homeBanner_URL      = BASE_URL3 + 'banners';
 
@@ -38,7 +39,6 @@ class AppConstants {
   static const String FreeCoursesTab_URL      = BASE_URL3 + 'category/course_free';
   static const String FreeCoursesList_URL   = BASE_URL3 + 'courses/free/' + 'FREE_COURSE_ID' + '/10/0';
 
-
   static const String Courses_URL         = BASE_URL3 + 'courses/free/5/0';
 
 //one2one
@@ -47,19 +47,22 @@ class AppConstants {
 
 
   //offlinebatches
-  static const String offline_batches =BASE_URL3 +'offline_centers/findall/10/0';
+  static const String offline_batches         = BASE_URL3 +'offline_centers/findall/10/0';
+  static const String offline_batches_center  = BASE_URL3 +'offline_centers/findone/' + 'CENTER_ID' + '/10/0';
+  static const String offline_batches_course  = BASE_URL3 +'offline_centers/course/'; //set course id at last
 
 
   // sharePreference
   static const String TOKEN = 'Token';
   static const String BANNER_BASE_SP = 'Banner_Base';
   static const String USER_DATA = 'user_data';
+  static String SELECT_CATEGORY_LENGTH = 'category_length';
 
 
   static bool isPrint = true;
   static bool isAuth = false;
   static String BANNER_BASE = '';
-  static String SELECT_CATEGORY_LENGTH = 'category_length';
+
 
 
   static String Mobile_number = '9873111552';

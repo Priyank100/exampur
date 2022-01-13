@@ -1,17 +1,21 @@
 import 'dart:convert';
 
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
+import 'package:exampur_mobile/presentation/home/LandingChooseCategory.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
-import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/custompassword_textfield.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 
+import 'landing_page.dart';
+
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+  final bool isReset;
+  const OtpScreen(this.isReset) : super();
 
   @override
   _OtpScreenState createState() => _OtpScreenState();
@@ -45,10 +49,20 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ),
               SizedBox(height: 30),
-              Text('Reset Password', style: CustomTextStyle.headingBigBold(context)),
+              Text(widget.isReset ? 'Reset Password' : 'Verify Phone',
+                  style: CustomTextStyle.headingBigBold(context)),
               SizedBox(height: 30),
-              !isOtp ? phoneWidget() :
-              otpWidget()
+              !isOtp ? phoneWidget() : otpWidget(),
+              SizedBox(height: 30),
+              InkWell(
+                onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => LandingPage()),
+                          (route) => false);
+                },
+                child: Text('LogIn/New Register', style: TextStyle(color: Colors.blue)),
+              )
             ],
           ),
         )
@@ -99,17 +113,23 @@ class _OtpScreenState extends State<OtpScreen> {
             controller: _otpController,
             value: (value) {}),
         SizedBox(height: 20),
-        CustomPasswordTextField(
-          hintTxt: 'New Password',
-          controller: _newPasswordController,
-          textInputAction: TextInputAction.next,
-        ),
-        SizedBox(height: 20),
-        CustomPasswordTextField(
-          hintTxt: 'Confirm Password',
-          controller: _confirmPasswordController,
-          textInputAction: TextInputAction.next,
-        ),
+        widget.isReset ? Container(
+          child: Column(
+            children: [
+              CustomPasswordTextField(
+                hintTxt: 'New Password',
+                controller: _newPasswordController,
+                textInputAction: TextInputAction.next,
+              ),
+              SizedBox(height: 20),
+              CustomPasswordTextField(
+                hintTxt: 'Confirm Password',
+                controller: _confirmPasswordController,
+                textInputAction: TextInputAction.next,
+              )
+            ],
+          ),
+        ): SizedBox(),
         SizedBox(height: 30),
         ElevatedButton(
           style: ButtonStyle(
@@ -117,7 +137,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 Theme.of(context).primaryColor),
           ),
           onPressed: () {
-            verifyOtpResetPassword();
+            widget.isReset ? verifyOtpResetPassword() : verifyOtp();
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -179,14 +199,6 @@ class _OtpScreenState extends State<OtpScreen> {
 
   void verifyOtpResetPassword() async {
     FocusScope.of(context).unfocus();
-    if(_phoneController.text.trim().toString().isEmpty) {
-      AppConstants.showBottomMessage(context, 'Enter phone number', Colors.black);
-      return;
-    }
-    if(_phoneController.text.trim().toString().length < 10) {
-      AppConstants.showBottomMessage(context, 'Enter valid phone number', Colors.black);
-      return;
-    }
     if(_otpController.text.trim().toString().isEmpty) {
       AppConstants.showBottomMessage(context, 'Enter the OTP', Colors.black);
       return;
@@ -231,6 +243,43 @@ class _OtpScreenState extends State<OtpScreen> {
         if(statusCode == '200') {
           AppConstants.showBottomMessage(context, msg, Colors.black);
           Navigator.pop(context);
+        } else {
+          AppConstants.showBottomMessage(context, msg, Colors.black);
+        }
+
+      } else {
+        AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+      }
+    });
+  }
+
+  void verifyOtp() async {
+    FocusScope.of(context).unfocus();
+    if(_otpController.text.trim().toString().isEmpty) {
+      AppConstants.showBottomMessage(context, 'Enter the OTP', Colors.black);
+      return;
+    }
+    AppConstants.showLoaderDialog(context);
+    var body = {
+      "phone_ext": "91",
+      "phone": _phoneController.text.trim().toString(),
+      "otp": _otpController.text.trim().toString(),
+    };
+    await Service.post(AppConstants.Verify_OTP_URL, body: body).then((response) async {
+      Navigator.pop(context);
+      if (response == null) {
+        AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+
+      } else if (response.statusCode == 200) {
+        AppConstants.printLog(response.body.toString());
+        final body = json.decode(response.body);
+        var statusCode = body['statusCode'].toString();
+        var msg = body['data'].toString();
+        if(statusCode == '200') {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => LandingChooseCategory()),
+                  (route) => false);
         } else {
           AppConstants.showBottomMessage(context, msg, Colors.black);
         }

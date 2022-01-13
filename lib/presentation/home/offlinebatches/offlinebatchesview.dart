@@ -4,23 +4,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class OnlineBatchesVideo extends StatefulWidget {
-  final String videoPath;
-  final String title;
-  const OnlineBatchesVideo(this.videoPath, this.title) : super();
+class OfflineBatchesVideo extends StatefulWidget {
+  final String id;
+  const OfflineBatchesVideo(this.id) : super();
 
   @override
-  _OnlineBatchesVideoState createState() => _OnlineBatchesVideoState();
+  _OfflineBatchesVideoState createState() => _OfflineBatchesVideoState();
 }
 
-class _OnlineBatchesVideoState extends State<OnlineBatchesVideo> {
+class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
   String videoID = '';
   late YoutubePlayerController _controller;
 
   @override
   void initState() {
     try {
-      videoID = YoutubePlayer.convertUrlToId(widget.videoPath)!;
+      videoID = YoutubePlayer.convertUrlToId('https://www.youtube.com/watch?v=ZoOwI3P5POo')!;
       _controller = YoutubePlayerController(
         initialVideoId: videoID,
         flags: YoutubePlayerFlags(
@@ -55,9 +54,15 @@ class _OnlineBatchesVideoState extends State<OnlineBatchesVideo> {
             SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(widget.title,
+              child: Text(widget.id.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(widget.id.toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12)),
             )
           ],
         ),

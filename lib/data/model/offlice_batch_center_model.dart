@@ -3,34 +3,35 @@ import 'dart:convert';
 /// data : [{"_id":"61dd6d0de3530aed60ffc81f","name":"Patna Center 1","city":"Patna","country":"India","pincode":"851130","state":"Bihar"},{"_id":"61dd6e69e3530aed60ffc820","name":"Patna Center 2","city":"Patna","country":"India","pincode":"851132","state":"Bihar"},{"_id":"61dd6e7fe3530aed60ffc821","name":"Meerut Center 1","city":"Meerut","country":"India","pincode":"250001","state":"Uttar Pradesh"},{"_id":"61dd6e9ee3530aed60ffc822","name":"Meerut Center 2","city":"Meerut","country":"India","pincode":"250001","state":"Uttar Pradesh"}]
 /// totalCount : 4
 
-OfflineBatchModel offlineBatchesModelFromJson(String str) => OfflineBatchModel.fromJson(json.decode(str));
-String offlineBatchesModelToJson(OfflineBatchModel data) => json.encode(data.toJson());
-class OfflineBatchModel {
-  OfflineBatchModel({
+OffliceBatchCenterModel offliceBatchCenterModelFromJson(String str) => OffliceBatchCenterModel.fromJson(json.decode(str));
+String offliceBatchCenterModelToJson(OffliceBatchCenterModel data) => json.encode(data.toJson());
+
+class OffliceBatchCenterModel {
+  OffliceBatchCenterModel({
       int? statusCode, 
-      List<Data>? data, 
+      List<CenterListModel>? data,
       int? totalCount,}){
     _statusCode = statusCode;
     _data = data;
     _totalCount = totalCount;
 }
 
-  OfflineBatchModel.fromJson(dynamic json) {
+  OffliceBatchCenterModel.fromJson(dynamic json) {
     _statusCode = json['statusCode'];
     if (json['data'] != null) {
       _data = [];
       json['data'].forEach((v) {
-        _data?.add(Data.fromJson(v));
+        _data?.add(CenterListModel.fromJson(v));
       });
     }
     _totalCount = json['totalCount'];
   }
   int? _statusCode;
-  List<Data>? _data;
+  List<CenterListModel>? _data;
   int? _totalCount;
 
   int? get statusCode => _statusCode;
-  List<Data>? get data => _data;
+  List<CenterListModel>? get data => _data;
   int? get totalCount => _totalCount;
 
   Map<String, dynamic> toJson() {
@@ -52,10 +53,11 @@ class OfflineBatchModel {
 /// pincode : "851130"
 /// state : "Bihar"
 
-Data dataFromJson(String str) => Data.fromJson(json.decode(str));
-String dataToJson(Data data) => json.encode(data.toJson());
-class Data {
-  Data({
+CenterListModel centerListModelFromJson(String str) => CenterListModel.fromJson(json.decode(str));
+String centerListModelToJson(CenterListModel data) => json.encode(data.toJson());
+
+class CenterListModel {
+  CenterListModel({
       String? id, 
       String? name, 
       String? city, 
@@ -70,7 +72,7 @@ class Data {
     _state = state;
 }
 
-  Data.fromJson(dynamic json) {
+  CenterListModel.fromJson(dynamic json) {
     _id = json['_id'];
     _name = json['name'];
     _city = json['city'];

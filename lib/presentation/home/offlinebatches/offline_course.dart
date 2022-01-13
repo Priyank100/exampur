@@ -1,11 +1,12 @@
-import 'package:exampur_mobile/data/model/OfflineBatchesModel.dart';
+import 'package:exampur_mobile/data/model/offlice_batch_center_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
-
 import 'offlinebatchesexam.dart';
+import 'package:provider/provider.dart';
 
 class OfflineCourse extends StatefulWidget {
   const OfflineCourse({Key? key}) : super(key: key);
@@ -15,46 +16,16 @@ class OfflineCourse extends StatefulWidget {
 }
 
 class _OfflineCourseState extends State<OfflineCourse> {
-  List<OfflineBatchesModel> list = [];
+  List<CenterListModel> list = [];
 
   @override
   void initState() {
-    list.add(OfflineBatchesModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: ' Batch Class',
-        teacher: 'Sheetal mam'));
-    list.add(OfflineBatchesModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: ' Foundation Batch Class',
-        teacher: 'Sheetal mam'));
-    list.add(OfflineBatchesModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: 'Foundation Batch Class',
-        teacher: 'Sheetal mam'));
-    list.add(OfflineBatchesModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: 'Foundation Batch Class',
-        teacher: 'Sheetal mam'));
-    list.add(OfflineBatchesModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: 'Batch Class'));
-    list.add(OfflineBatchesModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: 'Batch Class'));
-    list.add(OfflineBatchesModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: '15 Days Free Foundation Batch Class'));
-    list.add(OfflineBatchesModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: 'Foundation Batch Class'));
+    callProvider();
+  }
+
+  void callProvider() async {
+    list = (await Provider.of<OfflinebatchesProvider>(context, listen: false).getOfflineBatchCenterList(context))!;
+    setState(() {});
   }
 
   @override
@@ -108,15 +79,15 @@ class _OfflineCourseState extends State<OfflineCourse> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                OfflineBatchesExam(list,index)));
+                                                OfflineBatchesExam(list[index].id.toString())));
                                   },
                                   leading: Image.asset(
-                                    list[index].imagePath.toString(),
-                                    height: 40,
-                                    width: 60,
+                                    Images.exampur_logo,
+                                    height: 50,
+                                    width: 50,
                                   ),
                                   title: Text(
-                                    list[index].title.toString(),
+                                    list[index].name.toString(),
                                     style: CustomTextStyle.headingBold(context),
                                   ),
                                   trailing: Icon(

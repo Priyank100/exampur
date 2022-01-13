@@ -15,10 +15,21 @@ class OfflineBatchesRepo {
 
   OfflineBatchesRepo ({required this.dioClient});
 
-  Future<ApiResponse> offlineBatchRepo() async {
+  Future<ApiResponse> offlineBatchCenterRepo() async {
     try {
       int currentPage = 1;
-      const url = '${AppConstants.offline_batches}';
+      const url = AppConstants.offline_batches;
+      AppConstants.printLog(url);
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  Future<ApiResponse> offlineBatchCenterCoursesRepo(String id) async {
+    try {
+      String url = AppConstants.offline_batches_center.replaceAll('CENTER_ID', id);
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

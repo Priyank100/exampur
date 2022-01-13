@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:exampur_mobile/Helper/api_checker.dart';
-import 'package:exampur_mobile/data/model/OfflineBatchesModel.dart';
-import 'package:exampur_mobile/data/model/offline_batches_model.dart';
+import 'package:exampur_mobile/data/model/offlice_batch_center_model.dart';
+import 'package:exampur_mobile/data/model/offline_batch_center_courses_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/OfflineBatches_repo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -9,27 +9,22 @@ import 'package:flutter/cupertino.dart';
 
 class OfflinebatchesProvider extends ChangeNotifier {
   final OfflineBatchesRepo offlinebatchesRepo;
-
   OfflinebatchesProvider({required this.offlinebatchesRepo});
 
+  OffliceBatchCenterModel _offlineBatchesCenterModel = OffliceBatchCenterModel();
+  OffliceBatchCenterModel get offlineBatchesCenterModel => _offlineBatchesCenterModel;
 
+  OfflineBatchCenterCoursesModel _offlineBatchesCenterCoursesModel = OfflineBatchCenterCoursesModel();
+  OfflineBatchCenterCoursesModel get offlineBatchesCenterCoursesModel => _offlineBatchesCenterCoursesModel;
 
-  OfflineBatchModel _offlineBatchesModel = OfflineBatchModel();
-  OfflineBatchModel get offlineBatchesModel => _offlineBatchesModel;
-
-  Future<List<Data>?> getOne2OneList(BuildContext context) async {
-    ApiResponse apiResponse = await offlinebatchesRepo.offlineBatchRepo();
+  Future<List<CenterListModel>?> getOfflineBatchCenterList(BuildContext context) async {
+    ApiResponse apiResponse = await offlinebatchesRepo.offlineBatchCenterRepo();
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response!.data);
-
-
       AppConstants.printLog(apiResponse.response);
-      _offlineBatchesModel =OfflineBatchModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _offlineBatchesModel.data;
-
-
+      _offlineBatchesCenterModel =OffliceBatchCenterModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _offlineBatchesCenterModel.data;
 
     } else {
       AppConstants.printLog("init address fail");
@@ -38,5 +33,20 @@ class OfflinebatchesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<OfflineBatchCenterCoursesModel?> getOfflineBatchCenterCoursesData(BuildContext context, String id) async {
+    ApiResponse apiResponse = await offlinebatchesRepo.offlineBatchCenterCoursesRepo(id);
+    if (apiResponse.response == null) {
+      ApiChecker.checkApi(context, apiResponse);
+    } else if (apiResponse.response!.statusCode == 200) {
+      AppConstants.printLog(apiResponse.response);
+      _offlineBatchesCenterCoursesModel =OfflineBatchCenterCoursesModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _offlineBatchesCenterCoursesModel;
+
+    } else {
+      AppConstants.printLog("init address fail");
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+  }
 
 }
