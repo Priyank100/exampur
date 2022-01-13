@@ -58,12 +58,14 @@ class _HomeState extends State<Home> {
         .data!
         .firstName
         .toString();
-    bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context))!;
+    bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false)
+        .getHomeBannner(context))!;
     setState(() {});
   }
 
   Future<void> getSharedPrefData() async {
-    var jsonValue = jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
+    var jsonValue =
+        jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
     AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     setState(() {});
@@ -77,31 +79,43 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Hello, ${userName} !', style: CustomTextStyle.headingMediumBold(context),),
+            Text(
+              'Hello, ${userName} !',
+              style: CustomTextStyle.headingMediumBold(context),
+            ),
             SizedBox(height: 15),
-            bannerList.length != 0 ? LargeBanner(bannerList: bannerList)
-                  : Container(
-                      child: ClipRRect(
-                        child: FadeInImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(Images.noimage),
-                          placeholder: AssetImage(Images.noimage),
-                          imageErrorBuilder: (context, error, stackTrace) {
-                            return Image.asset(
-                              Images.noimage,
-                            );
-                          },
-                        ),
+            bannerList.length != 0
+                ? LargeBanner(bannerList: bannerList)
+                : Container(
+                    child: ClipRRect(
+                      child: FadeInImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(Images.noimage),
+                        placeholder: AssetImage(Images.noimage),
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            Images.noimage,
+                          );
+                        },
                       ),
                     ),
-
-            SizedBox(height: Dimensions.FONT_SIZE_DEFAULT),
-
+                  ),
+            SizedBox(height: Dimensions.FONT_SIZE_OVER_LARGE),
             Row(
               children: [
-                SquareButton(image: Images.paidcourse, title: 'Paid Courses',color: Colors.purple, navigateTo:PaidCourses(1)),
-                SizedBox(width: 10,),
-                SquareButton(image: Images.book, title: 'Books',color: Colors.green, navigateTo:BooksEbook()),
+                SquareButton(
+                    image: Images.paidcourse,
+                    title: 'Paid Courses',
+                    color: AppConstants.coursescolor,
+                    navigateTo: PaidCourses(1)),
+                SizedBox(
+                  width: 10,
+                ),
+                SquareButton(
+                    image: Images.book,
+                    title: 'Books',
+                    color:AppConstants.bookcolor,
+                    navigateTo: BooksEbook()),
               ],
             ),
             SizedBox(
@@ -109,9 +123,19 @@ class _HomeState extends State<Home> {
             ),
             Row(
               children: [
-                SquareButton(image: Images.free_course, title: 'Free courses',color: Colors.deepOrange, navigateTo:PaidCourses(0)),
-                SizedBox(width: 10,),
-                SquareButton(image: Images.testseries, title: 'Test Series',color: Colors.red, navigateTo:TestSeriesview()),
+                SquareButton(
+                    image: Images.free_course,
+                    title: 'Free courses',
+                    color: AppConstants.pinkcolor,
+                    navigateTo: PaidCourses(0)),
+                SizedBox(
+                  width: 10,
+                ),
+                SquareButton(
+                    image: Images.testseries,
+                    title: 'Test Series',
+                    color: AppConstants.seriescolor,
+                    navigateTo: TestSeriesview()),
               ],
             ),
             SizedBox(
@@ -122,7 +146,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.one2one,
                     title: 'Exampur one2one',
-                    color: Colors.green,
+                    color: AppConstants.greencolor,
                     navigateTo: Exampuron2oneView()),
                 SizedBox(
                   width: 10,
@@ -130,7 +154,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.offlinebatch,
                     title: 'offline Batches',
-                    color: Colors.brown,
+                    color: Colors.brown.shade400,
                     navigateTo: OfflineCourse()),
               ],
             ),
@@ -142,7 +166,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.current_affair,
                     title: 'Current Affairs',
-                    color: Colors.grey,
+                    color: AppConstants.greycolor,
                     navigateTo: CurrentAffairs()),
                 SizedBox(
                   width: 10,
@@ -150,7 +174,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.dailyquiz,
                     title: 'Daily Quiz',
-                    color: Colors.blue,
+                    color: AppConstants.blue,
                     navigateTo: StudyMaterial()),
               ],
             ),
@@ -162,7 +186,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.jobalert,
                     title: 'Job Alerts',
-                    color: Colors.green,
+                    color: AppConstants.darkblue,
                     navigateTo: JobAlerts()),
                 SizedBox(
                   width: 10,
@@ -170,7 +194,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.studymaterial,
                     title: 'Study Materials',
-                    color: Colors.orangeAccent,
+                    color: AppConstants.darkorange,
                     navigateTo: StudyMaterial()),
               ],
             ),
@@ -208,7 +232,7 @@ class SquareButton extends StatelessWidget {
         child: Row(
           children: [
             Image.asset(
-              image!,
+              image!,fit: BoxFit.fill,height: 50,width: 55,
             ),
             SizedBox(
               width: 15,
@@ -216,7 +240,7 @@ class SquareButton extends StatelessWidget {
             Flexible(
                 child: new Text(
               title!,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white,fontSize: 15),
             ))
           ],
         ),
@@ -224,6 +248,7 @@ class SquareButton extends StatelessWidget {
     );
   }
 }
+
 class FrontStyleModel {
   late String name;
   String image;

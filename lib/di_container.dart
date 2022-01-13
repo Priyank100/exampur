@@ -9,6 +9,7 @@ import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/provider/courses_provider.dart';
+import 'package:exampur_mobile/provider/locallization_provider.dart';
 
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:get_it/get_it.dart';
@@ -50,6 +51,7 @@ Future<void> init() async {
 
   // Provider
   sl.registerFactory(() => AuthProvider(authRepo: sl()));
+  sl.registerFactory(() => LocalizationProvider(sharedPreferences: sl()));
   sl.registerFactory(() => HomeBannerProvider(homeBannerRepo: sl()));
   // sl.registerFactory(() => ValidTokenProvider(validTokenRepo: sl()));
   sl.registerFactory(() =>  CoursesProvider(courseRepo: sl()));

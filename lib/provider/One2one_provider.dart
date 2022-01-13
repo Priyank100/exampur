@@ -30,8 +30,6 @@ class One2OneProvider extends ChangeNotifier {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response!.data);
-
-
       AppConstants.printLog(apiResponse.response);
       _one2oneModel =One2OneModels.fromJson(json.decode(apiResponse.response.toString()));
       return _one2oneModel.data;

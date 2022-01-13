@@ -14,8 +14,11 @@ import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/provider/courses_provider.dart';
+import 'package:exampur_mobile/provider/locallization_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'Localization/app_localization.dart';
 import 'di_container.dart' as di;
 
 import 'package:flutter/material.dart';
@@ -30,6 +33,7 @@ void main() async {
   await FlutterDownloader.initialize(debug: true);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<HomeBannerProvider>()),
     // ChangeNotifierProvider(create: (context) => di.sl<ValidTokenProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl< CoursesProvider>()),
@@ -71,9 +75,16 @@ class _MyAppState extends State<MyApp> {
       //darkTheme: CustomTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
-
-      onGenerateRoute: _appRouter.onGenerateRoute,
+      locale: Provider.of<LocalizationProvider>(context).locale,
+      localizationsDelegates: [
+        AppLocalization.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       supportedLocales: _locals,
+      onGenerateRoute: _appRouter.onGenerateRoute,
+
       home: SplashScreen(),
     );
   }

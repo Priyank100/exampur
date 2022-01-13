@@ -4,6 +4,7 @@ import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class One2OneVideo extends StatefulWidget {
@@ -19,8 +20,22 @@ class _One2OneVideoState extends State<One2OneVideo> {
   String videoID = '';
   late YoutubePlayerController _controller;
 
+  late String firstHalf;
+  late String secondHalf;
+
+  bool flag = true;
+
+
+
   @override
   void initState() {
+    if ( widget.one2oneList.description!.length > 150) {
+      firstHalf = widget.one2oneList.description! .substring(0, 150);
+      secondHalf = widget.one2oneList.description! .substring(150,  widget.one2oneList.description! .length);
+    } else {
+      firstHalf =  widget.one2oneList.description! ;
+      secondHalf = "";
+    }
     try {
       videoID = YoutubePlayer.convertUrlToId(widget.one2oneList.videoPath.toString())!;
       _controller = YoutubePlayerController(
@@ -44,27 +59,59 @@ class _One2OneVideoState extends State<One2OneVideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: MediaQuery.of(context).orientation == Orientation.landscape ? null : CustomAppBar(),
-      appBar: CustomAppBar(),
-      body: Container(
+       appBar: MediaQuery.of(context).orientation == Orientation.landscape ? null : CustomAppBar(),
+      //appBar: CustomAppBar(),
+      body: MediaQuery.of(context).orientation == Orientation.landscape ?  YoutubePlayer(
+        controller: _controller,
+        showVideoProgressIndicator: true,
+        progressIndicatorColor: Colors.amber,
+      ) : Container(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             YoutubePlayer(
               controller: _controller,
               showVideoProgressIndicator: true,
               progressIndicatorColor: Colors.amber,
-            ),
+               ),
             SizedBox(height: 40),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(widget.one2oneList.title.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Text(widget.one2oneList.title.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+          ),
+
+            Container(
+              padding: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+              child: secondHalf.isEmpty
+                  ? new Text(firstHalf, style: new TextStyle(color: Colors.grey,fontSize: 12),)
+                  : new Column(
+                children: <Widget>[
+                  new Text(flag ? (firstHalf + "...") : (firstHalf + secondHalf), style: new TextStyle(color: Colors.grey.shade600,fontSize: 13),),
+                  new InkWell(
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        new Text(
+                          flag ? "show more" : "show less",
+                          style: new TextStyle(color: Colors.blue.shade300,fontSize: 12),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      setState(() {
+                        flag = !flag;
+                      });
+                    },
+                  ),
+                ],
+              ),
             )
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar:MediaQuery.of(context).orientation == Orientation.landscape ?  null: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -157,12 +204,12 @@ class _One2OneVideoState extends State<One2OneVideo> {
           );
         });
   }
-// @override
-// void dispose() {
-//   _controller.dispose();
-//   SystemChrome.setPreferredOrientations([
-//     DeviceOrientation.portraitUp,
-//   ]);
-//   super.dispose();
-// }
+@override
+void dispose() {
+  _controller.dispose();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  super.dispose();
+}
 }

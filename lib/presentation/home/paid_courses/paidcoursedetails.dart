@@ -47,9 +47,13 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
      // resizeToAvoidBottomInset: true,
-      // appBar: MediaQuery.of(context).orientation == Orientation.landscape ? null : CustomAppBar(),
-      appBar: CustomAppBar(),
-      body: Container(
+       appBar: MediaQuery.of(context).orientation == Orientation.landscape ? null : CustomAppBar(),
+     // appBar: CustomAppBar(),
+      body:MediaQuery.of(context).orientation == Orientation.landscape ? YoutubePlayer(
+        controller: _controller,
+        showVideoProgressIndicator: true,
+        progressIndicatorColor: Colors.amber,
+      ): Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

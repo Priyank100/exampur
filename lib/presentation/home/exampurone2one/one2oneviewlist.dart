@@ -113,7 +113,7 @@ class _One2onelistState extends State<One2onelist> {
                                       ),
                                 ),
 
-                                     Container(
+                                     widget.one2oneList[widget.index].flag != null?Container(
                                          width: 80,
                                          height: 25,
                                          //margin: EdgeInsets.all(5),
@@ -136,7 +136,7 @@ class _One2onelistState extends State<One2onelist> {
                                                    fontSize: 10,
                                                  )),
                                            ],
-                                         )),
+                                         )):SizedBox()
                                    ],
                                  ),
                                 SizedBox(

@@ -15,9 +15,12 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5),
-      child: Card(
-        elevation: 2,
+      color: widget.index % 2 == 0
+          ? Theme.of(context).backgroundColor
+          : Colors.transparent,
+     // margin: EdgeInsets.all(5),
+     //  child: Card(
+        //elevation: 2,
         child: Padding(
           padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
           child: Row(
@@ -76,7 +79,7 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
             ],
           ),
         ),
-      ),
+     // ),
     );
   }
 }

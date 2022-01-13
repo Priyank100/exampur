@@ -121,4 +121,13 @@ class AppConstants {
   ///colors///////////////////////////////////////
 
   static const Color Dark = Color(0xFFd19d0f);
+  static const Color darkblue = Color(0xFF14739c);
+  static const Color darkorange = Color(0xFFf76d02);
+  static const Color blue = Color(0xFF0582f7);
+  static const Color greycolor = Color(0xFF7790a6);
+  static const Color greencolor = Color(0xFF069413);
+  static const Color pinkcolor = Color(0xFFf23587);
+  static const Color bookcolor = Color(0xFF0b8f8d);
+  static const Color coursescolor = Color(0xFFa807a8);
+  static const Color seriescolor = Color(0xFFd44242);
 }

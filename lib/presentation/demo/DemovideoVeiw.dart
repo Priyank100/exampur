@@ -47,7 +47,13 @@ class _DemoViedoViewState extends State<DemoViedoView> {
           ? null
           : CustomAppBar(),
       // appBar: CustomAppBar(),
-      body: Container(
+      body: MediaQuery.of(context).orientation == Orientation.landscape
+          ? YoutubePlayer(
+        controller: _controller,
+        showVideoProgressIndicator: true,
+        progressIndicatorColor: Colors.amber,
+      )
+          : Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
