@@ -49,7 +49,7 @@ class AppConstants {
   //offlinebatches
   static const String offline_batches         = BASE_URL3 +'offline_centers/findall/10/0';
   static const String offline_batches_center  = BASE_URL3 +'offline_centers/findone/' + 'CENTER_ID' + '/10/0';
-  static const String offline_batches_course  = BASE_URL3 +'offline_centers/course/'; //set course id at last
+  static const String offline_batches_course  = BASE_URL3 +'offline_centers/course/'+ 'CENTER_ID'; //set course id at last
 
 
   // sharePreference

@@ -1,8 +1,12 @@
+import 'package:exampur_mobile/data/model/offlinebatches_courses_video.dart';
+import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:provider/provider.dart';
 
 class OfflineBatchesVideo extends StatefulWidget {
   final String id;
@@ -15,9 +19,12 @@ class OfflineBatchesVideo extends StatefulWidget {
 class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
   String videoID = '';
   late YoutubePlayerController _controller;
+  OfflinebatchesCoursesVideo centerCoursesModel = OfflinebatchesCoursesVideo();
 
   @override
   void initState() {
+    callProvider();
+    AppConstants.printLog(widget.id);
     try {
       videoID = YoutubePlayer.convertUrlToId('https://www.youtube.com/watch?v=ZoOwI3P5POo')!;
       _controller = YoutubePlayerController(
@@ -36,6 +43,15 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
       print(error);
       videoID = '';
     }
+  }
+  void callProvider() async {
+    AppConstants.printLog('Ancha'+widget.id);
+    centerCoursesModel =
+    (await Provider.of<OfflinebatchesProvider>(context, listen: false)
+        .getOfflineBatchCenterCoursesVideoData(context, widget.id))!;
+
+    AppConstants.printLog('Ancha'+ centerCoursesModel.data!.amount.toString());
+    setState(() {});
   }
 
   @override

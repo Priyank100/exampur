@@ -30,6 +30,7 @@ import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart'
 import 'TestSeries/testseries.dart';
 import 'LandingChooseCategory.dart';
 import 'dummytest.dart';
+import 'dummytesting.dart';
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/offline_course.dart';
 import 'package:provider/provider.dart';
@@ -175,7 +176,9 @@ class _HomeState extends State<Home> {
                     image: Images.dailyquiz,
                     title: 'Daily Quiz',
                     color: AppConstants.blue,
-                    navigateTo: StudyMaterial()),
+                    navigateTo: SettingsScreen()
+                  //  StudyMaterial()
+                ),
               ],
             ),
             SizedBox(

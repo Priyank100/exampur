@@ -38,4 +38,16 @@ class OfflineBatchesRepo {
     }
   }
 
+  Future<ApiResponse> offlineBatchCenterCoursesViedoRepo(String id) async {
+    try {
+     // String url = AppConstants.offline_batches_course.replaceAll('CENTER_ID', id);
+      String url = AppConstants.offline_batches_course.replaceAll('CENTER_ID', id);
+      AppConstants.printLog(url);
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
 }
