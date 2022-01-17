@@ -1,3 +1,15 @@
 {
-  "VALLEY": "valleys"
+  "home_page": "Home Page",
+  "paid course": "Paid Course",
+  "name": "Name",
+  "books": "Books",
+  "email": "Email",
+  "free courses": "Free Courses",
+  "test courses": "Test Series",
+  "exampur one2one": "Exampur one2one",
+  "offline batches": "Offline Batches",
+  "current affairs": "Current Affairs",
+  "daily quiz": "Daily Quiz",
+  "job alerts": "Job Alerts",
+"study materials": "Study Materials"
 }

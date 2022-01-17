@@ -1,10 +1,17 @@
+import 'dart:convert';
+
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
+import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
+import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ChooseCategory extends StatefulWidget {
   const ChooseCategory({Key? key}) : super(key: key);
@@ -14,302 +21,351 @@ class ChooseCategory extends StatefulWidget {
 }
 
 class _ChooseCategoryState extends State<ChooseCategory> {
-  List <ChooseCateogryModel> a= [
-    ChooseCateogryModel("All Exam","SSC",false),
-    ChooseCateogryModel("All Exam","SSC",false),
-    ChooseCateogryModel("All Exam","SSC",false),
-    ChooseCateogryModel("All Exam","SSC",false),
-    ChooseCateogryModel("All Exam","SSC",false),
-    ChooseCateogryModel("All Exam","SSC",false),
-  ];
-List<ChooseCateogryModel>selectedcourse= [];
+  List<Data> chooseList = [];
+  List<String> getSelectList = [];
+  List<String> selectedCountries = [];
+
+  // late final List<Category> selectedList;
+  // late final bool isSelected;
+//  List<String> selectedList = [];
+  @override
+  initState() {
+    callProvider();
+    super.initState();
+    //selectedCountries = chooseList;
+  }
+
+  Future<void> callProvider() async {
+    chooseList =
+    (await Provider.of<ChooseCategoryProvider>(context, listen: false)
+        .getchooseCategoryList(context))!;
+    getSelectList =
+    (await Provider.of<ChooseCategoryProvider>(context, listen: false)
+        .getSelectchooseCategoryList(context))!;
+
+    // if (getSelectList.every((item) => chooseList.contains(item))) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+
+    for(int i=0; i < getSelectList.length; i++) {
+      for(int j=0; j<chooseList.length; j++) {
+        if(getSelectList[i] == chooseList[j].id) {
+          chooseList[j].isSelected = true;
+          selectedCountries.add(chooseList[j].id.toString());
+        }
+      }
+    }
+
+    setState(() {});
+  }
 
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-
-      appBar: CustomAppBar(),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-
+        appBar: CustomAppBar(),
+        body: chooseList.length != 0
+            ? SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: Dimensions.FONT_SIZE_SMALL,bottom: Dimensions.FONT_SIZE_SMALL),
+                  padding: const EdgeInsets.only(
+                      left: Dimensions.FONT_SIZE_SMALL,
+                      bottom: Dimensions.FONT_SIZE_SMALL),
                   child: Text(
                     'Select Categories',
                     style: CustomTextStyle.headingBigBold(context),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 0),
                   child: Container(
                     width: 300,
                     decoration: BoxDecoration(
-                      border:Border.all(color: Colors.grey,width: 2),
+                      color: Colors.grey[200],
+                      border: Border.all(color: Colors.grey, width: 1),
                       borderRadius: BorderRadius.circular(30),
                     ),
-                  child:   TextField(
+                    child: TextField(
+                      autocorrect: false,
+                      onChanged: (s) {},
+                      onEditingComplete: () {
+                        FocusScope.of(context).nextFocus();
+                      },
 
-
-                        autocorrect: false,
-
-                        onChanged: (s) {
-
-                        },
-                        onEditingComplete: () {
-                          FocusScope.of(context).nextFocus();
-                        },
-                        cursorColor: Colors.amber,
-                        // decoration: InputDecoration(
-                        //   focusedBorder: OutlineInputBorder(
-                        //     borderRadius: BorderRadius.circular(5.0),
-                        //     borderSide: const BorderSide(
-                        //       color: Colors.grey,
-                        //     ),
-                        //   ),
-                        //   hintText: 'Search Category',
-                        //   hintStyle: TextStyle(
-                        //     color: Colors.grey[600],
-                        //   ),
-                        //   filled: true,
-                        //   fillColor: Colors.grey[200],
-                        //   enabledBorder: const UnderlineInputBorder(
-                        //     borderSide: BorderSide(color: Colors.white),
-                        //   ),
-                        // ),
-                    decoration: InputDecoration(
-                      hintText: 'Search Category',
-                     // icon: Icon(Icons.search,size: 30,),
-                      // focusedBorder: OutlineInputBorder(
-                      //     borderRadius: BorderRadius.circular(10.0),
-                      //     borderSide: const BorderSide(
-                      //       color: Colors.transparent,
-                      //     ),
-                      //   ),
-                      hintStyle: TextStyle(
-                        color: Colors.grey[600],
-                      ),
-                      // filled: true,
-                      // fillColor: Colors.grey[300],
-                      contentPadding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 10),
-                      isDense: true,
-                      counterText: '',
-                      // focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-                      //hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
-                      errorStyle: TextStyle(height: 1.5),
-                      border: InputBorder.none,
-                    ),
+                      cursorColor: Colors.amber,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search,size: 25,color: Colors.grey.shade400),
+                        hintText: 'Search Category',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 13.0, horizontal: 10),
+                        isDense: true,
+                        counterText: '',
+                        errorStyle: TextStyle(height: 1.5),
+                        border: InputBorder.none,
                       ),
                     ),
-                  ),
-          Expanded(
-            flex: 4,
-            child: CustomScrollView(
-              slivers: [
-                SliverGrid(
-                  delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                      return ContactItem(
-                                     a[index].name,
-                                     a[index].course,
-                                     a[index].isSelected,
-                                      index,
-                                    );
-                    },
-                    childCount: a.length,
-                  ),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 15,
-                    childAspectRatio: 2.0,
                   ),
                 ),
-              ]),
-          ),
+                SizedBox(height: 15,),
+                Expanded(
+                  child: CustomScrollView(slivers: [
+                    SliverGrid(
+                      delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                          final isSelected = chooseList[index].isSelected;
+                          return Padding(
+                              padding: const EdgeInsets.all(0),
+                              child: InkWell(
+                                onTap: () {
+                                  // chooseList[index].isSelected = !chooseList[index].isSelected;
+                                  // setState(() {});
+                                  setState(() {
+                                    chooseList[index].isSelected =
+                                    !chooseList[index].isSelected;
+                                    if (chooseList[index].isSelected ==
+                                        true) {
+                                      selectedCountries.add(
+                                          chooseList[index]
+                                              .id
+                                              .toString());
+                                    } else if (chooseList[index]
+                                        .isSelected ==
+                                        false) {
+                                      selectedCountries.removeWhere(
+                                              (element) =>
+                                          element.toString() ==
+                                              chooseList[index].id);
+                                    }
+                                  });
+                                },
+                                child: Container(
 
-                selectedcourse.length > 0 ? Padding(
+                                  padding: EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              chooseList[index]
+                                                  .name
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontSize: 17.0,
+                                                fontWeight:
+                                                FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                          CircleAvatar(
+                                            backgroundColor:
+                                            Colors.transparent,
+                                            backgroundImage:
+                                            new NetworkImage(
+                                                AppConstants.BANNER_BASE + chooseList[index]
+                                                    .logoPath
+                                                    .toString()),
+                                            radius: 20.0,
+                                          ),
+                                          // ClipOval(
+                                          //   clipper: MyClip(),
+                                          //   child: FadeInImage.assetNetwork(
+                                          //     placeholder: Images.noimage,
+                                          //     image: chooseList[index]
+                                          //         .logoPath
+                                          //         .toString(),
+                                          //     fit: BoxFit.fill,
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          chooseList[index]
+                                              .description
+                                              .toString(),
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: Colors.grey.shade600,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  //height: 100.0,
+                                  decoration: BoxDecoration(
+                                    border:
+                                    chooseList[index].isSelected
+                                        ? Border.all(
+                                      color: Colors.amber,
+                                      width: 3,
+                                    )
+                                        :Border.all(
+                                      color: Colors.white,
+                                      width: 3,
+                                    ) ,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                        Colors.grey.withOpacity(0.2),
+                                        spreadRadius: 0.95,
+                                        blurRadius: 0.100,
+                                        offset: Offset(0,
+                                            0), // changes position of shadow
+                                      ),
+                                    ],
+                                    borderRadius:
+                                    BorderRadius.circular(8),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ));
+                        },
+                        childCount: chooseList.length,
+                      ),
+                      gridDelegate:
+                      SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
+                        childAspectRatio: 2.0,
+                      ),
+                    ),
+                  ]),
+                ),
+                // selectedCountries.length > 0
+                //     ?
+                Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 25,
                     vertical: 10,
                   ),
                   // child: SizedBox(
                   //   width: double.infinity,
-                    child:InkWell(
-                      onTap: (){
-                        SharedPref.saveSharedPref(AppConstants.SELECT_CATEGORY_LENGTH, selectedcourse.length.toString());
-                      },
-                      child: Container(
-          height: 50,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            color: Colors.amber,
+                  child: InkWell(
+                    onTap: () {
+                      SharedPref.saveSharedPref(
+                          AppConstants.SELECT_CATEGORY_LENGTH,
+                          selectedCountries.length.toString());
+                      // AppConstants.printLog(
+                      //     selectedCountries.length.toString());
+                      AppConstants.printLog(selectedCountries.length.toString());
+                      if(selectedCountries.length >0){
+                        UpdateChoosecategory(selectedCountries);
 
-            borderRadius: BorderRadius.all(
-                Radius.circular(5.0) //
-            ),
-          ),
+                      }
+                      else {
+                        AppConstants.printLog('test');
+                        var snackBar = SnackBar(content: Text('Please Choose the Category'),backgroundColor: Colors.grey,);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
 
-          child:  Center(child: Text(
-              "Save (${selectedcourse.length})",style: TextStyle(color: Colors.white, fontSize: 20),)),
-        ),
-                    ),
-
-
-                ): Container( height: 50,
-                  width: double.infinity,
-                  margin: EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                    color: Colors.amber,
-                    //border: Border.all( color: Colors.amber,),
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(5.0) //
+                      // UpdateChoosecategory(selectedCountries.length);
+                      // Navigator.pushReplacement(context,
+                      //     MaterialPageRoute(builder:
+                      //         (context) =>
+                      //             BottomNavigation()
+                      //     )
+                      // );
+                    },
+                    child: Container(
+                      height: 50,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(5.0) //
+                        ),
+                      ),
+                      child: Center(
+                          child: Text(
+                            // "Save (${selectedCountries.length})",
+                            "Save the course",
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 20),
+                          )),
                     ),
                   ),
-
-                  child:  Center(child: Text(
-                    "Save the course",style: TextStyle(color: Colors.white, fontSize: 20),)),),
+                )
+                // : Container(
+                //     height: 50,
+                //     width: double.infinity,
+                //     margin: EdgeInsets.all(10),
+                //     decoration: const BoxDecoration(
+                //       color: Colors.amber,
+                //       //border: Border.all( color: Colors.amber,),
+                //       borderRadius:
+                //           BorderRadius.all(Radius.circular(5.0) //
+                //               ),
+                //     ),
+                //     child: Center(
+                //         child: Text(
+                //       "Save the course",
+                //       style: TextStyle(
+                //           color: Colors.white, fontSize: 20),
+                //     )),
+                //   ),
               ],
             ),
           ),
-        ),
-      ),
-
-    );
+        )
+            : Center(
+            child: CircularProgressIndicator(
+              color: Colors.amber,
+            )));
   }
-  Widget ContactItem(
-      String name, String phoneNumber, bool isSelected, int index) {
 
- return
- Padding(
-          padding: const EdgeInsets.all(0),
-          child: InkWell(
-            onTap: () {
-    setState(() {
-    a[index].isSelected = !a[index].isSelected;
-    if (a[index].isSelected == true) {
-    selectedcourse.add(ChooseCateogryModel(a[index].name, a[index].course, true));
-    } else if (selectedcourse[index].isSelected == false) {
-    selectedcourse
-        .removeWhere((element) => element.name == a[index].name);
-    }
+  UpdateChoosecategory(List? categories) async {
+    // Map<String, dynamic> args = {"categories": categories};
+    // var body = {"categories": [
+    //   "61cad845da1d8532b6f33fd1", "61d2cc701cea2fdab6e9cb06"
+    // ]};
+    var body = {"categories": categories};
+    await Service.post(
+      AppConstants.Update_Choose_category_URL,
+      body: body,
+    ).then((response) async {
+      print(response.body.toString());
+      if (response == null) {
+        var snackBar = SnackBar( margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text('Server Error'),backgroundColor: Colors.red,);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else if (response.statusCode == 200) {
+        AppConstants.printLog(response.body.toString());
+
+        // Navigator.pushReplacement(context,
+        //     MaterialPageRoute(builder:
+        //         (context) =>
+        //         BottomNavigation()
+        //     )
+        // );
+      } else {
+        AppConstants.printLog("init address fail");
+        final body = json.decode(response.body);
+        var snackBar = SnackBar( margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text(body['data'].toString()),backgroundColor: Colors.red,);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
     });
-
-            },
-            child: Container(
-
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15.0,top: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-
-
-                              Text(
-                                name,
-                                style: TextStyle(
-                                  fontSize: 18.0,fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-
-                              // Text(
-                              //  'ssc' ,
-                              //   style: TextStyle(
-                              //     fontSize: 18.0,
-                              //     color: Colors.white,
-                              //   ),
-                              // ),
-
-                        SizedBox(width: Dimensions.FONT_SIZE_EXTRA_LARGE,),
-                        Image.asset(
-
-                          Images.paidcourse,
-                          height: 35.0,
-
-                        ),
-                      ],
-                    ),
-                    Text(
-                     'ssc' ,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              height: 70.0,
-              decoration: BoxDecoration(
-    border: isSelected?Border.all(color: Colors.amber,
-                                 width: 3,):null,
-
-              boxShadow: [
-              BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 2,
-              offset: Offset(0, 2), // changes position of shadow
-            ),
-              ],
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.grey.shade200,
-
-              ),
-            ),
-          ),
-        );
-    // return ListTile(
-    //   leading: CircleAvatar(
-    //     backgroundColor: Colors.green[700],
-    //     child: Icon(
-    //       Icons.person_outline_outlined,
-    //       color: Colors.white,
-    //     ),
-    //   ),
-    //   title: Text(
-    //     name,
-    //     style: TextStyle(
-    //       fontWeight: FontWeight.w500,
-    //     ),
-    //   ),
-    //   subtitle: Text(phoneNumber),
-    //   trailing: isSelected
-    //       ? Icon(
-    //     Icons.check_circle,
-    //     color: Colors.green[700],
-    //   )
-    //       : Icon(
-    //     Icons.check_circle_outline,
-    //     color: Colors.grey,
-    //   ),
-    //   onTap: () {
-    //     setState(() {
-    //       a[index].isSelected = !a[index].isSelected;
-    //       if (a[index].isSelected == true) {
-    //         selectedcourse.add(ChooseCateogryModel(name, phoneNumber, true));
-    //       } else if (selectedcourse[index].isSelected == false) {
-    //         selectedcourse
-    //             .removeWhere((element) => element.name == a[index].name);
-    //       }
-    //     });
-    //   },
-    // );
-
   }
-}
-
-
-class ChooseCateogryModel{
-  String name,course;
-  bool isSelected;
-  ChooseCateogryModel(this.name,this.course,this.isSelected);
 }

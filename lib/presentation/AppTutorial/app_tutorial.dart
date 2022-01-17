@@ -1,11 +1,14 @@
 import 'package:exampur_mobile/data/model/app_tutorial_model.dart';
+import 'package:exampur_mobile/data/model/appp_toutorial.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial_card.dart';
+import 'package:exampur_mobile/provider/AppToutorial_provider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AppTutorial extends StatefulWidget {
   AppTutorial({
@@ -17,50 +20,26 @@ class AppTutorial extends StatefulWidget {
 }
 
 class _AppTutorialState extends State<AppTutorial> {
-  List<AppTutorialModel> list = [];
-
+  List<Data> apptutorialList= [];
   @override
   void initState() {
-    list.add(AppTutorialModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: '15 Days Free Foundation Batch Class'));
-    list.add(AppTutorialModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: '15 Days Free Foundation Batch Class'));
-    list.add(AppTutorialModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: '15 Days Free Foundation Batch Class'));
-    list.add(AppTutorialModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: '15 Days Free Foundation Batch Class'));
-    list.add(AppTutorialModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: '15 Days Free Foundation Batch Class'));
-    list.add(AppTutorialModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: '15 Days Free Foundation Batch Class'));
-    list.add(AppTutorialModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: '15 Days Free Foundation Batch Class'));
-    list.add(AppTutorialModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
-        title: '15 Days Free Foundation Batch Class'));
+    super.initState();
+    getDemoList();
   }
 
+  Future<void> getDemoList() async {
+
+    apptutorialList= (await Provider.of<AppTutorialProvider>(context, listen: false).getapptutorialList(context))!;
+    setState(() {});
+    // return one2oneList;
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(),
-        body: list.length == 0
-            ? Center(child: CircularProgressIndicator())
+        body: apptutorialList.length == 0
+            ? Center(child: CircularProgressIndicator(color: Colors.amber,))
             : SingleChildScrollView(
                 child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,11 +54,11 @@ class _AppTutorialState extends State<AppTutorial> {
                     ),
                   ),
                   ListView.builder(
-                      itemCount: list.length,
+                      itemCount: apptutorialList.length,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return AppTutorialCard(list, index);
+                        return AppTutorialCard(apptutorialList, index);
                       }),
                 ],
               )

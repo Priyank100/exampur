@@ -48,9 +48,9 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
     chooseList =
         (await Provider.of<ChooseCategoryProvider>(context, listen: false)
             .getchooseCategoryList(context))!;
-    getSelectList =
-    (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-        .getSelectchooseCategoryList(context))!;
+    // getSelectList =
+    // (await Provider.of<ChooseCategoryProvider>(context, listen: false)
+    //     .getSelectchooseCategoryList(context))!;
 
     // if (getSelectList.every((item) => chooseList.contains(item))) {
     //   return true;
@@ -58,14 +58,14 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
     //   return false;
     // }
 
-    for(int i=0; i < getSelectList.length; i++) {
-      for(int j=0; j<chooseList.length; j++) {
-        if(getSelectList[i] == chooseList[j].id) {
-          chooseList[j].isSelected = true;
-          selectedCountries.add(chooseList[j].id.toString());
-        }
-      }
-    }
+    // for(int i=0; i < getSelectList.length; i++) {
+    //   for(int j=0; j<chooseList.length; j++) {
+    //     if(getSelectList[i] == chooseList[j].id) {
+    //       chooseList[j].isSelected = true;
+    //       selectedCountries.add(chooseList[j].id.toString());
+    //     }
+    //   }
+   // }
 
     setState(() {});
   }

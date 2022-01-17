@@ -51,6 +51,8 @@ class AppConstants {
   static const String offline_batches_center  = BASE_URL3 +'offline_centers/findone/' + 'CENTER_ID' + '/10/0';
   static const String offline_batches_course  = BASE_URL3 +'offline_centers/course/'+ 'CENTER_ID'; //set course id at last
 
+//appTutorial
+  static const String app_tutorial  = BASE_URL3 +'tutorials/app';
 
   // sharePreference
   static const String TOKEN = 'Token';
@@ -114,10 +116,10 @@ class AppConstants {
   static const String COUNTRY_CODE = 'country_code';
   static const String LANGUAGE_CODE = 'language_code';
 
-  static List<LanguageModel> languages = [
-    LanguageModel(imageUrl: '', languageName: 'English', countryCode: 'US', languageCode: 'en'),
-    LanguageModel(imageUrl: '', languageName: 'Hindi', countryCode: 'SA', languageCode: 'ar'),
-  ];
+  // static List<LanguageModel> languages = [
+  //   LanguageModel(imageUrl: '', languageName: 'English', countryCode: 'US', languageCode: 'en'),
+  //   LanguageModel(imageUrl: '', languageName: 'Hindi', countryCode: 'SA', languageCode: 'ar'),
+  // ];
 
 
 

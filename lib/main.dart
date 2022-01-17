@@ -5,6 +5,7 @@ import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
+import 'package:exampur_mobile/provider/AppToutorial_provider.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
@@ -19,6 +20,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'Localization/app_localization.dart';
+import 'Localization/language_constrants.dart';
 import 'di_container.dart' as di;
 
 import 'package:flutter/material.dart';
@@ -33,7 +35,7 @@ void main() async {
   await FlutterDownloader.initialize(debug: true);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
-    ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
+   // ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<HomeBannerProvider>()),
     // ChangeNotifierProvider(create: (context) => di.sl<ValidTokenProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl< CoursesProvider>()),
@@ -43,21 +45,40 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl<PaidCoursesProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<DemoProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<OfflinebatchesProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<AppTutorialProvider>()),
   ], child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({
-    Key? key,
-  }) : super(key: key);
+  // const MyApp({
+  //   Key? key,
+  // }) : super(key: key);
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state!.setLocale(newLocale);
+  }
 
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+ late Locale _locale;
+  setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
   final AppRouter _appRouter = AppRouter();
-
+ @override
+ void didChangeDependencies() {
+   getLocale().then((locale) {
+     setState(() {
+       this._locale = locale;
+     });
+   });
+   super.didChangeDependencies();
+ }
   @override
   Widget build(BuildContext context) {
     final platform = Theme.of(context).platform;
@@ -65,27 +86,48 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    List<Locale> _locals = [];
-    AppConstants.languages.forEach((language) {
-      _locals.add(Locale(language.languageCode!, language.countryCode));
-    });
+    // List<Locale> _locals = [];
+    // AppConstants.languages.forEach((language) {
+    //   _locals.add(Locale(language.languageCode!, language.countryCode));
+    // });
+    if (this._locale == null) {
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue)),
+        ),
+      );
+    } else {
     return MaterialApp(
       title: 'Exampur',
       theme: CustomTheme.lightTheme,
       //darkTheme: CustomTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
-      locale: Provider.of<LocalizationProvider>(context).locale,
+      locale: _locale,
       localizationsDelegates: [
-        AppLocalization.delegate,
+        DemoLocalization.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: _locals,
+      supportedLocales: [
+        Locale("en", "US"),
+        Locale("hi", "IN")
+      ],
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale!.languageCode &&
+              supportedLocale.countryCode == locale.countryCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
       onGenerateRoute: _appRouter.onGenerateRoute,
 
       home: SplashScreen(),
     );
+    }
   }
 }

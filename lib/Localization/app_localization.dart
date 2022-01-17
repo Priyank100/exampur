@@ -1,53 +1,51 @@
 import 'dart:convert';
 
-import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+class DemoLocalization {
+  DemoLocalization(this.locale);
 
-class AppLocalization {
-
-
-  final Locale? locale;
-  AppLocalization(this.locale);
-  static AppLocalization? of(BuildContext context) {
-    return Localizations.of<AppLocalization>(context, AppLocalization);
+  final Locale locale;
+  static DemoLocalization? of(BuildContext context) {
+    return Localizations.of<DemoLocalization>(context, DemoLocalization);
   }
 
   Map<String, String>? _localizedValues;
 
   Future<void> load() async {
-    String jsonStringValues = await rootBundle.loadString('assets/language/${locale!.languageCode}.json');
+    String jsonStringValues =
+    await rootBundle.loadString('assets/language/${locale.languageCode}.json');
     Map<String, dynamic> mappedJson = json.decode(jsonStringValues);
-    _localizedValues = mappedJson.map((key, value) => MapEntry(key, value.toString()));
+    _localizedValues =
+        mappedJson.map((key, value) => MapEntry(key, value.toString()));
   }
 
   String? translate(String key) {
     return _localizedValues![key];
   }
 
-  static const LocalizationsDelegate<AppLocalization> delegate = _DemoLocalizationsDelegate();
+  // static member to have simple access to the delegate from Material App
+  static const LocalizationsDelegate<DemoLocalization> delegate =
+  _DemoLocalizationsDelegate();
 }
 
-class _DemoLocalizationsDelegate extends LocalizationsDelegate<AppLocalization> {
+class _DemoLocalizationsDelegate
+    extends LocalizationsDelegate<DemoLocalization> {
   const _DemoLocalizationsDelegate();
 
   @override
   bool isSupported(Locale locale) {
-    List<String> _languageString = [];
-    AppConstants.languages.forEach((language) {
-      _languageString.add(language.languageCode!);
-    });
-    return _languageString.contains(locale.languageCode);
+    return ['en','hi'].contains(locale.languageCode);
   }
 
   @override
-  Future<AppLocalization> load(Locale locale) async {
-    AppLocalization localization = new AppLocalization(locale);
+  Future<DemoLocalization> load(Locale locale) async {
+    DemoLocalization localization = new DemoLocalization(locale);
     await localization.load();
     return localization;
   }
 
   @override
-  bool shouldReload(LocalizationsDelegate<AppLocalization> old) => false;
+  bool shouldReload(LocalizationsDelegate<DemoLocalization> old) => false;
 }

@@ -86,7 +86,8 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/language/
+    - assets/language/en.json
+    - assets/language/hi.json
     - assets/Statejson/State.json
 
 

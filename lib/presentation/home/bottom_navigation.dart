@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
+import 'package:exampur_mobile/presentation/Search/searchview.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
@@ -155,7 +156,7 @@ class _BottomNavigationState extends State<BottomNavigation>
             IconButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LandingPage()));
+                      MaterialPageRoute(builder: (context) => SearchView()));
                 },
                 icon: const Icon(
                   Icons.search_outlined,
@@ -256,8 +257,9 @@ class _BottomNavigationState extends State<BottomNavigation>
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>LandingChooseCategory()
-                                  //  ChooseCategory()
+                                builder: (context) =>
+                                    //LandingChooseCategory()
+                                    ChooseCategory()
                             ));
                       },
                     ),

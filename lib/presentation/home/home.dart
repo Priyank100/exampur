@@ -4,17 +4,17 @@ import 'dart:io' show Platform;
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
-import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
+import 'package:exampur_mobile/data/model/response/languagemodel.dart';
+
 
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/home_banner.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
 import 'package:exampur_mobile/presentation/home/study_material/study_material.dart';
-import 'package:exampur_mobile/presentation/home/quiz/test_series.dart';
+
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
-import 'package:exampur_mobile/presentation/widgets/large_carousel.dart';
-import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
+
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -22,15 +22,13 @@ import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 
+import '../../main.dart';
 import 'TestSeries/testseries.dart';
-import 'LandingChooseCategory.dart';
-import 'dummytest.dart';
-import 'dummytesting.dart';
+
+
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/offline_course.dart';
 import 'package:provider/provider.dart';
@@ -71,7 +69,10 @@ class _HomeState extends State<Home> {
     userName = jsonValue[0]['data']['first_name'].toString();
     setState(() {});
   }
-
+  void _changeLanguage(Language language) async {
+    Locale _locale = await setLocale(language.languageCode);
+    MyApp.setLocale(context, _locale);
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -80,11 +81,47 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Hello, ${userName} !',
-              style: CustomTextStyle.headingMediumBold(context),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+              children: [
+                Text(
+                  'Hello, ${userName} !',
+                  style: CustomTextStyle.headingMediumBold(context),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButton<Language>(
+                    underline: SizedBox(),
+                    icon: Icon(
+                      Icons.language,
+                      color: Colors.black,size: 30,
+                    ),
+                    onChanged: (Language? language) {
+                      _changeLanguage(language!);
+                    },
+                    items: Language.languageList()
+                        .map<DropdownMenuItem<Language>>(
+                          (e) => DropdownMenuItem<Language>(
+                        value: e,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Text(
+                              e.flag,
+                              style: TextStyle(fontSize: 30),
+                            ),
+                            Text(e.name)
+                          ],
+                        ),
+                      ),
+                    )
+                        .toList(),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 15),
+           // SizedBox(height: 5),
             bannerList.length != 0
                 ? LargeBanner(bannerList: bannerList)
                 : Container(
@@ -106,7 +143,7 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(
                     image: Images.paidcourse,
-                    title: 'Paid Courses',
+                    title: getTranslated(context, 'paid course')!,
                     color: AppConstants.coursescolor,
                     navigateTo: PaidCourses(1)),
                 SizedBox(
@@ -114,7 +151,7 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                     image: Images.book,
-                    title: 'Books',
+                    title: getTranslated(context, 'books')!,
                     color:AppConstants.bookcolor,
                     navigateTo: BooksEbook()),
               ],
@@ -126,7 +163,7 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(
                     image: Images.free_course,
-                    title: 'Free courses',
+                    title: getTranslated(context, 'free courses')!,
                     color: AppConstants.pinkcolor,
                     navigateTo: PaidCourses(0)),
                 SizedBox(
@@ -134,7 +171,7 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                     image: Images.testseries,
-                    title: 'Test Series',
+                    title:getTranslated(context, 'test courses')!,
                     color: AppConstants.seriescolor,
                     navigateTo: TestSeriesview()),
               ],
@@ -146,7 +183,7 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(
                     image: Images.one2one,
-                    title: 'Exampur one2one',
+                    title: getTranslated(context, 'exampur one2one')!,
                     color: AppConstants.greencolor,
                     navigateTo: Exampuron2oneView()),
                 SizedBox(
@@ -154,7 +191,7 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                     image: Images.offlinebatch,
-                    title: 'offline Batches',
+                    title: getTranslated(context, 'offline batches')!,
                     color: Colors.brown.shade400,
                     navigateTo: OfflineCourse()),
               ],
@@ -166,7 +203,7 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(
                     image: Images.current_affair,
-                    title: 'Current Affairs',
+                    title: getTranslated(context, 'current affairs')!,
                     color: AppConstants.greycolor,
                     navigateTo: CurrentAffairs()),
                 SizedBox(
@@ -174,10 +211,11 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                     image: Images.dailyquiz,
-                    title: 'Daily Quiz',
+                    title: getTranslated(context, 'daily quiz')!,
                     color: AppConstants.blue,
-                    navigateTo: SettingsScreen()
-                  //  StudyMaterial()
+                    navigateTo:
+                    //SettingsScreen()
+                   StudyMaterial()
                 ),
               ],
             ),
@@ -188,7 +226,7 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(
                     image: Images.jobalert,
-                    title: 'Job Alerts',
+                    title:getTranslated(context, 'job alerts')!,
                     color: AppConstants.darkblue,
                     navigateTo: JobAlerts()),
                 SizedBox(
@@ -196,7 +234,7 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                     image: Images.studymaterial,
-                    title: 'Study Materials',
+                    title: getTranslated(context, 'study materials')!,
                     color: AppConstants.darkorange,
                     navigateTo: StudyMaterial()),
               ],
