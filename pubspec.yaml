@@ -60,6 +60,8 @@ dependencies:
   cached_network_image: ^3.2.0
   share: ^2.0.4
   flutter_windowmanager: ^0.2.0
+  flutter_pdfview:
+
 
 
 
@@ -89,6 +91,7 @@ flutter:
     - assets/language/en.json
     - assets/language/hi.json
     - assets/Statejson/State.json
+    - assets/Pdf/mypdf.pdf
 
 
   fonts:

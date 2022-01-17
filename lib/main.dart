@@ -10,6 +10,7 @@ import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
+import 'package:exampur_mobile/provider/Helpandfeedback.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
@@ -33,6 +34,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await FlutterDownloader.initialize(debug: true);
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
    // ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
@@ -46,6 +48,7 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl<DemoProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<OfflinebatchesProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<AppTutorialProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl< HelpandFeedbackprovider>()),
   ], child: MyApp()));
 }
 

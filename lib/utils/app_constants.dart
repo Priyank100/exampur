@@ -54,6 +54,9 @@ class AppConstants {
 //appTutorial
   static const String app_tutorial  = BASE_URL3 +'tutorials/app';
 
+  //helpandffedback
+  static const String helpandfeedback  = BASE_URL2+ 'ticket/create';
+
   // sharePreference
   static const String TOKEN = 'Token';
   static const String BANNER_BASE_SP = 'Banner_Base';

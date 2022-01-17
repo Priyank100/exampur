@@ -1,12 +1,16 @@
 import 'dart:io';
 
 // import 'package:exampur_mobile/presentation/help/dropdown_menu.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/helpandfeedback.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/dropdown_selector.dart';
+import 'package:exampur_mobile/provider/Helpandfeedback.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Help extends StatefulWidget {
   const Help({Key? key}) : super(key: key);
@@ -16,181 +20,264 @@ class Help extends StatefulWidget {
 }
 
 class HelpState extends State<Help> {
+  String userName = '';
+  String Name ='';
+  String Email='';
+  String Mobile='';
+  String City='';
+  String selectedState='';
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _descriptionController;
+  late TextEditingController _phoneController;
+  late GlobalKey<FormState> _formKeySignUp;
+
   @override
   void initState() {
     super.initState();
+    _formKeySignUp = GlobalKey<FormState>();
+    _nameController = TextEditingController();
+    _emailController = TextEditingController();
+    _phoneController = TextEditingController();
+    _descriptionController = TextEditingController();
   }
 
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+  bool isLoading = false;
+
+  String dropdownvalue = 'select issue';
+
+  // List of items in our dropdown menu
+  var items = [
+    "select issue",
+              "App Crashing",
+              "Exam Guidance",
+              "Study Help",
+              "Purchase help",
+              "Other"
+  ];
+
   late String issue_id;
+  HelpandFeedbackModel CreateUserbody = HelpandFeedbackModel();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: SingleChildScrollView(
-
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 20.0, top: 20.0),
-              child: Text(
-                'Help',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30.0,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
-              child: TextField(
-                cursorColor: Colors.amber,
-                decoration: InputDecoration(
-
-                  // focusedBorder: OutlineInputBorder(
-                  //   borderRadius: BorderRadius.circular(10.0),
-                  //   borderSide: const BorderSide(
-                  //     color: Colors.transparent,
-                  //   ),
-                  // ),
-                  hintText: 'Name',
-                  hintStyle: TextStyle(
-                    color: Colors.grey[600],
-                  ),
-                  filled: true,
-                  fillColor:Colors.grey.shade300,
-                  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
-              child: TextField(
-                cursorColor: Colors.amber,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                    ),
-                  ),
-                  border: InputBorder.none,
-                  hintText: 'E-mail',
-                  hintStyle: TextStyle(
-                    color: Colors.grey[600],
-                  ),
-                  filled: true,
-                  fillColor:Colors.grey.shade300,
-                  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
-              child: TextField(
-                cursorColor: Colors.amber,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                    ),
-                  ),
-                  border: InputBorder.none,
-                  hintText: 'Phone Number',
-                  hintStyle: TextStyle(
-                    color: Colors.grey[600],
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey.shade300,
-                  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                ),
-                keyboardType: TextInputType.phone,
-              ),
-            ),
-
+      body: Form(
+        key: _formKeySignUp,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Padding(
-                padding:  const EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
-
-                    child: DropDownSelector(isExpanded:true,items: ["select issue", "App Crashing", "Exam Guidance", "Study Help", "Purchase help", "Other"], setValue: (val) {})),
-
-
-
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0),
-              child: TextField(
-                cursorColor: Colors.amber,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                    ),
+                padding: EdgeInsets.only(left: 20.0, top: 20.0),
+                child: Text(
+                  getTranslated(context, 'help')!,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30.0,
                   ),
-                  border: InputBorder.none,
-                  hintText: 'Write about the problem',
-                  hintStyle: TextStyle(
-                    color: Colors.grey[600],
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey.shade300,
-                  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-
                 ),
-                maxLines: 5,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
-              child: SizedBox(
-                height: 55.0,
-                width: MediaQuery.of(context).size.width * 1,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: AppConstants.Dark,
-                      elevation: 5.0,
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      'Submit Issue',
-                      style: TextStyle(
-                        fontSize: 20.0,
+
+              Container(
+                margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0,bottom: 6),
+                width: double.infinity,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius:  BorderRadius.all(const Radius.circular(8)),
+                  boxShadow: [
+                    BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1))
+                  ],
+                ),
+                padding: EdgeInsets.only(left: 10),
+                child: DropdownButton(
+                  underline: SizedBox(),
+                  isExpanded: true,
+                  value: dropdownvalue,
+                  items: items.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownvalue = newValue!;
+                    });
+                  },
+                ),
+              ),
+
+
+
+              // Padding(
+              //     padding:
+              //         const EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
+              //     child: DropDownSelector(
+              //         isExpanded: true,
+              //         items: [
+              //           "select issue",
+              //           "App Crashing",
+              //           "Exam Guidance",
+              //           "Study Help",
+              //           "Purchase help",
+              //           "Other"
+              //         ],
+              //         setValue: (val) {})),
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0),
+        Container(
+          margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0),
+          width: double.infinity,
+
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+
+            borderRadius:  BorderRadius.all(const Radius.circular(12)),
+            //       border: Border(
+            //   left: BorderSide(10)
+            // ),
+            boxShadow: [
+              BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
+            ],
+          ),
+                child:
+                TextField(
+                  cursorColor: Colors.amber,
+                  controller: _descriptionController,
+                  decoration: InputDecoration(
+                      hintText: getTranslated(context, 'write_about_the_problem')!,
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                      isDense: true,
+                      //filled: true,
+                      hintStyle: TextStyle(
+                        color: Colors.grey[600],
                       ),
-                    )),
+                      fillColor: Colors.grey.withOpacity(0.1),
+                      errorStyle: TextStyle(height: 1.5),
+                      // focusedBorder: OutlineInputBorder(borderSide: BorderRadius.all( Radius.circular(12)),),
+                      // hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
+                      border: InputBorder.none),
+                  maxLines: 8,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0,bottom: 10),
-              child: SizedBox(
-                height: 55.0,
-                width: MediaQuery.of(context).size.width * 1,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary:  AppConstants.Dark,
-                      elevation: 5.0,
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      'Watch App Tutorials',
-                      style: TextStyle(
-                        fontSize: 20.0,
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+              //   child: SizedBox(
+              //     height: 55.0,
+              //     width: MediaQuery.of(context).size.width * 1,
+              //     child: ElevatedButton(
+              //         style: ElevatedButton.styleFrom(
+              //           primary: AppConstants.Dark,
+              //           elevation: 5.0,
+              //         ),
+              //         onPressed: () {
+              //           FocusScope.of(context).unfocus();
+              //           registerUser();
+              //         },
+              //         child: const Text(
+              //           'Submit Issue',
+              //           style: TextStyle(
+              //             fontSize: 20.0,
+              //           ),
+              //         )),
+              //   ),
+              // ),
+              SizedBox(height: 30,),
+              !isLoading
+                  ?  InkWell(onTap:(){
+
+                String _message = _descriptionController.text.trim();
+                if(!checkValidation(_message)) {
+                  setState(() {
+                    isLoading = false;
+                  });
+                } else {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  _updateUserAccount(_message);
+                }
+              },
+                  child: Container(margin:  EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+                    height: 50, color: AppConstants.Dark,child: Center(child: Text(getTranslated(context, 'submit_issue')!,style: TextStyle(color: Colors.white,fontSize: 20),)),))
+                  :
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.amber))),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 20.0, top: 30.0, bottom: 10),
+                child: SizedBox(
+                  height: 55.0,
+                  width: MediaQuery.of(context).size.width * 1,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: AppConstants.Dark,
+                        elevation: 5.0,
                       ),
-                    )),
+                      onPressed: () {},
+                      child: Text(
+                        getTranslated(context, 'watch_app_tutorial')!,
+                        style: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                      )),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
-}
+
+  bool checkValidation(_message) {
+    if (_message.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, 'all_fields_mandatory')!), backgroundColor: Colors.black));
+      return false;
+    }
+
+   //  else if (dropdownvalue=='Select issues') {
+   //    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(), backgroundColor:Colors.black));
+   //    return false;
+   // }
+    else {
+      return true;
+    }
+  }
+
+  _updateUserAccount(_message) async {
+
+    // CreateUserModel updateUserInfoModel = Provider.of<AuthProvider>(context, listen: false).uerupdate;
+    HelpandFeedbackModel updateUserInfoModel = HelpandFeedbackModel();
+
+    updateUserInfoModel.type = dropdownvalue;
+    updateUserInfoModel.message =_message;
+
+
+    await Provider.of<HelpandFeedbackprovider>(context, listen: false).helpandfeedback(updateUserInfoModel).then((response) {
+      isLoading = false;
+      if(response) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, 'issue_submitted_sucessfully')!), backgroundColor: Colors.green));
+        Navigator.pop(context);
+      }else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context,'server_error')!), backgroundColor: Colors.red));
+      }
+      setState(() {});
+    }
+    );
+  }}

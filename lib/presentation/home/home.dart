@@ -29,6 +29,7 @@ import '../../main.dart';
 import 'TestSeries/testseries.dart';
 
 
+import 'dummytesting.dart';
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/offline_course.dart';
 import 'package:provider/provider.dart';
@@ -236,7 +237,7 @@ class _HomeState extends State<Home> {
                     image: Images.studymaterial,
                     title: getTranslated(context, 'study materials')!,
                     color: AppConstants.darkorange,
-                    navigateTo: StudyMaterial()),
+                    navigateTo: PdfViewerPage()),
               ],
             ),
           ],
