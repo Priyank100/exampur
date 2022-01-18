@@ -183,7 +183,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                                 mainAxisAlignment:
                                                 MainAxisAlignment.end,
                                                 children: [
-                                                  Image.asset(
+                                                    Image.asset(
                                                     Images.share,
                                                     height: 18,
                                                     width: 15,

@@ -24,9 +24,16 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
   @override
   void initState() {
     callProvider();
-    AppConstants.printLog(widget.id);
+  }
+
+  void callProvider() async {
+    AppConstants.printLog('Anchal>'+widget.id);
+    centerCoursesModel =
+    (await Provider.of<OfflinebatchesProvider>(context, listen: false).getOfflineBatchCenterCoursesVideoData(context, widget.id))!;
+    AppConstants.printLog('Anchal>'+ centerCoursesModel.data!.amount.toString());
+
     try {
-      videoID = YoutubePlayer.convertUrlToId('https://www.youtube.com/watch?v=ZoOwI3P5POo')!;
+      videoID = YoutubePlayer.convertUrlToId(centerCoursesModel.data!.videoPath.toString())!;
       _controller = YoutubePlayerController(
         initialVideoId: videoID,
         flags: YoutubePlayerFlags(
@@ -43,14 +50,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
       print(error);
       videoID = '';
     }
-  }
-  void callProvider() async {
-    AppConstants.printLog('Ancha'+widget.id);
-    centerCoursesModel =
-    (await Provider.of<OfflinebatchesProvider>(context, listen: false)
-        .getOfflineBatchCenterCoursesVideoData(context, widget.id))!;
 
-    AppConstants.printLog('Ancha'+ centerCoursesModel.data!.amount.toString());
     setState(() {});
   }
 
@@ -59,7 +59,8 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
     return Scaffold(
       // appBar: MediaQuery.of(context).orientation == Orientation.landscape ? null : CustomAppBar(),
       appBar: CustomAppBar(),
-      body: Container(
+      body: videoID.isEmpty ? CircularProgressIndicator() :
+      Container(
         child: Column(
           children: [
             YoutubePlayer(
@@ -70,13 +71,13 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
             SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(widget.id.toString(),
+              child: Text(centerCoursesModel.data!.title.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(widget.id.toString(),
+              child: Text(centerCoursesModel.data!.description.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12)),
             )

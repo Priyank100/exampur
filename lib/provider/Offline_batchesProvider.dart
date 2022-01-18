@@ -55,7 +55,7 @@ class OfflinebatchesProvider extends ChangeNotifier {
 
 
   Future<OfflinebatchesCoursesVideo?> getOfflineBatchCenterCoursesVideoData(BuildContext context, String id) async {
-    ApiResponse apiResponse = await offlinebatchesRepo.offlineBatchCenterCoursesViedoRepo(id);
+    ApiResponse apiResponse = await offlinebatchesRepo.offlineBatchCenterCoursesVideoRepo(id);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
