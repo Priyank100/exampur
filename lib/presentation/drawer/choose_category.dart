@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
@@ -79,7 +80,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                       left: Dimensions.FONT_SIZE_SMALL,
                       bottom: Dimensions.FONT_SIZE_SMALL),
                   child: Text(
-                    'Select Categories',
+                    getTranslated(context, 'select_categories')!,
                     style: CustomTextStyle.headingBigBold(context),
                   ),
                 ),
@@ -103,7 +104,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                       cursorColor: Colors.amber,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.search,size: 25,color: Colors.grey.shade400),
-                        hintText: 'Search Category',
+                        hintText: getTranslated(context, 'search_category'),
                         hintStyle: TextStyle(
                           color: Colors.grey[400],
                         ),

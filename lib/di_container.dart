@@ -9,6 +9,7 @@ import 'package:exampur_mobile/provider/Helpandfeedback.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
+import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/provider/courses_provider.dart';
 import 'package:exampur_mobile/provider/locallization_provider.dart';
@@ -23,6 +24,7 @@ import 'data/datasource/remote/dio/logging_incepactor.dart';
 import 'data/repository/App_Toutorial.dart';
 import 'data/repository/Authrepo.dart';
 import 'data/repository/Books_EBooks_repo.dart';
+import 'data/repository/CheckOutrepo.dart';
 import 'data/repository/ChooseCategory_repo.dart';
 import 'data/repository/Demorepo.dart';
 import 'data/repository/HelpandFeedback.dart';
@@ -53,6 +55,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => OfflineBatchesRepo(dioClient: sl()));
   sl.registerLazySingleton(() => AppTutorialRepo(dioClient: sl()));
   sl.registerLazySingleton(() => HelpandFeedbackRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => CheckOrderRepo(dioClient: sl()));
 
 
   // Provider
@@ -68,6 +71,7 @@ Future<void> init() async {
   sl.registerFactory(() =>  DemoProvider(demoRepo: sl()));
   sl.registerFactory(() =>  OfflinebatchesProvider(offlinebatchesRepo: sl()));
   sl.registerFactory(() =>  AppTutorialProvider(appTutorialRepo: sl()));
+  sl.registerFactory(() =>  OrderDetailsprovider(checkOrderRepo: sl()));
 
   //External
   final sharedPreferences = await SharedPreferences.getInstance();

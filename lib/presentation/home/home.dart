@@ -237,7 +237,7 @@ class _HomeState extends State<Home> {
                     image: Images.studymaterial,
                     title: getTranslated(context, 'study materials')!,
                     color: AppConstants.darkorange,
-                    navigateTo: PdfViewerPage()),
+                    navigateTo: PaymentGateway()),
               ],
             ),
           ],
