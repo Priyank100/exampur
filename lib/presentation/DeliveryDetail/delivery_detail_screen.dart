@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
@@ -14,7 +15,8 @@ import 'package:provider/provider.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 
 class DeliveryDetailScreen extends StatefulWidget {
-  const DeliveryDetailScreen({Key? key}) : super(key: key);
+  final Courses paidcourseList;
+  const DeliveryDetailScreen(this.paidcourseList) ;
 
   @override
   _DeliveryDetailScreenState createState() => _DeliveryDetailScreenState();
@@ -263,7 +265,11 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             ),
             InkWell(
               onTap: (){
-                UpdateChoosecategory();
+                String _address = _billingAddressController.text.trim();
+                String _city = _billingCityController.text.trim();
+                String _pincode = _billingPincodeController.text.trim();
+                String _state = _billingStateController.text.trim();
+                UpdateChoosecategory(_address, _pincode, _city,_state);
 
       //           String _address = _billingAddressController.text.trim();
       // String _city = _billingCityController.text.trim();
@@ -300,18 +306,18 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   }
  // Future<OrderDetails?> createUser(String billingAddress, String billingCity,String billingpincode,String billingstate,String billingCountry) async{
    // final String apiUrl = "https://reqres.in/api/users";
-  UpdateChoosecategory() async {
+  UpdateChoosecategory(_address, _pincode, _city,_state) async {
     final  body= {
-      "course_id": "61c98d223a7d50ce67803edb",
-      "billing_address": "Plot no: 21, Zam Zam Villa, Near Khasra Ground, Motapir Road",
-      "billing_city": "Bhuj",
-      "billing_state": "Gujarat",
+      "course_id": widget.paidcourseList.id.toString(),
+      "billing_address":_address,
+      "billing_city":  _city,
+      "billing_state": _state,
       "billing_country": "India",
-      "billing_pincode": "370001"
+      "billing_pincode":  _pincode
     };
 
 
-
+print(body);
     await Service.post(
       AppConstants.order_course,
       body: body,
@@ -354,10 +360,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     // call apis
     var options = {
       "key": AppConstants.Rozar_pay_key,
-      "amount": '100' ,// Convert Paisa to Rupees
+      "amount": widget.paidcourseList.amount.toString() ,// Convert Paisa to Rupees
       "name": "Exampur",
       "description": "This is a Test Payment",//from apis
-      // "order_id":        //fromapi
+      // "order_id":  widget.paidcourseList.id.toString(),      //fromapi
       "timeout": "180",
       "theme.color": "#d19d0f",
       "currency": "INR",

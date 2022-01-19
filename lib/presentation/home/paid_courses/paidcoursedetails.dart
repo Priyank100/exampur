@@ -411,7 +411,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                         onTap: (){
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => DeliveryDetailScreen()),
+                            MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
                           );
                         },
                         child: Container(
