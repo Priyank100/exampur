@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/app_tutorial_model.dart';
 import 'package:exampur_mobile/data/model/appp_toutorial.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial_video.dart';
@@ -47,7 +48,7 @@ class _AppTutorialCardState extends State<AppTutorialCard> {
                           child: Row(
                             children: [
                               Icon(Icons.play_arrow, color: Colors.white,),
-                              Text(' Watch', style: new TextStyle(fontSize: 16.0, color: Colors.white))
+                              Text(getTranslated(context, 'watch')!, style: new TextStyle(fontSize: 16.0, color: Colors.white))
                             ],
                           ),
                           onPressed: () {

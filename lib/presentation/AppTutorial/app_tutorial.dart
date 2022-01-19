@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/app_tutorial_model.dart';
 import 'package:exampur_mobile/data/model/appp_toutorial.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
@@ -49,7 +50,7 @@ class _AppTutorialState extends State<AppTutorial> {
                         left: Dimensions.FONT_SIZE_SMALL,
                         bottom: Dimensions.FONT_SIZE_SMALL),
                     child: Text(
-                      'App Tutorial',
+                      getTranslated(context, 'app_tutorial')!,
                       style: CustomTextStyle.headingBigBold(context),
                     ),
                   ),

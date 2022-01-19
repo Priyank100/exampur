@@ -5,9 +5,11 @@ import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
+import 'package:exampur_mobile/provider/Helpandfeedback.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
+import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/provider/courses_provider.dart';
 import 'package:exampur_mobile/provider/locallization_provider.dart';
@@ -22,8 +24,10 @@ import 'data/datasource/remote/dio/logging_incepactor.dart';
 import 'data/repository/App_Toutorial.dart';
 import 'data/repository/Authrepo.dart';
 import 'data/repository/Books_EBooks_repo.dart';
+import 'data/repository/CheckOutrepo.dart';
 import 'data/repository/ChooseCategory_repo.dart';
 import 'data/repository/Demorepo.dart';
+import 'data/repository/HelpandFeedback.dart';
 import 'data/repository/HomeBanner_repo.dart';
 import 'data/repository/OfflineBatches_repo.dart';
 import 'data/repository/One2One_repo.dart';
@@ -50,11 +54,13 @@ Future<void> init() async {
   sl.registerLazySingleton(() => DemoRepo(dioClient: sl()));
   sl.registerLazySingleton(() => OfflineBatchesRepo(dioClient: sl()));
   sl.registerLazySingleton(() => AppTutorialRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => HelpandFeedbackRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => CheckOrderRepo(dioClient: sl()));
 
 
   // Provider
   sl.registerFactory(() => AuthProvider(authRepo: sl()));
- // sl.registerFactory(() => LocalizationProvider(sharedPreferences: sl()));
+  sl.registerFactory(() =>  HelpandFeedbackprovider(helpandFeedbackRepo: sl()));
   sl.registerFactory(() => HomeBannerProvider(homeBannerRepo: sl()));
   // sl.registerFactory(() => ValidTokenProvider(validTokenRepo: sl()));
   sl.registerFactory(() =>  CoursesProvider(courseRepo: sl()));
@@ -65,6 +71,7 @@ Future<void> init() async {
   sl.registerFactory(() =>  DemoProvider(demoRepo: sl()));
   sl.registerFactory(() =>  OfflinebatchesProvider(offlinebatchesRepo: sl()));
   sl.registerFactory(() =>  AppTutorialProvider(appTutorialRepo: sl()));
+  sl.registerFactory(() =>  OrderDetailsprovider(checkOrderRepo: sl()));
 
   //External
   final sharedPreferences = await SharedPreferences.getInstance();

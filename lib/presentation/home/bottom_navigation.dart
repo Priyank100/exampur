@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
 import 'package:exampur_mobile/presentation/Search/searchview.dart';
@@ -84,13 +85,13 @@ class _BottomNavigationState extends State<BottomNavigation>
     // Downloads(),
     // Help()
   ];
-  final List<String> widgetNames = [
-    "Home",
-    "Demo",
-    "My Courses",
-    // "Downloads",
-    // "Help"
-  ];
+  // final List<String> widgetNames = [
+  //   ,
+  //   "Demo",
+  //   "My Courses",
+  //   // "Downloads",
+  //   // "Help"
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -102,13 +103,13 @@ class _BottomNavigationState extends State<BottomNavigation>
       ItemClass(
         0,
         //'Home',
-        "Home",
+    getTranslated(context, 'home')!,
          _currIndex==0? Image.asset(Images.home,height: 30,width: 25,color: Colors.amber):Image.asset(Images.home,height: 30,width: 25,)
       ),
       ItemClass(
         1,
         //'Courses',
-        "Demo",
+        getTranslated(context, 'demo')!,
         FaIcon(
           FontAwesomeIcons.graduationCap,
         ),
@@ -117,7 +118,7 @@ class _BottomNavigationState extends State<BottomNavigation>
       ItemClass(
         2,
         //'Resources',
-        "My Courses",
+    getTranslated(context, 'my_courses')!,
         FaIcon(FontAwesomeIcons.camera),
       ),
       // ItemClass(
@@ -222,7 +223,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: "App Tutorial" //'Select Class: ',
+                                  text: getTranslated(context, 'app_tutorial') //'Select Class: ',
                                   ),
                             ),
                           ]),
@@ -250,7 +251,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: "Choose Category"),
+                                  text:  getTranslated(context, 'choose_category')),
                             ),
                           ]),
                       onTap: () {
@@ -280,7 +281,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: "Downloads"),
+                                  text: getTranslated(context, 'downloads')),
                             ),
                           ]),
                       onTap: () {
@@ -307,7 +308,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: "My Purchase"),
+                                  text: getTranslated(context, 'my_purchase')),
                             ),
                           ]),
                       onTap: () {
@@ -334,7 +335,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: "My Timetable"),
+                                  text: getTranslated(context, 'my_timetable')),
                             ),
                           ]),
                       onTap: () {
@@ -359,7 +360,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: "Settings"),
+                                  text:getTranslated(context, 'settings')),
                             ),
                           ]),
                       onTap: () {
@@ -386,7 +387,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: "Eligibility Calculator"),
+                                  text: getTranslated(context, 'eligibility_calculator')),
                             ),
                           ]),
                       onTap: () {
@@ -411,7 +412,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: "Share Now"),
+                                  text: getTranslated(context, "share_now")),
                             ),
                           ]),
                       onTap: () {
@@ -433,7 +434,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: "Rate Us"),
+                                  text: getTranslated(context, 'rate_us')),
                             ),
                           ]),
                       onTap: () {
@@ -455,7 +456,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: "Help and Feedback"),
+                                  text: getTranslated(context, 'help_and_feedback')),
                             ),
                           ]),
                       onTap: () {
@@ -478,7 +479,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: "Log Out"),
+                                  text: getTranslated(context, 'log_out')),
                             ),
                           ]),
                       onTap: () {

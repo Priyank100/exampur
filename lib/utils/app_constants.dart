@@ -2,9 +2,14 @@ import 'package:exampur_mobile/data/model/response/languagemodel.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppConstants {
+
+
+  static const String Rozar_pay_key ='rzp_test_tnxy74fGchHvRY';
+
   static const String BASE_URL =  'https://6b07f566-12f7-4b32-8f2f-8b6046fa0957.mock.pstmn.io/';
   // static const String BASE_URL2 = 'https://auth.exampur.xyz/';
   static const String BASE_URL2 = 'https://auth.exampur.work/';
@@ -54,10 +59,17 @@ class AppConstants {
 //appTutorial
   static const String app_tutorial  = BASE_URL3 +'tutorials/app';
 
+  //helpandffedback
+  static const String helpandfeedback  = BASE_URL2+ 'ticket/create';
+
+  //order_course
+  static const String order_course= BASE_URL2+ 'order_course/create';
+
   // sharePreference
   static const String TOKEN = 'Token';
   static const String BANNER_BASE_SP = 'Banner_Base';
   static const String USER_DATA = 'user_data';
+  static const String USER_paymentdata = 'user_payment';
   static String SELECT_CATEGORY_LENGTH = 'category_length';
 
 
@@ -96,6 +108,7 @@ class AppConstants {
       backgroundColor: bgColor,
     ));
   }
+
 
   static void showLoaderDialog(BuildContext context){
     AlertDialog alert=AlertDialog(

@@ -31,8 +31,8 @@ class AuthProvider extends ChangeNotifier {
   UserInformationModel _informationModel=UserInformationModel();
   UserInformationModel get informationModel =>_informationModel;
 
-  CreateUserModel _userupdate =CreateUserModel();
-  CreateUserModel get uerupdate =>_userupdate;
+  // CreateUserModel _userupdate =CreateUserModel();
+  // CreateUserModel get uerupdate =>_userupdate;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
