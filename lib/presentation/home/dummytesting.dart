@@ -359,7 +359,7 @@ class _PaymentGatewayState extends State<PaymentGateway> {
   String Mobile='';
   String City='';
   Future<void> getSharedPrefData() async {
-    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
+    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
     AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
@@ -436,7 +436,7 @@ class _PaymentGatewayState extends State<PaymentGateway> {
   void openCheckout() {
     // call apis
     var options = {
-      "key": AppConstants.Rozar_pay_key,
+      "key": Keys.Rozar_pay_key,
       "amount": num.parse(textEditingController.text) * 100, // Convert Paisa to Rupees
       "name": "Exampur",
       "description": "This is a Test Payment",//from apis

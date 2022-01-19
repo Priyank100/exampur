@@ -18,7 +18,7 @@ class _BooksScreenState extends State<BooksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:widget.booksList.length==0 ? Center(child: CircularProgressIndicator(color: Colors.amber,)) :
+        body:widget.booksList.length==0 ? Center(child: Text('No Data')) :
         ListView.builder(
             itemCount: widget.booksList.length,
             shrinkWrap: true,

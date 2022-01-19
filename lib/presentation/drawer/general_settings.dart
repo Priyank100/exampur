@@ -35,7 +35,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   bool isLoading = false;
 
   Future<void> getSharedPrefData() async {
-    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
+    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
     AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
@@ -184,7 +184,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       updateUserInfoModel.emailId = _email;
       updateUserInfoModel.city = _city;
       updateUserInfoModel.state = selectedState;
-      updateUserInfoModel.country = 'India';
+      updateUserInfoModel.country = AppConstants.defaultCountry;
       updateUserInfoModel.language = 'English';
 
       await Provider.of<AuthProvider>(context, listen: false).updateUserProfile(updateUserInfoModel).then((response) {

@@ -18,7 +18,7 @@ class CoursesRepo {
   Future<ApiResponse> coursesRepo() async {
     try {
       int currentPage = 1;
-      const url = '${AppConstants.Courses_URL}';
+      const url = '${API.Courses_URL}';
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

@@ -38,6 +38,7 @@ class _LargeBannerState extends State<LargeBanner> {
                 setState(() {
                   _current = index;
                   AppConstants.printLog("${_current}");
+                  AppConstants.printLog(AppConstants.BANNER_BASE + widget.bannerList[index].imagePath.toString());
                 });
               },
             ),

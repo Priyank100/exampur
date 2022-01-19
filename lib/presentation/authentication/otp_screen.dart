@@ -174,7 +174,7 @@ class _OtpScreenState extends State<OtpScreen> {
       "phone_ext": "91",
       "phone": _phoneController.text.trim().toString()
     };
-    await Service.post(AppConstants.Send_OTP_URL, body: body).then((response) async {
+    await Service.post(API.Send_OTP_URL, body: body).then((response) async {
       Navigator.pop(context);
       if (response == null) {
         AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
@@ -231,7 +231,7 @@ class _OtpScreenState extends State<OtpScreen> {
       "new_password": _newPasswordController.text.trim().toString(),
       "confirm_password": _confirmPasswordController.text.trim().toString()
     };
-    await Service.post(AppConstants.Reset_Password_URL, body: body).then((response) async {
+    await Service.post(API.Reset_Password_URL, body: body).then((response) async {
       Navigator.pop(context);
       if (response == null) {
         AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
@@ -265,7 +265,7 @@ class _OtpScreenState extends State<OtpScreen> {
       "phone": _phoneController.text.trim().toString(),
       "otp": _otpController.text.trim().toString(),
     };
-    await Service.post(AppConstants.Verify_OTP_URL, body: body).then((response) async {
+    await Service.post(API.Verify_OTP_URL, body: body).then((response) async {
       Navigator.pop(context);
       if (response == null) {
         AppConstants.showBottomMessage(context, 'Server Error', Colors.red);

@@ -33,7 +33,7 @@ class _AppTutorialCardState extends State<AppTutorialCard> {
                 Container(
                   width: Dimensions.AppTutorialImageWidth,
                   height: Dimensions.AppTutorialImageHeight,
-                  child: Image.network(AppConstants.homeBanner_URL+widget.apptutorialList[widget.index].imagePath.toString(), fit: BoxFit.fill)
+                  child: Image.network(API.homeBanner_URL+widget.apptutorialList[widget.index].imagePath.toString(), fit: BoxFit.fill)
                 ),
                 SizedBox(width: 10),
                 Flexible(

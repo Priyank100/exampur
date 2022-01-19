@@ -64,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> checkSharedPrefToken() async {
-    await SharedPref.getSharedPref(AppConstants.TOKEN).then((value) {
+    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {
       AppConstants.printLog('TOKEN>> $value');
       validateToken(value);
     });

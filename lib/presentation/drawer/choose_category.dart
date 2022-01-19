@@ -264,7 +264,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                   child: InkWell(
                     onTap: () {
                       SharedPref.saveSharedPref(
-                          AppConstants.SELECT_CATEGORY_LENGTH,
+                          SharedPrefConstants.CATEGORY_LENGTH,
                           selectedCountries.length.toString());
                       // AppConstants.printLog(
                       //     selectedCountries.length.toString());
@@ -341,7 +341,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
     // ]};
     var body = {"categories": categories};
     await Service.post(
-      AppConstants.Update_Choose_category_URL,
+      API.Update_Choose_category_URL,
       body: body,
     ).then((response) async {
       print(response.body.toString());

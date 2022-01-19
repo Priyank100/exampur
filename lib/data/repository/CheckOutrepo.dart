@@ -14,7 +14,7 @@ class CheckOrderRepo {
   Future<ApiResponse> checkorderrepo(OrderDetails orderdetails) async {
     try {
       Response response = await dioClient.post(
-        AppConstants.order_course,
+        API.order_course,
         data: orderdetails.toJson(),
       );
       return ApiResponse.withSuccess(response);

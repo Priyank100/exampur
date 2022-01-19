@@ -18,7 +18,7 @@ class ChooseCategoryRepo {
   Future<ApiResponse> chooseCategory() async {
     try {
 
-      final url =  '${AppConstants.Choose_category_URL}';
+      final url =  '${API.Choose_category_URL}';
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
@@ -30,7 +30,7 @@ class ChooseCategoryRepo {
   Future<ApiResponse> selectCategory() async {
     try {
 
-      final url =  '${AppConstants.Select_Choose_category_URL}';
+      final url =  '${API.Select_Choose_category_URL}';
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

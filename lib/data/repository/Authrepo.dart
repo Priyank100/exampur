@@ -20,7 +20,7 @@ class AuthRepo {
   Future<ApiResponse> login(LoginModel loginBody) async {
     try {
       Response response = await dioClient.post(
-        AppConstants.Login_URL,
+        API.Login_URL,
         data: loginBody.toJson(),
       );
       return ApiResponse.withSuccess(response);
@@ -32,7 +32,7 @@ class AuthRepo {
   Future<ApiResponse> registerUser(CreateUserModel registerModel) async {
     try {
       Response response = await dioClient.post(
-        AppConstants.Valid_Token_URL,
+        API.Valid_Token_URL,
         data: registerModel.toJson(),
       );
       return ApiResponse.withSuccess(response);
@@ -44,7 +44,7 @@ class AuthRepo {
   Future<ApiResponse> updateProfile(CreateUserModel updateProfileBody) async {
     try {
       Response response = await dioClient.put(
-        AppConstants.Update_User_URL,
+        API.Update_User_URL,
         data: updateProfileBody.toJson(),
       );
       return ApiResponse.withSuccess(response);
@@ -54,12 +54,12 @@ class AuthRepo {
   }
 
   Future<ApiResponse> checkValidToken() async {
-    String token = await SharedPref.getSharedPref(AppConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
       };
-      final url = '${AppConstants.Valid_Token_URL}';
+      final url = '${API.Valid_Token_URL}';
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -70,7 +70,7 @@ class AuthRepo {
   Future<ApiResponse> changePassword(param) async {
     try {
       Response response = await dioClient.post(
-        AppConstants.Change_Password_URL,
+        API.Change_Password_URL,
         data: param,
       );
       return ApiResponse.withSuccess(response);

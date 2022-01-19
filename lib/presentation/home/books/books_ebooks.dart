@@ -19,9 +19,11 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
   late TabController _controller;
   List<Books> booksList = [];
   List<EBooks> eBooksList = [];
+  bool isLoading = true;
 
   Future<List> getBooksList() async {
     booksList = (await Provider.of<BooksEBooksProvider>(context, listen: false).getBooksList(context))!;
+    isLoading = false;
     return booksList;
   }
 
@@ -58,7 +60,8 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
                       "e-Books",
                     ],
                     routes: [
-                      booksList.length == 0 ? Center(child: CircularProgressIndicator(color: Colors.amber,)) :
+                      // booksList.length == 0 ? Center(child: CircularProgressIndicator(color: Colors.amber,)) :
+                      isLoading ? Center(child: CircularProgressIndicator(color: Colors.amber,)) :
                       BooksScreen(booksList),
                       EBooksScreen(eBooksList)
                     ],

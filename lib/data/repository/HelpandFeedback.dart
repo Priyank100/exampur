@@ -13,7 +13,7 @@ class HelpandFeedbackRepo {
   Future<ApiResponse> helpandfeedback(HelpandFeedbackModel helpandfeedbacklBody) async {
     try {
       Response response = await dioClient.post(
-        AppConstants.helpandfeedback,
+        API.HelpFeedback_URL,
         data: helpandfeedbacklBody.toJson(),
       );
       return ApiResponse.withSuccess(response);

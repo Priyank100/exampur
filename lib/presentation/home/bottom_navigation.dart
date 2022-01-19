@@ -416,7 +416,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
-                        Share.share(AppConstants.shareAppContent);
+                        AppConstants.shareData(message: AppConstants.shareAppContent);
                       },
                     ),
                     ListTile(
@@ -483,7 +483,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
-                        SharedPref.clearSharedPref(AppConstants.TOKEN);
+                        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
                         Navigator.of(context)
                             .pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
                       },

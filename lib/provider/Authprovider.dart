@@ -49,12 +49,12 @@ class AuthProvider extends ChangeNotifier {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if(statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
-        SharedPref.saveSharedPref(AppConstants.TOKEN, _informationModel.data!.authToken.toString());
+        SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN2>> ${_informationModel.data!.authToken}');
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
-        await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
+        await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
 
         callback(true, '');
       } else {
@@ -93,12 +93,12 @@ class AuthProvider extends ChangeNotifier {
       if(statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
 
-        SharedPref.saveSharedPref(AppConstants.TOKEN, _informationModel.data!.authToken.toString());
+        SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN2>> ${_informationModel.data!.authToken}');
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
-        await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
+        await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
 
         callback(true, '');
       } else {
@@ -132,7 +132,7 @@ class AuthProvider extends ChangeNotifier {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
-        await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
+        await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
         return true;
       } else {
         return false;
@@ -166,11 +166,11 @@ class AuthProvider extends ChangeNotifier {
 
       if (statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
-        SharedPref.saveSharedPref(AppConstants.TOKEN, _informationModel.data!.authToken.toString());
+        SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
-        await SharedPref.saveSharedPref(AppConstants.USER_DATA, jsonEncode(_userData));
+        await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
 
         checkSelectCategory(context);
 
@@ -208,12 +208,12 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> getBannerBaseUrl(context) async {
-    await Service.get(AppConstants.BANNER_BASE_URL).then((response) async {
+    await Service.get(API.BANNER_BASE_URL).then((response) async {
       // {"statusCode":200,"data":"https://exampur-mumbai.b-cdn.net"}
       if(response != null && response.statusCode == 200) {
         var jsonObject =  jsonDecode(response.body);
         if(jsonObject['statusCode'].toString() == '200') {
-          await SharedPref.saveSharedPref(AppConstants.BANNER_BASE_SP, jsonObject['data'].toString());
+          await SharedPref.saveSharedPref(SharedPrefConstants.BANNER_BASE_SP, jsonObject['data'].toString());
           AppConstants.BANNER_BASE = jsonObject['data'].toString() + '/';
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -233,7 +233,7 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> checkSelectCategory(context) async {
 
-    await SharedPref.getSharedPref(AppConstants.SELECT_CATEGORY_LENGTH).then((value) => {
+    await SharedPref.getSharedPref(SharedPrefConstants.CATEGORY_LENGTH).then((value) => {
       if(value == '0') {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:

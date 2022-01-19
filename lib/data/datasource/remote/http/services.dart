@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class Service {
 
   static Future<http.Response> post(String url, {var body, encoding}) async {
-    String token = await SharedPref.getSharedPref(AppConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     AppConstants.printLog(token);
     var postBody = json.encode(body);
     AppConstants.printLog(url + " Param " + postBody);

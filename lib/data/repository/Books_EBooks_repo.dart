@@ -11,7 +11,7 @@ class BooksEBooksRepo {
 
   Future<ApiResponse> books() async {
     try {
-      String url = AppConstants.Books_URL;
+      String url = API.Books_URL;
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -21,7 +21,7 @@ class BooksEBooksRepo {
 
   Future<ApiResponse> eBooks() async {
     try {
-      final url = AppConstants.E_Books_URL;
+      final url = API.E_Books_URL;
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

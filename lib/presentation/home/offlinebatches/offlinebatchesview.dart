@@ -59,7 +59,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
     return Scaffold(
       // appBar: MediaQuery.of(context).orientation == Orientation.landscape ? null : CustomAppBar(),
       appBar: CustomAppBar(),
-      body: videoID.isEmpty ? CircularProgressIndicator() :
+      body: videoID.isEmpty ? Center(child: CircularProgressIndicator()) :
       Container(
         child: Column(
           children: [

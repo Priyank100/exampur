@@ -32,7 +32,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
             ),
             body:   WebView(
               javascriptMode: JavascriptMode.unrestricted,
-              initialUrl:AppConstants.Terms_and_Conditions,
+              initialUrl:API.TermsConditions_URL,
               gestureNavigationEnabled: true,
               onWebViewCreated: (WebViewController webViewController) {
                 _controller.future.then((value) => controllerGlobal = value);

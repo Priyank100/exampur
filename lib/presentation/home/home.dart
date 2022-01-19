@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
 
   Future<void> getSharedPrefData() async {
     var jsonValue =
-        jsonDecode(await SharedPref.getSharedPref(AppConstants.USER_DATA));
+        jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
     AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     setState(() {});

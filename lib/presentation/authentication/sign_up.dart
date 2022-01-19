@@ -342,7 +342,7 @@ class SignUpState extends State<SignUp> {
         CreateUserbody.lastName = _userName;
         CreateUserbody.state = selectedState;
         CreateUserbody.city = _city;
-        CreateUserbody.country = "India";
+        CreateUserbody.country = AppConstants.defaultCountry;
         CreateUserbody.language = 'English';
 
         await Provider.of<AuthProvider>(context, listen: false)
@@ -353,7 +353,7 @@ class SignUpState extends State<SignUp> {
 
   route(bool isRoute, String errorMessage) async {
     if (isRoute) {
-      SharedPref.saveSharedPref(AppConstants.SELECT_CATEGORY_LENGTH, '0');
+      SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, '0');
       Navigator.pushReplacement(
           context,
               MaterialPageRoute(builder: (_) => OtpScreen(false)));
