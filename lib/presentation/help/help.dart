@@ -3,6 +3,7 @@ import 'dart:io';
 // import 'package:exampur_mobile/presentation/help/dropdown_menu.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/helpandfeedback.dart';
+import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/dropdown_selector.dart';
 import 'package:exampur_mobile/provider/Helpandfeedback.dart';
@@ -229,7 +230,9 @@ class HelpState extends State<Help> {
                         primary: AppConstants.Dark,
                         elevation: 5.0,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) =>AppTutorial()));
+                      },
                       child: Text(
                         getTranslated(context, 'watch_app_tutorial')!,
                         style: TextStyle(

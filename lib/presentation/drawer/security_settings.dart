@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/datasource/remote/dio/dio_client.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -31,21 +32,21 @@ class _SecuritySettingsState extends State<SecuritySettings> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
 
-                Text('Current Paasword',style: TextStyle(color: Colors.black,)),
+                Text(getTranslated(context, 'current_paasword')!,style: TextStyle(color: Colors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _currentPasswordController,
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: 15,),
-               Text('New Password',style: TextStyle(color: Colors.black,)),
+               Text(getTranslated(context, 'new_password')!,style: TextStyle(color: Colors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _newPasswordController,
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: 15,),
-                 Text('Confirm Password',style: TextStyle(color: Colors.black,)),
+                 Text(getTranslated(context, 'confirm_password')!,style: TextStyle(color: Colors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _confirmPasswordController,
@@ -80,7 +81,7 @@ class _SecuritySettingsState extends State<SecuritySettings> {
             width: MediaQuery.of(context).size.width,
             child: Center(
               child: Text(
-                "Change Password",
+                getTranslated(context, 'change_password')!,
                 style:
                 TextStyle(fontSize: 18, color: Colors.white),
               ),

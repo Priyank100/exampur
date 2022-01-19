@@ -1,4 +1,5 @@
 {
+  "hello": "Hello",
   "home_page": "Home Page",
   "paid course": "Paid Course",
   "name": "Name",
@@ -9,6 +10,7 @@
   "exampur one2one": "Exampur one2one",
   "offline batches": "Offline Batches",
   "current affairs": "Current Affairs",
+  "new_batch": "New Batch",
   "daily quiz": "Daily Quiz",
   "job alerts": "Job Alerts",
 "study materials": "Study Materials",
@@ -54,5 +56,19 @@
   "pin_code": "Pin Code",
   "enter_pin_code": "Enter Pin Code",
   "continue_to_buy_course": "Continue to Buy Course",
-  "provide_further_detalis_for_delivery_of_books": "Provide Further Detalis for Delivery of Books"
+  "provide_further_detalis_for_delivery_of_books": "Provide Further Detalis for Delivery of Books",
+  "language_preferences": "Language Preferences",
+  "select_language": "Select language",
+  "general": "General",
+  "security": "Security",
+  "preference": "Preference",
+  "settings": "Settings",
+  "user_name": "UserName",
+  "save_profile": "Save Profile",
+  "current_paasword": "Current Paasword",
+  "new_password": "New Password",
+  "confirm_password": "Confirm Password",
+  "change_password": "Change Password",
+  "save_the_course": "Save the course",
+  "view_details": "View Details"
 }

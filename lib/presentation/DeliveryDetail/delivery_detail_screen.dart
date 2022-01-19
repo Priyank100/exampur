@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
+import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
@@ -23,6 +24,8 @@ class DeliveryDetailScreen extends StatefulWidget {
 }
 
 class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
+  OrderDetailsModel _detailsModel = OrderDetailsModel();
+  OrderDetailsModel get detailsModel => _detailsModel;
   late Razorpay razorpay;
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
   String userName = '';
@@ -269,23 +272,24 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _city = _billingCityController.text.trim();
                 String _pincode = _billingPincodeController.text.trim();
                 String _state = _billingStateController.text.trim();
-                UpdateChoosecategory(_address, _pincode, _city,_state);
+
 
       //           String _address = _billingAddressController.text.trim();
       // String _city = _billingCityController.text.trim();
       // String _pincode = _billingPincodeController.text.trim();
       // String _state = _billingStateController.text.trim();
       //
-      // if(!checkValidation(_address, _pincode, _city)) {
-      //   setState(() {
-      //     isLoading = false;
-      //   });
-      // } else {
-      //   setState(() {
-      //     isLoading = true;
-      //   });
+      if(!checkValidation(_address, _pincode, _city)) {
+        setState(() {
+          isLoading = false;
+        });
+      } else {
+        setState(() {
+          isLoading = true;
+        });
       //   _orderAccount(_address, _pincode, _city,_state);
-      // }
+                UpdateChoosecategory(_address, _pincode, _city,_state);
+       }
     },
 
               child: Container(
@@ -333,20 +337,24 @@ print(body);
         AppConstants.printLog(response.body.toString());
         final body = json.decode(response.body);
         final data= body['data']['status'];
+        final orderid =body['data']['order_id'];
+        List<OrderDetailsModel> _orderData = [];
+        _orderData.add( _detailsModel);
+       // print( _detailsModel.data!.amount.toString());
         print(data);
         if(data == "Pending"){
           print('ok');
+
           openCheckout();
         }
         else{
           print('yes');
+          Navigator.push(context, MaterialPageRoute(builder:
+              (context) =>
+              PaymentReceiptPage()
+          ));
         }
-        // Navigator.pushReplacement(context,
-        //     MaterialPageRoute(builder:
-        //         (context) =>
-        //         BottomNavigation()
-        //     )
-        // );
+
       } else {
 
       }
@@ -360,7 +368,7 @@ print(body);
     // call apis
     var options = {
       "key": AppConstants.Rozar_pay_key,
-      "amount": widget.paidcourseList.amount.toString() ,// Convert Paisa to Rupees
+      "amount":  num.parse(widget.paidcourseList.amount.toString()) * 100,// Convert Paisa to Rupees
       "name": "Exampur",
       "description": "This is a Test Payment",//from apis
       // "order_id":  widget.paidcourseList.id.toString(),      //fromapi
@@ -382,6 +390,10 @@ print(body);
     print("Pament success");
     msg = "SUCCESS: " + response.paymentId!;
     showToast(msg);
+    Navigator.push(context, MaterialPageRoute(builder:
+        (context) =>
+        PaymentReceiptPage()
+    ));
   }
 
   void handlerErrorFailure(PaymentFailureResponse response) {

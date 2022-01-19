@@ -1,5 +1,6 @@
 class Images {
   static const String book = 'assets/images/book.png';
+  static const String done = 'assets/images/check.png';
   static const String apptutorial = 'assets/images/smartphone.png';
   static const String calculator = 'assets/images/calculator.png';
   static const String download = 'assets/images/download.png';

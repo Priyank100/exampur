@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/createUserModel.dart';
 import 'package:exampur_mobile/data/model/state_json.dart';
@@ -81,22 +82,22 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('Name',style: TextStyle(color: Colors.black,)),
+                  Text(getTranslated(context, 'name')!,style: TextStyle(color: Colors.black,)),
                   CustomTextField(hintText:'${Name}', value: (value) {},controller: _nameController,),
                   SizedBox(height: 10,),
-                  Text('Mobile Number',style: TextStyle(color: Colors.black,)),
+                  Text(getTranslated(context, 'phone_number')!,style: TextStyle(color: Colors.black,)),
                   CustomTextField(hintText: '${Mobile}', value: (value) {},readOnly: true,),
                   SizedBox(height: 10,),
-                  Text('E-mail',style: TextStyle(color: Colors.black,)),
+                  Text(getTranslated(context, 'email')!,style: TextStyle(color: Colors.black,)),
                   CustomTextField(hintText: '${Email}', value: (value) {},controller: _emailController,),
                   SizedBox(height: 10,),
-                  Text('UserName',style: TextStyle(color: Colors.black)),
+                  Text(getTranslated(context, 'user_name')!,style: TextStyle(color: Colors.black)),
                   CustomTextField(hintText: '${userName}', value: (value) {},readOnly: true,),
                   SizedBox(height: 10,),
-                  Text('City',style: TextStyle(color: Colors.black,)),
+                  Text(getTranslated(context, 'city')!,style: TextStyle(color: Colors.black,)),
                   CustomTextField(hintText:'${City}', value: (value) {},controller: _cityController,),
                   SizedBox(height: 10,),
-                  Text('State',style: TextStyle(color: Colors.black,)),
+                  Text(getTranslated(context, 'state')!,style: TextStyle(color: Colors.black,)),
                   Container(
                     width: double.infinity,
                     height: 50,
@@ -145,7 +146,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                               _updateUserAccount(_firstName, _email, _city);
                             }
                             },
-                          child: Container(height: 50, color: Colors.amber,child: Center(child: Text('Save Profile',style: TextStyle(color: Colors.white),)),))
+                          child: Container(height: 50, color: Colors.amber,child: Center(child: Text(getTranslated(context, 'save_profile')!,style: TextStyle(color: Colors.white),)),))
                           :
                       Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.amber))),
                     ),
