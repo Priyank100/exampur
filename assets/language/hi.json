@@ -1,4 +1,5 @@
 {
+  "hello": "नमस्ते",
   "home_page": "मुख पृष्ठ",
   "paid course": "सशुल्क पाठ्यक्रम",
   "books": "पुस्तकें",
@@ -53,5 +54,21 @@
   "pin_code": "िन कोड",
   "enter_pin_code": "पिनकोड दर्ज करें",
   "continue_to_buy_course": "खरीदना जारी रखें",
-  "provide_further_detalis_for_delivery_of_books":"लैंडमार्क दर्ज करें पुस्तकों की डिलीवरी के लिए और विवरण प्रदान करें"
+  "provide_further_detalis_for_delivery_of_books":"लैंडमार्क दर्ज करें पुस्तकों की डिलीवरी के लिए और विवरण प्रदान करें",
+  "language_preferences": "भाषा वरीयताएँ",
+  "select_language": "भाषा का चयन करें",
+  "general": "सामान्य",
+  "security": "सुरक्षा",
+  "preference": "पसंद",
+  "user_name":"उपयोगकर्ता नाम",
+  "save_profile": "प्रोफ़ाइल बचा",
+  "name": "नाम",
+  "email": "ईमेल",
+  "current_paasword": "वर्तमान पासवर्ड",
+  "new_password": "नया पासवर्ड",
+  "confirm_password": "पासवर्ड की पुष्टि कीजिये",
+  "change_password": "पासवर्ड बदलें",
+  "save_the_course":"पाठ्यक्रम सहेजें",
+  "new_batch": "नया बैच",
+  "view_details": "विवरण देखें"
 }

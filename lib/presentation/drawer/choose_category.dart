@@ -299,7 +299,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                       child: Center(
                           child: Text(
                             // "Save (${selectedCountries.length})",
-                            "Save the course",
+                            getTranslated(context, 'save_the_course')!,
                             style: TextStyle(
                                 color: Colors.white, fontSize: 20),
                           )),

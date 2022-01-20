@@ -5,6 +5,7 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
 import 'package:exampur_mobile/data/model/response/languagemodel.dart';
+import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
 
 
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
@@ -237,7 +238,7 @@ class _HomeState extends State<Home> {
                     image: Images.studymaterial,
                     title: getTranslated(context, 'study materials')!,
                     color: AppConstants.darkorange,
-                    navigateTo: PaymentGateway()),
+                    navigateTo: PaymentReceiptPage()),
               ],
             ),
           ],
@@ -274,7 +275,7 @@ class SquareButton extends StatelessWidget {
         child: Row(
           children: [
             Image.asset(
-              image!,fit: BoxFit.fill,height: 50,width: 55,
+              image!,fit: BoxFit.fill,height: 40,width: 40,
             ),
             SizedBox(
               width: 15,

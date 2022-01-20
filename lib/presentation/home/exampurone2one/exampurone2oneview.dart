@@ -1,5 +1,6 @@
 
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
@@ -53,7 +54,7 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: Text('Exampur One2One',
+                child: Text(getTranslated(context, 'exampur one2one')!,
                   style: CustomTextStyle.headingBold(context),
                 ),
               ),

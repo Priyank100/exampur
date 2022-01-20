@@ -1,6 +1,7 @@
 
 
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/shared/one_two_one_card.dart';
@@ -35,7 +36,7 @@ class _One2onelistState extends State<One2onelist> {
           Padding(
             padding: const EdgeInsets.only(left: 14.0),
             child: Text(
-              'Exampur One2One',
+              getTranslated(context, 'exampur one2one')!,
               style: CustomTextStyle.headingBold(context),
             ),
           ),
@@ -131,7 +132,7 @@ class _One2onelistState extends State<One2onelist> {
                                            children: [
                                              Lottie.network(
                                                  'https://assets2.lottiefiles.com/packages/lf20_HztQu8.json'),
-                                             Text("New Batch",
+                                             Text(getTranslated(context, 'new_batch')!,
                                                  style: TextStyle(
                                                    fontSize: 10,
                                                  )),
@@ -162,8 +163,8 @@ class _One2onelistState extends State<One2onelist> {
                                               border: Border.all(
                                                   color: Color(0xFF060929)),
                                               color: Color(0xFF060929)),
-                                          child: const Center(
-                                              child: Text("View Details",
+                                          child: Center(
+                                              child: Text(getTranslated(context, 'view_details')!,
                                                   style: TextStyle(
                                                       fontSize: 10,
                                                       color: Colors.white)))),

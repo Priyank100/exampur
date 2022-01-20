@@ -1,8 +1,12 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/response/languagemodel.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/presentation/widgets/dropdown_selector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../main.dart';
 
 class PreferencesSettings extends StatefulWidget {
   @override
@@ -11,6 +15,10 @@ class PreferencesSettings extends StatefulWidget {
 
 class _PreferencesSettingsState extends State<PreferencesSettings> {
   @override
+  void _changeLanguage(Language language) async {
+    Locale _locale = await setLocale(language.languageCode);
+    MyApp.setLocale(context, _locale);
+  }
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
@@ -20,28 +28,48 @@ class _PreferencesSettingsState extends State<PreferencesSettings> {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 20,top: 20),
-                child: Text('Language Preferences',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15)),
+                child: Text(getTranslated(context, 'language_preferences')!,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+
+             Container(
+                  padding: const EdgeInsets.all(12.0),
+                  margin:  const EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 2.0, bottom: 0, left: 40, right: 25),
-                    child: DropDownSelector(isExpanded:false,items: ["select issue", "Hindi", "English"], setValue: (val) {}),
+                  child: DropdownButton<Language>(
+hint: Text(getTranslated(context, 'select_language')!),
+                    isExpanded: true,
+                    underline: SizedBox(),
+                    icon: Icon(
+                      Icons.arrow_downward_sharp,
+                      color: Colors.black,size: 20,
+                    ),
+                    onChanged: (Language? language) {
+                      _changeLanguage(language!);
+                    },
+                    items: Language.languageList()
+                        .map<DropdownMenuItem<Language>>(
+                          (e) => DropdownMenuItem<Language>(
+                        value: e,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Text(
+                              e.flag,
+                              style: TextStyle(fontSize: 30),
+                            ),
+                            Text(e.name)
+                          ],
+                        ),
+                      ),
+                    )
+                        .toList(),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: CustomSmallerElevatedButton(
-                  color: Colors.amber,
-                  onPressed: () {},
-                  text: "Save",
-                ),
-              ),
+
+
             ],
           ),
         ));

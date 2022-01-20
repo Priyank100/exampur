@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'package:exampur_mobile/data/model/billing_model.dart';
-import 'package:exampur_mobile/data/model/delivery_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
-import 'package:exampur_mobile/presentation/DeliveryDetail/payment_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/order_details.dart';
@@ -184,7 +182,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       "billing_address":_address,
       "billing_city":  _city,
       "billing_state": _state,
-      "billing_country": AppConstants.defaultCountry,
+      "billing_country": "India",
       "billing_pincode":  _pincode
     };
 
@@ -216,6 +214,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
         } else{
           print('yes');
+          Navigator.push(context, MaterialPageRoute(builder:
+              (context) =>
+              PaymentReceiptPage()
+          ));
         }
       } else {
         final body = json.decode(response.body);
