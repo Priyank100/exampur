@@ -39,21 +39,19 @@ class API {
 
   //PaidCourse
   static const String PaidCoursesTab_URL = BASE_URL3 + 'category/course_paid';
-  static const String PaidCoursesList_URL = BASE_URL3 + 'courses/paid/' + 'PAID_COURSE_ID' + '/10/0';
+  static const String PaidCoursesList_URL = BASE_URL3 + 'courses/paid/' + 'PAID_COURSE_ID' + '/10/';
 
   //FreeCourse
   static const String FreeCoursesTab_URL = BASE_URL3 + 'category/course_free';
-  static const String FreeCoursesList_URL = BASE_URL3 + 'courses/free/' + 'FREE_COURSE_ID' + '/10/0';
-
-  static const String Courses_URL = BASE_URL3 + 'courses/free/5/0';
+  static const String FreeCoursesList_URL = BASE_URL3 + 'courses/free/' + 'FREE_COURSE_ID' + '/10/';
 
 //one2one
   static const String One2One_URL = BASE_URL3 + 'courses/onetoone/10/0';
   static const String TermsConditions_URL = 'https://exampur.com/';
 
   //offlineBatches
-  static const String offline_batches = BASE_URL3 + 'offline_centers/findall/10/0';
-  static const String offline_batches_center = BASE_URL3 + 'offline_centers/findone/' + 'CENTER_ID' + '/10/0';
+  static const String offline_batches = BASE_URL3 + 'offline_centers/findall/10/';
+  static const String offline_batches_center = BASE_URL3 + 'offline_centers/findone/' + 'CENTER_ID' + '/10/';
   static const String offline_batches_course = BASE_URL3 + 'offline_centers/course/' + 'CENTER_ID';
 
 //appTutorial

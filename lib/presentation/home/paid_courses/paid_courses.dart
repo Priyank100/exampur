@@ -54,7 +54,7 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
                       : freeCourseTabList.map((item) => item.name.toString()).toList(),
                   routes: widget.courseType == 1
                       ? paidCourseTabList.map((item) => TeachingList(1, item.id.toString())).toList()
-                      : freeCourseTabList.map((item) => TeachingList(1, item.id.toString())).toList(),
+                      : freeCourseTabList.map((item) => TeachingList(0, item.id.toString())).toList(),
                   title: "")
           );
         });

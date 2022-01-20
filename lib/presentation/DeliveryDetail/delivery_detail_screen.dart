@@ -44,7 +44,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
   Future<void> getSharedPrefData() async {
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
-    AppConstants.printLog('priyank>> ${jsonValue.toString()}');
+    // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
     Email = jsonValue[0]['data']['email_id'].toString();
@@ -152,7 +152,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               value: (value) {},
             ),
             SizedBox(
-              height: 15,
+              height: 20,
             ),
             InkWell(
               onTap: (){
@@ -160,8 +160,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _city = _billingCityController.text.trim();
                 String _pincode = _billingPincodeController.text.trim();
                 String _state = _billingStateController.text.trim();
-                saveDeliveryAddress(_address, _pincode, _city,_state);
-    },
+                if(checkValidation(_address, _state, _city, _pincode)) {
+                  saveDeliveryAddress(_address, _pincode, _city, _state);
+                }
+              },
 
               child: Container(
                 height: 50,
@@ -181,6 +183,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   }
 
   saveDeliveryAddress(_address, _pincode, _city,_state) async {
+    AppConstants.showLoaderDialog(context);
     final  body= {
       "course_id": widget.paidcourseList.id.toString(),
       "billing_address":_address,
@@ -190,9 +193,9 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       "billing_pincode":  _pincode
     };
 
-    print(body);
     await Service.post(API.order_course, body: body).then((response) async {
-      print(response.body.toString());
+      Navigator.pop(context);
+      AppConstants.printLog(response.body.toString());
 
       if (response == null) {
         AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
@@ -217,11 +220,12 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           );
 
         } else{
-          print('yes');
-          // pass data
+          AppConstants.printLog('yes');
           Navigator.push(context, MaterialPageRoute(builder:
               (context) =>
-              PaymentReceiptPage()
+              PaymentReceiptPage(deliveryModel.data!.orderId.toString(),
+                  deliveryModel.data!.paymentOrderId.toString(),
+                  'signature')
           ));
         }
       } else {
@@ -232,12 +236,12 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     });
   }
 
-  bool checkValidation(_aadress, _city,_pincode) {
+  bool checkValidation(_aadress, _state, _city,_pincode) {
     if (_aadress.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('ADDRESS_FIELD_MUST_BE_REQUIRED'), backgroundColor: Colors.black));
       return false;
     }
-    else if (State.isEmpty) {
+    else if (_state.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('STATE_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
       return false;
     }

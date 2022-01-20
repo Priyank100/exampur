@@ -15,10 +15,9 @@ class OfflineBatchesRepo {
 
   OfflineBatchesRepo ({required this.dioClient});
 
-  Future<ApiResponse> offlineBatchCenterRepo() async {
+  Future<ApiResponse> offlineBatchCenterRepo(int pageNo) async {
     try {
-      int currentPage = 1;
-      const url = API.offline_batches;
+      String url = API.offline_batches + pageNo.toString();
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
@@ -27,9 +26,9 @@ class OfflineBatchesRepo {
     }
   }
 
-  Future<ApiResponse> offlineBatchCenterCoursesRepo(String id) async {
+  Future<ApiResponse> offlineBatchCenterCoursesRepo(String id, int pageNo) async {
     try {
-      String url = API.offline_batches_center.replaceAll('CENTER_ID', id);
+      String url = API.offline_batches_center.replaceAll('CENTER_ID', id) + pageNo.toString();
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

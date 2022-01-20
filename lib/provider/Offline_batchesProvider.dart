@@ -21,8 +21,8 @@ class OfflinebatchesProvider extends ChangeNotifier {
   OfflinebatchesCoursesVideo _offlinebatchesCoursesVideo = OfflinebatchesCoursesVideo();
   OfflinebatchesCoursesVideo get offlinebatchesCoursesVideo => _offlinebatchesCoursesVideo;
 
-  Future<List<CenterListModel>?> getOfflineBatchCenterList(BuildContext context) async {
-    ApiResponse apiResponse = await offlinebatchesRepo.offlineBatchCenterRepo();
+  Future<List<CenterListModel>?> getOfflineBatchCenterList(BuildContext context, int pageNo) async {
+    ApiResponse apiResponse = await offlinebatchesRepo.offlineBatchCenterRepo(pageNo);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
@@ -37,8 +37,8 @@ class OfflinebatchesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<OfflineBatchCenterCoursesModel?> getOfflineBatchCenterCoursesData(BuildContext context, String id) async {
-    ApiResponse apiResponse = await offlinebatchesRepo.offlineBatchCenterCoursesRepo(id);
+  Future<OfflineBatchCenterCoursesModel?> getOfflineBatchCenterCoursesData(BuildContext context, String id, int pageNo) async {
+    ApiResponse apiResponse = await offlinebatchesRepo.offlineBatchCenterCoursesRepo(id, pageNo);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {

@@ -16,7 +16,6 @@ import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
-import 'package:exampur_mobile/provider/courses_provider.dart';
 import 'package:exampur_mobile/provider/locallization_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -41,7 +40,6 @@ void main() async {
    // ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<HomeBannerProvider>()),
     // ChangeNotifierProvider(create: (context) => di.sl<ValidTokenProvider>()),
-    ChangeNotifierProvider(create: (context) => di.sl< CoursesProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<BooksEBooksProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<One2OneProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<ChooseCategoryProvider>()),

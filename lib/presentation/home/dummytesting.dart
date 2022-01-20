@@ -360,7 +360,7 @@ class _PaymentGatewayState extends State<PaymentGateway> {
   String City='';
   Future<void> getSharedPrefData() async {
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
-    AppConstants.printLog('priyank>> ${jsonValue.toString()}');
+    // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
     Email = jsonValue[0]['data']['email_id'].toString();

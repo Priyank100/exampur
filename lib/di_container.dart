@@ -11,14 +11,9 @@ import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
-import 'package:exampur_mobile/provider/courses_provider.dart';
-import 'package:exampur_mobile/provider/locallization_provider.dart';
-
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'Helper/network_info.dart';
 import 'data/datasource/remote/dio/dio_client.dart';
 import 'data/datasource/remote/dio/logging_incepactor.dart';
 import 'data/repository/App_Toutorial.dart';
@@ -32,7 +27,6 @@ import 'data/repository/HomeBanner_repo.dart';
 import 'data/repository/OfflineBatches_repo.dart';
 import 'data/repository/One2One_repo.dart';
 import 'data/repository/paid_course_repo.dart';
-import 'data/repository/courserepo.dart';
 
 
 final sl = GetIt.instance;
@@ -45,8 +39,6 @@ Future<void> init() async {
   // Repository
   sl.registerLazySingleton(() => AuthRepo(dioClient: sl()));
   sl.registerLazySingleton(() => HomeBannerRepo(dioClient: sl()));
-  // sl.registerLazySingleton(() => ValidTokenRepo(dioClient: sl()));
-  sl.registerLazySingleton(() => CoursesRepo(dioClient: sl()));
   sl.registerLazySingleton(() => BooksEBooksRepo(dioClient: sl()));
   sl.registerLazySingleton(() => One2OneRepo(dioClient: sl()));
   sl.registerLazySingleton(() => ChooseCategoryRepo(dioClient: sl()));
@@ -62,8 +54,6 @@ Future<void> init() async {
   sl.registerFactory(() => AuthProvider(authRepo: sl()));
   sl.registerFactory(() =>  HelpandFeedbackprovider(helpandFeedbackRepo: sl()));
   sl.registerFactory(() => HomeBannerProvider(homeBannerRepo: sl()));
-  // sl.registerFactory(() => ValidTokenProvider(validTokenRepo: sl()));
-  sl.registerFactory(() =>  CoursesProvider(courseRepo: sl()));
   sl.registerFactory(() =>  BooksEBooksProvider(booksEbooksRepo: sl()));
   sl.registerFactory(() =>  One2OneProvider(one2oneRepo: sl()));
   sl.registerFactory(() =>  ChooseCategoryProvider(chooseCategoryRepo: sl()));

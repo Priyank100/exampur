@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/data/model/dummy_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
@@ -56,19 +57,11 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           Radius.circular(10),
                         )),
                     width: double.infinity,
-                    // height: 200,
-                    // child: FadeInImage(
-                    //   fit: BoxFit.cover,
-                    //   image: NetworkImage(
-                    //       "https://www.w3.org/TR/wai-aria-practices/examples/carousel/images/lands-endslide__800x600.jpg"),
-                    //   placeholder: AssetImage(Images.noimage),
-                    //   imageErrorBuilder: (context, error, stackTrace) {
-                    //     return Image.asset(
-                    //       Images.noimage,
-                    //     );
-                    //   },
-                    // ),
-                    child: Image.network(AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString()),
+                    child: CachedNetworkImage(
+                      imageUrl: AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString(),
+                      placeholder: (context, url) => new Image.asset(Images.noimage),
+                      errorWidget: (context, url, error) => new Icon(Icons.error),
+                    ),
                   ),
                 ),
 

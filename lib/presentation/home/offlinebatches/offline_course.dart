@@ -2,6 +2,7 @@ import 'package:exampur_mobile/data/model/offlice_batch_center_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
@@ -16,26 +17,52 @@ class OfflineCourse extends StatefulWidget {
 }
 
 class _OfflineCourseState extends State<OfflineCourse> {
-  List<CenterListModel> list = [];
+  List<CenterListModel> centerList = [];
+  var scrollController = ScrollController();
+  bool isLoading = false;
+  int page = 0;
+  bool isData = true;
 
   @override
   void initState() {
-    callProvider();
+    scrollController.addListener(pagination);
+    callProvider(page);
+    super.initState();
   }
 
-  void callProvider() async {
-    list = (await Provider.of<OfflinebatchesProvider>(context, listen: false).getOfflineBatchCenterList(context))!;
+  void callProvider(pageNo) async {
+    List<CenterListModel> list = (await Provider.of<OfflinebatchesProvider>(context, listen: false).getOfflineBatchCenterList(context, pageNo))!;
+    if(list.length > 0) {
+      isData = true;
+      centerList = centerList + list;
+    } else {
+      isData = false;
+    }
+    isLoading = false;
     setState(() {});
+  }
+
+  void pagination() {
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+      setState(() {
+        if(isData) {
+          page += 1;
+        }
+        isLoading = true;
+        callProvider(page);
+        AppConstants.printLog('page>> ' + page.toString());
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(),
-        body: list.length == 0
+        body: centerList.length == 0
             ? Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
-                child: Column(
+                child:Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -50,8 +77,8 @@ class _OfflineCourseState extends State<OfflineCourse> {
                       height: Dimensions.FONT_SIZE_SMALL,
                     ),
                     ListView.builder(
-                        itemCount: list.length,
-                        physics: BouncingScrollPhysics(),
+                        itemCount: centerList.length,
+                        controller: scrollController,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
@@ -79,7 +106,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                OfflineBatchesExam(list[index].id.toString())));
+                                                OfflineBatchesExam(centerList[index].id.toString())));
                                   },
                                   leading: Image.asset(
                                     Images.exampur_logo,
@@ -87,7 +114,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                                     width: 50,
                                   ),
                                   title: Text(
-                                    list[index].name.toString(),
+                                    centerList[index].name.toString(),
                                     style: CustomTextStyle.headingBold(context),
                                   ),
                                   trailing: Icon(
@@ -100,7 +127,14 @@ class _OfflineCourseState extends State<OfflineCourse> {
                         })
                   ],
                 ),
-              ));
+              ),
+        bottomNavigationBar: isLoading ? Container(
+    padding: EdgeInsets.all(8),
+    height:40,
+    width: 40,
+    child: Center(child: CircularProgressIndicator())) :
+    SizedBox(),
+    );
   }
 }
 

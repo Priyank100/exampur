@@ -123,7 +123,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
     AppConstants.printLog(response.paymentId);
     AppConstants.printLog(response.signature);
 
-    getReceipt(widget.deliveryModel.data!.orderId.toString(), response.paymentId.toString(), response.signature.toString());
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PaymentReceiptPage(widget.deliveryModel.data!.orderId.toString(),
+                response.paymentId.toString(),
+                response.signature.toString())
+        )
+    );
   }
 
   void handlerErrorFailure(PaymentFailureResponse response) {
@@ -136,35 +143,5 @@ class _PaymentScreenState extends State<PaymentScreen> {
     AppConstants.showBottomMessage(context, msg, Colors.red);
   }
 
-  void getReceipt(orderId, paymentId, signature) async {
-    AppConstants.showLoaderDialog(context);
-    final param = {
-      "order_id": orderId,
-      "transaction_id":paymentId,
-      "payment_signature":  signature,
-    };
 
-    await Service.post(API.finalize_order, body: param).then((response) {
-      Navigator.pop(context);
-      AppConstants.printLog(response.body.toString());
-
-      if (response == null) {
-        AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
-
-      } else if (response.statusCode == 200) {
-        FinalOrderPayModel model = FinalOrderPayModel.fromJson(json.decode(response.body.toString()));
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => PaymentReceiptPage()
-            )
-        );
-
-      } else {
-        final body = json.decode(response.body);
-        AppConstants.showAlertDialog(context, body['data'].toString());
-        return;
-      }
-    });
-  }
 }

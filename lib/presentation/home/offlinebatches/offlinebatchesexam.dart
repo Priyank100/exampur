@@ -19,19 +19,49 @@ class OfflineBatchesExam extends StatefulWidget {
 }
 
 class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
-  OfflineBatchCenterCoursesModel centerCoursesModel =
-      OfflineBatchCenterCoursesModel();
+  List<CenterCoursesListModel> offlineBatchesList = [];
+  String centerName = '';
+  String centerMobile = '';
+  String centerAddress = '';
+
+  var scrollController = ScrollController();
+  bool isLoading = false;
+  int page = 0;
+  bool isData = true;
 
   @override
   void initState() {
-    callProvider();
+    scrollController.addListener(pagination);
+    callProvider(page);
+    super.initState();
   }
 
-  void callProvider() async {
-    centerCoursesModel =
-        (await Provider.of<OfflinebatchesProvider>(context, listen: false)
-            .getOfflineBatchCenterCoursesData(context, widget.id))!;
+  void callProvider(page) async {
+    OfflineBatchCenterCoursesModel centerCoursesModel = (await Provider.of<OfflinebatchesProvider>(context, listen: false).getOfflineBatchCenterCoursesData(context, widget.id, page))!;
+    if(centerCoursesModel.data!.length > 0) {
+      isData = true;
+      centerName = centerCoursesModel.centerDetails!.name.toString();
+      centerMobile = centerCoursesModel.centerDetails!.phone.toString();
+      centerAddress = centerCoursesModel.centerDetails!.address.toString();
+      offlineBatchesList = offlineBatchesList + centerCoursesModel.data!;
+    } else {
+      isData = false;
+    }
+    isLoading = false;
     setState(() {});
+  }
+
+  void pagination() {
+    if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
+      setState(() {
+        if(isData) {
+          page += 1;
+        }
+        isLoading = true;
+        callProvider(page);
+        AppConstants.printLog('page>> ' + page.toString());
+      });
+    }
   }
 
   @override
@@ -39,11 +69,9 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
     print(AppConstants.BANNER_BASE);
     return Scaffold(
         appBar: CustomAppBar(),
-        body: centerCoursesModel.data == null ||
-                centerCoursesModel.data!.length == 0
+        body: offlineBatchesList.length == 0
             ? Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -59,25 +87,23 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0),
-                      child: Text('Center: ' +
-                          centerCoursesModel.centerDetails!.name.toString()),
+                      child: Text('Center: ' + centerName),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0),
-                      child: Text('Phone: ' +
-                          centerCoursesModel.centerDetails!.phone.toString()),
+                      child: Text('Phone: ' + centerMobile),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0),
-                      child: Text('Address: ' +
-                          centerCoursesModel.centerDetails!.address.toString()),
+                      child: Text('Address: ' + centerAddress),
                     ),
                     SizedBox(
                       height: 5,
                     ),
                     ListView.builder(
-                        itemCount: centerCoursesModel.data!.length,
-                        physics: BouncingScrollPhysics(),
+                        itemCount: offlineBatchesList.length,
+                        // physics: BouncingScrollPhysics(),
+                        controller: scrollController,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
@@ -108,7 +134,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                         width:
                                         MediaQuery.of(context).size.width * 0.25,
                                         child: FadeInImage(
-                                          image: NetworkImage(AppConstants.BANNER_BASE + centerCoursesModel.data![index].logoPath.toString()),
+                                          image: NetworkImage(AppConstants.BANNER_BASE + offlineBatchesList[index].logoPath.toString()),
                                           placeholder:
                                           AssetImage(Images.exampur_logo),
                                           imageErrorBuilder:
@@ -129,7 +155,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                           CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              centerCoursesModel.data![index].title.toString(),
+                                              offlineBatchesList[index].title.toString(),
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
@@ -150,7 +176,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                OfflineBatchesVideo(centerCoursesModel.data![index].id.toString())
+                                                                OfflineBatchesVideo(offlineBatchesList[index].id.toString())
                                                         )
                                                     );
                                                   },
@@ -212,6 +238,13 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                         }),
                   ],
                 ),
-              ));
+              ),
+      bottomNavigationBar: isLoading ? Container(
+          padding: EdgeInsets.all(8),
+          height:40,
+          width: 40,
+          child: Center(child: CircularProgressIndicator())) :
+      SizedBox(),
+    );
   }
 }

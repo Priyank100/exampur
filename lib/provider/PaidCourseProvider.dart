@@ -41,8 +41,8 @@ class PaidCoursesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Courses>?> getPaidCourseList(BuildContext context, String id) async {
-    ApiResponse apiResponse = await paidcoursesRepo.paid_coursesRepo(id);
+  Future<List<Courses>?> getPaidCourseList(BuildContext context, String id, int pageNo) async {
+    ApiResponse apiResponse = await paidcoursesRepo.paid_coursesRepo(id, pageNo);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
@@ -74,8 +74,8 @@ class PaidCoursesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Courses>?> getFreeCourseList(BuildContext context, String id) async {
-    ApiResponse apiResponse = await paidcoursesRepo.free_coursesRepo(id);
+  Future<List<Courses>?> getFreeCourseList(BuildContext context, String id, int pageNo) async {
+    ApiResponse apiResponse = await paidcoursesRepo.free_coursesRepo(id, pageNo);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
