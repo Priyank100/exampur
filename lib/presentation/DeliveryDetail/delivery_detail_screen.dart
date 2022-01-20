@@ -188,24 +188,20 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       "billing_pincode":  _pincode
     };
 
-
-print(body);
-    await Service.post(
-      API.order_course,
-      body: body,
-    ).then((response) async {
+    print(body);
+    await Service.post(API.order_course, body: body).then((response) async {
       print(response.body.toString());
+
       if (response == null) {
-        var snackBar = SnackBar( margin: EdgeInsets.all(20),
-          behavior: SnackBarBehavior.floating,
-          content: Text('Server Error'),backgroundColor: Colors.red,);
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+
       } else if (response.statusCode == 200) {
         AppConstants.printLog('anchal');
         AppConstants.printLog(response.body.toString());
         Delivery_model deliveryModel = Delivery_model.fromJson(json.decode(response.body.toString()));
         AppConstants.printLog('status>> ' + deliveryModel.data!.status.toString());
         String status = deliveryModel.data!.status.toString();
+
         if(status == "Pending"){
           BillingModel billingModel = BillingModel(
               Name, Email, Mobile, _address, _city, _state, AppConstants.defaultCountry, _pincode,
@@ -217,31 +213,27 @@ print(body);
                   builder: (context) => PaymentScreen(billingModel, deliveryModel)
               )
           );
-        }
-        else{
+
+        } else{
           print('yes');
         }
-        // Navigator.pushReplacement(context,
-        //     MaterialPageRoute(builder:
-        //         (context) =>
-        //         BottomNavigation()
-        //     )
-        // );
       } else {
-
+        final body = json.decode(response.body);
+        AppConstants.showAlertDialog(context, body['data'].toString());
+        return;
       }
     });
   }
 
   bool checkValidation(_aadress, _city,_pincode) {
     if (_aadress.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Address_FIELD_MUST_BE_REQUIRED'), backgroundColor: Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('ADDRESS_FIELD_MUST_BE_REQUIRED'), backgroundColor: Colors.black));
       return false;
     }
-    // else if (_state.isEmpty) {
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sate_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
-    //   return false;
-    // }
+    else if (State.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('STATE_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
+      return false;
+    }
     else if (_city.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('CITY_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
       return false;

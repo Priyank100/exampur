@@ -117,12 +117,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   void handlerPaymentSuccess(PaymentSuccessResponse response) {
-    AppConstants.printLog("Pament success");
+    AppConstants.printLog("Payment success");
     AppConstants.printLog(response.orderId);
     AppConstants.printLog(response.paymentId);
     AppConstants.printLog(response.signature);
 
-    AppConstants.showLoaderDialog(context);
     getReceipt(widget.deliveryModel.data!.orderId.toString(), response.paymentId.toString(), response.signature.toString());
   }
 
@@ -137,6 +136,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   void getReceipt(orderId, paymentId, signature) async {
+    AppConstants.showLoaderDialog(context);
     final param = {
       "order_id": orderId,
       "transaction_id":paymentId,
@@ -145,14 +145,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
     await Service.post(API.finalize_order, body: param).then((response) {
       Navigator.pop(context);
-      AppConstants.printLog('Priyank>>');
       AppConstants.printLog(response.body.toString());
 
       if (response == null) {
-        var snackBar = SnackBar( margin: EdgeInsets.all(20),
-          behavior: SnackBarBehavior.floating,
-          content: Text('Server Error'),backgroundColor: Colors.red,);
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
 
       } else if (response.statusCode == 200) {
         FinalOrderPayModel model = FinalOrderPayModel.fromJson(json.decode(response.body.toString()));
