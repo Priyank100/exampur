@@ -7,7 +7,6 @@ import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
 import 'package:exampur_mobile/data/model/response/languagemodel.dart';
 import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
 
-
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/home_banner.dart';
@@ -29,7 +28,7 @@ import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart'
 import '../../main.dart';
 import 'TestSeries/testseries.dart';
 
-
+import 'dummytest.dart';
 import 'dummytesting.dart';
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/offline_course.dart';
@@ -65,16 +64,18 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> getSharedPrefData() async {
-    var jsonValue =
-        jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    var jsonValue = jsonDecode(
+        await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
     AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     setState(() {});
   }
+
   void _changeLanguage(Language language) async {
     Locale _locale = await setLocale(language.languageCode);
     MyApp.setLocale(context, _locale);
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -85,10 +86,9 @@ class _HomeState extends State<Home> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
               children: [
                 Text(
-                  'Hello, ${userName} !',
+                  getTranslated(context, 'hello')! + ' , ' + '${userName} !',
                   style: CustomTextStyle.headingMediumBold(context),
                 ),
                 Padding(
@@ -97,7 +97,8 @@ class _HomeState extends State<Home> {
                     underline: SizedBox(),
                     icon: Icon(
                       Icons.language,
-                      color: Colors.black,size: 30,
+                      color: Colors.black,
+                      size: 30,
                     ),
                     onChanged: (Language? language) {
                       _changeLanguage(language!);
@@ -105,25 +106,25 @@ class _HomeState extends State<Home> {
                     items: Language.languageList()
                         .map<DropdownMenuItem<Language>>(
                           (e) => DropdownMenuItem<Language>(
-                        value: e,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Text(
-                              e.flag,
-                              style: TextStyle(fontSize: 30),
+                            value: e,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Text(
+                                  e.flag,
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                                Text(e.name)
+                              ],
                             ),
-                            Text(e.name)
-                          ],
-                        ),
-                      ),
-                    )
+                          ),
+                        )
                         .toList(),
                   ),
                 ),
               ],
             ),
-           // SizedBox(height: 5),
+            // SizedBox(height: 5),
             bannerList.length != 0
                 ? LargeBanner(bannerList: bannerList)
                 : Container(
@@ -154,7 +155,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.book,
                     title: getTranslated(context, 'books')!,
-                    color:AppConstants.bookcolor,
+                    color: AppConstants.bookcolor,
                     navigateTo: BooksEbook()),
               ],
             ),
@@ -173,9 +174,11 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                     image: Images.testseries,
-                    title:getTranslated(context, 'test courses')!,
+                    title: getTranslated(context, 'test courses')!,
                     color: AppConstants.seriescolor,
-                    navigateTo: TestSeriesview()),
+                    navigateTo: UploadImage()
+                    //TestSeriesview()
+                    ),
               ],
             ),
             SizedBox(
@@ -216,9 +219,8 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'daily quiz')!,
                     color: AppConstants.blue,
                     navigateTo:
-                    //SettingsScreen()
-                   StudyMaterial()
-                ),
+                        //SettingsScreen()
+                        StudyMaterial()),
               ],
             ),
             SizedBox(
@@ -228,7 +230,7 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(
                     image: Images.jobalert,
-                    title:getTranslated(context, 'job alerts')!,
+                    title: getTranslated(context, 'job alerts')!,
                     color: AppConstants.darkblue,
                     navigateTo: JobAlerts()),
                 SizedBox(
@@ -275,7 +277,10 @@ class SquareButton extends StatelessWidget {
         child: Row(
           children: [
             Image.asset(
-              image!,fit: BoxFit.fill,height: 40,width: 40,
+              image!,
+              fit: BoxFit.fill,
+              height: 40,
+              width: 40,
             ),
             SizedBox(
               width: 15,
@@ -283,7 +288,7 @@ class SquareButton extends StatelessWidget {
             Flexible(
                 child: new Text(
               title!,
-              style: TextStyle(color: Colors.white,fontSize: 15),
+              style: TextStyle(color: Colors.white, fontSize: 15),
             ))
           ],
         ),

@@ -15,10 +15,10 @@ class One2OneRepo {
 
   One2OneRepo({required this.dioClient});
 
-  Future<ApiResponse> one2oneRepo() async {
+  Future<ApiResponse> one2oneRepo(int pageNo) async {
     try {
       int currentPage = 1;
-      const url = '${API.One2One_URL}';
+      String url = API.One2One_URL+pageNo.toString();
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

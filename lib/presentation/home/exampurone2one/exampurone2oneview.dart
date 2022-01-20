@@ -21,21 +21,46 @@ class Exampuron2oneView extends StatefulWidget {
 
 class _Exampuron2oneViewState extends State<Exampuron2oneView> {
  List<Courses> one2oneList= [];
+ bool isLoading = false;
+ int page =0;
+ var scrollController =ScrollController();
+ bool isData =true;
+
   @override
   void initState() {
-
+scrollController.addListener(pagination);
+    getone2oneList(page);
     super.initState();
-    getone2oneList();
   }
 
-  Future<void> getone2oneList() async {
+  Future<void> getone2oneList(pageNo) async {
     AppConstants.printLog(one2oneList);
-    one2oneList = (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context))!;
+    one2oneList=   (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context,pageNo))!;
+    // List<Courses> list  = (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context,pageNo))!;
+    // if(list.length > 0) {
+    //   isData = true;
+    //   one2oneList = one2oneList + list;
+    // } else {
+    //   isData = false;
+    // }
+    // isLoading = false;
     setState(() {});
    // return one2oneList;
 
   }
 
+  void pagination(){
+    if(scrollController.position.pixels==scrollController.position.maxScrollExtent){
+      setState(() {
+        if(isData){
+          page +=1;
+          print(page);
+        }
+        isLoading = true;
+        getone2oneList(page);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,28 +70,30 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
       one2oneList.length == 0
           ? Center(child: CircularProgressIndicator(color: Colors.amber,))
           :
-      SingleChildScrollView(
-            child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(getTranslated(context, 'exampur one2one')!,
-                  style: CustomTextStyle.headingBold(context),
-                ),
-              ),
-              SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
+      // SingleChildScrollView(
+      //       child: Padding(
+      //   padding: const EdgeInsets.all(12.0),
+      //   child: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       mainAxisAlignment: MainAxisAlignment.start,
+      //       children: [
+      //         Padding(
+      //           padding: const EdgeInsets.only(left: 8.0),
+      //           child: Text(getTranslated(context, 'exampur one2one')!,
+      //             style: CustomTextStyle.headingBold(context),
+      //           ),
+      //         ),
+      //         SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
               ListView.builder(
                   itemCount: one2oneList.length,
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
+                  controller: scrollController,
+                 // shrinkWrap: true,
+                  //physics: BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context,int index){
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
+
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(15)),
                           boxShadow:const [
@@ -102,11 +129,12 @@ class _Exampuron2oneViewState extends State<Exampuron2oneView> {
                         ),
                       ),
                     );
-                  })
-            ],
-        ),
-      ),
-          ),
+                  }),
+      //       ],
+      //   ),
+      // ),
+      //     ),
+      bottomNavigationBar: isLoading?Container(height:40,width: 40,child:Center(child: CircularProgressIndicator(color: Colors.amber,),)):SizedBox()
     );
   }
 }

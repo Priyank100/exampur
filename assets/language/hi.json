@@ -70,5 +70,10 @@
   "change_password": "पासवर्ड बदलें",
   "save_the_course":"पाठ्यक्रम सहेजें",
   "new_batch": "नया बैच",
-  "view_details": "विवरण देखें"
+  "view_details": "विवरण देखें",
+  "share": "शेयर करें",
+  "buy": "खरीदें",
+  "demo_classes":"डेमो क्लासेस",
+  "recorded": "रिकॉर्डेड",
+  "view_all": "सभी को देखें"
 }

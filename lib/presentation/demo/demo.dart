@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/demo_models.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
@@ -37,7 +38,7 @@ class DemoState extends State<Demo> {
     return Scaffold(
         appBar: AppBar(
             title: Text(
-              "Demo Classes",
+            getTranslated(context, 'demo_classes')!,
               style: CustomTextStyle.headingBigBold(context),
             ),
             backgroundColor: Colors.transparent,
@@ -52,7 +53,7 @@ class DemoState extends State<Demo> {
                 SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
-                  child: TitleRow(title: 'Recorded', onTap: () {  },  ),
+                  child: TitleRow(title: getTranslated(context, 'recorded')!, onTap: () {  },  ),
                 ),
                Expanded(
                  child: ListView.builder(

@@ -70,5 +70,10 @@
   "confirm_password": "Confirm Password",
   "change_password": "Change Password",
   "save_the_course": "Save the course",
-  "view_details": "View Details"
+  "view_details": "View Details",
+  "share": "Share",
+  "buy": "Buy",
+  "demo_classes": "Demo Classes",
+  "recorded": "Recorded",
+  "view_all": "View All"
 }

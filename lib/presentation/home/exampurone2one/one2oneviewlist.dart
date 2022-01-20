@@ -184,7 +184,7 @@ class _One2onelistState extends State<One2onelist> {
                                       SizedBox(
                                         width: 5,
                                       ),
-                                      Text("Share",
+                                      Text(getTranslated(context, 'share')!,
                                           style: TextStyle(fontSize: 13))
                                     ],
                                   ),

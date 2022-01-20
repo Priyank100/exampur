@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/offlinebatches_courses_video.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -105,7 +106,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
                 width: 120,
                 child: Center(
                     child: Text(
-                      'Buy',
+                      getTranslated(context, 'buy')!,
                       style: TextStyle(color: Colors.white),
                     )),
               ),

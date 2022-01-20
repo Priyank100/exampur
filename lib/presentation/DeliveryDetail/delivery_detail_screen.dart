@@ -4,6 +4,7 @@ import 'package:exampur_mobile/data/model/delivery_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/payment_screen.dart';
 import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
@@ -151,6 +152,52 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 controller:_billingPincodeController,
               value: (value) {},
             ),
+            SizedBox(height: 15,),
+            Row(children: [
+              Expanded(
+                child: SizedBox(
+                  height: 50,
+                  child: TextField(
+                      //controller: _controller,
+                      decoration: InputDecoration(
+                    hintText: 'Have a coupon?',
+
+                    //hintStyle: titilliumRegular.copyWith(color: ColorResources.HINT_TEXT_COLOR),
+                    filled: true,
+                    fillColor: Colors.grey.shade300,
+                    border: InputBorder.none,
+                  )),
+                ),
+              ),
+              SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+             ElevatedButton(
+                onPressed: () {
+                  // if(_controller.text.isNotEmpty) {
+                  //   Provider.of<CouponProvider>(context, listen: false).initCoupon(_controller.text, _order).then((value) {
+                  //     if(value > 0) {
+                  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:
+                  //       Text('You got ${PriceConverter.convertPrice(context, value)} discount'), backgroundColor: Colors.green));
+                  //     }else {
+                  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  //         content: Text(getTranslated('invalid_coupon_or', context)),
+                  //         backgroundColor: Colors.red,
+                  //       ));
+                  //     }
+                  //   });
+                  // }
+                },
+
+                style: ElevatedButton.styleFrom(
+                  primary: AppConstants.Dark,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                ),
+                child: Text('APPLY',),
+
+              )
+                 // : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
+            ]),
+
+
             SizedBox(
               height: 15,
             ),
@@ -252,6 +299,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       return true;
     }
   }
+
+
 }
 
 class TextUse extends StatelessWidget {
