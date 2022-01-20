@@ -1,5 +1,9 @@
 import 'dart:convert';
+import 'package:exampur_mobile/data/model/billing_model.dart';
+import 'package:exampur_mobile/data/model/delivery_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
+import 'package:exampur_mobile/presentation/DeliveryDetail/payment_screen.dart';
+import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
@@ -214,6 +218,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
         } else{
           print('yes');
+          // pass data
           Navigator.push(context, MaterialPageRoute(builder:
               (context) =>
               PaymentReceiptPage()

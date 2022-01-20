@@ -4,6 +4,7 @@ import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/billing_model.dart';
 import 'package:exampur_mobile/data/model/delivery_model.dart';
 import 'package:exampur_mobile/data/model/final_order_pay_model.dart';
+import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -152,12 +153,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
       } else if (response.statusCode == 200) {
         FinalOrderPayModel model = FinalOrderPayModel.fromJson(json.decode(response.body.toString()));
-        // Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => PaymentReceiptPage(model)
-        //     )
-        // );
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PaymentReceiptPage()
+            )
+        );
 
       } else {
         final body = json.decode(response.body);
