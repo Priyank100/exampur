@@ -151,9 +151,7 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'paid course')!,
                     color: AppColors.paidCourses,
                     navigateTo: PaidCourses(1)),
-                SizedBox(
-                  width: 10,
-                ),
+                SizedBox(width: 10,),
                 SquareButton(
                     image: Images.book,
                     title: getTranslated(context, 'books')!,
