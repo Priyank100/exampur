@@ -164,7 +164,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
                     //hintStyle: titilliumRegular.copyWith(color: ColorResources.HINT_TEXT_COLOR),
                     filled: true,
-                    fillColor: Colors.grey.shade300,
+                    fillColor: AppColors.grey300,
                     border: InputBorder.none,
                   )),
                 ),
@@ -176,7 +176,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                   //   Provider.of<CouponProvider>(context, listen: false).initCoupon(_controller.text, _order).then((value) {
                   //     if(value > 0) {
                   //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:
-                  //       Text('You got ${PriceConverter.convertPrice(context, value)} discount'), backgroundColor: Colors.green));
+                  //       Text('You got ${PriceConverter.convertPrice(context, value)} discount'), backgroundColor: AppColors.green));
                   //     }else {
                   //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   //         content: Text(getTranslated('invalid_coupon_or', context)),
@@ -188,7 +188,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 },
 
                 style: ElevatedButton.styleFrom(
-                  primary: AppConstants.Dark,
+                  primary: AppColors.dark,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 ),
                 child: Text('APPLY',),

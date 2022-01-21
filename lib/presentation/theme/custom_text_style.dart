@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 // Todo: define all possible texts here
@@ -14,7 +15,7 @@ class CustomTextStyle {
   static TextStyle headingBold(BuildContext context) {
     return Theme.of(context).textTheme.headline6!.copyWith(
       fontSize: 20.0,
-      color: Colors.black,
+      color: AppColors.black,
       fontFamily:'Poppins',
       fontWeight: FontWeight.bold,
 
@@ -23,7 +24,7 @@ class CustomTextStyle {
   static TextStyle headingMediumBold(BuildContext context) {
     return Theme.of(context).textTheme.headline6!.copyWith(
       fontSize: 25.0,
-      color: Colors.black,
+      color: AppColors.black,
       fontFamily:'Poppins',
       fontWeight: FontWeight.bold,
 
@@ -33,7 +34,7 @@ class CustomTextStyle {
     return Theme.of(context).textTheme.headline6!.copyWith(
         fontSize: 30.0,
         fontWeight: FontWeight.bold,
-        color: Colors.black,
+        color: AppColors.black,
         fontFamily:'Poppins',
 
 

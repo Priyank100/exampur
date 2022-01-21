@@ -43,7 +43,7 @@ showAlertDialogPopup(
   showGeneralDialog(
     barrierDismissible: true,
     barrierLabel: '',
-    //barrierColor: Colors.black38,
+    //barrierColor: AppColors.black38,
     transitionDuration: Duration(milliseconds: 200),
     pageBuilder: (context, anim1, anim2) => alert,
     transitionBuilder: (context, anim1, anim2, child) => BackdropFilter(

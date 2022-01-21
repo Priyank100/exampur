@@ -102,10 +102,10 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                     width: double.infinity,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: AppColors.grey300,
                       borderRadius:  BorderRadius.all(const Radius.circular(8)),
                       boxShadow: [
-                        BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1))
+                        BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1))
                       ],
                     ),
                     padding: EdgeInsets.only(left: 10),
@@ -191,10 +191,10 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       await Provider.of<AuthProvider>(context, listen: false).updateUserProfile(updateUserInfoModel).then((response) {
         isLoading = false;
         if(response) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Updated Successfully'), backgroundColor: Colors.green));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Updated Successfully'), backgroundColor: AppColors.green));
           Navigator.pop(context);
         }else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Server error'), backgroundColor: Colors.red));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Server error'), backgroundColor: AppColors.red));
         }
         setState(() {});
      }

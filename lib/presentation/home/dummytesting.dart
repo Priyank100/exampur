@@ -477,7 +477,7 @@ class _PaymentGatewayState extends State<PaymentGateway> {
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.grey.withOpacity(0.2),
+      backgroundColor: AppColors.grey.withOpacity(0.2),
       textColor: Colors.black54,
     );
   }

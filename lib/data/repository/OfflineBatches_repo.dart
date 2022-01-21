@@ -39,7 +39,7 @@ class OfflineBatchesRepo {
 
   Future<ApiResponse> offlineBatchCenterCoursesVideoRepo(String id) async {
     try {
-      String url = API.offline_batches_course.replaceAll('CENTER_ID', id);
+      String url = API.offline_batches_course.replaceAll('COURSE_ID', id);
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

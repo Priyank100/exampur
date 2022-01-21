@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 CustomTheme currentTheme = CustomTheme();
@@ -27,17 +28,17 @@ class CustomTheme with ChangeNotifier {
       secondaryHeaderColor: Color(0xFFE1EFFE),
       accentColor: Color(0xffE0B229),
       scaffoldBackgroundColor: Color(0xffF6F7F9),
-      backgroundColor: Colors.white,
-      shadowColor: Colors.grey.withOpacity(0.5),
-      dividerColor: Colors.black,
-      iconTheme: IconThemeData(color: Colors.black),
-      primaryIconTheme: IconThemeData(color: Colors.black),
+      backgroundColor: AppColors.white,
+      shadowColor: AppColors.grey.withOpacity(0.5),
+      dividerColor: AppColors.black,
+      iconTheme: IconThemeData(color: AppColors.black),
+      primaryIconTheme: IconThemeData(color: AppColors.black),
       appBarTheme: AppBarTheme(
         elevation: 5,
         backgroundColor: Color(0xff0670ED),
         textTheme: TextTheme(
           headline6: TextStyle(
-            color: Colors.black,
+            color: AppColors.black,
             fontSize: 20,
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
@@ -59,17 +60,17 @@ class CustomTheme with ChangeNotifier {
       scaffoldBackgroundColor: Color(0xff262626),
       //Color(0xff1a1a1a),
       backgroundColor: Color(0xff1a1a1a),
-      //Color(0xff0d0d0d), //Colors.black,
-      shadowColor: Colors.grey.withOpacity(0.5),
+      //Color(0xff0d0d0d), //AppColors.black,
+      shadowColor: AppColors.grey.withOpacity(0.5),
       dividerColor: Color(0xFF5E5E5E),
-      iconTheme: IconThemeData(color: Colors.white),
-      primaryIconTheme: IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: AppColors.white),
+      primaryIconTheme: IconThemeData(color: AppColors.white),
       appBarTheme: AppBarTheme(
         elevation: 5,
         backgroundColor: Color(0xff0670ED),
         textTheme: TextTheme(
           headline6: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 20,
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,

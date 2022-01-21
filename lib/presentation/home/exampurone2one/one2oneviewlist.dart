@@ -50,7 +50,7 @@ class _One2onelistState extends State<One2onelist> {
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 boxShadow: const [
                   BoxShadow(
-                    color: Colors.grey,
+                    color: AppColors.grey,
                     offset: Offset(
                       0.0,
                       0.0,
@@ -62,7 +62,7 @@ class _One2onelistState extends State<One2onelist> {
                 color: Theme.of(context).backgroundColor,
               ),
               child: Material(
-                color: Colors.transparent,
+                color: AppColors.transparent,
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   onTap: () {
@@ -79,16 +79,17 @@ class _One2onelistState extends State<One2onelist> {
                             padding: EdgeInsets.only(left: 10),
                             width: MediaQuery.of(context).size.width * 0.17,
                             //flex: 1,
-                            child: FadeInImage(
-                              image: NetworkImage(AppConstants.BANNER_BASE+  widget.one2oneList[widget.index].logoPath.toString(),),
-                              placeholder:
-                                  AssetImage(Images.noimage),
-                              imageErrorBuilder: (context, error, stackTrace) {
-                                return Image.network(
-                                    AppConstants.BANNER_BASE+  widget.one2oneList[widget.index].logoPath.toString(),
-                                );
-                              },
-                            )),
+                            // child: FadeInImage(
+                            //   image: NetworkImage(AppConstants.BANNER_BASE+  widget.one2oneList[widget.index].logoPath.toString(),),
+                            //   placeholder: AssetImage(Images.noimage),
+                            //   imageErrorBuilder: (context, error, stackTrace) {
+                            //     return Image.network(
+                            //         AppConstants.BANNER_BASE+  widget.one2oneList[widget.index].logoPath.toString(),
+                            //     );
+                            //   },
+                            // )
+                          child: AppConstants.image(AppConstants.BANNER_BASE+  widget.one2oneList[widget.index].logoPath.toString()),
+                        ),
                         const SizedBox(
                           width: 15,
                         ),
@@ -124,9 +125,9 @@ class _One2onelistState extends State<One2onelist> {
                                            BorderRadius.circular(15),
 
                                            border: Border.all(
-                                               color: Colors.black, width: 2),
+                                               color: AppColors.black, width: 2),
 
-                                           //color: Colors.black
+                                           //color: AppColors.black
                                          ),
                                          child: Row(
                                            children: [
@@ -167,7 +168,7 @@ class _One2onelistState extends State<One2onelist> {
                                               child: Text(getTranslated(context, 'view_details')!,
                                                   style: TextStyle(
                                                       fontSize: 10,
-                                                      color: Colors.white)))),
+                                                      color: AppColors.white)))),
                                     ),
                                     const SizedBox(
                                       width: 10,

@@ -80,10 +80,10 @@ class SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: AppColors.transparent,
           elevation: 0,
           iconTheme: IconThemeData(
-            color: Colors.black,
+            color: AppColors.black,
           ),
         ),
         body: Form(
@@ -148,10 +148,10 @@ class SignUpState extends State<SignUp> {
                       width: double.infinity,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Colors.grey[300],
+                        color: AppColors.grey300,
                         borderRadius:  BorderRadius.all(const Radius.circular(8)),
                         boxShadow: [
-                          BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1))
+                          BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1))
                         ],
                       ),
                       padding: EdgeInsets.only(left: 10),
@@ -189,8 +189,8 @@ class SignUpState extends State<SignUp> {
                       children: [
                         Checkbox(
                             value: _isCheckTerms,
-                            checkColor: Colors.white,
-                            activeColor: Colors.amber,
+                            checkColor: AppColors.white,
+                            activeColor: AppColors.amber,
                             onChanged: (newValue) {
                               setState(() {
                                 _isCheckTerms = newValue!;
@@ -208,7 +208,7 @@ class SignUpState extends State<SignUp> {
                             child: Text(
                               'Terms and Conditions',
                               style: TextStyle(
-                                  color: Colors.amber,
+                                  color: AppColors.amber,
                                   decoration: TextDecoration.underline,
                                   fontFamily: 'Poppins'),
                             ))
@@ -235,7 +235,7 @@ class SignUpState extends State<SignUp> {
                               child: Text(
                                 "Register",
                                 style: TextStyle(
-                                    fontSize: 18, color: Colors.white),
+                                    fontSize: 18, color: AppColors.white),
                               ),
                             ),
                           ),
@@ -245,7 +245,7 @@ class SignUpState extends State<SignUp> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Facing problem in signing in?",style: TextStyle(color: Colors.grey.shade600),),
+                        Text("Facing problem in signing in?",style: TextStyle(color: AppColors.grey600),),
                         CustomTextButton(onPressed: () {
                          AppConstants.makePhoneCall('tel:'+AppConstants.Mobile_number);
                         }, text: "Call us")
@@ -273,63 +273,63 @@ class SignUpState extends State<SignUp> {
           content: Text(
             'Please enter your Name',
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
       } else if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Email Id'),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
       } else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter atleast 8 letter Password'),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
       } else if (_userName.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Username'),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
       } else if (_phone.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Phone Number'),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
       } else if (_phone.length < 10) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter valid Phone Number'),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
       } else if (_city.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter City'),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
       } else if (selectedState=='Select States') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please select State'),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
       } else if (!_isCheckTerms) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Agree the Terms and Conditions to proceed.'),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
@@ -360,7 +360,7 @@ class SignUpState extends State<SignUp> {
 
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(errorMessage), backgroundColor: Colors.red));
+          SnackBar(content: Text(errorMessage), backgroundColor: AppColors.red));
     }
   }
 

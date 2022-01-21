@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/data/model/books_model.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/shared/place_order_screen.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class _BooksCardState extends State<BooksCard> {
         ),
         boxShadow: const [
           BoxShadow(
-            color: Colors.grey,
+            color: AppColors.grey,
             offset: Offset(
               0.0,
               0.0,
@@ -58,11 +59,12 @@ class _BooksCardState extends State<BooksCard> {
           //     );
           //   },
           // ),
-          CachedNetworkImage(
-            imageUrl: widget.books.bannerPath.toString(),
-            // placeholder: (context, url) => new CircularProgressIndicator(),
-            errorWidget: (context, url, error) => new Icon(Icons.error),
-          ),
+
+          // CachedNetworkImage(
+          //   imageUrl: widget.books.bannerPath.toString(),
+          //   errorWidget: (context, url, error) => new Icon(Icons.error),
+          // ),
+          AppConstants.image(widget.books.bannerPath.toString()),
           SizedBox(height: 10),
           Text(
             widget.books.title.toString(),
@@ -104,7 +106,7 @@ class _BooksCardState extends State<BooksCard> {
                 // Icon(
                 //   Icons.share,
                 //   size: 23,
-                //   color: Colors.black,
+                //   color: AppColors.black,
                 // ),
                 SizedBox(
                   width: 8,
@@ -112,7 +114,7 @@ class _BooksCardState extends State<BooksCard> {
                 Text(
                   "Share",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: AppColors.black,
                     fontSize: 16,
                   ),
                 ),

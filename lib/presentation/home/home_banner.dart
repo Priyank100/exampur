@@ -50,12 +50,13 @@ class _LargeBannerState extends State<LargeBanner> {
                     decoration: BoxDecoration(color: Colors.transparent),
                     child: InkWell(
                         child: ClipRRect(
-                          child: CachedNetworkImage(
-                            fit: BoxFit.fill,
-                            imageUrl: AppConstants.BANNER_BASE + i.imagePath.toString(),
-                            placeholder: (context, url) => new Image.asset(Images.noimage),
-                            errorWidget: (context, url, error) => new Icon(Icons.error),
-                          ),
+                          // child: CachedNetworkImage(
+                          //   fit: BoxFit.fill,
+                          //   imageUrl: AppConstants.BANNER_BASE + i.imagePath.toString(),
+                          //   placeholder: (context, url) => new Image.asset(Images.noimage),
+                          //   errorWidget: (context, url, error) => new Icon(Icons.error),
+                          // ),
+                          child: AppConstants.image(AppConstants.BANNER_BASE + i.imagePath.toString(), boxfit: BoxFit.fill),
                         ),
                         onTap: () {}),
                   );

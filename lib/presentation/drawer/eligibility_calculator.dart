@@ -6,6 +6,7 @@ import 'package:exampur_mobile/shared/pdf_card_ca.dart';
 import 'package:exampur_mobile/shared/quiz_card_ca.dart';
 import 'package:exampur_mobile/shared/test_series_card.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
               margin: const EdgeInsets.all(15.0),
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(color: AppColors.grey),
                 borderRadius: BorderRadius.all(
                     Radius.circular(5.0) //
                 ),
@@ -67,29 +68,29 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
           onEditingComplete: () {
             FocusScope.of(context).nextFocus();
           },
-          cursorColor: Colors.amber,
+          cursorColor: AppColors.amber,
           decoration: InputDecoration(
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
               borderSide: const BorderSide(
-                color: Colors.transparent,
+                color: AppColors.transparent,
               ),
             ),
             hintText: 'Enter state',
             hintStyle: TextStyle(
-              color: Colors.grey[600],
+              color: AppColors.grey600,
             ),
             filled: true,
-            fillColor: Colors.grey[300],
+            fillColor: AppColors.grey300,
             enabledBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: AppColors.white),
             ),
           ),
         ),
       ),
             Center(
               child: CustomSmallerElevatedButton(
-                color: Colors.orange,
+                color: AppColors.orange,
                 onPressed: () {},
                 text: "Next",
               ),

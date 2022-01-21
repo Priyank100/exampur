@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +33,9 @@ class _CustomTabBarState extends State<CustomTabBar> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: AppColors.transparent,
           iconTheme: IconThemeData(
-            color: Colors.black,
+            color: AppColors.black,
           ),
           elevation: 0,
           centerTitle: true,
@@ -58,7 +59,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                   alignment: Alignment.centerLeft,
                   child: TabBar(
                     isScrollable: true,
-                    unselectedLabelColor: Colors.grey,
+                    unselectedLabelColor: AppColors.grey,
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorColor: Theme.of(context).primaryColor,
                     labelColor: Theme.of(context).primaryColor,
@@ -130,9 +131,9 @@ class _TabBarDemoState extends State<TabBarDemo>
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: AppColors.transparent,
           iconTheme: IconThemeData(
-            color: Colors.black,
+            color: AppColors.black,
           ),
           elevation: 0,
           centerTitle: true,
@@ -158,7 +159,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                   child:
                   TabBar(
                     isScrollable: true,
-                    unselectedLabelColor: Colors.grey,
+                    unselectedLabelColor: AppColors.grey,
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorColor: Theme.of(context).primaryColor,
                     labelColor: Theme.of(context).primaryColor,

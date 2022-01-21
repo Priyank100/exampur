@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 import 'package:exampur_mobile/shared/pdf_card_ca.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,11 +30,11 @@ class _TestSeriesCardViewState extends State<TestSeriesCardView> {
           preferredSize: Size.fromHeight(65.0),
           child: AppBar(
               automaticallyImplyLeading: false,
-              backgroundColor: Colors.transparent,
+              backgroundColor: AppColors.transparent,
               elevation: 0,
               title: Text(
                 "Exampur",
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: AppColors.black),
               )),
         ),
         body: SingleChildScrollView(
@@ -57,7 +58,7 @@ class _TestSeriesCardViewState extends State<TestSeriesCardView> {
                           color: Theme.of(context).backgroundColor,
                         ),
                         child: Material(
-                          color: Colors.transparent,
+                          color: AppColors.transparent,
                           child: InkWell(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             onTap: () {
@@ -75,19 +76,21 @@ class _TestSeriesCardViewState extends State<TestSeriesCardView> {
                                       width: MediaQuery.of(context).size.width *
                                           0.25,
                                       //flex: 1,
-                                      child: FadeInImage(
-                                        image: NetworkImage(a[index].image),
-                                        placeholder: AssetImage(
-                                            Images.noimage),
-                                        imageErrorBuilder:
-                                            (context, error, stackTrace) {
-                                          return Image.asset(
-                                            a[index].image,
-                                            height: 40,
-                                            width: 60,
-                                          );
-                                        },
-                                      )),
+                                      // child: FadeInImage(
+                                      //   image: NetworkImage(a[index].image),
+                                      //   placeholder: AssetImage(
+                                      //       Images.noimage),
+                                      //   imageErrorBuilder:
+                                      //       (context, error, stackTrace) {
+                                      //     return Image.asset(
+                                      //       a[index].image,
+                                      //       height: 40,
+                                      //       width: 60,
+                                      //     );
+                                      //   },
+                                      // )
+                                    child: AppConstants.image(a[index].image, height: 40, width: 60),
+                                  ),
                                   const SizedBox(
                                     width: 15,
                                   ),

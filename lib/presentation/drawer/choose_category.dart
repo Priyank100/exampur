@@ -90,8 +90,8 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                   child: Container(
                     width: 300,
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      border: Border.all(color: Colors.grey, width: 1),
+                      color: AppColors.grey200,
+                      border: Border.all(color: AppColors.grey, width: 1),
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: TextField(
@@ -101,12 +101,12 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                         FocusScope.of(context).nextFocus();
                       },
 
-                      cursorColor: Colors.amber,
+                      cursorColor: AppColors.amber,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search,size: 25,color: Colors.grey.shade400),
+                        prefixIcon: Icon(Icons.search,size: 25,color: AppColors.grey400),
                         hintText: getTranslated(context, 'search_category'),
                         hintStyle: TextStyle(
-                          color: Colors.grey[400],
+                          color: AppColors.grey400,
                         ),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 13.0, horizontal: 10),
@@ -171,13 +171,13 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                                 fontSize: 17.0,
                                                 fontWeight:
                                                 FontWeight.bold,
-                                                color: Colors.black,
+                                                color: AppColors.black,
                                               ),
                                             ),
                                           ),
                                           CircleAvatar(
                                             backgroundColor:
-                                            Colors.transparent,
+                                            AppColors.transparent,
                                             backgroundImage:
                                             new NetworkImage(
                                                 AppConstants.BANNER_BASE + chooseList[index]
@@ -204,7 +204,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                               .toString(),
                                           style: TextStyle(
                                             fontSize: 12.0,
-                                            color: Colors.grey.shade600,
+                                            color: AppColors.grey600,
                                           ),
                                         ),
                                       ),
@@ -216,17 +216,17 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                     border:
                                     chooseList[index].isSelected
                                         ? Border.all(
-                                      color: Colors.amber,
+                                      color: AppColors.amber,
                                       width: 3,
                                     )
                                         :Border.all(
-                                      color: Colors.white,
+                                      color: AppColors.white,
                                       width: 3,
                                     ) ,
                                     boxShadow: [
                                       BoxShadow(
                                         color:
-                                        Colors.grey.withOpacity(0.2),
+                                        AppColors.grey.withOpacity(0.2),
                                         spreadRadius: 0.95,
                                         blurRadius: 0.100,
                                         offset: Offset(0,
@@ -235,7 +235,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                     ],
                                     borderRadius:
                                     BorderRadius.circular(8),
-                                    color: Colors.white,
+                                    color: AppColors.white,
                                   ),
                                 ),
                               ));
@@ -275,7 +275,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                       }
                       else {
                         AppConstants.printLog('test');
-                        var snackBar = SnackBar(content: Text('Please Choose the Category'),backgroundColor: Colors.grey,);
+                        var snackBar = SnackBar(content: Text('Please Choose the Category'),backgroundColor: AppColors.grey);
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
 
@@ -291,7 +291,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                       height: 50,
                       width: double.infinity,
                       decoration: const BoxDecoration(
-                        color: Colors.amber,
+                        color: AppColors.amber,
                         borderRadius:
                         BorderRadius.all(Radius.circular(5.0) //
                         ),
@@ -301,7 +301,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                             // "Save (${selectedCountries.length})",
                             getTranslated(context, 'save_the_course')!,
                             style: TextStyle(
-                                color: Colors.white, fontSize: 20),
+                                color: AppColors.white, fontSize: 20),
                           )),
                     ),
                   ),
@@ -311,8 +311,8 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                 //     width: double.infinity,
                 //     margin: EdgeInsets.all(10),
                 //     decoration: const BoxDecoration(
-                //       color: Colors.amber,
-                //       //border: Border.all( color: Colors.amber,),
+                //       color: AppColors.amber,
+                //       //border: Border.all( color: AppColors.amber,),
                 //       borderRadius:
                 //           BorderRadius.all(Radius.circular(5.0) //
                 //               ),
@@ -321,7 +321,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                 //         child: Text(
                 //       "Save the course",
                 //       style: TextStyle(
-                //           color: Colors.white, fontSize: 20),
+                //           color: AppColors.white, fontSize: 20),
                 //     )),
                 //   ),
               ],
@@ -330,7 +330,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
         )
             : Center(
             child: CircularProgressIndicator(
-              color: Colors.amber,
+              color: AppColors.amber,
             )));
   }
 
@@ -348,7 +348,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
       if (response == null) {
         var snackBar = SnackBar( margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
-          content: Text('Server Error'),backgroundColor: Colors.red,);
+          content: Text('Server Error'),backgroundColor: AppColors.red);
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       } else if (response.statusCode == 200) {
         AppConstants.printLog(response.body.toString());
@@ -364,7 +364,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
         final body = json.decode(response.body);
         var snackBar = SnackBar( margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
-          content: Text(body['data'].toString()),backgroundColor: Colors.red,);
+          content: Text(body['data'].toString()),backgroundColor: AppColors.red);
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     });

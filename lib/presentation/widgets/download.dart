@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'dart:async';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
@@ -193,7 +194,7 @@ class _DownloadPageState extends State<DownloadPage> {
         child: Text(
           title,
           style: TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 18.0),
+              fontWeight: FontWeight.bold, color: AppColors.blue, fontSize: 18.0),
         ),
       );
 
@@ -208,7 +209,7 @@ class _DownloadPageState extends State<DownloadPage> {
                 child: Text(
                   'Please grant accessing storage permission to continue -_-',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.blueGrey, fontSize: 18.0),
+                  style: TextStyle(color: AppColors.blueGrey, fontSize: 18.0),
                 ),
               ),
               SizedBox(
@@ -221,7 +222,7 @@ class _DownloadPageState extends State<DownloadPage> {
                   child: Text(
                     'Retry',
                     style: TextStyle(
-                        color: Colors.blue,
+                        color: AppColors.blue,
                         fontWeight: FontWeight.bold,
                         fontSize: 20.0),
                   ))
@@ -470,7 +471,7 @@ class DownloadItem extends StatelessWidget {
         },
         child: Icon(
           Icons.pause,
-          color: Colors.red,
+          color: AppColors.red,
         ),
         shape: CircleBorder(),
         constraints: BoxConstraints(minHeight: 32.0, minWidth: 32.0),
@@ -482,7 +483,7 @@ class DownloadItem extends StatelessWidget {
         },
         child: Icon(
           Icons.play_arrow,
-          color: Colors.green,
+          color: AppColors.green,
         ),
         shape: CircleBorder(),
         constraints: BoxConstraints(minHeight: 32.0, minWidth: 32.0),
@@ -494,7 +495,7 @@ class DownloadItem extends StatelessWidget {
         children: [
           Text(
             'Ready',
-            style: TextStyle(color: Colors.green),
+            style: TextStyle(color: AppColors.green),
           ),
           RawMaterialButton(
             onPressed: () {
@@ -502,7 +503,7 @@ class DownloadItem extends StatelessWidget {
             },
             child: Icon(
               Icons.delete_forever,
-              color: Colors.red,
+              color: AppColors.red,
             ),
             shape: CircleBorder(),
             constraints: BoxConstraints(minHeight: 32.0, minWidth: 32.0),
@@ -510,20 +511,20 @@ class DownloadItem extends StatelessWidget {
         ],
       );
     } else if (task.status == DownloadTaskStatus.canceled) {
-      return Text('Canceled', style: TextStyle(color: Colors.red));
+      return Text('Canceled', style: TextStyle(color: AppColors.red));
     } else if (task.status == DownloadTaskStatus.failed) {
       return Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text('Failed', style: TextStyle(color: Colors.red)),
+          Text('Failed', style: TextStyle(color: AppColors.red)),
           RawMaterialButton(
             onPressed: () {
               onActionClick!(task);
             },
             child: Icon(
               Icons.refresh,
-              color: Colors.green,
+              color: AppColors.green,
             ),
             shape: CircleBorder(),
             constraints: BoxConstraints(minHeight: 32.0, minWidth: 32.0),
@@ -531,7 +532,7 @@ class DownloadItem extends StatelessWidget {
         ],
       );
     } else if (task.status == DownloadTaskStatus.enqueued) {
-      return Text('Pending', style: TextStyle(color: Colors.orange));
+      return Text('Pending', style: TextStyle(color: AppColors.orange));
     } else {
       return null;
     }

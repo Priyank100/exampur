@@ -29,13 +29,13 @@ class TestSeriesState extends State<TestSeries> {
         child: Scaffold(
           appBar: AppBar(
               iconTheme: IconThemeData(
-                color: Colors.black,
+                color: AppColors.black,
               ),
               title: Text(
                 "Logo",
                 style: CustomTextStyle.headingBold(context),
               ),
-              backgroundColor: Colors.transparent,
+              backgroundColor: AppColors.transparent,
               elevation: 0,
               bottom: PreferredSize(
                   preferredSize: Size.fromHeight(65.0),
@@ -48,8 +48,8 @@ class TestSeriesState extends State<TestSeries> {
                       ),
                       TabBar(
                           isScrollable: true,
-                          unselectedLabelColor: Colors.grey,
-                          indicatorColor: Colors.black,
+                          unselectedLabelColor: AppColors.grey,
+                          indicatorColor: AppColors.black,
                           tabs: List<Widget>.generate(categories.length,
                               (int index) {
                                 AppConstants.printLog(categories[index]);

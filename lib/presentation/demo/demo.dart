@@ -41,9 +41,9 @@ class DemoState extends State<Demo> {
             getTranslated(context, 'demo_classes')!,
               style: CustomTextStyle.headingBigBold(context),
             ),
-            backgroundColor: Colors.transparent,
+            backgroundColor: AppColors.transparent,
             elevation: 0),
-        body:demoList.length==0?Center(child: CircularProgressIndicator(color: Colors.amber,)) :Padding(
+        body:demoList.length==0?Center(child: CircularProgressIndicator(color: AppColors.amber,)) :Padding(
             padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

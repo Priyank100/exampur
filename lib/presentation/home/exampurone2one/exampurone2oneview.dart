@@ -98,7 +98,7 @@ scrollController.addListener(pagination);
                           borderRadius: BorderRadius.all(Radius.circular(15)),
                           boxShadow:const [
                             BoxShadow(
-                              color: Colors.grey,
+                              color: AppColors.grey,
                               offset:  Offset(
                                 0.0,
                                 0.0,
@@ -117,7 +117,8 @@ scrollController.addListener(pagination);
                                   MaterialPageRoute(
                                       builder: (context) => One2onelist(one2oneList,index)));
                             },
-                            leading: Image.network(AppConstants.BANNER_BASE+one2oneList[index].logoPath.toString(),height: 40,width: 60,),
+                            // leading: Image.network(AppConstants.BANNER_BASE+one2oneList[index].logoPath.toString(),height: 40,width: 60,),
+                            leading: AppConstants.image(AppConstants.BANNER_BASE+one2oneList[index].logoPath.toString(),height: 40.0, width: 60.0),
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -125,7 +126,7 @@ scrollController.addListener(pagination);
                                // Text(one2oneList[index].description.toString(),style:CustomTextStyle.drawerText(context),),
                               ],
                             ),
-                            trailing: Icon(Icons.arrow_forward_ios_sharp,size: 18,color: Colors.black,)
+                            trailing: Icon(Icons.arrow_forward_ios_sharp,size: 18,color: AppColors.black,)
                         ),
                       ),
                     );

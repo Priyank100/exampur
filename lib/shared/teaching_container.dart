@@ -28,7 +28,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: AppColors.grey.withOpacity(0.5),
               spreadRadius: 3,
               blurRadius: 5,
               offset: Offset(0, 3), // changes position of shadow
@@ -57,11 +57,12 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           Radius.circular(10),
                         )),
                     width: double.infinity,
-                    child: CachedNetworkImage(
-                      imageUrl: AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString(),
-                      placeholder: (context, url) => new Image.asset(Images.noimage),
-                      errorWidget: (context, url, error) => new Icon(Icons.error),
-                    ),
+                    // child: CachedNetworkImage(
+                    //   imageUrl: AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString(),
+                    //   placeholder: (context, url) => new Image.asset(Images.noimage),
+                    //   errorWidget: (context, url, error) => new Icon(Icons.error),
+                    // ),
+                    child: AppConstants.image(AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString()),
                   ),
                 ),
 

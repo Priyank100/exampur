@@ -42,19 +42,20 @@ class _LargeCarouselState extends State<LargeCarousel> {
             builder: (BuildContext context) {
               return Container(
                 margin: EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(color: Colors.transparent),
+                decoration: BoxDecoration(color: AppColors.transparent),
                 child: GestureDetector(
                     child: ClipRRect(
-                      child: FadeInImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(i),
-                        placeholder: AssetImage(Images.noimage),
-                        imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                            Images.noimage,
-                          );
-                        },
-                      ),
+                      // child: FadeInImage(
+                      //   fit: BoxFit.cover,
+                      //   image: NetworkImage(i),
+                      //   placeholder: AssetImage(Images.noimage),
+                      //   imageErrorBuilder: (context, error, stackTrace) {
+                      //     return Image.asset(
+                      //       Images.noimage,
+                      //     );
+                      //   },
+                      // ),
+                      child: AppConstants.image(i, boxfit: BoxFit.cover),
                     ),
                     onTap: () {}),
               );

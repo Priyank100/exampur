@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_constants.dart';
+
 class CustomPasswordTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? hintTxt;
@@ -29,14 +31,14 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
       width: double.infinity,
 
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: AppColors.grey300,
 
         borderRadius:  BorderRadius.all(const Radius.circular(12)),
         //       border: Border(
         //   left: BorderSide(10)
         // ),
         boxShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
+          BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
         ],
       ),
       child: TextFormField(
@@ -62,9 +64,9 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
             isDense: true,
             //filled: true,
             hintStyle: TextStyle(
-              color: Colors.grey[600],
+              color: AppColors.grey600,
             ),
-            fillColor: Colors.grey.withOpacity(0.1),
+            fillColor: AppColors.grey.withOpacity(0.1),
             errorStyle: TextStyle(height: 1.5),
           // focusedBorder: OutlineInputBorder(borderSide: BorderRadius.all( Radius.circular(12)),),
            // hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),

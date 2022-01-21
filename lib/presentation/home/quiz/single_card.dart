@@ -1,4 +1,5 @@
 import 'dart:io' show Platform;
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +19,12 @@ class _SingleCardState extends State<SingleCard> {
           preferredSize: Size.fromHeight(65.0),
           child: AppBar(
               automaticallyImplyLeading: false,
-              backgroundColor: Colors.transparent,
+              backgroundColor: AppColors.transparent,
               elevation: 0,
 
               title: Text(
                 "Exampur",
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: AppColors.black),
               )),
         ),
         body: SingleChildScrollView(

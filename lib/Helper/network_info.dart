@@ -2,6 +2,7 @@ import 'dart:io';
 
 
 import 'package:connectivity/connectivity.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 
@@ -27,7 +28,7 @@ class NetworkInfo {
         }
         isNotConnected ? SizedBox() : ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: isNotConnected ? Colors.red : Colors.green,
+          backgroundColor: isNotConnected ? AppColors.red : AppColors.green,
           duration: Duration(seconds: isNotConnected ? 6000 : 3),
           content: Text(
             isNotConnected ? 'no_connection' :'connected',

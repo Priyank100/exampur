@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class AppTutorialCard extends StatefulWidget {
-  final List<Data> apptutorialList;
+  final Data listData;
   final int index;
-  const AppTutorialCard(this.apptutorialList, this.index) : super();
+  const AppTutorialCard(this.listData, this.index) : super();
 
   @override
   _AppTutorialCardState createState() => _AppTutorialCardState();
@@ -22,7 +22,7 @@ class _AppTutorialCardState extends State<AppTutorialCard> {
     return Container(
       color: widget.index % 2 == 0
           ? Theme.of(context).backgroundColor
-          : Colors.transparent,
+          : AppColors.transparent,
       //margin: EdgeInsets.all(5),
       // child: Card(
       //   elevation: 2,
@@ -33,30 +33,31 @@ class _AppTutorialCardState extends State<AppTutorialCard> {
                 Container(
                   width: Dimensions.AppTutorialImageWidth,
                   height: Dimensions.AppTutorialImageHeight,
-                  child: Image.network(API.homeBanner_URL+widget.apptutorialList[widget.index].imagePath.toString(), fit: BoxFit.fill)
+                  // child: Image.network(API.homeBanner_URL + widget.listData.imagePath.toString(), fit: BoxFit.fill)
+                  child: AppConstants.image(API.homeBanner_URL + widget.listData.imagePath.toString(), boxfit: BoxFit.fill)
                 ),
                 SizedBox(width: 10),
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.apptutorialList[widget.index].title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
+                      Text(widget.listData.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
                       Container(
                         width: Dimensions.WatchButtonWidth,
                         child: MaterialButton(
-                          color: Colors.red,
+                          color: AppColors.red,
                           child: Row(
                             children: [
-                              Icon(Icons.play_arrow, color: Colors.white,),
-                              Text(getTranslated(context, 'watch')!, style: new TextStyle(fontSize: 16.0, color: Colors.white))
+                              Icon(Icons.play_arrow, color: AppColors.white,),
+                              Text(getTranslated(context, 'watch')!, style: new TextStyle(fontSize: 16.0, color: AppColors.white))
                             ],
                           ),
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AppTutorialVideo(widget.apptutorialList[widget.index].videoLink.toString(),
-                                        widget.apptutorialList[widget.index].title.toString())));
+                                    builder: (context) => AppTutorialVideo(widget.listData.videoLink.toString(),
+                                        widget.listData.title.toString())));
                           },
                         ),
                       ),

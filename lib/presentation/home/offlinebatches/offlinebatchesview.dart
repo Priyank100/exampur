@@ -92,7 +92,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
           children: [
             Text(
               '\u{20B9}  ${-1}',
-              style: TextStyle(color: Colors.black, fontSize: 25),
+              style: TextStyle(color: AppColors.black, fontSize: 25),
             ),
             InkWell(
               onTap: () {
@@ -107,7 +107,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
                 child: Center(
                     child: Text(
                       getTranslated(context, 'buy')!,
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: AppColors.white),
                     )),
               ),
             )
@@ -129,7 +129,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
               children: [
                 Text(
                   'pay via:',
-                  style: TextStyle(color: Colors.grey.shade400),
+                  style: TextStyle(color: AppColors.grey400),
                 ),
                 SizedBox(
                   height: 10,
@@ -141,7 +141,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
-                      border: Border.all(color: Colors.black, width: 1)),
+                      border: Border.all(color: AppColors.black, width: 1)),
                   padding: EdgeInsets.all(8),
                   child: Row(
                     children: [
@@ -155,7 +155,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
                       ),
                       Text(
                         'Pay Online',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: AppColors.black),
                       ),
                     ],
                   ),
@@ -169,7 +169,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
                   child: Center(
                     child: Text(
                       'Apply coupon',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: AppColors.white),
                     ),
                   ),
                 )

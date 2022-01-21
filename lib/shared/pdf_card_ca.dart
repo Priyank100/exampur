@@ -1,4 +1,5 @@
-import 'package:exampur_mobile/data/model/e_books_model.dart';
+import 'package:exampur_mobile/data/model/e_book_model.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 
@@ -18,9 +19,9 @@ class _PDFCardCAState extends State<PDFCardCA> {
     return Container(
       color: widget.index % 2 == 0
           ? Theme.of(context).backgroundColor
-          : Colors.transparent,
+          : AppColors.transparent,
       child: Material(
-        color: Colors.transparent,
+        color: AppColors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           // onTap: () {},
@@ -64,12 +65,12 @@ class _PDFCardCAState extends State<PDFCardCA> {
                               },
                               child: Container(
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black),
+                                    border: Border.all(color: AppColors.black),
                                   ),
                                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                                   child: Center(child: Text(
                                       widget.eBooks.amount != 0 ?
-                                      widget.eBooks.amount.toString() : "View PDF",
+                                      '\u{20B9} ${widget.eBooks.amount.toString()}' : "View PDF",
                                       style: TextStyle(fontSize: 12)))
                               ),
                             ),
@@ -80,10 +81,10 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                   child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(Radius.circular(5)),
-                                        color: Colors.red,
+                                        color: AppColors.red,
                                       ),
                                       padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                      child: Center(child: Text("Buy Now", style: TextStyle(fontSize: 12, color: Colors.white)))
+                                      child: Center(child: Text("Buy Now", style: TextStyle(fontSize: 12, color: AppColors.white)))
                                   )
                                 ) : SizedBox(),
                           ],

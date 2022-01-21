@@ -44,24 +44,21 @@ class _StudyMaterialState extends State<StudyMaterial> {
               return Container(
                 height: 500,
                 margin: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 18),
-                decoration: BoxDecoration(color: Colors.transparent,
-                border: Border.all(width: 3,color: Colors.red)
+                decoration: BoxDecoration(color: AppColors.transparent,
+                border: Border.all(width: 3,color: AppColors.red)
                 ),
                 child: GestureDetector(
-                    child: ClipRRect(
-                      //borderRadius: BorderRadius.circular(10.0),
-                      child: FadeInImage(
-                        fit: BoxFit.fill,
-                        image: const NetworkImage(
-                            "https://static.photocdn.pt/images/articles/2018/05/07/articles/2017_8/how_to_take_vertical_landscape_photos.jpg"),
-                        placeholder: const AssetImage(Images.noimage),
-                        imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                              Images.noimage
-                          );
-                        },
-                      ),
-                    ),
+                    // child: ClipRRect(
+                    //   child: FadeInImage(
+                    //     fit: BoxFit.fill,
+                    //     image: const NetworkImage("https://static.photocdn.pt/images/articles/2018/05/07/articles/2017_8/how_to_take_vertical_landscape_photos.jpg"),
+                    //     placeholder: const AssetImage(Images.noimage),
+                    //     imageErrorBuilder: (context, error, stackTrace) {
+                    //       return Image.asset(Images.noimage);
+                    //     },
+                    //   ),
+                    // ),
+                  child: AppConstants.image('https://static.photocdn.pt/images/articles/2018/05/07/articles/2017_8/how_to_take_vertical_landscape_photos.jpg', boxfit: BoxFit.fill),
                     onTap: () {}),
               );
             },

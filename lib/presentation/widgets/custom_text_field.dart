@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -52,14 +53,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
         width: double.infinity,
 
         decoration: BoxDecoration(
-          color: Colors.grey[300],
+          color: AppColors.grey300,
 
           borderRadius:  BorderRadius.all(const Radius.circular(8)),
     //       border: Border(
     //   left: BorderSide(10)
     // ),
           boxShadow: [
-            BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
+            BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
           ],
         ),
         child: TextField(
@@ -89,12 +90,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
           //   ),
           //   hintText: widget.hintText,
           //   hintStyle: TextStyle(
-          //     color: Colors.grey[600],
+          //     color: AppColors.grey600,
           //   ),
           //   filled: true,
-          //   fillColor: Colors.grey[300],
+          //   fillColor: AppColors.grey300,
           //   enabledBorder:  UnderlineInputBorder(
-          //     borderSide: BorderSide(color: Colors.white),
+          //     borderSide: BorderSide(color: AppColors.white),
           //     borderRadius: BorderRadius.circular(10.0),
           //
           //   ),
@@ -111,10 +112,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
     //     ),
     //   ),
     hintStyle: TextStyle(
-        color: Colors.grey[600],
+        color: AppColors.grey600,
       ),
             // filled: true,
-            // fillColor: Colors.grey[300],
+            // fillColor: AppColors.grey300,
             contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
             isDense: true,
             counterText: '',

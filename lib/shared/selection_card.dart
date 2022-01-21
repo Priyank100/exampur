@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_outlined_button.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,14 +27,14 @@ class _SelectionCardState extends State<SelectionCard> {
         children: [
           Material(
             elevation: 10,
-            shadowColor: Colors.black,
+            shadowColor: AppColors.black,
             borderRadius: BorderRadius.all(
               Radius.circular(20),
             ),
             child: Container(
               width: MediaQuery.of(context).size.width*0.45,
               decoration: BoxDecoration(
-                color: Colors.white54,
+                color: AppColors.white54,
                 border: Border.all(color: widget.color, width: 4),
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
@@ -60,7 +61,7 @@ class _SelectionCardState extends State<SelectionCard> {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: AppColors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),

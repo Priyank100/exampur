@@ -98,8 +98,8 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                         child: Container(
                           width: 300,
                           decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                            border: Border.all(color: Colors.grey, width: 1),
+                              color: AppColors.grey200,
+                            border: Border.all(color: AppColors.grey, width: 1),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: TextField(
@@ -111,10 +111,10 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
 
                             cursorColor: Colors.amber,
                             decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.search,size: 25,color: Colors.grey.shade400),
+                              prefixIcon: Icon(Icons.search,size: 25,color: AppColors.grey400),
                               hintText: 'Search Category',
                               hintStyle: TextStyle(
-                                color: Colors.grey[400],
+                                color: AppColors.grey400,
                               ),
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: 13.0, horizontal: 10),
@@ -212,7 +212,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                                     .toString(),
                                                 style: TextStyle(
                                                   fontSize: 12.0,
-                                                  color: Colors.grey.shade600,
+                                                  color: AppColors.grey600,
                                                 ),
                                               ),
                                             ),
@@ -234,7 +234,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                           boxShadow: [
                                             BoxShadow(
                                               color:
-                                                  Colors.grey.withOpacity(0.2),
+                                              AppColors.grey.withOpacity(0.2),
                                               spreadRadius: 0.95,
                                               blurRadius: 0.100,
                                               offset: Offset(0,
@@ -283,7 +283,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                   }
                                   else {
                                     AppConstants.printLog('test');
-                                    var snackBar = SnackBar(content: Text('Please Choose the Category'),backgroundColor: Colors.grey,);
+                                    var snackBar = SnackBar(content: Text('Please Choose the Category'),backgroundColor: AppColors.grey,);
                                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                   }
 

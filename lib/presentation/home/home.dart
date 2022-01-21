@@ -128,27 +128,28 @@ class _HomeState extends State<Home> {
             // SizedBox(height: 5),
             bannerList.length != 0
                 ? LargeBanner(bannerList: bannerList)
-                : Container(
-                    child: ClipRRect(
-                      child: FadeInImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(Images.noimage),
-                        placeholder: AssetImage(Images.noimage),
-                        imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                            Images.noimage,
-                          );
-                        },
-                      ),
-                    ),
-                  ),
+                // : Container(
+                //     child: ClipRRect(
+                //       child: FadeInImage(
+                //         fit: BoxFit.cover,
+                //         image: NetworkImage(Images.noimage),
+                //         placeholder: AssetImage(Images.noimage),
+                //         imageErrorBuilder: (context, error, stackTrace) {
+                //           return Image.asset(
+                //             Images.noimage,
+                //           );
+                //         },
+                //       ),
+                //     ),
+                //   ),
+            : SizedBox(),
             SizedBox(height: Dimensions.FONT_SIZE_OVER_LARGE),
             Row(
               children: [
                 SquareButton(
                     image: Images.paidcourse,
                     title: getTranslated(context, 'paid course')!,
-                    color: AppConstants.coursescolor,
+                    color: AppColors.paidCourses,
                     navigateTo: PaidCourses(1)),
                 SizedBox(
                   width: 10,
@@ -156,7 +157,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.book,
                     title: getTranslated(context, 'books')!,
-                    color: AppConstants.bookcolor,
+                    color: AppColors.book,
                     navigateTo: BooksEbook()),
               ],
             ),
@@ -168,7 +169,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.free_course,
                     title: getTranslated(context, 'free courses')!,
-                    color: AppConstants.pinkcolor,
+                    color: AppColors.freeCourses,
                     navigateTo: PaidCourses(0)),
                 SizedBox(
                   width: 10,
@@ -176,7 +177,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.testseries,
                     title: getTranslated(context, 'test courses')!,
-                    color: AppConstants.seriescolor,
+                    color: AppColors.series,
                     navigateTo: UploadImage()
                     //TestSeriesview()
                     ),
@@ -190,7 +191,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.one2one,
                     title: getTranslated(context, 'exampur one2one')!,
-                    color: AppConstants.greencolor,
+                    color: AppColors.one2one,
                     navigateTo: Exampuron2oneView()),
                 SizedBox(
                   width: 10,
@@ -198,7 +199,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.offlinebatch,
                     title: getTranslated(context, 'offline batches')!,
-                    color: Colors.brown.shade400,
+                    color: AppColors.brown400,
                     navigateTo: OfflineCourse()),
               ],
             ),
@@ -210,7 +211,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.current_affair,
                     title: getTranslated(context, 'current affairs')!,
-                    color: AppConstants.greycolor,
+                    color: AppColors.affairs,
                     navigateTo: CurrentAffairs()),
                 SizedBox(
                   width: 10,
@@ -218,7 +219,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.dailyquiz,
                     title: getTranslated(context, 'daily quiz')!,
-                    color: AppConstants.blue,
+                    color: AppColors.quiz,
                     navigateTo:
                         //SettingsScreen()
                         StudyMaterial()),
@@ -232,7 +233,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.jobalert,
                     title: getTranslated(context, 'job alerts')!,
-                    color: AppConstants.darkblue,
+                    color: AppColors.jobAlert,
                     navigateTo: JobAlerts()),
                 SizedBox(
                   width: 10,
@@ -240,7 +241,7 @@ class _HomeState extends State<Home> {
                 SquareButton(
                     image: Images.studymaterial,
                     title: getTranslated(context, 'study materials')!,
-                    color: AppConstants.darkorange,
+                    color: AppColors.darkOrange,
                     navigateTo: StudyMaterial()),
               ],
             ),

@@ -1,6 +1,7 @@
 
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,7 @@ class TitleRow extends StatelessWidget {
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
             child: Icon(
               Icons.arrow_forward_ios,
-              color: Colors.amber,
+              color: AppColors.amber,
               size: Dimensions.FONT_SIZE_SMALL,
             ),
           ),
@@ -63,14 +64,14 @@ class TimerBox extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 1),
       padding: EdgeInsets.all(isBorder ? 0 : 2),
       decoration: BoxDecoration(
-        color: isBorder ? null : Colors.amber,
-        border: isBorder ? Border.all(width: 2, color: Colors.amber) : null,
+        color: isBorder ? null : AppColors.amber,
+        border: isBorder ? Border.all(width: 2, color: AppColors.amber) : null,
         borderRadius: BorderRadius.circular(3),
       ),
       child: Center(
         child: Text(time < 10 ? '0$time' : time.toString(),
           style: TextStyle(
-            color: isBorder ? Colors.amber : Theme.of(context).accentColor,
+            color: isBorder ? AppColors.amber : Theme.of(context).accentColor,
             fontSize: Dimensions.FONT_SIZE_SMALL,
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,14 +24,14 @@ class _CourseCardState extends State<CourseCard> {
       padding: EdgeInsets.all(5),
       child: Material(
         elevation: 10,
-        shadowColor: Colors.black,
+        shadowColor: AppColors.black,
         borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white54,
-            border: Border.all(color: Colors.white24),
+            color: AppColors.white54,
+            border: Border.all(color: AppColors.white24),
             borderRadius: BorderRadius.all(
               Radius.circular(20),
             ),
@@ -59,16 +60,16 @@ class _CourseCardState extends State<CourseCard> {
                           Text(
                             widget.name,
                             style: TextStyle(
-                              color: Colors.black,
+                              color: AppColors.black,
                               fontSize: 17,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              color: Colors.white38,
+                              color: AppColors.white38,
                               border: Border.all(
-                                color: Colors.black,
+                                color: AppColors.black,
                               ),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(20),
@@ -83,7 +84,7 @@ class _CourseCardState extends State<CourseCard> {
                                 children: [
                                   Icon(
                                     CupertinoIcons.circle_filled,
-                                    color: Colors.red,
+                                    color: AppColors.red,
                                     size: 13,
                                   ),
                                   SizedBox(
@@ -92,7 +93,7 @@ class _CourseCardState extends State<CourseCard> {
                                   Text(
                                     "New Batch",
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 13),
+                                        color: AppColors.black, fontSize: 13),
                                   ),
                                 ],
                               ),
@@ -107,12 +108,12 @@ class _CourseCardState extends State<CourseCard> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           CustomSmallerElevatedButton(
-                            color: Colors.black,
+                            color: AppColors.black,
                             onPressed: () {},
                             text: "Buy Course",
                           ),
                           CustomSmallerElevatedButton(
-                            color: Colors.yellow,
+                            color: AppColors.yellow,
                             onPressed: () {},
                             text: "Buy Course",
                           ),
@@ -127,14 +128,14 @@ class _CourseCardState extends State<CourseCard> {
                           Icon(
                             CupertinoIcons.share_up,
                             size: 17,
-                            color: Colors.black,
+                            color: AppColors.black,
                           ),
                           SizedBox(
                             width: 8,
                           ),
                           Text(
                             "share",
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: AppColors.black),
                           ),
                           SizedBox(
                             width: 10,

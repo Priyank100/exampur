@@ -22,7 +22,7 @@ class _DemoContainerState extends State<DemoContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //color: Colors.amber,
+      //color: AppColors.amber,
             margin: EdgeInsets.all(5),
      child: Padding(
        padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
@@ -31,7 +31,8 @@ class _DemoContainerState extends State<DemoContainer> {
            Container(
                width: Dimensions.AppTutorialImageWidth,
                height: Dimensions.AppTutorialImageHeight,
-               child: Image.network(AppConstants.BANNER_BASE+widget.demoList[widget.index].bannerPath.toString(), fit: BoxFit.fill)
+               // child: Image.network(AppConstants.BANNER_BASE+widget.demoList[widget.index].bannerPath.toString(), fit: BoxFit.fill)
+               child: AppConstants.image(AppConstants.BANNER_BASE+widget.demoList[widget.index].bannerPath.toString(), boxfit: BoxFit.fill)
            ),
            SizedBox(width: 10),
            Flexible(
@@ -45,13 +46,13 @@ class _DemoContainerState extends State<DemoContainer> {
                      Container(
                        width: Dimensions.AppTutorialImageHeight,
                        height: 25,
-                       decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:AppConstants.Dark),
+                       decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:AppColors.dark),
                        child: MaterialButton(
 
                          child: Row(
                            children: [
-                             Icon(Icons.play_arrow, color: Colors.white,size: 10,),
-                             Text(' Watch', style: new TextStyle(fontSize: 10.0, color: Colors.white))
+                             Icon(Icons.play_arrow, color: AppColors.white,size: 10,),
+                             Text(' Watch', style: new TextStyle(fontSize: 10.0, color: AppColors.white))
                            ],
                          ),
                          onPressed: () {
@@ -75,7 +76,7 @@ class _DemoContainerState extends State<DemoContainer> {
                        child: MaterialButton(
 
                          child:
-                             Text('View PDF', style: new TextStyle(fontSize: 10.0, color: Colors.white)),
+                             Text('View PDF', style: new TextStyle(fontSize: 10.0, color: AppColors.white)),
 
                          onPressed: () {
                            // Navigator.push(
@@ -107,11 +108,11 @@ class _DemoContainerState extends State<DemoContainer> {
         mainAxisSize: MainAxisSize.min,
         //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(color: Colors.amber,height: 30,width: MediaQuery.of(context).size.width,
+          Container(color: AppColors.amber,height: 30,width: MediaQuery.of(context).size.width,
           alignment: Alignment.topRight,
           child: InkWell(onTap:(){
             Navigator.pop(context);
-          },child:  Icon(Icons.close,color: Colors.white,),
+          },child:  Icon(Icons.close,color: AppColors.white,),
           ),
           ),
           SizedBox(height: 10,),
@@ -167,13 +168,13 @@ class CustomButton extends StatelessWidget {
        // alignment: Alignment.center,
         //padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8), color: Colors.amber),
+            borderRadius: BorderRadius.circular(8), color: AppColors.amber),
         child:
 
                 Center(
                   child: new Text(
                     title!,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: AppColors.white),
                   ),
                 ))
 

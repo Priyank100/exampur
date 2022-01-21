@@ -104,7 +104,7 @@ class _BottomNavigationState extends State<BottomNavigation>
         0,
         //'Home',
     getTranslated(context, 'home')!,
-         _currIndex==0? Image.asset(Images.home,height: 30,width: 25,color: Colors.amber):Image.asset(Images.home,height: 30,width: 25,)
+         _currIndex==0? Image.asset(Images.home,height: 30,width: 25,color: AppColors.amber):Image.asset(Images.home,height: 30,width: 25,)
       ),
       ItemClass(
         1,
@@ -124,12 +124,12 @@ class _BottomNavigationState extends State<BottomNavigation>
       // ItemClass(
       //   3,
       //   "Downloads",
-      //     _currIndex==3?   Image.asset(Images.download,height: 30,width: 25,color: Colors.amber,):Image.asset(Images.download,height: 30,width: 25,)
+      //     _currIndex==3?   Image.asset(Images.download,height: 30,width: 25,color: AppColors.amber,):Image.asset(Images.download,height: 30,width: 25,)
       // ),
       // ItemClass(
       //   4,
       //   "Help",
-      //     _currIndex==4?  Image.asset(Images.help,height: 30,width: 25,color: Colors.amber): Image.asset(Images.help,height: 30,width: 25,)
+      //     _currIndex==4?  Image.asset(Images.help,height: 30,width: 25,color: AppColors.amber): Image.asset(Images.help,height: 30,width: 25,)
       // ),
     ];
 
@@ -144,13 +144,13 @@ class _BottomNavigationState extends State<BottomNavigation>
       },
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: AppColors.black),
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
+          backgroundColor: AppColors.transparent,
           elevation: 0,
           leading: Builder(builder: (BuildContext context) {
             return IconButton(
-                icon: Image.asset(Images.menu_icon,width: Dimensions.ICON_SIZE_LARGE,color: Colors.black,),
+                icon: Image.asset(Images.menu_icon,width: Dimensions.ICON_SIZE_LARGE,color: AppColors.black,),
                 onPressed: () => Scaffold.of(context).openDrawer());
           }),
           actions: [
@@ -161,7 +161,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                 },
                 icon: const Icon(
                   Icons.search_outlined,
-                  color: Colors.black,
+                  color: AppColors.black,
                   size: 30.0,
                 )),
             // const SizedBox(
@@ -178,7 +178,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                   },
                   icon: const Icon(
                     Icons.notifications,
-                    color: Colors.black,
+                    color: AppColors.black,
                     size: 30.0,
                   )),
             ),
@@ -215,7 +215,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                               Images.apptutorial,
                               width: 30,
                               height: 20,
-                              color: Colors.amber,
+                              color: AppColors.amber,
                             ),
                             SizedBox(
                               width: Dimensions.PADDING_SIZE_SMALL,
@@ -243,7 +243,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                               Images.category,
                               width: 30,
                               height: 20,
-                              color: Colors.amber,
+                              color: AppColors.amber,
                             ),
                             SizedBox(
                               width: Dimensions.PADDING_SIZE_SMALL,
@@ -273,7 +273,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                               Images.download,
                               width: 30,
                               height: 20,
-                              color: Colors.amber,
+                              color: AppColors.amber,
                             ),
                             SizedBox(
                               width: Dimensions.PADDING_SIZE_SMALL,
@@ -300,7 +300,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                               Images.mypurchase,
                               width: 30,
                               height: 20,
-                              color: Colors.amber,
+                              color: AppColors.amber,
                             ),
                             SizedBox(
                               width: Dimensions.PADDING_SIZE_SMALL,
@@ -327,7 +327,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                               Images.timetable,
                               width: 30,
                               height: 20,
-                              color: Colors.amber,
+                              color: AppColors.amber,
                             ),
                             SizedBox(
                               width: Dimensions.PADDING_SIZE_SMALL,
@@ -352,7 +352,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                           children: [
                             Icon(
                               Icons.settings,
-                              color: Colors.amber,
+                              color: AppColors.amber,
                             ),
                             SizedBox(
                               width: Dimensions.PADDING_SIZE_SMALL,
@@ -379,7 +379,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                               Images.calculator,
                               width: 30,
                               height: 20,
-                              color: Colors.amber,
+                              color: AppColors.amber,
                             ),
                             SizedBox(
                               width: Dimensions.PADDING_SIZE_SMALL,
@@ -404,7 +404,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                           children: [
                             Icon(
                               Icons.share,
-                              color: Colors.amber,
+                              color: AppColors.amber,
                             ),
                             SizedBox(
                               width: Dimensions.PADDING_SIZE_SMALL,
@@ -426,7 +426,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                           children: [
                             Icon(
                               Icons.star_border,
-                              color: Colors.amber,
+                              color: AppColors.amber,
                             ),
                             SizedBox(
                               width: Dimensions.PADDING_SIZE_SMALL,
@@ -448,7 +448,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                           children: [
                             Icon(
                               Icons.feedback_outlined,
-                              color: Colors.amber,
+                              color: AppColors.amber,
                             ),
                             SizedBox(
                               width: Dimensions.PADDING_SIZE_SMALL,
@@ -471,7 +471,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                           children: [
                             Icon(
                               Icons.login,
-                              color: Colors.amber,
+                              color: AppColors.amber,
                             ),
                             SizedBox(
                               width: Dimensions.PADDING_SIZE_SMALL,
@@ -531,18 +531,18 @@ class _BottomNavigationState extends State<BottomNavigation>
           currentIndex: _currIndex,
           showUnselectedLabels: true,
         //  fixedColor: Theme.of(context).primaryColor,
-        //  unselectedItemColor: Colors.black,
+        //  unselectedItemColor: AppColors.black,
           onTap: (index) {
             setState(() {
               _currIndex = index;
             });
           },
           iconSize: 20,
-selectedItemColor: Colors.amber,
+selectedItemColor: AppColors.amber,
 
           unselectedFontSize: 12,
           selectedFontSize: 12,
-          //unselectedLabelStyle: TextStyle(color: Colors.amber),
+          //unselectedLabelStyle: TextStyle(color: AppColors.amber),
           items: allItems.map((item) {
             return BottomNavigationBarItem(
               icon: item.icon,

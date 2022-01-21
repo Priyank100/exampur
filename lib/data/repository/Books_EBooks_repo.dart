@@ -6,7 +6,6 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 class BooksEBooksRepo {
   final DioClient dioClient;
 
-
   BooksEBooksRepo({required this.dioClient});
 
   Future<ApiResponse> books() async {

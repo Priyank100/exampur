@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'images.dart';
 
 class API {
 
@@ -52,7 +55,7 @@ class API {
   //offlineBatches
   static const String offline_batches = BASE_URL3 + 'offline_centers/findall/10/';
   static const String offline_batches_center = BASE_URL3 + 'offline_centers/findone/' + 'CENTER_ID' + '/10/';
-  static const String offline_batches_course = BASE_URL3 + 'offline_centers/course/' + 'CENTER_ID';
+  static const String offline_batches_course = BASE_URL3 + 'offline_centers/course/' + 'COURSE_ID';
 
 //appTutorial
   static const String AppTutorial_URL = BASE_URL3 + 'tutorials/app';
@@ -91,14 +94,16 @@ class AppConstants {
   static String androidId = 'com.edudrive.exampur';
   static String iosId = '';
 
-  static String shareAppContent = 'Hey check out EXAMPUR App at: ' + playStoreAppUrl;
+  static String shareAppContent = 'Hey check out EXAMPUR App at: ' +
+      playStoreAppUrl;
 
   static void printLog(message) {
-    if(isPrint)
+    if (isPrint)
       print(message);
     else
       print('Exampur');
   }
+
   static Future<void> makePhoneCall(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -108,7 +113,7 @@ class AppConstants {
   }
 
   static void shareData({String? assetImagePath, required String message}) {
-    if(assetImagePath == null || assetImagePath.isEmpty) {
+    if (assetImagePath == null || assetImagePath.isEmpty) {
       Share.share(message);
     } else {
       Share.shareFiles(['${assetImagePath}'], text: message);
@@ -125,52 +130,91 @@ class AppConstants {
     ));
   }
 
-  static void showAlertDialog(BuildContext context, String message){
-    AlertDialog alert=AlertDialog(
+  static void showAlertDialog(BuildContext context, String message) {
+    AlertDialog alert = AlertDialog(
       content: new Column(
         children: [
-          Container(padding: EdgeInsets.all(8),child:Text("Message", style: TextStyle(fontSize: 16))),
-          Container(padding: EdgeInsets.all(8),child:Text(message)),
+          Container(padding: EdgeInsets.all(8),
+              child: Text("Message", style: TextStyle(fontSize: 16))),
+          Container(padding: EdgeInsets.all(8), child: Text(message)),
         ],),
     );
     showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
+      context: context,
+      builder: (BuildContext context) {
         return alert;
       },
     );
   }
 
-  static void showLoaderDialog(BuildContext context){
-    AlertDialog alert=AlertDialog(
+  static void showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
       content: new Row(
         children: [
           CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 10),child:Text("Loading..." )),
+          Container(
+              margin: EdgeInsets.only(left: 10), child: Text("Loading...")),
         ],),
     );
     showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
+      context: context,
+      builder: (BuildContext context) {
         return alert;
       },
+    );
+  }
+
+  static Widget image(String imagePath, {height, width, boxfit}) {
+    return CachedNetworkImage(
+      height: height,
+      width: width,
+      fit: boxfit,
+      imageUrl: imagePath,
+      placeholder: (context, url) => new Image.asset(Images.no_image),
+      errorWidget: (context, url, error) => new Image.asset(Images.no_image),
     );
   }
 
   static const String COUNTRY_CODE = 'country_code';
   static const String LANGUAGE_CODE = 'language_code';
 
+}
 
-  ///colors///////////////////////////////////////
+class AppColors {
 
-  static const Color Dark = Color(0xFFd19d0f);
-  static const Color darkblue = Color(0xFF14739c);
-  static const Color darkorange = Color(0xFFf76d02);
-  static const Color blue = Color(0xFF0582f7);
-  static const Color greycolor = Color(0xFF7790a6);
-  static const Color greencolor = Color(0xFF069413);
-  static const Color pinkcolor = Color(0xFFf23587);
-  static const Color bookcolor = Color(0xFF0b8f8d);
-  static const Color coursescolor = Color(0xFFa807a8);
-  static const Color seriescolor = Color(0xFFd44242);
+  static const Color amber = Colors.amber;
+  static const Color black = Colors.black;
+  static const Color white = Colors.white;
+  static const Color white24 = Colors.white24;
+  static const Color white38 = Colors.white38;
+  static const Color white54 = Colors.white54;
+  static const Color red = Colors.red;
+  static const Color green = Colors.green;
+  static const Color yellow = Colors.yellow;
+  static const Color blue = Colors.blue;
+  static const Color orange = Colors.orange;
+  static const Color cyan = Colors.cyan;
+  static const Color blueGrey = Colors.blueGrey;
+  static const Color grey = Colors.grey;
+  static const Color transparent = Colors.transparent;
+
+  static Color grey200 = Colors.grey[200]!;
+  static Color grey300 = Colors.grey[300]!;
+  static Color grey400 = Colors.grey[400]!;
+  static Color grey600 = Colors.grey[600]!;
+
+  static Color brown400 = Colors.brown[400]!;
+
+  static Color blue300 = Colors.blue[300]!;
+
+  static const Color dark = Color(0xFFd19d0f);
+  static const Color jobAlert = Color(0xFF14739c);
+  static const Color darkOrange = Color(0xFFf76d02);
+  static const Color quiz = Color(0xFF0582f7);
+  static const Color affairs = Color(0xFF7790a6);
+  static const Color freeCourses = Color(0xFFf23587);
+  static const Color one2one = Color(0xFF069413);
+  static const Color book = Color(0xFF0b8f8d);
+  static const Color paidCourses = Color(0xFFa807a8);
+  static const Color series = Color(0xFFd44242);
 }

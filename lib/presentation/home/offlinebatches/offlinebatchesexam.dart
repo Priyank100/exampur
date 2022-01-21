@@ -73,6 +73,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
         body: offlineBatchesList.length == 0
             ? Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
+          controller: scrollController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -83,13 +84,12 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 4),
                       child: Container(
-                        width: 400,
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           boxShadow: const [
                             BoxShadow(
-                              color: Colors.grey,
+                              color: AppColors.grey,
                               offset: Offset(
                                 0.0,
                                 0.0,
@@ -138,8 +138,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                     ),
                     ListView.builder(
                         itemCount: offlineBatchesList.length,
-                        // physics: BouncingScrollPhysics(),
-                        controller: scrollController,
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
@@ -150,7 +149,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                 borderRadius: BorderRadius.all(Radius.circular(10)),
                                 boxShadow: const [
                                   BoxShadow(
-                                    color: Colors.grey,
+                                    color: AppColors.grey,
                                     offset: Offset(
                                       0.0,
                                       0.0,
@@ -169,15 +168,17 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                         padding: EdgeInsets.only(left: 10),
                                         width:
                                         MediaQuery.of(context).size.width * 0.25,
-                                        child: FadeInImage(
-                                          image: NetworkImage(AppConstants.BANNER_BASE + offlineBatchesList[index].logoPath.toString()),
-                                          placeholder:
-                                          AssetImage(Images.exampur_logo),
-                                          imageErrorBuilder:
-                                              (context, error, stackTrace) {
-                                            return Image.asset(Images.exampur_logo);
-                                          },
-                                        )),
+                                        // child: FadeInImage(
+                                        //   image: NetworkImage(AppConstants.BANNER_BASE + offlineBatchesList[index].logoPath.toString()),
+                                        //   placeholder:
+                                        //   AssetImage(Images.exampur_logo),
+                                        //   imageErrorBuilder:
+                                        //       (context, error, stackTrace) {
+                                        //     return Image.asset(Images.exampur_logo);
+                                        //   },
+                                        // )
+                                      child: AppConstants.image(AppConstants.BANNER_BASE + offlineBatchesList[index].logoPath.toString()),
+                                    ),
                                     const SizedBox(
                                       width: 10,
                                     ),

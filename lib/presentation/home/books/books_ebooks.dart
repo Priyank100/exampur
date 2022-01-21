@@ -1,10 +1,11 @@
 import 'package:exampur_mobile/data/model/books_model.dart';
 import 'package:exampur_mobile/data/model/dummy_model.dart';
-import 'package:exampur_mobile/data/model/e_books_model.dart';
+import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:exampur_mobile/presentation/home/books/books_screen.dart';
 import 'package:exampur_mobile/presentation/home/books/e_books_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,8 +61,7 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
                       "e-Books",
                     ],
                     routes: [
-                      // booksList.length == 0 ? Center(child: CircularProgressIndicator(color: Colors.amber,)) :
-                      isLoading ? Center(child: CircularProgressIndicator(color: Colors.amber,)) :
+                      isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber,)) :
                       BooksScreen(booksList),
                       EBooksScreen(eBooksList)
                     ],

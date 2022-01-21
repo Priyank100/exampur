@@ -1,6 +1,7 @@
 
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
       body: MediaQuery.of(context).orientation == Orientation.landscape ?  YoutubePlayer(
         controller: _controller,
         showVideoProgressIndicator: true,
-        progressIndicatorColor: Colors.amber,
+        progressIndicatorColor: AppColors.amber,
       ) : Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +73,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
             YoutubePlayer(
               controller: _controller,
               showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.amber,
+              progressIndicatorColor: AppColors.amber,
                ),
             SizedBox(height: 40),
           Padding(
@@ -85,17 +86,17 @@ class _One2OneVideoState extends State<One2OneVideo> {
             Container(
               padding: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
               child: secondHalf.isEmpty
-                  ? new Text(firstHalf, style: new TextStyle(color: Colors.grey,fontSize: 12),)
+                  ? new Text(firstHalf, style: new TextStyle(color: AppColors.grey,fontSize: 12),)
                   : new Column(
                 children: <Widget>[
-                  new Text(flag ? (firstHalf + "...") : (firstHalf + secondHalf), style: new TextStyle(color: Colors.grey.shade600,fontSize: 13),),
+                  new Text(flag ? (firstHalf + "...") : (firstHalf + secondHalf), style: new TextStyle(color: AppColors.grey600,fontSize: 13),),
                   new InkWell(
                     child: new Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         new Text(
                           flag ? "show more" : "show less",
-                          style: new TextStyle(color: Colors.blue.shade300,fontSize: 12),
+                          style: new TextStyle(color: AppColors.blue300,fontSize: 12),
                         ),
                       ],
                     ),
@@ -118,7 +119,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
           children: [
             Text(
               '\u{20B9}  ${widget.one2oneList.amount}',
-              style: TextStyle(color: Colors.black, fontSize: 25),
+              style: TextStyle(color: AppColors.black, fontSize: 25),
             ),
             InkWell(
               onTap: () {
@@ -126,14 +127,14 @@ class _One2OneVideoState extends State<One2OneVideo> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.amber,
+                    color: AppColors.amber,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 height: 50,
                 width: 120,
                 child: Center(
                     child: Text(
                   'Buy',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: AppColors.white),
                 )),
               ),
             )
@@ -155,7 +156,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
               children: [
                 Text(
                   'pay via:',
-                  style: TextStyle(color: Colors.grey.shade400),
+                  style: TextStyle(color: AppColors.grey400),
                 ),
                 SizedBox(
                   height: 10,
@@ -167,7 +168,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
-                      border: Border.all(color: Colors.black, width: 1)),
+                      border: Border.all(color: AppColors.black, width: 1)),
                   padding: EdgeInsets.all(8),
                   child: Row(
                     children: [
@@ -181,7 +182,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
                       ),
                       Text(
                         'Pay Online',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: AppColors.black),
                       ),
                     ],
                   ),
@@ -190,12 +191,12 @@ class _One2OneVideoState extends State<One2OneVideo> {
                 Container(height: 40,width: 120,
                   //padding: EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                  color: Colors.amber,
+                  color: AppColors.amber,
                     borderRadius: BorderRadius.all(Radius.circular(7))),
                   child: Center(
                     child: Text(
                       'Apply coupon',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: AppColors.white),
                     ),
                   ),
                 )

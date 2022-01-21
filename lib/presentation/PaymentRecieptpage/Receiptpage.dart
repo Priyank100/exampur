@@ -107,7 +107,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                       alignment: Alignment.center,
                       child: Text(
                         'Thank You ',
-                        style: TextStyle(fontSize: 30, color: Colors.green),
+                        style: TextStyle(fontSize: 30, color: AppColors.green),
                       )),
                   SizedBox(
                     height: 38,
@@ -116,9 +116,9 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                       padding: EdgeInsets.all(14),
                       margin: EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.1),
+                        color: AppColors.grey.withOpacity(0.1),
                         border: Border.all(
-                            color: Colors.grey, // set border color
+                            color: AppColors.grey, // set border color
                             width: 2.0), // set border width
                         borderRadius: BorderRadius.all(
                             Radius.circular(10.0)), // set rounded corner radius

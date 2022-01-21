@@ -63,6 +63,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
         body: centerList.length == 0
             ? Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
+          controller: scrollController,
                 child:Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -79,7 +80,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                     ),
                     ListView.builder(
                         itemCount: centerList.length,
-                        controller: scrollController,
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
@@ -90,7 +91,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                                     BorderRadius.all(Radius.circular(12)),
                                 boxShadow: const [
                                   BoxShadow(
-                                    color: Colors.grey,
+                                    color: AppColors.grey,
                                     offset: Offset(
                                       0.0,
                                       0.0,

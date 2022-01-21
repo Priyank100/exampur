@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/data/model/dummy_model.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,13 +19,13 @@ class ContainerwithBuyandView extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 10,top: 10,left: 5,right: 5),
             decoration: BoxDecoration(
               color: Theme.of(context).backgroundColor,
-             // border: Border.all(color: Colors.white24),
+             // border: Border.all(color: AppColors.white24),
               borderRadius: BorderRadius.all(
                 Radius.circular(8),
               ),
               boxShadow:const [
                 BoxShadow(
-                  color: Colors.grey,
+                  color: AppColors.grey,
                   offset:  Offset(
                     0.0,
                     0.0,
@@ -53,21 +54,21 @@ child: Row(
           children: [
             Container(height: 30,decoration: BoxDecoration(
               color: Color(0xFF060929),
-              // border: Border.all(color: Colors.white24),
+              // border: Border.all(color: AppColors.white24),
               borderRadius: BorderRadius.all(
                 Radius.circular(6),
               ),
             ),width: 100,
-              child: Center(child: Text('Buy course',textAlign: TextAlign.center,style: TextStyle(color: Colors.white),)),
+              child: Center(child: Text('Buy course',textAlign: TextAlign.center,style: TextStyle(color: AppColors.white),)),
             ),
             SizedBox(width:Dimensions.FONT_SIZE_SMALL),
             Container(height: 30,  decoration: BoxDecoration(
-              color: Colors.amber,
-              // border: Border.all(color: Colors.white24),
+              color: AppColors.amber,
+              // border: Border.all(color: AppColors.white24),
               borderRadius: BorderRadius.all(
                 Radius.circular(6),
               ),
-            ),width: 100, child: Center(child: Text('View details',style: TextStyle(color: Colors.white),)),),
+            ),width: 100, child: Center(child: Text('View details',style: TextStyle(color: AppColors.white),)),),
           ],
         ),
 
@@ -79,8 +80,8 @@ child: Row(
 
       children: [
         Container(height: 30,decoration: BoxDecoration(
-          //color: Colors.amber,
-          border: Border.all(color: Colors.black),
+          //color: AppColors.amber,
+          border: Border.all(color: AppColors.black),
           borderRadius: BorderRadius.all(
             Radius.circular(6),
           ),

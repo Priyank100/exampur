@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/data/model/video_ca_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -78,13 +79,13 @@ class _VideosCAState extends State<VideosCA> {
                   height: 40,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Colors.amber,
+                    color: AppColors.amber,
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(5),
                       bottomLeft: Radius.circular(5),
                     ),
                   ),
-                  child: Text('Watch Now', style: TextStyle(color: Colors.white)),
+                  child: Text('Watch Now', style: TextStyle(color: AppColors.white)),
                 ),
               ),
             ),

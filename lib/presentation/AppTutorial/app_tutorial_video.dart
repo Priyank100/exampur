@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -46,14 +47,14 @@ class _AppTutorialVideoState extends State<AppTutorialVideo> {
       body:MediaQuery.of(context).orientation == Orientation.landscape ?  YoutubePlayer(
         controller: _controller,
         showVideoProgressIndicator: true,
-        progressIndicatorColor: Colors.amber,
+        progressIndicatorColor: AppColors.amber,
       ): Container(
         child: Column(
           children: [
             YoutubePlayer(
               controller: _controller,
               showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.amber,
+              progressIndicatorColor: AppColors.amber,
             ),
             SizedBox(height: 40),
             Padding(

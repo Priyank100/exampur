@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class DropDownSelector extends StatefulWidget {
@@ -26,7 +27,7 @@ class _DropDownSelectorState extends State<DropDownSelector> {
   Widget build(BuildContext context) {
     return Container(
 
-      decoration: BoxDecoration(borderRadius:   BorderRadius.circular(5.0), color: Colors.grey.shade300,),
+      decoration: BoxDecoration(borderRadius:   BorderRadius.circular(5.0), color: AppColors.grey300,),
       margin: EdgeInsets.only(left: 10,right: 10),
      // width: MediaQuery.of(context).size.width * 1,
       padding: EdgeInsets.only(left: 10,right: 20),
@@ -39,7 +40,7 @@ class _DropDownSelectorState extends State<DropDownSelector> {
             dropdownvalue = value.toString();
           });
         },
-        style:TextStyle(color:Colors.grey, fontSize: 16),
+        style:TextStyle(color:AppColors.grey, fontSize: 16),
         underline:Container(),
         items: widget.items
             .map((String items) => DropdownMenuItem(

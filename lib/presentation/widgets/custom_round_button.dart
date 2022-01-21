@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomRoundButton extends StatefulWidget {
@@ -32,7 +33,7 @@ class _CustomRoundButtonState extends State<CustomRoundButton> {
       },
       child: Text(
         widget.text,
-        style: TextStyle(color: Colors.black),
+        style: TextStyle(color: AppColors.black),
 
       ),
     );

@@ -179,7 +179,7 @@ class AuthProvider extends ChangeNotifier {
         // AppConstants.printLog('priyank>>'+_informationModel.data.toString());
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Logged Out'),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
         ));
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
@@ -201,7 +201,7 @@ class AuthProvider extends ChangeNotifier {
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Server Error'),
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.black,
       ));
       notifyListeners();
     }
@@ -218,14 +218,14 @@ class AuthProvider extends ChangeNotifier {
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(jsonObject['data'].toString()),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.red,
           ));
         }
 
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Server Error'),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.red,
         ));
       }
     });
@@ -260,11 +260,11 @@ class AuthProvider extends ChangeNotifier {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       var msg = apiResponse.response!.data['data'].toString();
       if(statusCode == '200') {
-        AppConstants.showBottomMessage(context, msg, Colors.black);
+        AppConstants.showBottomMessage(context, msg, AppColors.black);
         notifyListeners();
         return true;
       } else {
-        AppConstants.showBottomMessage(context, msg, Colors.black);
+        AppConstants.showBottomMessage(context, msg, AppColors.black);
         notifyListeners();
         return false;
       }
@@ -279,7 +279,7 @@ class AuthProvider extends ChangeNotifier {
         AppConstants.printLog(errorResponse.errors![0].message);
         errorMessage = errorResponse.errors![0].message!;
       }
-      AppConstants.showBottomMessage(context, errorMessage, Colors.red);
+      AppConstants.showBottomMessage(context, errorMessage, AppColors.red);
       notifyListeners();
       return false;
     }

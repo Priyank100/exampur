@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/data/model/job_alert_model.dart';
 import 'package:exampur_mobile/shared/pdf_card_ca.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,7 +38,7 @@ class _JobAlertViewContainerState extends State<JobAlertViewContainer> {
                   height: Dimensions.DailyMonthlyViewBtnHeight,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black)
+                      border: Border.all(color: AppColors.black)
                   ),
                   child: Text('View', style: TextStyle(fontSize: 12)),
                 ),

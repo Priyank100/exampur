@@ -57,14 +57,14 @@ class SignInState extends State<SignIn> {
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
           content: Text('Please enter complete PHONE No.'),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
         ));
       } else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
           content: Text('Invalid Login Credentail'),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.black,
         ));
       } else {
 
@@ -89,17 +89,17 @@ class SignInState extends State<SignIn> {
     if (isRoute) {
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => BottomNavigation()), (route) => false);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage), backgroundColor: Colors.grey,));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage), backgroundColor: AppColors.grey,));
     }
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: AppColors.transparent,
           elevation: 0,
           iconTheme: IconThemeData(
-            color: Colors.black,
+            color: AppColors.black,
           ),
         ),
         body:Form(
@@ -148,7 +148,7 @@ textInputType: TextInputType.number,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
 
-                          Text("Forgot Password?",style: TextStyle(color: Colors.grey.shade600),),
+                          Text("Forgot Password?",style: TextStyle(color: AppColors.grey600),),
                           CustomTextButton(onPressed: () {
                             Navigator.push(
                                 context,
@@ -187,7 +187,7 @@ textInputType: TextInputType.number,
                                   child: Text(
                                     "Log In",
                                     style:
-                                        TextStyle(fontSize: 18, color: Colors.white),
+                                        TextStyle(fontSize: 18, color: AppColors.white),
                                   ),
                                 ),
                               ),
@@ -199,7 +199,7 @@ textInputType: TextInputType.number,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Facing problem in signing in?",style: TextStyle(color: Colors.grey.shade600)),
+                          Text("Facing problem in signing in?",style: TextStyle(color: AppColors.grey600)),
                           CustomTextButton(onPressed: () { AppConstants.makePhoneCall('tel:'+AppConstants.Mobile_number);}, text: "Call us")
                         ],
                       )

@@ -22,8 +22,8 @@ class ApiChecker {
       }
       AppConstants.printLog(_errorMessage);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(_errorMessage, style: TextStyle(color: Colors.white)),
-          backgroundColor: Colors.red));
+          content: Text(_errorMessage, style: TextStyle(color: AppColors.white)),
+          backgroundColor: AppColors.red));
     }
   }
 }

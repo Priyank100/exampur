@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/data/model/daily_monthly_ca_model.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
     return Container(
       color: widget.index % 2 == 0
           ? Theme.of(context).backgroundColor
-          : Colors.transparent,
+          : AppColors.transparent,
      // margin: EdgeInsets.all(5),
      //  child: Card(
         //elevation: 2,
@@ -49,7 +50,7 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
                             height: Dimensions.DailyMonthlyViewBtnHeight,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black)
+                                border: Border.all(color: AppColors.black)
                             ),
                             child: Text('View', style: TextStyle(fontSize: 12)),
                           ),

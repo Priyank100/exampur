@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,14 +24,14 @@ class _BigCourseCardState extends State<BigCourseCard> {
       padding: EdgeInsets.all(5),
       child: Material(
         elevation: 10,
-        shadowColor: Colors.black,
+        shadowColor: AppColors.black,
         borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white54,
-            border: Border.all(color: Colors.white24),
+            color: AppColors.white54,
+            border: Border.all(color: AppColors.white24),
             borderRadius: BorderRadius.all(
               Radius.circular(20),
             ),
@@ -60,7 +61,7 @@ class _BigCourseCardState extends State<BigCourseCard> {
                       Text(
                         widget.name,
                         style: TextStyle(
-                          color: Colors.black,
+                          color: AppColors.black,
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                         ),
@@ -89,7 +90,7 @@ class _BigCourseCardState extends State<BigCourseCard> {
                               children: [
                                 Icon(
                                   CupertinoIcons.check_mark,
-                                  color: Colors.yellow,
+                                  color: AppColors.yellow,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -108,7 +109,7 @@ class _BigCourseCardState extends State<BigCourseCard> {
                               children: [
                                 Icon(
                                   CupertinoIcons.check_mark,
-                                  color: Colors.yellow,
+                                  color: AppColors.yellow,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -126,7 +127,7 @@ class _BigCourseCardState extends State<BigCourseCard> {
                               children: [
                                 Icon(
                                   CupertinoIcons.check_mark,
-                                  color: Colors.yellow,
+                                  color: AppColors.yellow,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -144,7 +145,7 @@ class _BigCourseCardState extends State<BigCourseCard> {
                               children: [
                                 Icon(
                                   CupertinoIcons.check_mark,
-                                  color: Colors.yellow,
+                                  color: AppColors.yellow,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -162,7 +163,7 @@ class _BigCourseCardState extends State<BigCourseCard> {
                               children: [
                                 Icon(
                                   CupertinoIcons.check_mark,
-                                  color: Colors.yellow,
+                                  color: AppColors.yellow,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -186,12 +187,12 @@ class _BigCourseCardState extends State<BigCourseCard> {
                           height: 40,
                         ),
                         CustomSmallerElevatedButton(
-                          color: Colors.black,
+                          color: AppColors.black,
                           onPressed: () {},
                           text: "View Details",
                         ),
                         CustomSmallerElevatedButton(
-                          color: Colors.black,
+                          color: AppColors.black,
                           onPressed: () {},
                           text: "Buy Course",
                         ),
@@ -204,7 +205,7 @@ class _BigCourseCardState extends State<BigCourseCard> {
                             Icon(
                               CupertinoIcons.share_up,
                               size: 23,
-                              color: Colors.black,
+                              color: AppColors.black,
                             ),
                             SizedBox(
                               width: 8,
@@ -212,7 +213,7 @@ class _BigCourseCardState extends State<BigCourseCard> {
                             Text(
                               "share",
                               style: TextStyle(
-                                color: Colors.black,
+                                color: AppColors.black,
                                 fontSize: 16,
                               ),
                             ),

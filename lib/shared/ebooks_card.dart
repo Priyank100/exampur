@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_outlined_button.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -24,14 +25,14 @@ class _EBooksCardState extends State<EBooksCard> {
       padding: EdgeInsets.all(5),
       child: Material(
         elevation: 10,
-        shadowColor: Colors.black,
+        shadowColor: AppColors.black,
         borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white54,
-            border: Border.all(color: Colors.white24),
+            color: AppColors.white54,
+            border: Border.all(color: AppColors.white24),
             borderRadius: BorderRadius.all(
               Radius.circular(20),
             ),
@@ -45,7 +46,7 @@ class _EBooksCardState extends State<EBooksCard> {
                   width: 60,
                   child: Icon(
                     CupertinoIcons.arrow_down_doc_fill,
-                    color: Colors.red,
+                    color: AppColors.red,
                     size: 60,
                   ),
                 ),
@@ -60,7 +61,7 @@ class _EBooksCardState extends State<EBooksCard> {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: AppColors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),

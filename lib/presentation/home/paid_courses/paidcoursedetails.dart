@@ -77,7 +77,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 10,
-                        color: Colors.grey)),
+                        color: AppColors.grey)),
               ),
             ),
             Padding(
@@ -171,7 +171,7 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
             children: [
               Text(
                 'pay via:',
-                style: TextStyle(color: Colors.grey.shade400),
+                style: TextStyle(color: AppColors.grey400),
               ),
               SizedBox(
                 height: 10,
@@ -240,14 +240,14 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
                           height: 45,
                           padding: EdgeInsets.only(left: 8,top: 4),
                           decoration: BoxDecoration(
-                            color: Colors.grey[300],
+                            color: AppColors.grey300,
 
                             borderRadius:  BorderRadius.all(const Radius.circular(12)),
                             //       border: Border(
                             //   left: BorderSide(10)
                             // ),
                             boxShadow: [
-                              BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
+                              BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
                             ],
                           ),
                           child: TextField(
@@ -259,9 +259,9 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
                             // style: Theme.of(context).textTheme.title,
                             decoration: new InputDecoration(
 hintText: 'Discount Coupon',
-                                hintStyle: TextStyle(color: Colors.grey.shade400),
+                                hintStyle: TextStyle(color: AppColors.grey400),
                                 isDense: true,
-                              fillColor: Colors.grey.withOpacity(0.1),border: InputBorder.none
+                              fillColor: AppColors.grey.withOpacity(0.1),border: InputBorder.none
                             ),
                           ),
 
@@ -344,15 +344,14 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                           )),
                       width: double.infinity,
                       height: 200,
-                      child: FadeInImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                         AppConstants.BANNER_BASE+   widget.paidcourseList.bannerPath.toString()
-                        ),
-                        placeholder: AssetImage(Images.noimage),
-
-
-                      ),
+                      // child: FadeInImage(
+                      //   fit: BoxFit.cover,
+                      //   image: NetworkImage(
+                      //    AppConstants.BANNER_BASE+   widget.paidcourseList.bannerPath.toString()
+                      //   ),
+                      //   placeholder: AssetImage(Images.noimage),
+                      // ),
+                      child: AppConstants.image(AppConstants.BANNER_BASE + widget.paidcourseList.bannerPath.toString()),
 
                     ),
                   ),

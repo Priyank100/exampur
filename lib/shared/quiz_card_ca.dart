@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class _QuizCardCAState extends State<QuizCardCA> {
           color: Theme.of(context).backgroundColor,
         ),
         child: Material(
-          color: Colors.transparent,
+          color: AppColors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             onTap: () {},
@@ -37,15 +38,17 @@ class _QuizCardCAState extends State<QuizCardCA> {
                       width: MediaQuery.of(context).size.width * 0.25,
                       //flex: 1,
                       padding: EdgeInsets.only(left: Dimensions.FONT_SIZE_SMALL),
-                      child: FadeInImage(
-                        image: NetworkImage("widget.instance.image"),
-                        placeholder: AssetImage(Images.noimage),
-                        imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                            Images.noimage,
-                          );
-                        },
-                      )),
+                      // child: FadeInImage(
+                      //   image: NetworkImage("widget.instance.image"),
+                      //   placeholder: AssetImage(Images.noimage),
+                      //   imageErrorBuilder: (context, error, stackTrace) {
+                      //     return Image.asset(
+                      //       Images.noimage,
+                      //     );
+                      //   },
+                      // )
+                    child: AppConstants.image('widget.instance.image'),
+                  ),
                   SizedBox(
                     width: 15,
                   ),
@@ -72,12 +75,12 @@ class _QuizCardCAState extends State<QuizCardCA> {
                                   width: 60,
                                   height: 25,
                                   decoration: BoxDecoration(
-                                   // border: Border.all(color: Colors.black),
-                                    color: Colors.amber
+                                   // border: Border.all(color: AppColors.black),
+                                    color: AppColors.amber
                                   ),
                                   child: Center(
                                       child: Text("Attempt",
-                                          style: TextStyle(color: Colors.white,fontSize: 13)))),
+                                          style: TextStyle(color: AppColors.white,fontSize: 13)))),
                               SizedBox(
                                 width: 10,
                               ),

@@ -59,7 +59,7 @@ class _AppTutorialState extends State<AppTutorial> {
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return AppTutorialCard(apptutorialList, index);
+                        return AppTutorialCard(apptutorialList[index], index);
                       }),
                 ],
               )

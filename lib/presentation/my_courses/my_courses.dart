@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class MyCoursesState extends State<MyCourses> {
               "My Courses",
               style: CustomTextStyle.headingBold(context),
             ),
-            backgroundColor: Colors.transparent,
+            backgroundColor: AppColors.transparent,
             elevation: 0),
         body: Padding(
             padding: EdgeInsets.all(10),

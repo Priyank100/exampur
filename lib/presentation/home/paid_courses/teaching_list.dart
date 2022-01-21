@@ -69,8 +69,8 @@ class _TeachingListState extends State<TeachingList> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: widget.courseType==1 ?
-        paidCourseList.length==0 ? Center(child: CircularProgressIndicator(color: Colors.amber)) : listing(paidCourseList) :
-        freeCourseList.length==0 ? Center(child: CircularProgressIndicator(color: Colors.amber)) : listing(freeCourseList),
+        paidCourseList.length==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : listing(paidCourseList) :
+        freeCourseList.length==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : listing(freeCourseList),
       bottomNavigationBar: isLoading ? Container(
           padding: EdgeInsets.all(8),
           height:40,

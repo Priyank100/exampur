@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:exampur_mobile/presentation/home/current_affairs/daily_monthly_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,9 +26,9 @@ class DownloadsState extends State<Downloads> {
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            backgroundColor: Colors.transparent,
+            backgroundColor: AppColors.transparent,
             elevation: 0,
-            leading: InkWell(onTap:(){Navigator.pop(context);},child: Icon(Icons.arrow_back,color: Colors.black,)),
+            leading: InkWell(onTap:(){Navigator.pop(context);},child: Icon(Icons.arrow_back,color: AppColors.black,)),
             title: Text(
               'Downloads',
               style: CustomTextStyle.headingBold(context),
@@ -38,7 +39,7 @@ class DownloadsState extends State<Downloads> {
                 alignment: Alignment.centerLeft,
                 child: TabBar(
                   isScrollable: true,
-                  unselectedLabelColor: Colors.grey,
+                  unselectedLabelColor: AppColors.grey,
                   indicatorColor: Theme.of(context).primaryColor,
                   labelColor: Theme.of(context).primaryColor,
                   tabs: <Widget>[

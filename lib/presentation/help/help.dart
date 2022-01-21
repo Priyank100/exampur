@@ -94,10 +94,10 @@ class HelpState extends State<Help> {
                 width: double.infinity,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: AppColors.grey300,
                   borderRadius:  BorderRadius.all(const Radius.circular(8)),
                   boxShadow: [
-                    BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1))
+                    BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1))
                   ],
                 ),
                 padding: EdgeInsets.only(left: 10),
@@ -143,14 +143,14 @@ class HelpState extends State<Help> {
           width: double.infinity,
 
           decoration: BoxDecoration(
-            color: Colors.grey[300],
+            color: AppColors.grey300,
 
             borderRadius:  BorderRadius.all(const Radius.circular(12)),
             //       border: Border(
             //   left: BorderSide(10)
             // ),
             boxShadow: [
-              BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
+              BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
             ],
           ),
                 child:
@@ -163,9 +163,9 @@ class HelpState extends State<Help> {
                       isDense: true,
                       //filled: true,
                       hintStyle: TextStyle(
-                        color: Colors.grey[600],
+                        color: AppColors.grey600,
                       ),
-                      fillColor: Colors.grey.withOpacity(0.1),
+                      fillColor: AppColors.grey.withOpacity(0.1),
                       errorStyle: TextStyle(height: 1.5),
                       // focusedBorder: OutlineInputBorder(borderSide: BorderRadius.all( Radius.circular(12)),),
                       // hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
@@ -213,7 +213,7 @@ class HelpState extends State<Help> {
                 }
               },
                   child: Container(margin:  EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
-                    height: 50, color: AppConstants.Dark,child: Center(child: Text(getTranslated(context, 'submit_issue')!,style: TextStyle(color: Colors.white,fontSize: 20),)),))
+                    height: 50, color: AppColors.dark,child: Center(child: Text(getTranslated(context, 'submit_issue')!,style: TextStyle(color: Colors.white,fontSize: 20),)),))
                   :
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -227,7 +227,7 @@ class HelpState extends State<Help> {
                   width: MediaQuery.of(context).size.width * 1,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: AppConstants.Dark,
+                        primary: AppColors.dark,
                         elevation: 5.0,
                       ),
                       onPressed: () {
@@ -250,12 +250,12 @@ class HelpState extends State<Help> {
 
   bool checkValidation(_message) {
     if (_message.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, 'all_fields_mandatory')!), backgroundColor: Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, 'all_fields_mandatory')!), backgroundColor: AppColors.black));
       return false;
     }
 
    //  else if (dropdownvalue=='Select issues') {
-   //    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(), backgroundColor:Colors.black));
+   //    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(), backgroundColor:AppColors.black));
    //    return false;
    // }
     else {
@@ -275,10 +275,10 @@ class HelpState extends State<Help> {
     await Provider.of<HelpandFeedbackprovider>(context, listen: false).helpandfeedback(updateUserInfoModel).then((response) {
       isLoading = false;
       if(response) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, 'issue_submitted_sucessfully')!), backgroundColor: Colors.green));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, 'issue_submitted_sucessfully')!), backgroundColor: AppColors.green));
         Navigator.pop(context);
       }else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context,'server_error')!), backgroundColor: Colors.red));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context,'server_error')!), backgroundColor: AppColors.red));
       }
       setState(() {});
     }

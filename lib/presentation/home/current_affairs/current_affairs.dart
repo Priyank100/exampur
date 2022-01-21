@@ -25,35 +25,35 @@ class CurrentAffairsState extends State<CurrentAffairs> {
     super.initState();
     videoList.add(VideoCaModel(
         videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
+        imagePath: Images.no_image,
         title: '15 Days Free Foundation Batch Class'));
     videoList.add(VideoCaModel(
         videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
+        imagePath: Images.no_image,
         title: '15 Days Free Foundation Batch Class'));
     videoList.add(VideoCaModel(
         videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
+        imagePath: Images.no_image,
         title: '15 Days Free Foundation Batch Class'));
     videoList.add(VideoCaModel(
         videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
+        imagePath: Images.no_image,
         title: '15 Days Free Foundation Batch Class'));
     videoList.add(VideoCaModel(
         videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
+        imagePath: Images.no_image,
         title: '15 Days Free Foundation Batch Class'));
     videoList.add(VideoCaModel(
         videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
+        imagePath: Images.no_image,
         title: '15 Days Free Foundation Batch Class'));
     videoList.add(VideoCaModel(
         videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
+        imagePath: Images.no_image,
         title: '15 Days Free Foundation Batch Class'));
     videoList.add(VideoCaModel(
         videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.img_dummy,
+        imagePath: Images.no_image,
         title: '15 Days Free Foundation Batch Class'));
 
     dailyCaList.add(DailyMonthlyCaModel(

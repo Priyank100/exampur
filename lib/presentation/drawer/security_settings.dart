@@ -32,21 +32,21 @@ class _SecuritySettingsState extends State<SecuritySettings> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
 
-                Text(getTranslated(context, 'current_paasword')!,style: TextStyle(color: Colors.black,)),
+                Text(getTranslated(context, 'current_paasword')!,style: TextStyle(color: AppColors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _currentPasswordController,
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: 15,),
-               Text(getTranslated(context, 'new_password')!,style: TextStyle(color: Colors.black,)),
+               Text(getTranslated(context, 'new_password')!,style: TextStyle(color: AppColors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _newPasswordController,
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: 15,),
-                 Text(getTranslated(context, 'confirm_password')!,style: TextStyle(color: Colors.black,)),
+                 Text(getTranslated(context, 'confirm_password')!,style: TextStyle(color: AppColors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _confirmPasswordController,
@@ -83,7 +83,7 @@ class _SecuritySettingsState extends State<SecuritySettings> {
               child: Text(
                 getTranslated(context, 'change_password')!,
                 style:
-                TextStyle(fontSize: 18, color: Colors.white),
+                TextStyle(fontSize: 18, color: AppColors.white),
               ),
             ),
           ),
@@ -102,42 +102,42 @@ class _SecuritySettingsState extends State<SecuritySettings> {
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
         content: Text('Please enter current password'),
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.black,
       ));
     } else if (newPassword.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
         content: Text('Please enter new password'),
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.black,
       ));
     } else if (newPassword.length < 8) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
         content: Text('Please enter atleast 8 letter Password'),
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.black,
       ));
     } else if (confirmPassword.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
         content: Text('Please enter confirm password'),
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.black,
       ));
     } else if (confirmPassword.length < 8) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
         content: Text('Please enter atleast 8 letter Password'),
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.black,
       ));
     } else if (newPassword != confirmPassword) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
         content: Text('Confirm password is not matched'),
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.black,
       ));
     } else {
       isLoading = true;

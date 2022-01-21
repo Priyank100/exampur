@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
@@ -77,7 +78,7 @@ class _UploadImageState extends State<UploadImage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                  color: Colors.amber,
+                  color: AppColors.amber,
                   child: Text("Open from URL"),
                   onPressed: () {
                     if (urlPDFPath != null) {
@@ -93,7 +94,7 @@ class _UploadImageState extends State<UploadImage> {
                   height: 20,
                 ),
                 RaisedButton(
-                  color: Colors.cyan,
+                  color: AppColors.cyan,
                   child: Text("Open from Asset"),
                   onPressed: () {
                     if (assetPDFPath != null) {
@@ -171,7 +172,7 @@ class _PdfViewPageState extends State<PdfViewPage> {
         children: <Widget>[
           _currentPage > 0
               ? FloatingActionButton.extended(
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.red,
             label: Text("Go to ${_currentPage - 1}"),
             onPressed: () {
               _currentPage -= 1;
@@ -182,7 +183,7 @@ class _PdfViewPageState extends State<PdfViewPage> {
           SizedBox(width: 10,),
           _currentPage+1 < _totalPages
               ? FloatingActionButton.extended(
-            backgroundColor: Colors.green,
+            backgroundColor: AppColors.green,
             label: Text("Go to ${_currentPage + 1}"),
             onPressed: () {
               _currentPage += 1;

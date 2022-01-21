@@ -58,7 +58,7 @@ class LandingPageState extends State<LandingPage> {
                       child: Center(
                         child: Text(
                           "Log In",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(fontSize: 18, color: AppColors.white),
                         ),
                       ),
                     ),
@@ -68,7 +68,7 @@ class LandingPageState extends State<LandingPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Facing problem in signing in?",style: TextStyle(color: Colors.grey.shade600)),
+                    Text("Facing problem in signing in?",style: TextStyle(color: AppColors.grey600)),
                     CustomTextButton(onPressed: () {
                       AppConstants.makePhoneCall('tel:'+AppConstants.Mobile_number);
                     }, text: "Call us")

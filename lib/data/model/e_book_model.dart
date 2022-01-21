@@ -1,13 +1,12 @@
 import 'dart:convert';
 /// statusCode : 200
-/// books : [{"_id":"61cad845da1d8532b6f33fd1","title":"Book 1","banner_path":"https://downloadexampur.appx.co.in/product/0.65025852576535971619088364704.jpg","logo_path":"https://exampur.com/assets/images/logo/exampur-logo.png","description":"Description for Book 1","amount":0,"category":"Test Category","flag":"New","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"exam_category":null},{"_id":"61cada43da1d8532b6f33fd2","title":"Book 2","banner_path":"https://downloadexampur.appx.co.in/product/0.65025852576535971619088364704.jpg","logo_path":"https://exampur.com/assets/images/logo/exampur-logo.png","description":"Description for Book 2","amount":0,"category":"Test Category","flag":"New","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"exam_category":null}]
-/// totalCount : 2
+/// books : [{"_id":"61e11b35ced0818afc943381","category":["61d2cc701cea2fdab6e9cb06","61d2cc8c1cea2fdab6e9cb07"],"title":"First Book","description":"First Book Description","amount":199,"flag":"Best Seller","macro":[],"logo_path":"book/1VU8cdQI-RAJASTHAN-SPECIAL.png","banner_path":"book/236071dE-banner_course_2.jpeg"}]
+/// totalCount : 1
 
-EBooksModel eBooksModelFromJson(String str) => EBooksModel.fromJson(json.decode(str));
-String eBooksModelToJson(EBooksModel data) => json.encode(data.toJson());
-
-class EBooksModel {
-  EBooksModel({
+EBookModel e_book_modelFromJson(String str) => EBookModel.fromJson(json.decode(str));
+String e_book_modelToJson(EBookModel data) => json.encode(data.toJson());
+class EBookModel {
+  EBookModel({
       int? statusCode, 
       List<EBooks>? books,
       int? totalCount,}){
@@ -16,7 +15,7 @@ class EBooksModel {
     _totalCount = totalCount;
 }
 
-  EBooksModel.fromJson(dynamic json) {
+  EBookModel.fromJson(dynamic json) {
     _statusCode = json['statusCode'];
     if (json['books'] != null) {
       _books = [];
@@ -46,51 +45,46 @@ class EBooksModel {
 
 }
 
-/// _id : "61cad845da1d8532b6f33fd1"
-/// title : "Book 1"
-/// banner_path : "https://downloadexampur.appx.co.in/product/0.65025852576535971619088364704.jpg"
-/// logo_path : "https://exampur.com/assets/images/logo/exampur-logo.png"
-/// description : "Description for Book 1"
-/// amount : 0
-/// category : "Test Category"
-/// flag : "New"
-/// macro : [{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}]
-/// exam_category : null
+/// _id : "61e11b35ced0818afc943381"
+/// category : ["61d2cc701cea2fdab6e9cb06","61d2cc8c1cea2fdab6e9cb07"]
+/// title : "First Book"
+/// description : "First Book Description"
+/// amount : 199
+/// flag : "Best Seller"
+/// macro : []
+/// logo_path : "book/1VU8cdQI-RAJASTHAN-SPECIAL.png"
+/// banner_path : "book/236071dE-banner_course_2.jpeg"
 
 EBooks booksFromJson(String str) => EBooks.fromJson(json.decode(str));
 String booksToJson(EBooks data) => json.encode(data.toJson());
 class EBooks {
   EBooks({
       String? id, 
+      List<String>? category, 
       String? title, 
-      String? bannerPath, 
-      String? logoPath, 
       String? description, 
       int? amount, 
-      String? category, 
       String? flag, 
-      List<Macro>? macro, 
-      dynamic examCategory,}){
+      List<Macro>? macro,
+      String? logoPath, 
+      String? bannerPath,}){
     _id = id;
+    _category = category;
     _title = title;
-    _bannerPath = bannerPath;
-    _logoPath = logoPath;
     _description = description;
     _amount = amount;
-    _category = category;
     _flag = flag;
     _macro = macro;
-    _examCategory = examCategory;
+    _logoPath = logoPath;
+    _bannerPath = bannerPath;
 }
 
   EBooks.fromJson(dynamic json) {
     _id = json['_id'];
+    _category = json['category'] != null ? json['category'].cast<String>() : [];
     _title = json['title'];
-    _bannerPath = json['banner_path'];
-    _logoPath = json['logo_path'];
     _description = json['description'];
     _amount = json['amount'];
-    _category = json['category'];
     _flag = json['flag'];
     if (json['macro'] != null) {
       _macro = [];
@@ -98,61 +92,56 @@ class EBooks {
         _macro?.add(Macro.fromJson(v));
       });
     }
-    _examCategory = json['exam_category'];
+    _logoPath = json['logo_path'];
+    _bannerPath = json['banner_path'];
   }
   String? _id;
+  List<String>? _category;
   String? _title;
-  String? _bannerPath;
-  String? _logoPath;
   String? _description;
   int? _amount;
-  String? _category;
   String? _flag;
   List<Macro>? _macro;
-  dynamic _examCategory;
+  String? _logoPath;
+  String? _bannerPath;
 
   String? get id => _id;
+  List<String>? get category => _category;
   String? get title => _title;
-  String? get bannerPath => _bannerPath;
-  String? get logoPath => _logoPath;
   String? get description => _description;
   int? get amount => _amount;
-  String? get category => _category;
   String? get flag => _flag;
   List<Macro>? get macro => _macro;
-  dynamic get examCategory => _examCategory;
+  String? get logoPath => _logoPath;
+  String? get bannerPath => _bannerPath;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['_id'] = _id;
+    map['category'] = _category;
     map['title'] = _title;
-    map['banner_path'] = _bannerPath;
-    map['logo_path'] = _logoPath;
     map['description'] = _description;
     map['amount'] = _amount;
-    map['category'] = _category;
     map['flag'] = _flag;
     if (_macro != null) {
       map['macro'] = _macro?.map((v) => v.toJson()).toList();
     }
-    map['exam_category'] = _examCategory;
+    map['logo_path'] = _logoPath;
+    map['banner_path'] = _bannerPath;
     return map;
   }
 
 }
 
-/// icon : "right-tik"
-/// title : "Feature 1"
-
 Macro macroFromJson(String str) => Macro.fromJson(json.decode(str));
 String macroToJson(Macro data) => json.encode(data.toJson());
 class Macro {
   Macro({
-      String? icon, 
-      String? title,}){
+    String? icon,
+    String? title,}){
     _icon = icon;
     _title = title;
-}
+  }
 
   Macro.fromJson(dynamic json) {
     _icon = json['icon'];

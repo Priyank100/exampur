@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _NotificationsState extends State<Notifications> {
                         SizedBox(height: 5,),
                         Row(
                           children: [
-                            Container(height: 10,width: 10,decoration: BoxDecoration(borderRadius:BorderRadius.circular(10),color: Colors.amber ),),
+                            Container(height: 10,width: 10,decoration: BoxDecoration(borderRadius:BorderRadius.circular(10),color: AppColors.amber ),),
                             SizedBox(width: 5,),
                             Text('12-01-2022 02:33 PM',style: TextStyle(fontSize: 12,fontWeight: FontWeight.normal),),
                           ],

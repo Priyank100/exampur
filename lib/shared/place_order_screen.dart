@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/data/model/books_model.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class PlaceOrderScreen extends StatefulWidget {
@@ -24,11 +25,13 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
           Container(
             width: double.maxFinite,
             height: MediaQuery.of(context).size.height / 3,
-            child: CachedNetworkImage(
-              imageUrl:
-                  widget.books.bannerPath.toString(),
-              errorWidget: (context, url, error) => new Icon(Icons.error),
-            ),
+            // child: CachedNetworkImage(
+            //   imageUrl:
+            //       widget.books.bannerPath.toString(),
+            //   errorWidget: (context, url, error) => new Icon(Icons.error),
+            // ),
+            child: AppConstants.image(widget.books.bannerPath.toString()),
+
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),

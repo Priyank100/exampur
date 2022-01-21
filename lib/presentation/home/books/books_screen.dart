@@ -1,9 +1,7 @@
 import 'package:exampur_mobile/data/model/books_model.dart';
-import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/shared/books_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BooksScreen extends StatefulWidget {
   final List<Books> booksList;
@@ -18,7 +16,13 @@ class _BooksScreenState extends State<BooksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:widget.booksList.length==0 ? Center(child: Text('No Data')) :
+        body:widget.booksList.length==0 ? Center(child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline),
+            Text('No Data')
+          ],
+        )) :
         ListView.builder(
             itemCount: widget.booksList.length,
             shrinkWrap: true,

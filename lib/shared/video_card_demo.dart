@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,7 +25,7 @@ class _VideoCardATState extends State<VideoCardAT> {
           color: Theme.of(context).backgroundColor,
         ),
         child: Material(
-          color: Colors.transparent,
+          color: AppColors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             onTap: () {},
@@ -34,15 +35,17 @@ class _VideoCardATState extends State<VideoCardAT> {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width * 0.3,
-                      child: FadeInImage(
-                        image: NetworkImage("widget.instance.image"),
-                        placeholder: AssetImage(Images.noimage),
-                        imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                            Images.noimage,
-                          );
-                        },
-                      )),
+                      // child: FadeInImage(
+                      //   image: NetworkImage("widget.instance.image"),
+                      //   placeholder: AssetImage(Images.noimage),
+                      //   imageErrorBuilder: (context, error, stackTrace) {
+                      //     return Image.asset(
+                      //       Images.noimage,
+                      //     );
+                      //   },
+                      // )
+                    child: AppConstants.image('widget.instance.image'),
+                  ),
                   SizedBox(
                     width: 15,
                   ),
@@ -70,7 +73,7 @@ class _VideoCardATState extends State<VideoCardAT> {
                               Container(
                                   width: 100,
                                   height: 25,
-                                  decoration: BoxDecoration(color: Colors.red),
+                                  decoration: BoxDecoration(color: AppColors.red),
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -78,12 +81,12 @@ class _VideoCardATState extends State<VideoCardAT> {
                                         Icon(
                                           FontAwesomeIcons.play,
                                           size: 10,
-                                          color: Colors.white,
+                                          color: AppColors.white,
                                         ),
                                         SizedBox(width: 5),
                                         Text("View",
                                             style: TextStyle(
-                                                color: Colors.white,
+                                                color: AppColors.white,
                                                 fontSize: 13))
                                       ])),
                             ],

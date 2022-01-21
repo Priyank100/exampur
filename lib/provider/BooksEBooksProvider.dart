@@ -1,12 +1,9 @@
 import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
-import 'package:exampur_mobile/data/model/CoursesModel.dart';
-import 'package:exampur_mobile/data/model/Userinfo.dart';
 import 'package:exampur_mobile/data/model/books_model.dart';
-import 'package:exampur_mobile/data/model/loginmodel.dart';
+import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
-import 'package:exampur_mobile/data/model/e_books_model.dart';
 import 'package:exampur_mobile/data/repository/Books_EBooks_repo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,8 +16,8 @@ class BooksEBooksProvider extends ChangeNotifier {
   BooksModel _booksModel = BooksModel();
   BooksModel get booksModel => _booksModel;
 
-  EBooksModel _ebooksModel = EBooksModel();
-  EBooksModel get ebooksModel => _ebooksModel;
+  EBookModel _ebooksModel = EBookModel();
+  EBookModel get ebooksModel => _ebooksModel;
 
 
   Future<List<Books>?> getBooksList(BuildContext context) async {
@@ -48,7 +45,7 @@ class BooksEBooksProvider extends ChangeNotifier {
       AppConstants.printLog(apiResponse.response);
       // _ebooksModel = EBooksModel.fromJson(json.decode(apiResponse.response.toString()));
       // return _ebooksModel.books;
-      _ebooksModel = EBooksModel.fromJson(json.decode(apiResponse.response.toString()));
+      _ebooksModel = EBookModel.fromJson(json.decode(apiResponse.response.toString()));
       return _ebooksModel.books;
 
     } else {
