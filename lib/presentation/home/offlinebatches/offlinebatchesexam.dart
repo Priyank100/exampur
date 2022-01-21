@@ -76,13 +76,6 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 12.0,top: 20),
-                    //   child: Text(
-                    //     getTranslated(context, 'offline batches')!,
-                    //     style: CustomTextStyle.headingBold(context),
-                    //   ),
-                    // ),
                     SizedBox(
                       height:10,
                     ),
@@ -124,17 +117,17 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                             height: 5,
                           ),
                         Text('Center  : ' +
-                            centerCoursesModel.centerDetails!.name.toString()),
+                            centerName),
                           SizedBox(
                             height: 5,
                           ),
                         Text(getTranslated(context, 'phone_number')!+ ' : ' +
-                            centerCoursesModel.centerDetails!.phone.toString()),
+                            centerMobile),
                           SizedBox(
                             height: 5,
                           ),
                         Text(getTranslated(context, 'address')!+ ' : ' +
-                            centerCoursesModel.centerDetails!.address.toString(),maxLines: 2,),
+                            centerAddress, maxLines: 2),
                       ],),),
                     ),
 
