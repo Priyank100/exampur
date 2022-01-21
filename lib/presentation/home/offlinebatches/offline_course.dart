@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/offlice_batch_center_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
@@ -67,9 +68,9 @@ class _OfflineCourseState extends State<OfflineCourse> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 12.0),
+                      padding: const EdgeInsets.only(left: 12.0,top: 20),
                       child: Text(
-                        'Offline Batches',
+                        getTranslated(context, 'offline batches')!,
                         style: CustomTextStyle.headingBold(context),
                       ),
                     ),

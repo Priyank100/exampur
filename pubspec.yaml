@@ -93,7 +93,7 @@ flutter:
     - assets/language/en.json
     - assets/language/hi.json
     - assets/Statejson/State.json
-    - assets/Pdf/mypdf.pdf
+    - assets/mypdf.pdf
 
 
   fonts:

@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/offline_batch_center_courses_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
@@ -75,28 +76,70 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12.0),
-                      child: Text(
-                        'Offline Batches',
-                        style: CustomTextStyle.headingBold(context),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 12.0,top: 20),
+                    //   child: Text(
+                    //     getTranslated(context, 'offline batches')!,
+                    //     style: CustomTextStyle.headingBold(context),
+                    //   ),
+                    // ),
                     SizedBox(
-                      height: 5,
+                      height:10,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 12.0),
-                      child: Text('Center: ' + centerName),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 4),
+                      child: Container(
+                        width: 400,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(
+                                0.0,
+                                0.0,
+                              ),
+                              blurRadius: 4.0,
+                              spreadRadius: 0.0,
+                            ),
+                          ],
+                          color: Theme.of(context).backgroundColor,
+                        ),
+                        child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(child: Image.asset(Images.offlinebatch,height: 60,width: 100,)),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Center(
+                            child: Text(
+                              getTranslated(context, 'offline batches')!,
+                              style: CustomTextStyle.headingBold(context),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                        Text('Center  : ' +
+                            centerCoursesModel.centerDetails!.name.toString()),
+                          SizedBox(
+                            height: 5,
+                          ),
+                        Text(getTranslated(context, 'phone_number')!+ ' : ' +
+                            centerCoursesModel.centerDetails!.phone.toString()),
+                          SizedBox(
+                            height: 5,
+                          ),
+                        Text(getTranslated(context, 'address')!+ ' : ' +
+                            centerCoursesModel.centerDetails!.address.toString(),maxLines: 2,),
+                      ],),),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12.0),
-                      child: Text('Phone: ' + centerMobile),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12.0),
-                      child: Text('Address: ' + centerAddress),
-                    ),
+
+
+
                     SizedBox(
                       height: 5,
                     ),
@@ -191,8 +234,8 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                                               color:
                                                               Color(0xFF060929)),
                                                           color: Color(0xFF060929)),
-                                                      child: const Center(
-                                                          child: Text("View Details",
+                                                      child:  Center(
+                                                          child: Text(getTranslated(context, 'view_details')!,
                                                               style: TextStyle(
                                                                   fontSize: 13,
                                                                   color: Colors
@@ -219,7 +262,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                                   ),
                                                   InkWell(
                                                     onTap: () {},
-                                                    child: Text("Share",
+                                                    child: Text(getTranslated(context, 'share')!,
                                                         style:
                                                         TextStyle(fontSize: 13)),
                                                   ),

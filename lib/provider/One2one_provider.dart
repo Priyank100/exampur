@@ -24,8 +24,8 @@ class One2OneProvider extends ChangeNotifier {
   One2OneModels _one2oneModel = One2OneModels();
   One2OneModels get one2oneModel => _one2oneModel;
 
-  Future<List<Courses>?> getOne2OneList(BuildContext context) async {
-    ApiResponse apiResponse = await one2oneRepo.one2oneRepo();
+  Future<List<Courses>?> getOne2OneList(BuildContext context,int pageNo) async {
+    ApiResponse apiResponse = await one2oneRepo.one2oneRepo(pageNo);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
