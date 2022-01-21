@@ -64,6 +64,12 @@ class API {
   static const String order_course    = BASE_URL2 + 'order_course/create';
   static const String finalize_order  = BASE_URL2 + 'order_course/finalize';
 
+  //coupon
+  static const String CouponCode_URL = BASE_URL2 +'promo_code/';
+
+  //demo
+  static const String Demo_URL =BASE_URL3 +'courses/demo/10/';
+
 }
 
 class Keys {

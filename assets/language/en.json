@@ -1,79 +1,122 @@
 {
-  "hello": "Hello",
-  "home_page": "Home Page",
-  "paid course": "Paid Course",
-  "name": "Name",
-  "books": "Books",
-  "email": "Email",
-  "free courses": "Free Courses",
-  "test courses": "Test Series",
-  "exampur one2one": "Exampur one2one",
-  "offline batches": "Offline Batches",
-  "current affairs": "Current Affairs",
-  "new_batch": "New Batch",
-  "daily quiz": "Daily Quiz",
-  "job alerts": "Job Alerts",
-"study materials": "Study Materials",
   "app_tutorial": "App Tutorial",
-  "choose_category": "Choose Category",
-  "downloads": "Downloads",
-  "submit_issue": "Submit issue",
-  "watch_app_tutorial": "Watch App Tutorials",
-  "write_about_the_problem": "Write about the problem",
-  "help": "Help",
-  "issue_submitted_sucessfully": "issue Submitted Sucessfully",
-  "server_error": "Server error",
   "all_fields_mandatory": "All fields mandatory",
-  "my_purchase": "My Purchase",
-  "my_timetable": "My Timetable",
-  "settings": "Settings",
-  "eligibility_calculator": "Eligibility Calculator",
-  "share_now": "Share Now",
-  "rate_us": "Rate Us",
-  "help_and_feedback": "Help and Feedback",
-  "log_out": "Log Out",
-  "home": "Home",
-  "demo": "Demo",
-  "my_courses": "My Courses",
-  "watch": "Watch",
-  "select_categories": "Select Categories",
-  "search_category": "Search Category",
-  "please_choose_the_category": "Please Choose the Category",
-  "first_name": "First Name",
-  "enter_first_name": "Enter Full name",
-  "last_name": "Last Name",
-  "enter_your_last_name": "Enter your Last Name",
-  "phone_number": "Phone Number",
-  "enter_phone_number": "Enter Phone Number",
+  "apply_coupon": "Apply Coupon",
   "address": "Address",
-  "enter_address": "Enter Address",
+  "add": "Add",
+  "apply": "Apply",
+
+  "books": "Books",
+  "buy": "Buy",
+  "buy_course": "Buy course",
+
+  "current_affairs": "Current Affairs",
+  "choose_category": "Choose Category",
   "city": "City",
-  "enter_city": "Enter City",
-  "landmark_teshil": "Landmark / Teshil",
-  "enter_landmark": "Enter Landmark",
-  "state": "State",
-  "enter_state": "Enter State",
-  "pin_code": "Pin Code",
-  "enter_pin_code": "Enter Pin Code",
-  "continue_to_buy_course": "Continue to Buy Course",
-  "provide_further_detalis_for_delivery_of_books": "Provide Further Detalis for Delivery of Books",
-  "language_preferences": "Language Preferences",
-  "select_language": "Select language",
-  "general": "General",
-  "security": "Security",
-  "preference": "Preference",
-  "settings": "Settings",
-  "user_name": "UserName",
-  "save_profile": "Save Profile",
-  "current_paasword": "Current Paasword",
-  "new_password": "New Password",
   "confirm_password": "Confirm Password",
   "change_password": "Change Password",
-  "save_the_course": "Save the course",
-  "view_details": "View Details",
-  "share": "Share",
-  "buy": "Buy",
+  "current_paasword": "Current Paasword",
+  "continue_to_buy_course": "Continue to Buy Course",
+
+
+  "downloads": "Downloads",
+  "daily_quiz": "Daily Quiz",
+  "demo": "Demo",
   "demo_classes": "Demo Classes",
+
+  "email": "Email",
+  "exampur_one2one": "Exampur one2one",
+  "eligibility_calculator": "Eligibility Calculator",
+  "enter_first_name": "Enter Full name",
+  "enter_your_last_name": "Enter your Last Name",
+  "enter_phone_number": "Enter Phone Number",
+  "enter_landmark": "Enter Landmark",
+  "enter_address": "Enter Address",
+  "enter_city": "Enter City",
+  "enter_state": "Enter State",
+  "enter_pin_code": "Enter Pin Code",
+
+  "free_courses": "Free Courses",
+  "first_name": "First Name",
+
+  "hello": "Hello",
+  "home": "Home",
+  "home_page": "Home Page",
+  "help": "Help",
+  "help_and_feedback": "Help and Feedback",
+
+  "issue_submitted_sucessfully": "issue Submitted Sucessfully",
+
+  "last_name": "Last Name",
+  "log_out": "Log Out",
+  "landmark_teshil": "Landmark / Teshil",
+  "language_preferences": "Language Preferences",
+
+
+
+  "paid_course": "Paid Course",
+  "please_choose_the_category": "Please Choose the Category",
+  "phone_number": "Phone Number",
+  "pin_code": "Pin Code",
+  "provide_further_detalis_for_delivery_of_courses": "Provide Further Detalis for Delivery of Courses",
+  "preference": "Preference",
+
+  "name": "Name",
+  "new_password": "New Password",
+  "new_batch": "New Batch",
+
+
+  "test_courses": "Test Series",
+
+
+  "offline_batches": "Offline Batches",
+
+
+
+  "job_alerts": "Job Alerts",
+
+
+
+
+  "submit_issue": "Submit issue",
+  "study_materials": "Study Materials",
+  "server_error": "Server error",
+  "settings": "Settings",
+  "share_now": "Share Now",
+  "select_categories": "Select Categories",
+  "search_category": "Search Category",
+  "state": "State",
+  "select_language": "Select language",
+  "security": "Security",
+  "save_profile": "Save Profile",
+  "save_the_course": "Save the course",
+  "share": "Share",
+  "skip": "Skip",
+
+
+
+  "watch_app_tutorial": "Watch App Tutorials",
+  "write_about_the_problem": "Write about the problem",
+  "watch": "Watch",
+
+
+
+  "my_purchase": "My Purchase",
+  "my_timetable": "My Timetable",
+  "my_courses": "My Courses",
+
+
+
+  "rate_us": "Rate Us",
   "recorded": "Recorded",
+
+  "general": "General",
+
+
+  "user_name": "UserName",
+
+
+  "view_details": "View Details",
   "view_all": "View All"
+
 }

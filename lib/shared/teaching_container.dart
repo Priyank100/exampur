@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/dummy_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
@@ -142,7 +143,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             ));
                           },
                             child: Container(height: 30,width: 120,decoration: BoxDecoration( color: Color(0xFF060929),
-                              borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text('View details',style: TextStyle(color: Colors.white)))),
+                              borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, 'view_details')!,style: TextStyle(color: Colors.white)))),
                           ),
                           SizedBox(height: 10,),
                           InkWell(
@@ -151,15 +152,15 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                   BottomSheeet1(widget.courseData));
                             },
                             child: Container(height: 30,width: 110,decoration: BoxDecoration( color: Color(0xFF060929),
-                                borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text('Buy Course',style: TextStyle(color: Colors.white)))),
+                                borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, 'buy_course')!,style: TextStyle(color: Colors.white)))),
                           ),
 
                           SizedBox(height: 10,),
                           Row(
                             children: [
-                              Image.asset(Images.share,height: 20,width: 20,),
+                              Image.asset(Images.share,height: 18,width: 18,),
                               SizedBox(width: 5,),
-                              Text('Share')
+                              Text(getTranslated(context, 'share')!)
                             ],
                           ),
                           SizedBox(height: 15,),

@@ -109,7 +109,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                           ),
                           Center(
                             child: Text(
-                              getTranslated(context, 'offline batches')!,
+                              getTranslated(context, 'offline_batches')!,
                               style: CustomTextStyle.headingBold(context),
                             ),
                           ),
