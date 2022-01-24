@@ -28,7 +28,6 @@ import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart'
 import '../../main.dart';
 import 'TestSeries/testseries.dart';
 
-
 import 'dummytest.dart';
 import 'dummytesting.dart';
 import 'exampurone2one/exampurone2oneview.dart';
@@ -65,8 +64,8 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> getSharedPrefData() async {
-    var jsonValue =
-        jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    var jsonValue = jsonDecode(
+        await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     setState(() {});
@@ -142,17 +141,15 @@ class _HomeState extends State<Home> {
                 //       ),
                 //     ),
                 //   ),
-            : SizedBox(),
+                : SizedBox(),
             SizedBox(height: Dimensions.FONT_SIZE_OVER_LARGE),
             Row(
-
               children: [
                 SquareButton(
                     image: Images.paidcourse,
                     title: getTranslated(context, 'paid_course')!,
                     color: AppColors.paidCourses,
                     navigateTo: PaidCourses(1)),
-
                 SquareButton(
                     image: Images.book,
                     title: getTranslated(context, 'books')!,
@@ -164,7 +161,6 @@ class _HomeState extends State<Home> {
               height: 10,
             ),
             Row(
-
               children: [
                 SquareButton(
                     image: Images.free_course,
@@ -274,7 +270,7 @@ class SquareButton extends StatelessWidget {
         width: width / 2,
         height: 80,
         padding: EdgeInsets.all(8),
-        margin:  EdgeInsets.only(left: 5,right: 5),
+        margin: EdgeInsets.only(left: 5, right: 5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: color!),
         child: Row(

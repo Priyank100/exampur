@@ -166,19 +166,16 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                     height: 45,
                     padding: EdgeInsets.only(left: 8,top: 4),
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: AppColors.grey300,
 
                       borderRadius:  BorderRadius.all(const Radius.circular(8)),
-                      //       border: Border(
-                      //   left: BorderSide(10)
-                      // ),
                       boxShadow: [
                         BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
                       ],
                     ),
                     child: TextField(
                       maxLines: 1,
-                      cursorColor:Colors.amber ,
+                      cursorColor:AppColors.amber ,
                       controller: _cuponCodeController,
                       textCapitalization: TextCapitalization.characters,
                       onChanged: (value) {
@@ -197,12 +194,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                     ),
 
                     //hintStyle: titilliumRegular.copyWith(color: ColorResources.HINT_TEXT_COLOR),
-                    filled: true,
-                    fillColor: AppColors.grey300,
-                    border: InputBorder.none,
-                  )),
-                  ),
                 ),
+              ),
               ),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
               Expanded(
@@ -212,7 +205,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                     String cuponCode = _cuponCodeController.text.toUpperCase();
                     String amount = widget.paidcourseList.amount.toString();
 
-                   if( chechcoupon(cuponCode)){
+                   if(chechcoupon(cuponCode)){
                      couponApi(cuponCode,amount);
                    }
 
@@ -383,15 +376,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('PinCode_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
       return false;
     }
-    else if (_promocode.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('PromoCode_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
-      return false;
-    }
     else {
       return true;
     }
   }
-
 
   bool chechcoupon(_promocode){
     if (_promocode.isEmpty) {
