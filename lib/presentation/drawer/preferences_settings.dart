@@ -3,6 +3,7 @@ import 'package:exampur_mobile/data/model/response/languagemodel.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/presentation/widgets/dropdown_selector.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class _PreferencesSettingsState extends State<PreferencesSettings> {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 20,top: 20),
-                child: Text(getTranslated(context, 'language_preferences')!,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)),
+                child: Text(getTranslated(context, 'language_preferences')!,style: TextStyle(color: AppColors.black,fontWeight: FontWeight.bold,fontSize: 20)),
               ),
 
              Container(
@@ -36,7 +37,7 @@ class _PreferencesSettingsState extends State<PreferencesSettings> {
                   margin:  const EdgeInsets.all(12.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white
+                    color: AppColors.white
                   ),
                   child: DropdownButton<Language>(
 hint: Text(getTranslated(context, 'select_language')!),
@@ -44,7 +45,7 @@ hint: Text(getTranslated(context, 'select_language')!),
                     underline: SizedBox(),
                     icon: Icon(
                       Icons.arrow_downward_sharp,
-                      color: Colors.black,size: 20,
+                      color: AppColors.black,size: 20,
                     ),
                     onChanged: (Language? language) {
                       _changeLanguage(language!);

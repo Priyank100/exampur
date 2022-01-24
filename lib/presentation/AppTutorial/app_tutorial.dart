@@ -5,6 +5,7 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial_card.dart';
 import 'package:exampur_mobile/provider/AppToutorial_provider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,7 +41,7 @@ class _AppTutorialState extends State<AppTutorial> {
     return Scaffold(
         appBar: CustomAppBar(),
         body: apptutorialList.length == 0
-            ? Center(child: CircularProgressIndicator(color: Colors.amber,))
+            ? Center(child: CircularProgressIndicator(color: AppColors.amber,))
             : SingleChildScrollView(
                 child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

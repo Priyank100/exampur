@@ -1,8 +1,4 @@
 import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
-import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
-import 'package:exampur_mobile/presentation/authentication/otp_screen.dart';
-import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
-import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/provider/AppToutorial_provider.dart';
@@ -16,10 +12,8 @@ import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
-import 'package:exampur_mobile/provider/locallization_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'Localization/app_localization.dart';
 import 'Localization/language_constrants.dart';
 import 'di_container.dart' as di;

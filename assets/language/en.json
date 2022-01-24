@@ -15,7 +15,7 @@
   "city": "City",
   "confirm_password": "Confirm Password",
   "change_password": "Change Password",
-  "current_paasword": "Current Paasword",
+  "current_password": "Current Password",
   "continue_to_buy_course": "Continue to Buy Course",
 
 
@@ -27,7 +27,7 @@
   "email": "Email",
   "exampur_one2one": "Exampur one2one",
   "eligibility_calculator": "Eligibility Calculator",
-  "enter_first_name": "Enter Full name",
+  "enter_first_name": "Enter Full Name",
   "enter_your_last_name": "Enter your Last Name",
   "enter_phone_number": "Enter Phone Number",
   "enter_landmark": "Enter Landmark",
@@ -45,11 +45,11 @@
   "help": "Help",
   "help_and_feedback": "Help and Feedback",
 
-  "issue_submitted_sucessfully": "issue Submitted Sucessfully",
+  "issue_submitted_successfully": "Issue Submitted Successfully",
 
   "last_name": "Last Name",
   "log_out": "Log Out",
-  "landmark_teshil": "Landmark / Teshil",
+  "landmark_tehsil": "Landmark / Tehsil",
   "language_preferences": "Language Preferences",
 
 
@@ -58,7 +58,7 @@
   "please_choose_the_category": "Please Choose the Category",
   "phone_number": "Phone Number",
   "pin_code": "Pin Code",
-  "provide_further_detalis_for_delivery_of_courses": "Provide Further Detalis for Delivery of Courses",
+  "provide_further_details_for_delivery_of_courses": "Provide Further Details for Delivery of Courses",
   "preference": "Preference",
 
   "name": "Name",
@@ -78,9 +78,9 @@
 
 
 
-  "submit_issue": "Submit issue",
+  "submit_issue": "Submit Issue",
   "study_materials": "Study Materials",
-  "server_error": "Server error",
+  "server_error": "Server Error",
   "settings": "Settings",
   "share_now": "Share Now",
   "select_categories": "Select Categories",

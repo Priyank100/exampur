@@ -133,6 +133,7 @@ class AppConstants {
       behavior: SnackBarBehavior.floating,
       content: Text(message),
       backgroundColor: bgColor,
+      duration: Duration(milliseconds: 700),
     ));
   }
 
@@ -207,6 +208,7 @@ class AppColors {
   static Color grey200 = Colors.grey[200]!;
   static Color grey300 = Colors.grey[300]!;
   static Color grey400 = Colors.grey[400]!;
+  static Color grey500 = Colors.grey[500]!;
   static Color grey600 = Colors.grey[600]!;
 
   static Color brown400 = Colors.brown[400]!;
@@ -223,4 +225,110 @@ class AppColors {
   static const Color book = Color(0xFF0b8f8d);
   static const Color paidCourses = Color(0xFFa807a8);
   static const Color series = Color(0xFFd44242);
+}
+
+class StringConstant {
+
+  static String appTutorial= 'app_tutorial';
+  static String allFieldsMandatory= 'all_fields_mandatory';
+  static String applyCoupon= 'apply_coupon';
+  static String address= 'address';
+  static String add= 'add';
+  static String apply= 'apply';
+
+  static String books= 'books';
+  static String buy= 'buy';
+  static String buyCourse= 'buy_course';
+
+  static String currentAffairs= 'current_affairs';
+  static String chooseCategory= 'choose_category';
+  static String city= 'city';
+  static String confirmPassword= 'confirm_password';
+  static String changePassword= 'change_password';
+  static String currentPassword= 'current_password';
+  static String continueToBuyCourse= 'continue_to_buy_course';
+
+  static String downloads= 'downloads';
+  static String dailyQuiz= 'daily_quiz';
+  static String demo= 'demo';
+  static String demo_classes= 'demo_classes';
+
+  static String email= 'email';
+  static String exampurOne2one= 'exampur_one2one';
+  static String eligibilityCalculator= 'eligibility_calculator';
+  static String enterFirstName= 'enter_first_name';
+  static String enterYourLastName= 'enter_your_last_name';
+  static String enterPhoneNumber= 'enter_phone_number';
+  static String enterLandmark= 'enter_landmark';
+  static String enterAddress= 'enter_address';
+  static String enterCity= 'enter_city';
+  static String enterState= 'enter_state';
+  static String enterPinCode= 'enter_pin_code';
+
+  static String freeCourses= 'free_courses';
+  static String firstName= 'first_name';
+
+  static String hello= 'hello';
+  static String home= 'home';
+  static String homePage= 'home_page';
+  static String help= 'help';
+  static String helpAndFeedback= 'help_and_feedback';
+
+  static String issueSubmittedSuccessfully= 'issue_submitted_successfully';
+
+  static String lastName= 'last_name';
+  static String logOut= 'log_out';
+  static String landmarkTehsil= 'landmark_tehsil';
+  static String languagePreferences= 'language_preferences';
+
+  static String paidCourse= 'paid_course';
+  static String pleaseChooseTheCategory= 'please_choose_the_category';
+  static String phoneNumber= 'phone_number';
+  static String pinCode= 'pin_code';
+  static String provideFurtherDetailsForDeliveryOfCourses= 'provide_further_details_for_delivery_of_courses';
+  static String preference= 'preference';
+
+  static String name= 'name';
+  static String newPassword= 'new_password';
+  static String newBatch= 'new_batch';
+
+  static String testCourses= 'test_courses';
+
+  static String offlineBatches= 'offline_batches';
+
+  static String jobAlerts= 'job_alerts';
+
+  static String submitIssue= 'submit_issue';
+  static String studyMaterials= 'study_materials';
+  static String serverError= 'server_error';
+  static String settings= 'settings';
+  static String shareNow= 'share_now';
+  static String selectCategories= 'select_categories';
+  static String searchCategory= 'search_category';
+  static String state= 'state';
+  static String selectLanguage= 'select_language';
+  static String security= 'security';
+  static String saveProfile= 'save_profile';
+  static String saveTheCourse= 'save_the_course';
+  static String share= 'share';
+  static String skip= 'skip';
+
+  static String watchAppTutorial= 'watch_app_tutorial';
+  static String writeAboutTheProblem= 'write_about_the_problem';
+  static String watch= 'watch';
+
+  static String myPurchase= 'my_purchase';
+  static String myTimetable= 'my_timetable';
+  static String myCourses= 'my_courses';
+
+  static String rateUs= 'rate_us';
+  static String recorded= 'recorded';
+
+  static String general= 'general';
+
+  static String userName= 'user_name';
+
+  static String viewDetails= 'view_details';
+  static String viewAll= 'view_all';
+
 }

@@ -60,7 +60,7 @@ child: Row(
                 Radius.circular(6),
               ),
             ),width: 100,
-              child: Center(child: Text(getTranslated(context, 'buy_course')!,textAlign: TextAlign.center,style: TextStyle(color: Colors.white),)),
+              child: Center(child: Text(getTranslated(context, 'buy_course')!,textAlign: TextAlign.center,style: TextStyle(color: AppColors.white),)),
             ),
             SizedBox(width:Dimensions.FONT_SIZE_SMALL),
             Container(height: 30,  decoration: BoxDecoration(
@@ -69,7 +69,7 @@ child: Row(
               borderRadius: BorderRadius.all(
                 Radius.circular(6),
               ),
-            ),width: 100, child: Center(child: Text(getTranslated(context, 'view_details')!,style: TextStyle(color: Colors.white),)),),
+            ),width: 100, child: Center(child: Text(getTranslated(context, 'view_details')!,style: TextStyle(color: AppColors.white),)),),
           ],
         ),
 

@@ -36,7 +36,7 @@
   "write_about_the_problem": "समस्या के बारे में लिखें",
   "watch": "देखो",
 
-  "issue_submitted_sucessfully": "सफलतापूर्वक सबमिट किया गया",
+  "issue_submitted_successfully": "सफलतापूर्वक सबमिट किया गया",
 
 
   "my_purchase": "मेरी खरीद",
@@ -61,7 +61,7 @@
 
 
   "last_name": "अंतिम नाम",
-  "landmark_teshil": "लैंडमार्क / तहसील",
+  "landmark_tehsil": "लैंडमार्क / तहसील",
   "language_preferences": "भाषा वरीयताएँ",
 
 
@@ -83,7 +83,7 @@
 
 
 
-  "provide_further_detalis_for_delivery_of_courses":"पाठ्यक्रमों के वितरण के लिए और विवरण प्रदान करेंं",
+  "provide_further_details_for_delivery_of_courses":"पाठ्यक्रमों के वितरण के लिए और विवरण प्रदान करेंं",
   "please_choose_the_category": "कृपया श्रेणी चुनें",
   "preference": "पसंद",
   "phone_number": "फ़ोन नंबर",
@@ -107,7 +107,7 @@
   "change_language": "भाषा बदलो",
   "confirm_password": "पासवर्ड की पुष्टि कीजिये",
   "change_password": "पासवर्ड बदलें",
-  "current_paasword": "वर्तमान पासवर्ड",
+  "current_password": "वर्तमान पासवर्ड",
   "continue_to_buy_course": "खरीदना जारी रखें",
   "city": "शहर",
   "choose_category": "श्रेणी का चयन करें",

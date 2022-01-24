@@ -68,7 +68,7 @@ class DemoState extends State<Demo> {
             ),
             backgroundColor: AppColors.transparent,
             elevation: 0),
-        body:demoList.length==0?Center(child: CircularProgressIndicator(color: Colors.amber,)) :
+        body:demoList.length==0?Center(child: CircularProgressIndicator(color: AppColors.amber,)) :
 
         Padding(
             padding: EdgeInsets.all(10),
@@ -94,7 +94,7 @@ class DemoState extends State<Demo> {
 
               ],
             )),
-        bottomNavigationBar: isLoading?Container(height:40,width: 40,child:Center(child: CircularProgressIndicator(color: Colors.amber,),)):SizedBox()
+        bottomNavigationBar: isLoading?Container(height:40,width: 40,child:Center(child: CircularProgressIndicator(color: AppColors.amber,),)):SizedBox()
     );
   }
 }

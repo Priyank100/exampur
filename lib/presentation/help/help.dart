@@ -155,7 +155,7 @@ class HelpState extends State<Help> {
           ),
                 child:
                 TextField(
-                  cursorColor: Colors.amber,
+                  cursorColor: AppColors.amber,
                   controller: _descriptionController,
                   decoration: InputDecoration(
                       hintText: getTranslated(context, 'write_about_the_problem')!,
@@ -217,7 +217,7 @@ class HelpState extends State<Help> {
                   :
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.amber))),
+                child: Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(AppColors.amber))),
               ),
               Padding(
                 padding: const EdgeInsets.only(

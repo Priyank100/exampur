@@ -36,7 +36,7 @@ class _One2onelistState extends State<One2onelist> {
           Padding(
             padding: const EdgeInsets.only(left: 14.0),
             child: Text(
-              getTranslated(context, 'exampur one2one')!,
+              getTranslated(context, 'exampur_one2one')!,
               style: CustomTextStyle.headingBold(context),
             ),
           ),

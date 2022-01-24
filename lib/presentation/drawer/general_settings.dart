@@ -82,22 +82,22 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(getTranslated(context, 'name')!,style: TextStyle(color: Colors.black,)),
+                  Text(getTranslated(context, 'name')!,style: TextStyle(color: AppColors.black,)),
                   CustomTextField(hintText:'${Name}', value: (value) {},controller: _nameController,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, 'phone_number')!,style: TextStyle(color: Colors.black,)),
+                  Text(getTranslated(context, 'phone_number')!,style: TextStyle(color: AppColors.black,)),
                   CustomTextField(hintText: '${Mobile}', value: (value) {},readOnly: true,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, 'email')!,style: TextStyle(color: Colors.black,)),
+                  Text(getTranslated(context, 'email')!,style: TextStyle(color: AppColors.black,)),
                   CustomTextField(hintText: '${Email}', value: (value) {},controller: _emailController,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, 'user_name')!,style: TextStyle(color: Colors.black)),
+                  Text(getTranslated(context, 'user_name')!,style: TextStyle(color: AppColors.black)),
                   CustomTextField(hintText: '${userName}', value: (value) {},readOnly: true,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, 'city')!,style: TextStyle(color: Colors.black,)),
+                  Text(getTranslated(context, 'city')!,style: TextStyle(color: AppColors.black,)),
                   CustomTextField(hintText:'${City}', value: (value) {},controller: _cityController,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, 'state')!,style: TextStyle(color: Colors.black,)),
+                  Text(getTranslated(context, 'state')!,style: TextStyle(color: AppColors.black,)),
                   Container(
                     width: double.infinity,
                     height: 50,
@@ -146,7 +146,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                               _updateUserAccount(_firstName, _email, _city);
                             }
                             },
-                          child: Container(height: 50, color: Colors.amber,child: Center(child: Text(getTranslated(context, 'save_profile')!,style: TextStyle(color: Colors.white),)),))
+                          child: Container(height: 50, color: AppColors.amber,child: Center(child: Text(getTranslated(context, 'save_profile')!,style: TextStyle(color: Colors.white),)),))
                           :
                       Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.amber))),
                     ),

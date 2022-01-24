@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  getTranslated(context, 'hello')! + ' , ' + '${userName} !',
+                  getTranslated(context, StringConstant.hello)! + ' , ' + '${userName} !',
                   style: CustomTextStyle.headingMediumBold(context),
                 ),
                 Padding(
@@ -97,7 +97,7 @@ class _HomeState extends State<Home> {
                     underline: SizedBox(),
                     icon: Icon(
                       Icons.language,
-                      color: Colors.black,
+                      color: AppColors.black,
                       size: 30,
                     ),
                     onChanged: (Language? language) {
@@ -167,9 +167,6 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'free_courses')!,
                     color: AppColors.freeCourses,
                     navigateTo: PaidCourses(0)),
-                SizedBox(
-                  width: 10,
-                ),
                 SquareButton(
                     image: Images.testseries,
                     title: getTranslated(context, 'test_courses')!,
@@ -189,9 +186,6 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'exampur_one2one')!,
                     color: AppColors.one2one,
                     navigateTo: Exampuron2oneView()),
-                SizedBox(
-                  width: 10,
-                ),
                 SquareButton(
                     image: Images.offlinebatch,
                     title: getTranslated(context, 'offline_batches')!,
@@ -209,9 +203,6 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'current_affairs')!,
                     color: AppColors.affairs,
                     navigateTo: CurrentAffairs()),
-                SizedBox(
-                  width: 10,
-                ),
                 SquareButton(
                     image: Images.dailyquiz,
                     title: getTranslated(context, 'daily_quiz')!,
@@ -231,9 +222,7 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'job_alerts')!,
                     color: AppColors.jobAlert,
                     navigateTo: JobAlerts()),
-                SizedBox(
-                  width: 10,
-                ),
+
                 SquareButton(
                     image: Images.studymaterial,
                     title: getTranslated(context, 'study_materials')!,
@@ -287,7 +276,7 @@ class SquareButton extends StatelessWidget {
             Flexible(
                 child: new Text(
               title!,
-              style: TextStyle(color: Colors.white, fontSize: 15),
+              style: TextStyle(color: AppColors.white, fontSize: 15),
             ))
           ],
         ),

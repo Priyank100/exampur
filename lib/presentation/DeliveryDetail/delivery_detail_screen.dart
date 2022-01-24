@@ -37,7 +37,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   String Mobile='';
   String City='';
   String State='';
-  bool isLoading = false;
+  bool isCouponValid = false;
 
   final TextEditingController _billingAddressController = TextEditingController();
   final TextEditingController _billingCityController = TextEditingController();
@@ -170,7 +170,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
                       borderRadius:  BorderRadius.all(const Radius.circular(8)),
                       boxShadow: [
-                        BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
+                        BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
                       ],
                     ),
                     child: TextField(
@@ -179,17 +179,16 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                       controller: _cuponCodeController,
                       textCapitalization: TextCapitalization.characters,
                       onChanged: (value) {
+                        isCouponValid = false;
                         if (_cuponCodeController.text != value.toUpperCase())
                           _cuponCodeController.value = _cuponCodeController.value.copyWith(text: value.toUpperCase());
                       },
-                      // focusNode: inputNode,
                       autofocus:true,
-                      // style: Theme.of(context).textTheme.title,
                       decoration: new InputDecoration(
                           hintText: getTranslated(context, 'apply_coupon'),
-                          hintStyle: TextStyle(color: Colors.grey.shade500),
+                          hintStyle: TextStyle(color: AppColors.grey500),
                           isDense: true,
-                          fillColor: Colors.grey.withOpacity(0.1),border: InputBorder.none
+                          fillColor: AppColors.grey.withOpacity(0.1),border: InputBorder.none
                       ),
                     ),
 
@@ -205,38 +204,20 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                     String cuponCode = _cuponCodeController.text.toUpperCase();
                     String amount = widget.paidcourseList.amount.toString();
 
-                   if(chechcoupon(cuponCode)){
+                   if(chechCoupon(cuponCode)){
                      couponApi(cuponCode,amount);
                    }
 
                   },
                   child: Container(
-                    decoration: BoxDecoration(color: Colors.amber,
+                    decoration: BoxDecoration(color: AppColors.amber,
                       borderRadius:  BorderRadius.all(const Radius.circular(12)),
                     ),
-                    height: 45,child: Center(child: Text(getTranslated(context, 'apply')!,style: TextStyle(color: Colors.white),)),
+                    height: 45,child: Center(child: Text(getTranslated(context, 'apply')!,style: TextStyle(color: AppColors.white),)),
                   ),
                 ),
               )
-             // ElevatedButton(
-             //    onPressed: () {
-             //      String cuponCode = _cuponCodeController.text.toUpperCase();
-             //      String amount = widget.paidcourseList.amount.toString();
-             //      couponApi(cuponCode,amount);
-             //
-             //    },
-             //
-             //    style: ElevatedButton.styleFrom(
-             //      primary: AppConstants.Dark,
-             //      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-             //    ),
-             //    child: Text('APPLY',),
-             //
-             //  )
-                 // : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
             ]),
-
-
             SizedBox(
               height: 30,
             ),
@@ -254,51 +235,46 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
               child: Container(
                 height: 50,
-                decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(15),),color: Colors.amber),
+                decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(15),),color: AppColors.amber),
 
                 child: Center(
                     child: Text(
-                  getTranslated(context, 'continue_to_buy_course')!,
-                  style: TextStyle(color: Colors.white,fontSize: 18),
-                )),
+                      getTranslated(context, 'continue_to_buy_course')!,
+                      style: TextStyle(color: AppColors.white,fontSize: 18),
+                    )
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-
   couponApi(promoCode, amount) async {
+    FocusScope.of(context).unfocus();
     AppConstants.showLoaderDialog(context);
     String url = API.CouponCode_URL + promoCode + '/' + amount;
     AppConstants.printLog(url);
+
     await Service.get(url).then((response) async {
       Navigator.pop(context);
       AppConstants.printLog(response.body.toString());
 
-      if (response == null) {
-        AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+      if(response != null && response.statusCode == 200) {
+        var jsonObject =  jsonDecode(response.body);
 
-      } else if (response.statusCode == 200) {
-        AppConstants.printLog('anchal');
-        final body = json.decode(response.body);
-       // Promo_code promocode =Promo_code.fromJson(json.decode(response.body.toString()));
-        AppConstants.printLog('anchal'+ body['data']['promo_code']);
-        String promocode =body['data']['promo_code'];
-// if(promocode  == _cuponCodeController.text){
-//   print('ok');
-// }
-// else{
-//   AppConstants.showAlertDialog(context,body['data']);
-// }
+        if(jsonObject['statusCode'].toString() == '200') {
+          AppConstants.printLog('anchal'+ jsonObject['data']['promo_code']);
+          isCouponValid = true;
+        } else {
+          AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
+          isCouponValid = false;
+        }
+
       } else {
-        final body = json.decode(response.body);
-        AppConstants.printLog(body['data'].toString());
-
-        //AppConstants.showAlertDialog(context, body['data'].toString());
-        return;
+        AppConstants.showBottomMessage(context, 'Server Error', AppColors.red);
+        isCouponValid = false;
       }
     });
   }
@@ -306,6 +282,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
 
   saveDeliveryAddress(_address, _pincode, _city,_state) async {
+    FocusScope.of(context).unfocus();
     AppConstants.showLoaderDialog(context);
     final  body= {
       "course_id": widget.paidcourseList.id.toString(),
@@ -322,7 +299,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       AppConstants.printLog(response.body.toString());
 
       if (response == null) {
-        AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+        AppConstants.showBottomMessage(context, 'Server Error', AppColors.red);
 
       } else if (response.statusCode == 200) {
         AppConstants.printLog('anchal');
@@ -360,20 +337,23 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     });
   }
 
-  bool checkValidation(_aadress, _state, _city,_pincode,_promocode) {
-    if (_aadress.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('ADDRESS_FIELD_MUST_BE_REQUIRED'), backgroundColor: Colors.black));
+  bool checkValidation(_address, _state, _city,_pincode,_promocode) {
+    if (_address.isEmpty) {
+      AppConstants.showBottomMessage(context, 'ADDRESS_FIELD_MUST_BE_REQUIRED', Colors.black);
       return false;
     }
     else if (_state.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('STATE_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
+      AppConstants.showBottomMessage(context, 'STATE_MUST_BE_REQUIRED', Colors.black);
       return false;
     }
     else if (_city.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('CITY_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
+      AppConstants.showBottomMessage(context, 'CITY_MUST_BE_REQUIRED', Colors.black);
       return false;
     }else if (_pincode.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('PinCode_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
+      AppConstants.showBottomMessage(context, 'PINCODE_MUST_BE_REQUIRED', Colors.black);
+      return false;
+    } else if(_promocode.toString().isNotEmpty && !isCouponValid) {
+      AppConstants.showBottomMessage(context, 'Enter valid coupon code and apply', Colors.black);
       return false;
     }
     else {
@@ -381,9 +361,9 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     }
   }
 
-  bool chechcoupon(_promocode){
+  bool chechCoupon(_promocode){
     if (_promocode.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('PromoCode_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('PromoCode_MUST_BE_REQUIRED'), backgroundColor:AppColors.black));
       return false;
     }
     else {
@@ -420,7 +400,7 @@ class TextUse extends StatelessWidget {
         ),
         Text(
           '*',
-          style: TextStyle(color: Colors.red),
+          style: TextStyle(color: AppColors.red),
         )
       ],
     );
