@@ -1,79 +1,141 @@
 {
   "hello": "नमस्ते",
   "home_page": "मुख पृष्ठ",
-  "paid course": "सशुल्क पाठ्यक्रम",
+  "help": "मदद",
+  "help_and_feedback": "सहायता और प्रतिक्रिया",
+  "home": "घर",
+
   "books": "पुस्तकें",
-  "free courses": "मुफ्त पाठ्यक्रमं",
-  "test courses": "परीक्षण पाठ्यक्रम",
-  "exampur one2one": "परीक्षापुर वन2वनं",
-  "offline batches": "ऑफ़लाइन बैच",
-  "current affairs": "सामयिकी",
-  "daily quiz": "दैनिक प्रश्नोत्तरी",
-  "job alerts": "नौकरी अलर्ट",
-  "study materials": "अध्ययन सामग्री",
-  "change_language": "भाषा बदलो",
-"app_tutorial": "ऐप ट्यूटोरियल",
-  "choose_category": "श्रेणी का चयन करें",
+  "buy": "खरीदें",
+  "buy_course": "कोर्स खरीदें",
+
+
+  "test_courses": "परीक्षण पाठ्यक्रम",
+
+  "offline_batches": "ऑफ़लाइन बैच",
+
+  "daily_quiz": "दैनिक प्रश्नोत्तरी",
   "downloads": "डाउनलोड",
-  "submit_issue": "मुद्दा जमा करें",
+  "demo": "डेमो",
+  "demo_classes":"डेमो क्लासेस",
+
+
+
+
+
+"app_tutorial": "ऐप ट्यूटोरियल",
+  "all_fields_mandatory": "सभी फ़ील्डअनिवार्य",
+  "address": "पता",
+  "apply_coupon": "कूपन लागू करें",
+  "add": "जोड़ें",
+  "apply": "लागू",
+
+
+
   "watch_app_tutorial": "ऐप ट्यूटोरियल देखें",
   "write_about_the_problem": "समस्या के बारे में लिखें",
-  "help": "मदद",
+  "watch": "देखो",
+
   "issue_submitted_sucessfully": "सफलतापूर्वक सबमिट किया गया",
-  "server_error": "सर्वर त्रुटि",
-  "all_fields_mandatory": "सभी फ़ील्डअनिवार्य",
+
+
   "my_purchase": "मेरी खरीद",
   "my_timetable": "मेरी समय सारिणी",
-  "settings": "समायोजन",
-  "eligibility_calculator": "पात्रता कैलकुलेटर",
-  "share_now": "अब साझा करें",
-  "rate_us": "हमें रेटिंग दें",
-  "help_and_feedback": "सहायता और प्रतिक्रिया",
-  "log_out": "लॉग आउट",
-  "home": "घर",
-  "demo": "डेमो",
   "my_courses": "मेरे पाठ्यक्रम",
-  "watch": "देखो",
-  "select_categories":"श्रेणियों का चयन करें",
-  "search_category": "खोज श्रेणी",
-  "please_choose_the_category": "कृपया श्रेणी चुनें",
+
+
+
+  "rate_us": "हमें रेटिंग दें",
+  "recorded": "रिकॉर्डेड",
+
+  "log_out": "लॉग आउट",
+
+
+
+
+
+
   "first_name": "पहला नाम",
-  "enter_first_name": "पूरा नाम दर्ज करें",
+  "free_courses": "मुफ्त पाठ्यक्रमं",
+
+
+
   "last_name": "अंतिम नाम",
-  "enter_your_last_name": "अपना अंतिम नाम दर्ज करें",
-  "phone_number": "फ़ोन नंबर",
-  "enter_phone_number": "फोन नंबर दर्ज",
-  "address": "पता",
-  "enter_address": "पता लिखिए",
-  "city": "शहर",
-  "enter_city": "शहर दर्ज करें",
   "landmark_teshil": "लैंडमार्क / तहसील",
-  "enter_landmark": "लैंडमार्क दर्ज करें",
-  "state": "राज्य",
-  "enter_state": "राज्य दर्ज करें",
-  "pin_code": "िन कोड",
-  "enter_pin_code": "पिनकोड दर्ज करें",
-  "continue_to_buy_course": "खरीदना जारी रखें",
-  "provide_further_detalis_for_delivery_of_books":"लैंडमार्क दर्ज करें पुस्तकों की डिलीवरी के लिए और विवरण प्रदान करें",
   "language_preferences": "भाषा वरीयताएँ",
-  "select_language": "भाषा का चयन करें",
-  "general": "सामान्य",
-  "security": "सुरक्षा",
-  "preference": "पसंद",
-  "user_name":"उपयोगकर्ता नाम",
-  "save_profile": "प्रोफ़ाइल बचा",
-  "name": "नाम",
+
+
+
+
+
+
+  "eligibility_calculator": "पात्रता कैलकुलेटर",
+  "enter_landmark": "लैंडमार्क दर्ज करें",
+  "enter_state": "राज्य दर्ज करें",
+  "enter_city": "शहर दर्ज करें",
+  "enter_pin_code": "पिनकोड दर्ज करें",
   "email": "ईमेल",
-  "current_paasword": "वर्तमान पासवर्ड",
+  "enter_phone_number": "फोन नंबर दर्ज",
+  "enter_your_last_name": "अपना अंतिम नाम दर्ज करें",
+  "enter_address": "पता लिखिए",
+  "enter_first_name": "पूरा नाम दर्ज करें",
+  "exampur_one2one": "परीक्षापुर वन2वनं",
+
+
+
+  "provide_further_detalis_for_delivery_of_courses":"पाठ्यक्रमों के वितरण के लिए और विवरण प्रदान करेंं",
+  "please_choose_the_category": "कृपया श्रेणी चुनें",
+  "preference": "पसंद",
+  "phone_number": "फ़ोन नंबर",
+  "pin_code": "पिन कोड",
+  "paid_course": "सशुल्क पाठ्यक्रम",
+
+
+  "general": "सामान्य",
+
+
+
+  "user_name":"उपयोगकर्ता नाम",
+
+
+
+
   "new_password": "नया पासवर्ड",
+  "name": "नाम",
+  "new_batch": "नया बैच",
+
+  "change_language": "भाषा बदलो",
   "confirm_password": "पासवर्ड की पुष्टि कीजिये",
   "change_password": "पासवर्ड बदलें",
+  "current_paasword": "वर्तमान पासवर्ड",
+  "continue_to_buy_course": "खरीदना जारी रखें",
+  "city": "शहर",
+  "choose_category": "श्रेणी का चयन करें",
+  "current_affairs": "सामयिकी",
+
+  "settings": "समायोजन",
   "save_the_course":"पाठ्यक्रम सहेजें",
-  "new_batch": "नया बैच",
-  "view_details": "विवरण देखें",
+  "save_profile": "प्रोफ़ाइल बचा",
   "share": "शेयर करें",
-  "buy": "खरीदें",
-  "demo_classes":"डेमो क्लासेस",
-  "recorded": "रिकॉर्डेड",
+  "security": "सुरक्षा",
+  "state": "राज्य",
+  "select_language": "भाषा का चयन करें",
+  "select_categories":"श्रेणियों का चयन करें",
+  "search_category": "खोज श्रेणी",
+  "submit_issue": "मुद्दा जमा करें",
+  "share_now": "अब साझा करें",
+  "study_materials": "अध्ययन सामग्री",
+  "server_error": "सर्वर त्रुटि",
+  "skip": "छोड़ें",
+
+  "job_alerts": "नौकरी अलर्ट",
+
+
+  "view_details": "विवरण देखें",
   "view_all": "सभी को देखें"
+
+
+
+
+
 }

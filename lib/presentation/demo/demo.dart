@@ -19,20 +19,45 @@ class Demo extends StatefulWidget {
 
 class DemoState extends State<Demo> {
    List<Courses> demoList= [];
-  @override
+   bool isLoading = false;
+   int page =0;
+   var scrollController =ScrollController();
+   bool isData =true;
+
+   @override
   void initState() {
     super.initState();
-    getDemoList();
+    scrollController.addListener(pagination);
+    getDemoList(page);
   }
 
-  Future<void> getDemoList() async {
+  Future<void> getDemoList(pageNo) async {
     AppConstants.printLog(demoList);
-    demoList= (await Provider.of<DemoProvider>(context, listen: false).getdemosList(context))!;
-    setState(() {});
+    List<Courses> list= (await Provider.of<DemoProvider>(context, listen: false).getdemosList(context,pageNo))!;
+    if(list.length > 0) {
+    isData = true;
+    demoList = demoList + list;
+  } else {
+   isData = false;
+   }
+   isLoading = false;
+   setState(() {});
     // return one2oneList;
 
   }
 
+   void pagination(){
+     if(scrollController.position.pixels==scrollController.position.maxScrollExtent){
+       setState(() {
+         if(isData){
+           page +=1;
+           print(page);
+         }
+         isLoading = true;
+         getDemoList(page);
+       });
+     }
+   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +68,9 @@ class DemoState extends State<Demo> {
             ),
             backgroundColor: AppColors.transparent,
             elevation: 0),
-        body:demoList.length==0?Center(child: CircularProgressIndicator(color: AppColors.amber,)) :Padding(
+        body:demoList.length==0?Center(child: CircularProgressIndicator(color: Colors.amber,)) :
+
+        Padding(
             padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,6 +85,7 @@ class DemoState extends State<Demo> {
                Expanded(
                  child: ListView.builder(
                    shrinkWrap: true,
+                   controller: scrollController,
                    itemCount: demoList.length,
                      itemBuilder: (BuildContext context, index){
                    return DemoContainer(demoList,index);
@@ -65,6 +93,8 @@ class DemoState extends State<Demo> {
                )
 
               ],
-            )));
+            )),
+        bottomNavigationBar: isLoading?Container(height:40,width: 40,child:Center(child: CircularProgressIndicator(color: Colors.amber,),)):SizedBox()
+    );
   }
 }

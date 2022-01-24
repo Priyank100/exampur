@@ -145,13 +145,14 @@ class _HomeState extends State<Home> {
             : SizedBox(),
             SizedBox(height: Dimensions.FONT_SIZE_OVER_LARGE),
             Row(
+
               children: [
                 SquareButton(
                     image: Images.paidcourse,
-                    title: getTranslated(context, 'paid course')!,
+                    title: getTranslated(context, 'paid_course')!,
                     color: AppColors.paidCourses,
                     navigateTo: PaidCourses(1)),
-                SizedBox(width: 10,),
+
                 SquareButton(
                     image: Images.book,
                     title: getTranslated(context, 'books')!,
@@ -163,10 +164,11 @@ class _HomeState extends State<Home> {
               height: 10,
             ),
             Row(
+
               children: [
                 SquareButton(
                     image: Images.free_course,
-                    title: getTranslated(context, 'free courses')!,
+                    title: getTranslated(context, 'free_courses')!,
                     color: AppColors.freeCourses,
                     navigateTo: PaidCourses(0)),
                 SizedBox(
@@ -174,7 +176,7 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                     image: Images.testseries,
-                    title: getTranslated(context, 'test courses')!,
+                    title: getTranslated(context, 'test_courses')!,
                     color: AppColors.series,
                     navigateTo: UploadImage()
                     //TestSeriesview()
@@ -188,7 +190,7 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(
                     image: Images.one2one,
-                    title: getTranslated(context, 'exampur one2one')!,
+                    title: getTranslated(context, 'exampur_one2one')!,
                     color: AppColors.one2one,
                     navigateTo: Exampuron2oneView()),
                 SizedBox(
@@ -196,7 +198,7 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                     image: Images.offlinebatch,
-                    title: getTranslated(context, 'offline batches')!,
+                    title: getTranslated(context, 'offline_batches')!,
                     color: AppColors.brown400,
                     navigateTo: OfflineCourse()),
               ],
@@ -208,7 +210,7 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(
                     image: Images.current_affair,
-                    title: getTranslated(context, 'current affairs')!,
+                    title: getTranslated(context, 'current_affairs')!,
                     color: AppColors.affairs,
                     navigateTo: CurrentAffairs()),
                 SizedBox(
@@ -216,7 +218,7 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                     image: Images.dailyquiz,
-                    title: getTranslated(context, 'daily quiz')!,
+                    title: getTranslated(context, 'daily_quiz')!,
                     color: AppColors.quiz,
                     navigateTo:
                         //SettingsScreen()
@@ -230,7 +232,7 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(
                     image: Images.jobalert,
-                    title: getTranslated(context, 'job alerts')!,
+                    title: getTranslated(context, 'job_alerts')!,
                     color: AppColors.jobAlert,
                     navigateTo: JobAlerts()),
                 SizedBox(
@@ -238,7 +240,7 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                     image: Images.studymaterial,
-                    title: getTranslated(context, 'study materials')!,
+                    title: getTranslated(context, 'study_materials')!,
                     color: AppColors.darkOrange,
                     navigateTo: StudyMaterial()),
               ],
@@ -271,7 +273,8 @@ class SquareButton extends StatelessWidget {
       child: Container(
         width: width / 2,
         height: 80,
-        padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
+        padding: EdgeInsets.all(8),
+        margin:  EdgeInsets.only(left: 5,right: 5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: color!),
         child: Row(

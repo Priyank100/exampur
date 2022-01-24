@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:exampur_mobile/data/model/billing_model.dart';
 import 'package:exampur_mobile/data/model/delivery_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
+import 'package:exampur_mobile/data/model/promo_code.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/payment_screen.dart';
 import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -42,6 +43,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   final TextEditingController _billingCityController = TextEditingController();
   final TextEditingController _billingStateController = TextEditingController();
   final TextEditingController _billingPincodeController = TextEditingController();
+  final TextEditingController _cuponCodeController = TextEditingController();
 
   Future<void> getSharedPrefData() async {
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
@@ -81,7 +83,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
              Text(
-              getTranslated(context, 'provide_further_detalis_for_delivery_of_books')!,
+              getTranslated(context, 'provide_further_detalis_for_delivery_of_courses')!,
               maxLines: 2,softWrap: true,
               style: TextStyle(fontSize: 25),
             ),
@@ -152,54 +154,98 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 controller:_billingPincodeController,
               value: (value) {},
             ),
-            SizedBox(height: 15,),
+            SizedBox(height: 25,),
+
             Row(children: [
               Expanded(
+                flex: 4,
                 child: SizedBox(
                   height: 50,
-                  child: TextField(
-                      //controller: _controller,
-                      decoration: InputDecoration(
-                    hintText: 'Have a coupon?',
+                  child: Container(
+                    width: 70,
+                    height: 45,
+                    padding: EdgeInsets.only(left: 8,top: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+
+                      borderRadius:  BorderRadius.all(const Radius.circular(8)),
+                      //       border: Border(
+                      //   left: BorderSide(10)
+                      // ),
+                      boxShadow: [
+                        BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
+                      ],
+                    ),
+                    child: TextField(
+                      maxLines: 1,
+                      cursorColor:Colors.amber ,
+                      controller: _cuponCodeController,
+                      textCapitalization: TextCapitalization.characters,
+                      onChanged: (value) {
+                        if (_cuponCodeController.text != value.toUpperCase())
+                          _cuponCodeController.value = _cuponCodeController.value.copyWith(text: value.toUpperCase());
+                      },
+                      // focusNode: inputNode,
+                      autofocus:true,
+                      // style: Theme.of(context).textTheme.title,
+                      decoration: new InputDecoration(
+                          hintText: getTranslated(context, 'apply_coupon'),
+                          hintStyle: TextStyle(color: Colors.grey.shade500),
+                          isDense: true,
+                          fillColor: Colors.grey.withOpacity(0.1),border: InputBorder.none
+                      ),
+                    ),
 
                     //hintStyle: titilliumRegular.copyWith(color: ColorResources.HINT_TEXT_COLOR),
                     filled: true,
                     fillColor: AppColors.grey300,
                     border: InputBorder.none,
                   )),
+                  ),
                 ),
               ),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-             ElevatedButton(
-                onPressed: () {
-                  // if(_controller.text.isNotEmpty) {
-                  //   Provider.of<CouponProvider>(context, listen: false).initCoupon(_controller.text, _order).then((value) {
-                  //     if(value > 0) {
-                  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:
-                  //       Text('You got ${PriceConverter.convertPrice(context, value)} discount'), backgroundColor: AppColors.green));
-                  //     }else {
-                  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  //         content: Text(getTranslated('invalid_coupon_or', context)),
-                  //         backgroundColor: Colors.red,
-                  //       ));
-                  //     }
-                  //   });
-                  // }
-                },
+              Expanded(
 
-                style: ElevatedButton.styleFrom(
-                  primary: AppColors.dark,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                child: InkWell(
+                  onTap: (){
+                    String cuponCode = _cuponCodeController.text.toUpperCase();
+                    String amount = widget.paidcourseList.amount.toString();
+
+                   if( chechcoupon(cuponCode)){
+                     couponApi(cuponCode,amount);
+                   }
+
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(color: Colors.amber,
+                      borderRadius:  BorderRadius.all(const Radius.circular(12)),
+                    ),
+                    height: 45,child: Center(child: Text(getTranslated(context, 'apply')!,style: TextStyle(color: Colors.white),)),
+                  ),
                 ),
-                child: Text('APPLY',),
-
               )
+             // ElevatedButton(
+             //    onPressed: () {
+             //      String cuponCode = _cuponCodeController.text.toUpperCase();
+             //      String amount = widget.paidcourseList.amount.toString();
+             //      couponApi(cuponCode,amount);
+             //
+             //    },
+             //
+             //    style: ElevatedButton.styleFrom(
+             //      primary: AppConstants.Dark,
+             //      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+             //    ),
+             //    child: Text('APPLY',),
+             //
+             //  )
                  // : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
             ]),
 
 
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             InkWell(
               onTap: (){
@@ -207,7 +253,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _city = _billingCityController.text.trim();
                 String _pincode = _billingPincodeController.text.trim();
                 String _state = _billingStateController.text.trim();
-                if(checkValidation(_address, _state, _city, _pincode)) {
+                String _promocode = _cuponCodeController.text.trim();
+                if(checkValidation(_address, _state, _city, _pincode,_promocode)) {
                   saveDeliveryAddress(_address, _pincode, _city, _state);
                 }
               },
@@ -229,10 +276,47 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     );
   }
 
+
+  couponApi(promoCode, amount) async {
+    AppConstants.showLoaderDialog(context);
+    String url = API.CouponCode_URL + promoCode + '/' + amount;
+    AppConstants.printLog(url);
+    await Service.get(url).then((response) async {
+      Navigator.pop(context);
+      AppConstants.printLog(response.body.toString());
+
+      if (response == null) {
+        AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+
+      } else if (response.statusCode == 200) {
+        AppConstants.printLog('anchal');
+        final body = json.decode(response.body);
+       // Promo_code promocode =Promo_code.fromJson(json.decode(response.body.toString()));
+        AppConstants.printLog('anchal'+ body['data']['promo_code']);
+        String promocode =body['data']['promo_code'];
+// if(promocode  == _cuponCodeController.text){
+//   print('ok');
+// }
+// else{
+//   AppConstants.showAlertDialog(context,body['data']);
+// }
+      } else {
+        final body = json.decode(response.body);
+        AppConstants.printLog(body['data'].toString());
+
+        //AppConstants.showAlertDialog(context, body['data'].toString());
+        return;
+      }
+    });
+  }
+
+
+
   saveDeliveryAddress(_address, _pincode, _city,_state) async {
     AppConstants.showLoaderDialog(context);
     final  body= {
       "course_id": widget.paidcourseList.id.toString(),
+      //"promo_code":
       "billing_address":_address,
       "billing_city":  _city,
       "billing_state": _state,
@@ -283,7 +367,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     });
   }
 
-  bool checkValidation(_aadress, _state, _city,_pincode) {
+  bool checkValidation(_aadress, _state, _city,_pincode,_promocode) {
     if (_aadress.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('ADDRESS_FIELD_MUST_BE_REQUIRED'), backgroundColor: Colors.black));
       return false;
@@ -297,6 +381,21 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       return false;
     }else if (_pincode.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('PinCode_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
+      return false;
+    }
+    else if (_promocode.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('PromoCode_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
+
+  bool chechcoupon(_promocode){
+    if (_promocode.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('PromoCode_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
       return false;
     }
     else {

@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -114,7 +115,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                 margin: EdgeInsets.all(28),
                 child: Center(
                     child: Text(
-                  'Buy Course',
+                      getTranslated(context, 'buy_course')!,
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 )),
               ),
@@ -399,7 +400,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                           child:
                           Center(
                             child: Text(
-                              'Skip',
+                              getTranslated(context, 'skip')!,
                               style: TextStyle(color: Colors.amber,fontSize: 20),
                             ),
                           ),
@@ -421,7 +422,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                               borderRadius: BorderRadius.all(Radius.circular(7))),
                           child: Center(
                             child: Text(
-                              'Add',
+                              getTranslated(context, 'add')!,
                               style: TextStyle(color: Colors.white),
                             ),
                           ),

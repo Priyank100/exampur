@@ -34,16 +34,16 @@ scrollController.addListener(pagination);
   }
 
   Future<void> getone2oneList(pageNo) async {
-    AppConstants.printLog(one2oneList);
-    one2oneList=   (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context,pageNo))!;
-    // List<Courses> list  = (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context,pageNo))!;
-    // if(list.length > 0) {
-    //   isData = true;
-    //   one2oneList = one2oneList + list;
-    // } else {
-    //   isData = false;
-    // }
-    // isLoading = false;
+
+   // one2oneList=   (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context,pageNo))!;
+    List<Courses> list  = (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context,pageNo))!;
+    if(list.length > 0) {
+      isData = true;
+      one2oneList = one2oneList + list;
+    } else {
+      isData = false;
+    }
+    isLoading = false;
     setState(() {});
    // return one2oneList;
 
@@ -70,25 +70,26 @@ scrollController.addListener(pagination);
       one2oneList.length == 0
           ? Center(child: CircularProgressIndicator(color: Colors.amber,))
           :
-      // SingleChildScrollView(
-      //       child: Padding(
-      //   padding: const EdgeInsets.all(12.0),
-      //   child: Column(
-      //       crossAxisAlignment: CrossAxisAlignment.start,
-      //       mainAxisAlignment: MainAxisAlignment.start,
-      //       children: [
-      //         Padding(
-      //           padding: const EdgeInsets.only(left: 8.0),
-      //           child: Text(getTranslated(context, 'exampur one2one')!,
-      //             style: CustomTextStyle.headingBold(context),
-      //           ),
-      //         ),
-      //         SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
+      SingleChildScrollView(
+        controller: scrollController,
+            child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(getTranslated(context, 'exampur_one2one')!,
+                  style: CustomTextStyle.headingBold(context),
+                ),
+              ),
+              SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
               ListView.builder(
                   itemCount: one2oneList.length,
-                  controller: scrollController,
-                 // shrinkWrap: true,
-                  //physics: BouncingScrollPhysics(),
+
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context,int index){
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -131,10 +132,10 @@ scrollController.addListener(pagination);
                       ),
                     );
                   }),
-      //       ],
-      //   ),
-      // ),
-      //     ),
+            ],
+        ),
+      ),
+          ),
       bottomNavigationBar: isLoading?Container(height:40,width: 40,child:Center(child: CircularProgressIndicator(color: Colors.amber,),)):SizedBox()
     );
   }
