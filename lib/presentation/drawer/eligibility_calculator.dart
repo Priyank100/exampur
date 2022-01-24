@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
@@ -33,7 +34,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
             Padding(
               padding: const EdgeInsets.only(left: Dimensions.FONT_SIZE_SMALL,bottom: Dimensions.FONT_SIZE_SMALL),
               child: Text(
-                'Eligibility Calculator',
+               getTranslated(context, 'eligibility_calculator')!,
                 style: CustomTextStyle.headingBigBold(context),
               ),
             ),
@@ -46,53 +47,24 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                     Radius.circular(5.0) //
                 ),
               ),
-              child: Flexible(child: Text('Please enter all the details to calculator your eligbility for different exam', style: CustomTextStyle.headingSemiBold(context),)),
-            ),
+              child:  Text(getTranslated(context, 'calculater_page')!, style: CustomTextStyle.headingSemiBold(context),)),
+
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
-                  "State",
+                  getTranslated(context, 'state')!,
                   style: CustomTextStyle.headingBigBold(context),
                 )),
       SizedBox(height: 25,),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-        child: TextField(
-
-
-          autocorrect: false,
-
-          onChanged: (s) {
-
-          },
-          onEditingComplete: () {
-            FocusScope.of(context).nextFocus();
-          },
-          cursorColor: AppColors.amber,
-          decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.0),
-              borderSide: const BorderSide(
-                color: AppColors.transparent,
-              ),
-            ),
-            hintText: 'Enter state',
-            hintStyle: TextStyle(
-              color: AppColors.grey600,
-            ),
-            filled: true,
-            fillColor: AppColors.grey300,
-            enabledBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.white),
-            ),
-          ),
-        ),
-      ),
+     Padding(
+       padding: const EdgeInsets.only(left: 12.0,right: 12,bottom: 8),
+       child: CustomTextField(hintText: getTranslated(context, 'enter_state')!, value: (value){}),
+     ),
             Center(
               child: CustomSmallerElevatedButton(
                 color: AppColors.orange,
                 onPressed: () {},
-                text: "Next",
+                text: getTranslated(context, 'next')!,
               ),
             ),
 

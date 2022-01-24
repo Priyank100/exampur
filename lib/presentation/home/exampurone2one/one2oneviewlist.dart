@@ -34,9 +34,9 @@ class _One2onelistState extends State<One2onelist> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 14.0),
+            padding: const EdgeInsets.only(left: 14.0,top:6,bottom: 7),
             child: Text(
-              getTranslated(context, 'exampur one2one')!,
+              getTranslated(context, 'exampur_one2one')!,
               style: CustomTextStyle.headingBold(context),
             ),
           ),

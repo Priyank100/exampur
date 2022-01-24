@@ -3,6 +3,7 @@ import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/authentication/otp_screen.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
+import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/provider/AppToutorial_provider.dart';
@@ -18,6 +19,8 @@ import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/provider/locallization_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'Localization/app_localization.dart';
@@ -30,11 +33,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:provider/provider.dart';
 
+Future<void> backgroundHandler(RemoteMessage message) async{
+  print(message.data.toString());
+  print(message.notification!.title);
+}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await FlutterDownloader.initialize(debug: true);
-
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
    // ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
@@ -128,7 +136,10 @@ class _MyAppState extends State<MyApp> {
         return supportedLocales.first;
       },
       onGenerateRoute: _appRouter.onGenerateRoute,
-
+      routes: {
+        "red": (_) => Notifications(),
+       // "green": (_) => Notifications(),
+      },
       home: SplashScreen(),
     );
     }

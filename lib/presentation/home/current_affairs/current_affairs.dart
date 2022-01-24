@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/daily_monthly_ca_model.dart';
 import 'package:exampur_mobile/data/model/video_ca_model.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/bytes_ca.dart';
@@ -148,7 +149,7 @@ class CurrentAffairsState extends State<CurrentAffairs> {
               QuizCA(),
               BytesCA(),
             ],
-            title: "Current Affairs")
+            title: getTranslated(context, 'current_affairs')!)
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/job_alert_model.dart';
 import 'package:exampur_mobile/shared/pdf_card_ca.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -40,14 +41,14 @@ class _JobAlertViewContainerState extends State<JobAlertViewContainer> {
                   decoration: BoxDecoration(
                       border: Border.all(color: AppColors.black)
                   ),
-                  child: Text('View', style: TextStyle(fontSize: 12)),
+                  child: Text(getTranslated(context, 'view')!, style: TextStyle(fontSize: 12)),
                 ),
               ),
               SizedBox(width: 15,),
               Row(children: [
                 Image.asset(Images.share,height: 15,width: 15,),
                 SizedBox(width: 5,),
-                Text('Share', style: TextStyle(fontSize: 10))
+                Text(getTranslated(context, 'share')!, style: TextStyle(fontSize: 10))
               ],)
             ],
           ),

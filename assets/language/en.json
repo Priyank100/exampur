@@ -17,6 +17,7 @@
   "change_password": "Change Password",
   "current_paasword": "Current Paasword",
   "continue_to_buy_course": "Continue to Buy Course",
+  "calculater_page": "Please enter all the details to calculator your eligbility for different exam",
 
 
   "downloads": "Downloads",
@@ -61,9 +62,11 @@
   "provide_further_detalis_for_delivery_of_courses": "Provide Further Detalis for Delivery of Courses",
   "preference": "Preference",
 
+
   "name": "Name",
   "new_password": "New Password",
   "new_batch": "New Batch",
+  "next": "Next",
 
 
   "test_courses": "Test Series",
@@ -98,6 +101,7 @@
   "watch_app_tutorial": "Watch App Tutorials",
   "write_about_the_problem": "Write about the problem",
   "watch": "Watch",
+  "wtch_now": "Watch Now",
 
 
 
@@ -117,6 +121,7 @@
 
 
   "view_details": "View Details",
-  "view_all": "View All"
+  "view_all": "View All",
+  "view": "View"
 
 }

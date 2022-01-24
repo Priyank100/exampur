@@ -1,6 +1,8 @@
+import 'package:exampur_mobile/data/Pushnotification/pushnotification.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +14,43 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    LocalNotificationService.initialize(context);
+
+    ///gives you the message on which user taps
+    ///and it opened the app from terminated state
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if(message != null){
+        final routeFromMessage = message.data["route"];
+
+        Navigator.of(context).pushNamed(routeFromMessage);
+      }
+    });
+
+    ///forground work
+    FirebaseMessaging.onMessage.listen((message) {
+      if(message.notification != null){
+        print(message.notification!.body);
+        print(message.notification!.title);
+      }
+
+      LocalNotificationService.display(message);
+    });
+
+    ///When the app is in background but opened and user taps
+    ///on the notification
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      final routeFromMessage = message.data["route"];
+
+      Navigator.of(context).pushNamed(routeFromMessage);
+    });
+
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
