@@ -3,6 +3,7 @@ import 'dart:io' show Platform;
 
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/data/Pushnotification/pushnotification.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
 import 'package:exampur_mobile/data/model/response/languagemodel.dart';
 import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
@@ -20,6 +21,7 @@ import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -49,6 +51,35 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     callProvider();
+    LocalNotificationService.initialize(context);
+
+    ///gives you the message on which user taps
+    ///and it opened the app from terminated state
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if(message != null){
+        final routeFromMessage = message.data["route"];
+
+        Navigator.of(context).pushNamed(routeFromMessage);
+      }
+    });
+
+    ///forground work
+    FirebaseMessaging.onMessage.listen((message) {
+      if(message.notification != null){
+        print(message.notification!.body);
+        print(message.notification!.title);
+      }
+
+      LocalNotificationService.display(message);
+    });
+
+    ///When the app is in background but opened and user taps
+    ///on the notification
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      final routeFromMessage = message.data["route"];
+
+      Navigator.of(context).pushNamed(routeFromMessage);
+    });
     // getSharedPrefData();
   }
 
@@ -80,7 +111,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(5),
+        padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -88,7 +119,7 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  getTranslated(context, StringConstant.hello)! + ' , ' + '${userName} !',
+                  getTranslated(context, 'hello')! + ' , ' + '${userName} !',
                   style: CustomTextStyle.headingMediumBold(context),
                 ),
                 Padding(
@@ -167,6 +198,7 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'free_courses')!,
                     color: AppColors.freeCourses,
                     navigateTo: PaidCourses(0)),
+
                 SquareButton(
                     image: Images.testseries,
                     title: getTranslated(context, 'test_courses')!,
@@ -186,6 +218,7 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'exampur_one2one')!,
                     color: AppColors.one2one,
                     navigateTo: Exampuron2oneView()),
+
                 SquareButton(
                     image: Images.offlinebatch,
                     title: getTranslated(context, 'offline_batches')!,
@@ -203,6 +236,7 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'current_affairs')!,
                     color: AppColors.affairs,
                     navigateTo: CurrentAffairs()),
+
                 SquareButton(
                     image: Images.dailyquiz,
                     title: getTranslated(context, 'daily_quiz')!,

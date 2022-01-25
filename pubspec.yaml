@@ -63,6 +63,9 @@ dependencies:
   flutter_windowmanager: ^0.2.0
   flutter_pdfview:
   fluttertoast: ^8.0.8
+  firebase_messaging: ^11.2.5
+  flutter_local_notifications: ^9.2.0
+  firebase_core: ^1.11.0
 
 
 

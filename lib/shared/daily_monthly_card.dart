@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/daily_monthly_ca_model.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -52,7 +53,7 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
                             decoration: BoxDecoration(
                                 border: Border.all(color: AppColors.black)
                             ),
-                            child: Text('View', style: TextStyle(fontSize: 12)),
+                            child: Text(getTranslated(context, 'view')!, style: TextStyle(fontSize: 12)),
                           ),
                         ),
                         SizedBox(width: 12),
@@ -68,7 +69,7 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
                             children: [
                               Icon(Icons.share_outlined, size: 15),
                               SizedBox(width: 5),
-                              Text('Share', style: TextStyle(fontSize: 10)),
+                              Text(getTranslated(context, 'share')!, style: TextStyle(fontSize: 10)),
                             ],
                           ),
                         )

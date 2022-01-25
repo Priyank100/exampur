@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/job_alert_model.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/admit_card.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/results.dart';
@@ -61,7 +62,7 @@ class JobAlertsState extends State<JobAlerts> with TickerProviderStateMixin {
             controller: _controller,
             length:3,
             names:["Vaccancy","Results","Admit Card"],
-            routes: [Vacancy(vaccancy),Vacancy(vaccancy),Vacancy(vaccancy)], title: 'Job Alerts',
+            routes: [Vacancy(vaccancy),Vacancy(vaccancy),Vacancy(vaccancy)], title: getTranslated(context, 'job_alerts')!,
          // children: <Widget>[Vacancy(), Results(), AdmitCard()],
         ),
 

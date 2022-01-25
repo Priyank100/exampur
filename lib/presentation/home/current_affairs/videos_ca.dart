@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/video_ca_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -85,7 +86,7 @@ class _VideosCAState extends State<VideosCA> {
                       bottomLeft: Radius.circular(5),
                     ),
                   ),
-                  child: Text('Watch Now', style: TextStyle(color: AppColors.white)),
+                  child: Text(getTranslated(context, 'watch_now')!, style: TextStyle(color: AppColors.white)),
                 ),
               ),
             ),

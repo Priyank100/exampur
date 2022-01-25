@@ -35,6 +35,7 @@
   "watch_app_tutorial": "ऐप ट्यूटोरियल देखें",
   "write_about_the_problem": "समस्या के बारे में लिखें",
   "watch": "देखो",
+  "watch_now": "अब देखिए",
 
   "issue_submitted_successfully": "सफलतापूर्वक सबमिट किया गया",
 
@@ -103,6 +104,7 @@
   "new_password": "नया पासवर्ड",
   "name": "नाम",
   "new_batch": "नया बैच",
+  "next": "अगला",
 
   "change_language": "भाषा बदलो",
   "confirm_password": "पासवर्ड की पुष्टि कीजिये",
@@ -112,6 +114,7 @@
   "city": "शहर",
   "choose_category": "श्रेणी का चयन करें",
   "current_affairs": "सामयिकी",
+  "calculater_page": "कृपया विभिन्न परीक्षाओं के लिए अपनी योग्यता की गणना करने के लिए सभी विवरण दर्ज करें",
 
   "settings": "समायोजन",
   "save_the_course":"पाठ्यक्रम सहेजें",
@@ -132,7 +135,8 @@
 
 
   "view_details": "विवरण देखें",
-  "view_all": "सभी को देखें"
+  "view_all": "सभी को देखें",
+  "view": "दृश्य"
 
 
 
