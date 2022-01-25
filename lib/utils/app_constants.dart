@@ -235,10 +235,12 @@ class StringConstant {
   static String address= 'address';
   static String add= 'add';
   static String apply= 'apply';
+  static String address_REQUIRED= 'address_REQUIRED';
 
   static String books= 'books';
   static String buy= 'buy';
   static String buyCourse= 'buy_course';
+  static String billingaddress= 'billing_address';
 
   static String currentAffairs= 'current_affairs';
   static String chooseCategory= 'choose_category';
@@ -247,6 +249,9 @@ class StringConstant {
   static String changePassword= 'change_password';
   static String currentPassword= 'current_password';
   static String continueToBuyCourse= 'continue_to_buy_course';
+  static String CITY_REQUIRED= 'CITY_REQUIRED';
+  static String country= 'country';
+  static String coursename= 'course_name';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';
@@ -264,6 +269,8 @@ class StringConstant {
   static String enterCity= 'enter_city';
   static String enterState= 'enter_state';
   static String enterPinCode= 'enter_pin_code';
+  static String Applycoupon= 'Enter_valid_coupon_apply';
+
 
   static String freeCourses= 'free_courses';
   static String firstName= 'first_name';
@@ -287,12 +294,16 @@ class StringConstant {
   static String pinCode= 'pin_code';
   static String provideFurtherDetailsForDeliveryOfCourses= 'provide_further_details_for_delivery_of_courses';
   static String preference= 'preference';
+  static String PromoCode_REQUIRED= 'PromoCode_REQUIRED';
+  static String pincode_REQUIRED= 'pincode_REQUIRED';
+  static String paynow= 'pay_now';
 
   static String name= 'name';
   static String newPassword= 'new_password';
   static String newBatch= 'new_batch';
 
   static String testCourses= 'test_courses';
+  static String TotalAmount= 'total_amount';
 
   static String offlineBatches= 'offline_batches';
 
@@ -312,6 +323,7 @@ class StringConstant {
   static String saveTheCourse= 'save_the_course';
   static String share= 'share';
   static String skip= 'skip';
+  static String state_REQUIRED= 'state_REQUIRED';
 
   static String watchAppTutorial= 'watch_app_tutorial';
   static String writeAboutTheProblem= 'write_about_the_problem';

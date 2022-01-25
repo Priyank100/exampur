@@ -5,10 +5,12 @@
   "address": "Address",
   "add": "Add",
   "apply": "Apply",
+  "address_REQUIRED": "ADDRESS FIELD MUST BE REQUIRED",
 
   "books": "Books",
   "buy": "Buy",
   "buy_course": "Buy course",
+  "billing_address": "Billing Address ",
 
   "current_affairs": "Current Affairs",
   "choose_category": "Choose Category",
@@ -18,7 +20,9 @@
   "current_password": "Current Password",
   "continue_to_buy_course": "Continue to Buy Course",
   "calculater_page": "Please enter all the details to calculator your eligbility for different exam",
-
+"CITY_REQUIRED": "CITY MUST BE REQUIRED",
+  "country": "Country",
+  "course_name": "Course Name",
 
   "downloads": "Downloads",
   "daily_quiz": "Daily Quiz",
@@ -36,6 +40,8 @@
   "enter_city": "Enter City",
   "enter_state": "Enter State",
   "enter_pin_code": "Enter Pin Code",
+  "Enter_valid_coupon_apply": "Enter valid coupon code and apply",
+
 
   "free_courses": "Free Courses",
   "first_name": "First Name",
@@ -61,6 +67,9 @@
   "pin_code": "Pin Code",
   "provide_further_details_for_delivery_of_courses": "Provide Further Details for Delivery of Courses",
   "preference": "Preference",
+  "PromoCode_REQUIRED": "PromoCode MUST BE REQUIRED",
+  "pincode_REQUIRED": "PINCODE MUST BE REQUIRED",
+  "pay_now": "Pay Now",
 
 
   "name": "Name",
@@ -70,6 +79,7 @@
 
 
   "test_courses": "Test Series",
+  "total_amount": "Total Amount",
 
 
   "offline_batches": "Offline Batches",
@@ -95,6 +105,7 @@
   "save_the_course": "Save the course",
   "share": "Share",
   "skip": "Skip",
+  "state_REQUIRED": "STATE MUST BE REQUIRED",
 
 
 
