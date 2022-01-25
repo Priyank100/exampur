@@ -41,6 +41,16 @@ class CustomTextStyle {
     );
   }
 
+  static TextStyle descriptionNormal(BuildContext context) {
+    return Theme.of(context).textTheme.headline6!.copyWith(
+      fontSize: 14.0,
+      color: AppColors.black,
+      fontFamily:'Poppins',
+
+
+    );
+  }
+
 
   static TextStyle headingSemiBold(BuildContext context) {
     return Theme.of(context).textTheme.headline6!.copyWith(

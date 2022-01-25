@@ -339,21 +339,21 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
   bool checkValidation(_address, _state, _city,_pincode,_promocode) {
     if (_address.isEmpty) {
-      AppConstants.showBottomMessage(context, 'ADDRESS_FIELD_MUST_BE_REQUIRED', Colors.black);
+      AppConstants.showBottomMessage(context, 'ADDRESS_FIELD_MUST_BE_REQUIRED', AppColors.black);
       return false;
     }
     else if (_state.isEmpty) {
-      AppConstants.showBottomMessage(context, 'STATE_MUST_BE_REQUIRED', Colors.black);
+      AppConstants.showBottomMessage(context, 'STATE_MUST_BE_REQUIRED', AppColors.black);
       return false;
     }
     else if (_city.isEmpty) {
-      AppConstants.showBottomMessage(context, 'CITY_MUST_BE_REQUIRED', Colors.black);
+      AppConstants.showBottomMessage(context, 'CITY_MUST_BE_REQUIRED', AppColors.black);
       return false;
     }else if (_pincode.isEmpty) {
-      AppConstants.showBottomMessage(context, 'PINCODE_MUST_BE_REQUIRED', Colors.black);
+      AppConstants.showBottomMessage(context, 'PINCODE_MUST_BE_REQUIRED', AppColors.black);
       return false;
     } else if(_promocode.toString().isNotEmpty && !isCouponValid) {
-      AppConstants.showBottomMessage(context, 'Enter valid coupon code and apply', Colors.black);
+      AppConstants.showBottomMessage(context, 'Enter valid coupon code and apply', AppColors.black);
       return false;
     }
     else {

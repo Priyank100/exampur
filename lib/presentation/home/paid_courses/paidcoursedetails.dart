@@ -53,7 +53,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       body:MediaQuery.of(context).orientation == Orientation.landscape ? YoutubePlayer(
         controller: _controller,
         showVideoProgressIndicator: true,
-        progressIndicatorColor: Colors.amber,
+        progressIndicatorColor: AppColors.amber,
       ): Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +61,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
             YoutubePlayer(
               controller: _controller,
               showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.amber,
+              progressIndicatorColor: AppColors.amber,
             ),
             //SizedBox(height: 20),
             Flexible(
@@ -87,21 +87,21 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                 children: [
                   Text(
                     '\u{20B9}',
-                    style: TextStyle(color: Colors.black, fontSize: 25),
+                    style: TextStyle(color: AppColors.black, fontSize: 25),
                   ),
                   SizedBox(
                     width: 15,
                   ),
                   Text(
                     widget.paidcourseList.amount.toString(),
-                    style: TextStyle(color: Colors.black, fontSize: 18),
+                    style: TextStyle(color: AppColors.black, fontSize: 18),
                   ),
                 ],
               ),
             ),
             InkWell(
               onTap: () {
-                showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
+                showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
                 // _BuyCourseBottomSheet(
                 //   context,
                 // );
@@ -109,14 +109,14 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: Colors.amber,
+                    color: AppColors.amber,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 height: 50,
                 margin: EdgeInsets.all(28),
                 child: Center(
                     child: Text(
                       getTranslated(context, 'buy_course')!,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  style: TextStyle(color: AppColors.white, fontSize: 18),
                 )),
               ),
             )
@@ -165,7 +165,7 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
         padding: EdgeInsets.only(bottom: bottom),
         child: Container(
          // height: 210,
-          color: Colors.white,
+          color: AppColors.white,
           padding: EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,7 +184,7 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(8),
                     ),
-                    border: Border.all(color: Colors.black, width: 1)),
+                    border: Border.all(color: AppColors.black, width: 1)),
                 padding: EdgeInsets.all(8),
                 child: Row(
                   children: [
@@ -198,7 +198,7 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
                     ),
                     Text(
                       'Pay Online',
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: AppColors.black),
                     ),
                   ],
                 ),
@@ -215,12 +215,12 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
                 child: Container(height: 40,width: 120,
                   //padding: EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                      color: Colors.amber,
+                      color: AppColors.amber,
                       borderRadius: BorderRadius.all(Radius.circular(7))),
                   child: Center(
                     child: Text(
                       'Apply coupon',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: AppColors.white),
                     ),
                   ),
                 ),
@@ -253,7 +253,7 @@ class _Bottomsheet2State extends State<Bottomsheet2> {
                           ),
                           child: TextField(
                             maxLines: 1,
-                           cursorColor:Colors.amber ,
+                           cursorColor:AppColors.amber ,
 
                            // focusNode: inputNode,
                             autofocus:true,
@@ -272,10 +272,10 @@ hintText: 'Discount Coupon',
                       Expanded(
                         flex:2,
                         child: Container(
-                          decoration: BoxDecoration(color: Colors.amber,
+                          decoration: BoxDecoration(color: AppColors.amber,
                             borderRadius:  BorderRadius.all(const Radius.circular(12)),
                           ),
-                          height: 45,child: Center(child: Text('Apply',style: TextStyle(color: Colors.white),)),
+                          height: 45,child: Center(child: Text('Apply',style: TextStyle(color: AppColors.white),)),
                         ),
                       )
                 ])
@@ -306,7 +306,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
         child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(topLeft: Radius.circular(28),topRight: Radius.circular(28)),
-            color: Colors.white   ),
+            color: AppColors.white   ),
 
 
 //height: MediaQuery.of(context).size.height/1.88,
@@ -320,7 +320,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
               decoration: BoxDecoration(
 
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(28),topRight: Radius.circular(28)),
-                  color: Colors.amber   ),),
+                  color: AppColors.amber   ),),
             Padding(
               padding: const EdgeInsets.all(19.0),
               child: Column(
@@ -366,14 +366,14 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                     children: [
                       Text(
                         '\u{20B9}',
-                        style: TextStyle(color: Colors.black, fontSize: 25),
+                        style: TextStyle(color: AppColors.black, fontSize: 25),
                       ),
                       SizedBox(
                         width: 5,
                       ),
                       Text(
                         widget.paidcourseList.amount.toString(),
-                        style: TextStyle(color: Colors.black, fontSize: 18),
+                        style: TextStyle(color: AppColors.black, fontSize: 18),
                       ),
                     ],
                   ),
@@ -383,7 +383,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                     children: [
                       InkWell(
                         onTap: (){
-                          showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>Bottomsheet2());
+                          showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>Bottomsheet2());
                           // _SkipBottomSheet(
                           //   context,
                           // );
@@ -395,13 +395,13 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                               borderRadius: BorderRadius.all(
                                 Radius.circular(8),
                               ),
-                              border: Border.all(color: Colors.amber, width: 2)),
+                              border: Border.all(color: AppColors.amber, width: 2)),
                           padding: EdgeInsets.all(8),
                           child:
                           Center(
                             child: Text(
                               getTranslated(context, 'skip')!,
-                              style: TextStyle(color: Colors.amber,fontSize: 20),
+                              style: TextStyle(color: AppColors.amber,fontSize: 20),
                             ),
                           ),
 
@@ -418,12 +418,12 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                           height: 50, width: 100,
                           //padding: EdgeInsets.all(6),
                           decoration: BoxDecoration(
-                              color: Colors.amber,
+                              color: AppColors.amber,
                               borderRadius: BorderRadius.all(Radius.circular(7))),
                           child: Center(
                             child: Text(
                               getTranslated(context, 'add')!,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: AppColors.white),
                             ),
                           ),
                         ),

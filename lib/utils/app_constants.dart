@@ -247,6 +247,7 @@ class StringConstant {
   static String changePassword= 'change_password';
   static String currentPassword= 'current_password';
   static String continueToBuyCourse= 'continue_to_buy_course';
+  static String calculate= 'calculate';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';

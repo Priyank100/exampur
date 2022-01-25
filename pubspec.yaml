@@ -66,6 +66,7 @@ dependencies:
   firebase_messaging: ^11.2.5
   flutter_local_notifications: ^9.2.0
   firebase_core: ^1.11.0
+  percent_indicator: ^3.4.0
 
 
 
