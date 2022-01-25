@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
+import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/provider/AppToutorial_provider.dart';
