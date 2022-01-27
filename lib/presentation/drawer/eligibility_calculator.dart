@@ -202,7 +202,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
             color: AppColors.orange,
             onPressed: () {
               setState(() {
-                pageNo = 3;
+                pageNo = 4;
               });
             },
             text: getTranslated(context, 'next')!,
@@ -222,9 +222,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
           child: CustomSmallerElevatedButton(
             color: AppColors.orange,
             onPressed: () {
-              setState(() {
-                pageNo = 3;
-              });
+              // call api
             },
             text: StringConstant.calculate,
           ),
