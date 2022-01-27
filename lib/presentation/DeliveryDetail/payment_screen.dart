@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/billing_model.dart';
 import 'package:exampur_mobile/data/model/delivery_model.dart';
@@ -40,31 +41,31 @@ class _PaymentScreenState extends State<PaymentScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              textUse('Billing Address : ', 25),
+              textUse(getTranslated(context, StringConstant.billingaddress)!+' : ', 25),
               SizedBox(height: 10),
               Divider(),
               SizedBox(height: 10),
-              textUse('Name : ' + widget.billingModel.name.toString(), 15),
+              textUse(getTranslated(context, StringConstant.name)!+' : ' + widget.billingModel.name.toString(), 15),
               SizedBox(height: 10),
-              textUse('Mobile : ' + widget.billingModel.mobile.toString(), 15),
+              textUse(getTranslated(context, StringConstant.phoneNumber)!+' : ' + widget.billingModel.mobile.toString(), 15),
               SizedBox(height: 10),
-              textUse('E-Mail : ' + widget.billingModel.eMail.toString(), 15),
+              textUse(getTranslated(context, StringConstant.email)!+' : ' + widget.billingModel.eMail.toString(), 15),
               SizedBox(height: 10),
-              textUse('Address : ' + widget.billingModel.address.toString(), 15),
+              textUse(getTranslated(context, StringConstant.address)!+' : ' + widget.billingModel.address.toString(), 15),
               SizedBox(height: 10),
-              textUse('City : ' + widget.billingModel.city.toString(), 15),
+              textUse(getTranslated(context, StringConstant.city)!+' : ' + widget.billingModel.city.toString(), 15),
               SizedBox(height: 10),
-              textUse('State : ' + widget.billingModel.state.toString(), 15),
+              textUse(getTranslated(context, StringConstant.state)!+' : ' + widget.billingModel.state.toString(), 15),
               SizedBox(height: 10),
-              textUse('Country : ' + widget.billingModel.country.toString(), 15),
+              textUse(getTranslated(context, StringConstant.country)!+' : ' + widget.billingModel.country.toString(), 15),
               SizedBox(height: 10),
-              textUse('Pincode : ' + widget.billingModel.pincode.toString(), 15),
+              textUse(getTranslated(context, StringConstant.pinCode)!+' : ' + widget.billingModel.pincode.toString(), 15),
               SizedBox(height: 10),
               Divider(),
               SizedBox(height: 10),
-              textUse('Course Name : ' + widget.billingModel.itemName.toString(), 15),
+              textUse(getTranslated(context, StringConstant.coursename)!+' : ' + widget.billingModel.itemName.toString(), 15),
               SizedBox(height: 10),
-              textUse('Total Amount : ' + widget.billingModel.itemAmount.toString(), 15),
+              textUse(getTranslated(context, StringConstant.TotalAmount)!+' : ' + widget.billingModel.itemAmount.toString(), 15),
               SizedBox(height: 10),
               Divider(),
               SizedBox(height: 20),
@@ -76,7 +77,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   padding: EdgeInsets.all(10),
                   width: double.maxFinite,
                   color: Colors.amber,
-                  child: Text('Pay Now', textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
+                  child: Text(getTranslated(context, StringConstant.paynow)!, textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
                 )
               )
             ],
@@ -88,6 +89,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget textUse(String txt, double size) {
     return Text(txt, style: TextStyle(fontSize: size),);
   }
+
 
   @override
   void dispose() {

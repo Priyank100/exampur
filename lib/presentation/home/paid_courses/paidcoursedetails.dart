@@ -409,6 +409,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                       ),
                       InkWell(
                         onTap: (){
+                          FocusScope.of(context).unfocus();
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),

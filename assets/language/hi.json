@@ -8,9 +8,11 @@
   "books": "पुस्तकें",
   "buy": "खरीदें",
   "buy_course": "कोर्स खरीदें",
+  "billing_address": "बिल भेजने का पता",
 
 
   "test_courses": "परीक्षण पाठ्यक्रम",
+  "total_amount": "कुल राशि",
 
   "offline_batches": "ऑफ़लाइन बैच",
 
@@ -29,6 +31,7 @@
   "apply_coupon": "कूपन लागू करें",
   "add": "जोड़ें",
   "apply": "लागू",
+  "address_REQUIRED": "पता फ़ील्ड आवश्यक होना चाहिए",
 
 
 
@@ -81,6 +84,7 @@
   "enter_address": "पता लिखिए",
   "enter_first_name": "पूरा नाम दर्ज करें",
   "exampur_one2one": "परीक्षापुर वन2वनं",
+  "Enter_valid_coupon_apply": "वैध कूपन कोड दर्ज करें और आवेदन करें",
 
 
 
@@ -90,6 +94,9 @@
   "phone_number": "फ़ोन नंबर",
   "pin_code": "पिन कोड",
   "paid_course": "सशुल्क पाठ्यक्रम",
+  "PromoCode_REQUIRED": "प्रोमोकोड आवश्यक होना चाहिए",
+  "pincode_REQUIRED": "पिनकोड आवश्यक होना चाहिए",
+  "pay_now": "अब भुगतान करें",
 
 
   "general": "सामान्य",
@@ -115,6 +122,9 @@
   "choose_category": "श्रेणी का चयन करें",
   "current_affairs": "सामयिकी",
   "calculater_page": "कृपया विभिन्न परीक्षाओं के लिए अपनी योग्यता की गणना करने के लिए सभी विवरण दर्ज करें",
+  "CITY_REQUIRED": "शहर आवश्यक होना चाहिए",
+  "country": "देश",
+  "course_name": "कोर्स का नाम",
 
   "settings": "समायोजन",
   "save_the_course":"पाठ्यक्रम सहेजें",
@@ -130,6 +140,7 @@
   "study_materials": "अध्ययन सामग्री",
   "server_error": "सर्वर त्रुटि",
   "skip": "छोड़ें",
+  "state_REQUIRED": "राज्य की आवश्यकता होनी चाहिए",
 
   "job_alerts": "नौकरी अलर्ट",
 

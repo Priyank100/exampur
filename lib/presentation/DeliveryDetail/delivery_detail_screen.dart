@@ -83,7 +83,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
              Text(
-              getTranslated(context, 'provide_further_detalis_for_delivery_of_courses')!,
+              getTranslated(context, StringConstant.provideFurtherDetailsForDeliveryOfCourses)!,
               maxLines: 2,softWrap: true,
               style: TextStyle(fontSize: 25),
             ),
@@ -92,13 +92,13 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             ),
             TextUse(
               image: Icons.location_city,
-              title: getTranslated(context, 'address'),
+              title: getTranslated(context, StringConstant.address),
             ),
             SizedBox(
               height: 15,
             ),
             CustomTextField(
-              hintText: getTranslated(context, 'enter_address')!,
+              hintText: getTranslated(context, StringConstant.enterAddress)!,
               textInputType: TextInputType.text,
               controller: _billingAddressController,
               value: (value) {},
@@ -108,13 +108,13 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             ),
             TextUse(
               image: Icons.location_city,
-              title: getTranslated(context, 'city'),
+              title: getTranslated(context, StringConstant.city),
             ),
             SizedBox(
               height: 15,
             ),
             CustomTextField(
-              hintText: getTranslated(context, 'enter_city')!,
+              hintText: getTranslated(context, StringConstant.enterCity)!,
               //focusNode: _phoneNode,
               textInputType: TextInputType.text,
               controller: _billingCityController,
@@ -125,13 +125,13 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             ),
             TextUse(
               image: Icons.location_city,
-              title: getTranslated(context, 'state'),
+              title: getTranslated(context, StringConstant.state),
             ),
             SizedBox(
               height: 15,
             ),
             CustomTextField(
-              hintText: getTranslated(context, 'enter_state')!,
+              hintText: getTranslated(context, StringConstant.enterState)!,
               //focusNode: _phoneNode,
               textInputType: TextInputType.text,
               controller: _billingStateController,
@@ -142,13 +142,13 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             ),
             TextUse(
               image: Icons.location_city,
-              title: getTranslated(context, 'pin_code'),
+              title: getTranslated(context, StringConstant.pinCode),
             ),
             SizedBox(
               height: 15,
             ),
             CustomTextField(
-              hintText: getTranslated(context, 'enter_pin_code')!,
+              hintText: getTranslated(context, StringConstant.enterPinCode)!,
               //focusNode: _phoneNode,
               textInputType: TextInputType.number,
                 controller:_billingPincodeController,
@@ -185,7 +185,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                       },
                       autofocus:true,
                       decoration: new InputDecoration(
-                          hintText: getTranslated(context, 'apply_coupon'),
+                          hintText: getTranslated(context, StringConstant.applyCoupon),
                           hintStyle: TextStyle(color: AppColors.grey500),
                           isDense: true,
                           fillColor: AppColors.grey.withOpacity(0.1),border: InputBorder.none
@@ -201,6 +201,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
                 child: InkWell(
                   onTap: (){
+                    FocusScope.of(context).unfocus();
                     String cuponCode = _cuponCodeController.text.toUpperCase();
                     String amount = widget.paidcourseList.amount.toString();
 
@@ -213,7 +214,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                     decoration: BoxDecoration(color: AppColors.amber,
                       borderRadius:  BorderRadius.all(const Radius.circular(12)),
                     ),
-                    height: 45,child: Center(child: Text(getTranslated(context, 'apply')!,style: TextStyle(color: AppColors.white),)),
+                    height: 45,child: Center(child: Text(getTranslated(context, StringConstant.apply)!,style: TextStyle(color: AppColors.white),)),
                   ),
                 ),
               )
@@ -223,6 +224,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             ),
             InkWell(
               onTap: (){
+                FocusScope.of(context).unfocus();
                 String _address = _billingAddressController.text.trim();
                 String _city = _billingCityController.text.trim();
                 String _pincode = _billingPincodeController.text.trim();
@@ -273,7 +275,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         }
 
       } else {
-        AppConstants.showBottomMessage(context, 'Server Error', AppColors.red);
+        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
         isCouponValid = false;
       }
     });
@@ -299,7 +301,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       AppConstants.printLog(response.body.toString());
 
       if (response == null) {
-        AppConstants.showBottomMessage(context, 'Server Error', AppColors.red);
+        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
 
       } else if (response.statusCode == 200) {
         AppConstants.printLog('anchal');
@@ -339,21 +341,21 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
   bool checkValidation(_address, _state, _city,_pincode,_promocode) {
     if (_address.isEmpty) {
-      AppConstants.showBottomMessage(context, 'ADDRESS_FIELD_MUST_BE_REQUIRED', AppColors.black);
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.address_REQUIRED)!, Colors.black);
       return false;
     }
     else if (_state.isEmpty) {
-      AppConstants.showBottomMessage(context, 'STATE_MUST_BE_REQUIRED', AppColors.black);
+      AppConstants.showBottomMessage(context,  getTranslated(context, StringConstant.state_REQUIRED)!, Colors.black);
       return false;
     }
     else if (_city.isEmpty) {
-      AppConstants.showBottomMessage(context, 'CITY_MUST_BE_REQUIRED', AppColors.black);
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.CITY_REQUIRED)!, Colors.black);
       return false;
     }else if (_pincode.isEmpty) {
-      AppConstants.showBottomMessage(context, 'PINCODE_MUST_BE_REQUIRED', AppColors.black);
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.pincode_REQUIRED)!, Colors.black);
       return false;
     } else if(_promocode.toString().isNotEmpty && !isCouponValid) {
-      AppConstants.showBottomMessage(context, 'Enter valid coupon code and apply', AppColors.black);
+      AppConstants.showBottomMessage(context,getTranslated(context, StringConstant.applyCoupon)!, Colors.black);
       return false;
     }
     else {
@@ -363,7 +365,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
   bool chechCoupon(_promocode){
     if (_promocode.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('PromoCode_MUST_BE_REQUIRED'), backgroundColor:AppColors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.PromoCode_REQUIRED)!), backgroundColor:AppColors.black));
       return false;
     }
     else {
