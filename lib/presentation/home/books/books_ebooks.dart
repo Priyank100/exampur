@@ -19,7 +19,7 @@ class BooksEbook extends StatefulWidget {
 class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMixin   {
   late TabController _controller;
   List<Books> booksList = [];
-  List<EBooks> eBooksList = [];
+  List<Data> eBooksList = [];
   bool isLoading = true;
 
   Future<List> getBooksList() async {

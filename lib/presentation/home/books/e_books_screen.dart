@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EBooksScreen extends StatefulWidget {
-  final List<EBooks> eBooksList;
+  final List<Data> eBooksList;
   const EBooksScreen(this.eBooksList) : super();
 
   @override

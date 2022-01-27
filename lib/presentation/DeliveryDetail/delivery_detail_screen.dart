@@ -203,10 +203,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                   onTap: (){
                     FocusScope.of(context).unfocus();
                     String cuponCode = _cuponCodeController.text.toUpperCase();
-                    String amount = widget.paidcourseList.amount.toString();
+                    String id = widget.paidcourseList.id.toString();
 
                    if(chechCoupon(cuponCode)){
-                     couponApi(cuponCode,amount);
+                     couponApi(cuponCode,id);
                    }
 
                   },
@@ -253,10 +253,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     );
   }
 
-  couponApi(promoCode, amount) async {
+  couponApi(promoCode, id ) async {
     FocusScope.of(context).unfocus();
     AppConstants.showLoaderDialog(context);
-    String url = API.CouponCode_URL + promoCode + '/' + amount;
+    String url = API.CouponCode_URL + promoCode + '/' +'Course' +'/'+id;
     AppConstants.printLog(url);
 
     await Service.get(url).then((response) async {
@@ -313,7 +313,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         if(status == "Pending"){
           BillingModel billingModel = BillingModel(
               Name, Email, Mobile, _address, _city, _state, AppConstants.defaultCountry, _pincode,
-              widget.paidcourseList.title.toString(), widget.paidcourseList.amount.toString()
+              widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
           );
           Navigator.push(
               context,

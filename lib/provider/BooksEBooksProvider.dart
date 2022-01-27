@@ -37,7 +37,7 @@ class BooksEBooksProvider extends ChangeNotifier {
   }
 
 
-  Future<List<EBooks>?> getE_booksList(BuildContext context) async {
+  Future<List<Data>?> getE_booksList(BuildContext context) async {
     ApiResponse apiResponse = await booksEbooksRepo.eBooks();
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
@@ -46,7 +46,7 @@ class BooksEBooksProvider extends ChangeNotifier {
       // _ebooksModel = EBooksModel.fromJson(json.decode(apiResponse.response.toString()));
       // return _ebooksModel.books;
       _ebooksModel = EBookModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _ebooksModel.books;
+      return _ebooksModel.data;
 
     } else {
       AppConstants.printLog("init address fail");

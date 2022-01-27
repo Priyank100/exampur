@@ -10,8 +10,8 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PaidCourseDetails extends StatefulWidget {
   final Courses paidcourseList;
-
-  const PaidCourseDetails(this.paidcourseList) : super();
+int courseType;
+  PaidCourseDetails(this.paidcourseList,this.courseType) : super();
 
   @override
   _PaidCourseDetailsState createState() => _PaidCourseDetailsState();
@@ -81,7 +81,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                         color: AppColors.grey)),
               ),
             ),
-            Padding(
+            widget.courseType==1 ?  Padding(
               padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
               child: Row(
                 children: [
@@ -93,13 +93,18 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     width: 15,
                   ),
                   Text(
-                    widget.paidcourseList.amount.toString(),
+                    widget.paidcourseList.regularPrice.toString(),
+                    style: TextStyle(color: AppColors.grey, fontSize: 18,decoration: TextDecoration.lineThrough),
+                  ),
+                  SizedBox(width: 5,),
+                  Text(
+                    widget.paidcourseList.salePrice.toString(),
                     style: TextStyle(color: AppColors.black, fontSize: 18),
                   ),
                 ],
               ),
-            ),
-            InkWell(
+            ):SizedBox(),
+            widget.courseType==1 ?     InkWell(
               onTap: () {
                 showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
                 // _BuyCourseBottomSheet(
@@ -119,7 +124,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                   style: TextStyle(color: AppColors.white, fontSize: 18),
                 )),
               ),
-            )
+            ):SizedBox()
           ],
         ),
       ),
@@ -372,7 +377,12 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                         width: 5,
                       ),
                       Text(
-                        widget.paidcourseList.amount.toString(),
+                        widget.paidcourseList.regularPrice.toString(),
+                        style: TextStyle(color: AppColors.grey, fontSize: 18,decoration: TextDecoration.lineThrough),
+                      ),
+                      SizedBox(width: 5,),
+                      Text(
+                        widget.paidcourseList.salePrice.toString(),
                         style: TextStyle(color: AppColors.black, fontSize: 18),
                       ),
                     ],

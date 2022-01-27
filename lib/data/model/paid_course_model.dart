@@ -1,19 +1,19 @@
 import 'dart:convert';
 /// statusCode : 200
-/// courses : [{"_id":"61c98f583a7d50ce67803ee9","title":"Course 3","banner_path":"banner_path_1.jpg","logo_path":"logo_path_1.jpg","description":"Description for Course 3","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","amount":1999,"flag":"New","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}]},{"_id":"61c98f613a7d50ce67803eea","title":"Course 4","banner_path":"banner_path_1.jpg","logo_path":"logo_path_1.jpg","description":"Description for Course 4","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","amount":1999,"flag":"New","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}]}]
-/// totalCount : 2
+/// data : [{"_id":"61c98d223a7d50ce67803edb","title":"Course 1","banner_path":"course/12JNP4Uo-banner_course_2.jpeg","logo_path":"course/DGUKTpZX-logo_exampur.png","description":"Description for Course 1","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","flag":"Featured","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"regular_price":1999,"sale_price":1999},{"_id":"61c98f683a7d50ce67803eeb","title":"Course 5","banner_path":"course/fjLMxz7U-banner_course_2.jpeg","logo_path":"course/Pa2eiWbA-logo_course_2.png","description":"Description for Course 5","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","flag":"New","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"regular_price":2999,"sale_price":1999},{"_id":"61c98fa03a7d50ce67803ef4","title":"Course 14","banner_path":"course/ZWLN6V9a-banner_course_2.jpeg","logo_path":"course/lgjvYIge-logo_course_2.png","description":"Description for Course 14","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","flag":"New","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"regular_price":1990,"sale_price":1990},{"_id":"61c98fa63a7d50ce67803ef5","title":"Course 15","banner_path":"course/hVYftcnm-banner_course_2.jpeg","logo_path":"course/0GGCf5qj-logo_course_2.png","description":"Description for Course 15","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","flag":"New","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"regular_price":1880,"sale_price":1880}]
+/// totalCount : 4
 
 PaidCourseModel paidCourseModelFromJson(String str) => PaidCourseModel.fromJson(json.decode(str));
 String paidCourseModelToJson(PaidCourseModel data) => json.encode(data.toJson());
 class PaidCourseModel {
   PaidCourseModel({
-      int? statusCode,
-      List<Courses>? data,
-      int? totalCount,}){
+    int? statusCode,
+    List<Courses>? data,
+    int? totalCount,}){
     _statusCode = statusCode;
     _data = data;
     _totalCount = totalCount;
-}
+  }
 
   PaidCourseModel.fromJson(dynamic json) {
     _statusCode = json['statusCode'];
@@ -44,40 +44,42 @@ class PaidCourseModel {
   }
 
 }
-
-/// _id : "61c98f583a7d50ce67803ee9"
-/// title : "Course 3"
-/// banner_path : "banner_path_1.jpg"
-/// logo_path : "logo_path_1.jpg"
-/// description : "Description for Course 3"
+/// _id : "61c98d223a7d50ce67803edb"
+/// title : "Course 1"
+/// banner_path : "course/12JNP4Uo-banner_course_2.jpeg"
+/// logo_path : "course/DGUKTpZX-logo_exampur.png"
+/// description : "Description for Course 1"
 /// video_path : "https://www.youtube.com/watch?v=ZoOwI3P5POo"
-/// amount : 1999
-/// flag : "New"
+/// flag : "Featured"
 /// macro : [{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}]
+/// regular_price : 1999
+/// sale_price : 1999
 
 Courses coursesFromJson(String str) => Courses.fromJson(json.decode(str));
 String coursesToJson(Courses data) => json.encode(data.toJson());
 class Courses {
   Courses({
-      String? id,
-      String? title,
-      String? bannerPath,
-      String? logoPath,
-      String? description,
-      String? videoPath,
-      int? amount,
-      String? flag,
-      List<Macro>? macro,}){
+    String? id,
+    String? title,
+    String? bannerPath,
+    String? logoPath,
+    String? description,
+    String? videoPath,
+    String? flag,
+    List<Macro>? macro,
+    int? regularPrice,
+    int? salePrice,}){
     _id = id;
     _title = title;
     _bannerPath = bannerPath;
     _logoPath = logoPath;
     _description = description;
     _videoPath = videoPath;
-    _amount = amount;
     _flag = flag;
     _macro = macro;
-}
+    _regularPrice = regularPrice;
+    _salePrice = salePrice;
+  }
 
   Courses.fromJson(dynamic json) {
     _id = json['_id'];
@@ -86,7 +88,6 @@ class Courses {
     _logoPath = json['logo_path'];
     _description = json['description'];
     _videoPath = json['video_path'];
-    _amount = json['amount'];
     _flag = json['flag'];
     if (json['macro'] != null) {
       _macro = [];
@@ -94,6 +95,8 @@ class Courses {
         _macro?.add(Macro.fromJson(v));
       });
     }
+    _regularPrice = json['regular_price'];
+    _salePrice = json['sale_price'];
   }
   String? _id;
   String? _title;
@@ -101,9 +104,10 @@ class Courses {
   String? _logoPath;
   String? _description;
   String? _videoPath;
-  int? _amount;
   String? _flag;
   List<Macro>? _macro;
+  int? _regularPrice;
+  int? _salePrice;
 
   String? get id => _id;
   String? get title => _title;
@@ -111,9 +115,10 @@ class Courses {
   String? get logoPath => _logoPath;
   String? get description => _description;
   String? get videoPath => _videoPath;
-  int? get amount => _amount;
   String? get flag => _flag;
   List<Macro>? get macro => _macro;
+  int? get regularPrice => _regularPrice;
+  int? get salePrice => _salePrice;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -123,11 +128,12 @@ class Courses {
     map['logo_path'] = _logoPath;
     map['description'] = _description;
     map['video_path'] = _videoPath;
-    map['amount'] = _amount;
     map['flag'] = _flag;
     if (_macro != null) {
       map['macro'] = _macro?.map((v) => v.toJson()).toList();
     }
+    map['regular_price'] = _regularPrice;
+    map['sale_price'] = _salePrice;
     return map;
   }
 
@@ -140,11 +146,11 @@ Macro macroFromJson(String str) => Macro.fromJson(json.decode(str));
 String macroToJson(Macro data) => json.encode(data.toJson());
 class Macro {
   Macro({
-      String? icon,
-      String? title,}){
+    String? icon,
+    String? title,}){
     _icon = icon;
     _title = title;
-}
+  }
 
   Macro.fromJson(dynamic json) {
     _icon = json['icon'];

@@ -4,7 +4,7 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 
 class PDFCardCA extends StatefulWidget {
-  final EBooks eBooks;
+  final Data eBooks;
   final int index;
 
   const PDFCardCA(this.eBooks, this.index) : super();
@@ -55,11 +55,17 @@ class _PDFCardCAState extends State<PDFCardCA> {
                         SizedBox(
                           height: 10,
                         ),
+
                         Row(
                           children: [
+                        Text(
+                        widget.eBooks.regular_price != 0 ?
+                        '\u{20B9} ${widget.eBooks.regular_price.toString()}' : "",
+                    style: TextStyle(fontSize: 15)),
+                            SizedBox(width: 5,),
                             InkWell(
                               onTap: () {
-                                if(widget.eBooks.amount == 0) {
+                                if(widget.eBooks.sale_price == 0) {
                                   //view pdf
                                 }
                               },
@@ -69,13 +75,13 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                   ),
                                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                                   child: Center(child: Text(
-                                      widget.eBooks.amount != 0 ?
-                                      '\u{20B9} ${widget.eBooks.amount.toString()}' : "View PDF",
+                                      widget.eBooks.sale_price != 0 ?
+                                      '\u{20B9} ${widget.eBooks.sale_price.toString()}' : "View PDF",
                                       style: TextStyle(fontSize: 12)))
                               ),
                             ),
                             SizedBox(width: 10),
-                            widget.eBooks.amount != 0 ?
+                            widget.eBooks.sale_price != 0 ?
                                 InkWell(
                                   onTap: () {},
                                   child: Container(

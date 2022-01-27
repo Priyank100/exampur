@@ -86,7 +86,7 @@ class _VideosCAState extends State<VideosCA> {
                       bottomLeft: Radius.circular(5),
                     ),
                   ),
-                  child: Text(getTranslated(context, 'watch_now')!, style: TextStyle(color: AppColors.white)),
+                  child: Text(getTranslated(context, 'wtch_now')!, style: TextStyle(color: AppColors.white)),
                 ),
               ),
             ),
