@@ -119,7 +119,7 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  getTranslated(context, 'hello')! + ' , ' + '${userName} !',
+                  getTranslated(context, 'hello')! + ', ' + '${userName} !',
                   style: CustomTextStyle.headingMediumBold(context),
                 ),
                 Padding(

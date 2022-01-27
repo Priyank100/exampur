@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hintText;
@@ -11,6 +12,10 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? textInputType;
  final bool? readOnly;
  final int? maxLength;
+ final List<TextInputFormatter>? textInputFormatter;
+ //inputFormatters: <TextInputFormatter>[
+  //     FilteringTextInputFormatter.digitsOnly
+  // ], // Only numbers can
 
   const CustomTextField({
     Key? key,
@@ -22,7 +27,8 @@ class CustomTextField extends StatefulWidget {
     this.focusNode,
     this.textInputType,
     this.readOnly,
-    this.maxLength
+    this.maxLength,
+    this.textInputFormatter
   }) : super(key: key);
 
   @override
@@ -80,6 +86,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             FocusScope.of(context).nextFocus();
 
           },
+          inputFormatters: widget.textInputFormatter,
           cursorColor: Colors.amber,
           // decoration: InputDecoration(
           //   focusedBorder: OutlineInputBorder(

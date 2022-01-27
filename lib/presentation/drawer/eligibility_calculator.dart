@@ -22,8 +22,13 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
   List<States> stateList = [];
   String selectedState='';
   String selectedQualification='';
+  String selectedAge='';
+  String selectedAttemptHistory='';
   int percent = 0;
   int pageNo = 1;
+  int qualifyVal = -1;
+  int attemptVal = -1;
+  TextEditingController ageController = TextEditingController();
 
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/Statejson/State.json');
@@ -58,7 +63,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                     left: Dimensions.FONT_SIZE_SMALL,
                     top: Dimensions.FONT_SIZE_SMALL),
                 child: Text(
-                  getTranslated(context, 'eligibility_calculator')!,
+                  getTranslated(context, StringConstant.eligibilityCalculator)!,
                   style: CustomTextStyle.headingMediumBold(context),
                 ),
               ),
@@ -71,7 +76,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                         ),
                   ),
                   child: Text(
-                    getTranslated(context, 'calculater_page')!,
+                    getTranslated(context, StringConstant.calculatorPage)!,
                     style: CustomTextStyle.descriptionNormal(context),
                   )),
                   SizedBox(height: 20),
@@ -112,7 +117,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
     }
   }
 
-  Widget StateWidget() {
+  Widget StateWidget()  {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -142,7 +147,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
             onChanged: (selected) {
               setState(() {
                 selectedState = selected.toString();
-                AppConstants.printLog(selectedState);
+                AppConstants.printLog('priyank>>'+selectedState);
                 if(selectedState.isEmpty ||selectedState == 'Select States') {
                   percent = 0;
                 } else {
@@ -159,9 +164,13 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
           child: CustomSmallerElevatedButton(
             color: AppColors.orange,
             onPressed: () {
-              setState(() {
-                pageNo = 2;
-              });
+              if(percent == 25) {
+                setState(() {
+                  pageNo = 2;
+                });
+              } else {
+                AppConstants.showBottomMessage(context, 'Please select state', AppColors.black);
+              }
             },
             text: getTranslated(context, 'next')!,
           ),
@@ -172,7 +181,146 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
 
   Widget QualificationWidget() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              'Qualification',
+              style: CustomTextStyle.headingBigBold(context),
+            )
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ChoiceChip(
+                label: Container(
+                  width: MediaQuery.of(context).size.width/2.8,
+                  height: 30,
+                  alignment: Alignment.center,
+                  child: Text(
+                      '10th Class',
+                      style: TextStyle(fontSize: 14, color: AppColors.black)),
+                ),
+                elevation: 10,
+                padding: EdgeInsets.all(8),
+                shadowColor: Colors.black,
+                disabledColor: AppColors.grey300,
+                selectedColor: AppColors.amber,
+                selected: qualifyVal == 0,
+                onSelected: (selected){
+                  setState(() {
+                    qualifyVal = selected ? 0 : -1;
+                    if(selected) {
+                      selectedQualification = '10th';
+                      percent = 50;
+                    } else {
+                      selectedQualification = '';
+                      percent = 25;
+                    }
+                  });
+                },
+              ),
+              ChoiceChip(
+                label: Container(
+                  width: MediaQuery.of(context).size.width/2.8,
+                  height: 30,
+                  alignment: Alignment.center,
+                  child: Text(
+                      '12th Class',
+                      style: TextStyle(fontSize: 14, color: AppColors.black)),
+                ),
+                elevation: 10,
+                padding: EdgeInsets.all(8),
+                shadowColor: Colors.black,
+                disabledColor: AppColors.grey300,
+                selectedColor: AppColors.amber,
+                selected: qualifyVal == 1,
+                onSelected: (selected){
+                  setState(() {
+                    qualifyVal = selected ? 1 : -1;
+                    if(selected) {
+                      selectedQualification = '12th';
+                      percent = 50;
+                    } else {
+                      selectedQualification = '';
+                      percent = 25;
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ChoiceChip(
+                label: Container(
+                  width: MediaQuery.of(context).size.width/2.8,
+                  height: 30,
+                  alignment: Alignment.center,
+                  child: Text(
+                      'Graduation',
+                      style: TextStyle(fontSize: 14, color: AppColors.black)),
+                ),
+                elevation: 10,
+                padding: EdgeInsets.all(8),
+                shadowColor: Colors.black,
+                disabledColor: AppColors.grey300,
+                selectedColor: AppColors.amber,
+                selected: qualifyVal == 2,
+                onSelected: (selected){
+                  setState(() {
+                    qualifyVal = selected ? 2 : -1;
+                    if(selected) {
+                      selectedQualification = 'Graduation';
+                      percent = 50;
+                    } else {
+                      selectedQualification = '';
+                      percent = 25;
+                    }
+                  });
+                },
+              ),
+              ChoiceChip(
+                label: Container(
+                  width: MediaQuery.of(context).size.width/2.8,
+                  height: 30,
+                  alignment: Alignment.center,
+                  child: Text(
+                      'Post Graduation',
+                      style: TextStyle(fontSize: 14, color: AppColors.black)),
+                ),
+                elevation: 10,
+                padding: EdgeInsets.all(8),
+                shadowColor: Colors.black,
+                disabledColor: AppColors.grey300,
+                selectedColor: AppColors.amber,
+                selected: qualifyVal == 3,
+                onSelected: (selected){
+                  setState(() {
+                    qualifyVal = selected ? 3 : -1;
+                    if(selected) {
+                      selectedQualification = 'Post Graduation';
+                      percent = 50;
+                    } else {
+                      selectedQualification = '';
+                      percent = 25;
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
         SizedBox(
           height: 20,
         ),
@@ -180,9 +328,13 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
           child: CustomSmallerElevatedButton(
             color: AppColors.orange,
             onPressed: () {
-              setState(() {
-                pageNo = 3;
-              });
+              if(percent == 50) {
+                setState(() {
+                  pageNo = 3;
+                });
+              } else {
+                AppConstants.showBottomMessage(context, 'Please select qualification', AppColors.black);
+              }
             },
             text: getTranslated(context, 'next')!,
           ),
@@ -193,7 +345,35 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
 
   Widget AgeWidget() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              'Age',
+              style: CustomTextStyle.headingBigBold(context),
+            )
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+            margin: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            color: AppColors.grey300,
+            width: MediaQuery.of(context).size.width,
+            child: CustomTextField(
+              hintText: 'Enter your age',
+              textInputType: TextInputType.number,
+              textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
+              controller: ageController,
+              value: (value) {
+                setState(() {
+                  value.isEmpty ? percent = 50 : percent = 75;
+                });
+              },
+            ),
+        ),
         SizedBox(
           height: 20,
         ),
@@ -201,9 +381,14 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
           child: CustomSmallerElevatedButton(
             color: AppColors.orange,
             onPressed: () {
-              setState(() {
-                pageNo = 4;
-              });
+              if(percent == 75) {
+                setState(() {
+                  selectedAge = ageController.text.toString();
+                  pageNo = 4;
+                });
+              } else {
+                AppConstants.showBottomMessage(context, 'Please enter age', AppColors.black);
+              }
             },
             text: getTranslated(context, 'next')!,
           ),
@@ -214,7 +399,82 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
 
   Widget AttemptWidget() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              'Attempt History',
+              style: CustomTextStyle.headingBigBold(context),
+            )
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ChoiceChip(
+                label: Container(
+                  width: MediaQuery.of(context).size.width/2.8,
+                  height: 30,
+                  alignment: Alignment.center,
+                  child: Text(
+                      'Fresher',
+                      style: TextStyle(fontSize: 14, color: AppColors.black)),
+                ),
+                elevation: 10,
+                padding: EdgeInsets.all(8),
+                shadowColor: Colors.black,
+                disabledColor: AppColors.grey300,
+                selectedColor: AppColors.amber,
+                selected: attemptVal == 0,
+                onSelected: (selected){
+                  setState(() {
+                    attemptVal = selected ? 0 : -1;
+                    if(selected) {
+                      selectedAttemptHistory = 'Fresher';
+                      percent = 100;
+                    } else {
+                      selectedAttemptHistory = '';
+                      percent = 75;
+                    }
+                  });
+                },
+              ),
+              ChoiceChip(
+                label: Container(
+                  width: MediaQuery.of(context).size.width/2.8,
+                  height: 30,
+                  alignment: Alignment.center,
+                  child: Text(
+                      'Repeater',
+                      style: TextStyle(fontSize: 14, color: AppColors.black)),
+                ),
+                elevation: 10,
+                padding: EdgeInsets.all(8),
+                shadowColor: Colors.black,
+                disabledColor: AppColors.grey300,
+                selectedColor: AppColors.amber,
+                selected: attemptVal == 1,
+                onSelected: (selected){
+                  setState(() {
+                    attemptVal = selected ? 1 : -1;
+                    if(selected) {
+                      selectedAttemptHistory = 'Repeater';
+                      percent = 100;
+                    } else {
+                      selectedAttemptHistory = '';
+                      percent = 75;
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
         SizedBox(
           height: 20,
         ),
@@ -222,9 +482,17 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
           child: CustomSmallerElevatedButton(
             color: AppColors.orange,
             onPressed: () {
-              // call api
+              if(percent == 100) {
+                // AppConstants.showAlertDialog(context, selectedState + '\n' +
+                // selectedQualification + '\n' + selectedAge + '\n' + selectedAttemptHistory);
+
+                // call api
+
+              } else {
+                AppConstants.showBottomMessage(context, 'Please select attempt history', AppColors.black);
+              }
             },
-            text: StringConstant.calculate,
+            text: getTranslated(context, StringConstant.calculate)!,
           ),
         ),
       ],

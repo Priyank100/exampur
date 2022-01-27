@@ -139,12 +139,20 @@ class AppConstants {
 
   static void showAlertDialog(BuildContext context, String message) {
     AlertDialog alert = AlertDialog(
-      content: new Column(
+      content: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        alignment: WrapAlignment.center,
         children: [
-          Container(padding: EdgeInsets.all(8),
-              child: Text("Message", style: TextStyle(fontSize: 16))),
-          Container(padding: EdgeInsets.all(8), child: Text(message)),
-        ],),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(padding: EdgeInsets.all(8),
+                  child: Text("Message", style: TextStyle(fontSize: 16))),
+              Divider(),
+              Container(padding: EdgeInsets.all(8), child: Text(message)),
+            ],
+          )
+        ]),
     );
     showDialog(barrierDismissible: false,
       context: context,
@@ -249,6 +257,7 @@ class StringConstant {
   static String changePassword= 'change_password';
   static String currentPassword= 'current_password';
   static String continueToBuyCourse= 'continue_to_buy_course';
+  static String calculatorPage= 'calculator_page';
   static String calculate= 'calculate';
   static String CITY_REQUIRED= 'CITY_REQUIRED';
   static String country= 'country';

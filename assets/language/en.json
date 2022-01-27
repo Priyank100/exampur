@@ -19,12 +19,11 @@
   "change_password": "Change Password",
   "current_password": "Current Password",
   "continue_to_buy_course": "Continue to Buy Course",
-  "calculater_page": "Please enter all the details to calculator your eligibility for different exam",
-
-  "calculater_page": "Please enter all the details to calculator your eligbility for different exam",
+  "calculator_page": "Please enter all the details to calculator your eligibility for different exam",
 "CITY_REQUIRED": "CITY MUST BE REQUIRED",
   "country": "Country",
   "course_name": "Course Name",
+  "calculate": "Calculate",
 
   "downloads": "Downloads",
   "daily_quiz": "Daily Quiz",

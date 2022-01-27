@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/createUserModel.dart';
@@ -12,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
 class GeneralSettings extends StatefulWidget {
   @override
   _GeneralSettingsState createState() => _GeneralSettingsState();
@@ -27,7 +27,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   String selectedState='';
   List<States> stateList = [];
 
-  late GlobalKey<FormState> _formKeyLogin;
   CreateUserModel registerModel=CreateUserModel ();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -65,7 +64,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   @override
   void initState()  {
     super.initState();
-    _formKeyLogin =GlobalKey<FormState>();
     getSharedPrefData();
     getStateList();
   }

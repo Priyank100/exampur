@@ -4,6 +4,7 @@ import 'package:exampur_mobile/presentation/drawer/preferences_settings.dart';
 import 'package:exampur_mobile/presentation/drawer/security_settings.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
+import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +12,14 @@ import 'package:flutter/material.dart';
 import 'general_settings.dart';
 
 class Settings extends StatefulWidget {
+
   @override
   SettingsState createState() => SettingsState();
 }
 
 class SettingsState extends State<Settings> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomTabBar(

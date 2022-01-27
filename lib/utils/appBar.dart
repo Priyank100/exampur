@@ -25,9 +25,12 @@ class _CustomAppBarState extends State<CustomAppBar>{
       iconTheme: IconThemeData(
         color: Colors.black, //change your color here
       ),
-      title: Image.asset(Images.exampur_title,
-        width: Dimensions.ICON_SIZE_Title,
-        height: Dimensions.ICON_SIZE_Title,
+      title: Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: Image.asset(Images.exampur_title,
+          width: Dimensions.ICON_SIZE_Title,
+          height: Dimensions.ICON_SIZE_Title,
+        ),
       ),
   );
   }

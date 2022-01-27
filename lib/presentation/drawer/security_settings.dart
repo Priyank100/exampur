@@ -32,7 +32,7 @@ class _SecuritySettingsState extends State<SecuritySettings> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
 
-                Text(getTranslated(context, 'current_paasword')!,style: TextStyle(color: AppColors.black,)),
+                Text(getTranslated(context, 'current_password')!,style: TextStyle(color: AppColors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _currentPasswordController,
