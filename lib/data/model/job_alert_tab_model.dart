@@ -4,10 +4,11 @@ import 'dart:convert';
 
 Job_alert_tab_Model job_alert_tab_ModelFromJson(String str) => Job_alert_tab_Model.fromJson(json.decode(str));
 String job_alert_tab_ModelToJson(Job_alert_tab_Model data) => json.encode(data.toJson());
+
 class Job_alert_tab_Model {
   Job_alert_tab_Model({
       int? statusCode, 
-      List<Data>? data,}){
+      List<TabData>? data,}){
     _statusCode = statusCode;
     _data = data;
 }
@@ -17,15 +18,15 @@ class Job_alert_tab_Model {
     if (json['data'] != null) {
       _data = [];
       json['data'].forEach((v) {
-        _data?.add(Data.fromJson(v));
+        _data?.add(TabData.fromJson(v));
       });
     }
   }
   int? _statusCode;
-  List<Data>? _data;
+  List<TabData>? _data;
 
   int? get statusCode => _statusCode;
-  List<Data>? get data => _data;
+  List<TabData>? get data => _data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -41,17 +42,17 @@ class Job_alert_tab_Model {
 /// _id : "61efe8001dbf84752e75035c"
 /// name : "Admit Card"
 
-Data dataFromJson(String str) => Data.fromJson(json.decode(str));
-String dataToJson(Data data) => json.encode(data.toJson());
-class Data {
-  Data({
+TabData dataFromJson(String str) => TabData.fromJson(json.decode(str));
+String dataToJson(TabData data) => json.encode(data.toJson());
+class TabData {
+  TabData({
       String? id, 
       String? name,}){
     _id = id;
     _name = name;
 }
 
-  Data.fromJson(dynamic json) {
+  TabData.fromJson(dynamic json) {
     _id = json['_id'];
     _name = json['name'];
   }

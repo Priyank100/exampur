@@ -210,6 +210,7 @@ class AuthProvider extends ChangeNotifier {
   Future<void> getBannerBaseUrl(context) async {
     await Service.get(API.BANNER_BASE_URL).then((response) async {
       // {"statusCode":200,"data":"https://exampur-mumbai.b-cdn.net"}
+
       if(response != null && response.statusCode == 200) {
         var jsonObject =  jsonDecode(response.body);
         if(jsonObject['statusCode'].toString() == '200') {

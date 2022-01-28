@@ -10,7 +10,7 @@ import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/provider/Helpandfeedback.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
-import 'package:exampur_mobile/provider/JobAlertprovider.dart';
+import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';

@@ -42,7 +42,6 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        // future: getLists(),
         future: Future.delayed(Duration.zero, () => getLists()),
         builder: (context, snapshot) {
           return Scaffold(

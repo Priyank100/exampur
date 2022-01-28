@@ -140,13 +140,16 @@ class _TabBarDemoState extends State<TabBarDemo>
           ),
           elevation: 0,
           centerTitle: true,
-          title: Image.asset(Images.exampur_title,
-            width: Dimensions.ICON_SIZE_Title,
-            height: Dimensions.ICON_SIZE_Title,
+          title: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Image.asset(Images.exampur_title,
+              width: Dimensions.ICON_SIZE_Title,
+              height: Dimensions.ICON_SIZE_Title,
+            ),
           ),
           bottom:
           PreferredSize(
-            preferredSize: Size.fromHeight(77.0),
+            preferredSize: Size.fromHeight(90.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

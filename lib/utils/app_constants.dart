@@ -72,11 +72,12 @@ class API {
 
 
   //demo
-  static const String Demo_URL =BASE_URL3 +'courses/demo/10/';
+  static const String Demo_URL = BASE_URL3 +'courses/demo/10/';
 
-  //jobalerts
-  static const String job_alerts_tab_URL =BASE_URL3 +'alert/categories';
-  static const String job_alerts_URL =BASE_URL3 +'alert/findall';
+  //jobAlerts
+  static const String job_alerts_tab_URL      = BASE_URL3 +'alert/categories';
+  static const String job_alerts_list_URL     = BASE_URL3 +'alert/findall';
+  static const String job_alerts_details_URL  = BASE_URL3 +'alert/findone/' + 'ALERT_ID';
 
 }
 
@@ -105,8 +106,9 @@ class AppConstants {
   static String androidId = 'com.edudrive.exampur';
   static String iosId = '';
 
-  static String shareAppContent = 'Hey check out EXAMPUR App at: ' +
-      playStoreAppUrl;
+  static String shareAppContent = 'Hey check out EXAMPUR App at: ' + playStoreAppUrl;
+
+  static List<String> selectedCategoryList = ["61d2cc701cea2fdab6e9cb06", "61d2cc8c1cea2fdab6e9cb07"];
 
   static void printLog(message) {
     if (isPrint)
