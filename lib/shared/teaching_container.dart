@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 
 class TeachingContainer extends StatefulWidget {
   final Courses courseData;
-  const  TeachingContainer (this.courseData) : super();
+  int courseType;
+    TeachingContainer (this.courseData,this.courseType) : super();
 
   @override
   _TeachingContainerState createState() => _TeachingContainerState();
@@ -140,21 +141,21 @@ class _TeachingContainerState extends State<TeachingContainer> {
                         children: [
                           InkWell(onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                PaidCourseDetails(widget.courseData)
+                                PaidCourseDetails(widget.courseData,widget.courseType)
                             ));
                           },
                             child: Container(height: 30,width: 120,decoration: BoxDecoration( color: Color(0xFF060929),
                               borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, 'view_details')!,style: TextStyle(color: Colors.white)))),
                           ),
                           SizedBox(height: 10,),
-                          InkWell(
+                          widget.courseType==1?     InkWell(
                             onTap: (){
                               showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>
                                   BottomSheeet1(widget.courseData));
                             },
                             child: Container(height: 30,width: 110,decoration: BoxDecoration( color: Color(0xFF060929),
                                 borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, 'buy_course')!,style: TextStyle(color: Colors.white)))),
-                          ),
+                          ):SizedBox(),
 
                           SizedBox(height: 10,),
                           Row(

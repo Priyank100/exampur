@@ -7,37 +7,37 @@ EBookModel e_book_modelFromJson(String str) => EBookModel.fromJson(json.decode(s
 String e_book_modelToJson(EBookModel data) => json.encode(data.toJson());
 class EBookModel {
   EBookModel({
-      int? statusCode, 
-      List<EBooks>? books,
+      int? statusCode,
+      List<Data>? data,
       int? totalCount,}){
     _statusCode = statusCode;
-    _books = books;
+    _data = data;
     _totalCount = totalCount;
 }
 
   EBookModel.fromJson(dynamic json) {
     _statusCode = json['statusCode'];
-    if (json['books'] != null) {
-      _books = [];
-      json['books'].forEach((v) {
-        _books?.add(EBooks.fromJson(v));
+    if (json['data'] != null) {
+      _data = [];
+      json['data'].forEach((v) {
+        _data?.add(Data.fromJson(v));
       });
     }
     _totalCount = json['totalCount'];
   }
   int? _statusCode;
-  List<EBooks>? _books;
+  List<Data>? _data;
   int? _totalCount;
 
   int? get statusCode => _statusCode;
-  List<EBooks>? get books => _books;
+  List<Data>? get data => _data;
   int? get totalCount => _totalCount;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['statusCode'] = _statusCode;
-    if (_books != null) {
-      map['books'] = _books?.map((v) => v.toJson()).toList();
+    if (_data != null) {
+      map['books'] = _data?.map((v) => v.toJson()).toList();
     }
     map['totalCount'] = _totalCount;
     return map;
@@ -55,36 +55,38 @@ class EBookModel {
 /// logo_path : "book/1VU8cdQI-RAJASTHAN-SPECIAL.png"
 /// banner_path : "book/236071dE-banner_course_2.jpeg"
 
-EBooks booksFromJson(String str) => EBooks.fromJson(json.decode(str));
-String booksToJson(EBooks data) => json.encode(data.toJson());
-class EBooks {
-  EBooks({
-      String? id, 
-      List<String>? category, 
-      String? title, 
-      String? description, 
-      int? amount, 
-      String? flag, 
+Data dataFromJson(String str) => Data.fromJson(json.decode(str));
+String dataToJson(Data data) => json.encode(data.toJson());
+class Data {
+  Data({
+      String? id,
+      List<String>? category,
+      String? title,
+      String? description,
+      int? regular_price,
+    int? sale_price,
+      String? flag,
       List<Macro>? macro,
-      String? logoPath, 
+      String? logoPath,
       String? bannerPath,}){
     _id = id;
     _category = category;
     _title = title;
     _description = description;
-    _amount = amount;
+    _regular_price = regular_price;
     _flag = flag;
     _macro = macro;
     _logoPath = logoPath;
     _bannerPath = bannerPath;
 }
 
-  EBooks.fromJson(dynamic json) {
+  Data.fromJson(dynamic json) {
     _id = json['_id'];
     _category = json['category'] != null ? json['category'].cast<String>() : [];
     _title = json['title'];
     _description = json['description'];
-    _amount = json['amount'];
+    _regular_price = json['regular_price'];
+    _sale_price = json['sale_price'];
     _flag = json['flag'];
     if (json['macro'] != null) {
       _macro = [];
@@ -99,7 +101,8 @@ class EBooks {
   List<String>? _category;
   String? _title;
   String? _description;
-  int? _amount;
+  int? _regular_price;
+  int? _sale_price;
   String? _flag;
   List<Macro>? _macro;
   String? _logoPath;
@@ -109,7 +112,8 @@ class EBooks {
   List<String>? get category => _category;
   String? get title => _title;
   String? get description => _description;
-  int? get amount => _amount;
+  int? get regular_price => _regular_price;
+  int? get sale_price => _sale_price;
   String? get flag => _flag;
   List<Macro>? get macro => _macro;
   String? get logoPath => _logoPath;
@@ -121,7 +125,8 @@ class EBooks {
     map['category'] = _category;
     map['title'] = _title;
     map['description'] = _description;
-    map['amount'] = _amount;
+    map['regular_price'] = _regular_price;
+    map['sale_price'] = _sale_price;
     map['flag'] = _flag;
     if (_macro != null) {
       map['macro'] = _macro?.map((v) => v.toJson()).toList();

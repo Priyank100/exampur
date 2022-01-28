@@ -83,7 +83,7 @@ class _TeachingListState extends State<TeachingList> {
   Widget listing(list) {
     return ListView.builder(itemCount:list.length,controller: scrollController,
         itemBuilder: (BuildContext context,int index){
-          return  TeachingContainer(list[index]);
+          return  TeachingContainer(list[index],widget.courseType);
         });
   }
 }

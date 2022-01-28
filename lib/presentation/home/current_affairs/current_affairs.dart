@@ -149,7 +149,8 @@ class CurrentAffairsState extends State<CurrentAffairs> {
               QuizCA(),
               BytesCA(),
             ],
-            title: getTranslated(context, 'current_affairs')!)
+            title: ''
+        )
     );
   }
 }
