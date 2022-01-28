@@ -249,6 +249,8 @@ class StringConstant {
   static String add= 'add';
   static String apply= 'apply';
   static String address_REQUIRED= 'address_REQUIRED';
+  static String Age= 'age';
+  static String attempthistory= 'attempt_history';
 
   static String books= 'books';
   static String buy= 'buy';
@@ -267,11 +269,17 @@ class StringConstant {
   static String CITY_REQUIRED= 'CITY_REQUIRED';
   static String country= 'country';
   static String coursename= 'course_name';
+  static String CaBytes= 'ca_bytes';
+  static String Class10= '10th_class';
+  static String Class12= '12th_class';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';
   static String demo= 'demo';
   static String demo_classes= 'demo_classes';
+
+
+  static String graduation= 'graduation';
 
   static String email= 'email';
   static String exampurOne2one= 'exampur_one2one';
@@ -284,11 +292,13 @@ class StringConstant {
   static String enterCity= 'enter_city';
   static String enterState= 'enter_state';
   static String enterPinCode= 'enter_pin_code';
-  static String Applycoupon= 'Enter_valid_coupon_apply';
+  static String enteryourage= 'enter_your_age';
+  static String EnterApplycoupon= 'Enter_valid_coupon_apply';
 
 
   static String freeCourses= 'free_courses';
   static String firstName= 'first_name';
+  static String fresher= 'fresher';
 
   static String hello= 'hello';
   static String home= 'home';
@@ -312,10 +322,16 @@ class StringConstant {
   static String PromoCode_REQUIRED= 'PromoCode_REQUIRED';
   static String pincode_REQUIRED= 'pincode_REQUIRED';
   static String paynow= 'pay_now';
+  static String pleaseselectqualification= 'please_select_qualification';
+  static String Postgraduation= 'post_graduation';
+  static String PleaseSelectState= 'please_select_state';
+  static String pleaseSelectAttemptHistory= 'please_select_attempt_history';
+  static String pleaseEnterAge= 'please_enter_age';
 
   static String name= 'name';
   static String newPassword= 'new_password';
   static String newBatch= 'new_batch';
+  static String next= 'next';
 
   static String testCourses= 'test_courses';
   static String TotalAmount= 'total_amount';
@@ -350,6 +366,7 @@ class StringConstant {
 
   static String rateUs= 'rate_us';
   static String recorded= 'recorded';
+  static String repeater= 'repeater';
 
   static String general= 'general';
 
@@ -357,5 +374,7 @@ class StringConstant {
 
   static String viewDetails= 'view_details';
   static String viewAll= 'view_all';
+
+  static String qualification= 'qualification';
 
 }

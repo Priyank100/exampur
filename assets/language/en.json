@@ -6,6 +6,8 @@
   "add": "Add",
   "apply": "Apply",
   "address_REQUIRED": "ADDRESS FIELD MUST BE REQUIRED",
+  "age": "Age",
+  "attempt_history": "Attempt History",
 
   "books": "Books",
   "buy": "Buy",
@@ -24,6 +26,9 @@
   "country": "Country",
   "course_name": "Course Name",
   "calculate": "Calculate",
+  "ca_bytes": "CA Bytes",
+  "10th_class": "10th Class",
+  "12th_class": "12th Class",
 
   "downloads": "Downloads",
   "daily_quiz": "Daily Quiz",
@@ -42,10 +47,13 @@
   "enter_state": "Enter State",
   "enter_pin_code": "Enter Pin Code",
   "Enter_valid_coupon_apply": "Enter valid coupon code and apply",
+  "enter_your_age": "Enter your age",
+
 
 
   "free_courses": "Free Courses",
   "first_name": "First Name",
+  "fresher": "Fresher",
 
   "hello": "Hello",
   "home": "Home",
@@ -71,6 +79,11 @@
   "PromoCode_REQUIRED": "PromoCode MUST BE REQUIRED",
   "pincode_REQUIRED": "PINCODE MUST BE REQUIRED",
   "pay_now": "Pay Now",
+  "post_graduation": "Post Graduation",
+  "please_select_qualification": "Please select qualification",
+  "please_select_state": "Please select state",
+  "please_select_attempt_history": "Please select attempt history",
+  "please_enter_age": "Please enter age",
 
 
   "name": "Name",
@@ -125,15 +138,18 @@
 
   "rate_us": "Rate Us",
   "recorded": "Recorded",
+  "repeater": "Repeater",
 
   "general": "General",
-
+  "graduation": "Graduation",
 
   "user_name": "UserName",
 
 
   "view_details": "View Details",
   "view_all": "View All",
-  "view": "View"
+  "view": "View",
+
+  "qualification": "Qualification"
 
 }

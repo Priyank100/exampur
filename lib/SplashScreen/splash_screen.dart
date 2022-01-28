@@ -27,10 +27,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:  Container(
+       // padding: EdgeInsets.only(left: 60,right: 60,top: 30),
         height: double.infinity,
         width: double.infinity,
         child: FittedBox(
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
           child: Image.asset(
               Images.splash_img,
           ),

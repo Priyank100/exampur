@@ -32,6 +32,8 @@
   "add": "जोड़ें",
   "apply": "लागू",
   "address_REQUIRED": "पता फ़ील्ड आवश्यक होना चाहिए",
+  "age": "आयु",
+  "attempt_history": "प्रयास इतिहास",
 
 
 
@@ -51,6 +53,7 @@
 
   "rate_us": "हमें रेटिंग दें",
   "recorded": "रिकॉर्डेड",
+  "repeater": "पुनरावर्तक",
 
   "log_out": "लॉग आउट",
 
@@ -61,13 +64,13 @@
 
   "first_name": "पहला नाम",
   "free_courses": "मुफ्त पाठ्यक्रमं",
+  "fresher": "नवीन",
 
 
 
   "last_name": "अंतिम नाम",
   "landmark_tehsil": "लैंडमार्क / तहसील",
   "language_preferences": "भाषा वरीयताएँ",
-
 
 
 
@@ -85,6 +88,7 @@
   "enter_first_name": "पूरा नाम दर्ज करें",
   "exampur_one2one": "परीक्षापुर वन2वनं",
   "Enter_valid_coupon_apply": "वैध कूपन कोड दर्ज करें और आवेदन करें",
+  "enter_your_age": "अपनी आयु दर्ज करें",
 
 
 
@@ -97,9 +101,15 @@
   "PromoCode_REQUIRED": "प्रोमोकोड आवश्यक होना चाहिए",
   "pincode_REQUIRED": "पिनकोड आवश्यक होना चाहिए",
   "pay_now": "अब भुगतान करें",
+  "please_select_qualification": "कृपया योग्यता का चयन करें",
+  "post_graduation": "पोस्ट ग्रेजुएशन",
+  "please_select_state": "कृपया राज्य का चयन करें",
+  "please_select_attempt_history": "कृपया इतिहास के प्रयास का चयन करें",
+  "please_enter_age": "कृपया उम्र दर्ज करें",
 
 
   "general": "सामान्य",
+  "graduation": "ग्रेजुएशन",
 
 
 
@@ -126,6 +136,9 @@
   "country": "देश",
   "course_name": "कोर्स का नाम",
   "calculate": "गणना",
+  "ca_bytes": "सीए बाइट्स",
+  "10th_class": "10वीं कक्षा",
+  "12th_class": "12वीं कक्षा",
 
   "settings": "समायोजन",
   "save_the_course":"पाठ्यक्रम सहेजें",
@@ -148,10 +161,10 @@
 
   "view_details": "विवरण देखें",
   "view_all": "सभी को देखें",
-  "view": "दृश्य"
+  "view": "दृश्य",
 
 
-
+"qualification": "योग्यता"
 
 
 }

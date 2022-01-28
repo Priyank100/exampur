@@ -266,11 +266,11 @@ class _HomeState extends State<Home> {
                     navigateTo:
                         //SettingsScreen()
                         StudyMaterial()),
-                // SquareButton(
-                //     image: Images.jobalert,
-                //     title: getTranslated(context, 'job_alerts')!,
-                //     color: AppColors.jobAlert,
-                //     navigateTo: JobAlerts()),
+                SquareButton(
+                    image: Images.jobalert,
+                    title: getTranslated(context,StringConstant.CaBytes)!,
+                    color: AppColors.jobAlert,
+                    navigateTo: JobAlerts()),
               ],
             ),
             SizedBox(
