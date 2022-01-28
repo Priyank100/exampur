@@ -475,9 +475,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
             ],
           ),
         ),
-        SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 20),
         Center(
           child: CustomSmallerElevatedButton(
             color: AppColors.orange,
