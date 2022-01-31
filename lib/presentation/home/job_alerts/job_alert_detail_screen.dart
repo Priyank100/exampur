@@ -49,7 +49,7 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
               )
             ],
           )
-      ),
+      )
     );
   }
 }
