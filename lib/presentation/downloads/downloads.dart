@@ -1,7 +1,6 @@
-import 'dart:io';
-import 'package:exampur_mobile/presentation/home/current_affairs/daily_monthly_ca.dart';
-import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
-import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/presentation/downloads/pdf_downloads.dart';
+import 'package:exampur_mobile/presentation/downloads/video_downloads.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,60 +10,80 @@ class Downloads extends StatefulWidget {
   DownloadsState createState() => DownloadsState();
 }
 
-class DownloadsState extends State<Downloads> {
+class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixin {
+  late TabController _controller;
+  String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4';
+  var progressString = "";
+
   @override
   void initState() {
     super.initState();
+    _controller = TabController(length: 2, vsync: this);
+
+    _controller.addListener(() async {
+      AppConstants.printLog("Selected Index: " + _controller.index.toString());
+      switch(_controller.index) {
+        case 0:
+          getDownloadingVideosList();
+          break;
+        case 1:
+          getDownloadingPdfList();
+          break;
+      }
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: DefaultTabController(
-        initialIndex: 0,
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: AppColors.transparent,
-            elevation: 0,
-            leading: InkWell(onTap:(){Navigator.pop(context);},child: Icon(Icons.arrow_back,color: AppColors.black,)),
-            title: Text(
-              'Downloads',
-              style: CustomTextStyle.headingBold(context),
-            ),
-            bottom: PreferredSize(
-              preferredSize: Size.fromHeight(20.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TabBar(
-                  isScrollable: true,
-                  unselectedLabelColor: AppColors.grey,
-                  indicatorColor: Theme.of(context).primaryColor,
-                  labelColor: Theme.of(context).primaryColor,
-                  tabs: <Widget>[
-                    Tab(
-                      text: "Videos",
-                      //'My Courses',
-                    ),
-                    Tab(
-                      text: "PDF s",
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          body: TabBarView(
-            children: <Widget>[
-              Text('iuytgf'),
-              Text('iuytgf'),
-              // VideosCA(),
-              // DailyCA(),
+    return FutureBuilder(
+        future: getDownloadingVideosList(),
+    builder: (context, snapshot) {
+      return Scaffold(
+        body: TabBarDemo(
+          // controller: _controller,
+            length: 2,
+            names: [
+              "Videos",
+              "PDFs",
             ],
-          ),
-        ),
-      ),
-    );
+            routes: [
+              DownloadedVideo(),
+              DownloadedPdf()
+            ],
+            title: "Downloads"),
+      );
+    });
+  }
+
+  /*Future<void> downloadFile() async {
+    Dio dio = Dio();
+    try {
+      var dir = await getApplicationDocumentsDirectory();
+      print("path ${dir.path}");
+      await dio.download(imgUrl, "${dir.path}/demo.mp4",
+          onReceiveProgress: (rec, total) {
+            print("Rec: $rec , Total: $total");
+            setState(() {
+              progressString = ((rec / total) * 100).toStringAsFixed(0) + "%";
+            });
+          });
+    } catch (e) {
+      print(e);
+    }
+    setState(() {
+      progressString = "Completed";
+    });
+    print("Download completed");
+  }*/
+
+  Future<List> getDownloadingVideosList() async {
+    List<String> list = [];
+    return list;
+  }
+
+  Future<List> getDownloadingPdfList() async {
+    List<String> list = [];
+    return list;
   }
 }

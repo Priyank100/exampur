@@ -27,7 +27,8 @@ class BooksEBooksProvider extends ChangeNotifier {
     } else if (apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
       _booksModel = BooksModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _booksModel.books;
+      // return _booksModel.books;
+      return _booksModel.books ?? [];
 
     } else {
       AppConstants.printLog("init address fail");
@@ -46,7 +47,8 @@ class BooksEBooksProvider extends ChangeNotifier {
       // _ebooksModel = EBooksModel.fromJson(json.decode(apiResponse.response.toString()));
       // return _ebooksModel.books;
       _ebooksModel = EBookModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _ebooksModel.data;
+      // return _ebooksModel.data;
+      return _ebooksModel.data ?? [];
 
     } else {
       AppConstants.printLog("init address fail");

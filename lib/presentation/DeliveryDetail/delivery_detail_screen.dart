@@ -300,41 +300,45 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       Navigator.pop(context);
       AppConstants.printLog(response.body.toString());
 
-      if (response == null) {
-        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      if(response != null && response.statusCode == 200) {
+        var jsonObject =  jsonDecode(response.body);
 
-      } else if (response.statusCode == 200) {
-        AppConstants.printLog('anchal');
-        AppConstants.printLog(response.body.toString());
-        Delivery_model deliveryModel = Delivery_model.fromJson(json.decode(response.body.toString()));
-        AppConstants.printLog('status>> ' + deliveryModel.data!.status.toString());
-        String status = deliveryModel.data!.status.toString();
+        if(jsonObject['statusCode'].toString() == '200') {
+          AppConstants.printLog('anchal');
+          AppConstants.printLog(response.body.toString());
+          Delivery_model deliveryModel = Delivery_model.fromJson(jsonObject);
+          AppConstants.printLog('status>> ' + deliveryModel.data!.status.toString());
+          String status = deliveryModel.data!.status.toString();
 
-        if(status == "Pending"){
-          BillingModel billingModel = BillingModel(
-              Name, Email, Mobile, _address, _city, _state, AppConstants.defaultCountry, _pincode,
-              widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
-          );
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => PaymentScreen(billingModel, deliveryModel)
-              )
-          );
+          if(status == "Pending"){
+            BillingModel billingModel = BillingModel(
+                Name, Email, Mobile, _address, _city, _state, AppConstants.defaultCountry, _pincode,
+                widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
+            );
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PaymentScreen(billingModel, deliveryModel)
+                )
+            );
 
-        } else{
-          AppConstants.printLog('yes');
-          Navigator.push(context, MaterialPageRoute(builder:
-              (context) =>
-              PaymentReceiptPage(deliveryModel.data!.orderId.toString(),
-                  deliveryModel.data!.paymentOrderId.toString(),
-                  'signature')
-          ));
+          } else{
+            AppConstants.printLog('yes');
+            Navigator.push(context, MaterialPageRoute(builder:
+                (context) =>
+                PaymentReceiptPage(deliveryModel.data!.orderId.toString(),
+                    deliveryModel.data!.paymentOrderId.toString(),
+                    'signature')
+            ));
+          }
+
+        } else {
+          AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
         }
+
       } else {
-        final body = json.decode(response.body);
-        AppConstants.showAlertDialog(context, body['data'].toString());
-        return;
+        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+        isCouponValid = false;
       }
     });
   }

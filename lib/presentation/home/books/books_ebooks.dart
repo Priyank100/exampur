@@ -6,7 +6,6 @@ import 'package:exampur_mobile/presentation/home/books/e_books_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,10 +19,11 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
   late TabController _controller;
   List<Books> booksList = [];
   List<Data> eBooksList = [];
-  bool isLoading = true;
+  bool isLoading = false;
 
   Future<List> getBooksList() async {
-    booksList = (await Provider.of<BooksEBooksProvider>(context, listen: false).getBooksList(context))!;
+    isLoading = true;
+    booksList = (await Provider.of<BooksEBooksProvider>(context, listen: true).getBooksList(context))!;
     isLoading = false;
     return booksList;
   }
@@ -40,7 +40,9 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
           getBooksList();
           break;
         case 1:
+          isLoading = true;
           eBooksList = (await Provider.of<BooksEBooksProvider>(context, listen: false).getE_booksList(context))!;
+          isLoading = false;
           break;
       }
       setState(() {});
@@ -61,8 +63,9 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
                       "e-Books",
                     ],
                     routes: [
-                      isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber,)) :
+                      isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
                       BooksScreen(booksList),
+                      isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
                       EBooksScreen(eBooksList)
                     ],
                     title: "Books")

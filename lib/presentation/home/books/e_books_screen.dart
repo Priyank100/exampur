@@ -1,6 +1,5 @@
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:exampur_mobile/shared/pdf_card_ca.dart';
-import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,13 @@ class _EBooksScreenState extends State<EBooksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:widget.eBooksList.length==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber,)) :
+        body:widget.eBooksList.length==0 ? Center(child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline),
+            Text('No Data')
+          ],
+        )) :
         ListView.builder(
             itemCount: widget.eBooksList.length,
             shrinkWrap: true,

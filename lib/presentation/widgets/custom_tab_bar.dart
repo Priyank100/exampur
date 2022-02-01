@@ -157,7 +157,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     widget.title,
-                    style: CustomTextStyle.headingBold(context),
+                    style: CustomTextStyle.headingMediumBold(context),
                   ),
                 ),
                 Align(
