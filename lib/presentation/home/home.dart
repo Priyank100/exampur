@@ -4,6 +4,7 @@ import 'dart:io' show Platform;
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/Pushnotification/pushnotification.dart';
+import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
 import 'package:exampur_mobile/data/model/response/languagemodel.dart';
 import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
@@ -17,6 +18,7 @@ import 'package:exampur_mobile/presentation/home/study_material/study_material.d
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -91,6 +93,9 @@ class _HomeState extends State<Home> {
         .toString();
     bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false)
         .getHomeBannner(context))!;
+    List<String> selectCategorylist = (await Provider.of<ChooseCategoryProvider>(context, listen: false)
+           .getSelectchooseCategoryList(context))!;
+    AppConstants.selectedCategoryList = selectCategorylist;
     setState(() {});
   }
 
@@ -126,11 +131,7 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton<Language>(
                     underline: SizedBox(),
-                    icon: Icon(
-                      Icons.language,
-                      color: AppColors.black,
-                      size: 30,
-                    ),
+                    icon:Image.asset(Images.language,height: 35,width: 35,),
                     onChanged: (Language? language) {
                       _changeLanguage(language!);
                     },
@@ -203,8 +204,9 @@ class _HomeState extends State<Home> {
                     image: Images.testseries,
                     title: getTranslated(context, 'test_courses')!,
                     color: AppColors.series,
-                    navigateTo: UploadImage()
-                    //TestSeriesview()
+                    navigateTo:
+                    //UploadImage()
+                    TestSeriesview()
                     ),
               ],
             ),
@@ -270,7 +272,7 @@ class _HomeState extends State<Home> {
                     image: Images.jobalert,
                     title: getTranslated(context,StringConstant.CaBytes)!,
                     color: AppColors.jobAlert,
-                    navigateTo: JobAlerts()),
+                    navigateTo: StudyMaterial()),
               ],
             ),
             SizedBox(

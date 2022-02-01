@@ -1,4 +1,5 @@
 import 'dart:io' show Platform;
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/shared/pdf_card_ca.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -15,28 +16,17 @@ class TestSeriesCardView extends StatefulWidget {
 
 class _TestSeriesCardViewState extends State<TestSeriesCardView> {
   List<ChooseTestSeriesModel> a = [
-    ChooseTestSeriesModel("All Exam", "SSC", Images.testseries),
-    ChooseTestSeriesModel("All Exam", "SSC", Images.testseries),
-    ChooseTestSeriesModel("All Exam", "SSC", Images.testseries),
-    ChooseTestSeriesModel("All Exam", "SSC", Images.testseries),
-    ChooseTestSeriesModel("All Exam", "SSC", Images.testseries),
-    ChooseTestSeriesModel("All Exam", "SSC", Images.testseries),
+    ChooseTestSeriesModel("REET L-2(Sci+Maths)[91-150 Q] Test series", "SSC", Images.exampur_logo),
+    ChooseTestSeriesModel("All Exam", "SSC", Images.exampur_logo),
+    ChooseTestSeriesModel("All Exam", "SSC", Images.exampur_logo),
+    ChooseTestSeriesModel("REET L-2(Sci+Maths)[91-150 Q] Test series", "SSC", Images.exampur_logo),
+    ChooseTestSeriesModel("All Exam", "SSC", Images.exampur_logo),
+    ChooseTestSeriesModel("REET L-2(Sci+Maths)[91-150 Q] Test series", "SSC",Images.exampur_logo),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: AppBar(
-              automaticallyImplyLeading: false,
-              backgroundColor: AppColors.transparent,
-              elevation: 0,
-              title: Text(
-                "Exampur",
-                style: TextStyle(color: AppColors.black),
-              )),
-        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -48,15 +38,8 @@ class _TestSeriesCardViewState extends State<TestSeriesCardView> {
                     return Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Color.fromRGBO(64, 64, 64, 0.12),
-                                blurRadius: 16)
-                          ],
-                          color: Theme.of(context).backgroundColor,
-                        ),
+                        color: index % 2 == 0?  Theme.of(context).backgroundColor
+                            : AppColors.transparent ,
                         child: Material(
                           color: AppColors.transparent,
                           child: InkWell(
@@ -89,7 +72,7 @@ class _TestSeriesCardViewState extends State<TestSeriesCardView> {
                                       //     );
                                       //   },
                                       // )
-                                    child: AppConstants.image(a[index].image, height: 40, width: 60),
+                                    child:Image.asset(a[index].image, height: 40, width: 60),
                                   ),
                                   const SizedBox(
                                     width: 15,
@@ -117,14 +100,11 @@ class _TestSeriesCardViewState extends State<TestSeriesCardView> {
                                           ),
                                           Row(
                                             children: [
-                                              const FaIcon(
-                                                FontAwesomeIcons.shareAlt,
-                                                size: 15,
-                                              ),
+                                             Image.asset(Images.share,height: 15,width: 20,) ,
                                               SizedBox(
                                                 width: 5,
                                               ),
-                                              Text("Share",
+                                              Text(getTranslated(context, StringConstant.share)!,
                                                   style: TextStyle(fontSize: 13))
                                             ],
                                           ),

@@ -65,9 +65,9 @@ class TestSeriesviewState extends State<TestSeriesview> with TickerProviderState
             "My Test Series",
             "All Test Series",
             "Preivous year Papers"
-          ], title: '', routes: [TestSeriesCardView(),AttemptSeries(),AttemptSeries(),AttemptSeries(
+          ], title: '', routes: [TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView()
 
-        )],));
+        ],));
 
   }
 }
