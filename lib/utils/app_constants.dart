@@ -108,7 +108,7 @@ class AppConstants {
 
   static String shareAppContent = 'Hey check out EXAMPUR App at: ' + playStoreAppUrl;
 
-  static List<String> selectedCategoryList = ["61d2cc701cea2fdab6e9cb06", "61d2cc8c1cea2fdab6e9cb07"];
+  static List<String> selectedCategoryList = [];
 
   static void printLog(message) {
     if (isPrint)

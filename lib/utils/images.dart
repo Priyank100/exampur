@@ -20,7 +20,7 @@ class Images {
   static const String share = 'assets/images/share.png';
   static const String exampur_title = 'assets/images/exampur_title.png';
   static const String exampur_logo = 'assets/images/exampur_logo.png';
-  static const String splash_img = 'assets/images/img_splash.jpg';
+  static const String splash_img = 'assets/images/splashscreen.jpg';
   static const String menu_icon = 'assets/images/menu_icon.png';
   static const String help = 'assets/images/help.png';
   static const String home = 'assets/images/home.png';
@@ -28,4 +28,8 @@ class Images {
   static const String login = 'assets/images/hindilogo.png';
   static const String payment = 'assets/images/mobile-payment.png';
   static const String live_lottie = 'assets/images/live.json';
+  static const String language = 'assets/images/language.jpg';
+  static const String mycourse = 'assets/images/mycourse.png';
+  static const String mycourse2 = 'assets/images/mucourse2.jpg';
+
 }

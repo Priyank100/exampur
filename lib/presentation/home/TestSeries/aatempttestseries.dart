@@ -16,20 +16,7 @@ class _AttemptSeriesState extends State<AttemptSeries> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: AppBar(
-              automaticallyImplyLeading: false,
-              backgroundColor: AppColors.transparent,
-              elevation: 0,
-              leading: InkWell(onTap:(){
-                Navigator.pop(context);
-              },child: Icon(Icons.arrow_back,color: AppColors.black)),
-              title: Text(
-                "Logo",
-                style: TextStyle(color: AppColors.black),
-              )),
-        ),
+
         body: Padding(
             padding: EdgeInsets.all(10),
             child: Column(

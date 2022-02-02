@@ -119,7 +119,8 @@ class _BottomNavigationState extends State<BottomNavigation>
         2,
         //'Resources',
     getTranslated(context, 'my_courses')!,
-        FaIcon(FontAwesomeIcons.camera),
+       // FaIcon(FontAwesomeIcons.camera),
+          _currIndex==2?   Image.asset(Images.mycourse2,height: 30,width: 25,):Image.asset(Images.mycourse,height: 30,width: 25,)
       ),
       // ItemClass(
       //   3,

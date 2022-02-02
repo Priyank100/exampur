@@ -23,7 +23,7 @@ class ChooseCategory extends StatefulWidget {
 
 class _ChooseCategoryState extends State<ChooseCategory> {
   List<Data> chooseList = [];
-  List<String> getSelectList = [];
+  //List<String> getSelectList = [];
   List<String> selectedCountries = [];
 
   // late final List<Category> selectedList;
@@ -40,9 +40,9 @@ class _ChooseCategoryState extends State<ChooseCategory> {
     chooseList =
     (await Provider.of<ChooseCategoryProvider>(context, listen: false)
         .getchooseCategoryList(context))!;
-    getSelectList =
-    (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-        .getSelectchooseCategoryList(context))!;
+    // getSelectList =
+    // (await Provider.of<ChooseCategoryProvider>(context, listen: false)
+    //     .getSelectchooseCategoryList(context))!;
 
     // if (getSelectList.every((item) => chooseList.contains(item))) {
     //   return true;
@@ -50,9 +50,10 @@ class _ChooseCategoryState extends State<ChooseCategory> {
     //   return false;
     // }
 
-    for(int i=0; i < getSelectList.length; i++) {
+    // for(int i=0; i < getSelectList.length; i++) {
+    for(int i=0; i < AppConstants.selectedCategoryList.length; i++) {
       for(int j=0; j<chooseList.length; j++) {
-        if(getSelectList[i] == chooseList[j].id) {
+        if(AppConstants.selectedCategoryList[i] == chooseList[j].id) {
           chooseList[j].isSelected = true;
           selectedCountries.add(chooseList[j].id.toString());
         }
@@ -352,13 +353,16 @@ class _ChooseCategoryState extends State<ChooseCategory> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       } else if (response.statusCode == 200) {
         AppConstants.printLog(response.body.toString());
+        var jsonObject =  jsonDecode(response.body);
+        AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
+        if(jsonObject['statusCode'].toString() == '200'){
+          AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
+          setState(() {});
 
-        // Navigator.pushReplacement(context,
-        //     MaterialPageRoute(builder:
-        //         (context) =>
-        //         BottomNavigation()
-        //     )
-        // );
+        }  else {
+          AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
+        }
+
       } else {
         AppConstants.printLog("init address fail");
         final body = json.decode(response.body);

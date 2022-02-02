@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -10,6 +11,7 @@ import 'package:exampur_mobile/data/model/job_alert_tab_model.dart';
 import 'job_alert_list_screen.dart';
 
 class JobAlerts extends StatefulWidget {
+
   @override
   JobAlertsState createState() => JobAlertsState();
 }
@@ -21,6 +23,8 @@ class JobAlertsState extends State<JobAlerts> with TickerProviderStateMixin {
   @override
   void initState() {
     getLists();
+    // print('anchal');
+    // print(widget.choosecategorylist.first.id.toString());
     super.initState();
   }
 
