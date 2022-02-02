@@ -70,7 +70,6 @@ class API {
   //coupon
   static const String CouponCode_URL = BASE_URL2 +'promo_code/';
 
-
   //demo
   static const String Demo_URL = BASE_URL3 +'courses/demo/10/';
 
@@ -78,6 +77,10 @@ class API {
   static const String job_alerts_tab_URL      = BASE_URL3 +'alert/categories';
   static const String job_alerts_list_URL     = BASE_URL3 +'alert/findall';
   static const String job_alerts_details_URL  = BASE_URL3 +'alert/findone/' + 'ALERT_ID';
+
+  //order_book
+  static const String order_book            = BASE_URL2 + 'order_book/create';
+  static const String finalize_order_book   = BASE_URL2 + 'order_book/finalize';
 
 }
 

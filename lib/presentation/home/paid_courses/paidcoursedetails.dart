@@ -422,7 +422,12 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                           FocusScope.of(context).unfocus();
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
+                            // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
+                            MaterialPageRoute(builder: (context) =>
+                                DeliveryDetailScreen('Course', widget.paidcourseList.id.toString(),
+                                widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
+                                )
+                            ),
                           );
                         },
                         child: Container(

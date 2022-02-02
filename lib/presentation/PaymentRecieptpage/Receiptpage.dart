@@ -10,11 +10,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PaymentReceiptPage extends StatefulWidget {
+  final String type;
   final String orderId;
   final String paymentId;
   final String signature;
 
-  const PaymentReceiptPage(this.orderId, this.paymentId, this.signature);
+  const PaymentReceiptPage(this.type, this.orderId, this.paymentId, this.signature);
 
   @override
   _PaymentReceiptPageState createState() => _PaymentReceiptPageState();
@@ -30,13 +31,18 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
   }
 
   void getReceipt() async {
+    String url = '';
     final param = {
       "order_id": widget.orderId,
       "transaction_id": widget.paymentId,
       "payment_signature": widget.signature,
     };
 
-    await Service.post(API.finalize_order, body: param).then((response) {
+    if(widget.type == 'Course')
+      url = API.finalize_order;
+    else url = API.finalize_order_book;
+
+    await Service.post(url, body: param).then((response) {
       AppConstants.printLog(response.body.toString());
 
       if (response == null) {
@@ -126,8 +132,8 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                       child: Column(
                         children: [
                           TextUse(
-                            title: 'Course  :',
-                            text: 'course title',
+                            title: widget.type == 'Course' ? 'Course  :' : 'Book :',
+                            text: 'title',
                           ),
                           SizedBox(
                             height: 8,

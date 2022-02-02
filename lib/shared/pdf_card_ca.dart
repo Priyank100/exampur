@@ -62,8 +62,9 @@ class _PDFCardCAState extends State<PDFCardCA> {
                         Text(
                         widget.eBooks.regular_price != 0 ?
                         '\u{20B9} ${widget.eBooks.regular_price.toString()}' : "",
-                    style: TextStyle(fontSize: 15)),
-                            SizedBox(width: 5,),
+                            style: TextStyle(fontSize: 15, decoration: TextDecoration.lineThrough)),
+
+                            SizedBox(width: 5),
                             InkWell(
                               onTap: () {
                                 if(widget.eBooks.sale_price == 0) {
@@ -78,14 +79,22 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                   child: Center(child: Text(
                                       widget.eBooks.sale_price != 0 ?
                                       '\u{20B9} ${widget.eBooks.sale_price.toString()}' : "View PDF",
-                                      style: TextStyle(fontSize: 12)))
+                                      style: TextStyle(fontSize: 12))
+                                  )
                               ),
                             ),
                             SizedBox(width: 10),
                             widget.eBooks.sale_price != 0 ?
                                 InkWell(
                                   onTap: () {
-                                    // openCheckout();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>
+                                          DeliveryDetailScreen('Book', widget.eBooks.id.toString(),
+                                              widget.eBooks.title.toString(), widget.eBooks.sale_price.toString()
+                                          )
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                       decoration: BoxDecoration(
@@ -109,26 +118,6 @@ class _PDFCardCAState extends State<PDFCardCA> {
       ),
     );
   }
-
-  /*void openCheckout() {
-    var options = {
-      "key": Keys.Rozar_pay_key,
-      "amount": num.parse(widget.eBooks.sale_price.toString()) * 100,
-      "name": "Exampur",
-      "description": '',
-      "order_id":  '',
-      "timeout": "180",
-      "theme.color": "#d19d0f",
-      "currency": "INR",
-      "prefill": {"contact":  '', "email": ''},
-    };
-
-    try {
-      razorpay.open(options);
-    } catch (e) {
-      print(e.toString());
-    }
-  }*/
 }
 
 class MarqueeWidget extends StatefulWidget {

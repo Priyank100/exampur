@@ -12,9 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PaymentScreen extends StatefulWidget {
+  final String type;
   final BillingModel billingModel;
   final Delivery_model deliveryModel;
-  const PaymentScreen(this.billingModel, this.deliveryModel) : super();
+  const PaymentScreen(this.type, this.billingModel, this.deliveryModel) : super();
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
@@ -63,7 +64,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
               SizedBox(height: 10),
               Divider(),
               SizedBox(height: 10),
-              textUse(getTranslated(context, StringConstant.coursename)!+' : ' + widget.billingModel.itemName.toString(), 15),
+              widget.type == 'Course' ?
+              textUse(getTranslated(context, StringConstant.coursename)!+' : ' + widget.billingModel.itemName.toString(), 15) :
+              textUse('Book Name' + ' : ' + widget.billingModel.itemName.toString(), 15),
               SizedBox(height: 10),
               textUse(getTranslated(context, StringConstant.TotalAmount)!+' : ' + widget.billingModel.itemAmount.toString(), 15),
               SizedBox(height: 10),
@@ -128,7 +131,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => PaymentReceiptPage(widget.deliveryModel.data!.orderId.toString(),
+            builder: (context) => PaymentReceiptPage(widget.type, widget.deliveryModel.data!.orderId.toString(),
                 response.paymentId.toString(),
                 response.signature.toString())
         )

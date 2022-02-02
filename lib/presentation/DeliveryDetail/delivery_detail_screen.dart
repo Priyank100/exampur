@@ -21,8 +21,13 @@ import 'package:provider/provider.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 
 class DeliveryDetailScreen extends StatefulWidget {
-  final Courses paidcourseList;
-  const DeliveryDetailScreen(this.paidcourseList) ;
+  // final Courses paidcourseList;
+  // const DeliveryDetailScreen(this.paidcourseList) ;
+  final String type;
+  final String id;
+  final String title;
+  final String salePrice;
+  const DeliveryDetailScreen(this.type, this.id, this.title, this.salePrice) ;
 
   @override
   _DeliveryDetailScreenState createState() => _DeliveryDetailScreenState();
@@ -82,11 +87,17 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         child: ListView(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            widget.type == 'Course' ?
              Text(
               getTranslated(context, StringConstant.provideFurtherDetailsForDeliveryOfCourses)!,
               maxLines: 2,softWrap: true,
               style: TextStyle(fontSize: 25),
-            ),
+            ) :
+        Text(
+        'Provide Further Details for Delivery of Books',
+    maxLines: 2,softWrap: true,
+    style: TextStyle(fontSize: 25),
+    ),
             SizedBox(
               height: 20,
             ),
@@ -203,7 +214,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                   onTap: (){
                     FocusScope.of(context).unfocus();
                     String cuponCode = _cuponCodeController.text.toUpperCase();
-                    String id = widget.paidcourseList.id.toString();
+                    // String id = widget.paidcourseList.id.toString();
+                    String id = widget.id.toString();
 
                    if(chechCoupon(cuponCode)){
                      couponApi(cuponCode,id);
@@ -231,7 +243,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _state = _billingStateController.text.trim();
                 String _promocode = _cuponCodeController.text.trim();
                 if(checkValidation(_address, _state, _city, _pincode,_promocode)) {
-                  saveDeliveryAddress(_address, _pincode, _city, _state);
+                  saveDeliveryAddress(_address, _pincode, _city, _state, _promocode);
                 }
               },
 
@@ -240,8 +252,13 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(15),),color: AppColors.amber),
 
                 child: Center(
-                    child: Text(
+                    child: widget.type == 'Course' ?
+                    Text(
                       getTranslated(context, 'continue_to_buy_course')!,
+                      style: TextStyle(color: AppColors.white,fontSize: 18),
+                    ) :
+                    Text(
+                      'Continue to Buy Book',
                       style: TextStyle(color: AppColors.white,fontSize: 18),
                     )
                 ),
@@ -283,20 +300,37 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
 
 
-  saveDeliveryAddress(_address, _pincode, _city,_state) async {
+  saveDeliveryAddress(_address, _pincode, _city, _state, _promocode) async {
     FocusScope.of(context).unfocus();
     AppConstants.showLoaderDialog(context);
-    final  body= {
-      "course_id": widget.paidcourseList.id.toString(),
-      //"promo_code":
-      "billing_address":_address,
-      "billing_city":  _city,
-      "billing_state": _state,
-      "billing_country": "India",
-      "billing_pincode":  _pincode
-    };
+    final param;
+    String url = '';
 
-    await Service.post(API.order_course, body: body).then((response) async {
+    if(widget.type == 'Course') {
+      url = API.order_course;
+      param = {
+        "course_id": widget.id.toString(),
+        "promo_code": _promocode,
+        "billing_address": _address,
+        "billing_city":  _city,
+        "billing_state": _state,
+        "billing_country": AppConstants.defaultCountry,
+        "billing_pincode":  _pincode
+      };
+    } else {
+      url = API.order_book;
+      param = {
+        "book_id": widget.id.toString(),
+        "promo_code": _promocode,
+        "billing_address": _address,
+        "billing_city":  _city,
+        "billing_state": _state,
+        "billing_country": AppConstants.defaultCountry,
+        "billing_pincode":  _pincode
+      };
+    }
+
+    await Service.post(url, body: param).then((response) async {
       Navigator.pop(context);
       AppConstants.printLog(response.body.toString());
 
@@ -313,12 +347,13 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           if(status == "Pending"){
             BillingModel billingModel = BillingModel(
                 Name, Email, Mobile, _address, _city, _state, AppConstants.defaultCountry, _pincode,
-                widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
+                // widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
+                widget.title.toString(), widget.salePrice.toString()
             );
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PaymentScreen(billingModel, deliveryModel)
+                    builder: (context) => PaymentScreen(widget.type, billingModel, deliveryModel)
                 )
             );
 
@@ -326,7 +361,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             AppConstants.printLog('yes');
             Navigator.push(context, MaterialPageRoute(builder:
                 (context) =>
-                PaymentReceiptPage(deliveryModel.data!.orderId.toString(),
+                PaymentReceiptPage(widget.type, deliveryModel.data!.orderId.toString(),
                     deliveryModel.data!.paymentOrderId.toString(),
                     'signature')
             ));
