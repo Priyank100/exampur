@@ -12,7 +12,7 @@ class Downloads extends StatefulWidget {
 
 class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixin {
   late TabController _controller;
-  String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4';
+  String testVideoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4';
   var progressString = "";
 
   @override
