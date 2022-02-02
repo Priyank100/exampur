@@ -71,7 +71,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
- late Locale _locale;
+  Locale? _locale;
   setLocale(Locale locale) {
     setState(() {
       _locale = locale;
