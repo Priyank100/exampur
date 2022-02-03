@@ -25,7 +25,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   late Razorpay razorpay;
 
   @override
-  void initState()  {
+  void initState() {
     super.initState();
     razorpay = new Razorpay();
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlerPaymentSuccess);
