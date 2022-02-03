@@ -18,17 +18,6 @@ class _VideosCAState extends State<VideosCA> {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //     body: SingleChildScrollView(
-    //       child: ListView.builder(
-    //           itemCount: widget.list.length,
-    //           shrinkWrap: true,
-    //           physics: NeverScrollableScrollPhysics(),
-    //           itemBuilder: (context, index) {
-    //             return myCard(index);
-    //           }),
-    //     )
-    // );
     return Scaffold(
       body: widget.list.length == 0
           ? Center(child: CircularProgressIndicator())
@@ -86,7 +75,7 @@ class _VideosCAState extends State<VideosCA> {
                       bottomLeft: Radius.circular(5),
                     ),
                   ),
-                  child: Text(getTranslated(context, 'wtch_now')!, style: TextStyle(color: AppColors.white)),
+                  child: Text(getTranslated(context, StringConstant.watch)!, style: TextStyle(color: AppColors.white)),
                 ),
               ),
             ),

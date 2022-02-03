@@ -6,16 +6,16 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class StudyMaterial extends StatefulWidget {
-  StudyMaterial({
+class CaBytes extends StatefulWidget {
+  CaBytes({
     Key? key,
   }) : super(key: key);
 
   @override
-  _StudyMaterialState createState() => _StudyMaterialState();
+  _CaBytesState createState() => _CaBytesState();
 }
 
-class _StudyMaterialState extends State<StudyMaterial> {
+class _CaBytesState extends State<CaBytes> {
   int _current = 0;
   List<String> image = ["f", "f"];
 

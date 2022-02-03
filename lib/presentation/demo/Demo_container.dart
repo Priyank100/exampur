@@ -1,6 +1,5 @@
 
 import 'package:exampur_mobile/data/model/demo_models.dart';
-import 'package:exampur_mobile/presentation/home/study_material/study_material.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';

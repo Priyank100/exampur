@@ -1,11 +1,11 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/daily_monthly_ca_model.dart';
+import 'package:exampur_mobile/data/model/ca_content_model.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class DailyMonthlyCard extends StatefulWidget {
-  final List<DailyMonthlyCaModel> list;
+  final List<CaContentModel> list;
   final int index;
   const DailyMonthlyCard(this.list, this.index) : super();
 

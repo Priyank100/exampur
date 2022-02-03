@@ -16,7 +16,7 @@ class API {
   // static const String BASE_URL3 = 'https://static.exampur.xyz/';
   static const String BASE_URL3 = 'https://static.exampur.work/';
 
-
+  //BannerBase
   static const String BANNER_BASE_URL = 'https://static.exampur.work/get_cdn';
 
   //Auth
@@ -48,7 +48,7 @@ class API {
   static const String FreeCoursesTab_URL = BASE_URL3 + 'category/course_free';
   static const String FreeCoursesList_URL = BASE_URL3 + 'courses/free/' + 'FREE_COURSE_ID' + '/10/';
 
-//one2one
+  //one2one
   static const String One2One_URL = BASE_URL3 + 'courses/onetoone/10/';
   static const String TermsConditions_URL = 'https://exampur.com/';
 
@@ -57,10 +57,10 @@ class API {
   static const String offline_batches_center = BASE_URL3 + 'offline_centers/findone/' + 'CENTER_ID' + '/10/';
   static const String offline_batches_course = BASE_URL3 + 'offline_centers/course/' + 'COURSE_ID';
 
-//appTutorial
+  //appTutorial
   static const String AppTutorial_URL = BASE_URL3 + 'tutorials/app';
 
-  //helpandffedback
+  //helpandfeedback
   static const String HelpFeedback_URL = BASE_URL2 + 'ticket/create';
 
   //order_course
@@ -81,6 +81,10 @@ class API {
   //order_book
   static const String order_book            = BASE_URL2 + 'order_book/create';
   static const String finalize_order_book   = BASE_URL2 + 'order_book/finalize';
+
+  //current_affairs
+  static const String ca_videos_url     = BASE_URL2 + '';
+  static const String ca_contents_url   = BASE_URL2 + '';
 
 }
 

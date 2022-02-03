@@ -10,10 +10,10 @@ import 'package:exampur_mobile/data/model/response/languagemodel.dart';
 import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
 
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
+import 'package:exampur_mobile/presentation/home/ca_bytes/ca_bytes.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/home_banner.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
-import 'package:exampur_mobile/presentation/home/study_material/study_material.dart';
 
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 
@@ -183,7 +183,7 @@ class _HomeState extends State<Home> {
                     color: AppColors.paidCourses,
                     navigateTo: PaidCourses(1)),
                 SquareButton(
-                    image: Images.book,
+                    image: Images.free_course,
                     title: getTranslated(context, 'free_courses')!,
                     color: AppColors.freeCourses,
                     navigateTo:PaidCourses(0)),
@@ -195,7 +195,7 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 SquareButton(
-                    image: Images.free_course,
+                    image: Images.dailyquiz,
                     title: getTranslated(context, 'daily_quiz')!,
                     color: AppColors.quiz,
                     navigateTo: UploadImage()),
@@ -216,7 +216,7 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 SquareButton(
-                    image: Images.one2one,
+                    image: Images.jobalert,
                     title: getTranslated(context, 'job_alerts')!,
                     color: AppColors.jobAlert,
                     navigateTo:JobAlerts()),
@@ -224,7 +224,7 @@ class _HomeState extends State<Home> {
                     image: Images.current_affair,
                     title: getTranslated(context, 'current_affairs')!,
                     color: AppColors.affairs,
-                    navigateTo: CurrentAffairs()),
+                    navigateTo: CurrentAffairs('Current Affairs')),
                 // SquareButton(
                 //     image: Images.offlinebatch,
                 //     title: getTranslated(context, 'offline_batches')!,
@@ -238,13 +238,13 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 SquareButton(
-                    image: Images.jobalert,
+                    image: Images.book,
                     title: getTranslated(context, 'books')!,
                     color: AppColors.book,
                     navigateTo: BooksEbook()),
 
                 SquareButton(
-                    image: Images.studymaterial,
+                    image: Images.one2one,
                     title: getTranslated(context, 'exampur_one2one')!,
                     color: AppColors.one2one,
                     navigateTo:  Exampuron2oneView()),
@@ -262,17 +262,15 @@ class _HomeState extends State<Home> {
                 //     navigateTo: CurrentAffairs()),
 
                 SquareButton(
-                    image: Images.dailyquiz,
+                    image: Images.studymaterial,
                     title: getTranslated(context, 'study_materials')!,
                     color: AppColors.quiz,
-                    navigateTo:
-                        //SettingsScreen()
-                        StudyMaterial()),
+                    navigateTo: CurrentAffairs('Study Material')),
                 SquareButton(
                     image: Images.jobalert,
                     title: getTranslated(context,StringConstant.CaBytes)!,
                     color: AppColors.jobAlert,
-                    navigateTo: StudyMaterial()),
+                    navigateTo: CaBytes()),
               ],
             ),
             SizedBox(

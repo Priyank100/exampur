@@ -1,11 +1,11 @@
-class DailyMonthlyCaModel {
+class CaContentModel {
   String? imagePath;
   String? title;
   String? viewId;
   String? viewCount;
   String? shareText;
 
-  DailyMonthlyCaModel(
+  CaContentModel(
       {this.imagePath,
         this.title,
         this.viewId,
@@ -13,7 +13,7 @@ class DailyMonthlyCaModel {
         this.shareText
       });
 
-  DailyMonthlyCaModel.fromJson(Map<String, dynamic> json) {
+  CaContentModel.fromJson(Map<String, dynamic> json) {
     imagePath = json['image_path'];
     title = json['title'];
     viewId = json['view_id'];

@@ -23,7 +23,7 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
 
   Future<List> getBooksList() async {
     isLoading = true;
-    booksList = (await Provider.of<BooksEBooksProvider>(context, listen: true).getBooksList(context))!;
+    booksList = (await Provider.of<BooksEBooksProvider>(context, listen: false).getBooksList(context))!;
     isLoading = false;
     return booksList;
   }
@@ -34,7 +34,6 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
     _controller = TabController(length: 2, vsync: this);
 
     _controller.addListener(() async {
-      print("Selected Index: " + _controller.index.toString());
       switch(_controller.index) {
         case 0:
           getBooksList();
