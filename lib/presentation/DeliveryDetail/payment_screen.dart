@@ -66,7 +66,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               SizedBox(height: 10),
               widget.type == 'Course' ?
               textUse(getTranslated(context, StringConstant.coursename)!+' : ' + widget.billingModel.itemName.toString(), 15) :
-              textUse('Book Name' + ' : ' + widget.billingModel.itemName.toString(), 15),
+              textUse(getTranslated(context, StringConstant.book_name)! + ' : ' + widget.billingModel.itemName.toString(), 15),
               SizedBox(height: 10),
               textUse(getTranslated(context, StringConstant.TotalAmount)!+' : ' + widget.billingModel.itemAmount.toString(), 15),
               SizedBox(height: 10),

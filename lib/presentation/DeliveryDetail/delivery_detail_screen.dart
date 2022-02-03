@@ -94,7 +94,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               style: TextStyle(fontSize: 25),
             ) :
         Text(
-        'Provide Further Details for Delivery of Books',
+          getTranslated(context, StringConstant.provideFurtherDetailsForDeliveryOfBooks)! ,
     maxLines: 2,softWrap: true,
     style: TextStyle(fontSize: 25),
     ),
@@ -194,7 +194,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                         if (_cuponCodeController.text != value.toUpperCase())
                           _cuponCodeController.value = _cuponCodeController.value.copyWith(text: value.toUpperCase());
                       },
-                      autofocus:true,
+                     
                       decoration: new InputDecoration(
                           hintText: getTranslated(context, StringConstant.applyCoupon),
                           hintStyle: TextStyle(color: AppColors.grey500),
@@ -254,11 +254,11 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 child: Center(
                     child: widget.type == 'Course' ?
                     Text(
-                      getTranslated(context, 'continue_to_buy_course')!,
+                      getTranslated(context, StringConstant.continueToBuyCourse)!,
                       style: TextStyle(color: AppColors.white,fontSize: 18),
                     ) :
                     Text(
-                      'Continue to Buy Book',
+    getTranslated(context, StringConstant.continueToBuyBook)! ,
                       style: TextStyle(color: AppColors.white,fontSize: 18),
                     )
                 ),
@@ -273,7 +273,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   couponApi(promoCode, id ) async {
     FocusScope.of(context).unfocus();
     AppConstants.showLoaderDialog(context);
-    String url = API.CouponCode_URL + promoCode + '/' +'Course' +'/'+id;
+    String url = '';
+    widget.type == 'Course' ?
+    url = API.CouponCode_URL + promoCode + '/' +'Course' +'/'+id :
+    url = API.CouponCode_URL + promoCode + '/' +'Book' +'/'+id;
     AppConstants.printLog(url);
 
     await Service.get(url).then((response) async {
@@ -285,6 +288,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
         if(jsonObject['statusCode'].toString() == '200') {
           AppConstants.printLog('anchal'+ jsonObject['data']['promo_code']);
+          AppConstants.showBottomMessage(context,getTranslated(context, StringConstant.apply), AppColors.black);
           isCouponValid = true;
         } else {
           AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);

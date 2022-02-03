@@ -31,5 +31,6 @@ class Images {
   static const String language = 'assets/images/language.jpg';
   static const String mycourse = 'assets/images/mycourse.png';
   static const String mycourse2 = 'assets/images/mucourse2.jpg';
+  static const String caBytes = 'assets/images/ca_bytes.png';
 
 }

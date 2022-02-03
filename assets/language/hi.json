@@ -9,12 +9,18 @@
   "buy": "खरीदें",
   "buy_course": "कोर्स खरीदें",
   "billing_address": "बिल भेजने का पता",
+  "book_name": "किताब का नाम",
+  "back_to_home_page": "मुखपृष्ठ पर वापस",
 
 
   "test_courses": "परीक्षण पाठ्यक्रम",
   "total_amount": "कुल राशि",
+  "transaction_receipt": "लेनदेन रसीद",
+  "thank_you": "धन्यवाद",
+  "transcation_id": "लेन-देन आईडी",
 
   "offline_batches": "ऑफ़लाइन बैच",
+  "order_date": "आर्डर की तारीख",
 
   "daily_quiz": "दैनिक प्रश्नोत्तरी",
   "downloads": "डाउनलोड",
@@ -93,6 +99,7 @@
 
 
   "provide_further_details_for_delivery_of_courses":"पाठ्यक्रमों के वितरण के लिए और विवरण प्रदान करेंं",
+  "provide_further_details_for_delivery_of_books": "पुस्तकों के वितरण के लिए और विवरण प्रदान करें",
   "please_choose_the_category": "कृपया श्रेणी चुनें",
   "preference": "पसंद",
   "phone_number": "फ़ोन नंबर",
@@ -106,6 +113,7 @@
   "please_select_state": "कृपया राज्य का चयन करें",
   "please_select_attempt_history": "कृपया इतिहास के प्रयास का चयन करें",
   "please_enter_age": "कृपया उम्र दर्ज करें",
+  "payment_mode": "भुगतान का प्रकार",
 
 
   "general": "सामान्य",
@@ -127,7 +135,8 @@
   "confirm_password": "पासवर्ड की पुष्टि कीजिये",
   "change_password": "पासवर्ड बदलें",
   "current_password": "वर्तमान पासवर्ड",
-  "continue_to_buy_course": "खरीदना जारी रखें",
+  "continue_to_buy_course": "पाठ्यक्रम खरीदना जारी रखें",
+  "continue_to_buy_book": "किताब खरीदना जारी रखें",
   "city": "शहर",
   "choose_category": "श्रेणी का चयन करें",
   "current_affairs": "सामयिकी",

@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 // import 'package:exampur_mobile/presentation/help/dropdown_menu.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/helpandfeedback.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
@@ -197,8 +199,9 @@ class HelpState extends State<Help> {
               //   ),
               // ),
               SizedBox(height: 30,),
-              !isLoading
-                  ?  InkWell(onTap:(){
+              // !isLoading
+              //     ?
+              InkWell(onTap:(){
 
                 String _message = _descriptionController.text.trim();
                 if(!checkValidation(_message)) {
@@ -209,16 +212,17 @@ class HelpState extends State<Help> {
                   setState(() {
                     isLoading = true;
                   });
-                  _updateUserAccount(_message);
+                  helpandfeedback(_message);
+                 //_updateUserAccount(_message);
                 }
               },
                   child: Container(margin:  EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
-                    height: 50, color: AppColors.dark,child: Center(child: Text(getTranslated(context, 'submit_issue')!,style: TextStyle(color: Colors.white,fontSize: 20),)),))
-                  :
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(AppColors.amber))),
-              ),
+                    height: 50, color: AppColors.dark,child: Center(child: Text(getTranslated(context, 'submit_issue')!,style: TextStyle(color: Colors.white,fontSize: 20),)),)),
+                //  :
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(AppColors.amber))),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(
                     left: 20.0, right: 20.0, top: 30.0, bottom: 10),
@@ -263,24 +267,43 @@ class HelpState extends State<Help> {
     }
   }
 
-  _updateUserAccount(_message) async {
+  helpandfeedback(_message) async {
 
-    // CreateUserModel updateUserInfoModel = Provider.of<AuthProvider>(context, listen: false).uerupdate;
-    HelpandFeedbackModel updateUserInfoModel = HelpandFeedbackModel();
+    var body = {"message":_message,
+    "type":dropdownvalue};
+    await Service.post(
+      API.HelpFeedback_URL,
+      body: body,
+    ).then((response) async {
+      print(response.body.toString());
+      if (response == null) {
+        var snackBar = SnackBar( margin: EdgeInsets.all(20),
+            behavior: SnackBarBehavior.floating,
+            content: Text('Server Error'),backgroundColor: AppColors.red);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else if (response.statusCode == 200) {
+        AppConstants.printLog(response.body.toString());
+        var jsonObject =  jsonDecode(response.body);
+        AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
+        if(jsonObject['statusCode'].toString() == '200'){
+          print(jsonObject['data']);
 
-    updateUserInfoModel.type = dropdownvalue;
-    updateUserInfoModel.message =_message;
+          AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
+          //AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
+          setState(() {});
 
+        }  else {
+          AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
+        }
 
-    await Provider.of<HelpandFeedbackprovider>(context, listen: false).helpandfeedback(updateUserInfoModel).then((response) {
-      isLoading = false;
-      if(response) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, 'issue_submitted_sucessfully')!), backgroundColor: AppColors.green));
-        Navigator.pop(context);
-      }else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context,'server_error')!), backgroundColor: AppColors.red));
+      } else {
+        AppConstants.printLog("init address fail");
+        final body = json.decode(response.body);
+        var snackBar = SnackBar( margin: EdgeInsets.all(20),
+            behavior: SnackBarBehavior.floating,
+            content: Text(body['data'].toString()),backgroundColor: AppColors.red);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
-      setState(() {});
-    }
-    );
-  }}
+    });
+  }
+}

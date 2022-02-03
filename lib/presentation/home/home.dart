@@ -127,33 +127,33 @@ class _HomeState extends State<Home> {
                   getTranslated(context, 'hello')! + ', ' + '${userName} !',
                   style: CustomTextStyle.headingMediumBold(context),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Flexible(
                   child: DropdownButton<Language>(
-                    underline: SizedBox(),
-                    icon:Image.asset(Images.language,height: 35,width: 35,),
-                    onChanged: (Language? language) {
-                      _changeLanguage(language!);
-                    },
-                    items: Language.languageList()
-                        .map<DropdownMenuItem<Language>>(
-                          (e) => DropdownMenuItem<Language>(
-                            value: e,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Text(
-                                  e.flag,
-                                  style: TextStyle(fontSize: 30),
-                                ),
-                                Text(e.name)
-                              ],
+                      underline: SizedBox(),
+                      icon:Image.asset(Images.language,height: 35,width: 30,),
+                      onChanged: (Language? language) {
+                        _changeLanguage(language!);
+                      },
+                      items: Language.languageList()
+                          .map<DropdownMenuItem<Language>>(
+                            (e) => DropdownMenuItem<Language>(
+                              value: e,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    e.flag,
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  Text(e.name)
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                        .toList(),
-                  ),
+                          )
+                          .toList(),
+                    ),
                 ),
+
               ],
             ),
             // SizedBox(height: 5),
@@ -183,7 +183,7 @@ class _HomeState extends State<Home> {
                     color: AppColors.paidCourses,
                     navigateTo: PaidCourses(1)),
                 SquareButton(
-                    image: Images.book,
+                    image: Images.free_course,
                     title: getTranslated(context, 'free_courses')!,
                     color: AppColors.freeCourses,
                     navigateTo:PaidCourses(0)),
@@ -195,7 +195,7 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 SquareButton(
-                    image: Images.free_course,
+                    image: Images.dailyquiz,
                     title: getTranslated(context, 'daily_quiz')!,
                     color: AppColors.quiz,
                     navigateTo: UploadImage()),
@@ -216,7 +216,7 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 SquareButton(
-                    image: Images.one2one,
+                    image: Images.jobalert,
                     title: getTranslated(context, 'job_alerts')!,
                     color: AppColors.jobAlert,
                     navigateTo:JobAlerts()),
@@ -238,13 +238,13 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 SquareButton(
-                    image: Images.jobalert,
+                    image: Images.book,
                     title: getTranslated(context, 'books')!,
                     color: AppColors.book,
                     navigateTo: BooksEbook()),
 
                 SquareButton(
-                    image: Images.studymaterial,
+                    image: Images.one2one,
                     title: getTranslated(context, 'exampur_one2one')!,
                     color: AppColors.one2one,
                     navigateTo:  Exampuron2oneView()),
@@ -262,14 +262,14 @@ class _HomeState extends State<Home> {
                 //     navigateTo: CurrentAffairs()),
 
                 SquareButton(
-                    image: Images.dailyquiz,
+                    image: Images.studymaterial,
                     title: getTranslated(context, 'study_materials')!,
                     color: AppColors.quiz,
                     navigateTo:
                         //SettingsScreen()
                         StudyMaterial()),
                 SquareButton(
-                    image: Images.jobalert,
+                    image: Images.caBytes,
                     title: getTranslated(context,StringConstant.CaBytes)!,
                     color: AppColors.jobAlert,
                     navigateTo: StudyMaterial()),
