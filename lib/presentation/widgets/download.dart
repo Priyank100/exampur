@@ -67,7 +67,7 @@ class _DownloadPageState extends State<DownloadPage> {
     {
       'name': 'Big Buck Bunny',
       'link':
-          'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4'
     },
     {
       'name': 'Elephant Dream',
