@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class QuizCardCA extends StatefulWidget {
-  QuizCardCA({
+  const QuizCardCA({
     Key? key,
   }) : super(key: key);
 
@@ -20,7 +20,7 @@ class _QuizCardCAState extends State<QuizCardCA> {
      // padding: EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(color: Color.fromRGBO(64, 64, 64, 0.12), blurRadius: 16)
           ],
           color: Theme.of(context).backgroundColor,
@@ -32,10 +32,10 @@ class _QuizCardCAState extends State<QuizCardCA> {
            children: [
              Row(
                crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
+               children: const [
                  Flexible(
                    child: Padding(
-                     padding: const EdgeInsets.only(left: 8.0,top: 8),
+                     padding: EdgeInsets.only(left: 8.0,top: 8),
                      child: Text('REET L-2(Sci+Maths)[91-150 Q] Test series',style: TextStyle(fontSize: 19),maxLines: 2,),
                    ),
                  ),
@@ -50,10 +50,10 @@ class _QuizCardCAState extends State<QuizCardCA> {
                children: [
                  Column(
                    crossAxisAlignment: CrossAxisAlignment.center,
-                   children: [
+                   children: const [
 
                      Padding(
-                       padding: const EdgeInsets.all(8.0),
+                       padding: EdgeInsets.all(8.0),
                        child: Text('REET L-2(Sci+Maths)[91-150 Q] Test series',style: TextStyle(fontSize: 12)),
                      ),
                      Text('10,0000000+'+ 'Attempts',style: TextStyle(fontSize: 10),),
@@ -63,7 +63,7 @@ class _QuizCardCAState extends State<QuizCardCA> {
                ],
              ),
 Row(
-  children: [
+  children: const [
     SizedBox(width: 8,),
         Text('60 Questions'),
     SizedBox(width: 8,),
@@ -72,7 +72,7 @@ Row(
     Text('60 Minutes')
   ],
 ),
-             SizedBox(height: 8,),
+             const SizedBox(height: 8,),
              Align(
                alignment: FractionalOffset.bottomCenter,
                child: InkWell(
@@ -80,14 +80,14 @@ Row(
                  child: Container(
                    height: 40,
                    alignment: Alignment.center,
-                   decoration: BoxDecoration(
+                   decoration: const BoxDecoration(
                      color: AppColors.amber,
                      borderRadius: BorderRadius.only(
                        bottomRight: Radius.circular(5),
                        bottomLeft: Radius.circular(5),
                      ),
                    ),
-                   child: Text('Attempt', style: TextStyle(color: AppColors.white)),
+                   child: const Text('Attempt', style: TextStyle(color: AppColors.white)),
                  ),
                ),
              ),

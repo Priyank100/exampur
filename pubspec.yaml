@@ -98,6 +98,7 @@ flutter:
     - assets/language/en.json
     - assets/language/hi.json
     - assets/Statejson/State.json
+    - assets/Statejson/issuename.json
     - assets/mypdf.pdf
 
 
