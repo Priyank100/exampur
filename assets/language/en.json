@@ -13,6 +13,8 @@
   "buy": "Buy",
   "buy_course": "Buy course",
   "billing_address": "Billing Address ",
+  "book_name":"Book Name",
+  "back_to_home_page": "Back to home page",
 
   "current_affairs": "Current Affairs",
   "choose_category": "Choose Category",
@@ -21,6 +23,7 @@
   "change_password": "Change Password",
   "current_password": "Current Password",
   "continue_to_buy_course": "Continue to Buy Course",
+  "continue_to_buy_book": "Continue to Buy Book",
   "calculator_page": "Please enter all the details to calculator your eligibility for different exam",
 "CITY_REQUIRED": "CITY MUST BE REQUIRED",
   "country": "Country",
@@ -75,6 +78,7 @@
   "phone_number": "Phone Number",
   "pin_code": "Pin Code",
   "provide_further_details_for_delivery_of_courses": "Provide Further Details for Delivery of Courses",
+  "provide_further_details_for_delivery_of_books": "Provide Further Details for Delivery of Books",
   "preference": "Preference",
   "PromoCode_REQUIRED": "PromoCode MUST BE REQUIRED",
   "pincode_REQUIRED": "PINCODE MUST BE REQUIRED",
@@ -84,6 +88,8 @@
   "please_select_state": "Please select state",
   "please_select_attempt_history": "Please select attempt history",
   "please_enter_age": "Please enter age",
+  "payment_mode": "Payment Mode",
+
 
 
   "name": "Name",
@@ -94,9 +100,13 @@
 
   "test_courses": "Test Series",
   "total_amount": "Total Amount",
+  "transaction_receipt": "Transaction Receipt ",
+  "thank_you": "Thank You ",
+  "transcation_id": "Transcation Id ",
 
 
   "offline_batches": "Offline Batches",
+  "order_date": "Order Date",
 
 
 

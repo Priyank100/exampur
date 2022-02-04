@@ -127,33 +127,33 @@ class _HomeState extends State<Home> {
                   getTranslated(context, 'hello')! + ', ' + '${userName} !',
                   style: CustomTextStyle.headingMediumBold(context),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Flexible(
                   child: DropdownButton<Language>(
-                    underline: SizedBox(),
-                    icon:Image.asset(Images.language,height: 35,width: 35,),
-                    onChanged: (Language? language) {
-                      _changeLanguage(language!);
-                    },
-                    items: Language.languageList()
-                        .map<DropdownMenuItem<Language>>(
-                          (e) => DropdownMenuItem<Language>(
-                            value: e,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Text(
-                                  e.flag,
-                                  style: TextStyle(fontSize: 30),
-                                ),
-                                Text(e.name)
-                              ],
+                      underline: SizedBox(),
+                      icon:Image.asset(Images.language,height: 35,width: 30,),
+                      onChanged: (Language? language) {
+                        _changeLanguage(language!);
+                      },
+                      items: Language.languageList()
+                          .map<DropdownMenuItem<Language>>(
+                            (e) => DropdownMenuItem<Language>(
+                              value: e,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    e.flag,
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  Text(e.name)
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                        .toList(),
-                  ),
+                          )
+                          .toList(),
+                    ),
                 ),
+
               ],
             ),
             // SizedBox(height: 5),
@@ -267,7 +267,7 @@ class _HomeState extends State<Home> {
                     color: AppColors.quiz,
                     navigateTo: CurrentAffairs('Study Material')),
                 SquareButton(
-                    image: Images.jobalert,
+                    image: Images.caBytes,
                     title: getTranslated(context,StringConstant.CaBytes)!,
                     color: AppColors.jobAlert,
                     navigateTo: CaBytes()),

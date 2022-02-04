@@ -265,6 +265,8 @@ class StringConstant {
   static String buy= 'buy';
   static String buyCourse= 'buy_course';
   static String billingaddress= 'billing_address';
+  static String book_name= 'book_name';
+  static String BackToHomePage= 'back_to_home_page';
 
   static String currentAffairs= 'current_affairs';
   static String chooseCategory= 'choose_category';
@@ -273,6 +275,7 @@ class StringConstant {
   static String changePassword= 'change_password';
   static String currentPassword= 'current_password';
   static String continueToBuyCourse= 'continue_to_buy_course';
+  static String continueToBuyBook= 'continue_to_buy_book';
   static String calculatorPage= 'calculator_page';
   static String calculate= 'calculate';
   static String CITY_REQUIRED= 'CITY_REQUIRED';
@@ -327,6 +330,7 @@ class StringConstant {
   static String phoneNumber= 'phone_number';
   static String pinCode= 'pin_code';
   static String provideFurtherDetailsForDeliveryOfCourses= 'provide_further_details_for_delivery_of_courses';
+  static String provideFurtherDetailsForDeliveryOfBooks= 'provide_further_details_for_delivery_of_books';
   static String preference= 'preference';
   static String PromoCode_REQUIRED= 'PromoCode_REQUIRED';
   static String pincode_REQUIRED= 'pincode_REQUIRED';
@@ -336,6 +340,7 @@ class StringConstant {
   static String PleaseSelectState= 'please_select_state';
   static String pleaseSelectAttemptHistory= 'please_select_attempt_history';
   static String pleaseEnterAge= 'please_enter_age';
+  static String PaymentMode= 'payment_mode';
 
   static String name= 'name';
   static String newPassword= 'new_password';
@@ -344,8 +349,12 @@ class StringConstant {
 
   static String testCourses= 'test_courses';
   static String TotalAmount= 'total_amount';
+  static String TransactionReceipt= 'transaction_receipt';
+  static String Thankyou= 'thank_you';
+  static String TranscationId= 'transcation_id';
 
   static String offlineBatches= 'offline_batches';
+  static String OrderDate= 'order_date';
 
   static String jobAlerts= 'job_alerts';
 
