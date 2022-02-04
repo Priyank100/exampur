@@ -42,7 +42,7 @@ class AuthProvider extends ChangeNotifier {
     _isLoading = true;
     ApiResponse apiResponse = await authRepo.login(loginBody);
     _isLoading = false;
-    print("login provider entered");
+    AppConstants.printLog("login provider entered");
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
 
@@ -65,7 +65,7 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       String errorMessage;
-      print("eeeror ");
+      AppConstants.printLog("eeeror ");
       if (apiResponse.error is String) {
         AppConstants.printLog(apiResponse.error.toString());
         errorMessage = apiResponse.error.toString();

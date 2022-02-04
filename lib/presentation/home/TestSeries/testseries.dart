@@ -31,7 +31,7 @@ class TestSeriesviewState extends State<TestSeriesview> with TickerProviderState
       setState(() {
         _selectedIndex = _controller.index;
       });
-      print("Selected Index: " + _controller.index.toString());
+      AppConstants.printLog("Selected Index: " + _controller.index.toString());
       switch( _controller.index) {
         case 0:
           setState(() {

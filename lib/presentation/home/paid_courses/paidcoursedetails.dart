@@ -36,10 +36,10 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
         ),
       );
     } on Exception catch (exception) {
-      print(exception);
+      AppConstants.printLog(exception.toString());
       videoID = '';
     } catch (error) {
-      print(error);
+      AppConstants.printLog(error.toString());
       videoID = '';
     }
   }

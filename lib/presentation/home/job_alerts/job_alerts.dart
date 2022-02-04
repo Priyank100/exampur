@@ -23,8 +23,8 @@ class JobAlertsState extends State<JobAlerts> with TickerProviderStateMixin {
   @override
   void initState() {
     getLists();
-    // print('anchal');
-    // print(widget.choosecategorylist.first.id.toString());
+    // AppConstants.printLog('anchal');
+    // AppConstants.printLog(widget.choosecategorylist.first.id.toString());
     super.initState();
   }
 

@@ -32,7 +32,6 @@ appBar: CustomAppBar(),
                 Expanded(
                   child: ListView.builder(
                     itemCount: 6,
-
                       shrinkWrap: true,
                       itemBuilder: (BuildContext , context){
                     return Padding(

@@ -42,7 +42,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
         ],
       ),
       child: TextFormField(
-        cursorColor:Colors.amber,
+        cursorColor:AppColors.amber,
         controller: widget.controller,
         obscureText: _obscureText,
         focusNode: widget.focusNode,
@@ -58,7 +58,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
           return null;
         },
         decoration: InputDecoration(
-            suffixIcon: IconButton(icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility,color: Colors.amber,), onPressed: _toggle),
+            suffixIcon: IconButton(icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility,color: AppColors.amber,), onPressed: _toggle),
             hintText: widget.hintTxt ?? '',
             contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
             isDense: true,

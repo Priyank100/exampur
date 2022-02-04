@@ -275,7 +275,7 @@ class HelpState extends State<Help> {
       API.HelpFeedback_URL,
       body: body,
     ).then((response) async {
-      print(response.body.toString());
+      AppConstants.printLog(response.body.toString());
       if (response == null) {
         var snackBar = SnackBar( margin: EdgeInsets.all(20),
             behavior: SnackBarBehavior.floating,
@@ -286,7 +286,7 @@ class HelpState extends State<Help> {
         var jsonObject =  jsonDecode(response.body);
         AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
         if(jsonObject['statusCode'].toString() == '200'){
-          print(jsonObject['data']);
+          AppConstants.printLog(jsonObject['data']);
 
           AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
           //AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();

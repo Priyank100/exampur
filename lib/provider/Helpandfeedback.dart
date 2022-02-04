@@ -26,11 +26,11 @@ class HelpandFeedbackprovider extends ChangeNotifier {
     } else {
       String errorMessage;
       if (apiResponse.error is String) {
-        print(apiResponse.error.toString());
+        AppConstants.printLog(apiResponse.error.toString());
         errorMessage = apiResponse.error.toString();
       } else {
         ErrorResponse errorResponse = apiResponse.error;
-        print(errorResponse.errors![0].message);
+        AppConstants.printLog(errorResponse.errors![0].message);
         errorMessage = errorResponse.errors![0].message!;
       }
 

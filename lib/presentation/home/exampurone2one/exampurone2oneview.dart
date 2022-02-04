@@ -54,7 +54,7 @@ scrollController.addListener(pagination);
       setState(() {
         if(isData){
           page +=1;
-          print(page);
+          AppConstants.printLog(page.toString());
         }
         isLoading = true;
         getone2oneList(page);

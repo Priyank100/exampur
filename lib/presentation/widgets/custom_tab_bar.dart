@@ -122,7 +122,7 @@ class _TabBarDemoState extends State<TabBarDemo>
   //     setState(() {
   //       _selectedIndex = _controller.index;
   //     });
-  //     print("Selected Index: " + _controller.index.toString());
+  //     AppConstants.printLog("Selected Index: " + _controller.index.toString());
   //   });
   // }
   Set<String> selected = new Set<String>();

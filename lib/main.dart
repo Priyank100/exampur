@@ -30,8 +30,8 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:provider/provider.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async{
-  print(message.data.toString());
-  print(message.notification!.title);
+  AppConstants.printLog(message.data.toString());
+  AppConstants.printLog(message.notification!.title);
 }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

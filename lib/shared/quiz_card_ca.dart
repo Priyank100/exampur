@@ -15,6 +15,8 @@ class QuizCardCA extends StatefulWidget {
 }
 
 class _QuizCardCAState extends State<QuizCardCA> {
+
+  @override
   Widget build(BuildContext context) {
     return  Container(
      // padding: EdgeInsets.only(left: 10),
@@ -28,51 +30,57 @@ class _QuizCardCAState extends State<QuizCardCA> {
         child: Material(
           color: AppColors.transparent,
          child: Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
            children: [
              Row(
-               crossAxisAlignment: CrossAxisAlignment.start,
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                  Flexible(
-                   child: Padding(
-                     padding: const EdgeInsets.only(left: 8.0,top: 8),
-                     child: Text('REET L-2(Sci+Maths)[91-150 Q] Test series',style: TextStyle(fontSize: 19),maxLines: 2,),
+                   child: Column(
+                     children: [
+                       Padding(
+                         padding: const EdgeInsets.all(5),
+                         child: Text('REET L-2(Sci+Maths)[91-150 Q] Test series',
+                           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                           maxLines: 2,
+                           softWrap: true,
+                           overflow: TextOverflow.ellipsis
+                         ),
+                       ),
+                       Padding(
+                         padding: const EdgeInsets.only(left: 5),
+                         child: Text('REET L-2(Sci+Maths)[91-150 Q] Test series',
+                             style: TextStyle(fontSize: 10)),
+                       ),
+                       Padding(
+                         padding: const EdgeInsets.only(left: 5),
+                         child: Text('10,0000000+'+ 'Attempts',style: TextStyle(fontSize: 10)),
+                       ),
+                       Row(
+                         children: [
+                           SizedBox(width: 8),
+                           Padding(
+                             padding: const EdgeInsets.only(left: 5),
+                             child: Text('60 Questions',style: TextStyle(fontSize: 10)),
+                           ),
+                           SizedBox(width: 8),
+                           Text('60 Marks',style: TextStyle(fontSize: 10)),
+                           SizedBox(width: 8),
+                           Text('60 Minutes',style: TextStyle(fontSize: 10))
+                         ],
+                       ),
+                     ],
                    ),
                  ),
-                 //Image.asset(Images.exampur_logo,height: 80,width: 90,)
+
+                 Padding(
+                     padding: EdgeInsets.all(5),
+                   child: Image.asset(Images.exampur_logo,height: 50)
+                 )
+
                ],
              ),
 
-
-             Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               crossAxisAlignment: CrossAxisAlignment.center,
-               children: [
-                 Column(
-                   crossAxisAlignment: CrossAxisAlignment.center,
-                   children: [
-
-                     Padding(
-                       padding: const EdgeInsets.all(8.0),
-                       child: Text('REET L-2(Sci+Maths)[91-150 Q] Test series',style: TextStyle(fontSize: 12)),
-                     ),
-                     Text('10,0000000+'+ 'Attempts',style: TextStyle(fontSize: 10),),
-                   ],
-                 ),
-                 Image.asset(Images.exampur_logo,height: 60,width: 90,),
-               ],
-             ),
-Row(
-  children: [
-    SizedBox(width: 8,),
-        Text('60 Questions'),
-    SizedBox(width: 8,),
-    Text('60 Marks'),
-    SizedBox(width: 8,),
-    Text('60 Minutes')
-  ],
-),
-             SizedBox(height: 8,),
+             SizedBox(height: 5),
              Align(
                alignment: FractionalOffset.bottomCenter,
                child: InkWell(

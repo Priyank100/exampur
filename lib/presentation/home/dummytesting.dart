@@ -27,7 +27,7 @@
 // //    //  getFileFromAsset("assets/mypdf.pdf").then((f) {
 // //    //    setState(() {
 // //    //      assetPDFPath = f.path;
-// //    //      print(assetPDFPath);
+// //    //      AppConstants.printLog(assetPDFPath);
 // //    //    });
 // //    // });
 // //
@@ -40,7 +40,7 @@
 // //
 // //   Future<File> createFileOfPdfUrl() async {
 // //     Completer<File> completer = Completer();
-// //     print("Start download file from internet!");
+// //     AppConstants.printLog("Start download file from internet!");
 // //     try {
 // //       // "https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf";
 // //       // final url = "https://pdfkit.org/docs/guide.pdf";
@@ -50,8 +50,8 @@
 // //       var response = await request.close();
 // //       var bytes = await consolidateHttpClientResponseBytes(response);
 // //       var dir = await getApplicationDocumentsDirectory();
-// //       print("Download files");
-// //       print("${dir.path}/$filename");
+// //       AppConstants.printLog("Download files");
+// //       AppConstants.printLog("${dir.path}/$filename");
 // //       File file = File("${dir.path}/$filename");
 // //
 // //       await file.writeAsBytes(bytes, flush: true);
@@ -215,22 +215,22 @@
 // //               setState(() {
 // //                 errorMessage = error.toString();
 // //               });
-// //               print(error.toString());
+// //               AppConstants.printLog(error.toString());
 // //             },
 // //             onPageError: (page, error) {
 // //               setState(() {
 // //                 errorMessage = '$page: ${error.toString()}';
 // //               });
-// //               print('$page: ${error.toString()}');
+// //               AppConstants.printLog('$page: ${error.toString()}');
 // //             },
 // //             onViewCreated: (PDFViewController pdfViewController) {
 // //               _controller.complete(pdfViewController);
 // //             },
 // //             onLinkHandler: (String? uri) {
-// //               print('goto uri: $uri');
+// //               AppConstants.printLog('goto uri: $uri');
 // //             },
 // //             onPageChanged: (int? page, int? total) {
-// //               print('page change: $page/$total');
+// //               AppConstants.printLog('page change: $page/$total');
 // //               setState(() {
 // //                 currentPage = page;
 // //               });
@@ -451,12 +451,12 @@ class _PaymentGatewayState extends State<PaymentGateway> {
     try {
       razorpay.open(options);
     } catch (e) {
-      print(e.toString());
+      AppConstants.printLog(e.toString());
     }
   }
 
   void handlerPaymentSuccess(PaymentSuccessResponse response) {
-    print("Pament success");
+    AppConstants.printLog("Payment success");
     msg = "SUCCESS: " + response.paymentId!;
     showToast(msg);
   }

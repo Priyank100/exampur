@@ -31,14 +31,14 @@ class OrderDetailsprovider extends ChangeNotifier {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
 
       String data = apiResponse.response!.data['data'].toString();
-      print(data);
+      AppConstants.printLog(data);
       String status = apiResponse.response!.data['data']['status'].toString();
-      print(status);
+      AppConstants.printLog(status);
       if(status == "Pending"){
-        print('ok');
+        AppConstants.printLog('ok');
       }
       else{
-        print('yes');
+        AppConstants.printLog('yes');
       }
       // if(statusCode == '200') {
       //   _informationModel = OrderDetailsModel.fromJson(json.decode(apiResponse.response.toString()));
@@ -53,11 +53,11 @@ class OrderDetailsprovider extends ChangeNotifier {
     } else {
       String errorMessage;
       if (apiResponse.error is String) {
-        print(apiResponse.error.toString());
+        AppConstants.printLog(apiResponse.error.toString());
         errorMessage = apiResponse.error.toString();
       } else {
         ErrorResponse errorResponse = apiResponse.error;
-        print(errorResponse.errors![0].message);
+        AppConstants.printLog(errorResponse.errors![0].message);
         errorMessage = errorResponse.errors![0].message!;
       }
 

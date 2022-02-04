@@ -68,8 +68,8 @@ class _HomeState extends State<Home> {
     ///forground work
     FirebaseMessaging.onMessage.listen((message) {
       if(message.notification != null){
-        print(message.notification!.body);
-        print(message.notification!.title);
+        AppConstants.printLog(message.notification!.body);
+        AppConstants.printLog(message.notification!.title);
       }
 
       LocalNotificationService.display(message);

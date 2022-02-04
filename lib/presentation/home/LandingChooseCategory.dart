@@ -109,7 +109,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                               FocusScope.of(context).nextFocus();
                             },
 
-                            cursorColor: Colors.amber,
+                            cursorColor: AppColors.amber,
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.search,size: 25,color: AppColors.grey400),
                               hintText: 'Search Category',
@@ -179,7 +179,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                                       fontSize: 17.0,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      color: Colors.black,
+                                                      color: AppColors.black,
                                                     ),
                                                   ),
                                                 ),
@@ -352,7 +352,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
       API.Update_Choose_category_URL,
       body: body,
     ).then((response) async {
-      print(response.body.toString());
+      AppConstants.printLog(response.body.toString());
       if (response == null) {
         var snackBar = SnackBar( margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
