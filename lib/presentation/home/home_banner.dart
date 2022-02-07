@@ -47,7 +47,7 @@ class _LargeBannerState extends State<LargeBanner> {
                 builder: (BuildContext context) {
                   return Container(
                     margin: EdgeInsets.symmetric(horizontal: 10.0),
-                    decoration: BoxDecoration(color: Colors.transparent),
+                    decoration: BoxDecoration(color: AppColors.transparent),
                     child: InkWell(
                         child: ClipRRect(
                           // child: CachedNetworkImage(

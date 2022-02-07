@@ -49,10 +49,10 @@ class _One2OneVideoState extends State<One2OneVideo> {
         ),
       );
     } on Exception catch (exception) {
-      print(exception);
+      AppConstants.printLog(exception.toString());
       videoID = '';
     } catch (error) {
-      print(error);
+      AppConstants.printLog(error.toString());
       videoID = '';
     }
   }

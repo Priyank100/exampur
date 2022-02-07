@@ -43,7 +43,7 @@ class LoggingInterceptor extends InterceptorsWrapper {
   Future onError(DioError err, ErrorInterceptorHandler handler) async {
     if(err.response == null)
       {
-        print(err.message);
+        AppConstants.printLog(err.message);
       }
     else {
       AppConstants.printLog(

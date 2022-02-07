@@ -118,7 +118,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     try {
       razorpay.open(options);
     } catch (e) {
-      print(e.toString());
+      AppConstants.printLog(e.toString());
     }
   }
 

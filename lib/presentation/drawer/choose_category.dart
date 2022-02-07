@@ -345,7 +345,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
       API.Update_Choose_category_URL,
       body: body,
     ).then((response) async {
-      print(response.body.toString());
+      AppConstants.printLog(response.body.toString());
       if (response == null) {
         var snackBar = SnackBar( margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,

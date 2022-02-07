@@ -16,9 +16,9 @@ class _SearchViewState extends State<SearchView> {
     return Scaffold(
 appBar: AppBar(
   iconTheme: IconThemeData(
-    color: Colors.black, //change your color here
+    color: AppColors.black, //change your color here
   ),
-  backgroundColor: Colors.white,
+  backgroundColor: AppColors.white,
   elevation: 0,
   title: Container(
     width: double.infinity,
@@ -35,14 +35,14 @@ appBar: AppBar(
     ],
   ),
       child: TextField(
-        cursorColor:Colors.amber,
+        cursorColor:AppColors.amber,
        // controller: widget.controller,
         //obscureText: _obscureText,
         //focusNode: widget.focusNode,
         textInputAction: TextInputAction.next,
 
         decoration: InputDecoration(
-            suffixIcon: IconButton(icon: Icon(Icons.search,color: Colors.black,), onPressed:(){}),
+            suffixIcon: IconButton(icon: Icon(Icons.search,color: AppColors.black,), onPressed:(){}),
             hintText:  'Search',
             contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
             isDense: true,
@@ -57,7 +57,7 @@ appBar: AppBar(
             border: InputBorder.none),
       )),
 ),
-      backgroundColor: Colors.white.withOpacity(0.9),
+      backgroundColor: AppColors.white.withOpacity(0.9),
       body:Center(
         // child: Column(
         //  // mainAxisAlignment: MainAxisAlignment.center,

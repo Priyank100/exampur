@@ -51,7 +51,7 @@ class DemoState extends State<Demo> {
        setState(() {
          if(isData){
            page +=1;
-           print(page);
+           AppConstants.printLog(page.toString());
          }
          isLoading = true;
          getDemoList(page);

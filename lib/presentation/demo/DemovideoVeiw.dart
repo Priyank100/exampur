@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/data/model/demo_models.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -32,10 +33,10 @@ class _DemoViedoViewState extends State<DemoViedoView> {
         ),
       );
     } on Exception catch (exception) {
-      print(exception);
+      AppConstants.printLog(exception.toString());
       videoID = '';
     } catch (error) {
-      print(error);
+      AppConstants.printLog(error.toString());
       videoID = '';
     }
   }

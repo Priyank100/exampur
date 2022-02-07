@@ -39,13 +39,13 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                 _controller.complete(webViewController);
               },
               onPageStarted: (String url) {
-                print('Page started loading: $url');
+                AppConstants.printLog('Page started loading: $url');
                 setState(() {
                   _isLoading = true;
                 });
               },
               onPageFinished: (String url) {
-                print('Page finished loading: $url');
+                AppConstants.printLog('Page finished loading: $url');
                 setState(() {
                   _isLoading = false;
                 });

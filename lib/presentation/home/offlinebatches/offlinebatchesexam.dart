@@ -67,7 +67,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
 
   @override
   Widget build(BuildContext context) {
-    print(AppConstants.BANNER_BASE);
+    AppConstants.printLog(AppConstants.BANNER_BASE);
     return Scaffold(
         appBar: CustomAppBar(),
         body: offlineBatchesList.length == 0

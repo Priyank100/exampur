@@ -24,14 +24,14 @@ class _UploadImageState extends State<UploadImage> {
     getFileFromAsset("assets/mypdf.pdf").then((f) {
       setState(() {
         assetPDFPath = f.path;
-        print(assetPDFPath);
+        AppConstants.printLog(assetPDFPath);
       });
     });
 
     getFileFromUrl("http://www.pdf995.com/samples/pdf.pdf").then((f) {
       setState(() {
         urlPDFPath = f.path;
-        print(urlPDFPath);
+        AppConstants.printLog(urlPDFPath);
       });
     });
   }
@@ -144,7 +144,7 @@ class _PdfViewPageState extends State<PdfViewPage> {
             swipeHorizontal:false,
             nightMode: false,
             onError: (e) {
-              print(e);
+              AppConstants.printLog(e.toString());
             },
             onRender: (_pages) {
               setState(() {
