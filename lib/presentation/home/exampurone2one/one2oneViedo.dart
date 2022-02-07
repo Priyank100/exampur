@@ -117,10 +117,27 @@ class _One2OneVideoState extends State<One2OneVideo> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '\u{20B9}  ${widget.one2oneList.amount}',
-              style: TextStyle(color: AppColors.black, fontSize: 25),
+            Row(
+              children: [
+                Text(
+                  '\u{20B9}',
+                  style: TextStyle(color: AppColors.black, fontSize: 25),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                widget.one2oneList.regularPrice.toString(),
+                  style: TextStyle(color: AppColors.grey, fontSize: 18,decoration: TextDecoration.lineThrough),
+                ),
+                SizedBox(width: 5,),
+                Text(
+                  widget.one2oneList.salePrice.toString(),
+                  style: TextStyle(color: AppColors.black, fontSize: 18),
+                ),
+              ],
             ),
+
             InkWell(
               onTap: () {
                 _settingModalBottomSheet(context);

@@ -86,6 +86,9 @@ class API {
   static const String ca_videos_url     = BASE_URL2 + '';
   static const String ca_contents_url   = BASE_URL2 + '';
 
+  //Ca_Bytes
+  static const String ca_bytes_url   = BASE_URL3+ 'ca_byte/10/';
+
 }
 
 class Keys {

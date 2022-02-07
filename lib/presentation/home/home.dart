@@ -247,7 +247,9 @@ class _HomeState extends State<Home> {
                     image: Images.one2one,
                     title: getTranslated(context, 'exampur_one2one')!,
                     color: AppColors.one2one,
-                    navigateTo:  Exampuron2oneView()),
+                    navigateTo:
+                    Exampuron2oneView()
+                ),
               ],
             ),
             SizedBox(
@@ -281,6 +283,7 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+
   }
 }
 

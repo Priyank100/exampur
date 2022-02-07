@@ -52,7 +52,7 @@ class _BottomNavigationState extends State<BottomNavigation>
   late AnimationController _hide;
   late List<AnimationController> _faders;
   late List<Key> _destinationKeys;
-
+  int _counter = 0;
   @override
   void initState() {
     super.initState();
@@ -77,6 +77,12 @@ class _BottomNavigationState extends State<BottomNavigation>
     super.dispose();
   }
 
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
   final List<Widget> widgetList = [
     Home(),
     Demo(),
@@ -167,21 +173,67 @@ class _BottomNavigationState extends State<BottomNavigation>
             // const SizedBox(
             //   width: 20.0,
             // ),
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: IconButton(
-                  onPressed: () {
-                    Navigator.push(
+            InkWell(
+              onTap:() {
+            Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const Notifications()));
-                  },
-                  icon: const Icon(
-                    Icons.notifications,
-                    color: AppColors.black,
-                    size: 30.0,
-                  )),
-            ),
+              },
+              child: Container(
+               // padding: EdgeInsets.all(8),
+                margin:EdgeInsets.all(8) ,
+                width: 30,
+                height: 30,
+                child: Stack(
+                  children: [
+                    Icon(
+                      Icons.notifications,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                    Container(
+                      width: 30,
+                      height: 30,
+                      alignment: Alignment.topRight,
+                      margin: EdgeInsets.only(top: 5),
+                      child: Container(
+                        width: 15,
+                        height: 15,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xffc32c37),
+                            border: Border.all(color: Colors.white, width: 1)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(0.0),
+                          child: Center(
+                            child: Text(
+                              _counter.toString(),
+                              style: TextStyle(fontSize: 10),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 10.0),
+            //   child: IconButton(
+            //       onPressed: () {
+            //         Navigator.push(
+            //             context,
+            //             MaterialPageRoute(
+            //                 builder: (context) => const Notifications()));
+            //       },
+            //       icon: const Icon(
+            //         Icons.notifications,
+            //         color: AppColors.black,
+            //         size: 30.0,
+            //       )),
+            // ),
           ],
         ),
         drawer: Drawer(
