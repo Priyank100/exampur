@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
@@ -22,7 +23,7 @@ class API {
   //Auth
   static const String Login_URL = BASE_URL2 + 'auth/login';
   static const String Valid_Token_URL = BASE_URL2 + 'user';
-  static const String Update_User_URL = BASE_URL2 + 'user';
+  static const String Update_User_URL = BASE_URL2 + 'user/update';
   static const String Change_Password_URL = BASE_URL2 + 'auth/changePassword';
   static const String Send_OTP_URL = BASE_URL2 + 'otp';
   static const String Reset_Password_URL = BASE_URL2 + 'auth/resetPassword';
@@ -183,9 +184,9 @@ class AppConstants {
     AlertDialog alert = AlertDialog(
       content: new Row(
         children: [
-          CircularProgressIndicator(),
+          CircularProgressIndicator(color: AppColors.amber,),
           Container(
-              margin: EdgeInsets.only(left: 10), child: Text("Loading...")),
+              margin: EdgeInsets.only(left: 10), child: Text(getTranslated(context, 'loading...')!)),
         ],),
     );
     showDialog(barrierDismissible: false,
@@ -287,6 +288,7 @@ class StringConstant {
   static String CaBytes= 'ca_bytes';
   static String Class10= '10th_class';
   static String Class12= '12th_class';
+  static String ConfirmPasswordMatched= 'confirm_password_is_not_matched';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';
@@ -309,6 +311,7 @@ class StringConstant {
   static String enterPinCode= 'enter_pin_code';
   static String enteryourage= 'enter_your_age';
   static String EnterApplycoupon= 'Enter_valid_coupon_apply';
+  static String Email_Required= 'email_required';
 
 
   static String freeCourses= 'free_courses';
@@ -344,11 +347,15 @@ class StringConstant {
   static String pleaseSelectAttemptHistory= 'please_select_attempt_history';
   static String pleaseEnterAge= 'please_enter_age';
   static String PaymentMode= 'payment_mode';
+  static String PleasecurrentPassword= 'please_enter_current_password';
+  static String PleaseEnternewPassword= 'please_enter_new_password';
+  static String PleaseletterPassword= 'please_letter_password';
 
   static String name= 'name';
   static String newPassword= 'new_password';
   static String newBatch= 'new_batch';
   static String next= 'next';
+  static String Name_Field_Required= 'name_field_required';
 
   static String testCourses= 'test_courses';
   static String TotalAmount= 'total_amount';
@@ -375,7 +382,7 @@ class StringConstant {
   static String saveTheCourse= 'save_the_course';
   static String share= 'share';
   static String skip= 'skip';
-  static String state_REQUIRED= 'state_REQUIRED';
+  static String State_Required= 'state_REQUIRED';
 
   static String watchAppTutorial= 'watch_app_tutorial';
   static String writeAboutTheProblem= 'write_about_the_problem';
@@ -392,6 +399,7 @@ class StringConstant {
   static String general= 'general';
 
   static String userName= 'user_name';
+  static String UpdatedSuccessfully= 'updated_successfully';
 
   static String viewDetails= 'view_details';
   static String viewAll= 'view_all';

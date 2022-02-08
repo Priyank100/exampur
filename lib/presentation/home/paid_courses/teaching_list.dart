@@ -72,10 +72,10 @@ class _TeachingListState extends State<TeachingList> {
         paidCourseList.length==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : listing(paidCourseList) :
         freeCourseList.length==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : listing(freeCourseList),
       bottomNavigationBar: isLoading ? Container(
-          padding: EdgeInsets.all(8),
+         // padding: EdgeInsets.all(8),
           height:40,
           width: 40,
-          child: Center(child: CircularProgressIndicator())) :
+          child: Center(child: CircularProgressIndicator(color:AppColors.amber,))) :
       SizedBox(),
     );
   }

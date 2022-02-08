@@ -77,6 +77,7 @@
   "last_name": "अंतिम नाम",
   "landmark_tehsil": "लैंडमार्क / तहसील",
   "language_preferences": "भाषा वरीयताएँ",
+  "loading...": "लोड हो रहा है...",
 
 
 
@@ -95,6 +96,7 @@
   "exampur_one2one": "परीक्षापुर वन2वनं",
   "Enter_valid_coupon_apply": "वैध कूपन कोड दर्ज करें और आवेदन करें",
   "enter_your_age": "अपनी आयु दर्ज करें",
+  "email_required": "ईमेल जरूरी है",
 
 
 
@@ -114,6 +116,9 @@
   "please_select_attempt_history": "कृपया इतिहास के प्रयास का चयन करें",
   "please_enter_age": "कृपया उम्र दर्ज करें",
   "payment_mode": "भुगतान का प्रकार",
+  "please_enter_current_password": "कृपया वर्तमान पासवर्ड दर्ज करें",
+  "please_enter_new_password": "कृपया नया पासवर्ड दर्ज करें",
+  "please_letter_password": "कृपया कम से कम 8 अक्षर का पासवर्ड दर्ज करें",
 
 
   "general": "सामान्य",
@@ -122,6 +127,7 @@
 
 
   "user_name":"उपयोगकर्ता नाम",
+  "updated_successfully": "सफलतापूर्वक अपडेट करें",
 
 
 
@@ -130,6 +136,9 @@
   "name": "नाम",
   "new_batch": "नया बैच",
   "next": "अगला",
+  "name_field_required": "नाम फ़ील्ड आवश्यक है",
+
+  "message": "संदेश",
 
   "change_language": "भाषा बदलो",
   "confirm_password": "पासवर्ड की पुष्टि कीजिये",
@@ -148,6 +157,7 @@
   "ca_bytes": "सीए बाइट्स",
   "10th_class": "10वीं कक्षा",
   "12th_class": "12वीं कक्षा",
+  "confirm_password_is_not_matched": "पुष्टि करें कि पासवर्ड का मिलान नहीं हुआ है",
 
   "settings": "समायोजन",
   "save_the_course":"पाठ्यक्रम सहेजें",

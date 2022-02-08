@@ -80,22 +80,28 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(getTranslated(context, 'name')!,style: TextStyle(color: AppColors.black,)),
+                  Text(getTranslated(context, StringConstant.name)!,style: TextStyle(color: AppColors.black,)),
+                  SizedBox(height: 8,),
                   CustomTextField(hintText:'${Name}', value: (value) {},controller: _nameController,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, 'phone_number')!,style: TextStyle(color: AppColors.black,)),
+                  Text(getTranslated(context,StringConstant.phoneNumber )!,style: TextStyle(color: AppColors.black,)),
+                  SizedBox(height: 8,),
                   CustomTextField(hintText: '${Mobile}', value: (value) {},readOnly: true,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, 'email')!,style: TextStyle(color: AppColors.black,)),
+                  Text(getTranslated(context, StringConstant.email)!,style: TextStyle(color: AppColors.black,)),
+                  SizedBox(height: 8,),
                   CustomTextField(hintText: '${Email}', value: (value) {},controller: _emailController,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, 'user_name')!,style: TextStyle(color: AppColors.black)),
+                  Text(getTranslated(context, StringConstant.userName)!,style: TextStyle(color: AppColors.black)),
+                  SizedBox(height: 8,),
                   CustomTextField(hintText: '${userName}', value: (value) {},readOnly: true,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, 'city')!,style: TextStyle(color: AppColors.black,)),
+                  Text(getTranslated(context, StringConstant.city)!,style: TextStyle(color: AppColors.black,)),
+                  SizedBox(height: 8,),
                   CustomTextField(hintText:'${City}', value: (value) {},controller: _cityController,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, 'state')!,style: TextStyle(color: AppColors.black,)),
+                  Text(getTranslated(context, StringConstant.state)!,style: TextStyle(color: AppColors.black,)),
+                  SizedBox(height: 8,),
                   Container(
                     width: double.infinity,
                     height: 50,
@@ -158,16 +164,17 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 
   bool checkValidation(_firstName, _email, _city) {
     if (_firstName.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('NAME_FIELD_MUST_BE_REQUIRED'), backgroundColor: Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.Name_Field_Required)!), backgroundColor: Colors.black));
       return false;
     }else if (_email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('EMAIL_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.Email_Required)!), backgroundColor:Colors.black));
+
       return false;
     }else if (_city.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('CITY_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.CITY_REQUIRED)!), backgroundColor:Colors.black));
       return false;
     }else if (selectedState=='Select States') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('STATE_MUST_BE_REQUIRED'), backgroundColor:Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text( getTranslated(context,StringConstant.State_Required)!), backgroundColor:Colors.black));
       return false;
     }else {
       return true;
@@ -189,10 +196,10 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       await Provider.of<AuthProvider>(context, listen: false).updateUserProfile(updateUserInfoModel).then((response) {
         isLoading = false;
         if(response) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Updated Successfully'), backgroundColor: AppColors.green));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.UpdatedSuccessfully)!), backgroundColor: AppColors.green));
           Navigator.pop(context);
         }else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Server error'), backgroundColor: AppColors.red));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.serverError)!), backgroundColor: AppColors.red));
         }
         setState(() {});
      }

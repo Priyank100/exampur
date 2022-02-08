@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_content_model.dart';
 import 'package:exampur_mobile/data/model/video_ca_model.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/contents_ca.dart';
@@ -53,7 +54,7 @@ class CurrentAffairsState extends State<CurrentAffairs> with SingleTickerProvide
     videoList.add(VideoCaModel(
         videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
         imagePath: Images.no_image,
-        title: '15 Days Free Foundation Batch Class'));
+        title: '15 Days Free Foundation Batch Class 15 Days Free Foundation Batch Class'));
     videoList.add(VideoCaModel(
         videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
         imagePath: Images.no_image,
@@ -85,7 +86,7 @@ class CurrentAffairsState extends State<CurrentAffairs> with SingleTickerProvide
     ));
     contentList.add(CaContentModel(
         imagePath: Images.exampur_logo,
-        title: '15 Days Free Foundation Batch Class',
+        title: '15 Days Free Foundation Batch Class 15 Days Free Foundation Batch Class',
         viewId: '123',
         viewCount: '100,000+',
         shareText: 'Current affairs daily'
@@ -110,7 +111,7 @@ class CurrentAffairsState extends State<CurrentAffairs> with SingleTickerProvide
                     isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
                     ContentsCA(contentList)
                   ],
-                  title: "Books")
+                  title: getTranslated(context, StringConstant.currentAffairs)!)
           );
         });
     // return Scaffold(

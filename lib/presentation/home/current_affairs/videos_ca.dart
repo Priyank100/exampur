@@ -32,7 +32,7 @@ class _VideosCAState extends State<VideosCA> {
 
   Widget myCard(index) {
     return Container(
-      height: MediaQuery.of(context).size.width/1.1,
+     // height: MediaQuery.of(context).size.width/1.1,
       margin: EdgeInsets.all(5),
       child: Card(
         elevation: 5,
@@ -55,12 +55,18 @@ class _VideosCAState extends State<VideosCA> {
                   ),
                 )
             ),
-            Expanded(
-              child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Text(widget.list[index].title.toString())
-              ),
+           // SizedBox(height: 5,),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(widget.list[index].title.toString()),
             ),
+            //SizedBox(height: 8,),
+            // Expanded(
+            //   child: Container(
+            //       padding: EdgeInsets.all(10),
+            //       child: Text(widget.list[index].title.toString())
+            //   ),
+            // ),
             Align(
               alignment: FractionalOffset.bottomCenter,
               child: InkWell(

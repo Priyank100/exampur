@@ -388,7 +388,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       return false;
     }
     else if (_state.isEmpty) {
-      AppConstants.showBottomMessage(context,  getTranslated(context, StringConstant.state_REQUIRED)!, AppColors.black);
+      AppConstants.showBottomMessage(context,  getTranslated(context, StringConstant.State_Required)!, AppColors.black);
       return false;
     }
     else if (_city.isEmpty) {

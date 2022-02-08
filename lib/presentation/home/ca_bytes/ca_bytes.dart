@@ -131,7 +131,12 @@ class _CaBytesState extends State<CaBytes> {
         // }).toList(),
         //
         //   ):Center(child: CircularProgressIndicator(color: AppColors.amber,))
-
+      bottomNavigationBar: isLoading ? Container(
+         // padding: EdgeInsets.all(8),
+          height:40,
+          width: 40,
+          child: Center(child: CircularProgressIndicator(color: AppColors.amber,))) :
+      SizedBox(),
     );
   }
 }

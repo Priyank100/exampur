@@ -32,21 +32,21 @@ class _SecuritySettingsState extends State<SecuritySettings> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
 
-                Text(getTranslated(context, 'current_password')!,style: TextStyle(color: AppColors.black,)),
+                Text(getTranslated(context, StringConstant.currentPassword)!,style: TextStyle(color: AppColors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _currentPasswordController,
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: 15,),
-               Text(getTranslated(context, 'new_password')!,style: TextStyle(color: AppColors.black,)),
+               Text(getTranslated(context, StringConstant.newPassword)!,style: TextStyle(color: AppColors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _newPasswordController,
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: 15,),
-                 Text(getTranslated(context, 'confirm_password')!,style: TextStyle(color: AppColors.black,)),
+                 Text(getTranslated(context, StringConstant.confirmPassword)!,style: TextStyle(color: AppColors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _confirmPasswordController,
@@ -81,7 +81,7 @@ class _SecuritySettingsState extends State<SecuritySettings> {
             width: MediaQuery.of(context).size.width,
             child: Center(
               child: Text(
-                getTranslated(context, 'change_password')!,
+                getTranslated(context,StringConstant.changePassword )!,
                 style:
                 TextStyle(fontSize: 18, color: AppColors.white),
               ),
@@ -101,42 +101,42 @@ class _SecuritySettingsState extends State<SecuritySettings> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text('Please enter current password'),
+        content: Text(getTranslated(context, StringConstant.PleasecurrentPassword)!),
         backgroundColor: AppColors.black,
       ));
     } else if (newPassword.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text('Please enter new password'),
+        content: Text(getTranslated(context, StringConstant.PleaseEnternewPassword)!),
         backgroundColor: AppColors.black,
       ));
     } else if (newPassword.length < 8) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text('Please enter atleast 8 letter Password'),
+        content: Text(getTranslated(context, StringConstant.PleaseletterPassword)!),
         backgroundColor: AppColors.black,
       ));
     } else if (confirmPassword.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text('Please enter confirm password'),
+        content: Text(getTranslated(context, StringConstant.confirmPassword)!),
         backgroundColor: AppColors.black,
       ));
     } else if (confirmPassword.length < 8) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text('Please enter atleast 8 letter Password'),
+        content: Text(getTranslated(context, StringConstant.PleaseletterPassword)!),
         backgroundColor: AppColors.black,
       ));
     } else if (newPassword != confirmPassword) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text('Confirm password is not matched'),
+        content: Text(getTranslated(context, StringConstant.ConfirmPasswordMatched)!),
         backgroundColor: AppColors.black,
       ));
     } else {
