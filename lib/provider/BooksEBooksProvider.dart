@@ -13,22 +13,22 @@ class BooksEBooksProvider extends ChangeNotifier {
 
   BooksEBooksProvider({required this.booksEbooksRepo});
 
-  BooksModel _booksModel = BooksModel();
-  BooksModel get booksModel => _booksModel;
+  // BooksModel _booksModel = BooksModel();
+  // BooksModel get booksModel => _booksModel;
 
   EBookModel _ebooksModel = EBookModel();
   EBookModel get ebooksModel => _ebooksModel;
 
 
-  Future<List<Books>?> getBooksList(BuildContext context) async {
-    ApiResponse apiResponse = await booksEbooksRepo.books();
+  Future<List<Data>?> getBooksList(BuildContext context,int pageNo) async {
+    ApiResponse apiResponse = await booksEbooksRepo.books(pageNo);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
-      _booksModel = BooksModel.fromJson(json.decode(apiResponse.response.toString()));
+      _ebooksModel=  EBookModel.fromJson(json.decode(apiResponse.response.toString()));
       // return _booksModel.books;
-      return _booksModel.books ?? [];
+      return _ebooksModel.data?? [];
 
     } else {
       AppConstants.printLog("init address fail");
@@ -38,8 +38,8 @@ class BooksEBooksProvider extends ChangeNotifier {
   }
 
 
-  Future<List<Data>?> getE_booksList(BuildContext context) async {
-    ApiResponse apiResponse = await booksEbooksRepo.eBooks();
+  Future<List<Data>?> getE_booksList(BuildContext context,int pageNo) async {
+    ApiResponse apiResponse = await booksEbooksRepo.eBooks(pageNo);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {

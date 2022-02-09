@@ -95,6 +95,9 @@
 "please_enter_current_password": "Please enter current password",
   "please_enter_new_password": "Please enter new password",
   "please_letter_password": "Please enter atleast 8 letter Password",
+  "price_breakdown": "Price Breakdown",
+  "price": "Price",
+  "place_order": "Place Order",
 
 
 
@@ -103,6 +106,7 @@
   "new_batch": "New Batch",
   "next": "Next",
   "name_field_required": "NAME FIELD MUST BE REQUIRED",
+  "no_data": "No Data",
 
   "message": "Message",
 
@@ -139,6 +143,7 @@
   "share": "Share",
   "skip": "Skip",
   "state_REQUIRED": "STATE MUST BE REQUIRED",
+  "selling_price": "Selling Price",
 
 
 

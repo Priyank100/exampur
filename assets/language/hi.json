@@ -119,6 +119,9 @@
   "please_enter_current_password": "कृपया वर्तमान पासवर्ड दर्ज करें",
   "please_enter_new_password": "कृपया नया पासवर्ड दर्ज करें",
   "please_letter_password": "कृपया कम से कम 8 अक्षर का पासवर्ड दर्ज करें",
+  "price_breakdown": "मूल्य विभाजन",
+  "price": "कीमत",
+  "place_order": "एक आदेश दें",
 
 
   "general": "सामान्य",
@@ -137,6 +140,7 @@
   "new_batch": "नया बैच",
   "next": "अगला",
   "name_field_required": "नाम फ़ील्ड आवश्यक है",
+  "no_data": "कोई आकड़ा उपलब्ध नहीं है",
 
   "message": "संदेश",
 
@@ -174,6 +178,7 @@
   "server_error": "सर्वर त्रुटि",
   "skip": "छोड़ें",
   "state_REQUIRED": "राज्य की आवश्यकता होनी चाहिए",
+  "selling_price": "विक्रय मूल्य",
 
   "job_alerts": "नौकरी अलर्ट",
 

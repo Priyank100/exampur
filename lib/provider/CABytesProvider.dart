@@ -22,8 +22,8 @@ class CABytesProvider extends ChangeNotifier {
   CABytesModel get caBytesModel => _caBytesModel;
 
   //homeBanner request
-  Future<List<Data>?> getCaBytesList(BuildContext context,int pageNo) async {
-    ApiResponse apiResponse = await caBytesRepo.caBytes(pageNo);
+  Future<List<Data>?> getCaBytesList(BuildContext context, String encodeCat,int pageNo) async {
+    ApiResponse apiResponse = await caBytesRepo.caBytes(encodeCat, pageNo);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {

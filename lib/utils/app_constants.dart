@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,8 +40,8 @@ class API {
   static const String Select_Choose_category_URL = BASE_URL2 + 'user/getCategory';
 
   //Book/E-Book
-  static const String Books_URL = BASE_URL3 + 'books/printed/10/0';
-  static const String E_Books_URL = BASE_URL3 + 'books/ebook/10/0';
+  static const String Books_URL = BASE_URL3 + 'books/printed/10/';
+  static const String E_Books_URL = BASE_URL3 + 'books/ebook/10/';
 
   //PaidCourse
   static const String PaidCoursesTab_URL = BASE_URL3 + 'category/course_paid';
@@ -88,7 +90,13 @@ class API {
   static const String ca_contents_url   = BASE_URL2 + '';
 
   //Ca_Bytes
-  static const String ca_bytes_url   = BASE_URL3+ 'ca_byte/10/';
+  //static const String ca_bytes_url   = BASE_URL3+ 'ca_byte/10/';
+  static const String ca_bytes_url   = BASE_URL3+ 'ca_byte/' + 'ENCODE_CATEGORY' + '/10/';
+
+
+
+
+
 
 }
 
@@ -206,6 +214,14 @@ class AppConstants {
       placeholder: (context, url) => new Image.asset(Images.no_image),
       errorWidget: (context, url, error) => new Image.asset(Images.no_image),
     );
+  }
+
+  static String encodeCategory() {
+    List<String> catIdList = [];
+    for (var id in AppConstants.selectedCategoryList)
+      catIdList.add('"' + id + '"');
+    String encodeCategory = base64.encode(utf8.encode(catIdList.toString().replaceAll(" ", "")));
+    return encodeCategory;
   }
 
   static const String COUNTRY_CODE = 'country_code';
@@ -350,12 +366,17 @@ class StringConstant {
   static String PleasecurrentPassword= 'please_enter_current_password';
   static String PleaseEnternewPassword= 'please_enter_new_password';
   static String PleaseletterPassword= 'please_letter_password';
+  static String priceBreakdown= 'price_breakdown';
+  static String Price= 'price';
+  static String placeOrder= 'place_order';
+
 
   static String name= 'name';
   static String newPassword= 'new_password';
   static String newBatch= 'new_batch';
   static String next= 'next';
   static String Name_Field_Required= 'name_field_required';
+  static String noData= 'no_data';
 
   static String testCourses= 'test_courses';
   static String TotalAmount= 'total_amount';
@@ -383,6 +404,7 @@ class StringConstant {
   static String share= 'share';
   static String skip= 'skip';
   static String State_Required= 'state_REQUIRED';
+  static String sellingPrice= 'selling_price';
 
   static String watchAppTutorial= 'watch_app_tutorial';
   static String writeAboutTheProblem= 'write_about_the_problem';

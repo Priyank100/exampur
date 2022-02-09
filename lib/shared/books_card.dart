@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/books_model.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/shared/place_order_screen.dart';
@@ -7,9 +8,10 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
+import 'package:exampur_mobile/data/model/e_book_model.dart';
 
 class BooksCard extends StatefulWidget {
-  final Books books;
+  final Data books;
 
   const BooksCard(this.books) : super();
 
@@ -64,7 +66,7 @@ class _BooksCardState extends State<BooksCard> {
           //   imageUrl: widget.books.bannerPath.toString(),
           //   errorWidget: (context, url, error) => new Icon(Icons.error),
           // ),
-          AppConstants.image(widget.books.bannerPath.toString()),
+          AppConstants.image(AppConstants.BANNER_BASE +widget.books.bannerPath.toString()),
           SizedBox(height: 10),
           Text(
             widget.books.title.toString(),
@@ -81,7 +83,7 @@ class _BooksCardState extends State<BooksCard> {
                   )
               );
             },
-            text: "Buy Now",
+            text: getTranslated(context, StringConstant.buy)!,
           ),
           SizedBox(
             height: 10,
@@ -112,7 +114,7 @@ class _BooksCardState extends State<BooksCard> {
                   width: 8,
                 ),
                 Text(
-                  "Share",
+                  getTranslated(context, StringConstant.share)!,
                   style: TextStyle(
                     color: AppColors.black,
                     fontSize: 16,

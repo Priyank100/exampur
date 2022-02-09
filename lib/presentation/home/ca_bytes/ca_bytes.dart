@@ -25,10 +25,19 @@ class _CaBytesState extends State<CaBytes> {
   bool isData = true;
   List<String> image = ["f", "f"];
   List<Data> caBytesList = [];
+
+  String encodeCat = '';
+
   Future<void> callProvider(pageNo) async {
 
+   // String catList = AppConstants.selectedCategoryList.toString();
+    //[gfhtjfyifiky,ghfuyjflygliy,jfkif]
+    //["gfhtjfyifiky","ghfuyjflygliy","jfkif"]
+//print(catList.toString());
+    encodeCat = AppConstants.encodeCategory();
+
     List<Data> list=  (await Provider.of<CABytesProvider>(context, listen: false)
-        .getCaBytesList(context,pageNo))!;
+        .getCaBytesList(context,encodeCat, pageNo))!;
     if(list.length > 0) {
       isData = true;
       caBytesList = caBytesList + list;

@@ -99,6 +99,7 @@ flutter:
     - assets/language/hi.json
     - assets/Statejson/State.json
     - assets/Statejson/issuename.json
+    - assets/Statejson/booklist.json
     - assets/mypdf.pdf
 
 

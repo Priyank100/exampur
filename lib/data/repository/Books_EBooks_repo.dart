@@ -8,9 +8,9 @@ class BooksEBooksRepo {
 
   BooksEBooksRepo({required this.dioClient});
 
-  Future<ApiResponse> books() async {
+  Future<ApiResponse> books(int pageNo) async {
     try {
-      String url = API.Books_URL;
+      String url = API.Books_URL+ pageNo.toString();
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -18,9 +18,9 @@ class BooksEBooksRepo {
     }
   }
 
-  Future<ApiResponse> eBooks() async {
+  Future<ApiResponse> eBooks(int pageNo) async {
     try {
-      final url = API.E_Books_URL;
+      final url = API.E_Books_URL+pageNo.toString();
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

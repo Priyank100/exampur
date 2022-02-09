@@ -1,12 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/books_model.dart';
+import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:exampur_mobile/data/model/e_book_model.dart';
 
 class PlaceOrderScreen extends StatefulWidget {
-  final Books books;
+  final Data books;
 
   const PlaceOrderScreen(this.books) : super();
 
@@ -30,7 +33,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
             //       widget.books.bannerPath.toString(),
             //   errorWidget: (context, url, error) => new Icon(Icons.error),
             // ),
-            child: AppConstants.image(widget.books.bannerPath.toString()),
+            child: AppConstants.image(AppConstants.BANNER_BASE +widget.books.bannerPath.toString()),
 
           ),
           Padding(
@@ -55,7 +58,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              'Price Breakdown',
+              getTranslated(context,StringConstant.priceBreakdown)!,
               softWrap: true,
               style: TextStyle(fontSize: 16),
             ),
@@ -66,14 +69,14 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Price',
+                  getTranslated(context,StringConstant.Price)!,
                   softWrap: true,
                   style: TextStyle(fontSize: 14),
                 ),
                 Text(
-                  '₹ ${widget.books.amount.toString()}',
+                  '₹ ${widget.books.regular_price.toString()}',
                   softWrap: true,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 14,decoration: TextDecoration.lineThrough,color: AppColors.grey),
                 ),
               ],
             ),
@@ -84,12 +87,12 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Shipping Price',
+                  getTranslated(context,StringConstant.sellingPrice)!,
                   softWrap: true,
                   style: TextStyle(fontSize: 14),
                 ),
                 Text(
-                  '₹ 0',
+                  '₹ ${widget.books.sale_price.toString()}',
                   softWrap: true,
                   style: TextStyle(fontSize: 14),
                 ),
@@ -97,22 +100,30 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
             ),
           ),
           Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Divider(thickness: 1,),
+          ),
+          Padding(
             padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Total Price',
+                  getTranslated(context, StringConstant.TotalAmount)!,
                   softWrap: true,
                   style: TextStyle(fontSize: 16),
                 ),
                 Text(
-                  '₹ ${widget.books.amount.toString()}',
+                  '₹ ${widget.books.sale_price.toString()}',
                   softWrap: true,
                   style: TextStyle(fontSize: 16),
                 ),
               ],
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Divider(thickness: 1,),
           ),
           Spacer(),
           Padding(
@@ -120,8 +131,17 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
             child: Align(
               alignment: FractionalOffset.bottomCenter,
               child: CustomElevatedButton(
-                onPressed: () {},
-                text: "Place Order",
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>
+                        DeliveryDetailScreen('Book', widget.books.id.toString(),
+                            widget.books.title.toString(), widget.books.sale_price.toString()
+                        )
+                    ),
+                  );
+                },
+                text:getTranslated(context, StringConstant.placeOrder)!,
               ),
             ),
           ),

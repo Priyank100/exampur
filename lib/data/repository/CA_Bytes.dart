@@ -8,9 +8,9 @@ class CaBytesRepo {
 
   CaBytesRepo ({required this.dioClient});
 
-  Future<ApiResponse> caBytes(int pageNo) async {
+  Future<ApiResponse> caBytes(String encodeCat, int pageNo) async {
     try {
-      String url = API.ca_bytes_url+pageNo.toString();
+      String url = API.ca_bytes_url.replaceAll("ENCODE_CATEGORY", encodeCat) + pageNo.toString();
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
