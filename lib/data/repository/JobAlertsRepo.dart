@@ -1,6 +1,5 @@
 import 'package:exampur_mobile/data/datasource/remote/dio/dio_client.dart';
 import 'package:exampur_mobile/data/datasource/remote/exception/api_error_handler.dart';
-import 'package:exampur_mobile/data/model/job_alert_list_body_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 
@@ -19,11 +18,10 @@ class JobAlertsRepo {
     }
   }
 
-  Future<ApiResponse> jobAlertsList(JobAlertListBodyModel bodyModel) async {
+  Future<ApiResponse> jobAlertsList(String alertCatId, String encodeCat, int pageNo) async {
     try {
-      final response = await dioClient.post(
-        API.job_alerts_list_URL,
-        data: bodyModel.toJson(),
+      final response = await dioClient.get(
+        API.job_alerts_list_URL.replaceAll('ALERT_CATEGORY_ID', alertCatId).replaceAll('ENCODE_CATEGORY', encodeCat) + pageNo.toString()
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {

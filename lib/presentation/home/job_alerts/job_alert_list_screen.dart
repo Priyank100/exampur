@@ -1,4 +1,3 @@
-import 'package:exampur_mobile/data/model/job_alert_list_body_model.dart';
 import 'package:exampur_mobile/data/model/job_alert_list_model.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -31,13 +30,10 @@ class _JobAlertListScreenState extends State<JobAlertListScreen> {
 
   Future<void> getLists(pageNo) async {
     isLoading = true;
-    JobAlertListBodyModel bodyModel = JobAlertListBodyModel();
-    bodyModel.alertCategoryId = widget.tabId.toString();
-    bodyModel.category = AppConstants.selectedCategoryList;
-    bodyModel.limit = 10;
-    bodyModel.skip = page;
 
-    List<ListData> list = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobAlertsList(context, bodyModel))!;
+    List<ListData> list = (await Provider.of<JobAlertsProvider>(context, listen: false).
+    getJobAlertsList(context, widget.tabId.toString(), AppConstants.encodeCategory(), page))!;
+
      if(list.length > 0) {
        isData = true;
        alertsDataList = alertsDataList + list;

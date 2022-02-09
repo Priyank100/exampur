@@ -1,14 +1,13 @@
 import 'dart:convert';
 /// statusCode : 200
-/// data : [{"_id":"61f38d26ff571ca4eb098952","title":"UPSC Calendar 2022 Releases"}]
-/// totalCount : 1
+/// data : [{"_id":"61f38e707a607f6a77ea4398","title":"UPSC Calendar 2022 Releases 1"},{"_id":"61f38e887a607f6a77ea439b","title":"UPSC Calendar 2022 Releases 2"},{"_id":"61f38e8a7a607f6a77ea439c","title":"UPSC Calendar 2022 Releases 3"},{"_id":"61f38e8d7a607f6a77ea439d","title":"UPSC Calendar 2022 Releases 4"}]
+/// totalCount : 4
 
 JobAlertListModel jobAlertListModelFromJson(String str) => JobAlertListModel.fromJson(json.decode(str));
 String jobAlertListModelToJson(JobAlertListModel data) => json.encode(data.toJson());
-
 class JobAlertListModel {
   JobAlertListModel({
-      int? statusCode, 
+      int? statusCode,
       List<ListData>? data,
       int? totalCount,}){
     _statusCode = statusCode;
@@ -46,15 +45,15 @@ class JobAlertListModel {
 
 }
 
-/// _id : "61f38d26ff571ca4eb098952"
-/// title : "UPSC Calendar 2022 Releases"
+/// _id : "61f38e707a607f6a77ea4398"
+/// title : "UPSC Calendar 2022 Releases 1"
 
 ListData dataFromJson(String str) => ListData.fromJson(json.decode(str));
 String dataToJson(ListData data) => json.encode(data.toJson());
 
 class ListData {
   ListData({
-      String? id, 
+      String? id,
       String? title,}){
     _id = id;
     _title = title;

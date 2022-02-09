@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +77,7 @@ class API {
 
   //jobAlerts
   static const String job_alerts_tab_URL      = BASE_URL3 +'alert/categories';
-  static const String job_alerts_list_URL     = BASE_URL3 +'alert/findall';
+  static const String job_alerts_list_URL     = BASE_URL3 +'alert/findall/' + 'ALERT_CATEGORY_ID' + '/' + 'ENCODE_CATEGORY' + '/10/';
   static const String job_alerts_details_URL  = BASE_URL3 +'alert/findone/' + 'ALERT_ID';
 
   //order_book
@@ -204,8 +206,16 @@ class AppConstants {
     );
   }
 
-  static const String COUNTRY_CODE = 'country_code';
-  static const String LANGUAGE_CODE = 'language_code';
+  static String encodeCategory() {
+    List<String> catIdList = [];
+    for (var id in AppConstants.selectedCategoryList)
+      catIdList.add('"' + id + '"');
+    String encodeCategory = base64.encode(utf8.encode(catIdList.toString().replaceAll(" ", "")));
+    return encodeCategory;
+  }
+
+  // static const String COUNTRY_CODE = 'country_code';
+  // static const String LANGUAGE_CODE = 'language_code';
 
 }
 
@@ -289,7 +299,6 @@ class StringConstant {
   static String dailyQuiz= 'daily_quiz';
   static String demo= 'demo';
   static String demo_classes= 'demo_classes';
-
 
   static String graduation= 'graduation';
 

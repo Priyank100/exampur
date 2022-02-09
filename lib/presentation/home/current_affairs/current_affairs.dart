@@ -3,12 +3,10 @@ import 'package:exampur_mobile/data/model/video_ca_model.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/contents_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
-import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CurrentAffairs extends StatefulWidget {
   final String type;
@@ -92,6 +90,7 @@ class CurrentAffairsState extends State<CurrentAffairs> with SingleTickerProvide
     ));
   }
 
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: getVideosList(),
@@ -110,20 +109,9 @@ class CurrentAffairsState extends State<CurrentAffairs> with SingleTickerProvide
                     isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
                     ContentsCA(contentList)
                   ],
-                  title: "Books")
+                  title: widget.type.toString())
           );
         });
-    // return Scaffold(
-    //     body: CustomTabBar(
-    //         length: 2,
-    //         names: ["Videos", "Contents"],
-    //         routes: [
-    //           VideosCA(videoList),
-    //           ContentsCA(contentList),
-    //         ],
-    //         title: widget.type
-    //     )
-    // );
   }
 
   @override
