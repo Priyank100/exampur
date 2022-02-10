@@ -1,16 +1,18 @@
-import 'package:exampur_mobile/data/model/ca_content_model.dart';
-import 'package:exampur_mobile/data/model/video_ca_model.dart';
+import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/contents_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
+import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CurrentAffairs extends StatefulWidget {
   final String type;
-  const CurrentAffairs(this.type) : super();
+  final contentCatId;
+  const CurrentAffairs(this.type, this.contentCatId) : super();
 
   @override
   CurrentAffairsState createState() => CurrentAffairsState();
@@ -18,13 +20,14 @@ class CurrentAffairs extends StatefulWidget {
 
 class CurrentAffairsState extends State<CurrentAffairs> with SingleTickerProviderStateMixin {
   late TabController _controller;
-  List<VideoCaModel> videoList = [];
-  List<CaContentModel> contentList = [];
+  List<Data> videoList = [];
+  List<Data> contentList = [];
   bool isLoading = false;
 
   Future<List> getVideosList() async {
     isLoading = true;
-    // videoList = (await Provider.of<CaProvider>(context, listen: true).getCaVideoList(context))!;
+    videoList = (await Provider.of<CaProvider>(context, listen: false)
+        .getCaSmList(context, widget.contentCatId, 'video', AppConstants.encodeCategory()))!;
     isLoading = false;
     return videoList;
   }
@@ -41,53 +44,13 @@ class CurrentAffairsState extends State<CurrentAffairs> with SingleTickerProvide
           break;
         case 1:
           isLoading = true;
-          // contentList = (await Provider.of<CaProvider>(context, listen: false).getCaContentList(context))!;
+          contentList = (await Provider.of<CaProvider>(context, listen: false)
+              .getCaSmList(context, widget.contentCatId, 'content', AppConstants.encodeCategory()))!;
           isLoading = false;
           break;
       }
       setState(() {});
     });
-
-    videoList.add(VideoCaModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.no_image,
-        title: '15 Days Free Foundation Batch Class'));
-    videoList.add(VideoCaModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.no_image,
-        title: '15 Days Free Foundation Batch Class'));
-    videoList.add(VideoCaModel(
-        videoPath: 'https://www.youtube.com/watch?v=ZoOwI3P5POo',
-        imagePath: Images.no_image,
-        title: '15 Days Free Foundation Batch Class'));
-    contentList.add(CaContentModel(
-      imagePath : Images.exampur_logo,
-      title: '15 Days Free Foundation Batch Class',
-      viewId: '123',
-      viewCount: '100,000+',
-      shareText: 'Current affairs daily'
-    ));
-    contentList.add(CaContentModel(
-        imagePath: Images.exampur_logo,
-        title: '15 Days Free Foundation Batch Class',
-        viewId: '123',
-        viewCount: '100,000+',
-        shareText: 'Current affairs daily'
-    ));
-    contentList.add(CaContentModel(
-        imagePath: Images.exampur_logo,
-        title: '15 Days Free Foundation Batch Class',
-        viewId: '123',
-        viewCount: '100,000+',
-        shareText: 'Current affairs daily'
-    ));
-    contentList.add(CaContentModel(
-        imagePath: Images.exampur_logo,
-        title: '15 Days Free Foundation Batch Class',
-        viewId: '123',
-        viewCount: '100,000+',
-        shareText: 'Current affairs daily'
-    ));
   }
 
   @override

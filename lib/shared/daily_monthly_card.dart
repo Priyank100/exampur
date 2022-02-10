@@ -1,13 +1,14 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/ca_content_model.dart';
+import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 
 class DailyMonthlyCard extends StatefulWidget {
-  final List<CaContentModel> list;
+  final Data listData;
   final int index;
-  const DailyMonthlyCard(this.list, this.index) : super();
+  const DailyMonthlyCard(this.listData, this.index) : super();
 
   @override
   _DailyMonthlyCardState createState() => _DailyMonthlyCardState();
@@ -20,26 +21,29 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
       color: widget.index % 2 == 0
           ? Theme.of(context).backgroundColor
           : AppColors.transparent,
-     // margin: EdgeInsets.all(5),
-     //  child: Card(
-        //elevation: 2,
         child: Padding(
           padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
           child: Row(
             children: [
+              widget.listData.type.toString() == 'Content' ?
               Container(
                   width: Dimensions.DailyMonthlyImageWidth,
                   height: Dimensions.DailyMonthlyImageHeight,
-                  child: Image.asset(widget.list[widget.index].imagePath.toString())
+                  child: AppConstants.image(AppConstants.BANNER_BASE + widget.listData.bannerPath.toString())) :
+              Container(
+                  width: Dimensions.DailyMonthlyImageWidth,
+                  height: Dimensions.DailyMonthlyImageHeight,
+                  child: Image.asset(Images.pdfIcon)
               ),
               SizedBox(width: 10),
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.list[widget.index].title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2),
+                    Text(widget.listData.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2),
                     SizedBox(height: 10),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
                           onTap: (){
@@ -56,11 +60,6 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
                             child: Text(getTranslated(context, 'view')!, style: TextStyle(fontSize: 12)),
                           ),
                         ),
-                        SizedBox(width: 12),
-                        Icon(Icons.remove_red_eye, size: 10),
-                        SizedBox(width: 5),
-                        Text(widget.list[widget.index].viewCount.toString(), style: TextStyle(fontSize: 10)),
-                        SizedBox(width: 12),
                         InkWell(
                           onTap: (){
                             // shareText
@@ -70,6 +69,7 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
                               Icon(Icons.share_outlined, size: 15),
                               SizedBox(width: 5),
                               Text(getTranslated(context, 'share')!, style: TextStyle(fontSize: 10)),
+                              SizedBox(width: 10)
                             ],
                           ),
                         )

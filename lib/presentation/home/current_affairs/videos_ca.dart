@@ -1,13 +1,11 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/video_ca_model.dart';
-import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class VideosCA extends StatefulWidget {
-  final List<VideoCaModel> list;
+  final List<Data> list;
   const VideosCA(this.list) : super();
 
   @override
@@ -32,7 +30,7 @@ class _VideosCAState extends State<VideosCA> {
 
   Widget myCard(index) {
     return Container(
-      height: MediaQuery.of(context).size.width/1.1,
+      height: MediaQuery.of(context).size.width/1.3,
       margin: EdgeInsets.all(5),
       child: Card(
         elevation: 5,
@@ -49,7 +47,7 @@ class _VideosCAState extends State<VideosCA> {
                       topRight: Radius.circular(5),
                     ),
                     image: DecorationImage(
-                      image: AssetImage(widget.list[index].imagePath.toString()),
+                      image: NetworkImage(AppConstants.BANNER_BASE + widget.list[index].bannerPath.toString()),
                       fit: BoxFit.fill
                     ),
                   ),

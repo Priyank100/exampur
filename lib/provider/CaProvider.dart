@@ -1,9 +1,6 @@
 import 'dart:convert';
-
-import 'package:exampur_mobile/Helper/api_checker.dart';
-import 'package:exampur_mobile/data/model/ca_content_model.dart';
+import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
-import 'package:exampur_mobile/data/model/video_ca_model.dart';
 import 'package:exampur_mobile/data/repository/CaRepo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -13,42 +10,28 @@ class CaProvider extends ChangeNotifier {
 
   CaProvider({required this.caRepo});
 
-  VideoCaModel _caVideoModel = VideoCaModel();
-  VideoCaModel get caVideoModel => _caVideoModel;
-
-  CaContentModel _caContentModel = CaContentModel();
-  CaContentModel get caContentModel => _caContentModel;
+  CaSmModel _caSmModel = CaSmModel();
+  CaSmModel get caSmModel => _caSmModel;
 
 
-  /*Future<List<Data>?> getCaVideoList(BuildContext context) async {
-    ApiResponse apiResponse = await caRepo.caVideos();
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      _caVideoModel = VideoCaModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _caVideoModel.data ?? [];
+  Future<List<Data>?> getCaSmList(BuildContext context, String contentCatId, String type, String encodeCat) async {
+    ApiResponse apiResponse = await caRepo.caSmVideosContents(contentCatId, type, encodeCat);
 
-    } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
-    }
-    notifyListeners();
-  }*/
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if(statusCode == '200') {
+        _caSmModel = CaSmModel.fromJson(json.decode(apiResponse.response.toString()));
+        return _caSmModel.data ?? [];
 
-
-  /*Future<List<Data>?> getCaContentList(BuildContext context) async {
-    ApiResponse apiResponse = await caRepo.caContents();
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response);
-      _caContentModel = CaContentModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _caContentModel.data ?? [];
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
 
     } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
+      AppConstants.showBottomMessage(context, 'Server Error', AppColors.red);
+      notifyListeners();
     }
-    notifyListeners();
-  }*/
+  }
 }

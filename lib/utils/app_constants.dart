@@ -85,8 +85,10 @@ class API {
   static const String finalize_order_book   = BASE_URL2 + 'order_book/finalize';
 
   //current_affairs
-  static const String ca_videos_url     = BASE_URL2 + '';
-  static const String ca_contents_url   = BASE_URL2 + '';
+  static const String ca_sm_url     = BASE_URL3 + 'content/findall/' +
+      'CONTENT_CATEGORY_ID' + '/' + 'TYPE' + '/' + 'ENCODE_CATEGORY' + '/10/0';
+
+  // https://static.exampur.work/content/findall/:content_category_id/:type/:category/:limit/:skip
 
 }
 
@@ -118,6 +120,9 @@ class AppConstants {
   static String shareAppContent = 'Hey check out EXAMPUR App at: ' + playStoreAppUrl;
 
   static List<String> selectedCategoryList = [];
+
+  static String currentAffairesId = '61efe9771dbf84752e750373';
+  static String studyMaterialsId = '61efe9921dbf84752e750384';
 
   static void printLog(message) {
     if (isPrint)
