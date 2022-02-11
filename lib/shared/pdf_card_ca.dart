@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -78,7 +79,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                                   child: Center(child: Text(
                                       widget.eBooks.sale_price != 0 ?
-                                      '\u{20B9} ${widget.eBooks.sale_price.toString()}' : "View PDF",
+                                      '\u{20B9} ${widget.eBooks.sale_price.toString()}' : getTranslated(context, StringConstant.viewPdf)!,
                                       style: TextStyle(fontSize: 12))
                                   )
                               ),
@@ -102,7 +103,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                         color: AppColors.red,
                                       ),
                                       padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                      child: Center(child: Text("Buy Now", style: TextStyle(fontSize: 12, color: AppColors.white)))
+                                      child: Center(child: Text(getTranslated(context, StringConstant.buy)!, style: TextStyle(fontSize: 12, color: AppColors.white)))
                                   )
                                 ) : SizedBox(),
                           ],

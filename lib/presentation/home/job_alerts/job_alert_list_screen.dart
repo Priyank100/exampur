@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/job_alert_list_model.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -67,7 +68,7 @@ class _JobAlertListScreenState extends State<JobAlertListScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(Icons.error_outline),
-          Text('No Data')
+          Text(getTranslated(context, StringConstant.noData)!)
         ],
       )) : listing(alertsDataList),
       bottomNavigationBar: isBottomLoading ? Container(

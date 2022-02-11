@@ -1,27 +1,70 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs/viedodetailpage.dart';
+import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class VideosCA extends StatefulWidget {
-  final List<Data> list;
-  const VideosCA(this.list) : super();
+  final String type;
+  final contentCatId;
+
+  const VideosCA(this.type,this.contentCatId) : super();
 
   @override
   _VideosCAState createState() => _VideosCAState();
 }
 
 class _VideosCAState extends State<VideosCA> {
+  bool isLoading = false;
+  List<Data> videoList = [];
+  var scrollController = ScrollController();
+  int page = 0;
+  bool isData = true;
+  Future<void> getBooksList(pageNo) async {
 
+    isLoading = true;
+    List<Data> list =  (await Provider.of<CaProvider>(context, listen: false)
+        .getCaSmList(context, widget.contentCatId, 'video', AppConstants.encodeCategory(),pageNo))!;
+    if(list.length > 0) {
+      isData = true;
+      videoList = videoList + list;
+    } else {
+      isData = false;
+    }
+    isLoading = false;
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    scrollController.addListener(pagination);
+    getBooksList(page);
+    print(widget.contentCatId);
+    super.initState();
+  }
+  void pagination() {
+    if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
+      setState(() {
+        if(isData) {
+          page += 1;
+        }
+        isLoading = true;
+        getBooksList(page);
+        AppConstants.printLog('page>> ' + page.toString());
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: widget.list.length == 0
-          ? Center(child: CircularProgressIndicator())
+      body: videoList.length == 0
+          ? Center(child: CircularProgressIndicator(color: AppColors.amber))
           : ListView.builder(
-          itemCount: widget.list.length,
-          shrinkWrap: true,
+          itemCount: videoList.length,
+         controller: scrollController,
+         // shrinkWrap: true,
           itemBuilder: (context, index) {
             return myCard(index);
           }),
@@ -36,6 +79,7 @@ class _VideosCAState extends State<VideosCA> {
         elevation: 5,
         child: Column(
           children: [
+
             InkWell(
                 onTap: () {},
                 child: Container(
@@ -47,7 +91,7 @@ class _VideosCAState extends State<VideosCA> {
                       topRight: Radius.circular(5),
                     ),
                     image: DecorationImage(
-                        image: NetworkImage(AppConstants.BANNER_BASE + widget.list[index].bannerPath.toString()),
+                        image: NetworkImage(AppConstants.BANNER_BASE + videoList[index].bannerPath.toString()),
                         fit: BoxFit.fill
                     ),
                   ),
@@ -56,13 +100,17 @@ class _VideosCAState extends State<VideosCA> {
             Expanded(
               child: Container(
                   padding: EdgeInsets.all(10),
-                  child: Text(widget.list[index].title.toString())
+                  child: Text(videoList[index].title.toString())
               ),
             ),
             Align(
               alignment: FractionalOffset.bottomCenter,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                      ViedoDetailPage(videoList[index])
+                  ));
+                },
                 child: Container(
                   height: 40,
                   alignment: Alignment.center,

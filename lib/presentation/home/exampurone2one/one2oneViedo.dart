@@ -1,4 +1,5 @@
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -95,7 +96,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         new Text(
-                          flag ? "show more" : "show less",
+                          flag ? getTranslated(context, StringConstant.showmore) !: getTranslated(context, StringConstant.showless) !,
                           style: new TextStyle(color: AppColors.blue300,fontSize: 12),
                         ),
                       ],
@@ -150,7 +151,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
                 width: 120,
                 child: Center(
                     child: Text(
-                  'Buy',
+                 getTranslated(context, StringConstant.buy)!,
                   style: TextStyle(color: AppColors.white),
                 )),
               ),

@@ -8,6 +8,7 @@
   "address_REQUIRED": "ADDRESS FIELD MUST BE REQUIRED",
   "age": "Age",
   "attempt_history": "Attempt History",
+  "audio_only": "Audio Only",
 
   "books": "Books",
   "buy": "Buy",
@@ -33,11 +34,14 @@
   "10th_class": "10th Class",
   "12th_class": "12th Class",
   "confirm_password_is_not_matched": "Confirm password is not matched",
+  "click_here_to_download_PDF": "Click Here to Download PDF",
+  "center": "Center",
 
   "downloads": "Downloads",
   "daily_quiz": "Daily Quiz",
   "demo": "Demo",
   "demo_classes": "Demo Classes",
+  "download_video": "Download Video",
 
   "email": "Email",
   "exampur_one2one": "Exampur one2one",
@@ -144,6 +148,9 @@
   "skip": "Skip",
   "state_REQUIRED": "STATE MUST BE REQUIRED",
   "selling_price": "Selling Price",
+  "select_issue": "Select issue",
+  "show_more": "show more",
+  "show_less": "show less",
 
 
 

@@ -106,7 +106,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
                 width: 120,
                 child: Center(
                     child: Text(
-                      getTranslated(context, 'buy')!,
+                      getTranslated(context, StringConstant.buy)!,
                       style: TextStyle(color: AppColors.white),
                     )),
               ),

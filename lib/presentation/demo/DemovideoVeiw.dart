@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/demo_models.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -89,7 +90,7 @@ class _DemoViedoViewState extends State<DemoViedoView> {
 
                       child: Center(
                           child: Text(
-                        'Download Video',
+                        getTranslated(context, StringConstant.downloadVideo)!,
                         softWrap: true,
                         style: TextStyle(color: Colors.white,fontSize: 16),
                       )),

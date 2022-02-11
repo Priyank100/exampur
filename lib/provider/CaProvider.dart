@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/CaRepo.dart';
@@ -14,8 +15,8 @@ class CaProvider extends ChangeNotifier {
   CaSmModel get caSmModel => _caSmModel;
 
 
-  Future<List<Data>?> getCaSmList(BuildContext context, String contentCatId, String type, String encodeCat) async {
-    ApiResponse apiResponse = await caRepo.caSmVideosContents(contentCatId, type, encodeCat);
+  Future<List<Data>?> getCaSmList(BuildContext context, String contentCatId, String type, String encodeCat,int pageNo) async {
+    ApiResponse apiResponse = await caRepo.caSmVideosContents(contentCatId, type, encodeCat,pageNo);
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
@@ -30,7 +31,7 @@ class CaProvider extends ChangeNotifier {
       notifyListeners();
 
     } else {
-      AppConstants.showBottomMessage(context, 'Server Error', AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
       notifyListeners();
     }
   }

@@ -71,7 +71,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0,top: 20),
                       child: Text(
-                        getTranslated(context, 'offline_batches')!,
+                        getTranslated(context, StringConstant.offlineBatches)!,
                         style: CustomTextStyle.headingBold(context),
                       ),
                     ),

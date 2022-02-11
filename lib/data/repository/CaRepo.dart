@@ -8,11 +8,11 @@ class CaRepo {
 
   CaRepo({required this.dioClient});
 
-  Future<ApiResponse> caSmVideosContents(String contentCatId, String type, String encodeCat) async {
+  Future<ApiResponse> caSmVideosContents(String contentCatId, String type, String encodeCat,int pageNo) async {
     try {
       String url = API.ca_sm_url.replaceAll('CONTENT_CATEGORY_ID', contentCatId).
                                 replaceAll('TYPE', type).
-                                replaceAll('ENCODE_CATEGORY', encodeCat);
+                                replaceAll('ENCODE_CATEGORY', encodeCat)+pageNo.toString();
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

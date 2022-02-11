@@ -49,7 +49,7 @@ class _AppTutorialCardState extends State<AppTutorialCard> {
                           child: Row(
                             children: [
                               Icon(Icons.play_arrow, color: AppColors.white,),
-                              Text(getTranslated(context, 'watch')!, style: new TextStyle(fontSize: 16.0, color: AppColors.white))
+                              Text(getTranslated(context, StringConstant.watch)!, style: new TextStyle(fontSize: 16.0, color: AppColors.white))
                             ],
                           ),
                           onPressed: () {

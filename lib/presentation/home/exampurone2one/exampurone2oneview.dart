@@ -80,7 +80,7 @@ scrollController.addListener(pagination);
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: Text(getTranslated(context, 'exampur_one2one')!,
+                child: Text(getTranslated(context, StringConstant.exampurOne2one)!,
                   style: CustomTextStyle.headingBold(context),
                 ),
               ),

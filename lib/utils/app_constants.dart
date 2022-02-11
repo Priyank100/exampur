@@ -277,6 +277,7 @@ class StringConstant {
   static String address_REQUIRED= 'address_REQUIRED';
   static String Age= 'age';
   static String attempthistory= 'attempt_history';
+  static String audioOnly= 'audio_only';
 
   static String books= 'books';
   static String buy= 'buy';
@@ -302,11 +303,14 @@ class StringConstant {
   static String Class10= '10th_class';
   static String Class12= '12th_class';
   static String ConfirmPasswordNotMatched= 'confirm_password_is_not_matched';
+  static String clickhereodownloadPDF= 'click_here_to_download_PDF';
+  static String center= 'center';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';
   static String demo= 'demo';
   static String demo_classes= 'demo_classes';
+  static String downloadVideo= 'download_video';
 
 
   static String graduation= 'graduation';
@@ -401,6 +405,10 @@ class StringConstant {
   static String skip= 'skip';
   static String State_Required= 'state_REQUIRED';
   static String sellingPrice= 'selling_price';
+  static String selectissue= 'select_issue';
+  static String showless= 'show_less';
+  static String showmore= 'show_more';
+
   static String viewPdf= 'view_pdf';
 
   static String watchAppTutorial= 'watch_app_tutorial';
@@ -422,6 +430,7 @@ class StringConstant {
 
   static String viewDetails= 'view_details';
   static String viewAll= 'view_all';
+  static String view= 'view';
 
   static String qualification= 'qualification';
 

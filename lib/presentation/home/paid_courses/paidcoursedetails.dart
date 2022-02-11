@@ -120,7 +120,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                 margin: EdgeInsets.all(28),
                 child: Center(
                     child: Text(
-                      getTranslated(context, 'buy_course')!,
+                      getTranslated(context, StringConstant.buyCourse)!,
                   style: TextStyle(color: AppColors.white, fontSize: 18),
                 )),
               ),
@@ -410,7 +410,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                           child:
                           Center(
                             child: Text(
-                              getTranslated(context, 'skip')!,
+                              getTranslated(context,StringConstant.skip)!,
                               style: TextStyle(color: AppColors.amber,fontSize: 20),
                             ),
                           ),
@@ -438,7 +438,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                               borderRadius: BorderRadius.all(Radius.circular(7))),
                           child: Center(
                             child: Text(
-                              getTranslated(context, 'add')!,
+                              getTranslated(context, StringConstant.add)!,
                               style: TextStyle(color: AppColors.white),
                             ),
                           ),
