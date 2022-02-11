@@ -405,6 +405,7 @@ class StringConstant {
   static String skip= 'skip';
   static String State_Required= 'state_REQUIRED';
   static String sellingPrice= 'selling_price';
+  static String viewPdf= 'view_pdf';
 
   static String watchAppTutorial= 'watch_app_tutorial';
   static String writeAboutTheProblem= 'write_about_the_problem';

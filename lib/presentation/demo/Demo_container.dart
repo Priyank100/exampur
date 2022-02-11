@@ -1,4 +1,5 @@
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/demo_models.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -51,7 +52,7 @@ class _DemoContainerState extends State<DemoContainer> {
                          child: Row(
                            children: [
                              Icon(Icons.play_arrow, color: AppColors.white,size: 10,),
-                             Text(' Watch', style: new TextStyle(fontSize: 10.0, color: AppColors.white))
+                             Text(getTranslated(context, StringConstant.watch)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white))
                            ],
                          ),
                          onPressed: () {
@@ -69,13 +70,13 @@ class _DemoContainerState extends State<DemoContainer> {
                      ),
                      SizedBox(width: 5,),
                      Container(
-                       width: Dimensions.AppTutorialImageHeight,
+                       //width: Dimensions.AppTutorialImageHeight,
                        height: 25,
                        decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:Color(0xFF1c1d3b)),
                        child: MaterialButton(
 
                          child:
-                             Text('View PDF', style: new TextStyle(fontSize: 10.0, color: AppColors.white)),
+                             Text(getTranslated(context, StringConstant.viewPdf)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white)),
 
                          onPressed: () {
                            // Navigator.push(
