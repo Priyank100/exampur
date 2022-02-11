@@ -65,8 +65,9 @@ class Courses {
       String? bannerPath, 
       String? logoPath, 
       String? description, 
-      String? videoPath, 
-      int? amount, 
+      String? videoPath,
+    int? regularPrice,
+    int? salePrice,
       String? flag, 
       List<Macro>? macro, 
       List<Category>? category,}){
@@ -76,7 +77,8 @@ class Courses {
     _logoPath = logoPath;
     _description = description;
     _videoPath = videoPath;
-    _amount = amount;
+    _regularPrice = regularPrice;
+    _salePrice = salePrice;
     _flag = flag;
     _macro = macro;
     _category = category;
@@ -89,7 +91,8 @@ class Courses {
     _logoPath = json['logo_path'];
     _description = json['description'];
     _videoPath = json['video_path'];
-    _amount = json['amount'];
+    _regularPrice = json['regular_price'];
+    _salePrice = json['sale_price'];
     _flag = json['flag'];
     if (json['macro'] != null) {
       _macro = [];
@@ -110,7 +113,8 @@ class Courses {
   String? _logoPath;
   String? _description;
   String? _videoPath;
-  int? _amount;
+  int? _regularPrice;
+  int? _salePrice;
   String? _flag;
   List<Macro>? _macro;
   List<Category>? _category;
@@ -121,7 +125,8 @@ class Courses {
   String? get logoPath => _logoPath;
   String? get description => _description;
   String? get videoPath => _videoPath;
-  int? get amount => _amount;
+  int? get regularPrice => _regularPrice;
+  int? get salePrice => _salePrice;
   String? get flag => _flag;
   List<Macro>? get macro => _macro;
   List<Category>? get category => _category;
@@ -134,7 +139,8 @@ class Courses {
     map['logo_path'] = _logoPath;
     map['description'] = _description;
     map['video_path'] = _videoPath;
-    map['amount'] = _amount;
+    map['regular_price'] = _regularPrice;
+    map['sale_price'] = _salePrice;
     map['flag'] = _flag;
     if (_macro != null) {
       map['macro'] = _macro?.map((v) => v.toJson()).toList();

@@ -1,4 +1,5 @@
-import 'package:exampur_mobile/data/model/ca_sm_model.dart';
+import 'package:exampur_mobile/data/model/ca_content_model.dart';
+import 'package:exampur_mobile/data/model/video_ca_model.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/contents_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';

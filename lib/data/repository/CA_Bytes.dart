@@ -3,24 +3,14 @@ import 'package:exampur_mobile/data/datasource/remote/exception/api_error_handle
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 
-class BooksEBooksRepo {
+class CaBytesRepo {
   final DioClient dioClient;
 
-  BooksEBooksRepo({required this.dioClient});
+  CaBytesRepo ({required this.dioClient});
 
-  Future<ApiResponse> books(int pageNo) async {
+  Future<ApiResponse> caBytes(String encodeCat, int pageNo) async {
     try {
-      String url = API.Books_URL+ pageNo.toString();
-      final response = await dioClient.get(url);
-      return ApiResponse.withSuccess(response);
-    } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
-    }
-  }
-
-  Future<ApiResponse> eBooks(int pageNo) async {
-    try {
-      final url = API.E_Books_URL+pageNo.toString();
+      String url = API.ca_bytes_url.replaceAll("ENCODE_CATEGORY", encodeCat) + pageNo.toString();
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

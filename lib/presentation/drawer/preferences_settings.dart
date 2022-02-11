@@ -29,7 +29,7 @@ class _PreferencesSettingsState extends State<PreferencesSettings> {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 20,top: 20),
-                child: Text(getTranslated(context, 'language_preferences')!,style: TextStyle(color: AppColors.black,fontWeight: FontWeight.bold,fontSize: 20)),
+                child: Text(getTranslated(context, StringConstant.languagePreferences)!,style: TextStyle(color: AppColors.black,fontWeight: FontWeight.bold,fontSize: 20)),
               ),
 
              Container(
@@ -40,7 +40,7 @@ class _PreferencesSettingsState extends State<PreferencesSettings> {
                     color: AppColors.white
                   ),
                   child: DropdownButton<Language>(
-hint: Text(getTranslated(context, 'select_language')!),
+hint: Text(getTranslated(context, StringConstant.selectLanguage)!),
                     isExpanded: true,
                     underline: SizedBox(),
                     icon: Icon(

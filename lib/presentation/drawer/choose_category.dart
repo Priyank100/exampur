@@ -63,7 +63,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
     setState(() {});
   }
 
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
 
@@ -262,7 +262,8 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                   ),
                   // child: SizedBox(
                   //   width: double.infinity,
-                  child: InkWell(
+                  child: !isLoading
+                      ?InkWell(
                     onTap: () {
                       SharedPref.saveSharedPref(
                           SharedPrefConstants.CATEGORY_LENGTH,
@@ -271,10 +272,16 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                       //     selectedCountries.length.toString());
                       AppConstants.printLog(selectedCountries.length.toString());
                       if(selectedCountries.length >0){
+                        setState(() {
+                          isLoading = true;
+                        });
                         UpdateChoosecategory(selectedCountries);
 
                       }
                       else {
+                        setState(() {
+                          isLoading = false;
+                        });
                         AppConstants.printLog('test');
                         var snackBar = SnackBar(content: Text('Please Choose the Category'),backgroundColor: AppColors.grey);
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -305,6 +312,9 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                 color: AppColors.white, fontSize: 20),
                           )),
                     ),
+                  ) : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(AppColors.amber))),
                   ),
                 )
                 // : Container(
@@ -345,6 +355,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
       API.Update_Choose_category_URL,
       body: body,
     ).then((response) async {
+      isLoading = false;
       AppConstants.printLog(response.body.toString());
       if (response == null) {
         var snackBar = SnackBar( margin: EdgeInsets.all(20),

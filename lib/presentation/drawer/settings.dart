@@ -5,6 +5,7 @@ import 'package:exampur_mobile/presentation/drawer/security_settings.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class SettingsState extends State<Settings> {
     return Scaffold(
       body: CustomTabBar(
                length: 3,
-               names: [getTranslated(context, 'general')!, getTranslated(context, 'security')!, getTranslated(context, 'preference')!],
+               names: [getTranslated(context, StringConstant.general)!, getTranslated(context,StringConstant.security)!, getTranslated(context, StringConstant.preference)!],
                routes: [
 
               GeneralSettings(),
@@ -32,7 +33,7 @@ class SettingsState extends State<Settings> {
               PreferencesSettings(),
              
 
-            ], title: getTranslated(context, 'settings')!,
+            ], title: getTranslated(context, StringConstant.settings)!,
           ),
 
     );

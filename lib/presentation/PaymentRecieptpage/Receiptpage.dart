@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/final_order_pay_model.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
@@ -110,7 +111,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                   height: 20,
                 ),
                 Text(
-                  'Transaction Receipt ',
+                  getTranslated(context, StringConstant.TransactionReceipt)!,
                   style: TextStyle(fontSize: 23),
                 ),
                 SizedBox(
@@ -128,7 +129,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                 Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'Thank You ',
+                      getTranslated(context, StringConstant.Thankyou)!  ,
                       style: TextStyle(fontSize: 30, color: AppColors.green),
                     )),
                 SizedBox(
@@ -148,7 +149,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                     child: Column(
                       children: [
                         TextUse(
-                          title: widget.type == 'Course' ? 'Course  :' : 'Book :',
+                          title: widget.type == 'Course' ?  getTranslated(context, StringConstant.coursename)! + ' :' :  getTranslated(context, StringConstant.books)! +':',
                           text: widget.type == 'Course' ?
                           model.data!.courseTitle.toString() : model.data!.bookTitle.toString(),
                         ),
@@ -156,21 +157,21 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                           height: 8,
                         ),
                         TextUse(
-                          title: 'Order Date :',
+                          title:  getTranslated(context, StringConstant.OrderDate)! +' :',
                           text: model.data!.date.toString(),
                         ),
                         SizedBox(
                           height: 8,
                         ),
                         TextUse(
-                          title: 'Transcation Id  :',
+                          title: getTranslated(context, StringConstant.TranscationId)! + ' :',
                           text: model.data!.paymentTransactionId.toString(),
                         ),
                         SizedBox(
                           height: 8,
                         ),
                         TextUse(
-                          title: 'Payment Mode:',
+                          title:  getTranslated(context, StringConstant.PaymentMode)! +' :',
                           text: 'RazorPay',
                         ),
                         Divider(),
@@ -178,7 +179,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Total Amount',
+                              getTranslated(context, StringConstant.TotalAmount)!,
                               style: TextStyle(fontSize: 18),
                             ),
                             Text(model.data!.finalAmount.toString(),
@@ -219,7 +220,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                 ),
                 child: Center(
                     child: Text(
-                      'Back to home page',
+                      getTranslated(context, StringConstant.BackToHomePage)!,
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ))),
           ),

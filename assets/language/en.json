@@ -32,6 +32,7 @@
   "ca_bytes": "CA Bytes",
   "10th_class": "10th Class",
   "12th_class": "12th Class",
+  "confirm_password_is_not_matched": "Confirm password is not matched",
 
   "downloads": "Downloads",
   "daily_quiz": "Daily Quiz",
@@ -51,6 +52,7 @@
   "enter_pin_code": "Enter Pin Code",
   "Enter_valid_coupon_apply": "Enter valid coupon code and apply",
   "enter_your_age": "Enter your age",
+  "email_required": "EMAIL MUST BE REQUIRED",
 
 
 
@@ -70,6 +72,7 @@
   "log_out": "Log Out",
   "landmark_tehsil": "Landmark / Tehsil",
   "language_preferences": "Language Preferences",
+  "loading...": "Loading...",
 
 
 
@@ -89,6 +92,12 @@
   "please_select_attempt_history": "Please select attempt history",
   "please_enter_age": "Please enter age",
   "payment_mode": "Payment Mode",
+"please_enter_current_password": "Please enter current password",
+  "please_enter_new_password": "Please enter new password",
+  "please_letter_password": "Please enter atleast 8 letter Password",
+  "price_breakdown": "Price Breakdown",
+  "price": "Price",
+  "place_order": "Place Order",
 
 
 
@@ -96,6 +105,10 @@
   "new_password": "New Password",
   "new_batch": "New Batch",
   "next": "Next",
+  "name_field_required": "NAME FIELD MUST BE REQUIRED",
+  "no_data": "No Data",
+
+  "message": "Message",
 
 
   "test_courses": "Test Series",
@@ -130,6 +143,7 @@
   "share": "Share",
   "skip": "Skip",
   "state_REQUIRED": "STATE MUST BE REQUIRED",
+  "selling_price": "Selling Price",
 
 
 
@@ -154,11 +168,13 @@
   "graduation": "Graduation",
 
   "user_name": "UserName",
+  "updated_successfully": "Updated Successfully",
 
 
   "view_details": "View Details",
   "view_all": "View All",
   "view": "View",
+  "view_pdf": "View PDF",
 
   "qualification": "Qualification"
 
