@@ -86,9 +86,11 @@ class API {
 
   //current_affairs
   static const String ca_sm_url     = BASE_URL3 + 'content/findall/' +
-      'CONTENT_CATEGORY_ID' + '/' + 'TYPE' + '/' + 'ENCODE_CATEGORY' + '/10/0';
+      'CONTENT_CATEGORY_ID' + '/' + 'TYPE' + '/' + 'ENCODE_CATEGORY' + '/10/';
 
   // https://static.exampur.work/content/findall/:content_category_id/:type/:category/:limit/:skip
+
+  static const String ca_bytes_url   = BASE_URL3+ 'ca_byte/' + 'ENCODE_CATEGORY' + '/10/';
 
 }
 
@@ -299,6 +301,7 @@ class StringConstant {
   static String CaBytes= 'ca_bytes';
   static String Class10= '10th_class';
   static String Class12= '12th_class';
+  static String ConfirmPasswordMatched= 'confirm_password_is_not_matched';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';
@@ -320,6 +323,7 @@ class StringConstant {
   static String enterPinCode= 'enter_pin_code';
   static String enteryourage= 'enter_your_age';
   static String EnterApplycoupon= 'Enter_valid_coupon_apply';
+  static String Email_Required= 'email_required';
 
 
   static String freeCourses= 'free_courses';
@@ -355,11 +359,19 @@ class StringConstant {
   static String pleaseSelectAttemptHistory= 'please_select_attempt_history';
   static String pleaseEnterAge= 'please_enter_age';
   static String PaymentMode= 'payment_mode';
+  static String priceBreakdown= 'price_breakdown';
+  static String Price= 'price';
+  static String placeOrder= 'place_order';
+  static String PleaseletterPassword= 'please_letter_password';
+  static String PleaseEnternewPassword= 'please_enter_new_password';
+  static String PleasecurrentPassword= 'please_enter_current_password';
 
   static String name= 'name';
   static String newPassword= 'new_password';
   static String newBatch= 'new_batch';
   static String next= 'next';
+  static String Name_Field_Required= 'name_field_required';
+  static String noData= 'no_data';
 
   static String testCourses= 'test_courses';
   static String TotalAmount= 'total_amount';
@@ -386,7 +398,9 @@ class StringConstant {
   static String saveTheCourse= 'save_the_course';
   static String share= 'share';
   static String skip= 'skip';
-  static String state_REQUIRED= 'state_REQUIRED';
+  static String State_Required= 'state_REQUIRED';
+  static String sellingPrice= 'selling_price';
+  static String viewPdf= 'view_pdf';
 
   static String watchAppTutorial= 'watch_app_tutorial';
   static String writeAboutTheProblem= 'write_about_the_problem';
@@ -403,6 +417,7 @@ class StringConstant {
   static String general= 'general';
 
   static String userName= 'user_name';
+  static String UpdatedSuccessfully= 'updated_successfully';
 
   static String viewDetails= 'view_details';
   static String viewAll= 'view_all';

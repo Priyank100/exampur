@@ -47,8 +47,8 @@ class _VideosCAState extends State<VideosCA> {
                       topRight: Radius.circular(5),
                     ),
                     image: DecorationImage(
-                      image: NetworkImage(AppConstants.BANNER_BASE + widget.list[index].bannerPath.toString()),
-                      fit: BoxFit.fill
+                        image: NetworkImage(AppConstants.BANNER_BASE + widget.list[index].bannerPath.toString()),
+                        fit: BoxFit.fill
                     ),
                   ),
                 )
@@ -83,4 +83,3 @@ class _VideosCAState extends State<VideosCA> {
     );
   }
 }
-
