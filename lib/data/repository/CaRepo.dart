@@ -8,19 +8,11 @@ class CaRepo {
 
   CaRepo({required this.dioClient});
 
-  Future<ApiResponse> caVideos() async {
+  Future<ApiResponse> caSmVideosContents(String contentCatId, String type, String encodeCat) async {
     try {
-      String url = API.ca_videos_url;
-      final response = await dioClient.get(url);
-      return ApiResponse.withSuccess(response);
-    } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
-    }
-  }
-
-  Future<ApiResponse> caContents() async {
-    try {
-      final url = API.ca_contents_url;
+      String url = API.ca_sm_url.replaceAll('CONTENT_CATEGORY_ID', contentCatId).
+                                replaceAll('TYPE', type).
+                                replaceAll('ENCODE_CATEGORY', encodeCat);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

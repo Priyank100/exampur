@@ -1,5 +1,4 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -29,9 +28,7 @@ class JobAlertsState extends State<JobAlerts> with TickerProviderStateMixin {
   }
 
   Future<void> getLists() async {
-    jobAlertTabList =
-    (await Provider.of<JobAlertsProvider>(context, listen: false)
-        .getJobAlertsTabList(context))!;
+    jobAlertTabList = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobAlertsTabList(context))!;
     AppConstants.printLog(jobAlertTabList.length);
   }
 

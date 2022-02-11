@@ -224,7 +224,7 @@ class _HomeState extends State<Home> {
                     image: Images.current_affair,
                     title: getTranslated(context, 'current_affairs')!,
                     color: AppColors.affairs,
-                    navigateTo: CurrentAffairs('Current Affairs')),
+                    navigateTo: CurrentAffairs('Current Affairs', AppConstants.currentAffairesId)),
                 // SquareButton(
                 //     image: Images.offlinebatch,
                 //     title: getTranslated(context, 'offline_batches')!,
@@ -267,7 +267,7 @@ class _HomeState extends State<Home> {
                     image: Images.studymaterial,
                     title: getTranslated(context, 'study_materials')!,
                     color: AppColors.quiz,
-                    navigateTo: CurrentAffairs('Study Material')),
+                    navigateTo: CurrentAffairs('Study Material', AppConstants.studyMaterialsId)),
                 SquareButton(
                     image: Images.caBytes,
                     title: getTranslated(context,StringConstant.CaBytes)!,

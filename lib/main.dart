@@ -6,7 +6,7 @@ import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/provider/AppToutorial_provider.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
-import 'package:exampur_mobile/provider/CABytesProvider.dart';
+import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/provider/Helpandfeedback.dart';
@@ -55,7 +55,7 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl< HelpandFeedbackprovider>()),
     ChangeNotifierProvider(create: (context) => di.sl<OrderDetailsprovider>()),
     ChangeNotifierProvider(create: (context) => di.sl<JobAlertsProvider>()),
-    ChangeNotifierProvider(create: (context) => di.sl<CABytesProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<CaProvider>()),
   ], child: MyApp()));
 }
 
