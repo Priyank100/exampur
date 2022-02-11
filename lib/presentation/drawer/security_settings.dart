@@ -136,7 +136,7 @@ class _SecuritySettingsState extends State<SecuritySettings> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text(getTranslated(context, StringConstant.ConfirmPasswordMatched)!),
+        content: Text(getTranslated(context, StringConstant.ConfirmPasswordNotMatched)!),
         backgroundColor: AppColors.black,
       ));
     } else {

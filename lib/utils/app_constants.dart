@@ -309,6 +309,7 @@ class StringConstant {
   static String CaBytes= 'ca_bytes';
   static String Class10= '10th_class';
   static String Class12= '12th_class';
+  static String ConfirmPasswordNotMatched= 'confirm_password_is_not_matched';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';
