@@ -301,12 +301,13 @@ class StringConstant {
   static String CaBytes= 'ca_bytes';
   static String Class10= '10th_class';
   static String Class12= '12th_class';
-  static String ConfirmPasswordMatched= 'confirm_password_is_not_matched';
+  static String ConfirmPasswordNotMatched= 'confirm_password_is_not_matched';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';
   static String demo= 'demo';
   static String demo_classes= 'demo_classes';
+
 
   static String graduation= 'graduation';
 

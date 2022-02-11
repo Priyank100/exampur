@@ -56,8 +56,8 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl< HelpandFeedbackprovider>()),
     ChangeNotifierProvider(create: (context) => di.sl<OrderDetailsprovider>()),
     ChangeNotifierProvider(create: (context) => di.sl<JobAlertsProvider>()),
-    ChangeNotifierProvider(create: (context) => di.sl<CaProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<CABytesProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<CaProvider>()),
   ], child: MyApp()));
 }
 

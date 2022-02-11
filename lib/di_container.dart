@@ -4,8 +4,8 @@ import 'package:exampur_mobile/data/repository/CaRepo.dart';
 import 'package:exampur_mobile/provider/AppToutorial_provider.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
-import 'package:exampur_mobile/provider/CABytesProvider.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
+import 'package:exampur_mobile/provider/CABytesProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/provider/Helpandfeedback.dart';
@@ -72,8 +72,8 @@ Future<void> init() async {
   sl.registerFactory(() =>  AppTutorialProvider(appTutorialRepo: sl()));
   sl.registerFactory(() =>  OrderDetailsprovider(checkOrderRepo: sl()));
   sl.registerFactory(() =>  JobAlertsProvider(jobAlertsRepo: sl()));
-  sl.registerFactory(() =>  CaProvider(caRepo: sl()));
   sl.registerFactory(() =>  CABytesProvider(caBytesRepo: sl()));
+  sl.registerFactory(() =>  CaProvider(caRepo: sl()));
 
   //External
   final sharedPreferences = await SharedPreferences.getInstance();
