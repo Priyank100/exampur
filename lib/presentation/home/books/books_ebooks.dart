@@ -19,87 +19,41 @@ class BooksEbook extends StatefulWidget {
 }
 
 class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMixin   {
-   TabController? _controller;
- // List<Books> booksList = [];
-  List<Book> issueList = [];
+  List<Book> tabList = [];
   List<Data> eBooksList = [];
-  int bookvalue = 0;
-  bool isLoading = false;
 
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/Statejson/booklist.json');
   }
-  void getStateList() async {
+
+  void getTabList() async {
     String jsonString = await loadJsonFromAssets();
     final BookResponse = booktitleFromJson(jsonString);
-    issueList  =BookResponse.book!;
-    // for (var i = 0; i < issueList.length; i++) {
-    //   print(issueList[i].name);
-    //   bookvalue=issueList[i].name.toString();
-    // }
+    tabList = BookResponse.book!;
     setState(() {});
   }
-  // Future<List> getBooksList() async {
-  //   isLoading = true;
-  //  // eBooksList = (await Provider.of<BooksEBooksProvider>(context, listen: false).getBooksList(context,))!;
-  //   isLoading = false;
-  //   return eBooksList;
-  // }
 
   @override
   void initState() {
+    getTabList();
     super.initState();
-    getStateList();
-    super.initState();
-    // _controller = TabController(length: 2, vsync: this);
-    //
-    // _controller.addListener(() async {
-    //   switch(_controller.index) {
-    //     case 0:
-    //       getBooksList();
-    //       break;
-    //     case 1:
-    //       isLoading = true;
-    //       eBooksList = (await Provider.of<BooksEBooksProvider>(context, listen: false).getE_booksList(context))!;
-    //       isLoading = false;
-    //       break;
-    //   }
-    //   setState(() {});
-    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future:  Future.delayed(Duration.zero, () => getStateList()),
+        future:  Future.delayed(Duration.zero, () => getTabList()),
         builder: (context, snapshot) {
             return Scaffold(
                 body: TabBarDemo(
-                    controller: _controller,
-                    length: issueList.length,
-                    // names: [
-                    //   "Books",
-                    //   "e-Books",
-                    // ],
-                    names:issueList.map((item) => item.name.toString()).toList(),
-                    routes: [
-                      isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+                    length: tabList.length,
+                    names: tabList.map((item) => item.name.toString()).toList(),
+                    routes: tabList.length == 0 ? [] : [
                       BooksScreen(),
-                      isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
                       EBooksScreen()
                     ],
-                    // routes:bookvalue==0?
-                    // issueList.map((item) => BooksScreen()).toList()
-                    //     :
-                    // issueList.map((item) =>EBooksScreen()).toList(),
                     title: getTranslated(context, StringConstant.books)!)
             );
     });
-  }
-
-  @override
-  void dispose() {
-    _controller!.dispose();
-    super.dispose();
   }
 }

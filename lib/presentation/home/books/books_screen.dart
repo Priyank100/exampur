@@ -24,7 +24,6 @@ class _BooksScreenState extends State<BooksScreen> {
   bool isData = true;
 
   Future<void> getBooksList(pageNo) async {
-    isLoading = true;
    List<Data> list = (await Provider.of<BooksEBooksProvider>(context, listen: false).getBooksList(context,pageNo))!;
     if(list.length > 0) {
       isData = true;
@@ -71,12 +70,12 @@ class _BooksScreenState extends State<BooksScreen> {
             itemBuilder: (BuildContext context,int index){
           return  BooksCard(eBooksList[index]);
         }),
-    //     bottomNavigationBar: isLoading ? Container(
-    //     // padding: EdgeInsets.all(8),
-    //     height:40,
-    //     width: 40,
-    //     child: Center(child: CircularProgressIndicator(color:AppColors.amber,))) :
-    // SizedBox(),
+        bottomNavigationBar: isLoading ? Container(
+        // padding: EdgeInsets.all(8),
+        height:40,
+        width: 40,
+        child: Center(child: CircularProgressIndicator(color:AppColors.amber,))) :
+    SizedBox(),
     );
   }
 }

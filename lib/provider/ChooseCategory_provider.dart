@@ -23,42 +23,40 @@ class ChooseCategoryProvider extends ChangeNotifier {
 
   Future<List<Data>?> getchooseCategoryList(BuildContext context) async {
     ApiResponse apiResponse = await chooseCategoryRepo.chooseCategory();
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
+
+    if(apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response!.data);
-
-_categoryModel = ChooseCategory.fromJson(json.decode(apiResponse.response.toString()));
-
-    return _categoryModel.data;
-
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if(statusCode == '200') {
+        _categoryModel = ChooseCategory.fromJson(json.decode(apiResponse.response.toString()));
+        return _categoryModel.data;
+      } else {
+        AppConstants.showBottomMessage(context, apiResponse.response!.data['data'].toString(), AppColors.black);
+      }
 
     } else {
-      AppConstants.printLog("init address fail");
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
-    throw '';
   }
 
   Future<List<String>?> getSelectchooseCategoryList(BuildContext context) async {
     ApiResponse apiResponse = await chooseCategoryRepo.selectCategory();
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
+
+    if(apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response!.data);
-
-      _getCategoriesModel = GetCategoriesModel.fromJson(json.decode(apiResponse.response.toString()));
-
-      return _getCategoriesModel.data;
-
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if(statusCode == '200') {
+        _getCategoriesModel = GetCategoriesModel.fromJson(json.decode(apiResponse.response.toString()));
+        return _getCategoriesModel.data;
+      } else {
+        AppConstants.showBottomMessage(context, apiResponse.response!.data['data'].toString(), AppColors.black);
+      }
 
     } else {
-      AppConstants.printLog("init address fail");
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
-    throw '';
   }
 
 }

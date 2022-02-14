@@ -29,7 +29,6 @@ class ChooseCategoryRepo {
 
   Future<ApiResponse> selectCategory() async {
     try {
-
       final url =  '${API.Select_Choose_category_URL}';
       AppConstants.printLog(url);
       final response = await dioClient.get(url);

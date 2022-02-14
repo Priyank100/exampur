@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,17 +14,16 @@ class DioClient {
   final SharedPreferences sharedPreferences;
 
   Dio dio=Dio();
-  String token="";
+  String token = '';
 
-  DioClient(
-      this.baseUrl,
-      Dio dioC, {
-        required this.loggingInterceptor,
+  DioClient(this.baseUrl, Dio dioC, {
+    required this.loggingInterceptor,
         required this.sharedPreferences,
       }) {
     token = sharedPreferences.getString(SharedPrefConstants.TOKEN)?? "no_token";
+    // token = Keys.appToken;
     AppConstants.printLog("NNNN $token");
-   // dio = dioC ?? Dio();
+
     dio
       ..options.baseUrl = baseUrl
       ..options.connectTimeout = 30000

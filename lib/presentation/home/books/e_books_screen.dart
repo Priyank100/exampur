@@ -20,8 +20,9 @@ class _EBooksScreenState extends State<EBooksScreen> {
   var scrollController = ScrollController();
   int page = 0;
   bool isData = true;
+
   Future<void> getBooksList(pageNo) async {
-    isLoading = true;
+    // isLoading = true;
     List<Data> list = (await Provider.of<BooksEBooksProvider>(context, listen: false).getE_booksList(context,pageNo))!;
     if(list.length > 0) {
       isData = true;
@@ -63,17 +64,16 @@ class _EBooksScreenState extends State<EBooksScreen> {
         // )) :
         ListView.builder(
             itemCount: eBooksList.length,
-           // shrinkWrap: true,
             controller: scrollController,
             itemBuilder: (BuildContext context,int index){
               return  PDFCardCA(eBooksList[index], index);
             }),
-      // bottomNavigationBar: isLoading ? Container(
-      //   // padding: EdgeInsets.all(8),
-      //     height:40,
-      //     width: 40,
-      //     child: Center(child: CircularProgressIndicator(color:AppColors.amber,))) :
-      // SizedBox(),
+      bottomNavigationBar: isLoading ? Container(
+        // padding: EdgeInsets.all(8),
+          height:40,
+          width: 40,
+          child: Center(child: CircularProgressIndicator(color:AppColors.amber,))) :
+      SizedBox(),
     );
   }
 }

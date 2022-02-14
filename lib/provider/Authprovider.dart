@@ -19,6 +19,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider extends ChangeNotifier {
   final AuthRepo authRepo;
@@ -51,6 +52,7 @@ class AuthProvider extends ChangeNotifier {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
         SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN2>> ${_informationModel.data!.authToken}');
+        Keys.appToken = _informationModel.data!.authToken.toString();
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
@@ -95,6 +97,7 @@ class AuthProvider extends ChangeNotifier {
 
         SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN2>> ${_informationModel.data!.authToken}');
+        Keys.appToken = _informationModel.data!.authToken.toString();
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
@@ -167,6 +170,7 @@ class AuthProvider extends ChangeNotifier {
       if (statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
         SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
+        Keys.appToken = _informationModel.data!.authToken.toString();
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);

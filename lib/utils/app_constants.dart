@@ -96,6 +96,7 @@ class API {
 
 class Keys {
   static const String Rozar_pay_key = 'rzp_test_tnxy74fGchHvRY';
+  static String appToken = '';
 }
 
 class SharedPrefConstants {
