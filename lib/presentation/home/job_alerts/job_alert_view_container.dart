@@ -42,14 +42,14 @@ class _JobAlertViewContainerState extends State<JobAlertViewContainer> {
                   decoration: BoxDecoration(
                       border: Border.all(color: AppColors.black)
                   ),
-                  child: Text(getTranslated(context, 'view')!, style: TextStyle(fontSize: 12)),
+                  child: Text(getTranslated(context, StringConstant.view)!, style: TextStyle(fontSize: 12)),
                 ),
               ),
               SizedBox(width: 15,),
               Row(children: [
                 Image.asset(Images.share,height: 15,width: 15,),
                 SizedBox(width: 5,),
-                Text(getTranslated(context, 'share')!, style: TextStyle(fontSize: 10))
+                Text(getTranslated(context, StringConstant.share)!, style: TextStyle(fontSize: 10))
               ],)
             ],
           ),

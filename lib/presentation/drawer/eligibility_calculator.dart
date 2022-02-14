@@ -124,7 +124,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              getTranslated(context, 'state')!,
+              getTranslated(context, StringConstant.state)!,
               style: CustomTextStyle.headingBigBold(context),
             )),
         SizedBox(
@@ -172,7 +172,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                 AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.PleaseSelectState), AppColors.black);
               }
             },
-            text: getTranslated(context, 'next')!,
+            text: getTranslated(context, StringConstant.next)!,
           ),
         ),
       ],
@@ -388,7 +388,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                 AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.pleaseEnterAge), AppColors.black);
               }
             },
-            text: getTranslated(context, 'next')!,
+            text: getTranslated(context,StringConstant.next)!,
           ),
         ),
       ],

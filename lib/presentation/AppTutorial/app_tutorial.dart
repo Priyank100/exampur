@@ -51,7 +51,7 @@ class _AppTutorialState extends State<AppTutorial> {
                         left: Dimensions.FONT_SIZE_SMALL,
                         bottom: Dimensions.FONT_SIZE_SMALL),
                     child: Text(
-                      getTranslated(context, 'app_tutorial')!,
+                      getTranslated(context, StringConstant.appTutorial)!,
                       style: CustomTextStyle.headingBigBold(context),
                     ),
                   ),

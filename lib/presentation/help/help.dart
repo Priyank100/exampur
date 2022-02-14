@@ -84,7 +84,7 @@ class HelpState extends State<Help> {
               Padding(
                 padding: EdgeInsets.only(left: 20.0, top: 20.0),
                 child: Text(
-                  getTranslated(context, 'help')!,
+                  getTranslated(context, StringConstant.help)!,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
@@ -146,7 +146,7 @@ class HelpState extends State<Help> {
                   cursorColor: AppColors.amber,
                   controller: _descriptionController,
                   decoration: InputDecoration(
-                      hintText: getTranslated(context, 'write_about_the_problem')!,
+                      hintText: getTranslated(context, StringConstant.writeAboutTheProblem)!,
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
                       isDense: true,
                       //filled: true,
@@ -185,7 +185,7 @@ issuevalue='Select issue';
                 }
               },
                   child: Container(margin:  EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
-                    height: 50, color: AppColors.dark,child: Center(child: Text(getTranslated(context, 'submit_issue')!,style: TextStyle(color: Colors.white,fontSize: 20),)),))
+                    height: 50, color: AppColors.dark,child: Center(child: Text(getTranslated(context,StringConstant.submitIssue)!,style: TextStyle(color: Colors.white,fontSize: 20),)),))
                  :
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -206,7 +206,7 @@ issuevalue='Select issue';
                         Navigator.push(context, MaterialPageRoute(builder: (context) =>AppTutorial()));
                       },
                       child: Text(
-                        getTranslated(context, 'watch_app_tutorial')!,
+                        getTranslated(context, StringConstant.watchAppTutorial)!,
                         style: TextStyle(
                           fontSize: 20.0,
                         ),
@@ -222,12 +222,12 @@ issuevalue='Select issue';
 
   bool checkValidation(_message) {
     if (_message.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, 'all_fields_mandatory')!), backgroundColor: AppColors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.allFieldsMandatory)!), backgroundColor: AppColors.black));
       return false;
     }
 
     else if (issuevalue=='Select issue') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Select issue'), backgroundColor:Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.selectissue)!), backgroundColor:Colors.black));
       return false;
    }
     else {
@@ -248,14 +248,14 @@ issuevalue='Select issue';
       if (response == null) {
         var snackBar = SnackBar( margin: EdgeInsets.all(20),
             behavior: SnackBarBehavior.floating,
-            content: Text('Server Error'),backgroundColor: AppColors.red);
+            content: Text(getTranslated(context, StringConstant.serverError)!),backgroundColor: AppColors.red);
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       } else if (response.statusCode == 200) {
         AppConstants.printLog(response.body.toString());
         var jsonObject =  jsonDecode(response.body);
         AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
         if(jsonObject['statusCode'].toString() == '200'){
-          print(jsonObject['data']);
+          AppConstants.printLog(jsonObject['data']);
           _descriptionController.clear();
           AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
           //AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();

@@ -42,7 +42,7 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(getTranslated(context, 'job_alerts')!, style: CustomTextStyle.headingMediumBold(context)),
+              Text(getTranslated(context, StringConstant.jobAlerts)!, style: CustomTextStyle.headingMediumBold(context)),
               Expanded(child: SingleChildScrollView(
                   child: Html(data:utf8.decode(base64.decode(jobAlertsData!.description.toString())))
               )

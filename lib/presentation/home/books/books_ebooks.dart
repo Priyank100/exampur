@@ -25,9 +25,7 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
   List<Data> eBooksList = [];
   int bookvalue = 0;
   bool isLoading = false;
-  var scrollController =ScrollController();
-  bool isData =true;
-  String type='';
+
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/Statejson/booklist.json');
   }

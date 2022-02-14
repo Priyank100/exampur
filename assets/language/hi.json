@@ -26,6 +26,7 @@
   "downloads": "डाउनलोड",
   "demo": "डेमो",
   "demo_classes":"डेमो क्लासेस",
+  "download_video": "वीडियो डाउनलोड करें ",
 
 
 
@@ -40,6 +41,7 @@
   "address_REQUIRED": "पता फ़ील्ड आवश्यक होना चाहिए",
   "age": "आयु",
   "attempt_history": "प्रयास इतिहास",
+  "audio_only": "सिर्फ़ ध्वनि",
 
 
 
@@ -162,6 +164,8 @@
   "10th_class": "10वीं कक्षा",
   "12th_class": "12वीं कक्षा",
   "confirm_password_is_not_matched": "पुष्टि करें कि पासवर्ड का मिलान नहीं हुआ है",
+  "click_here_to_download_PDF": "पडीफ डाउनलोड करने के लिए यहाँ क्लिक करें",
+  "center": "केंद्र",
 
   "settings": "समायोजन",
   "save_the_course":"पाठ्यक्रम सहेजें",
@@ -179,6 +183,9 @@
   "skip": "छोड़ें",
   "state_REQUIRED": "राज्य की आवश्यकता होनी चाहिए",
   "selling_price": "विक्रय मूल्य",
+  "select_issue": "मुद्दा चुनें",
+  "show_more": "और दिखाओ",
+  "show_less": "कम दिखाएं",
 
   "job_alerts": "नौकरी अलर्ट",
 

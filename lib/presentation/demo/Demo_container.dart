@@ -124,7 +124,7 @@ class _DemoContainerState extends State<DemoContainer> {
           SizedBox(height: 10,),
           CustomButton(navigateTo:  DemoViedoView(widget.demoList[widget.index]),title: '140p',),
           SizedBox(height: 10,),
-          CustomButton(navigateTo:  DemoViedoView(widget.demoList[widget.index]),title: 'Audio Only',),
+          CustomButton(navigateTo:  DemoViedoView(widget.demoList[widget.index]),title: getTranslated(context, StringConstant.audioOnly)!,),
           SizedBox(height: 10,),
 
         ],

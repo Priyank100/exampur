@@ -63,7 +63,7 @@ class DemoState extends State<Demo> {
     return Scaffold(
         appBar: AppBar(
             title: Text(
-            getTranslated(context, 'demo_classes')!,
+            getTranslated(context, StringConstant.demo_classes)!,
               style: CustomTextStyle.headingBigBold(context),
             ),
             backgroundColor: AppColors.transparent,
@@ -80,7 +80,7 @@ class DemoState extends State<Demo> {
                 SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
-                  child: TitleRow(title: getTranslated(context, 'recorded')!, onTap: () {  },  ),
+                  child: TitleRow(title: getTranslated(context, StringConstant.recorded)!, onTap: () {  },  ),
                 ),
                Expanded(
                  child: ListView.builder(

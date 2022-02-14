@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
@@ -25,7 +24,7 @@ class API {
   //Auth
   static const String Login_URL = BASE_URL2 + 'auth/login';
   static const String Valid_Token_URL = BASE_URL2 + 'user';
-  static const String Update_User_URL = BASE_URL2 + 'user/update';
+  static const String Update_User_URL = BASE_URL2 + 'user';
   static const String Change_Password_URL = BASE_URL2 + 'auth/changePassword';
   static const String Send_OTP_URL = BASE_URL2 + 'otp';
   static const String Reset_Password_URL = BASE_URL2 + 'auth/resetPassword';
@@ -40,8 +39,8 @@ class API {
   static const String Select_Choose_category_URL = BASE_URL2 + 'user/getCategory';
 
   //Book/E-Book
-  static const String Books_URL = BASE_URL3 + 'books/printed/10/';
-  static const String E_Books_URL = BASE_URL3 + 'books/ebook/10/';
+  static const String Books_URL = BASE_URL3 + 'books/printed/10/0';
+  static const String E_Books_URL = BASE_URL3 + 'books/ebook/10/0';
 
   //PaidCourse
   static const String PaidCoursesTab_URL = BASE_URL3 + 'category/course_paid';
@@ -87,18 +86,11 @@ class API {
 
   //current_affairs
   static const String ca_sm_url     = BASE_URL3 + 'content/findall/' +
-      'CONTENT_CATEGORY_ID' + '/' + 'TYPE' + '/' + 'ENCODE_CATEGORY' + '/10/0';
+      'CONTENT_CATEGORY_ID' + '/' + 'TYPE' + '/' + 'ENCODE_CATEGORY' + '/10/';
 
   // https://static.exampur.work/content/findall/:content_category_id/:type/:category/:limit/:skip
 
-  //Ca_Bytes
-  //static const String ca_bytes_url   = BASE_URL3+ 'ca_byte/10/';
   static const String ca_bytes_url   = BASE_URL3+ 'ca_byte/' + 'ENCODE_CATEGORY' + '/10/';
-
-
-
-
-
 
 }
 
@@ -197,9 +189,9 @@ class AppConstants {
     AlertDialog alert = AlertDialog(
       content: new Row(
         children: [
-          CircularProgressIndicator(color: AppColors.amber,),
+          CircularProgressIndicator(),
           Container(
-              margin: EdgeInsets.only(left: 10), child: Text(getTranslated(context, 'loading...')!)),
+              margin: EdgeInsets.only(left: 10), child: Text("Loading...")),
         ],),
     );
     showDialog(barrierDismissible: false,
@@ -285,6 +277,7 @@ class StringConstant {
   static String address_REQUIRED= 'address_REQUIRED';
   static String Age= 'age';
   static String attempthistory= 'attempt_history';
+  static String audioOnly= 'audio_only';
 
   static String books= 'books';
   static String buy= 'buy';
@@ -310,11 +303,14 @@ class StringConstant {
   static String Class10= '10th_class';
   static String Class12= '12th_class';
   static String ConfirmPasswordNotMatched= 'confirm_password_is_not_matched';
+  static String clickhereodownloadPDF= 'click_here_to_download_PDF';
+  static String center= 'center';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';
   static String demo= 'demo';
   static String demo_classes= 'demo_classes';
+  static String downloadVideo= 'download_video';
 
 
   static String graduation= 'graduation';
@@ -368,13 +364,12 @@ class StringConstant {
   static String pleaseSelectAttemptHistory= 'please_select_attempt_history';
   static String pleaseEnterAge= 'please_enter_age';
   static String PaymentMode= 'payment_mode';
-  static String PleasecurrentPassword= 'please_enter_current_password';
-  static String PleaseEnternewPassword= 'please_enter_new_password';
-  static String PleaseletterPassword= 'please_letter_password';
   static String priceBreakdown= 'price_breakdown';
   static String Price= 'price';
   static String placeOrder= 'place_order';
-
+  static String PleaseletterPassword= 'please_letter_password';
+  static String PleaseEnternewPassword= 'please_enter_new_password';
+  static String PleasecurrentPassword= 'please_enter_current_password';
 
   static String name= 'name';
   static String newPassword= 'new_password';
@@ -410,6 +405,10 @@ class StringConstant {
   static String skip= 'skip';
   static String State_Required= 'state_REQUIRED';
   static String sellingPrice= 'selling_price';
+  static String selectissue= 'select_issue';
+  static String showless= 'show_less';
+  static String showmore= 'show_more';
+
   static String viewPdf= 'view_pdf';
 
   static String watchAppTutorial= 'watch_app_tutorial';
@@ -431,6 +430,7 @@ class StringConstant {
 
   static String viewDetails= 'view_details';
   static String viewAll= 'view_all';
+  static String view= 'view';
 
   static String qualification= 'qualification';
 

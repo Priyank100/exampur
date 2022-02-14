@@ -81,7 +81,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                       left: Dimensions.FONT_SIZE_SMALL,
                       bottom: Dimensions.FONT_SIZE_SMALL),
                   child: Text(
-                    getTranslated(context, 'select_categories')!,
+                    getTranslated(context, StringConstant.selectCategories)!,
                     style: CustomTextStyle.headingBigBold(context),
                   ),
                 ),
@@ -105,7 +105,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                       cursorColor: AppColors.amber,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.search,size: 25,color: AppColors.grey400),
-                        hintText: getTranslated(context, 'search_category'),
+                        hintText: getTranslated(context,StringConstant.searchCategory),
                         hintStyle: TextStyle(
                           color: AppColors.grey400,
                         ),
@@ -283,7 +283,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                           isLoading = false;
                         });
                         AppConstants.printLog('test');
-                        var snackBar = SnackBar(content: Text('Please Choose the Category'),backgroundColor: AppColors.grey);
+                        var snackBar = SnackBar(content: Text(getTranslated(context, StringConstant.pleaseChooseTheCategory)!),backgroundColor: AppColors.grey);
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
 
@@ -307,7 +307,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                       child: Center(
                           child: Text(
                             // "Save (${selectedCountries.length})",
-                            getTranslated(context, 'save_the_course')!,
+                            getTranslated(context, StringConstant.saveTheCourse)!,
                             style: TextStyle(
                                 color: AppColors.white, fontSize: 20),
                           )),

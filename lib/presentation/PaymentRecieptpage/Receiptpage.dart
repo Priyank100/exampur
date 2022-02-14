@@ -47,7 +47,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
       AppConstants.printLog(response.body.toString());
 
       if (response == null) {
-        AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, Colors.red);
       } else if (response.statusCode == 200) {
         model =
             FinalOrderPayModel.fromJson(json.decode(response.body.toString()));

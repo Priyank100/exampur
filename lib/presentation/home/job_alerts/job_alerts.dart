@@ -43,7 +43,7 @@ class JobAlertsState extends State<JobAlerts> with TickerProviderStateMixin {
               length: jobAlertTabList.length,
               names: jobAlertTabList.map((item) => item.name.toString()).toList(),
               routes: jobAlertTabList.map((item) => JobAlertListScreen(item.id.toString())).toList(),
-              title: getTranslated(context, 'job_alerts')!,
+              title: getTranslated(context, StringConstant.jobAlerts)!,
             ),
           );
         });

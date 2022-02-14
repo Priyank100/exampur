@@ -100,6 +100,7 @@ flutter:
     - assets/Statejson/State.json
     - assets/Statejson/issuename.json
     - assets/Statejson/booklist.json
+    - assets/Statejson/currentaffairtab.json
     - assets/mypdf.pdf
 
 

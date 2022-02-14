@@ -109,24 +109,24 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                           ),
                           Center(
                             child: Text(
-                              getTranslated(context, 'offline_batches')!,
+                              getTranslated(context, StringConstant.offlineBatches)!,
                               style: CustomTextStyle.headingBold(context),
                             ),
                           ),
                           SizedBox(
                             height: 5,
                           ),
-                        Text('Center  : ' +
+                        Text(getTranslated(context, StringConstant.center)!+' : ' +
                             centerName),
                           SizedBox(
                             height: 5,
                           ),
-                        Text(getTranslated(context, 'phone_number')!+ ' : ' +
+                        Text(getTranslated(context, StringConstant.phoneNumber)!+ ' : ' +
                             centerMobile),
                           SizedBox(
                             height: 5,
                           ),
-                        Text(getTranslated(context, 'address')!+ ' : ' +
+                        Text(getTranslated(context, StringConstant.address)!+ ' : ' +
                             centerAddress, maxLines: 2),
                       ],),),
                     ),
@@ -229,7 +229,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                                               Color(0xFF060929)),
                                                           color: Color(0xFF060929)),
                                                       child:  Center(
-                                                          child: Text(getTranslated(context, 'view_details')!,
+                                                          child: Text(getTranslated(context, StringConstant.viewDetails)!,
                                                               style: TextStyle(
                                                                   fontSize: 13,
                                                                   color: Colors
@@ -256,7 +256,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                                   ),
                                                   InkWell(
                                                     onTap: () {},
-                                                    child: Text(getTranslated(context, 'share')!,
+                                                    child: Text(getTranslated(context, StringConstant.share)!,
                                                         style:
                                                         TextStyle(fontSize: 13)),
                                                   ),

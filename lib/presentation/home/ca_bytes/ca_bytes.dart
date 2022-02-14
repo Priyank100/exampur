@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/c_a_bytes_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/CABytesProvider.dart';
@@ -80,7 +81,7 @@ class _CaBytesState extends State<CaBytes> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Bytes',style: TextStyle(fontSize: 27),),
+                child: Text(getTranslated(context, StringConstant.CaBytes)!,style: TextStyle(fontSize: 27),),
               ),
               Expanded(
                 child: ListView.builder(
