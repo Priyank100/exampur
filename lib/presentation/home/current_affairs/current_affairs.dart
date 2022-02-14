@@ -79,6 +79,7 @@ class CurrentAffairsState extends State<CurrentAffairs> with SingleTickerProvide
                   controller: _controller,
                   length: tablist.length,
                   names:tablist.map((item) => item.name.toString()).toList(),
+
                   routes: [
                     isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
                     VideosCA(widget.type,widget.contentCatId),
