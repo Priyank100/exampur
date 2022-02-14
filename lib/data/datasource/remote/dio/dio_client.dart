@@ -21,7 +21,6 @@ class DioClient {
         required this.sharedPreferences,
       }) {
     token = sharedPreferences.getString(SharedPrefConstants.TOKEN)?? "no_token";
-    // token = Keys.appToken;
     AppConstants.printLog("NNNN $token");
 
     dio

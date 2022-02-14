@@ -12,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ChooseCategoryRepo {
   final DioClient dioClient;
 
-
   ChooseCategoryRepo({required this.dioClient});
 
   Future<ApiResponse> chooseCategory() async {
