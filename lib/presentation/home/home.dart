@@ -198,7 +198,9 @@ class _HomeState extends State<Home> {
                     image: Images.dailyquiz,
                     title: getTranslated(context, 'daily_quiz')!,
                     color: AppColors.quiz,
-                    navigateTo: UploadImage()),
+                    navigateTo:  TestSeriesview()
+                   // UploadImage()
+                ),
 
                 SquareButton(
                     image: Images.testseries,

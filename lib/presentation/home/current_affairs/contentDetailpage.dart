@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
+import 'package:exampur_mobile/presentation/home/dummytest.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +34,16 @@ class _ContentDetailPageState extends State<ContentDetailPage> {
                     child: Column(
                       children: [
                         Html(data:utf8.decode(base64.decode(widget.contentlist.description.toString()))),
-widget.contentlist.type=='PDF'?
 
-                            Text(getTranslated(context, StringConstant.clickhereodownloadPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
+widget.contentlist.type=='PDF'?
+                            InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                    ViewPdf(AppConstants.BANNER_BASE + widget.contentlist.targetLink.toString())
+                                ));
+                              },
+                                child: Text(getTranslated(context, StringConstant.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
+                            )
                           //  Container(height: 3,color: AppColors.blue,margin:EdgeInsets.only(left: 15,right: 15) ,)
                           :SizedBox()
 

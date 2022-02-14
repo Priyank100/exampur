@@ -25,7 +25,7 @@ class _VideosCAState extends State<VideosCA> {
   bool isData = true;
   Future<void> getBooksList(pageNo) async {
 
-    isLoading = true;
+   // isLoading = true;
     List<Data> list =  (await Provider.of<CaProvider>(context, listen: false)
         .getCaSmList(context, widget.contentCatId, 'video', AppConstants.encodeCategory(),pageNo))!;
     if(list.length > 0) {
@@ -68,6 +68,12 @@ class _VideosCAState extends State<VideosCA> {
           itemBuilder: (context, index) {
             return myCard(index);
           }),
+      bottomNavigationBar: isLoading ? Container(
+        // padding: EdgeInsets.all(8),
+          height:40,
+          width: 40,
+          child: Center(child: CircularProgressIndicator(color:AppColors.amber,))) :
+      SizedBox(),
     );
   }
 

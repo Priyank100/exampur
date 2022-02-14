@@ -23,7 +23,7 @@ class _ContentsCAState extends State<ContentsCA> {
   bool isData = true;
   Future<void> getBooksList(pageNo) async {
 
-    isLoading = true;
+    // isLoading = true;
     List<Data> list = (await Provider.of<CaProvider>(context, listen: false)
         .getCaSmList(context, widget.contentCatId, 'content', AppConstants.encodeCategory(),pageNo))!;
     if(list.length > 0) {
@@ -65,6 +65,12 @@ class _ContentsCAState extends State<ContentsCA> {
           itemBuilder: (context, index) {
             return DailyMonthlyCard(contentList[index], index,widget.type);
           }),
+      bottomNavigationBar: isLoading ? Container(
+        // padding: EdgeInsets.all(8),
+          height:40,
+          width: 40,
+          child: Center(child: CircularProgressIndicator(color:AppColors.amber,))) :
+      SizedBox(),
     );
   }
 }

@@ -304,7 +304,7 @@ class StringConstant {
   static String Class10= '10th_class';
   static String Class12= '12th_class';
   static String ConfirmPasswordNotMatched= 'confirm_password_is_not_matched';
-  static String clickhereodownloadPDF= 'click_here_to_download_PDF';
+  static String clickHereToViewPDF= 'click_view_PDF';
   static String center= 'center';
 
   static String downloads= 'downloads';
