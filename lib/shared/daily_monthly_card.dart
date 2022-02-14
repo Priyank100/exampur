@@ -40,7 +40,7 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.listData.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2),
+                    Text(widget.listData.title.toString(), overflow: TextOverflow.ellipsis, maxLines: 2),
                     SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
