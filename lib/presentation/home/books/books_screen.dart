@@ -32,6 +32,7 @@ class _BooksScreenState extends State<BooksScreen> {
       isData = false;
     }
     isLoading = false;
+    setState(() {});
   }
   @override
   void initState() {
@@ -55,13 +56,6 @@ class _BooksScreenState extends State<BooksScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body:eBooksList.length==0 ?
-        // Center(child: Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Icon(Icons.error_outline),
-        //     Text(getTranslated(context, StringConstant.noData)!)
-        //   ],
-        // ))
         Center(child: CircularProgressIndicator(color: AppColors.amber,))    :
         ListView.builder(
             itemCount: eBooksList.length,

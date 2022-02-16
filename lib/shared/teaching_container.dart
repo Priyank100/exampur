@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/dummy_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
+import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -162,7 +163,15 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             children: [
                               Image.asset(Images.share,height: 18,width: 18,),
                               SizedBox(width: 5,),
-                              Text(getTranslated(context, 'share')!)
+                              InkWell(
+                                onTap: () async {
+                                  String shortUrl = await FirebaseDynamicLinkService.createDynamicLink(
+                                    widget.courseData, widget.courseType
+                                  );
+                                  AppConstants.printLog('shortUrl>> ' + shortUrl);
+                                },
+                                child: Text(getTranslated(context, 'share')!)
+                              )
                             ],
                           ),
                           SizedBox(height: 15,),

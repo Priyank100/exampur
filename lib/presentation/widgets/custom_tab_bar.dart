@@ -133,7 +133,7 @@ class _TabBarDemoState extends State<TabBarDemo>
       length: widget.length,
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: true,
+          // automaticallyImplyLeading: true,
           backgroundColor: AppColors.transparent,
           iconTheme: IconThemeData(
             color: AppColors.black,

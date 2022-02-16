@@ -2,9 +2,11 @@ import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/help/help.dart';
+import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
+import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/test_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,9 +40,17 @@ class AppRouter {
           builder: (_) => Help(),
         );
         case '/landingPage':
-        return MaterialPageRoute(
+          return MaterialPageRoute(
           builder: (_) => LandingPage(),
         );
+      case '/red':
+        return MaterialPageRoute(
+          builder: (_) => Notifications(),
+        );
+        case '/course_detail' :
+            return MaterialPageRoute(
+              builder: (_) => Help(),
+            );
 
       default:
         return MaterialPageRoute(

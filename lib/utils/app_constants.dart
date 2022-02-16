@@ -39,7 +39,7 @@ class API {
   static const String Select_Choose_category_URL = BASE_URL2 + 'user/getCategory';
 
   //Book/E-Book
-  static const String Books_URL = BASE_URL3 + 'books/printed/10/0';
+  static const String Books_URL = BASE_URL3 + 'books/printed/10/';
   static const String E_Books_URL = BASE_URL3 + 'books/ebook/10/0';
 
   //PaidCourse

@@ -1,5 +1,7 @@
 import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
 import 'package:exampur_mobile/presentation/drawer/eligibility_calculator.dart';
+import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
+import 'package:exampur_mobile/presentation/home/books/books_screen.dart';
 import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
 import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
@@ -19,8 +21,10 @@ import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'Localization/app_localization.dart';
 import 'Localization/language_constrants.dart';
 import 'di_container.dart' as di;
@@ -91,6 +95,14 @@ class _MyAppState extends State<MyApp> {
    });
    super.didChangeDependencies();
  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    initDynamicLinks();
+  }
+
   @override
   Widget build(BuildContext context) {
     final platform = Theme.of(context).platform;
@@ -110,7 +122,7 @@ class _MyAppState extends State<MyApp> {
         ),
       );
     } else {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Exampur',
       theme: CustomTheme.lightTheme,
       //darkTheme: CustomTheme.darkTheme,
@@ -144,5 +156,19 @@ class _MyAppState extends State<MyApp> {
       home: SplashScreen(),
     );
     }
+  }
+
+  void initDynamicLinks() async {
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+          final Uri? deepLink = dynamicLink?.link;
+          if(deepLink!=null) {
+            Get.toNamed("/course_detail");
+          }
+        },
+        onError: (OnLinkErrorException e) async {
+          AppConstants.printLog("DL>> " + e.message.toString());
+        }
+    );
   }
 }
