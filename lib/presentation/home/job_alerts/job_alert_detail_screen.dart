@@ -8,6 +8,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class JobAlertDetailScreen extends StatefulWidget {
   final String id;

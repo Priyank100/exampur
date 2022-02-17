@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
 import 'package:exampur_mobile/presentation/Search/searchview.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
@@ -53,9 +54,11 @@ class _BottomNavigationState extends State<BottomNavigation>
   late List<AnimationController> _faders;
   late List<Key> _destinationKeys;
   int _counter = 0;
+
   @override
   void initState() {
     super.initState();
+    FirebaseDynamicLinkService.initDynamiclink(context);
 
     _faders = widgetList.map<AnimationController>((item) {
       return AnimationController(

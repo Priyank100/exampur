@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
+import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/drawer/eligibility_calculator.dart';
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/books/books_screen.dart';
@@ -24,7 +25,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get/get.dart';
 import 'Localization/app_localization.dart';
 import 'Localization/language_constrants.dart';
 import 'di_container.dart' as di;
@@ -100,7 +100,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initDynamicLinks();
   }
 
   @override
@@ -122,7 +121,7 @@ class _MyAppState extends State<MyApp> {
         ),
       );
     } else {
-    return GetMaterialApp(
+    return MaterialApp(
       title: 'Exampur',
       theme: CustomTheme.lightTheme,
       //darkTheme: CustomTheme.darkTheme,
@@ -156,19 +155,5 @@ class _MyAppState extends State<MyApp> {
       home: SplashScreen(),
     );
     }
-  }
-
-  void initDynamicLinks() async {
-    FirebaseDynamicLinks.instance.onLink(
-        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
-          final Uri? deepLink = dynamicLink?.link;
-          if(deepLink!=null) {
-            Get.toNamed("/course_detail");
-          }
-        },
-        onError: (OnLinkErrorException e) async {
-          AppConstants.printLog("DL>> " + e.message.toString());
-        }
-    );
   }
 }

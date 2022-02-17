@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/dummy_model.dart';
@@ -8,6 +10,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class TeachingContainer extends StatefulWidget {
   final Courses courseData;
@@ -165,10 +168,9 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               SizedBox(width: 5,),
                               InkWell(
                                 onTap: () async {
-                                  String shortUrl = await FirebaseDynamicLinkService.createDynamicLink(
-                                    widget.courseData, widget.courseType
-                                  );
-                                  AppConstants.printLog('shortUrl>> ' + shortUrl);
+                                  String data = json.encode(widget.courseData);
+                                  String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink(data, widget.courseType.toString());
+                                  Share.share(dynamicUrl);
                                 },
                                 child: Text(getTranslated(context, 'share')!)
                               )

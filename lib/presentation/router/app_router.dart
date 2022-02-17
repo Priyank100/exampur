@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
-  Route onGenerateRoute(RouteSettings routeSettings) {
+  Route? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/':
         return MaterialPageRoute(
@@ -47,15 +47,11 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => Notifications(),
         );
-        case '/course_detail' :
-            return MaterialPageRoute(
-              builder: (_) => Help(),
-            );
-
       default:
-        return MaterialPageRoute(
-          builder: (_) => TestingScreen(),
-        );
+        return null;
+        // return MaterialPageRoute(
+        //   builder: (_) => BottomNavigation(),
+        // );
     }
   }
 }
