@@ -33,6 +33,7 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: CustomAppBar(),
       body: jobAlertsData == null ?

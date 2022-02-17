@@ -1,7 +1,6 @@
 import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
 import 'package:exampur_mobile/presentation/drawer/eligibility_calculator.dart';
 import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
-import 'package:exampur_mobile/presentation/router/app_router.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/provider/AppToutorial_provider.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
@@ -18,6 +17,7 @@ import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
       _locale = locale;
     });
   }
-  final AppRouter _appRouter = AppRouter();
+ // final AppRouter _appRouter = AppRouter();
  @override
  void didChangeDependencies() {
    getLocale().then((locale) {
@@ -114,6 +114,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Exampur',
       theme: CustomTheme.lightTheme,
       //darkTheme: CustomTheme.darkTheme,
+
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       locale: _locale,
@@ -136,7 +137,7 @@ class _MyAppState extends State<MyApp> {
         }
         return supportedLocales.first;
       },
-      onGenerateRoute: _appRouter.onGenerateRoute,
+     // onGenerateRoute: _appRouter.onGenerateRoute,
       routes: {
         "red": (_) => Notifications(),
        // "green": (_) => Notifications(),

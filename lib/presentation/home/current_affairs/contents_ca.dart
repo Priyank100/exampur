@@ -1,7 +1,9 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/shared/daily_monthly_card.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,13 +19,15 @@ class ContentsCA extends StatefulWidget {
 
 class _ContentsCAState extends State<ContentsCA> {
   bool isLoading = false;
+  bool isBottomLoading = false;
   List<Data> contentList = [];
   var scrollController = ScrollController();
+  final keyRefresh = GlobalKey<RefreshIndicatorState>();
   int page = 0;
   bool isData = true;
   Future<void> getBooksList(pageNo) async {
-
-    // isLoading = true;
+contentList.clear();
+     isLoading = true;
     List<Data> list = (await Provider.of<CaProvider>(context, listen: false)
         .getCaSmList(context, widget.contentCatId, 'content', AppConstants.encodeCategory(),pageNo))!;
     if(list.length > 0) {
@@ -32,7 +36,11 @@ class _ContentsCAState extends State<ContentsCA> {
     } else {
       isData = false;
     }
-    isLoading = false;
+     isLoading = false;
+     isBottomLoading = false;
+     setState(() {
+
+     });
   }
   @override
   void initState() {
@@ -47,25 +55,39 @@ class _ContentsCAState extends State<ContentsCA> {
         if(isData) {
           page += 1;
         }
-        isLoading = true;
+        isBottomLoading = true;
         getBooksList(page);
         AppConstants.printLog('page>> ' + page.toString());
       });
     }
   }
+  Future<void> _refreshLocalGallery() async{
+  return   getBooksList(page);
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: contentList.length == 0
-          ? Center(child: CircularProgressIndicator(color: AppColors.amber))
-          : ListView.builder(
-          itemCount: contentList.length,
-          controller: scrollController,
-          //shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return DailyMonthlyCard(contentList[index], index,widget.type);
-          }),
-      bottomNavigationBar: isLoading ? Container(
+      body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :contentList.length == 0
+          ? Center(child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.error_outline),
+          Text(getTranslated(context, StringConstant.noData)!)
+        ],
+      ))
+          :  RefreshWidget(
+        keyRefresh: keyRefresh,
+        onRefresh:_refreshLocalGallery,
+            child: ListView.builder(
+            itemCount: contentList.length,
+            controller: scrollController,
+            //shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return DailyMonthlyCard(contentList[index], index,widget.type);
+            }),
+          ),
+      bottomNavigationBar: isBottomLoading ? Container(
         // padding: EdgeInsets.all(8),
           height:40,
           width: 40,
