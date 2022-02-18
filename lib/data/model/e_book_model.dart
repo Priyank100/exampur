@@ -1,14 +1,14 @@
 import 'dart:convert';
 /// statusCode : 200
-/// books : [{"_id":"61e11b35ced0818afc943381","category":["61d2cc701cea2fdab6e9cb06","61d2cc8c1cea2fdab6e9cb07"],"title":"First Book","description":"First Book Description","amount":199,"flag":"Best Seller","macro":[],"logo_path":"book/1VU8cdQI-RAJASTHAN-SPECIAL.png","banner_path":"book/236071dE-banner_course_2.jpeg"}]
+/// data : [{"_id":"620e926277751ef02cb8c0e7","category":[{"_id":"61d2cc701cea2fdab6e9cb06","name":"ALL EXAMS"},{"_id":"61cad845da1d8532b6f33fd1","name":"HARYANA SPECIAL"},{"_id":"61d2cc8c1cea2fdab6e9cb07","name":"RAJASTHAN SPECIAL"}],"title":"Book 1","description":"Demo B 1","regular_price":1,"sale_price":1,"flag":"New","macro":[],"banner_path":"book/zQGtizT1-Screenshot-2022-02-14-at-5-24-46-PM-png","logo_path":"book/opsTZQxm-Screenshot-2022-02-13-at-2-34-16-PM-png"}]
 /// totalCount : 1
 
-EBookModel e_book_modelFromJson(String str) => EBookModel.fromJson(json.decode(str));
-String e_book_modelToJson(EBookModel data) => json.encode(data.toJson());
+EBookModel eBookModelFromJson(String str) => EBookModel.fromJson(json.decode(str));
+String eBookModelToJson(EBookModel data) => json.encode(data.toJson());
 class EBookModel {
   EBookModel({
-      int? statusCode,
-      List<Data>? data,
+      int? statusCode, 
+      List<BookEbook>? data,
       int? totalCount,}){
     _statusCode = statusCode;
     _data = data;
@@ -20,24 +20,24 @@ class EBookModel {
     if (json['data'] != null) {
       _data = [];
       json['data'].forEach((v) {
-        _data?.add(Data.fromJson(v));
+        _data?.add(BookEbook.fromJson(v));
       });
     }
     _totalCount = json['totalCount'];
   }
   int? _statusCode;
-  List<Data>? _data;
+  List<BookEbook>? _data;
   int? _totalCount;
 
   int? get statusCode => _statusCode;
-  List<Data>? get data => _data;
+  List<BookEbook>? get data => _data;
   int? get totalCount => _totalCount;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['statusCode'] = _statusCode;
     if (_data != null) {
-      map['books'] = _data?.map((v) => v.toJson()).toList();
+      map['data'] = _data?.map((v) => v.toJson()).toList();
     }
     map['totalCount'] = _totalCount;
     return map;
@@ -45,48 +45,55 @@ class EBookModel {
 
 }
 
-/// _id : "61e11b35ced0818afc943381"
-/// category : ["61d2cc701cea2fdab6e9cb06","61d2cc8c1cea2fdab6e9cb07"]
-/// title : "First Book"
-/// description : "First Book Description"
-/// amount : 199
-/// flag : "Best Seller"
+/// _id : "620e926277751ef02cb8c0e7"
+/// category : [{"_id":"61d2cc701cea2fdab6e9cb06","name":"ALL EXAMS"},{"_id":"61cad845da1d8532b6f33fd1","name":"HARYANA SPECIAL"},{"_id":"61d2cc8c1cea2fdab6e9cb07","name":"RAJASTHAN SPECIAL"}]
+/// title : "Book 1"
+/// description : "Demo B 1"
+/// regular_price : 1
+/// sale_price : 1
+/// flag : "New"
 /// macro : []
-/// logo_path : "book/1VU8cdQI-RAJASTHAN-SPECIAL.png"
-/// banner_path : "book/236071dE-banner_course_2.jpeg"
+/// banner_path : "book/zQGtizT1-Screenshot-2022-02-14-at-5-24-46-PM-png"
+/// logo_path : "book/opsTZQxm-Screenshot-2022-02-13-at-2-34-16-PM-png"
 
-Data dataFromJson(String str) => Data.fromJson(json.decode(str));
-String dataToJson(Data data) => json.encode(data.toJson());
-class Data {
-  Data({
-      String? id,
-      List<String>? category,
-      String? title,
-      String? description,
-      int? regular_price,
-    int? sale_price,
-      String? flag,
-      List<Macro>? macro,
-      String? logoPath,
-      String? bannerPath,}){
+BookEbook dataFromJson(String str) => BookEbook.fromJson(json.decode(str));
+String dataToJson(BookEbook data) => json.encode(data.toJson());
+class BookEbook {
+  BookEbook({
+      String? id, 
+      List<Category>? category, 
+      String? title, 
+      String? description, 
+      int? regularPrice, 
+      int? salePrice, 
+      String? flag, 
+      List<dynamic>? macro, 
+      String? bannerPath, 
+      String? logoPath,}){
     _id = id;
     _category = category;
     _title = title;
     _description = description;
-    _regular_price = regular_price;
+    _regularPrice = regularPrice;
+    _salePrice = salePrice;
     _flag = flag;
     _macro = macro;
-    _logoPath = logoPath;
     _bannerPath = bannerPath;
+    _logoPath = logoPath;
 }
 
-  Data.fromJson(dynamic json) {
+  BookEbook.fromJson(dynamic json) {
     _id = json['_id'];
-    _category = json['category'] != null ? json['category'].cast<String>() : [];
+    if (json['category'] != null) {
+      _category = [];
+      json['category'].forEach((v) {
+        _category?.add(Category.fromJson(v));
+      });
+    }
     _title = json['title'];
     _description = json['description'];
-    _regular_price = json['regular_price'];
-    _sale_price = json['sale_price'];
+    _regularPrice = json['regular_price'];
+    _salePrice = json['sale_price'];
     _flag = json['flag'];
     if (json['macro'] != null) {
       _macro = [];
@@ -94,45 +101,79 @@ class Data {
         _macro?.add(Macro.fromJson(v));
       });
     }
-    _logoPath = json['logo_path'];
     _bannerPath = json['banner_path'];
+    _logoPath = json['logo_path'];
   }
   String? _id;
-  List<String>? _category;
+  List<Category>? _category;
   String? _title;
   String? _description;
-  int? _regular_price;
-  int? _sale_price;
+  int? _regularPrice;
+  int? _salePrice;
   String? _flag;
-  List<Macro>? _macro;
-  String? _logoPath;
+  List<dynamic>? _macro;
   String? _bannerPath;
+  String? _logoPath;
 
   String? get id => _id;
-  List<String>? get category => _category;
+  List<Category>? get category => _category;
   String? get title => _title;
   String? get description => _description;
-  int? get regular_price => _regular_price;
-  int? get sale_price => _sale_price;
+  int? get regularPrice => _regularPrice;
+  int? get salePrice => _salePrice;
   String? get flag => _flag;
-  List<Macro>? get macro => _macro;
-  String? get logoPath => _logoPath;
+  List<dynamic>? get macro => _macro;
   String? get bannerPath => _bannerPath;
+  String? get logoPath => _logoPath;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['_id'] = _id;
-    map['category'] = _category;
+    if (_category != null) {
+      map['category'] = _category?.map((v) => v.toJson()).toList();
+    }
     map['title'] = _title;
     map['description'] = _description;
-    map['regular_price'] = _regular_price;
-    map['sale_price'] = _sale_price;
+    map['regular_price'] = _regularPrice;
+    map['sale_price'] = _salePrice;
     map['flag'] = _flag;
     if (_macro != null) {
       map['macro'] = _macro?.map((v) => v.toJson()).toList();
     }
-    map['logo_path'] = _logoPath;
     map['banner_path'] = _bannerPath;
+    map['logo_path'] = _logoPath;
+    return map;
+  }
+
+}
+
+/// _id : "61d2cc701cea2fdab6e9cb06"
+/// name : "ALL EXAMS"
+
+Category categoryFromJson(String str) => Category.fromJson(json.decode(str));
+String categoryToJson(Category data) => json.encode(data.toJson());
+class Category {
+  Category({
+      String? id, 
+      String? name,}){
+    _id = id;
+    _name = name;
+}
+
+  Category.fromJson(dynamic json) {
+    _id = json['_id'];
+    _name = json['name'];
+  }
+  String? _id;
+  String? _name;
+
+  String? get id => _id;
+  String? get name => _name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['_id'] = _id;
+    map['name'] = _name;
     return map;
   }
 

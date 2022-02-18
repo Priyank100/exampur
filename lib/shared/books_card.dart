@@ -1,6 +1,7 @@
+import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/books_model.dart';
+import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/shared/place_order_screen.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -11,7 +12,7 @@ import 'package:share/share.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 
 class BooksCard extends StatefulWidget {
-  final Data books;
+  final BookEbook  books;
 
   const BooksCard(this.books) : super();
 
@@ -45,27 +46,6 @@ class _BooksCardState extends State<BooksCard> {
       ),
       child: Column(
         children: [
-          // Image.network(
-          //   widget.widget.books.bannerPath.toString(),
-          //   fit: BoxFit.fill,
-          //   loadingBuilder: (BuildContext context, Widget child,
-          //       ImageChunkEvent? loadingProgress) {
-          //     if (loadingProgress == null) return child;
-          //     return Center(
-          //       child: CircularProgressIndicator(
-          //         value: loadingProgress.expectedTotalBytes != null
-          //             ? loadingProgress.cumulativeBytesLoaded /
-          //             loadingProgress.expectedTotalBytes!
-          //             : null,
-          //       ),
-          //     );
-          //   },
-          // ),
-
-          // CachedNetworkImage(
-          //   imageUrl: widget.books.bannerPath.toString(),
-          //   errorWidget: (context, url, error) => new Icon(Icons.error),
-          // ),
           AppConstants.image(AppConstants.BANNER_BASE +widget.books.bannerPath.toString()),
           SizedBox(height: 10),
           Text(
@@ -77,9 +57,7 @@ class _BooksCardState extends State<BooksCard> {
           CustomElevatedButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder:
-                      (context) =>
-                      PlaceOrderScreen(widget.books)
+                  MaterialPageRoute(builder: (context) => PlaceOrderScreen(widget.books)
                   )
               );
             },
@@ -89,12 +67,12 @@ class _BooksCardState extends State<BooksCard> {
             height: 10,
           ),
           InkWell(
-            onTap: () {
+            onTap: () async {
+              String data = json.encode(widget.books);
+              String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink('books', data, '0');
               String shareContent =
-                  'Get "' +
-                  widget.books.title.toString() +
-                  '" Book from Exampur Now.\n' +
-                  'https://exampur.com/';
+                  'Get "' + widget.books.title.toString() + '" Book from Exampur Now.\n' +
+                      dynamicUrl;
               Share.share(shareContent);
             },
             child: Row(
@@ -105,11 +83,6 @@ class _BooksCardState extends State<BooksCard> {
                   height: 15,
                   width: 20,
                 ),
-                // Icon(
-                //   Icons.share,
-                //   size: 23,
-                //   color: AppColors.black,
-                // ),
                 SizedBox(
                   width: 8,
                 ),
@@ -119,9 +92,6 @@ class _BooksCardState extends State<BooksCard> {
                     color: AppColors.black,
                     fontSize: 16,
                   ),
-                ),
-                SizedBox(
-                  width: 10,
                 ),
               ],
             ),

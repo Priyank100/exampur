@@ -8,7 +8,7 @@ String one2OneModelsToJson(One2OneModels data) => json.encode(data.toJson());
 class One2OneModels {
   One2OneModels({
       int? statusCode, 
-      List<Courses>? data,
+      List<One2OneCourses>? data,
       int? totalCount,}){
     _statusCode = statusCode;
     _data = data;
@@ -20,17 +20,17 @@ class One2OneModels {
     if (json['data'] != null) {
       _data = [];
       json['data'].forEach((v) {
-        _data?.add(Courses.fromJson(v));
+        _data?.add(One2OneCourses.fromJson(v));
       });
     }
     _totalCount = json['totalCount'];
   }
   int? _statusCode;
-  List<Courses>? _data;
+  List<One2OneCourses>? _data;
   int? _totalCount;
 
   int? get statusCode => _statusCode;
-  List<Courses>? get data => _data;
+  List<One2OneCourses>? get data => _data;
   int? get totalCount => _totalCount;
 
   Map<String, dynamic> toJson() {
@@ -56,10 +56,10 @@ class One2OneModels {
 /// macro : [{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}]
 /// category : [{"_id":"61d2cc701cea2fdab6e9cb06","name":"ALL EXAMS"},{"_id":"61cad845da1d8532b6f33fd1","name":"HARYANA SPECIAL"},{"_id":"61d2cc8c1cea2fdab6e9cb07","name":"RAJASTHAN SPECIAL"}]
 
-Courses coursesFromJson(String str) => Courses.fromJson(json.decode(str));
-String coursesToJson(Courses data) => json.encode(data.toJson());
-class Courses {
-  Courses({
+One2OneCourses coursesFromJson(String str) => One2OneCourses.fromJson(json.decode(str));
+String coursesToJson(One2OneCourses data) => json.encode(data.toJson());
+class One2OneCourses {
+  One2OneCourses({
       String? id, 
       String? title, 
       String? bannerPath, 
@@ -84,7 +84,7 @@ class Courses {
     _category = category;
 }
 
-  Courses.fromJson(dynamic json) {
+  One2OneCourses.fromJson(dynamic json) {
     _id = json['_id'];
     _title = json['title'];
     _bannerPath = json['banner_path'];

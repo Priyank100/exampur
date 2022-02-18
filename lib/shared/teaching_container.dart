@@ -169,8 +169,14 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               InkWell(
                                 onTap: () async {
                                   String data = json.encode(widget.courseData);
-                                  String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink(data, widget.courseType.toString());
-                                  Share.share(dynamicUrl);
+                                  String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink(
+                                      'courses', data, widget.courseType.toString()
+                                  );
+                                  String shareContent =
+                                      'Get "' + widget.courseData.title.toString() + '" Course from Exampur Now.\n' +
+                                          dynamicUrl;
+                                  Share.share(shareContent);
+                                  // Share.share(dynamicUrl);
                                 },
                                 child: Text(getTranslated(context, 'share')!)
                               )

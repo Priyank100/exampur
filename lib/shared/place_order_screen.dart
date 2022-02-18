@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/books_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -9,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 
 class PlaceOrderScreen extends StatefulWidget {
-  final Data books;
+  final BookEbook books;
 
   const PlaceOrderScreen(this.books) : super();
 
@@ -74,7 +73,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   style: TextStyle(fontSize: 14),
                 ),
                 Text(
-                  '₹ ${widget.books.regular_price.toString()}',
+                  '₹ ${widget.books.regularPrice.toString()}',
                   softWrap: true,
                   style: TextStyle(fontSize: 14,decoration: TextDecoration.lineThrough,color: AppColors.grey),
                 ),
@@ -92,7 +91,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   style: TextStyle(fontSize: 14),
                 ),
                 Text(
-                  '₹ ${widget.books.sale_price.toString()}',
+                  '₹ ${widget.books.salePrice.toString()}',
                   softWrap: true,
                   style: TextStyle(fontSize: 14),
                 ),
@@ -114,7 +113,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   style: TextStyle(fontSize: 16),
                 ),
                 Text(
-                  '₹ ${widget.books.sale_price.toString()}',
+                  '₹ ${widget.books.salePrice.toString()}',
                   softWrap: true,
                   style: TextStyle(fontSize: 16),
                 ),
@@ -136,7 +135,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                     context,
                     MaterialPageRoute(builder: (context) =>
                         DeliveryDetailScreen('Book', widget.books.id.toString(),
-                            widget.books.title.toString(), widget.books.sale_price.toString()
+                            widget.books.title.toString(), widget.books.salePrice.toString()
                         )
                     ),
                   );

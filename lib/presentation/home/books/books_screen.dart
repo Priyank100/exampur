@@ -1,5 +1,4 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/books_model.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/shared/books_card.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -9,15 +8,13 @@ import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:provider/provider.dart';
 
 class BooksScreen extends StatefulWidget {
-  // final List<Data> eBooksList;
-  // const BooksScreen(this.eBooksList) : super();
 
   @override
   _BooksScreenState createState() => _BooksScreenState();
 }
 
 class _BooksScreenState extends State<BooksScreen> {
-  List<Data> eBooksList = [];
+  List<BookEbook> eBooksList = [];
   bool isLoading = false;
   bool isBottomLoading = false;
   var scrollController = ScrollController();
@@ -26,7 +23,7 @@ class _BooksScreenState extends State<BooksScreen> {
 
   Future<void> getBooksList(pageNo) async {
     isLoading=true;
-   List<Data> list = (await Provider.of<BooksEBooksProvider>(context, listen: false).getBooksList(context,pageNo))!;
+   List<BookEbook> list = (await Provider.of<BooksEBooksProvider>(context, listen: false).getBooksList(context,pageNo))!;
     if(list.length > 0) {
       isData = true;
       eBooksList = eBooksList + list;

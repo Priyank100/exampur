@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class One2OneVideo extends StatefulWidget {
-  final Courses one2oneList;
+  final One2OneCourses one2oneList;
 
   const One2OneVideo(this.one2oneList) : super();
 

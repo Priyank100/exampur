@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
-import 'package:exampur_mobile/data/model/books_model.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/Books_EBooks_repo.dart';
@@ -20,7 +19,7 @@ class BooksEBooksProvider extends ChangeNotifier {
   EBookModel get ebooksModel => _ebooksModel;
 
 
-  Future<List<Data>?> getBooksList(BuildContext context,int pageNo) async {
+  Future<List<BookEbook>?> getBooksList(BuildContext context,int pageNo) async {
     ApiResponse apiResponse = await booksEbooksRepo.books(pageNo);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
@@ -38,7 +37,7 @@ class BooksEBooksProvider extends ChangeNotifier {
   }
 
 
-  Future<List<Data>?> getE_booksList(BuildContext context,int pageNo) async {
+  Future<List<BookEbook>?> getE_booksList(BuildContext context,int pageNo) async {
     ApiResponse apiResponse = await booksEbooksRepo.eBooks(pageNo);
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);

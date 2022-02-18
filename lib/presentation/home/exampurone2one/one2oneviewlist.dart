@@ -1,8 +1,8 @@
-
-
+import 'dart:convert';
 
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
+import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -12,14 +12,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
+import 'package:share/share.dart';
 
 import 'one2oneViedo.dart';
 
 class One2onelist extends StatefulWidget {
-  final List<Courses> one2oneList;
-  final int index;
+  final One2OneCourses one2oneData;
 
-  const One2onelist(this.one2oneList, this.index) : super();
+  const One2onelist(this.one2oneData) : super();
 
   @override
   _One2onelistState createState() => _One2onelistState();
@@ -78,17 +78,9 @@ class _One2onelistState extends State<One2onelist> {
                         Container(
                             padding: EdgeInsets.only(left: 10),
                             width: MediaQuery.of(context).size.width * 0.17,
-                            //flex: 1,
-                            // child: FadeInImage(
-                            //   image: NetworkImage(AppConstants.BANNER_BASE+  widget.one2oneList[widget.index].logoPath.toString(),),
-                            //   placeholder: AssetImage(Images.noimage),
-                            //   imageErrorBuilder: (context, error, stackTrace) {
-                            //     return Image.network(
-                            //         AppConstants.BANNER_BASE+  widget.one2oneList[widget.index].logoPath.toString(),
-                            //     );
-                            //   },
-                            // )
-                          child: AppConstants.image(AppConstants.BANNER_BASE+  widget.one2oneList[widget.index].logoPath.toString()),
+
+                          child: AppConstants.image(
+                              AppConstants.BANNER_BASE+  widget.one2oneData.logoPath.toString()),
                         ),
                         const SizedBox(
                           width: 15,
@@ -106,7 +98,7 @@ class _One2onelistState extends State<One2onelist> {
                                    children: [
 
                                      Text(
-                                      widget.one2oneList[widget.index].title.toString(),
+                                      widget.one2oneData.title.toString(),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
@@ -115,7 +107,7 @@ class _One2onelistState extends State<One2onelist> {
                                       ),
                                 ),
 
-                                     widget.one2oneList[widget.index].flag != null?Container(
+                                     widget.one2oneData.flag != null?Container(
                                          width: 80,
                                          height: 25,
                                          //margin: EdgeInsets.all(5),
@@ -151,7 +143,8 @@ class _One2onelistState extends State<One2onelist> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => One2OneVideo(widget.one2oneList[widget.index])));
+                                                builder: (context) =>
+                                                    One2OneVideo(widget.one2oneData)));
                                       },
                                       child: Container(
                                           width: 100,
@@ -176,20 +169,30 @@ class _One2onelistState extends State<One2onelist> {
 
                                   ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                     Image.asset(Images.share,height: 15,width: 15,),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(getTranslated(context, StringConstant.share)!,
-                                          style: TextStyle(fontSize: 13))
-                                    ],
+                                InkWell(
+                                  onTap: () async {
+                                    String data = json.encode(widget.one2oneData);
+                                    String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink('one2one', data, '0');
+                                    String shareContent =
+                                        'Get "' + widget.one2oneData.title.toString() + '" Course from Exampur Now.\n' +
+                                            dynamicUrl;
+                                    Share.share(shareContent);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Image.asset(Images.share,height: 15,width: 15,),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(getTranslated(context, StringConstant.share)!,
+                                            style: TextStyle(fontSize: 13))
+                                      ],
+                                    ),
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           ),

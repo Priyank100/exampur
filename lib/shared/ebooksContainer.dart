@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PDFCardCA extends StatefulWidget {
-  final Data eBooks;
+  final BookEbook eBooks;
   final int index;
 
   const PDFCardCA(this.eBooks, this.index) : super();
@@ -64,14 +64,14 @@ class _PDFCardCAState extends State<PDFCardCA> {
                         Row(
                           children: [
                         Text(
-                        widget.eBooks.regular_price != 0 ?
-                        '\u{20B9} ${widget.eBooks.regular_price.toString()}' : "",
+                        widget.eBooks.regularPrice != 0 ?
+                        '\u{20B9} ${widget.eBooks.regularPrice.toString()}' : "",
                             style: TextStyle(fontSize: 15, decoration: TextDecoration.lineThrough)),
 
                             SizedBox(width: 5),
                             InkWell(
                               onTap: () {
-                                if(widget.eBooks.sale_price == 0) {
+                                if(widget.eBooks.salePrice == 0) {
                                   //view pdf
                                 }
                               },
@@ -81,21 +81,21 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                   ),
                                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                                   child: Center(child: Text(
-                                      widget.eBooks.sale_price != 0 ?
-                                      '\u{20B9} ${widget.eBooks.sale_price.toString()}' : getTranslated(context, StringConstant.viewPdf)!,
+                                      widget.eBooks.salePrice != 0 ?
+                                      '\u{20B9} ${widget.eBooks.salePrice.toString()}' : getTranslated(context, StringConstant.viewPdf)!,
                                       style: TextStyle(fontSize: 12))
                                   )
                               ),
                             ),
                             SizedBox(width: 10),
-                            widget.eBooks.sale_price != 0 ?
+                            widget.eBooks.salePrice != 0 ?
                                 InkWell(
                                   onTap: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(builder: (context) =>
                                           DeliveryDetailScreen('Book', widget.eBooks.id.toString(),
-                                              widget.eBooks.title.toString(), widget.eBooks.sale_price.toString()
+                                              widget.eBooks.title.toString(), widget.eBooks.salePrice.toString()
                                           )
                                       ),
                                     );

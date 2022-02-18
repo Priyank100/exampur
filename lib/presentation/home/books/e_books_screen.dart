@@ -15,7 +15,7 @@ class EBooksScreen extends StatefulWidget {
 }
 
 class _EBooksScreenState extends State<EBooksScreen> {
-  List<Data> eBooksList = [];
+  List<BookEbook> eBooksList = [];
   bool isLoading = false;
   bool isBottomLoading = false;
   var scrollController = ScrollController();
@@ -24,7 +24,7 @@ class _EBooksScreenState extends State<EBooksScreen> {
 
   Future<void> getBooksList(pageNo) async {
      isLoading = true;
-    List<Data> list = (await Provider.of<BooksEBooksProvider>(context, listen: false).getE_booksList(context,pageNo))!;
+    List<BookEbook> list = (await Provider.of<BooksEBooksProvider>(context, listen: false).getE_booksList(context,pageNo))!;
     if(list.length > 0) {
       isData = true;
       eBooksList = eBooksList + list;

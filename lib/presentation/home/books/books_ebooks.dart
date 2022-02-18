@@ -1,5 +1,4 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/books_model.dart';
 import 'package:exampur_mobile/data/model/booktitle.dart';
 import 'package:exampur_mobile/data/model/dummy_model.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
@@ -20,7 +19,7 @@ class BooksEbook extends StatefulWidget {
 
 class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMixin   {
   List<Book> tabList = [];
-  List<Data> eBooksList = [];
+  List<BookEbook> eBooksList = [];
 
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/Statejson/booklist.json');

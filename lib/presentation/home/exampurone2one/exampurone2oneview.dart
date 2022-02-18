@@ -20,7 +20,7 @@ class Exampuron2oneView extends StatefulWidget {
 }
 
 class _Exampuron2oneViewState extends State<Exampuron2oneView> {
- List<Courses> one2oneList= [];
+ List<One2OneCourses> one2oneList= [];
  bool isLoading = false;
  bool isBottomLoading = false;
  int page =0;
@@ -37,7 +37,7 @@ scrollController.addListener(pagination);
   Future<void> getone2oneList(pageNo) async {
 isLoading=true;
    // one2oneList=   (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context,pageNo))!;
-    List<Courses> list  = (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context,pageNo))!;
+    List<One2OneCourses> list  = (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context,pageNo))!;
     if(list.length > 0) {
       isData = true;
       one2oneList = one2oneList + list;
@@ -124,7 +124,7 @@ isLoading=true;
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => One2onelist(one2oneList,index)));
+                                      builder: (context) => One2onelist(one2oneList[index])));
                             },
                             // leading: Image.network(AppConstants.BANNER_BASE+one2oneList[index].logoPath.toString(),height: 40,width: 60,),
                             leading: AppConstants.image(AppConstants.BANNER_BASE+one2oneList[index].logoPath.toString(),height: 40.0, width: 60.0),
