@@ -32,6 +32,7 @@ class API {
 
   //HomeBanner
   static const String homeBanner_URL = BASE_URL3 + 'banners';
+  static const String homeBannerlink_URL = BASE_URL3 + 'courses/findone/';
 
   //Category
   static const String Choose_category_URL = BASE_URL3 + 'category/all';

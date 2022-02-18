@@ -79,13 +79,7 @@ contentList.clear();
           :  RefreshWidget(
         keyRefresh: keyRefresh,
         onRefresh:_refreshLocalGallery,
-            child: ListView.builder(
-            itemCount: contentList.length,
-            controller: scrollController,
-            //shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return DailyMonthlyCard(contentList[index], index,widget.type);
-            }),
+            child: listing(contentList)
           ),
       bottomNavigationBar: isBottomLoading ? Container(
         // padding: EdgeInsets.all(8),
@@ -94,5 +88,12 @@ contentList.clear();
           child: Center(child: CircularProgressIndicator(color:AppColors.amber,))) :
       SizedBox(),
     );
+
+  }
+  Widget listing(list) {
+    return ListView.builder(itemCount:list.length,controller: scrollController,
+        itemBuilder: (BuildContext context,int index){
+          return DailyMonthlyCard(contentList[index], index,widget.type);
+        });
   }
 }

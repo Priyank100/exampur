@@ -31,7 +31,7 @@ import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart'
 import '../../main.dart';
 import 'TestSeries/testseries.dart';
 
-import 'dummytest.dart';
+import 'banner_link_detail_page.dart';
 
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/offline_course.dart';

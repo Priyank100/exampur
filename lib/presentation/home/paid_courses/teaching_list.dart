@@ -19,6 +19,7 @@ class _TeachingListState extends State<TeachingList> {
   List<Courses> freeCourseList = [];
   var scrollController = ScrollController();
   bool isLoading = false;
+
   int page = 0;
   bool isData = true;
 

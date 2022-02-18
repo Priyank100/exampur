@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
-import 'package:exampur_mobile/presentation/home/dummytest.dart';
+import 'package:exampur_mobile/presentation/home/banner_link_detail_page.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
