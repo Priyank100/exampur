@@ -58,7 +58,7 @@ class _BottomNavigationState extends State<BottomNavigation>
   @override
   void initState() {
     super.initState();
-    FirebaseDynamicLinkService.initDynamiclink(context);
+    FirebaseDynamicLinkService.initDynamicLink(context);
 
     _faders = widgetList.map<AnimationController>((item) {
       return AnimationController(

@@ -41,7 +41,7 @@ class FirebaseDynamicLinkService {
     return _linkMessage;
   }
 
-  static Future<void> initDynamiclink(BuildContext context) async {
+  static Future<void> initDynamicLink(BuildContext context) async {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData? dynamicLink) async {
           handleDeepLink(context, dynamicLink!);
