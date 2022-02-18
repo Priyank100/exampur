@@ -373,33 +373,33 @@ class _BottomNavigationState extends State<BottomNavigation>
                                 builder: (context) => MyPurchases()));
                       },
                     ),
-                    ListTile(
-                      dense: true,
-                      title: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              Images.timetable,
-                              width: 30,
-                              height: 20,
-                              color: AppColors.amber,
-                            ),
-                            SizedBox(
-                              width: Dimensions.PADDING_SIZE_SMALL,
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                  style: CustomTextStyle.drawerText(context),
-                                  text: getTranslated(context, 'my_timetable')),
-                            ),
-                          ]),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyTimeTable()));
-                      },
-                    ),
+                    // ListTile(
+                    //   dense: true,
+                    //   title: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.start,
+                    //       children: [
+                    //         Image.asset(
+                    //           Images.timetable,
+                    //           width: 30,
+                    //           height: 20,
+                    //           color: AppColors.amber,
+                    //         ),
+                    //         SizedBox(
+                    //           width: Dimensions.PADDING_SIZE_SMALL,
+                    //         ),
+                    //         RichText(
+                    //           text: TextSpan(
+                    //               style: CustomTextStyle.drawerText(context),
+                    //               text: getTranslated(context, 'my_timetable')),
+                    //         ),
+                    //       ]),
+                    //   onTap: () {
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => MyTimeTable()));
+                    //   },
+                    // ),
                     ListTile(
                       dense: true,
                       title: Row(

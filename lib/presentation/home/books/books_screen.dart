@@ -19,11 +19,13 @@ class BooksScreen extends StatefulWidget {
 class _BooksScreenState extends State<BooksScreen> {
   List<Data> eBooksList = [];
   bool isLoading = false;
+  bool isBottomLoading = false;
   var scrollController = ScrollController();
   int page = 0;
   bool isData = true;
 
   Future<void> getBooksList(pageNo) async {
+    isLoading=true;
    List<Data> list = (await Provider.of<BooksEBooksProvider>(context, listen: false).getBooksList(context,pageNo))!;
     if(list.length > 0) {
       isData = true;
@@ -31,8 +33,11 @@ class _BooksScreenState extends State<BooksScreen> {
     } else {
       isData = false;
     }
-    isLoading = false;
-    setState(() {});
+  isLoading = false;
+   isBottomLoading = false;
+   setState(() {
+
+   });
   }
   @override
   void initState() {
@@ -46,7 +51,7 @@ class _BooksScreenState extends State<BooksScreen> {
         if(isData) {
           page += 1;
         }
-        isLoading = true;
+        isBottomLoading = true;
         getBooksList(page);
         AppConstants.printLog('page>> ' + page.toString());
       });
@@ -55,8 +60,15 @@ class _BooksScreenState extends State<BooksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:eBooksList.length==0 ?
-        Center(child: CircularProgressIndicator(color: AppColors.amber,))    :
+        body:isLoading? Center(child: CircularProgressIndicator(color: AppColors.amber,)): eBooksList.length==0 ?
+        Center(child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline),
+            Text(getTranslated(context, StringConstant.noData)!)
+          ],
+        ))
+          :
         ListView.builder(
             itemCount: eBooksList.length,
             controller: scrollController,
@@ -64,7 +76,7 @@ class _BooksScreenState extends State<BooksScreen> {
             itemBuilder: (BuildContext context,int index){
           return  BooksCard(eBooksList[index]);
         }),
-        bottomNavigationBar: isLoading ? Container(
+        bottomNavigationBar:isBottomLoading ? Container(
         // padding: EdgeInsets.all(8),
         height:40,
         width: 40,

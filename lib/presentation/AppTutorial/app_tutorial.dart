@@ -23,6 +23,7 @@ class AppTutorial extends StatefulWidget {
 
 class _AppTutorialState extends State<AppTutorial> {
   List<Data> apptutorialList= [];
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -30,8 +31,9 @@ class _AppTutorialState extends State<AppTutorial> {
   }
 
   Future<void> getDemoList() async {
-
+isLoading=true;
     apptutorialList= (await Provider.of<AppTutorialProvider>(context, listen: false).getapptutorialList(context))!;
+    isLoading=false;
     setState(() {});
     // return one2oneList;
 
@@ -40,8 +42,14 @@ class _AppTutorialState extends State<AppTutorial> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(),
-        body: apptutorialList.length == 0
-            ? Center(child: CircularProgressIndicator(color: AppColors.amber,))
+        body:isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)): apptutorialList.length == 0
+            ? Center(child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline),
+            Text(getTranslated(context, StringConstant.noData)!)
+          ],
+        ))
             : SingleChildScrollView(
                 child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

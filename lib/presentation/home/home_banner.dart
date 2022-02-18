@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
+import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'LandingChooseCategory.dart';
+import 'bannerdetailspage.dart';
 
 class LargeBanner extends StatefulWidget {
   List<BannerData> bannerList;
@@ -58,7 +62,13 @@ class _LargeBannerState extends State<LargeBanner> {
                           // ),
                           child: AppConstants.image(AppConstants.BANNER_BASE + i.imagePath.toString(), boxfit: BoxFit.fill),
                         ),
-                        onTap: () {}),
+                        onTap: () {
+                          i.type=='Course'?Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                              LandingChooseCategory()
+                          )):Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                              BannerDetailPage(i.link.toString(),i.title.toString())
+                          ));
+                        }),
                   );
                 },
               );

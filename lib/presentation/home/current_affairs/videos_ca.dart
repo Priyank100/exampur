@@ -3,6 +3,7 @@ import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/viedodetailpage.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,13 +20,15 @@ class VideosCA extends StatefulWidget {
 
 class _VideosCAState extends State<VideosCA> {
   bool isLoading = false;
+  bool isBottomLoading = false;
   List<Data> videoList = [];
   var scrollController = ScrollController();
+  final keyRefresh = GlobalKey<RefreshIndicatorState>();
   int page = 0;
   bool isData = true;
   Future<void> getBooksList(pageNo) async {
-
-   // isLoading = true;
+    videoList.clear();
+    isLoading = true;
     List<Data> list =  (await Provider.of<CaProvider>(context, listen: false)
         .getCaSmList(context, widget.contentCatId, 'video', AppConstants.encodeCategory(),pageNo))!;
     if(list.length > 0) {
@@ -35,6 +38,10 @@ class _VideosCAState extends State<VideosCA> {
       isData = false;
     }
     isLoading = false;
+  isBottomLoading = false;
+  setState(() {
+
+  });
   }
   @override
   void initState() {
@@ -50,25 +57,40 @@ class _VideosCAState extends State<VideosCA> {
         if(isData) {
           page += 1;
         }
-        isLoading = true;
+        isBottomLoading = true;
         getBooksList(page);
         AppConstants.printLog('page>> ' + page.toString());
       });
     }
   }
+  Future<void>_refreshLocalGallery() async{
+    return getBooksList(page);
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: videoList.length == 0
-          ? Center(child: CircularProgressIndicator(color: AppColors.amber))
-          : ListView.builder(
-          itemCount: videoList.length,
+      body:isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : videoList.length == 0
+          ? Center(child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.error_outline),
+          Text(getTranslated(context, StringConstant.noData)!)
+        ],
+      ))
+          :   RefreshWidget(
+        keyRefresh: keyRefresh,
+        onRefresh:_refreshLocalGallery,
+            child: ListView.builder(
+                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            itemCount: videoList.length,
          controller: scrollController,
          // shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return myCard(index);
-          }),
-      bottomNavigationBar: isLoading ? Container(
+            itemBuilder: (context, index) {
+              return myCard(index);
+            }),
+          ),
+      bottomNavigationBar:  isBottomLoading ? Container(
         // padding: EdgeInsets.all(8),
           height:40,
           width: 40,

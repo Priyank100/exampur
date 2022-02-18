@@ -32,7 +32,7 @@ import '../../main.dart';
 import 'TestSeries/testseries.dart';
 
 import 'dummytest.dart';
-import 'dummytesting.dart';
+
 import 'exampurone2one/exampurone2oneview.dart';
 import 'offlinebatches/offline_course.dart';
 import 'package:provider/provider.dart';
@@ -197,7 +197,8 @@ class _HomeState extends State<Home> {
                     image: Images.dailyquiz,
                     title: getTranslated(context, 'daily_quiz')!,
                     color: AppColors.quiz,
-                    navigateTo:  TestSeriesview()
+                    navigateTo:
+                    TestSeriesview()
                    // UploadImage()
                 ),
 

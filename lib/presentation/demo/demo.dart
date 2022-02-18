@@ -20,6 +20,7 @@ class Demo extends StatefulWidget {
 class DemoState extends State<Demo> {
    List<Courses> demoList= [];
    bool isLoading = false;
+   bool isBottomLoading = false;
    int page =0;
    var scrollController =ScrollController();
    bool isData =true;
@@ -32,7 +33,8 @@ class DemoState extends State<Demo> {
   }
 
   Future<void> getDemoList(pageNo) async {
-    AppConstants.printLog(demoList);
+   // AppConstants.printLog(demoList);
+    isLoading=true;
     List<Courses> list= (await Provider.of<DemoProvider>(context, listen: false).getdemosList(context,pageNo))!;
     if(list.length > 0) {
     isData = true;
@@ -41,6 +43,7 @@ class DemoState extends State<Demo> {
    isData = false;
    }
    isLoading = false;
+    isBottomLoading=false;
    setState(() {});
     // return one2oneList;
 
@@ -53,7 +56,7 @@ class DemoState extends State<Demo> {
            page +=1;
            AppConstants.printLog(page.toString());
          }
-         isLoading = true;
+      isBottomLoading = true;
          getDemoList(page);
        });
      }
@@ -68,8 +71,14 @@ class DemoState extends State<Demo> {
             ),
             backgroundColor: AppColors.transparent,
             elevation: 0),
-        body:demoList.length==0?Center(child: CircularProgressIndicator(color: AppColors.amber,)) :
-
+        body:isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)) :demoList.length==0?
+        Center(child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline),
+            Text(getTranslated(context, StringConstant.noData)!)
+          ],
+        )):
         Padding(
             padding: EdgeInsets.all(10),
             child: Column(
@@ -94,7 +103,7 @@ class DemoState extends State<Demo> {
 
               ],
             )),
-        bottomNavigationBar: isLoading?Container(height:40,width: 40,child:Center(child: CircularProgressIndicator(color: AppColors.amber,),)):SizedBox()
+        bottomNavigationBar: isBottomLoading?Container(height:40,width: 40,child:Center(child: CircularProgressIndicator(color: AppColors.amber,),)):SizedBox()
     );
   }
 }

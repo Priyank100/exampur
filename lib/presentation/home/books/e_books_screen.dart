@@ -1,6 +1,6 @@
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
-import 'package:exampur_mobile/shared/pdf_card_ca.dart';
+import 'package:exampur_mobile/shared/ebooksContainer.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +17,13 @@ class EBooksScreen extends StatefulWidget {
 class _EBooksScreenState extends State<EBooksScreen> {
   List<Data> eBooksList = [];
   bool isLoading = false;
+  bool isBottomLoading = false;
   var scrollController = ScrollController();
   int page = 0;
   bool isData = true;
 
   Future<void> getBooksList(pageNo) async {
-    // isLoading = true;
+     isLoading = true;
     List<Data> list = (await Provider.of<BooksEBooksProvider>(context, listen: false).getE_booksList(context,pageNo))!;
     if(list.length > 0) {
       isData = true;
@@ -30,7 +31,12 @@ class _EBooksScreenState extends State<EBooksScreen> {
     } else {
       isData = false;
     }
-    isLoading = false;
+     isLoading = false;
+     isBottomLoading = false;
+     setState(() {
+
+     });
+
   }
   @override
   void initState() {
@@ -44,7 +50,7 @@ class _EBooksScreenState extends State<EBooksScreen> {
         if(isData) {
           page += 1;
         }
-        isLoading = true;
+        isBottomLoading = true;
         getBooksList(page);
         AppConstants.printLog('page>> ' + page.toString());
       });
@@ -53,22 +59,22 @@ class _EBooksScreenState extends State<EBooksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-         body:eBooksList.length==0 ?
-             Center(child: CircularProgressIndicator(color: AppColors.amber,)):
-         //Center(child: Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Icon(Icons.error_outline),
-        //     Text('No Data')
-        //   ],
-        // )) :
+         body:isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :eBooksList.length==0 ?
+
+         Center(child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline),
+            Text('No Data')
+          ],
+        )) :
         ListView.builder(
             itemCount: eBooksList.length,
             controller: scrollController,
             itemBuilder: (BuildContext context,int index){
               return  PDFCardCA(eBooksList[index], index);
             }),
-      bottomNavigationBar: isLoading ? Container(
+      bottomNavigationBar:isBottomLoading ? Container(
         // padding: EdgeInsets.all(8),
           height:40,
           width: 40,

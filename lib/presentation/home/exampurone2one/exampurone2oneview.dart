@@ -22,6 +22,7 @@ class Exampuron2oneView extends StatefulWidget {
 class _Exampuron2oneViewState extends State<Exampuron2oneView> {
  List<Courses> one2oneList= [];
  bool isLoading = false;
+ bool isBottomLoading = false;
  int page =0;
  var scrollController =ScrollController();
  bool isData =true;
@@ -34,7 +35,7 @@ scrollController.addListener(pagination);
   }
 
   Future<void> getone2oneList(pageNo) async {
-
+isLoading=true;
    // one2oneList=   (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context,pageNo))!;
     List<Courses> list  = (await Provider.of<One2OneProvider>(context, listen: false).getOne2OneList(context,pageNo))!;
     if(list.length > 0) {
@@ -44,6 +45,7 @@ scrollController.addListener(pagination);
       isData = false;
     }
     isLoading = false;
+    isBottomLoading=false;
     setState(() {});
    // return one2oneList;
 
@@ -56,7 +58,7 @@ scrollController.addListener(pagination);
           page +=1;
           AppConstants.printLog(page.toString());
         }
-        isLoading = true;
+        isBottomLoading= true;
         getone2oneList(page);
       });
     }
@@ -66,9 +68,15 @@ scrollController.addListener(pagination);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body:
+      body:isLoading?Center(child: CircularProgressIndicator(color: Colors.amber,)):
       one2oneList.length == 0
-          ? Center(child: CircularProgressIndicator(color: Colors.amber,))
+          ? Center(child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.error_outline),
+          Text(getTranslated(context, StringConstant.noData)!)
+        ],
+      ))
           :
       SingleChildScrollView(
         controller: scrollController,
@@ -136,7 +144,7 @@ scrollController.addListener(pagination);
         ),
       ),
           ),
-      bottomNavigationBar: isLoading?Container(height:40,width: 40,child:Center(child: CircularProgressIndicator(color: Colors.amber,),)):SizedBox()
+      bottomNavigationBar: isBottomLoading?Container(height:40,width: 40,child:Center(child: CircularProgressIndicator(color: Colors.amber,),)):SizedBox()
     );
   }
 }
