@@ -46,11 +46,11 @@ class _JobAlertViewContainerState extends State<JobAlertViewContainer> {
                 ),
               ),
               SizedBox(width: 15,),
-              Row(children: [
-                Image.asset(Images.share,height: 15,width: 15,),
-                SizedBox(width: 5,),
-                Text(getTranslated(context, StringConstant.share)!, style: TextStyle(fontSize: 10))
-              ],)
+              // Row(children: [
+              //   Image.asset(Images.share,height: 15,width: 15,),
+              //   SizedBox(width: 5,),
+              //   Text(getTranslated(context, StringConstant.share)!, style: TextStyle(fontSize: 10))
+              // ],)
             ],
           ),
         ],

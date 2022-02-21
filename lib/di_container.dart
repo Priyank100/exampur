@@ -15,6 +15,7 @@ import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
+import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,6 +30,7 @@ import 'data/repository/ChooseCategory_repo.dart';
 import 'data/repository/Demorepo.dart';
 import 'data/repository/HelpandFeedback.dart';
 import 'data/repository/HomeBanner_repo.dart';
+import 'data/repository/MyPurchaseRepo.dart';
 import 'data/repository/OfflineBatches_repo.dart';
 import 'data/repository/One2One_repo.dart';
 import 'data/repository/JobAlertsRepo.dart';
@@ -57,6 +59,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => JobAlertsRepo(dioClient: sl()));
   sl.registerLazySingleton(() => CaRepo(dioClient: sl()));
   sl.registerLazySingleton(() => CaBytesRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => MyPurchaseRepo(dioClient: sl()));
 
 
   // Provider
@@ -74,6 +77,7 @@ Future<void> init() async {
   sl.registerFactory(() =>  JobAlertsProvider(jobAlertsRepo: sl()));
   sl.registerFactory(() =>  CABytesProvider(caBytesRepo: sl()));
   sl.registerFactory(() =>  CaProvider(caRepo: sl()));
+  sl.registerFactory(() =>  MyPurchaseProvider(myPurchaseRepo: sl()));
 
   //External
   final sharedPreferences = await SharedPreferences.getInstance();

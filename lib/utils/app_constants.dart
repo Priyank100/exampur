@@ -32,7 +32,8 @@ class API {
 
   //HomeBanner
   static const String homeBanner_URL = BASE_URL3 + 'banners';
-  static const String homeBannerlink_URL = BASE_URL3 + 'courses/findone/';
+  static const String homeBannerCourselink_URL = BASE_URL3 + 'courses/findone/';
+  static const String homeBannerbooklink_URL = BASE_URL3 + 'books/findone/';
 
   //Category
   static const String Choose_category_URL = BASE_URL3 + 'category/all';
@@ -92,6 +93,9 @@ class API {
   // https://static.exampur.work/content/findall/:content_category_id/:type/:category/:limit/:skip
 
   static const String ca_bytes_url   = BASE_URL3+ 'ca_byte/' + 'ENCODE_CATEGORY' + '/10/';
+
+  //mypurchase
+  static const String mypurchase   = BASE_URL3+ '';
 
 }
 
@@ -286,6 +290,7 @@ class StringConstant {
   static String billingaddress= 'billing_address';
   static String book_name= 'book_name';
   static String BackToHomePage= 'back_to_home_page';
+  static String BillNumber= 'bill_number';
 
   static String currentAffairs= 'current_affairs';
   static String chooseCategory= 'choose_category';
@@ -306,12 +311,14 @@ class StringConstant {
   static String ConfirmPasswordNotMatched= 'confirm_password_is_not_matched';
   static String clickHereToViewPDF= 'click_view_PDF';
   static String center= 'center';
+  static String Course= 'course';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';
   static String demo= 'demo';
   static String demo_classes= 'demo_classes';
   static String downloadVideo= 'download_video';
+  static String DateofPurchase= 'date_of_purchase';
 
 
   static String graduation= 'graduation';
@@ -343,11 +350,13 @@ class StringConstant {
   static String helpAndFeedback= 'help_and_feedback';
 
   static String issueSubmittedSuccessfully= 'issue_submitted_successfully';
+  static String itemType= 'item_type';
 
   static String lastName= 'last_name';
   static String logOut= 'log_out';
   static String landmarkTehsil= 'landmark_tehsil';
   static String languagePreferences= 'language_preferences';
+  static String LearningClosetPvt= 'Learning Closet Pvt. Ltd. (Exampur)';
 
   static String paidCourse= 'paid_course';
   static String pleaseChooseTheCategory= 'please_choose_the_category';
@@ -367,6 +376,7 @@ class StringConstant {
   static String PaymentMode= 'payment_mode';
   static String priceBreakdown= 'price_breakdown';
   static String Price= 'price';
+  static String Pricegst= 'price';
   static String placeOrder= 'place_order';
   static String PleaseletterPassword= 'please_letter_password';
   static String PleaseEnternewPassword= 'please_enter_new_password';
@@ -384,6 +394,8 @@ class StringConstant {
   static String TransactionReceipt= 'transaction_receipt';
   static String Thankyou= 'thank_you';
   static String TranscationId= 'transcation_id';
+  static String TermsandConditions= 'Terms and Conditions.';
+  static String ThisitemnonRefundable= 'This item is non-refundable.';
 
   static String offlineBatches= 'offline_batches';
   static String OrderDate= 'order_date';
@@ -409,6 +421,7 @@ class StringConstant {
   static String selectissue= 'select_issue';
   static String showless= 'show_less';
   static String showmore= 'show_more';
+  static String StudentName= 'student_name';
 
   static String viewPdf= 'view_pdf';
 
@@ -432,6 +445,7 @@ class StringConstant {
   static String viewDetails= 'view_details';
   static String viewAll= 'view_all';
   static String view= 'view';
+  static String viewInvoice= 'view_invoice';
 
   static String qualification= 'qualification';
 

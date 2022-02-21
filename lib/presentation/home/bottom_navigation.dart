@@ -8,7 +8,7 @@ import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
 import 'package:exampur_mobile/presentation/drawer/eligibility_calculator.dart';
-import 'package:exampur_mobile/presentation/drawer/my_purchases.dart';
+import 'package:exampur_mobile/presentation/drawer/Parchase_course/my_purchases.dart';
 import 'package:exampur_mobile/presentation/drawer/settings.dart';
 import 'package:exampur_mobile/presentation/drawer/time_table.dart';
 import 'package:exampur_mobile/presentation/help/help.dart';

@@ -16,6 +16,7 @@
   "billing_address": "Billing Address ",
   "book_name":"Book Name",
   "back_to_home_page": "Back to home page",
+  "bill_number": "Bill Number",
 
   "current_affairs": "Current Affairs",
   "choose_category": "Choose Category",
@@ -36,12 +37,14 @@
   "confirm_password_is_not_matched": "Confirm password is not matched",
   "click_view_PDF": "Click Here to View PDF",
   "center": "Center",
+  "course": "Course",
 
   "downloads": "Downloads",
   "daily_quiz": "Daily Quiz",
   "demo": "Demo",
   "demo_classes": "Demo Classes",
   "download_video": "Download Video",
+  "date_of_purchase": "Date of Purchase",
 
   "email": "Email",
   "exampur_one2one": "Exampur one2one",
@@ -71,6 +74,7 @@
   "help_and_feedback": "Help and Feedback",
 
   "issue_submitted_successfully": "Issue Submitted Successfully",
+  "item_type": "Item Type",
 
   "last_name": "Last Name",
   "log_out": "Log Out",
@@ -102,6 +106,7 @@
   "price_breakdown": "Price Breakdown",
   "price": "Price",
   "place_order": "Place Order",
+  "price": "Price (Including GST)",
 
 
 
@@ -151,7 +156,7 @@
   "select_issue": "Select issue",
   "show_more": "show more",
   "show_less": "show less",
-
+  "student_name": "Student Name",
 
 
   "watch_app_tutorial": "Watch App Tutorials",
@@ -182,6 +187,7 @@
   "view_all": "View All",
   "view": "View",
   "view_pdf": "View PDF",
+  "view_invoice": "View Invoice",
 
   "qualification": "Qualification"
 

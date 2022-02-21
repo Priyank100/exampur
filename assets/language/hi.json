@@ -11,6 +11,7 @@
   "billing_address": "बिल भेजने का पता",
   "book_name": "किताब का नाम",
   "back_to_home_page": "मुखपृष्ठ पर वापस",
+  "bill_number": "बिलिंग नंबर",
 
 
   "test_courses": "परीक्षण पाठ्यक्रम",
@@ -27,6 +28,7 @@
   "demo": "डेमो",
   "demo_classes":"डेमो क्लासेस",
   "download_video": "वीडियो डाउनलोड करें ",
+  "date_of_purchase": "खरीदने की तारीख",
 
 
 
@@ -51,6 +53,7 @@
   "watch_now": "अब देखिए",
 
   "issue_submitted_successfully": "सफलतापूर्वक सबमिट किया गया",
+  "item_type": "वस्तु परक",
 
 
   "my_purchase": "मेरी खरीद",
@@ -124,6 +127,7 @@
   "price_breakdown": "मूल्य विभाजन",
   "price": "कीमत",
   "place_order": "एक आदेश दें",
+   "price": "कीमत",
 
 
   "general": "सामान्य",
@@ -166,6 +170,7 @@
   "confirm_password_is_not_matched": "पुष्टि करें कि पासवर्ड का मिलान नहीं हुआ है",
   "click_view_PDF": "पीडीएफ देखने के लिए यहां क्लिक करेंं",
   "center": "केंद्र",
+  "course": "कोर्स",
 
   "settings": "समायोजन",
   "save_the_course":"पाठ्यक्रम सहेजें",
@@ -186,6 +191,7 @@
   "select_issue": "मुद्दा चुनें",
   "show_more": "और दिखाओ",
   "show_less": "कम दिखाएं",
+  "student_name": "छात्र का नाम",
 
   "job_alerts": "नौकरी अलर्ट",
 
@@ -194,6 +200,7 @@
   "view_all": "सभी को देखें",
   "view": "दृश्य",
   "view_pdf": "पीडीएफदेखें",
+  "view_invoice": "चालान देखें",
 
 
 "qualification": "योग्यता"

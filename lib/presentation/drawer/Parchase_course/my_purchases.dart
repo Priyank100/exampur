@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:exampur_mobile/presentation/drawer/Parchase_course/purchaseListContainer.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -29,6 +30,12 @@ class _MyPurchasesState extends State<MyPurchases> {
                 style: CustomTextStyle.headingBigBold(context),
               ),
             ),
+              ListView.builder(itemCount:7,
+    shrinkWrap: true,
+   physics: BouncingScrollPhysics(),
+    itemBuilder: (BuildContext context,int index){
+    return PurchaseListContainer();
+              })
            ],
         )));
   }

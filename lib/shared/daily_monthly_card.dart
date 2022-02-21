@@ -66,20 +66,20 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
                             child: Text(getTranslated(context, 'view')!, style: TextStyle(fontSize: 12)),
                           ),
                         ),
-                        InkWell(
-                          onTap: (){
-                            // shareText
-                          },
-                          child: Row(
-                            children: [
-                              Icon(Icons.share_outlined, size: 15),
-                              SizedBox(width: 5),
-                              Text(getTranslated(context, 'share')!, style: TextStyle(fontSize: 10)),
-                              SizedBox(width: 10),
-
-                            ],
-                          ),
-                        )
+                        // InkWell(
+                        //   onTap: (){
+                        //     // shareText
+                        //   },
+                        //   child: Row(
+                        //     children: [
+                        //       Icon(Icons.share_outlined, size: 15),
+                        //       SizedBox(width: 5),
+                        //       Text(getTranslated(context, 'share')!, style: TextStyle(fontSize: 10)),
+                        //       SizedBox(width: 10),
+                        //
+                        //     ],
+                        //   ),
+                        // )
                       ],
                     )
                   ],

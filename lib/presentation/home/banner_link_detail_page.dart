@@ -20,10 +20,10 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
   Future<void> getLists() async {
     isLoading=true;
     if (widget.type == 'Course') {
-      bannerDetailData= (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannnerDetail(context, widget.datalink.toString()))! ;
+      bannerDetailData= (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannnerCourseDetail(context, widget.datalink.toString()))! ;
       //print('anchal'+bannerDetailData.title.toString());
     } else {
-
+      bannerDetailData= (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannnerBookDetail(context, widget.datalink.toString()))! ;
     }
     isLoading=false;
     setState(() {});
@@ -39,7 +39,7 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:bannerDetailData==null?CircularProgressIndicator(color: AppColors.amber,):Viedobanner(bannerDetailData!)
+      body:bannerDetailData==null?Center(child: CircularProgressIndicator(color: AppColors.amber,)):Viedobanner(bannerDetailData!)
 
     );
   }
