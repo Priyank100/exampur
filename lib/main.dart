@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
+import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/drawer/eligibility_calculator.dart';
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/books/books_screen.dart';
@@ -42,6 +43,7 @@ Future<void> backgroundHandler(RemoteMessage message) async{
 }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await di.init();
   await FlutterDownloader.initialize(debug: true);
   await Firebase.initializeApp();
@@ -153,7 +155,7 @@ class _MyAppState extends State<MyApp> {
      // onGenerateRoute: _appRouter.onGenerateRoute,
       routes: {
         "red": (_) => Notifications(),
-       // "green": (_) => Notifications(),
+        "/landingPage": (_) => LandingPage(),
       },
       home: SplashScreen(),
     );

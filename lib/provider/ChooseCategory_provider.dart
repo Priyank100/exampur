@@ -40,8 +40,8 @@ class ChooseCategoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<String>?> getSelectchooseCategoryList(BuildContext context) async {
-    ApiResponse apiResponse = await chooseCategoryRepo.selectCategory();
+  Future<List<String>?> getSelectchooseCategoryList(BuildContext context, String token) async {
+    ApiResponse apiResponse = await chooseCategoryRepo.selectCategory(token);
 
     if(apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response!.data);

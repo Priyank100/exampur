@@ -53,14 +53,14 @@ class AuthRepo {
     }
   }
 
-  Future<ApiResponse> checkValidToken() async {
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+  Future<ApiResponse> checkValidToken(String token) async {
+    // String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
       };
       final url = '${API.Valid_Token_URL}';
-      final response = await dioClient.get(url);
+      final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

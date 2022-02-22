@@ -50,8 +50,8 @@ class AuthProvider extends ChangeNotifier {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if(statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
-        SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
-        AppConstants.printLog('ToKEN2>> ${_informationModel.data!.authToken}');
+        await SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
+        AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
@@ -59,7 +59,6 @@ class AuthProvider extends ChangeNotifier {
 
         callback(true, '');
       } else {
-
         callback(false, apiResponse.response!.data['data'].toString());
       }
 
@@ -94,8 +93,8 @@ class AuthProvider extends ChangeNotifier {
       if(statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
 
-        SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
-        AppConstants.printLog('ToKEN2>> ${_informationModel.data!.authToken}');
+        await SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
+        AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
@@ -156,20 +155,18 @@ class AuthProvider extends ChangeNotifier {
 
 
   ///TokenValidate
-  Future<void> tokenValidation(BuildContext context) async {
-    ApiResponse apiResponse = await authRepo.checkValidToken();
-    if (apiResponse.response != null &&
-        apiResponse.response!.statusCode == 200) {
+  Future<void> tokenValidation(BuildContext context, String token) async {
+    ApiResponse apiResponse = await authRepo.checkValidToken(token);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
 
       var statusCode = apiResponse.response!.data['statusCode'].toString();
-      String data = apiResponse.response!.data['data'].toString();
+      List<UserInformationModel> _userData = [];
 
       if (statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
-        SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
+        await SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
 
-        List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
         await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
 
@@ -178,10 +175,7 @@ class AuthProvider extends ChangeNotifier {
       } else {
         // String msg = _informationModel.data.toString();
         // AppConstants.printLog('priyank>>'+_informationModel.data.toString());
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Logged Out'),
-          backgroundColor: AppColors.black,
-        ));
+        AppConstants.showBottomMessage(context, 'Logged Out', AppColors.black);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
@@ -216,19 +210,14 @@ class AuthProvider extends ChangeNotifier {
         var jsonObject =  jsonDecode(response.body);
         if(jsonObject['statusCode'].toString() == '200') {
           await SharedPref.saveSharedPref(SharedPrefConstants.BANNER_BASE_SP, jsonObject['data'].toString());
+          AppConstants.printLog('BANNER_BASE>> ' + jsonObject['data'].toString());
           AppConstants.BANNER_BASE = jsonObject['data'].toString() + '/';
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(jsonObject['data'].toString()),
-            backgroundColor: AppColors.red,
-          ));
+          AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.red);
         }
 
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Server Error'),
-          backgroundColor: AppColors.red,
-        ));
+        AppConstants.showBottomMessage(context, 'Server Error', AppColors.red);
       }
     });
   }

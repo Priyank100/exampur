@@ -539,6 +539,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                           ]),
                       onTap: () {
                         SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
+                        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
                         Navigator.of(context)
                             .pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
                       },

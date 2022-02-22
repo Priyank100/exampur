@@ -90,11 +90,11 @@ class _HomeState extends State<Home> {
         .data!
         .firstName
         .toString();
-    bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false)
-        .getHomeBannner(context))!;
-    List<String> selectCategorylist = (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-           .getSelectchooseCategoryList(context))!;
-    AppConstants.selectedCategoryList = selectCategorylist;
+    String token = await Provider.of<AuthProvider>(context, listen: false)
+        .informationModel.data!.authToken.toString();
+    bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context))!;
+    AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
+    // AppConstants.selectedCategoryList = selectCategorylist;
     setState(() {});
   }
 

@@ -26,11 +26,14 @@ class ChooseCategoryRepo {
     }
   }
 
-  Future<ApiResponse> selectCategory() async {
+  Future<ApiResponse> selectCategory(String token) async {
     try {
+      Map<String, dynamic> header = {
+        "appAuthToken": token,
+      };
       final url =  '${API.Select_Choose_category_URL}';
       AppConstants.printLog(url);
-      final response = await dioClient.get(url);
+      final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
