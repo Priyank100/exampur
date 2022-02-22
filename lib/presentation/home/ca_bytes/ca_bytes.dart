@@ -19,9 +19,11 @@ class CaBytes extends StatefulWidget {
 
 class _CaBytesState extends State<CaBytes> {
   int page = 0;
+  bool isLoading=false;
   List<Data> caBytesList = [];
 
   Future<void> callProvider(pageNo) async {
+    isLoading=true;
     String encodeCat = AppConstants.encodeCategory();
     List<Data> list=  (await Provider.of<CABytesProvider>(context, listen: false)
         .getCaBytesList(context,encodeCat, pageNo))!;
@@ -29,6 +31,7 @@ class _CaBytesState extends State<CaBytes> {
       page +=1;
       caBytesList = caBytesList + list;
     }
+    isLoading=false;
     setState(() {});
   }
 
@@ -42,7 +45,14 @@ class _CaBytesState extends State<CaBytes> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(),
-        body: caBytesList.length==0?Center(child: CircularProgressIndicator(color: AppColors.amber,)) :
+        body:isLoading? Center(child: CircularProgressIndicator(color: AppColors.amber,)):caBytesList.length==0?
+        Center(child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline),
+            Text(getTranslated(context, StringConstant.noData)!)
+          ],
+        )):
         CarouselSlider(
           options: CarouselOptions(
             height: double.maxFinite,
@@ -53,6 +63,7 @@ class _CaBytesState extends State<CaBytes> {
             enableInfiniteScroll: false,
             onPageChanged: (index, reason) {
               if(index==caBytesList.length-1){
+
                 callProvider(page);
               }
             },
@@ -64,7 +75,7 @@ class _CaBytesState extends State<CaBytes> {
                     margin: EdgeInsets.all(8),
                     padding: EdgeInsets.all(2),
                     decoration: BoxDecoration(color: AppColors.transparent,
-                        border: Border.all(width: 3,color: AppColors.red)
+                      //  border: Border.all(width: 3,color: AppColors.red)
                     ),
                     child: AppConstants.image(
                         AppConstants.BANNER_BASE + i.imagePath.toString(), boxfit: BoxFit.fill

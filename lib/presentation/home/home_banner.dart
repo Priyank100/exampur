@@ -8,9 +8,10 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:exampur_mobile/data/model/banner_detail_model.dart';
 import 'LandingChooseCategory.dart';
 import 'bannerdetailspage.dart';
+import 'banner_link_detail_page.dart';
 
 class LargeBanner extends StatefulWidget {
   List<BannerData> bannerList;
@@ -23,9 +24,10 @@ class LargeBanner extends StatefulWidget {
 
 class _LargeBannerState extends State<LargeBanner> {
   int _current = 0;
-
+bool isLoading =false;
   @override
   Widget build(BuildContext context) {
+
     return Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -46,7 +48,7 @@ class _LargeBannerState extends State<LargeBanner> {
                 });
               },
             ),
-            items: widget.bannerList.map((i) {
+            items: widget.bannerList.map((item) {
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
@@ -60,13 +62,13 @@ class _LargeBannerState extends State<LargeBanner> {
                           //   placeholder: (context, url) => new Image.asset(Images.noimage),
                           //   errorWidget: (context, url, error) => new Icon(Icons.error),
                           // ),
-                          child: AppConstants.image(AppConstants.BANNER_BASE + i.imagePath.toString(), boxfit: BoxFit.fill),
+                          child: AppConstants.image(AppConstants.BANNER_BASE + item.imagePath.toString(), boxfit: BoxFit.fill),
                         ),
                         onTap: () {
-                          i.type=='Course'?Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                              LandingChooseCategory()
+                          item.type=='Course'?Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                          BannerLinkDetailPage(item.type.toString(),item.link.toString())
                           )):Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                              BannerDetailPage(i.link.toString(),i.title.toString())
+                              BannerDetailPage(item.link.toString(),item.title.toString())
                           ));
                         }),
                   );

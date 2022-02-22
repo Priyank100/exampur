@@ -26,4 +26,28 @@ class HomeBannerRepo {
     }
   }
 
+  Future<ApiResponse> getHomeBannerCourselink(String id) async {
+
+    try {
+
+      final url = API.homeBannerCourselink_URL+id;
+      AppConstants.printLog(url);
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+  Future<ApiResponse> getHomeBannerBooklink(String id) async {
+
+    try {
+
+      final url = API.homeBannerbooklink_URL+id;
+      AppConstants.printLog(url);
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 }

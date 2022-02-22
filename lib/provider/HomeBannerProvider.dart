@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
 import 'package:exampur_mobile/data/model/Userinfo.dart';
+import 'package:exampur_mobile/data/model/banner_detail_model.dart';
 import 'package:exampur_mobile/data/model/loginmodel.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
@@ -22,6 +23,9 @@ class HomeBannerProvider extends ChangeNotifier {
   HomeBannerModel _bannerModel = HomeBannerModel();
   HomeBannerModel get bannerModel => _bannerModel;
 
+  BannerDetailModel _bannerdetailModel = BannerDetailModel();
+  BannerDetailModel get bannerdetailModel => _bannerdetailModel;
+
   //homeBanner request
   Future<List<BannerData>?> getHomeBannner(BuildContext context) async {
     ApiResponse apiResponse = await homeBannerRepo.getHomeBanner();
@@ -40,5 +44,38 @@ class HomeBannerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<Data?> getHomeBannnerCourseDetail(BuildContext context,String id) async {
+    ApiResponse apiResponse = await homeBannerRepo.getHomeBannerCourselink(id);
+    if (apiResponse.response == null) {
+      ApiChecker.checkApi(context, apiResponse);
+    } else if (apiResponse.response!.statusCode == 200) {
+      AppConstants.printLog(apiResponse.response);
+      // _homeBannerList=List<HomeBannerModel>.from(json.decode(apiResponse.response!.data).map((x) => HomeBannerModel.fromJson(x)));
+      _bannerdetailModel = BannerDetailModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _bannerdetailModel.data;
+
+    } else {
+      AppConstants.printLog("init address fail");
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+  }
+
+  Future<Data?> getHomeBannnerBookDetail(BuildContext context,String id) async {
+    ApiResponse apiResponse = await homeBannerRepo.getHomeBannerBooklink(id);
+    if (apiResponse.response == null) {
+      ApiChecker.checkApi(context, apiResponse);
+    } else if (apiResponse.response!.statusCode == 200) {
+      AppConstants.printLog(apiResponse.response);
+      // _homeBannerList=List<HomeBannerModel>.from(json.decode(apiResponse.response!.data).map((x) => HomeBannerModel.fromJson(x)));
+      _bannerdetailModel = BannerDetailModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _bannerdetailModel.data;
+
+    } else {
+      AppConstants.printLog("init address fail");
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+  }
 
 }

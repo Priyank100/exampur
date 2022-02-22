@@ -98,16 +98,16 @@ class _TestSeriesCardViewState extends State<TestSeriesCardView> {
                                           SizedBox(
                                             height: 5,
                                           ),
-                                          Row(
-                                            children: [
-                                             Image.asset(Images.share,height: 15,width: 20,) ,
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(getTranslated(context, StringConstant.share)!,
-                                                  style: TextStyle(fontSize: 13))
-                                            ],
-                                          ),
+                                          // Row(
+                                          //   children: [
+                                          //    Image.asset(Images.share,height: 15,width: 20,) ,
+                                          //     SizedBox(
+                                          //       width: 5,
+                                          //     ),
+                                          //     Text(getTranslated(context, StringConstant.share)!,
+                                          //         style: TextStyle(fontSize: 13))
+                                          //   ],
+                                          // ),
                                         ],
                                       ),
                                     ),

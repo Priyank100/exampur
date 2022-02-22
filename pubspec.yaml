@@ -69,6 +69,7 @@ dependencies:
   webview_flutter: ^2.0.4
   flutter_html: ^2.2.1
   firebase_dynamic_links: ^2.0.8
+  grouped_list: ^4.2.0
 
 
 
