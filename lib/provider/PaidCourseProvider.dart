@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:exampur_mobile/Helper/api_checker.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_tab.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
@@ -20,67 +21,90 @@ class PaidCoursesProvider extends ChangeNotifier {
 
   Future<List<Data>?> getPaidCourseTabList(BuildContext context) async {
     ApiResponse apiResponse = await paidcoursesRepo.paid_courses_Tab();
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response);
-      _paidcoursetabModel = PaidCourseTab.fromJson(json.decode(apiResponse.response.toString()));
-      return _paidcoursetabModel.data;
 
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _paidcoursetabModel = PaidCourseTab.fromJson(
+            json.decode(apiResponse.response.toString()));
+        return _paidcoursetabModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
     } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   Future<List<Courses>?> getPaidCourseList(BuildContext context, String id, int pageNo) async {
     ApiResponse apiResponse = await paidcoursesRepo.paid_coursesRepo(id, pageNo);
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response);
-      _paidcourseModel = PaidCourseModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _paidcourseModel.data;
-
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _paidcourseModel = PaidCourseModel.fromJson(
+            json.decode(apiResponse.response.toString()));
+        return _paidcourseModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
     } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      notifyListeners();
     }
-    notifyListeners();
   }
 
 
   Future<List<Data>?> getFreeCourseTabList(BuildContext context) async {
     ApiResponse apiResponse = await paidcoursesRepo.free_courses_Tab();
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response);
-      _paidcoursetabModel = PaidCourseTab.fromJson(json.decode(apiResponse.response.toString()));
-      return _paidcoursetabModel.data;
-
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _paidcoursetabModel = PaidCourseTab.fromJson(
+            json.decode(apiResponse.response.toString()));
+        return _paidcoursetabModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
     } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   Future<List<Courses>?> getFreeCourseList(BuildContext context, String id, int pageNo) async {
     ApiResponse apiResponse = await paidcoursesRepo.free_coursesRepo(id, pageNo);
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response);
-      _paidcourseModel = PaidCourseModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _paidcourseModel.data;
-
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _paidcourseModel = PaidCourseModel.fromJson(
+            json.decode(apiResponse.response.toString()));
+        return _paidcourseModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
     } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
-    }
-    notifyListeners();
-  }
-
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      notifyListeners();
+    }}
 }

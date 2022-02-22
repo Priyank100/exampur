@@ -1,43 +1,70 @@
+import 'dart:convert';
+
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/data/model/mypurchase_innvoice.dart';
+import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
-
+import 'package:exampur_mobile/data/model/my_purchase_model.dart';
+import 'package:provider/provider.dart';
 class InvoiceDetailPage extends StatefulWidget {
-  const InvoiceDetailPage({Key? key}) : super(key: key);
+  String mypurchaseIDData;
+  String mypurchasetypeData;
+  InvoiceDetailPage(this.mypurchaseIDData,this.mypurchasetypeData) ;
 
   @override
   _InvoiceDetailPageState createState() => _InvoiceDetailPageState();
 }
 
 class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
+  String userName = '';
+  InvoiceData? mypurchaseInnvoice;
+  bool isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+    getDemoList();
+  }
+
+  Future<void> getDemoList() async {
+    isLoading=true;
+    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    userName = jsonValue[0]['data']['first_name'].toString();
+    mypurchaseInnvoice= (await Provider.of<MyPurchaseProvider>(context, listen: false).getMyInvoice(context, widget.mypurchaseIDData, widget.mypurchasetypeData))!;
+    isLoading=false;
+    setState(() {});
+    // return one2oneList;
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: Padding(
+      body:isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)): Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
           Text('Invoice',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
             SizedBox(height: 8,),
-            ColumnText(text: 'admin',
+            ColumnText(text:mypurchaseInnvoice!.transactionId.toString() ,
             title: getTranslated(context, StringConstant.TranscationId,)),
-            SizedBox(height: 5,),
-            ColumnText(text: 'admin',
+            SizedBox(height: 8,),
+            ColumnText(text: mypurchaseInnvoice!.orderNo.toString(),
                 title: getTranslated(context, StringConstant.BillNumber,)),
-            SizedBox(height: 5,),
-            ColumnText(text: 'admin',
+            SizedBox(height: 8,),
+            ColumnText(text: userName.toString(),
                 title: getTranslated(context, StringConstant.StudentName,)),
-            SizedBox(height: 5,),
-            ColumnText(text: 'admin',
+            SizedBox(height: 8,),
+            ColumnText(text: mypurchaseInnvoice!.product!.title.toString(),
                 title: getTranslated(context, StringConstant.itemType,)),
-            SizedBox(height: 5,),
-            ColumnText(text: 'admin',
+            SizedBox(height: 8,),
+            ColumnText(text: mypurchaseInnvoice!.product!.type.toString(),
                 title: getTranslated(context, StringConstant.Course,)),
-            SizedBox(height: 5,),
-            ColumnText(text: 'admin',
+            SizedBox(height: 8,),
+            ColumnText(text: mypurchaseInnvoice!.finalAmount.toString(),
                 title: getTranslated(context, StringConstant.Pricegst,)),
 
         ],),

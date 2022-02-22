@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 
 import 'package:exampur_mobile/data/model/c_a_bytes_model.dart';
 
@@ -24,20 +25,25 @@ class CABytesProvider extends ChangeNotifier {
   //homeBanner request
   Future<List<Data>?> getCaBytesList(BuildContext context, String encodeCat,int pageNo) async {
     ApiResponse apiResponse = await caBytesRepo.caBytes(encodeCat, pageNo);
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response);
-      // _homeBannerList=List<HomeBannerModel>.from(json.decode(apiResponse.response!.data).map((x) => HomeBannerModel.fromJson(x)));
-      _caBytesModel = CABytesModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _caBytesModel.data;
 
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _caBytesModel = CABytesModel.fromJson(
+            json.decode(apiResponse.response.toString()));
+        return _caBytesModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
     } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      notifyListeners();
     }
-    notifyListeners();
   }
-
 
 }

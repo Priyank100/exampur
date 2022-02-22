@@ -95,7 +95,8 @@ class API {
   static const String ca_bytes_url   = BASE_URL3+ 'ca_byte/' + 'ENCODE_CATEGORY' + '/10/';
 
   //mypurchase
-  static const String mypurchase   = BASE_URL3+ '';
+  static const String mypurchase   = BASE_URL2+ 'mypurchase/findall';
+  static const String myinvoice   = BASE_URL2+ 'mypurchase/findone/';
 
 }
 

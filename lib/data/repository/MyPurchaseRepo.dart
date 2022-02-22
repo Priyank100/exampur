@@ -19,4 +19,14 @@ class MyPurchaseRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+  Future<ApiResponse> myinvoice(String id,String type) async {
+    try {
+      String url = API.myinvoice+id+'/'+type;
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
   }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
 
 
@@ -26,22 +27,23 @@ class One2OneProvider extends ChangeNotifier {
 
   Future<List<One2OneCourses>?> getOne2OneList(BuildContext context,int pageNo) async {
     ApiResponse apiResponse = await one2oneRepo.one2oneRepo(pageNo);
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response!.data);
-      AppConstants.printLog(apiResponse.response);
-      _one2oneModel =One2OneModels.fromJson(json.decode(apiResponse.response.toString()));
-      return _one2oneModel.data;
-
-
-
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _one2oneModel = One2OneModels.fromJson(
+            json.decode(apiResponse.response.toString()));
+        return _one2oneModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
     } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
-    }
-    notifyListeners();
-  }
-
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      notifyListeners();
+    }}
 
 }

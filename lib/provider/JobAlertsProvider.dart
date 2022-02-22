@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:exampur_mobile/Helper/api_checker.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/job_alert_list_model.dart';
 import 'package:exampur_mobile/data/model/job_alert_tab_model.dart';
 import 'package:exampur_mobile/data/model/job_alerts_detail_model.dart';
@@ -58,17 +59,22 @@ class JobAlertsProvider extends ChangeNotifier {
   Future<DetailsData?> getJobAlertsDetails(BuildContext context, String id) async {
     ApiResponse apiResponse = await jobAlertsRepo.jobAlertsDetails(id);
 
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response);
-      _jobAlertsDetailModel = JobAlertsDetailModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _jobAlertsDetailModel.data;
-
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _jobAlertsDetailModel = JobAlertsDetailModel.fromJson(
+            json.decode(apiResponse.response.toString()));
+        return _jobAlertsDetailModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
     } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
-    }
-    notifyListeners();
-  }
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      notifyListeners();
+    }}
 }
