@@ -2,11 +2,13 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
-
+import 'package:exampur_mobile/data/model/my_purchase_model.dart';
 import 'invoicePage.dart';
 
 class PurchaseListContainer extends StatefulWidget {
-  const PurchaseListContainer({Key? key}) : super(key: key);
+  final Data mypurchaseData;
+
+  const PurchaseListContainer(this.mypurchaseData,);
 
   @override
   _PurchaseListContainerState createState() => _PurchaseListContainerState();
@@ -15,6 +17,7 @@ class PurchaseListContainer extends StatefulWidget {
 class _PurchaseListContainerState extends State<PurchaseListContainer> {
   @override
   Widget build(BuildContext context) {
+   // print(AppConstants.BANNER_BASE + widget.mypurchaseData.product!.bannerPath.toString());
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 13, vertical: 15),
       child: Container(
@@ -58,8 +61,8 @@ class _PurchaseListContainerState extends State<PurchaseListContainer> {
                     //   placeholder: (context, url) => new Image.asset(Images.noimage),
                     //   errorWidget: (context, url, error) => new Icon(Icons.error),
                     // ),
-                    child: Image.asset(Images.exampur_logo),
-                   // child: AppConstants.image(AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString()),
+                   // child: Image.asset(Images.exampur_logo),
+                    child: AppConstants.image(AppConstants.BANNER_BASE + widget.mypurchaseData.product!.bannerPath.toString()),
                   ),
                 ),
 
@@ -74,17 +77,17 @@ class _PurchaseListContainerState extends State<PurchaseListContainer> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                             'title',
+                      widget.mypurchaseData.product!.title.toString(),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(fontSize: 18),
                             ),
-                            Text(
-                             'data',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 18),
-                            ),
+                            // Text(
+                            //  'data',
+                            //   maxLines: 2,
+                            //   overflow: TextOverflow.ellipsis,
+                            //   style: TextStyle(fontSize: 18),
+                            // ),
                           ],
                         ),
                       ),
@@ -122,7 +125,7 @@ class _PurchaseListContainerState extends State<PurchaseListContainer> {
                         children: [
                           InkWell(onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                            InvoiceDetailPage()
+                            InvoiceDetailPage(widget.mypurchaseData.id.toString(),widget.mypurchaseData.product!.type.toString(),)
                             ));
                           },
                             child: Container(height: 30,width: 120,decoration: BoxDecoration( color: Color(0xFF060929),

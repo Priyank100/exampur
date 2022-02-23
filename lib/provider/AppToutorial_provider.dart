@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/appp_toutorial.dart';
 import 'package:exampur_mobile/data/model/demo_models.dart';
 
@@ -29,24 +30,23 @@ class AppTutorialProvider extends ChangeNotifier {
 
   Future<List<Data>?> getapptutorialList(BuildContext context) async {
     ApiResponse apiResponse = await appTutorialRepo.apptutorialRepo();
-    if (apiResponse.response == null) {
-      ApiChecker.checkApi(context, apiResponse);
-    } else if (apiResponse.response!.statusCode == 200) {
-      AppConstants.printLog(apiResponse.response!.data);
-
-
-      AppConstants.printLog(apiResponse.response);
-      _apppToutorialModel =ApppToutorial.fromJson(json.decode(apiResponse.response.toString()));
-      return _apppToutorialModel.data;
-
-
-
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _apppToutorialModel = ApppToutorial.fromJson(
+            json.decode(apiResponse.response.toString()));
+        return _apppToutorialModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
     } else {
-      AppConstants.printLog("init address fail");
-      ApiChecker.checkApi(context, apiResponse);
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      notifyListeners();
     }
-    notifyListeners();
   }
-
-
 }
