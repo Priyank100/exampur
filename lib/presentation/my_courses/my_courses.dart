@@ -1,9 +1,12 @@
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/data/model/my_course_list_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'myCoursetabview.dart';
 
 class MyCourses extends StatefulWidget {
@@ -12,60 +15,32 @@ class MyCourses extends StatefulWidget {
 }
 
 class MyCoursesState extends State<MyCourses> {
+  List<Data> myCourseList = [];
+  bool isLoading = false;
+
   @override
   void initState() {
+    callProvider();
     super.initState();
+  }
+
+  Future<void> callProvider() async {
+    isLoading = true;
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    myCourseList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseList(context, token))!;
+    isLoading = false;
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            // title: Text(
-            //   "My Courses",
-            //   style: CustomTextStyle.headingBold(context),
-            // ),
-            // backgroundColor: AppColors.transparent,
-            // elevation: 0
-        ),
-        /*body: GroupedListView<dynamic, String>(
-            elements: _elements,
-            groupBy: (element) => element['group'],
-            groupComparator: (value1, value2) => value2.compareTo(value1),
-            itemComparator: (item1, item2) =>
-                item1['name'].compareTo(item2['name']),
-            order: GroupedListOrder.DESC,
-            useStickyGroupSeparators: true,
-            groupSeparatorBuilder: (String value) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                value,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            itemBuilder: (c, element) {
-              return InkWell(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                      MyCourseTabView()
-                  ));
-                  },
-                child: Card(
-                  elevation: 8.0,
-                  child: Container(
-                    child: ListTile(
-                      contentPadding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                      leading: Image.asset(Images.mypurchase),
-                      title: Text(element['name']),
-                    ),
-                  ),
-                ),
-              );
-            })*/
-      body: SingleChildScrollView(
+      body: isLoading ? Center(child: CircularProgressIndicator()) : myCourseList.length == 0 ?
+      Center(child: Text('No Data')) :
+        SingleChildScrollView(
+        padding: EdgeInsets.all(5),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('My Courses', style: CustomTextStyle.headingBold(context)),
             DataContainer()
@@ -77,8 +52,9 @@ class MyCoursesState extends State<MyCourses> {
 
   Widget DataContainer() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Group Name'),
+        // Text('Group Name'),
         GridViewData()
       ],
     );
@@ -88,32 +64,37 @@ class MyCoursesState extends State<MyCourses> {
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-      itemBuilder: (_, index) => GridItem(),
-      itemCount: 9,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: MediaQuery.of(context).size.width /
+              (MediaQuery.of(context).size.height / 2.5)
+      ),
+      itemBuilder: (_, index) => GridItem(index),
+      itemCount: myCourseList.length,
     );
   }
 
-  Widget GridItem() {
+  Widget GridItem(index) {
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) =>
-            MyCourseTabView()
+            MyCourseTabView(myCourseList[index].id.toString())
         ));
       },
       child: Container(
         decoration: BoxDecoration(
-            borderRadius:  BorderRadius.all(const Radius.circular(8)), color: AppColors.black),
-        child: Card(
-          elevation: 8,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Image.asset(Images.mypurchase),
-              Text('Course Name', overflow: TextOverflow.ellipsis, maxLines: 2),
-            ],
-          ),
-        ),
+          border: Border.all(width: 1.5),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        margin: EdgeInsets.all(10),
+        padding: EdgeInsets.all(5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppConstants.image(AppConstants.BANNER_BASE + myCourseList[index].logoPath.toString()),
+            SizedBox(height: 20),
+            Text(myCourseList[index].title.toString(), overflow: TextOverflow.ellipsis, maxLines: 2),
+          ],
+        )
       ),
     );
   }

@@ -405,31 +405,6 @@ class _BottomNavigationState extends State<BottomNavigation>
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(
-                              Icons.settings,
-                              color: AppColors.amber,
-                            ),
-                            SizedBox(
-                              width: Dimensions.PADDING_SIZE_SMALL,
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                  style: CustomTextStyle.drawerText(context),
-                                  text:getTranslated(context, 'settings')),
-                            ),
-                          ]),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Settings()));
-                      },
-                    ),
-                    ListTile(
-                      dense: true,
-                      title: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
                             Image.asset(
                               Images.calculator,
                               width: 30,
@@ -450,6 +425,31 @@ class _BottomNavigationState extends State<BottomNavigation>
                             context,
                             MaterialPageRoute(
                                 builder: (context) => EligibilityCalculator()));
+                      },
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.settings,
+                              color: AppColors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text:getTranslated(context, 'settings')),
+                            ),
+                          ]),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Settings()));
                       },
                     ),
                     ListTile(

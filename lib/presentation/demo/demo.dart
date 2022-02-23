@@ -29,7 +29,7 @@ class DemoState extends State<Demo> {
   void initState() {
     super.initState();
     scrollController.addListener(pagination);
-    getDemoList(page);
+    // getDemoList(page);
   }
 
   Future<void> getDemoList(pageNo) async {

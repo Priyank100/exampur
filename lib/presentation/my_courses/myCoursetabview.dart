@@ -11,7 +11,9 @@ import 'TestView.dart';
 import 'TimetableView.dart';
 
 class MyCourseTabView extends StatefulWidget {
-  const MyCourseTabView({Key? key}) : super(key: key);
+  final String courseId;
+
+  const MyCourseTabView(this.courseId) : super();
 
   @override
   _MyCourseTabViewState createState() => _MyCourseTabViewState();
@@ -22,13 +24,13 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
 
 
   Future<String> loadJsonFromAssets() async {
-    return await rootBundle.loadString('assets/Statejson/dummyMyCourseTab.json');
+    return await rootBundle.loadString('assets/Statejson/myCourseTab.json');
   }
 
   void getTabList() async {
     String jsonString = await loadJsonFromAssets();
-    final BookResponse = booktitleFromJson(jsonString);
-    tabList = BookResponse.book!;
+    final myCourseTabResponse = booktitleFromJson(jsonString);
+    tabList = myCourseTabResponse.book!;
     setState(() {});
   }
 
