@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/teachersubjectview.dart';
 import 'package:exampur_mobile/shared/scrolling%20text.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -22,22 +23,29 @@ class _SubjectViewState extends State<SubjectView> {
               delegate: SliverChildBuilderDelegate(
                     (context, index) {
 
-                  return Container(
-                    padding: EdgeInsets.all(9),
-                    color: AppColors.transparent,
-                    child: Column(children: [
-                      CircleAvatar(
-                        backgroundColor:
-                        Colors.transparent,
-                        backgroundImage:AssetImage(Images.jobalert),
-                        radius: 40.0,
-                      ),
-                      // ScrollingText(
-                      //   text:'Teacher name sie',
-                      //   textStyle: TextStyle(fontSize: 12),
-                      // )
+                  return InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                          TeacherSubjecjectView()
+                      ));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(9),
+                      color: AppColors.transparent,
+                      child: Column(children: [
+                        CircleAvatar(
+                          backgroundColor:
+                          Colors.transparent,
+                          backgroundImage:AssetImage(Images.jobalert),
+                          radius: 40.0,
+                        ),
+                        // ScrollingText(
+                        //   text:'Teacher name sie',
+                        //   textStyle: TextStyle(fontSize: 12),
+                        // )
 Flexible(child: Text('Teacher name sir'))
-                    ],),
+                      ],),
+                    ),
                   );
                 },
                 childCount:20,

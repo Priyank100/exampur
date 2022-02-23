@@ -1,12 +1,13 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/booktitle.dart';
-import 'package:exampur_mobile/presentation/my_courses/subjectView.dart';
+import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/subjectView.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'LiveClass.dart';
+import 'TestView.dart';
 import 'TimetableView.dart';
 
 class MyCourseTabView extends StatefulWidget {
@@ -21,7 +22,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
 
 
   Future<String> loadJsonFromAssets() async {
-    return await rootBundle.loadString('assets/Statejson/booklist.json');
+    return await rootBundle.loadString('assets/Statejson/dummyMyCourseTab.json');
   }
 
   void getTabList() async {
@@ -47,7 +48,9 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
                   length: tabList.length,
                   names: tabList.map((item) => item.name.toString()).toList(),
                   routes: tabList.length == 0 ? [] : [
+                    LiveClass(),
                     SubjectView(),
+                    TestView(),
                     TimeTableView(),
                   ],
                   title: '')

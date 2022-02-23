@@ -104,6 +104,7 @@ flutter:
     - assets/Statejson/issuename.json
     - assets/Statejson/booklist.json
     - assets/Statejson/currentaffairtab.json
+    - assets/Statejson/dummyMyCourseTab.json
     - assets/mypdf.pdf
 
 

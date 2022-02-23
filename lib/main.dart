@@ -16,6 +16,7 @@ import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/provider/Helpandfeedback.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
+import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';
@@ -66,6 +67,7 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl<CABytesProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<CaProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<MyPurchaseProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<MyCourseProvider>()),
   ], child: MyApp()));
 }
 
