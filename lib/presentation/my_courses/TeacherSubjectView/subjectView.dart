@@ -35,16 +35,23 @@ class _SubjectViewState extends State<SubjectView> {
   }
 
   Widget GridItem() {
-    return Column(
-      children: [
-        CircleAvatar(
-          backgroundColor:
-          Colors.transparent,
-          backgroundImage:AssetImage(Images.jobalert),
-          radius: 40.0,
-        ),
-        Text('Teacher name', overflow: TextOverflow.ellipsis, maxLines: 1),
-      ],
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) =>
+            TeacherSubjecjectView()
+        ));
+      },
+      child: Column(
+        children: [
+          CircleAvatar(
+            backgroundColor:
+            Colors.transparent,
+            backgroundImage:AssetImage(Images.jobalert),
+            radius: 40.0,
+          ),
+          Text('Teacher name', overflow: TextOverflow.ellipsis, maxLines: 1),
+        ],
+      ),
     );
   }
 }

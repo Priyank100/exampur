@@ -1,10 +1,9 @@
-import 'dart:io';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:grouped_list/grouped_list.dart';
+
 import 'myCoursetabview.dart';
 
 class MyCourses extends StatefulWidget {
@@ -96,17 +95,24 @@ class MyCoursesState extends State<MyCourses> {
   }
 
   Widget GridItem() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius:  BorderRadius.all(const Radius.circular(8)), color: AppColors.black),
-      child: Card(
-        elevation: 8,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Image.asset(Images.mypurchase),
-            Text('Course Name', overflow: TextOverflow.ellipsis, maxLines: 2),
-          ],
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) =>
+            MyCourseTabView()
+        ));
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius:  BorderRadius.all(const Radius.circular(8)), color: AppColors.black),
+        child: Card(
+          elevation: 8,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.asset(Images.mypurchase),
+              Text('Course Name', overflow: TextOverflow.ellipsis, maxLines: 2),
+            ],
+          ),
         ),
       ),
     );
