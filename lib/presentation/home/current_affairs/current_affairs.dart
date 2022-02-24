@@ -27,7 +27,7 @@ class CurrentAffairsState extends State<CurrentAffairs> with SingleTickerProvide
   bool isLoading = false;
   List<Currentaffairs> tablist = [];
   Future<String> loadJsonFromAssets() async {
-    return await rootBundle.loadString('assets/Statejson/currentaffairtab.json');
+    return await rootBundle.loadString('assets/LocalJson/currentaffairtab.json');
   }
   void gettabList() async {
    // isLoading=true;

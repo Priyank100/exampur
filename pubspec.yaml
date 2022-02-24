@@ -101,11 +101,11 @@ flutter:
     - assets/images/
     - assets/language/en.json
     - assets/language/hi.json
-    - assets/Statejson/State.json
-    - assets/Statejson/issuename.json
-    - assets/Statejson/booklist.json
-    - assets/Statejson/currentaffairtab.json
-    - assets/Statejson/myCourseTab.json
+    - assets/LocalJson/State.json
+    - assets/LocalJson/issuename.json
+    - assets/LocalJson/booklist.json
+    - assets/LocalJson/currentaffairtab.json
+    - assets/LocalJson/myCourseTab.json
     - assets/mypdf.pdf
 
 

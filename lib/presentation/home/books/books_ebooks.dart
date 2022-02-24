@@ -22,7 +22,7 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
   List<BookEbook> eBooksList = [];
 
   Future<String> loadJsonFromAssets() async {
-    return await rootBundle.loadString('assets/Statejson/booklist.json');
+    return await rootBundle.loadString('assets/LocalJson/booklist.json');
   }
 
   void getTabList() async {

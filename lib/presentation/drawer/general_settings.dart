@@ -50,7 +50,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   }
 
   Future<String> loadJsonFromAssets() async {
-    return await rootBundle.loadString('assets/Statejson/State.json');
+    return await rootBundle.loadString('assets/LocalJson/State.json');
   }
 
   void getStateList() async {

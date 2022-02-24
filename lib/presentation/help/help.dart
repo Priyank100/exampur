@@ -57,7 +57,7 @@ class HelpState extends State<Help> {
   String issuevalue = '';
 
   Future<String> loadJsonFromAssets() async {
-    return await rootBundle.loadString('assets/Statejson/issuename.json');
+    return await rootBundle.loadString('assets/LocalJson/issuename.json');
   }
 
   void getStateList() async {

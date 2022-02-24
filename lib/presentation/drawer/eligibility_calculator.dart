@@ -31,7 +31,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
   TextEditingController ageController = TextEditingController();
 
   Future<String> loadJsonFromAssets() async {
-    return await rootBundle.loadString('assets/Statejson/State.json');
+    return await rootBundle.loadString('assets/LocalJson/State.json');
   }
 
   void getStateList() async {
