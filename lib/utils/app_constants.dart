@@ -98,17 +98,9 @@ class API {
   static const String myinvoice   = BASE_URL2 + 'mypurchase/findone/';
 
   //my_course
-  static const String myCourse_URL   = BASE_URL2 + 'mycourses';
-
-  // https://static.exampur.work/course_subject/:course_id/:auth_token
-  // https://static.exampur.work/course_timeline/:course_id/:auth_token
-  // https://static.exampur.work/course_material/:course_id/:auth_token
-  // https://static.exampur.work/course_notification/:course_id/:auth_token
-
-  // https://static.exampur.work/course_subject/61c98d223a7d50ce67803edb/IdRURCxIWR4keOAK1645452107uniNno7zflUnfTUr
-  // https://static.exampur.work/course_timeline/61c98d223a7d50ce67803edb/IdRURCxIWR4keOAK1645452107uniNno7zflUnfTUr
-  // https://static.exampur.work/course_material/61c98d223a7d50ce67803edb/IdRURCxIWR4keOAK1645452107uniNno7zflUnfTUr
-  // https://static.exampur.work/course_notification/61c98d223a7d50ce67803edb/IdRURCxIWR4keOAK1645452107uniNno7zflUnfTUr
+  static const String myCourse_URL           = BASE_URL2 + 'mycourses';
+  static const String myCourse_subject_URL   = BASE_URL3 + 'course_subject/';
+  static const String myCourse_material_URL  = BASE_URL3 + 'course_material/';
 
 }
 
@@ -228,6 +220,12 @@ class AppConstants {
       imageUrl: imagePath,
       placeholder: (context, url) => new Image.asset(Images.no_image),
       errorWidget: (context, url, error) => new Image.asset(Images.no_image),
+    );
+  }
+
+  static Widget noDataFound() {
+    return Center(
+      child: Image.asset(Images.no_data)
     );
   }
 

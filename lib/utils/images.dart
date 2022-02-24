@@ -12,6 +12,7 @@ class Images {
   static const String free_course = 'assets/images/free_courses.png';
   static const String jobalert = 'assets/images/job_alert.png';
   static const String no_image = 'assets/images/noimage.png';
+  static const String no_data = 'assets/images/no_data.png';
   static const String offlinebatch = 'assets/images/offline_batches.png';
   static const String one2one = 'assets/images/one2one.png';
   static const String paidcourse = 'assets/images/paid_courses.png';

@@ -7,7 +7,7 @@ String myCourseListModelToJson(MyCourseListModel data) => json.encode(data.toJso
 class MyCourseListModel {
   MyCourseListModel({
       int? statusCode, 
-      List<Data>? data,}){
+      List<CourseData>? data,}){
     _statusCode = statusCode;
     _data = data;
 }
@@ -17,15 +17,15 @@ class MyCourseListModel {
     if (json['data'] != null) {
       _data = [];
       json['data'].forEach((v) {
-        _data?.add(Data.fromJson(v));
+        _data?.add(CourseData.fromJson(v));
       });
     }
   }
   int? _statusCode;
-  List<Data>? _data;
+  List<CourseData>? _data;
 
   int? get statusCode => _statusCode;
-  List<Data>? get data => _data;
+  List<CourseData>? get data => _data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -43,10 +43,10 @@ class MyCourseListModel {
 /// logo_path : "course/DGUKTpZX-logo_exampur.png"
 /// banner_path : "course/12JNP4Uo-banner_course_2.jpeg"
 
-Data dataFromJson(String str) => Data.fromJson(json.decode(str));
-String dataToJson(Data data) => json.encode(data.toJson());
-class Data {
-  Data({
+CourseData dataFromJson(String str) => CourseData.fromJson(json.decode(str));
+String dataToJson(CourseData data) => json.encode(data.toJson());
+class CourseData {
+  CourseData({
       String? id, 
       String? title, 
       String? logoPath, 
@@ -57,7 +57,7 @@ class Data {
     _bannerPath = bannerPath;
 }
 
-  Data.fromJson(dynamic json) {
+  CourseData.fromJson(dynamic json) {
     _id = json['_id'];
     _title = json['title'];
     _logoPath = json['logo_path'];

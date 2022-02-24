@@ -1,20 +1,46 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/data/model/my_course_subject_model.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/teachersubjectview.dart';
-import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/provider/MyCourseProvider.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SubjectView extends StatefulWidget {
-  const SubjectView({Key? key}) : super(key: key);
+  final String courseId;
+
+  const SubjectView(this.courseId) : super();
 
   @override
   _SubjectViewState createState() => _SubjectViewState();
 }
 
 class _SubjectViewState extends State<SubjectView> {
+  List<SubjectData> subjectList = [];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    callProvider();
+    super.initState();
+  }
+
+  Future<void> callProvider() async {
+    isLoading = true;
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    subjectList = (await Provider.of<MyCourseProvider>(context, listen: false).getSubjectList(context, widget.courseId, token))!;
+    isLoading = false;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: isLoading ? Center(child: CircularProgressIndicator()) : subjectList.length == 0 ?
+      Center(child: Text('No Data')) :
+      SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -24,30 +50,30 @@ class _SubjectViewState extends State<SubjectView> {
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-              itemBuilder: (_, index) => GridItem(),
-              itemCount: 9,
+              itemBuilder: (_, index) => GridItem(index),
+              itemCount: subjectList.length,
             )
         ]),
       ),
     );
   }
 
-  Widget GridItem() {
+  Widget GridItem(index) {
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) =>
-            TeacherSubjecjectView()
+            TeacherSubjectView(widget.courseId)
         ));
       },
       child: Column(
         children: [
-          CircleAvatar(
-            backgroundColor:
-            Colors.transparent,
-            backgroundImage:AssetImage(Images.jobalert),
-            radius: 40.0,
+          ClipOval(
+            child: AppConstants.image(
+              AppConstants.BANNER_BASE + subjectList[index].logoPath.toString(),
+              width: 80.0,height: 80.0,boxfit: BoxFit.fill
+            ),
           ),
-          Text('Teacher name', overflow: TextOverflow.ellipsis, maxLines: 1),
+          Text(subjectList[index].title.toString(), overflow: TextOverflow.ellipsis, maxLines: 1),
         ],
       ),
     );

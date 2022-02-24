@@ -51,7 +51,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
                   names: tabList.map((item) => item.name.toString()).toList(),
                   routes: tabList.length == 0 ? [] : [
                     LiveClass(),
-                    SubjectView(),
+                    SubjectView(widget.courseId),
                     TestView(),
                     TimeTableView(),
                   ],

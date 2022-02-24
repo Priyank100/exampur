@@ -3,7 +3,6 @@ import 'package:exampur_mobile/data/model/my_course_list_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +14,7 @@ class MyCourses extends StatefulWidget {
 }
 
 class MyCoursesState extends State<MyCourses> {
-  List<Data> myCourseList = [];
+  List<CourseData> myCourseList = [];
   bool isLoading = false;
 
   @override

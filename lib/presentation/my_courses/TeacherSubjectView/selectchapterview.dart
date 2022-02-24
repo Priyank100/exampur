@@ -1,22 +1,30 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/my_course_material_model.dart';
+import 'package:exampur_mobile/shared/view_pdf.dart';
+import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 
-class SelectChapterView extends StatelessWidget {
-  const SelectChapterView({Key? key}) : super(key: key);
+class SelectChapterView extends StatefulWidget {
+  final MaterialData data;
+  const SelectChapterView(this.data) : super();
 
+  @override
+  State<SelectChapterView> createState() => _SelectChapterViewState();
+}
+
+class _SelectChapterViewState extends State<SelectChapterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: ListView.builder(itemCount: 5,
+      body: ListView.builder(itemCount: 1,
     shrinkWrap: true,
     itemBuilder: (BuildContext context,int index){
         return Container(
-          //color: AppColors.amber,
           margin: EdgeInsets.all(5),
           child: Padding(
             padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
@@ -26,15 +34,13 @@ class SelectChapterView extends StatelessWidget {
                     width: Dimensions.AppTutorialImageWidth,
                     height: Dimensions.AppTutorialImageHeight,
                     child: Image.asset(Images.studymaterial,fit: BoxFit.fill,),
-                    // child: Image.network(AppConstants.BANNER_BASE+widget.demoList[widget.index].bannerPath.toString(), fit: BoxFit.fill)
-                    //child: AppConstants.image(AppConstants.BANNER_BASE+widget.demoList[widget.index].bannerPath.toString(), boxfit: BoxFit.fill)
-                ),
+                    ),
                 SizedBox(width: 10),
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Example',overflow: TextOverflow.ellipsis, maxLines: 2,),
+                      Text(widget.data.subjectId!.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
                       SizedBox(height: 25,),
                       Row(
                         children: [
@@ -42,8 +48,9 @@ class SelectChapterView extends StatelessWidget {
                             width: Dimensions.AppTutorialImageHeight,
                             height: 25,
                             decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:AppColors.dark),
-                            child: MaterialButton(
-
+                            child: widget.data.videoLink == null || widget.data.videoLink.toString().isEmpty ?
+                            SizedBox() :
+                            MaterialButton(
                               child: Row(
                                 children: [
                                   Icon(Icons.play_arrow, color: AppColors.white,size: 10,),
@@ -51,31 +58,33 @@ class SelectChapterView extends StatelessWidget {
                                 ],
                               ),
                               onPressed: () {
-                                
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => AppTutorialVideo(widget.list[widget.index].videoPath.toString(),
-                                //             widget.list[widget.index].title.toString())));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => YoutubeVideo(widget.data.videoLink.toString(),
+                                            widget.data.title.toString())
+                                    )
+                                );
                               },
                             ),
                           ),
                           SizedBox(width: 5,),
                           Container(
-                            //width: Dimensions.AppTutorialImageHeight,
                             height: 25,
                             decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:Color(0xFF1c1d3b)),
-                            child: MaterialButton(
-
+                            child: widget.data.pdfPath == null || widget.data.pdfPath.toString().isEmpty ?
+                            SizedBox() :
+                            MaterialButton(
                               child:
                               Text(getTranslated(context, StringConstant.viewPdf)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white)),
 
                               onPressed: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => AppTutorialVideo(widget.list[widget.index].videoPath.toString(),
-                                //             widget.list[widget.index].title.toString())));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ViewPdf(AppConstants.BANNER_BASE + widget.data.pdfPath.toString())
+                                    )
+                                );
                               },
                             ),
                           ),
@@ -88,7 +97,7 @@ class SelectChapterView extends StatelessWidget {
             ),
           ),
         );
-    } ),
+      }),
     );
   }
 }
