@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_list_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
@@ -41,7 +42,7 @@ class MyCoursesState extends State<MyCourses> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('My Courses', style: CustomTextStyle.headingBold(context)),
+            Text(getTranslated(context, StringConstant.myCourses)!, style: CustomTextStyle.headingBold(context)),
             DataContainer()
           ],
         ),

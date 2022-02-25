@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_subject_model.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/teachersubjectview.dart';
@@ -38,14 +39,18 @@ class _SubjectViewState extends State<SubjectView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading ? Center(child: CircularProgressIndicator()) : subjectList.length == 0 ?
+      body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber,)) : subjectList.length == 0 ?
       Center(child: Text('No Data')) :
       SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Select Subject',style: TextStyle(fontSize: 25)),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(getTranslated(context, StringConstant.selectSubject)!,style: TextStyle(fontSize: 25)),
+            ),
             GridView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,

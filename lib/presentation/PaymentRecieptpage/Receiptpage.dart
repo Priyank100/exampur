@@ -7,6 +7,7 @@ import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,8 +30,12 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
   @override
   void initState() {
     getReceipt();
+    // subscription();
   }
-
+  void subscription(String topic) async {
+    await FirebaseMessaging.instance.subscribeToTopic(topic);
+    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+topic);
+  }
   void getReceipt() async {
     String url = '';
     final param = {
@@ -49,8 +54,8 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
       if (response == null) {
         AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, Colors.red);
       } else if (response.statusCode == 200) {
-        model =
-            FinalOrderPayModel.fromJson(json.decode(response.body.toString()));
+        model = FinalOrderPayModel.fromJson(json.decode(response.body.toString()));
+        subscription(widget.type == 'Course'?model.data!.courseTitle.toString().replaceAll(' ', '_'):model.data!.bookTitle.toString().replaceAll(' ', '_'));
         setState(() {
           isLoad = false;
         });

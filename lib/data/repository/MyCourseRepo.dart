@@ -48,4 +48,30 @@ class MyCourseRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+  Future<ApiResponse> myCourseTimelineData(String courseId,String token) async {
+    try {
+      Map<String, dynamic> header = {
+        "appAuthToken": token,
+      };
+      String url = API.myCourse_timeline_URL+'/'+courseId+'/'+token;
+      final response = await dioClient.get(url, options: Options(headers: header));
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  Future<ApiResponse> myCourseNotificationData(String courseId,String token) async {
+    try {
+      Map<String, dynamic> header = {
+        "appAuthToken": token,
+      };
+      String url = API.myCourse_notification_URL+'/'+courseId+'/'+token;
+      final response = await dioClient.get(url, options: Options(headers: header));
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 }

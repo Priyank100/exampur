@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
+import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:bannerDetailData==null?Center(child: CircularProgressIndicator(color: AppColors.amber,)):Viedobanner(bannerDetailData!)
+      body:bannerDetailData==null?Center(child: CircularProgressIndicator(color: AppColors.amber,)):YoutubeVideo(bannerDetailData!.videoPath.toString(), bannerDetailData!.title.toString())
 
     );
   }

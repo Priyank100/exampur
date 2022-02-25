@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/selectchapterview.dart';
@@ -46,7 +47,10 @@ class _TeacherSubjectViewState extends State<TeacherSubjectView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Select Chapter', style: TextStyle(fontSize: 25)),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(getTranslated(context, StringConstant.selectChapter)!, style: TextStyle(fontSize: 25)),
+            ),
             ListView.builder(itemCount: materialList.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context,int index){
