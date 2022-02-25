@@ -10,20 +10,27 @@ class MyPurchaseRepo {
 
   MyPurchaseRepo({required this.dioClient});
 
-  Future<ApiResponse> mypurchase() async {
+  Future<ApiResponse> mypurchase(String token) async {
+
     try {
+      Map<String, dynamic> header = {
+        "appAuthToken": token,
+      };
       String url = API.mypurchase;
-      final response = await dioClient.get(url);
+      final response = await dioClient.get(url,options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
 
-  Future<ApiResponse> myinvoice(String id,String type) async {
+  Future<ApiResponse> myinvoice(String token,String id,String type,) async {
     try {
+      Map<String, dynamic> header = {
+        "appAuthToken": token,
+      };
       String url = API.myinvoice+id+'/'+type;
-      final response = await dioClient.get(url);
+      final response = await dioClient.get(url,options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

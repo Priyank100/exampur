@@ -45,7 +45,7 @@ class _MyCourseNotificationsState extends State<MyCourseNotifications> {
   Widget build(BuildContext context) {
     return  Scaffold(
 
-        body:isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)):myCourseNotificationList.length ==0?Text('NoData') :ListView.separated(
+        body:isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)):myCourseNotificationList.length ==0?AppConstants.noDataFound() :ListView.separated(
                   itemCount:myCourseNotificationList.length ,
                   padding: EdgeInsets.all(8),
 

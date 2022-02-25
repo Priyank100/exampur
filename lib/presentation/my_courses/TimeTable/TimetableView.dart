@@ -40,7 +40,7 @@ class _TimeTableViewState extends State<TimeTableView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    body: isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)):myCourseTimeLineList.length ==0?Text('NoData'): ListView.builder(
+    body: isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)):myCourseTimeLineList.length ==0?AppConstants.noDataFound(): ListView.builder(
         itemCount: myCourseTimeLineList.length,
 
         shrinkWrap: true,

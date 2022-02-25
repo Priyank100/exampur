@@ -31,8 +31,9 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
   Future<void> getDemoList() async {
     isLoading=true;
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    String token = jsonValue[0]['data']['authToken'].toString();
     userName = jsonValue[0]['data']['first_name'].toString();
-    mypurchaseInnvoice= (await Provider.of<MyPurchaseProvider>(context, listen: false).getMyInvoice(context, widget.mypurchaseIDData, widget.mypurchasetypeData))!;
+    mypurchaseInnvoice= (await Provider.of<MyPurchaseProvider>(context, listen: false).getMyInvoice(context,token, widget.mypurchaseIDData, widget.mypurchasetypeData))!;
     isLoading=false;
     setState(() {});
     // return one2oneList;
