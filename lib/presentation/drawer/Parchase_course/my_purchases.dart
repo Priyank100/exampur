@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/drawer/Parchase_course/purchaseListContainer.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
@@ -29,7 +30,8 @@ class _MyPurchasesState extends State<MyPurchases> {
   }
   Future<void> getDemoList() async {
     isLoading=true;
-    mypurchaseList= (await Provider.of<MyPurchaseProvider>(context, listen: false).getMyPurchaseList(context))!;
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    mypurchaseList= (await Provider.of<MyPurchaseProvider>(context, listen: false).getMyPurchaseList(context, token))!;
     isLoading=false;
     setState(() {});
     // return one2oneList;

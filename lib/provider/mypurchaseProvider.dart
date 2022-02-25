@@ -27,8 +27,8 @@ class MyPurchaseProvider extends ChangeNotifier {
   MypurchaseInnvoice get mypurchaseInnvoiceModel => _mypurchaseInnvoiceModel;
 
 
-  Future<List<Data>?> getMyPurchaseList(BuildContext context) async {
-    ApiResponse apiResponse = await myPurchaseRepo.mypurchase();
+  Future<List<Data>?> getMyPurchaseList(BuildContext context, String token) async {
+    ApiResponse apiResponse = await myPurchaseRepo.mypurchase(token);
 
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
@@ -51,8 +51,8 @@ class MyPurchaseProvider extends ChangeNotifier {
   }
 
 
-  Future<InvoiceData?> getMyInvoice(BuildContext context,String id,String type  ) async {
-    ApiResponse apiResponse = await myPurchaseRepo.myinvoice(id, type);
+  Future<InvoiceData?> getMyInvoice(BuildContext context,String token, String id,String type) async {
+    ApiResponse apiResponse = await myPurchaseRepo.myinvoice(token, id, type);
 
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
