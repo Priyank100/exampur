@@ -22,6 +22,7 @@ class _SelectChapterViewState extends State<SelectChapterView> {
     return Scaffold(
       appBar: CustomAppBar(),
       body: ListView.builder(itemCount: 1,
+    padding: EdgeInsets.all(5),
     shrinkWrap: true,
     itemBuilder: (BuildContext context,int index){
         return Container(

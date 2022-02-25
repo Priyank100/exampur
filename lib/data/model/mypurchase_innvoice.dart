@@ -48,7 +48,7 @@ String dataToJson(InvoiceData data) => json.encode(data.toJson());
 class InvoiceData {
   InvoiceData({
       String? id, 
-      int? orderNo, 
+      String? orderNo,
       String? date, 
       String? paymentSource, 
       String? transactionId, 
@@ -69,7 +69,7 @@ class InvoiceData {
 
   InvoiceData.fromJson(dynamic json) {
     _id = json['_id'];
-    _orderNo = json['order_no'];
+    _orderNo = json['order_no'].toString();
     _date = json['date'];
     _paymentSource = json['payment_source'];
     _transactionId = json['transaction_id'];
@@ -79,7 +79,7 @@ class InvoiceData {
     _product = json['product'] != null ? Product.fromJson(json['product']) : null;
   }
   String? _id;
-  int? _orderNo;
+  String? _orderNo;
   String? _date;
   String? _paymentSource;
   String? _transactionId;
@@ -89,7 +89,7 @@ class InvoiceData {
   Product? _product;
 
   String? get id => _id;
-  int? get orderNo => _orderNo;
+  String? get orderNo => _orderNo;
   String? get date => _date;
   String? get paymentSource => _paymentSource;
   String? get transactionId => _transactionId;

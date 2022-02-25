@@ -6,11 +6,11 @@ MyPurchaseModel myPurchaseModelFromJson(String str) => MyPurchaseModel.fromJson(
 String myPurchaseModelToJson(MyPurchaseModel data) => json.encode(data.toJson());
 class MyPurchaseModel {
   MyPurchaseModel({
-      int? statusCode, 
-      List<Data>? data,}){
+    int? statusCode,
+    List<Data>? data,}){
     _statusCode = statusCode;
     _data = data;
-}
+  }
 
   MyPurchaseModel.fromJson(dynamic json) {
     _statusCode = json['statusCode'];
@@ -47,29 +47,29 @@ Data dataFromJson(String str) => Data.fromJson(json.decode(str));
 String dataToJson(Data data) => json.encode(data.toJson());
 class Data {
   Data({
-      String? id, 
-      int? orderNo, 
-      int? amount, 
-      Product? product,}){
+    String? id,
+    String? orderNo,
+    int? amount,
+    Product? product,}){
     _id = id;
     _orderNo = orderNo;
     _amount = amount;
     _product = product;
-}
+  }
 
   Data.fromJson(dynamic json) {
     _id = json['_id'];
-    _orderNo = json['order_no'];
+    _orderNo = json['order_no'].toString();
     _amount = json['amount'];
     _product = json['product'] != null ? Product.fromJson(json['product']) : null;
   }
   String? _id;
-  int? _orderNo;
+  String? _orderNo;
   int? _amount;
   Product? _product;
 
   String? get id => _id;
-  int? get orderNo => _orderNo;
+  String? get orderNo => _orderNo;
   int? get amount => _amount;
   Product? get product => _product;
 
@@ -96,17 +96,17 @@ Product productFromJson(String str) => Product.fromJson(json.decode(str));
 String productToJson(Product data) => json.encode(data.toJson());
 class Product {
   Product({
-      String? type, 
-      String? id, 
-      String? title, 
-      String? logoPath, 
-      String? bannerPath,}){
+    String? type,
+    String? id,
+    String? title,
+    String? logoPath,
+    String? bannerPath,}){
     _type = type;
     _id = id;
     _title = title;
     _logoPath = logoPath;
     _bannerPath = bannerPath;
-}
+  }
 
   Product.fromJson(dynamic json) {
     _type = json['type'];

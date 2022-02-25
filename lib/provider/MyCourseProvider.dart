@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/my_course_list_model.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
+import 'package:exampur_mobile/data/model/my_course_notification_model.dart';
 import 'package:exampur_mobile/data/model/my_course_subject_model.dart';
+import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/MyCourseRepo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -20,6 +22,13 @@ class MyCourseProvider extends ChangeNotifier {
 
   MyCourseMaterialModel _myCourseMaterialModel = MyCourseMaterialModel();
   MyCourseMaterialModel get myCourseMaterialModel => _myCourseMaterialModel;
+
+
+  MyCourseNotificationModel _myCourseNotificationModel =MyCourseNotificationModel();
+  MyCourseNotificationModel get myCourseNotificationModel=> _myCourseNotificationModel;
+
+  MyCourseTimelineModel _myCourseTimelineListModel = MyCourseTimelineModel();
+  MyCourseTimelineModel get myCourseTimelineListModel => _myCourseTimelineListModel;
 
   Future<List<CourseData>?> getMyCourseList(BuildContext context, String token) async {
     ApiResponse apiResponse = await myCourseRepo.myCourseData(token);
@@ -84,4 +93,47 @@ class MyCourseProvider extends ChangeNotifier {
     }
   }
 
+
+
+  Future<List<TimelineData>?> getMyCourseTimeLineList(BuildContext context, String courseId ,String token) async {
+    ApiResponse apiResponse = await myCourseRepo.myCourseTimelineData(courseId, token);
+
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _myCourseTimelineListModel = MyCourseTimelineModel.fromJson(json.decode(apiResponse.response.toString()));
+        return _myCourseTimelineListModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
+    } else {
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      notifyListeners();
+    }
+  }
+
+  Future<List<NotificationData>?> getMyCourseNotificationList(BuildContext context, String courseId ,String token) async {
+    ApiResponse apiResponse = await myCourseRepo.myCourseNotificationData(courseId, token);
+
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _myCourseNotificationModel = MyCourseNotificationModel.fromJson(json.decode(apiResponse.response.toString()));
+        return _myCourseNotificationModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
+    } else {
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      notifyListeners();
+    }
+  }
 }

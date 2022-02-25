@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'LiveClass.dart';
+import 'MyCourseNotificationView/myCourseNotification.dart';
 import 'TestView.dart';
-import 'TimetableView.dart';
+import 'TimeTable/TimetableView.dart';
+
 
 class MyCourseTabView extends StatefulWidget {
   final String courseId;
@@ -52,8 +54,8 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
                   routes: tabList.length == 0 ? [] : [
                     LiveClass(),
                     SubjectView(widget.courseId),
-                    TestView(),
-                    TimeTableView(),
+                    MyCourseNotifications(widget.courseId),
+                    TimeTableView(widget.courseId),
                   ],
                   title: '')
           );

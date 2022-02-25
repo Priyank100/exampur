@@ -101,6 +101,8 @@ class API {
   static const String myCourse_URL           = BASE_URL2 + 'mycourses';
   static const String myCourse_subject_URL   = BASE_URL3 + 'course_subject/';
   static const String myCourse_material_URL  = BASE_URL3 + 'course_material/';
+  static const String myCourse_timeline_URL   = BASE_URL3 + 'course_timeline';
+  static const String myCourse_notification_URL   = BASE_URL3 + 'course_notification';
 
 }
 
@@ -433,6 +435,8 @@ class StringConstant {
   static String showless= 'show_less';
   static String showmore= 'show_more';
   static String StudentName= 'student_name';
+  static String selectSubject= 'select_subject';
+  static String selectChapter= 'select_chapter';
 
   static String viewPdf= 'view_pdf';
 
