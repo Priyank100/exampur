@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 
 import 'LiveClass.dart';
 import 'MyCourseNotificationView/myCourseNotification.dart';
-import 'TestView.dart';
 import 'TimeTable/TimetableView.dart';
 
 
