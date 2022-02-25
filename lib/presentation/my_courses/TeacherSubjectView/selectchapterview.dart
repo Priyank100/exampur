@@ -68,7 +68,7 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                               },
                             ),
                           ),
-                          SizedBox(width: 5,),
+                          SizedBox(width: 5),
                           Container(
                             height: 25,
                             decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:Color(0xFF1c1d3b)),

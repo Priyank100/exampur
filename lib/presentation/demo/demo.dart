@@ -72,13 +72,7 @@ class DemoState extends State<Demo> {
             backgroundColor: AppColors.transparent,
             elevation: 0),
         body:isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)) :demoList.length==0?
-        Center(child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.error_outline),
-            Text(getTranslated(context, StringConstant.noData)!)
-          ],
-        )):
+        AppConstants.noDataFound():
         Padding(
             padding: EdgeInsets.all(10),
             child: Column(

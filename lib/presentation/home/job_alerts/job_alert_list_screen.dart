@@ -64,13 +64,7 @@ class _JobAlertListScreenState extends State<JobAlertListScreen> {
     return Scaffold(
       body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
       alertsDataList.length==0 ?
-      Center(child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.error_outline),
-          Text(getTranslated(context, StringConstant.noData)!)
-        ],
-      )) : listing(alertsDataList),
+      AppConstants.noDataFound() : listing(alertsDataList),
       bottomNavigationBar: isBottomLoading ? Container(
           padding: EdgeInsets.all(8),
           height:40,

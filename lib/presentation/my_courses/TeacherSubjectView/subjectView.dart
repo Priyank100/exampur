@@ -39,7 +39,7 @@ class _SubjectViewState extends State<SubjectView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isLoading ? Center(child: CircularProgressIndicator()) : subjectList.length == 0 ?
-      Center(child: Text('No Data')) :
+      AppConstants.noDataFound() :
       SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

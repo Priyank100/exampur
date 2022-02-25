@@ -35,7 +35,7 @@ class MyCoursesState extends State<MyCourses> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isLoading ? Center(child: CircularProgressIndicator()) : myCourseList.length == 0 ?
-      Center(child: Text('No Data')) :
+      AppConstants.noDataFound() :
         SingleChildScrollView(
         padding: EdgeInsets.all(5),
         child: Column(

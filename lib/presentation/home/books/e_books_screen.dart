@@ -60,14 +60,7 @@ class _EBooksScreenState extends State<EBooksScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
          body:isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :eBooksList.length==0 ?
-
-         Center(child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.error_outline),
-            Text('No Data')
-          ],
-        )) :
+         AppConstants.noDataFound() :
         ListView.builder(
             itemCount: eBooksList.length,
             controller: scrollController,

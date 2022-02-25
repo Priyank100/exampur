@@ -53,7 +53,6 @@ class _TeacherSubjectViewState extends State<TeacherSubjectView> {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                         boxShadow:const [

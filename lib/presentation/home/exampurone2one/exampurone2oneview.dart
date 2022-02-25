@@ -70,13 +70,7 @@ isLoading=true;
       appBar: CustomAppBar(),
       body:isLoading?Center(child: CircularProgressIndicator(color: Colors.amber,)):
       one2oneList.length == 0
-          ? Center(child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.error_outline),
-          Text(getTranslated(context, StringConstant.noData)!)
-        ],
-      ))
+          ? AppConstants.noDataFound()
           :
       SingleChildScrollView(
         controller: scrollController,
