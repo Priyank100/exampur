@@ -75,7 +75,8 @@ class API {
   static const String CouponCode_URL = BASE_URL2 +'promo_code/';
 
   //demo
-  static const String Demo_URL = BASE_URL3 +'courses/demo/10/';
+ // static const String Demo_URL = BASE_URL3 +'courses/demo/10/';
+  static const String Demo_URL = BASE_URL3 +'course_timeline_demo';
 
   //jobAlerts
   static const String job_alerts_tab_URL      = BASE_URL3 +'alert/categories';

@@ -25,8 +25,8 @@ class DemoProvider extends ChangeNotifier {
   DemoModels _demoModel = DemoModels();
   DemoModels get demoModel => _demoModel;
 
-  Future<List<Courses>?> getdemosList(BuildContext context,int pageNo) async {
-    ApiResponse apiResponse = await demoRepo.demoRepo(pageNo);
+  Future<List<Datum>?> getdemosList(BuildContext context,) async {
+    ApiResponse apiResponse = await demoRepo.demoRepo();
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
     } else if (apiResponse.response!.statusCode == 200) {

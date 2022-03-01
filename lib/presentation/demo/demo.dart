@@ -18,7 +18,7 @@ class Demo extends StatefulWidget {
 }
 
 class DemoState extends State<Demo> {
-   List<Courses> demoList= [];
+   List<Datum> demoList= [];
    bool isLoading = false;
    bool isBottomLoading = false;
    int page =0;
@@ -29,13 +29,13 @@ class DemoState extends State<Demo> {
   void initState() {
     super.initState();
     scrollController.addListener(pagination);
-    // getDemoList(page);
+     getDemoList();
   }
 
-  Future<void> getDemoList(pageNo) async {
+  Future<void> getDemoList() async {
    // AppConstants.printLog(demoList);
     isLoading=true;
-    List<Courses> list= (await Provider.of<DemoProvider>(context, listen: false).getdemosList(context,pageNo))!;
+    List<Datum> list= (await Provider.of<DemoProvider>(context, listen: false).getdemosList(context,))!;
     if(list.length > 0) {
     isData = true;
     demoList = demoList + list;
@@ -57,7 +57,7 @@ class DemoState extends State<Demo> {
            AppConstants.printLog(page.toString());
          }
       isBottomLoading = true;
-         getDemoList(page);
+         getDemoList();
        });
      }
    }

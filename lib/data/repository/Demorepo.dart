@@ -15,10 +15,12 @@ class DemoRepo {
 
   DemoRepo({required this.dioClient});
 
-  Future<ApiResponse> demoRepo(int pageNo) async {
+//  Future<ApiResponse> demoRepo(int pageNo) async {
+  Future<ApiResponse> demoRepo() async {
     try {
       int currentPage = 1;
-      String url = API.Demo_URL+ pageNo.toString();
+    //  String url = API.Demo_URL+ pageNo.toString();
+      String url = API.Demo_URL;
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
