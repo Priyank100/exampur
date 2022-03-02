@@ -19,7 +19,6 @@ import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
-import 'package:exampur_mobile/provider/OrderDetailsProvider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -62,7 +61,6 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl<OfflinebatchesProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<AppTutorialProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl< HelpandFeedbackprovider>()),
-    ChangeNotifierProvider(create: (context) => di.sl<OrderDetailsprovider>()),
     ChangeNotifierProvider(create: (context) => di.sl<JobAlertsProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<CABytesProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<CaProvider>()),

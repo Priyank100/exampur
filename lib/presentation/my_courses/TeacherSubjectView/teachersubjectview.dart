@@ -12,7 +12,8 @@ import 'package:provider/provider.dart';
 
 class TeacherSubjectView extends StatefulWidget {
   final String courseId;
-  const TeacherSubjectView(this.courseId) : super();
+  final String subjectId;
+  const TeacherSubjectView(this.courseId, this.subjectId) : super();
 
   @override
   _TeacherSubjectViewState createState() => _TeacherSubjectViewState();
@@ -31,7 +32,7 @@ class _TeacherSubjectViewState extends State<TeacherSubjectView> {
   Future<void> callProvider() async {
     isLoading = true;
     String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-    materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getMaterialList(context, widget.courseId, token))!;
+    materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getMaterialList(context, widget.subjectId, widget.courseId, token))!;
     isLoading = false;
     setState(() {});
   }

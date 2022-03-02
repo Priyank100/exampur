@@ -72,8 +72,8 @@ class MyCourseProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<MaterialData>?> getMaterialList(BuildContext context, String courseId, String token) async {
-    ApiResponse apiResponse = await myCourseRepo.materialData(courseId, token);
+  Future<List<MaterialData>?> getMaterialList(BuildContext context, String subjectId, String courseId, String token) async {
+    ApiResponse apiResponse = await myCourseRepo.materialData(subjectId, courseId, token);
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();

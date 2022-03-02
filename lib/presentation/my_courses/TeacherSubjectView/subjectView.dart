@@ -67,7 +67,7 @@ class _SubjectViewState extends State<SubjectView> {
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) =>
-            TeacherSubjectView(widget.courseId)
+            TeacherSubjectView(widget.courseId, subjectList[index].id.toString())
         ));
       },
       child: Column(

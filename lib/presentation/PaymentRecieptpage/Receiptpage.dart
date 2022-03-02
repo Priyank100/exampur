@@ -45,7 +45,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
     };
 
     if(widget.type == 'Course')
-      url = API.finalize_order;
+      url = API.finalize_order_course;
     else url = API.finalize_order_book;
 
     await Service.post(url, body: param).then((response) {
@@ -55,7 +55,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
         AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, Colors.red);
       } else if (response.statusCode == 200) {
         model = FinalOrderPayModel.fromJson(json.decode(response.body.toString()));
-        subscription(widget.type == 'Course'?model.data!.courseTitle.toString().replaceAll(' ', '_'):model.data!.bookTitle.toString().replaceAll(' ', '_'));
+        subscription(model.data!.product!.id.toString().replaceAll(' ', '_'));
         setState(() {
           isLoad = false;
         });
@@ -155,8 +155,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                       children: [
                         TextUse(
                           title: widget.type == 'Course' ?  getTranslated(context, StringConstant.coursename)! + ' :' :  getTranslated(context, StringConstant.books)! +':',
-                          text: widget.type == 'Course' ?
-                          model.data!.courseTitle.toString() : model.data!.bookTitle.toString(),
+                          text: model.data!.product!.title.toString(),
                         ),
                         SizedBox(
                           height: 8,

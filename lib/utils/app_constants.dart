@@ -68,8 +68,12 @@ class API {
   static const String HelpFeedback_URL = BASE_URL2 + 'ticket/create';
 
   //order_course
-  static const String order_course    = BASE_URL2 + 'order_course/create';
-  static const String finalize_order  = BASE_URL2 + 'order_course/finalize';
+  static const String order_course          = BASE_URL2 + 'order_course/create';
+  static const String finalize_order_course = BASE_URL2 + 'order_course/finalize';
+
+  //order_book
+  static const String order_book          = BASE_URL2 + 'order_book/create';
+  static const String finalize_order_book = BASE_URL2 + 'order_book/finalize';
 
   //coupon
   static const String CouponCode_URL = BASE_URL2 +'promo_code/';
@@ -81,10 +85,6 @@ class API {
   static const String job_alerts_tab_URL      = BASE_URL3 +'alert/categories';
   static const String job_alerts_list_URL     = BASE_URL3 +'alert/findall/' + 'ALERT_CATEGORY_ID' + '/' + 'ENCODE_CATEGORY' + '/10/';
   static const String job_alerts_details_URL  = BASE_URL3 +'alert/findone/' + 'ALERT_ID';
-
-  //order_book
-  static const String order_book            = BASE_URL2 + 'order_book/create';
-  static const String finalize_order_book   = BASE_URL2 + 'order_book/finalize';
 
   //current_affairs
   static const String ca_sm_url     = BASE_URL3 + 'content/findall/' +
