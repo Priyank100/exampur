@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DemoViedoView extends StatefulWidget {
-  final Courses demoList;
+  final Datum demoList;
 
   const DemoViedoView(this.demoList) : super();
 
@@ -23,7 +23,7 @@ class _DemoViedoViewState extends State<DemoViedoView> {
   void initState() {
     try {
       videoID =
-          YoutubePlayer.convertUrlToId(widget.demoList.videoPath.toString())!;
+          YoutubePlayer.convertUrlToId(widget.demoList.targetLink.toString())!;
       _controller = YoutubePlayerController(
         initialVideoId: videoID,
         flags: YoutubePlayerFlags(

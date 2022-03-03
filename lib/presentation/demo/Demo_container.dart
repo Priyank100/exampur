@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'DemovideoVeiw.dart';
 
 class DemoContainer extends StatefulWidget {
-  final List<Courses> demoList;
+  final List<Datum> demoList;
   final int index;
   const DemoContainer(this.demoList,this.index) : super();
 
@@ -32,14 +32,14 @@ class _DemoContainerState extends State<DemoContainer> {
                width: Dimensions.AppTutorialImageWidth,
                height: Dimensions.AppTutorialImageHeight,
                // child: Image.network(AppConstants.BANNER_BASE+widget.demoList[widget.index].bannerPath.toString(), fit: BoxFit.fill)
-               child: AppConstants.image(AppConstants.BANNER_BASE+widget.demoList[widget.index].bannerPath.toString(), boxfit: BoxFit.fill)
+               child: AppConstants.image(AppConstants.BANNER_BASE+widget.demoList[widget.index].logoPath.toString(), boxfit: BoxFit.fill)
            ),
            SizedBox(width: 10),
            Flexible(
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
                children: [
-                 Text(widget.demoList[widget.index].title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
+                 Text(widget.demoList[widget.index].courseId!.title.toString()+' || '+widget.demoList[widget.index].subjectId!.title.toString()+' || '+widget.demoList[widget.index].title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
                  SizedBox(height: 25,),
                  Row(
                    children: [
@@ -68,25 +68,25 @@ class _DemoContainerState extends State<DemoContainer> {
                          },
                        ),
                      ),
-                     SizedBox(width: 5,),
-                     Container(
-                       //width: Dimensions.AppTutorialImageHeight,
-                       height: 25,
-                       decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:Color(0xFF1c1d3b)),
-                       child: MaterialButton(
-
-                         child:
-                             Text(getTranslated(context, StringConstant.viewPdf)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white)),
-
-                         onPressed: () {
-                           // Navigator.push(
-                           //     context,
-                           //     MaterialPageRoute(
-                           //         builder: (context) => AppTutorialVideo(widget.list[widget.index].videoPath.toString(),
-                           //             widget.list[widget.index].title.toString())));
-                         },
-                       ),
-                     ),
+                     // SizedBox(width: 5,),
+                     // Container(
+                     //   //width: Dimensions.AppTutorialImageHeight,
+                     //   height: 25,
+                     //   decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:Color(0xFF1c1d3b)),
+                     //   child: MaterialButton(
+                     //
+                     //     child:
+                     //         Text(getTranslated(context, StringConstant.viewPdf)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white)),
+                     //
+                     //     onPressed: () {
+                     //       // Navigator.push(
+                     //       //     context,
+                     //       //     MaterialPageRoute(
+                     //       //         builder: (context) => AppTutorialVideo(widget.list[widget.index].videoPath.toString(),
+                     //       //             widget.list[widget.index].title.toString())));
+                     //     },
+                     //   ),
+                     // ),
                    ],
                  ),
                ],
