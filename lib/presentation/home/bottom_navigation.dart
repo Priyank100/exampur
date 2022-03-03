@@ -176,7 +176,8 @@ class _BottomNavigationState extends State<BottomNavigation>
             // const SizedBox(
             //   width: 20.0,
             // ),
-            InkWell(
+
+            /*InkWell(
               onTap:() {
             Navigator.push(
                         context,
@@ -221,7 +222,8 @@ class _BottomNavigationState extends State<BottomNavigation>
                   ],
                 ),
               ),
-            )
+            )*/
+
             // Padding(
             //   padding: const EdgeInsets.only(right: 10.0),
             //   child: IconButton(
