@@ -70,6 +70,7 @@ class TestSeriesviewState extends State<TestSeriesview> with TickerProviderState
     //       ], title: '', routes: [TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView()
     //     ],)
     // );
+
   }
 
   Widget comingSoon() {
