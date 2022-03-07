@@ -123,8 +123,9 @@ class _One2onelistState extends State<One2onelist> {
                                          ),
                                          child: Row(
                                            children: [
-                                             Lottie.network(
-                                                 'https://assets2.lottiefiles.com/packages/lf20_HztQu8.json'),
+                                             Lottie.asset('assets/LiveLottie.json'),
+                                             // Lottie.network(
+                                             //     'https://assets2.lottiefiles.com/packages/lf20_HztQu8.json'),
                                              Text(getTranslated(context, StringConstant.newBatch)!,
                                                  style: TextStyle(
                                                    fontSize: 10,

@@ -5,6 +5,7 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/dummy_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
+import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -154,8 +155,26 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           SizedBox(height: 10,),
                           widget.courseType==1?     InkWell(
                             onTap: (){
-                              showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>
-                                  BottomSheeet1(widget.courseData));
+                              // Navigator.push(
+                              //   context,
+                              //   // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
+                              //   MaterialPageRoute(builder: (context) =>
+                              //       DeliveryDetailScreen('Course', widget.courseData.id.toString(),
+                              //           widget.courseData.title.toString(), widget.courseData.salePrice.toString()
+                              //       )
+                              //   ),
+                              // );
+                              Navigator.push(
+                                context,
+                                // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
+                                MaterialPageRoute(builder: (context) =>
+                                    DeliveryDetailScreen('Course', widget.courseData.id.toString(),
+                                        widget.courseData.title.toString(), widget.courseData.salePrice.toString()
+                                    )
+                                ),
+                              );
+                              // showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>
+                              //     BottomSheeet1(widget.courseData));
                             },
                             child: Container(height: 30,width: 110,decoration: BoxDecoration( color: Color(0xFF060929),
                                 borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, 'buy_course')!,style: TextStyle(color: Colors.white)))),

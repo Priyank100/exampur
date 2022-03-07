@@ -41,7 +41,7 @@ class _TeacherSubjectViewState extends State<TeacherSubjectView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: isLoading ? Center(child: CircularProgressIndicator()) : materialList.length == 0 ?
+      body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : materialList.length == 0 ?
       AppConstants.noDataFound() :
       Padding(
         padding: const EdgeInsets.all(8.0),

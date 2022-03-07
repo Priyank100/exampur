@@ -81,10 +81,10 @@ class DemoState extends State<Demo> {
               children: [
                 // VideoCardAT(),
                 SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: TitleRow(title: getTranslated(context, StringConstant.recorded)!, onTap: () {  },  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 10),
+                //   child: TitleRow(title: getTranslated(context, StringConstant.recorded)!, onTap: () {  },  ),
+                // ),
                Expanded(
                  child: ListView.builder(
                    shrinkWrap: true,

@@ -24,7 +24,9 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   String Email='';
   String Mobile='';
   String City='';
+  String password='';
   String selectedState='';
+  //String token ='';
   List<States> stateList = [];
 
   CreateUserModel registerModel=CreateUserModel ();
@@ -37,11 +39,13 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   Future<void> getSharedPrefData() async {
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
     Email = jsonValue[0]['data']['email_id'].toString();
     Name = jsonValue[0]['data']['first_name'].toString();
     City = jsonValue[0]['data']['city'].toString();
+    password = jsonValue[0]['data']['password'].toString();
     _nameController.text = userName;
     _emailController.text = Email;
     _cityController.text = City;
@@ -185,6 +189,9 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 
       // CreateUserModel updateUserInfoModel = Provider.of<AuthProvider>(context, listen: false).uerupdate;
       CreateUserModel updateUserInfoModel = CreateUserModel();
+      updateUserInfoModel.phoneExt = '+91';
+      updateUserInfoModel.phone = Mobile;
+      updateUserInfoModel.password = '123456789';
       updateUserInfoModel.firstName = _firstName;
       updateUserInfoModel.lastName = '';
       updateUserInfoModel.emailId = _email;

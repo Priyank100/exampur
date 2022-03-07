@@ -202,7 +202,7 @@ class AppConstants {
     AlertDialog alert = AlertDialog(
       content: new Row(
         children: [
-          CircularProgressIndicator(),
+          CircularProgressIndicator(color: AppColors.amber,),
           Container(
               margin: EdgeInsets.only(left: 10), child: Text("Loading...")),
         ],),

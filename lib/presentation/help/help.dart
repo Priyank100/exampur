@@ -74,7 +74,7 @@ class HelpState extends State<Help> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+     // appBar: CustomAppBar(),
       body: Form(
         key: _formKeySignUp,
         child: SingleChildScrollView(

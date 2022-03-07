@@ -39,7 +39,7 @@ class _SubjectViewState extends State<SubjectView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading ? Center(child: CircularProgressIndicator()) : subjectList.length == 0 ?
+      body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber,)) : subjectList.length == 0 ?
       AppConstants.noDataFound() :
       SingleChildScrollView(
         child: Column(

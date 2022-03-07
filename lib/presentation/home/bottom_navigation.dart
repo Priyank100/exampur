@@ -91,7 +91,7 @@ class _BottomNavigationState extends State<BottomNavigation>
     Demo(),
     MyCourses(),
     // Downloads(),
-    // Help()
+     Help()
   ];
   // final List<String> widgetNames = [
   //   ,
@@ -135,11 +135,11 @@ class _BottomNavigationState extends State<BottomNavigation>
       //   "Downloads",
       //     _currIndex==3?   Image.asset(Images.download,height: 30,width: 25,color: AppColors.amber,):Image.asset(Images.download,height: 30,width: 25,)
       // ),
-      // ItemClass(
-      //   4,
-      //   "Help",
-      //     _currIndex==4?  Image.asset(Images.help,height: 30,width: 25,color: AppColors.amber): Image.asset(Images.help,height: 30,width: 25,)
-      // ),
+      ItemClass(
+        3,
+        "Help",
+          _currIndex==3?  Image.asset(Images.help,height: 30,width: 25,color: AppColors.amber): Image.asset(Images.help,height: 30,width: 25,)
+      ),
     ];
 
     return WillPopScope(
@@ -163,16 +163,16 @@ class _BottomNavigationState extends State<BottomNavigation>
                 onPressed: () => Scaffold.of(context).openDrawer());
           }),
           actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SearchView()));
-                },
-                icon: const Icon(
-                  Icons.search_outlined,
-                  color: AppColors.black,
-                  size: 30.0,
-                )),
+            // IconButton(
+            //     onPressed: () {
+            //       Navigator.push(context,
+            //           MaterialPageRoute(builder: (context) => SearchView()));
+            //     },
+            //     icon: const Icon(
+            //       Icons.search_outlined,
+            //       color: AppColors.black,
+            //       size: 30.0,
+            //     )),
             // const SizedBox(
             //   width: 20.0,
             // ),
@@ -498,29 +498,29 @@ class _BottomNavigationState extends State<BottomNavigation>
                         LaunchReview.launch(androidAppId: AppConstants.androidId, iOSAppId: AppConstants.iosId);
                       },
                     ),
-                    ListTile(
-                      dense: true,
-                      title: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.feedback_outlined,
-                              color: AppColors.amber,
-                            ),
-                            SizedBox(
-                              width: Dimensions.PADDING_SIZE_SMALL,
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                  style: CustomTextStyle.drawerText(context),
-                                  text: getTranslated(context, 'help_and_feedback')),
-                            ),
-                          ]),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Help()));
-                      },
-                    ),
+                    // ListTile(
+                    //   dense: true,
+                    //   title: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.start,
+                    //       children: [
+                    //         Icon(
+                    //           Icons.feedback_outlined,
+                    //           color: AppColors.amber,
+                    //         ),
+                    //         SizedBox(
+                    //           width: Dimensions.PADDING_SIZE_SMALL,
+                    //         ),
+                    //         RichText(
+                    //           text: TextSpan(
+                    //               style: CustomTextStyle.drawerText(context),
+                    //               text: getTranslated(context, 'help_and_feedback')),
+                    //         ),
+                    //       ]),
+                    //   onTap: () {
+                    //     Navigator.push(context,
+                    //         MaterialPageRoute(builder: (context) => Help()));
+                    //   },
+                    // ),
                     ListTile(
                       dense: true,
                       title: Row(

@@ -56,15 +56,14 @@ class _DemoContainerState extends State<DemoContainer> {
                            ],
                          ),
                          onPressed: () {
-                           showDialog(
-                             context: context,
-                             builder: (BuildContext context) => _speedDialog(context),
-                           );
-                           // Navigator.push(
-                           //     context,
-                           //     MaterialPageRoute(
-                           //         builder: (context) => AppTutorialVideo(widget.list[widget.index].videoPath.toString(),
-                           //             widget.list[widget.index].title.toString())));
+                           // showDialog(
+                           //   context: context,
+                           //   builder: (BuildContext context) => _speedDialog(context),
+                           // );
+                           Navigator.push(
+                               context,
+                               MaterialPageRoute(
+                                   builder: (context) =>DemoViedoView(widget.demoList[widget.index])));
                          },
                        ),
                      ),

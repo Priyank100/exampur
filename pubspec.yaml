@@ -107,6 +107,7 @@ flutter:
     - assets/LocalJson/currentaffairtab.json
     - assets/LocalJson/myCourseTab.json
     - assets/mypdf.pdf
+    - assets/LiveLottie.json
 
 
   fonts:
