@@ -100,14 +100,17 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             SizedBox(
               height: 20,
             ),
-            TextUse(
+            widget.type == 'Course' ? SizedBox(
+            ):    TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.address),
             ),
+
             SizedBox(
               height: 15,
             ),
-            CustomTextField(
+            widget.type == 'Course' ? SizedBox(
+            ):   CustomTextField(
               hintText: getTranslated(context, StringConstant.enterAddress)!,
               textInputType: TextInputType.text,
               controller: _billingAddressController,
@@ -116,14 +119,16 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             SizedBox(
               height: 15,
             ),
-            TextUse(
+            widget.type == 'Course' ? SizedBox(
+            ):    TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.city),
             ),
             SizedBox(
               height: 15,
             ),
-            CustomTextField(
+            widget.type == 'Course' ? SizedBox(
+            ):   CustomTextField(
               hintText: getTranslated(context, StringConstant.enterCity)!,
               //focusNode: _phoneNode,
               textInputType: TextInputType.text,
@@ -133,31 +138,38 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             SizedBox(
               height: 15,
             ),
-            TextUse(
+            widget.type == 'Course' ? SizedBox(
+            ):  TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.state),
             ),
-            SizedBox(
+            widget.type == 'Course' ? SizedBox(
+            ):  SizedBox(
               height: 15,
             ),
-            CustomTextField(
+            widget.type == 'Course' ? SizedBox(
+            ):   CustomTextField(
               hintText: getTranslated(context, StringConstant.enterState)!,
               //focusNode: _phoneNode,
               textInputType: TextInputType.text,
               controller: _billingStateController,
               value: (value) {},
             ),
-            SizedBox(
+            widget.type == 'Course' ? SizedBox(
+            ):   SizedBox(
               height: 15,
             ),
-            TextUse(
+            widget.type == 'Course' ? SizedBox(
+            ):  TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.pinCode),
             ),
-            SizedBox(
+            widget.type == 'Course' ? SizedBox(
+            ):    SizedBox(
               height: 15,
             ),
-            CustomTextField(
+            widget.type == 'Course' ? SizedBox(
+            ):   CustomTextField(
               hintText: getTranslated(context, StringConstant.enterPinCode)!,
               //focusNode: _phoneNode,
               textInputType: TextInputType.number,
@@ -382,18 +394,18 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   }
 
   bool checkValidation(_address, _state, _city,_pincode,_promocode) {
-    if (_address.isEmpty) {
+    if (widget.type == 'Book' && _address.isEmpty) {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.address_REQUIRED)!, AppColors.black);
       return false;
     }
-    else if (_state.isEmpty) {
+    else if (widget.type == 'Book' && _state.isEmpty) {
       AppConstants.showBottomMessage(context,  getTranslated(context, StringConstant.State_Required)!, AppColors.black);
       return false;
     }
-    else if (_city.isEmpty) {
+    else if (widget.type == 'Book' && _city.isEmpty) {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.CITY_REQUIRED)!, AppColors.black);
       return false;
-    }else if (_pincode.isEmpty) {
+    }else if (widget.type == 'Book' && _pincode.isEmpty) {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.pincode_REQUIRED)!, AppColors.black);
       return false;
     } else if(_promocode.toString().isNotEmpty && !isCouponValid) {

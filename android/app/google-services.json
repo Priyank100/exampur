@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "231176185999",
-    "project_id": "exampur-app",
-    "storage_bucket": "exampur-app.appspot.com"
+    "project_number": "724529914801",
+    "project_id": "exampurapp-f4303",
+    "storage_bucket": "exampurapp-f4303.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:231176185999:android:e8775e9f95175567b268fa",
+        "mobilesdk_app_id": "1:724529914801:android:02ddaff28a94e6e2ee9390",
         "android_client_info": {
           "package_name": "com.example.exampur_mobile"
         }
       },
       "oauth_client": [
         {
-          "client_id": "231176185999-3ec93u5slelusnna0bn90ncd0mavgkel.apps.googleusercontent.com",
+          "client_id": "724529914801-8dgf3bons37i8m05t45ohrkaguurn1ld.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAW0c0YLeq7sWcmcP1ugWEbpFRsXBc6_oc"
+          "current_key": "AIzaSyDTwJW57EbYlWaJmj-PeEyVZGefBMjlqTY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "231176185999-3ec93u5slelusnna0bn90ncd0mavgkel.apps.googleusercontent.com",
+              "client_id": "724529914801-8dgf3bons37i8m05t45ohrkaguurn1ld.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
