@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
+import 'package:exampur_mobile/data/model/demo_model.dart';
 import 'package:exampur_mobile/data/model/demo_models.dart';
 
 
@@ -22,10 +23,10 @@ class DemoProvider extends ChangeNotifier {
 
 
 
-  DemoModels _demoModel = DemoModels();
-  DemoModels get demoModel => _demoModel;
+  DemoModel _demoModel = DemoModel();
+  DemoModel get demoModel => _demoModel;
 
-  Future<List<Datum>?> getdemosList(BuildContext context,) async {
+  Future<List<Data>?> getdemosList(BuildContext context,) async {
     ApiResponse apiResponse = await demoRepo.demoRepo();
     if (apiResponse.response == null) {
       ApiChecker.checkApi(context, apiResponse);
@@ -34,7 +35,7 @@ class DemoProvider extends ChangeNotifier {
 
 
       AppConstants.printLog(apiResponse.response);
-      _demoModel =DemoModels.fromJson(json.decode(apiResponse.response.toString()));
+      _demoModel =DemoModel.fromJson(json.decode(apiResponse.response.toString()));
       return _demoModel.data;
 
 

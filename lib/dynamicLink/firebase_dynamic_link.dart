@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 
 class FirebaseDynamicLinkService {
-  static String uriPrefix = 'https://exampurflutter.page.link';
+  static String uriPrefix = 'https://exampurapp.page.link';
   static String packageName = 'com.example.exampur_mobile';
   static int minVersion = 1;
 

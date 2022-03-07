@@ -6,11 +6,11 @@ import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:exampur_mobile/data/model/demo_model.dart';
 import 'DemovideoVeiw.dart';
 
 class DemoContainer extends StatefulWidget {
-  final List<Datum> demoList;
+  final List<Data> demoList;
   final int index;
   const DemoContainer(this.demoList,this.index) : super();
 

@@ -136,8 +136,10 @@ class AppConstants {
 
   static List<String> selectedCategoryList = [];
 
-  static String currentAffairesId = '61efe9771dbf84752e750373';
-  static String studyMaterialsId = '61efe9921dbf84752e750384';
+  // static String currentAffairesId = '61efe9771dbf84752e750373';
+  // static String studyMaterialsId = '61efe9921dbf84752e750384';
+  static String currentAffairesId = '6225f4b40536af56be90ed66';
+  static String studyMaterialsId = '6225f4540536af56be90ed28';
 
   static void printLog(message) {
     if (isPrint)
