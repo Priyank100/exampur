@@ -368,7 +368,8 @@ class _ChooseCategoryState extends State<ChooseCategory> {
         AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
         if(jsonObject['statusCode'].toString() == '200'){
           AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
-          setState(() {});
+          Navigator.pop(context);
+          // setState(() {});
 
         }  else {
           AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);

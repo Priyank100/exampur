@@ -54,6 +54,7 @@ class _BottomNavigationState extends State<BottomNavigation>
   late List<AnimationController> _faders;
   late List<Key> _destinationKeys;
   int _counter = 0;
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -152,6 +153,7 @@ class _BottomNavigationState extends State<BottomNavigation>
         return false;
       },
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           iconTheme: const IconThemeData(color: AppColors.black),
           automaticallyImplyLeading: false,
@@ -285,6 +287,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
+                        _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -312,6 +315,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
+                        _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -342,6 +346,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
+                        _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -369,6 +374,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
+                        _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -423,6 +429,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
+                        _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -448,6 +455,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
+                        _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -473,6 +481,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
+                        _scaffoldKey.currentState?.openEndDrawer();
                         AppConstants.shareData(message: AppConstants.shareAppContent);
                       },
                     ),
@@ -495,6 +504,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
+                        _scaffoldKey.currentState?.openEndDrawer();
                         LaunchReview.launch(androidAppId: AppConstants.androidId, iOSAppId: AppConstants.iosId);
                       },
                     ),
@@ -517,6 +527,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
+                        _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => Help()));
                       },
@@ -536,19 +547,20 @@ class _BottomNavigationState extends State<BottomNavigation>
                             RichText(
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
-                                  text: getTranslated(context, 'log_out')),
+                                  text: getTranslated(context, 'log_out')
+                              ),
                             ),
                           ]),
                       onTap: () {
                         SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
                         SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
-                        Navigator.of(context)
-                            .pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
+                        Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
                       },
                     ),
                   ],
                 ),
-              )),
+              )
+          ),
         ),
         body: SafeArea(
           top: false,

@@ -5,6 +5,7 @@ import 'package:exampur_mobile/presentation/home/TestSeries/testseriesview.dart'
 import 'package:exampur_mobile/presentation/home/quiz/single_card.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
+import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -56,18 +57,25 @@ class TestSeriesviewState extends State<TestSeriesview> with TickerProviderState
 
   @override
   Widget build(BuildContext context) {
+    return comingSoon();
+    // return Scaffold(
+    //     body: TabBarDemo(
+    //       controller: _controller,
+    //       length: 4,
+    //       names: [
+    //         "Live Test Series",
+    //         "My Test Series",
+    //         "All Test Series",
+    //         "Preivous year Papers"
+    //       ], title: '', routes: [TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView()
+    //     ],)
+    // );
+  }
+
+  Widget comingSoon() {
     return Scaffold(
-        body: TabBarDemo(
-          controller: _controller,
-          length: 4,
-          names: [
-            "Live Test Series",
-            "My Test Series",
-            "All Test Series",
-            "Preivous year Papers"
-          ], title: '', routes: [TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView()
-
-        ],));
-
+      appBar: CustomAppBar(),
+      body: AppConstants.comingSoonImage(),
+    );
   }
 }

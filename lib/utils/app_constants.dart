@@ -95,15 +95,15 @@ class API {
   static const String ca_bytes_url   = BASE_URL3+ 'ca_byte/' + 'ENCODE_CATEGORY' + '/10/';
 
   //my_purchase
-  static const String mypurchase   = BASE_URL2 + 'mypurchase/findall';
+  static const String mypurchase  = BASE_URL2 + 'mypurchase/findall';
   static const String myinvoice   = BASE_URL2 + 'mypurchase/findone/';
 
   //my_course
-  static const String myCourse_URL           = BASE_URL2 + 'mycourses';
-  static const String myCourse_subject_URL   = BASE_URL3 + 'course_subject/';
-  static const String myCourse_material_URL  = BASE_URL3 + 'course_material/';
-  static const String myCourse_timeline_URL   = BASE_URL3 + 'course_timeline';
-  static const String myCourse_notification_URL   = BASE_URL3 + 'course_notification';
+  static const String myCourse_URL              = BASE_URL2 + 'mycourses';
+  static const String myCourse_subject_URL      = BASE_URL3 + 'course_subject/';
+  static const String myCourse_material_URL     = BASE_URL3 + 'course_material/';
+  static const String myCourse_timeline_URL     = BASE_URL3 + 'course_timeline';
+  static const String myCourse_notification_URL = BASE_URL3 + 'course_notification';
 
 }
 
@@ -229,6 +229,12 @@ class AppConstants {
   static Widget noDataFound() {
     return Center(
       child: Image.asset(Images.no_data)
+    );
+  }
+
+  static Widget comingSoonImage() {
+    return Center(
+        child: Image.asset(Images.coming_soon)
     );
   }
 
