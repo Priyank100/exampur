@@ -20,6 +20,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'otp_screen.dart';
+
 class SignUp extends StatefulWidget {
   @override
   SignUpState createState() => SignUpState();
@@ -346,7 +347,7 @@ class SignUpState extends State<SignUp> {
         CreateUserbody.language = 'English';
 
         await Provider.of<AuthProvider>(context, listen: false)
-            .userResgister(CreateUserbody, route);
+            .userResgister(context, CreateUserbody, route);
       }
     }
   }

@@ -80,15 +80,12 @@ class AuthProvider extends ChangeNotifier {
   }
 
   ///userRegister
-  Future userResgister(CreateUserModel registerModel, Function callback) async {
-    _isLoading = true;
+  Future userResgister(BuildContext context, CreateUserModel registerModel, Function callback) async {
+    AppConstants.showLoaderDialog(context);
     ApiResponse apiResponse = await authRepo.registerUser(registerModel);
-    _isLoading = false;
+    Navigator.pop(context);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response);
-
-
-
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if(statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
@@ -170,7 +167,15 @@ class AuthProvider extends ChangeNotifier {
         _userData.add(_informationModel);
         await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
 
-        checkSelectCategory(context);
+        await SharedPref.getSharedPref(SharedPrefConstants.PHONE_VERIFY).then((value) {
+          if(value.toString() == 'Yes') {
+            checkSelectCategory(context);
+          } else {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => OtpScreen(false)));
+          }
+        });
 
       } else {
         // String msg = _informationModel.data.toString();

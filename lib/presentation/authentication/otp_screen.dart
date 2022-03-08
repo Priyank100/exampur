@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/presentation/home/LandingChooseCategory.dart';
@@ -28,6 +27,24 @@ class _OtpScreenState extends State<OtpScreen> {
   TextEditingController _confirmPasswordController = TextEditingController();
   bool isOtp = false;
 
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.isReset) {
+      _phoneController.text = '';
+    } else {
+      getSharedPrefData();
+    }
+  }
+
+  Future<void> getSharedPrefData() async {
+    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    String mobile = jsonValue[0]['data']['phone'].toString();
+    _phoneController.text = mobile;
+    sendOtp();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +68,7 @@ class _OtpScreenState extends State<OtpScreen> {
               SizedBox(height: 30),
               Text(widget.isReset ? 'Reset Password' : 'Verify Phone',
                   style: CustomTextStyle.headingBigBold(context)),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               !isOtp ? phoneWidget() : otpWidget(),
               SizedBox(height: 30),
               InkWell(
@@ -108,6 +125,9 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget otpWidget() {
     return Column(
       children: [
+        Text('Phone : ${_phoneController.text.toString()}',
+            style: CustomTextStyle.subHeading(context)),
+        SizedBox(height: 10),
         CustomTextField(hintText: "Enter the OTP",
             textInputType: TextInputType.number,
             controller: _otpController,
@@ -170,7 +190,7 @@ class _OtpScreenState extends State<OtpScreen> {
     }
     AppConstants.showLoaderDialog(context);
     var body = {
-      "otp_for": "reset_pass",
+      "otp_for": widget.isReset ? "reset_pass" : "verification",
       "phone_ext": "91",
       "phone": _phoneController.text.trim().toString()
     };
@@ -261,8 +281,8 @@ class _OtpScreenState extends State<OtpScreen> {
     }
     AppConstants.showLoaderDialog(context);
     var body = {
-      "phone_ext": "91",
-      "phone": _phoneController.text.trim().toString(),
+      // "phone_ext": "91",
+      // "phone": _phoneController.text.trim().toString(),
       "otp": _otpController.text.trim().toString(),
     };
     await Service.post(API.Verify_OTP_URL, body: body).then((response) async {
@@ -276,6 +296,7 @@ class _OtpScreenState extends State<OtpScreen> {
         var statusCode = body['statusCode'].toString();
         var msg = body['data'].toString();
         if(statusCode == '200') {
+          await SharedPref.saveSharedPref(SharedPrefConstants.PHONE_VERIFY, 'Yes');
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => LandingChooseCategory()),

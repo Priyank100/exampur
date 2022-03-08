@@ -116,8 +116,9 @@ class SharedPrefConstants {
   static const String TOKEN = 'Token';
   static const String BANNER_BASE_SP = 'Banner_Base';
   static const String USER_DATA = 'user_data';
-  static const String USER_paymentdata = 'user_payment';
+  // static const String USER_paymentdata = 'user_payment';
   static const String CATEGORY_LENGTH = 'category_length';
+  static const String PHONE_VERIFY = 'phone_verify';
 }
 
 class AppConstants {
