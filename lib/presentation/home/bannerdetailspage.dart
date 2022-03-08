@@ -64,6 +64,7 @@ class _BannerDetailPageState extends State<BannerDetailPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 )),
+
             // Flexible(
             //   child: Padding(
             //     padding: const EdgeInsets.only(top: 10, left: 20, right: 20),

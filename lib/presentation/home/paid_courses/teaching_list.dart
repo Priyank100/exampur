@@ -19,6 +19,7 @@ class _TeachingListState extends State<TeachingList> {
   List<Courses> freeCourseList = [];
   var scrollController = ScrollController();
   bool isLoading = false;
+  bool isLoadingData = false;
 
   int page = 0;
   bool isData = true;
@@ -31,6 +32,7 @@ class _TeachingListState extends State<TeachingList> {
   }
 
   Future<void> getLists(pageNo) async {
+    isLoadingData = true;
     if(widget.courseType == 1) {
       List<Courses> list = (await Provider.of<PaidCoursesProvider>(context, listen: false).getPaidCourseList(context, widget.tabId, pageNo))!;
       if(list.length > 0) {
@@ -50,7 +52,9 @@ class _TeachingListState extends State<TeachingList> {
       }
       isLoading = false;
     }
-    setState(() {});
+    setState(() {
+      isLoadingData = false;
+    });
   }
 
   void pagination() {
@@ -70,8 +74,10 @@ class _TeachingListState extends State<TeachingList> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: widget.courseType==1 ?
-        paidCourseList.length==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : listing(paidCourseList) :
-        freeCourseList.length==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : listing(freeCourseList),
+        isLoadingData ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+        paidCourseList.length==0 ? AppConstants.noDataFound() : listing(paidCourseList) :
+        isLoadingData ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+        freeCourseList.length==0 ? AppConstants.noDataFound() : listing(freeCourseList),
       bottomNavigationBar: isLoading ? Container(
          // padding: EdgeInsets.all(8),
           height:40,

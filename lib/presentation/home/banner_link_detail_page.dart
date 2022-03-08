@@ -1,3 +1,5 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -9,7 +11,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class BannerLinkDetailPage extends StatefulWidget {
   String type;
   final datalink;
-  BannerLinkDetailPage(this.type,this.datalink) ;
+  BannerLinkDetailPage(this.type, this.datalink) ;
 
   @override
   _BannerLinkDetailPageState createState() => _BannerLinkDetailPageState();
@@ -40,15 +42,19 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:bannerDetailData==null?Center(child: CircularProgressIndicator(color: AppColors.amber,)):YoutubeVideo(bannerDetailData!.videoPath.toString(), bannerDetailData!.title.toString())
+      body:bannerDetailData==null?Center(child: CircularProgressIndicator(color: AppColors.amber,)):
+      Viedobanner(bannerDetailData!.videoPath.toString(), bannerDetailData!.title.toString(), bannerDetailData!.id.toString(), bannerDetailData!.salePrice.toString(),)
 
     );
   }
 }
 
 class Viedobanner extends StatefulWidget {
-  final Data bannerDetailData;
-  const Viedobanner(this.bannerDetailData) ;
+  final String videoUrl;
+  final String title;
+  final String id;
+  final String salePrice;
+  const Viedobanner(this.videoUrl, this.title,this.id,this.salePrice) : super();
 
   @override
   _ViedobannerState createState() => _ViedobannerState();
@@ -62,7 +68,7 @@ class _ViedobannerState extends State<Viedobanner> {
   void initState() {
     try {
       videoID = YoutubePlayer.convertUrlToId(
-          widget.bannerDetailData.videoPath.toString())!;
+          widget.videoUrl.toString())!;
       _controller = YoutubePlayerController(
         initialVideoId: videoID,
         flags: YoutubePlayerFlags(
@@ -98,15 +104,39 @@ class _ViedobannerState extends State<Viedobanner> {
               showVideoProgressIndicator: true,
               progressIndicatorColor: AppColors.amber,
             ),
-            //SizedBox(height: 20),
+            SizedBox(height: 20),
             Flexible(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: Text(widget.bannerDetailData.title.toString(),
+                  child: Text(widget.title.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 )),
-
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
+              MaterialPageRoute(builder: (context) =>
+                  DeliveryDetailScreen('Course', widget.id.toString(),
+                      widget.title.toString(), widget.salePrice.toString()
+                  )
+              ),
+            );
+          },
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: AppColors.amber,
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            height: 50,
+            margin: EdgeInsets.all(28),
+            child: Center(
+                child: Text(
+                  getTranslated(context, StringConstant.buyCourse)!,
+                  style: TextStyle(color: AppColors.white, fontSize: 18),
+                )),
+          )),
           ],
         ),
       ),

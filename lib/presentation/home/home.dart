@@ -193,6 +193,26 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 SquareButton(
+                    image: Images.book,
+                    title: getTranslated(context, 'books')!,
+                    color: AppColors.book,
+                    navigateTo: BooksEbook()),
+
+                SquareButton(
+                    image: Images.one2one,
+                    title: getTranslated(context, 'exampur_one2one')!,
+                    color: AppColors.one2one,
+                    navigateTo:
+                    Exampuron2oneView()
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                SquareButton(
                     image: Images.dailyquiz,
                     title: getTranslated(context, 'daily_quiz')!,
                     color: AppColors.quiz,
@@ -231,26 +251,6 @@ class _HomeState extends State<Home> {
                 //     title: getTranslated(context, 'offline_batches')!,
                 //     color: AppColors.brown400,
                 //     navigateTo: OfflineCourse()),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                SquareButton(
-                    image: Images.book,
-                    title: getTranslated(context, 'books')!,
-                    color: AppColors.book,
-                    navigateTo: BooksEbook()),
-
-                SquareButton(
-                    image: Images.one2one,
-                    title: getTranslated(context, 'exampur_one2one')!,
-                    color: AppColors.one2one,
-                    navigateTo:
-                    Exampuron2oneView()
-                ),
               ],
             ),
             SizedBox(

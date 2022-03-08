@@ -65,9 +65,11 @@ bool isLoading =false;
                           child: AppConstants.image(AppConstants.BANNER_BASE + item.imagePath.toString(), boxfit: BoxFit.fill),
                         ),
                         onTap: () {
-                          item.type=='Course'?Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                          item.type=='Course'?
+                          Navigator.push(context, MaterialPageRoute(builder: (_) =>
                           BannerLinkDetailPage(item.type.toString(),item.link.toString())
-                          )):Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                          )):
+                          Navigator.push(context, MaterialPageRoute(builder: (_) =>
                               BannerDetailPage(item.link.toString(),item.title.toString())
                           ));
                         }),
