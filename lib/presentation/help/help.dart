@@ -7,6 +7,7 @@ import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/helpandfeedback.dart';
 import 'package:exampur_mobile/data/model/issulistname.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/dropdown_selector.dart';
 import 'package:exampur_mobile/provider/Helpandfeedback.dart';
@@ -71,6 +72,10 @@ class HelpState extends State<Help> {
   late String issue_id;
   HelpandFeedbackModel CreateUserbody = HelpandFeedbackModel();
 
+
+  void sendMail(){
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,6 +218,24 @@ issuevalue='Select issue';
                       )),
                 ),
               ),
+              Center(child: Text("Facing problem in Application?",style: TextStyle(color: AppColors.grey600))),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomTextButton(onPressed: () { AppConstants.makePhoneCall('tel:'+AppConstants.Mobile_number);}, text: "Call Us"),
+                  Text('/'),
+                  CustomTextButton(onPressed: () { AppConstants.makePhoneCall('mailto:${AppConstants.Email_id}?subject=${AppConstants.Email_sub}');}, text: "Email Us")
+                ],
+
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Text("Facing problem in Application",style: TextStyle(color: AppColors.grey600)),
+              //     CustomTextButton(onPressed: () { AppConstants.makePhoneCall('mailto:${AppConstants.Email_id}?subject=${AppConstants.Email_sub}');}, text: "Email")
+              //   ],
+              //
+              // )
             ],
           ),
         ),
