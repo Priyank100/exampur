@@ -3,11 +3,6 @@ import 'dart:convert';
 import 'package:exampur_mobile/Helper/api_checker.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/appp_toutorial.dart';
-import 'package:exampur_mobile/data/model/demo_models.dart';
-
-
-
-
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/App_Toutorial.dart';
 import 'package:exampur_mobile/data/repository/Demorepo.dart';

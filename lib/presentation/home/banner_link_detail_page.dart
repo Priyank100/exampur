@@ -22,12 +22,12 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
    bool isLoading=false;
   Future<void> getLists() async {
     isLoading=true;
-    if (widget.type == 'Course') {
+   // if (widget.type == 'Course') {
       bannerDetailData= (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannnerCourseDetail(context, widget.datalink.toString()))! ;
       //print('anchal'+bannerDetailData.title.toString());
-    } else {
-      bannerDetailData= (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannnerBookDetail(context, widget.datalink.toString()))! ;
-    }
+    // } else {
+    //   bannerDetailData= (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannnerBookDetail(context, widget.datalink.toString()))! ;
+    // }
     isLoading=false;
     setState(() {});
   }

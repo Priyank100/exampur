@@ -1,16 +1,17 @@
 
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/demo_models.dart';
+import 'package:exampur_mobile/data/model/demo_model.dart';
+
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:exampur_mobile/data/model/demo_model.dart';
+
 import 'DemovideoVeiw.dart';
 
 class DemoContainer extends StatefulWidget {
-  final List<Data> demoList;
+  final List<Datum> demoList;
   final int index;
   const DemoContainer(this.demoList,this.index) : super();
 
@@ -39,7 +40,7 @@ class _DemoContainerState extends State<DemoContainer> {
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
                children: [
-                 Text(widget.demoList[widget.index].courseId!.title.toString()+' || '+widget.demoList[widget.index].subjectId!.title.toString()+' || '+widget.demoList[widget.index].title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
+                 Text(widget.demoList[widget.index].subjectId!.title.toString()+' || '+widget.demoList[widget.index].title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
                  SizedBox(height: 25,),
                  Row(
                    children: [
