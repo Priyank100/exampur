@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/demo_models.dart';
+import 'package:exampur_mobile/data/model/demo_model.dart';
+
+
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/shared/tile_row.dart';
@@ -10,7 +12,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Demo_container.dart';
-import 'package:exampur_mobile/data/model/demo_model.dart';
 
 class Demo extends StatefulWidget {
 
@@ -19,7 +20,7 @@ class Demo extends StatefulWidget {
 }
 
 class DemoState extends State<Demo> {
-   List<Data> demoList= [];
+   List<Datum> demoList= [];
    bool isLoading = false;
    bool isBottomLoading = false;
    int page =0;
@@ -36,7 +37,7 @@ class DemoState extends State<Demo> {
   Future<void> getDemoList() async {
    // AppConstants.printLog(demoList);
     isLoading=true;
-    List<Data> list= (await Provider.of<DemoProvider>(context, listen: false).getdemosList(context,))!;
+    List<Datum> list= (await Provider.of<DemoProvider>(context, listen: false).getdemosList(context,))!;
     if(list.length > 0) {
     isData = true;
     demoList = demoList + list;

@@ -35,7 +35,7 @@ class MyCoursesState extends State<MyCourses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading ? Center(child: CircularProgressIndicator()) : myCourseList.length == 0 ?
+      body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber,)) : myCourseList.length == 0 ?
       AppConstants.noDataFound() :
         SingleChildScrollView(
         padding: EdgeInsets.all(5),

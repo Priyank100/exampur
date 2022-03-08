@@ -1,14 +1,15 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/demo_models.dart';
+import 'package:exampur_mobile/data/model/demo_model.dart';
+
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:exampur_mobile/data/model/demo_model.dart';
+
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DemoViedoView extends StatefulWidget {
-  final Data demoList;
+  final Datum demoList;
 
   const DemoViedoView(this.demoList) : super();
 

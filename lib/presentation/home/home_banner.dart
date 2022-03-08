@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:exampur_mobile/data/model/banner_detail_model.dart';
+import 'BannerBookDetailPage.dart';
 import 'LandingChooseCategory.dart';
 import 'bannerdetailspage.dart';
 import 'banner_link_detail_page.dart';
@@ -69,7 +70,10 @@ bool isLoading =false;
                           Navigator.push(context, MaterialPageRoute(builder: (_) =>
                           BannerLinkDetailPage(item.type.toString(),item.link.toString())
                           )):
+                          item.type=='Book'?
                           Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                              BannerLinkBookDetailPage(item.type.toString(),item.link.toString())
+                          )): Navigator.push(context, MaterialPageRoute(builder: (_) =>
                               BannerDetailPage(item.link.toString(),item.title.toString())
                           ));
                         }),
