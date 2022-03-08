@@ -92,6 +92,7 @@ class API {
       'CONTENT_CATEGORY_ID' + '/' + 'TYPE' + '/' + 'ENCODE_CATEGORY' + '/10/';
   // https://static.exampur.work/content/findall/:content_category_id/:type/:category/:limit/:skip
 
+
   static const String ca_bytes_url   = BASE_URL3+ 'ca_byte/' + 'ENCODE_CATEGORY' + '/10/';
 
   //my_purchase
