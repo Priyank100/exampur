@@ -3,6 +3,7 @@ import 'package:exampur_mobile/data/model/paid_course_tab.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/teaching_list.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,23 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
     } else {
       freeCourseTabList = (await Provider.of<PaidCoursesProvider>(context, listen: false).getFreeCourseTabList(context))!;
     }
+
+    List<Data> newList1 = [];
+    List<Data> newList2 = [];
+    for(int i=0; i<paidCourseTabList.length; i++) {
+      if(AppConstants.selectedCategoryList.contains(paidCourseTabList[i].id.toString())) {
+        newList1.add(paidCourseTabList[i]);
+        paidCourseTabList.remove(paidCourseTabList[i]);
+      }
+    }
+    for(int i=0; i<freeCourseTabList.length; i++) {
+      if(AppConstants.selectedCategoryList.contains(freeCourseTabList[i].id.toString())) {
+        newList2.add(freeCourseTabList[i]);
+        freeCourseTabList.remove(freeCourseTabList[i]);
+      }
+    }
+    paidCourseTabList.insertAll(0,newList1);
+    freeCourseTabList.insertAll(0,newList2);
   }
 
   @override
@@ -48,12 +66,15 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
               body: TabBarDemo(
                   controller: _controller,
                   length: widget.courseType == 1 ? paidCourseTabList.length : freeCourseTabList.length,
+
                   names: widget.courseType == 1
                       ? paidCourseTabList.map((item) => item.name.toString()).toList()
                       : freeCourseTabList.map((item) => item.name.toString()).toList(),
+
                   routes: widget.courseType == 1
                       ? paidCourseTabList.map((item) => TeachingList(1, item.id.toString())).toList()
                       : freeCourseTabList.map((item) => TeachingList(0, item.id.toString())).toList(),
+
                   title: "")
           );
         });

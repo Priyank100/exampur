@@ -52,7 +52,7 @@ class _MyPurchasesState extends State<MyPurchases> {
                 style: TextStyle(fontSize: 25),
               ),
             ),
-           isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)): mypurchaseList==0?Text('No_Data') : ListView.builder(itemCount:mypurchaseList.length,
+           isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)): mypurchaseList.length==0?AppConstants.noDataFound() : ListView.builder(itemCount:mypurchaseList.length,
     shrinkWrap: true,
    physics: BouncingScrollPhysics(),
     itemBuilder: (BuildContext context,int index){

@@ -15,14 +15,13 @@ class BooksScreen extends StatefulWidget {
 
 class _BooksScreenState extends State<BooksScreen> {
   List<BookEbook> eBooksList = [];
-  bool isLoading = false;
   bool isBottomLoading = false;
   var scrollController = ScrollController();
   int page = 0;
   bool isData = true;
+  int isLoad = 0;
 
   Future<void> getBooksList(pageNo) async {
-    isLoading=true;
    List<BookEbook> list = (await Provider.of<BooksEBooksProvider>(context, listen: false).getBooksList(context,pageNo))!;
     if(list.length > 0) {
       isData = true;
@@ -30,15 +29,14 @@ class _BooksScreenState extends State<BooksScreen> {
     } else {
       isData = false;
     }
-  isLoading = false;
    isBottomLoading = false;
-   setState(() {
-
-   });
+   isLoad++;
+   setState(() {});
   }
   @override
   void initState() {
     scrollController.addListener(pagination);
+    isLoad = 0;
     getBooksList(page);
     super.initState();
   }
@@ -57,8 +55,8 @@ class _BooksScreenState extends State<BooksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:isLoading? Center(child: CircularProgressIndicator(color: AppColors.amber,)): eBooksList.length==0 ?
-        AppConstants.noDataFound() :
+        body:isLoad==0? Center(child: CircularProgressIndicator(color: AppColors.amber,)):
+        eBooksList.length==0 ? AppConstants.noDataFound() :
         ListView.builder(
             itemCount: eBooksList.length,
             controller: scrollController,

@@ -258,7 +258,7 @@ class _HomeState extends State<Home> {
             ),
             Row(
               children: [
-                // SquareButton(
+                // SquareButton(ck
                 //     image: Images.current_affair,
                 //     title: getTranslated(context, 'current_affairs')!,
                 //     color: AppColors.affairs,
