@@ -153,8 +153,7 @@ class _OtpScreenState extends State<OtpScreen> {
         SizedBox(height: 30),
         ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-                Theme.of(context).primaryColor),
+            backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
           ),
           onPressed: () {
             widget.isReset ? verifyOtpResetPassword() : verifyOtp();
