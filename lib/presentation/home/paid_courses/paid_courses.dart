@@ -85,4 +85,5 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
     _controller?.dispose();
     super.dispose();
   }
+
 }
