@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
@@ -106,6 +107,11 @@ class API {
   static const String myCourse_timeline_URL     = BASE_URL3 + 'course_timeline';
   static const String myCourse_notification_URL = BASE_URL3 + 'course_notification';
 
+
+  //testSeries
+  static const String livetestSeries_URL = 'http://3.1.205.105:3001/live_testseries';
+  static const String myTestSeries_URL = 'http://3.1.205.105:3001/test_series/621e0782b46ad30fca32614d';
+
 }
 
 class Keys {
@@ -130,7 +136,7 @@ class AppConstants {
   static String defaultCountry = 'India';
 
   static String Mobile_number = '9873111552';
-  static String Email_id = 'support@exampur.com';
+  static String Email_id = 'help@exampur.com';
   static String Email_sub = 'Feedback';
   static String playStoreAppUrl = 'https://play.google.com/store/apps/details?id=com.edudrive.exampur';
   static String androidId = 'com.edudrive.exampur';
@@ -144,6 +150,8 @@ class AppConstants {
   // static String studyMaterialsId = '61efe9921dbf84752e750384';
   static String currentAffairesId = '6225f4b40536af56be90ed66';
   static String studyMaterialsId = '6225f4540536af56be90ed28';
+
+  static String testSeriesToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjI4NjZiNTI2M2JjZDU5NGNlYjQ2OTEiLCJpYXQiOjE2NDY4MTQ5ODIsImV4cCI6MTY0NjkwMTM4Mn0.nC3XmvNX2Y_hKsiF1ZARgaMrWMVJ2w80AFyAKT0mLsA';
 
   static void printLog(message) {
     if (isPrint)
@@ -210,7 +218,7 @@ class AppConstants {
         children: [
           CircularProgressIndicator(color: AppColors.amber,),
           Container(
-              margin: EdgeInsets.only(left: 10), child: Text("Loading...")),
+              margin: EdgeInsets.only(left: 10), child: Text(getTranslated(context, 'loading...')!)),
         ],),
     );
     showDialog(barrierDismissible: false,
@@ -338,6 +346,7 @@ class StringConstant {
   static String clickHereToViewPDF= 'click_view_PDF';
   static String center= 'center';
   static String Course= 'course';
+  static String callUs= 'call_us';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';
@@ -363,11 +372,13 @@ class StringConstant {
   static String enteryourage= 'enter_your_age';
   static String EnterApplycoupon= 'Enter_valid_coupon_apply';
   static String Email_Required= 'email_required';
+  static String emailUs= 'email_us';
 
 
   static String freeCourses= 'free_courses';
   static String firstName= 'first_name';
   static String fresher= 'fresher';
+  static String facingProblemInApplication= 'facing_problem_in_application';
 
   static String hello= 'hello';
   static String home= 'home';
@@ -414,6 +425,7 @@ class StringConstant {
   static String next= 'next';
   static String Name_Field_Required= 'name_field_required';
   static String noData= 'no_data';
+  static String noLiveStreamPresent= 'no_live_stream_present';
 
   static String testCourses= 'test_courses';
   static String TotalAmount= 'total_amount';

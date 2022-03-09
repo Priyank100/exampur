@@ -1,12 +1,15 @@
 import 'dart:io' show Platform;
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/live_test_series_model.dart';
+import 'package:exampur_mobile/data/model/paid_course_model.dart';
+import 'package:exampur_mobile/provider/TestSeriesProvider.dart';
 import 'package:exampur_mobile/shared/ebooksContainer.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:provider/provider.dart';
 import 'aatempttestseries.dart';
 
 class TestSeriesCardView extends StatefulWidget {
@@ -15,23 +18,69 @@ class TestSeriesCardView extends StatefulWidget {
 }
 
 class _TestSeriesCardViewState extends State<TestSeriesCardView> {
-  List<ChooseTestSeriesModel> a = [
-    ChooseTestSeriesModel("REET L-2(Sci+Maths)[91-150 Q] Test series", "SSC", Images.exampur_logo),
-    ChooseTestSeriesModel("All Exam", "SSC", Images.exampur_logo),
-    ChooseTestSeriesModel("All Exam", "SSC", Images.exampur_logo),
-    ChooseTestSeriesModel("REET L-2(Sci+Maths)[91-150 Q] Test series", "SSC", Images.exampur_logo),
-    ChooseTestSeriesModel("All Exam", "SSC", Images.exampur_logo),
-    ChooseTestSeriesModel("REET L-2(Sci+Maths)[91-150 Q] Test series", "SSC",Images.exampur_logo),
-  ];
+  List<Testsery> liveTestSeriesList = [];
+ // List<Courses> freeCourseList = [];
+  var scrollController = ScrollController();
+  bool isLoading = false;
+  int isLoad = 0;
+
+  int page = 0;
+  bool isData = true;
+
+  @override
+  void initState() {
+   // scrollController.addListener(pagination);
+    isLoad = 0;
+    getLists();
+    super.initState();
+  }
+
+  Future<void> getLists() async {
+   // if(widget.courseType == 1) {
+    liveTestSeriesList= (await Provider.of<TestSeriesProvider>(context, listen: false).getTestSeriesList(context))!;
+      // if(list.length > 0) {
+      //   isData = true;
+      //   paidCourseList = paidCourseList + list;
+      // } else {
+      //   isData = false;
+      // }
+      // isLoading = false;
+    // } else {
+    //   List<Courses> list = (await Provider.of<PaidCoursesProvider>(context, listen: false).getFreeCourseList(context, widget.tabId, pageNo))!;
+    //   if(list.length > 0) {
+    //     isData = true;
+    //     freeCourseList = freeCourseList + list;
+    //   } else {
+    //     isData = false;
+    //   }
+    //   isLoading = false;
+    // }
+    isLoad++;
+    setState(() {});
+  }
+
+  // void pagination() {
+  //   if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
+  //     setState(() {
+  //       if(isData) {
+  //         page += 1;
+  //       }
+  //       isLoading = true;
+  //       getLists(page);
+  //       AppConstants.printLog('page>> ' + page.toString());
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
+        body:isLoad==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+        liveTestSeriesList.length==0 ? AppConstants.noDataFound() : SingleChildScrollView(
           child: Column(
             children: [
               ListView.builder(
-                  itemCount: a.length,
+                  itemCount: liveTestSeriesList.length,
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
@@ -72,7 +121,7 @@ class _TestSeriesCardViewState extends State<TestSeriesCardView> {
                                       //     );
                                       //   },
                                       // )
-                                    child:Image.asset(a[index].image, height: 40, width: 60),
+                                    child:Image.asset(Images.exampur_logo, height: 40, width: 60),
                                   ),
                                   const SizedBox(
                                     width: 15,
@@ -87,7 +136,7 @@ class _TestSeriesCardViewState extends State<TestSeriesCardView> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            a[index].name,
+                                            liveTestSeriesList[index].title.toString(),
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(

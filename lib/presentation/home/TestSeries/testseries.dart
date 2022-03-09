@@ -57,19 +57,20 @@ class TestSeriesviewState extends State<TestSeriesview> with TickerProviderState
 
   @override
   Widget build(BuildContext context) {
-    return comingSoon();
-    // return Scaffold(
-    //     body: TabBarDemo(
-    //       controller: _controller,
-    //       length: 4,
-    //       names: [
-    //         "Live Test Series",
-    //         "My Test Series",
-    //         "All Test Series",
-    //         "Preivous year Papers"
-    //       ], title: '', routes: [TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView()
-    //     ],)
-    // );
+    //return
+      //comingSoon();
+    return Scaffold(
+        body: TabBarDemo(
+          controller: _controller,
+          length: 4,
+          names: [
+            "Live Test Series",
+            "My Test Series",
+            "All Test Series",
+            "Preivous year Papers"
+          ], title: '', routes: [TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView(),TestSeriesCardView()
+        ],)
+    );
 
   }
 
