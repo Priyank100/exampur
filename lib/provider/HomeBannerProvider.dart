@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:exampur_mobile/Helper/api_checker.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/BookBannerDetail.dart';
 import 'package:exampur_mobile/data/model/Userinfo.dart';
 import 'package:exampur_mobile/data/model/banner_detail_model.dart';
 import 'package:exampur_mobile/data/model/loginmodel.dart';
@@ -26,6 +27,9 @@ class HomeBannerProvider extends ChangeNotifier {
 
   BannerDetailModel _bannerdetailModel = BannerDetailModel();
   BannerDetailModel get bannerdetailModel => _bannerdetailModel;
+
+  BookModels _bookdetailModel = BookModels();
+  BookModels get bookdetailModel => _bookdetailModel;
 
   //homeBanner request
   Future<List<BannerData>?> getHomeBannner(BuildContext context) async {
@@ -74,16 +78,16 @@ class HomeBannerProvider extends ChangeNotifier {
     }
   }
 
-  Future<Data?> getHomeBannnerBookDetail(BuildContext context,String id) async {
+  Future<Book?> getHomeBannnerBookDetail(BuildContext context,String id) async {
     ApiResponse apiResponse = await homeBannerRepo.getHomeBannerBooklink(id);
 
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if (statusCode == '200') {
-        _bannerdetailModel = BannerDetailModel.fromJson(
+        _bookdetailModel = BookModels.fromJson(
             json.decode(apiResponse.response.toString()));
-        return _bannerdetailModel.data;
+        return _bookdetailModel.data;
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);

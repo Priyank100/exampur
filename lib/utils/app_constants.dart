@@ -130,6 +130,8 @@ class AppConstants {
   static String defaultCountry = 'India';
 
   static String Mobile_number = '9873111552';
+  static String Email_id = 'support@exampur.com';
+  static String Email_sub = 'Feedback';
   static String playStoreAppUrl = 'https://play.google.com/store/apps/details?id=com.edudrive.exampur';
   static String androidId = 'com.edudrive.exampur';
   static String iosId = '';

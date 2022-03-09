@@ -91,8 +91,8 @@ class MyCoursesState extends State<MyCourses> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppConstants.image(AppConstants.BANNER_BASE + myCourseList[index].logoPath.toString()),
-            SizedBox(height: 20),
-            Text(myCourseList[index].title.toString(), overflow: TextOverflow.ellipsis, maxLines: 2),
+            SizedBox(height: 10),
+            Flexible(child: Text(myCourseList[index].title.toString(), overflow: TextOverflow.ellipsis, maxLines: 2)),
           ],
         )
       ),
