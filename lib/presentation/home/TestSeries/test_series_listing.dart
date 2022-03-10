@@ -46,8 +46,7 @@ class TestSeriesListingState extends State<TestSeriesListing> {
                     return Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Container(
-                        color: index % 2 == 0?  Theme.of(context).backgroundColor
-                            : AppColors.transparent ,
+                        color: index % 2 == 0?  Theme.of(context).backgroundColor : AppColors.transparent,
                         child: Material(
                           color: AppColors.transparent,
                           child: InkWell(
