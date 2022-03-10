@@ -71,6 +71,7 @@ dependencies:
   firebase_dynamic_links: ^2.0.8
 #  grouped_list: ^4.2.0
   marquee: ^2.2.1
+  intl: ^0.17.0
 
 
 

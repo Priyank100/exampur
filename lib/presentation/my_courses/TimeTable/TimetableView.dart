@@ -1,4 +1,5 @@
 
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
@@ -7,6 +8,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'TimeTableVideo.dart';
@@ -36,7 +38,9 @@ class _TimeTableViewState extends State<TimeTableView> {
     print(myCourseTimeLineList.toString());
     isLoading = false;
     setState(() {});
+
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +49,10 @@ class _TimeTableViewState extends State<TimeTableView> {
 
         shrinkWrap: true,
         itemBuilder: (BuildContext context,int index){
+          DateTime parseDate = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(myCourseTimeLineList[index].schedule.toString());
+          var inputDate = DateTime.parse(parseDate.toString());
+          var outputFormat = DateFormat('dd-MMM-yyyy hh:mm a');
+          var outputDate = outputFormat.format(inputDate);
         return InkWell(
           onTap: (){
             myCourseTimeLineList[index].type.toString()=='Livesteam'?
@@ -58,7 +66,7 @@ class _TimeTableViewState extends State<TimeTableView> {
                     myCourseTimeLineList[index].title.toString())
             )
             :
-           AppConstants.showBottomMessage(context, 'No Live Stream Present', AppColors.grey);
+           AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.noLiveStreamPresent), AppColors.grey);
           },
           child: Container(
             padding: EdgeInsets.all(8),
@@ -79,7 +87,7 @@ class _TimeTableViewState extends State<TimeTableView> {
                  SizedBox(height: 10,),
                  Container(decoration: BoxDecoration(
                      border: Border.all(color: AppColors.red)
-                 ),height: 25,width: 200,child: Center(child: Text(myCourseTimeLineList[index].schedule.toString(),style: TextStyle(color: AppColors.red,fontSize: 10),)),)
+                 ),height: 25,width: 200,child: Center(child: Text('Live at '+outputDate,style: TextStyle(color: AppColors.red,fontSize: 10),)),)
                ],
              ),
            )

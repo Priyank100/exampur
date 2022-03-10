@@ -38,6 +38,7 @@
   "click_view_PDF": "Click Here to View PDF",
   "center": "Center",
   "course": "Course",
+  "call_us": "Call Us",
 
   "downloads": "Downloads",
   "daily_quiz": "Daily Quiz",
@@ -60,12 +61,14 @@
   "Enter_valid_coupon_apply": "Enter valid coupon code and apply",
   "enter_your_age": "Enter your age",
   "email_required": "EMAIL MUST BE REQUIRED",
+  "email_us": "Email Us",
 
 
 
   "free_courses": "Free Courses",
   "first_name": "First Name",
   "fresher": "Fresher",
+  "facing_problem_in_application": "Facing problem in Application?",
 
   "hello": "Hello",
   "home": "Home",
@@ -116,6 +119,7 @@
   "next": "Next",
   "name_field_required": "NAME FIELD MUST BE REQUIRED",
   "no_data": "No Data",
+  "no_live_stream_present": "No Live Stream Present",
 
   "message": "Message",
 

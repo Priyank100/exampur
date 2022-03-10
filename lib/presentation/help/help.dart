@@ -218,13 +218,13 @@ issuevalue='Select issue';
                       )),
                 ),
               ),
-              Center(child: Text("Facing problem in Application?",style: TextStyle(color: AppColors.grey600))),
+              Center(child: Text(getTranslated(context, StringConstant.facingProblemInApplication)!,style: TextStyle(color: AppColors.grey600))),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomTextButton(onPressed: () { AppConstants.makePhoneCall('tel:'+AppConstants.Mobile_number);}, text: "Call Us"),
+                  CustomTextButton(onPressed: () { AppConstants.makePhoneCall('tel:'+AppConstants.Mobile_number);}, text: getTranslated(context, StringConstant.callUs)!),
                   Text('/'),
-                  CustomTextButton(onPressed: () { AppConstants.makePhoneCall('mailto:${AppConstants.Email_id}?subject=${AppConstants.Email_sub}');}, text: "Email Us")
+                  CustomTextButton(onPressed: () { AppConstants.makePhoneCall('mailto:${AppConstants.Email_id}?subject=${AppConstants.Email_sub}');}, text:getTranslated(context, StringConstant.emailUs)! )
                 ],
 
               ),

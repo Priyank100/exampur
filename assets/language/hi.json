@@ -76,6 +76,7 @@
   "first_name": "पहला नाम",
   "free_courses": "मुफ्त पाठ्यक्रमं",
   "fresher": "नवीन",
+  "facing_problem_in_application": "आवेदन में समस्या का सामना करना पड़ रहा है?",
 
 
 
@@ -102,6 +103,7 @@
   "Enter_valid_coupon_apply": "वैध कूपन कोड दर्ज करें और आवेदन करें",
   "enter_your_age": "अपनी आयु दर्ज करें",
   "email_required": "ईमेल जरूरी है",
+  "email_us": "हमे ईमेल करे",
 
 
 
@@ -147,6 +149,7 @@
   "next": "अगला",
   "name_field_required": "नाम फ़ील्ड आवश्यक है",
   "no_data": "कोई आकड़ा उपलब्ध नहीं है",
+  "no_live_stream_present": "कोई लाइव स्ट्रीम मौजूद नहीं है",
 
   "message": "संदेश",
 
@@ -171,6 +174,7 @@
   "click_view_PDF": "पीडीएफ देखने के लिए यहां क्लिक करेंं",
   "center": "केंद्र",
   "course": "कोर्स",
+  "call_us": "हमें कॉल करें",
 
   "settings": "समायोजन",
   "save_the_course":"पाठ्यक्रम सहेजें",
