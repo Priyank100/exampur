@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-LiveTestSeriesModel liveTestSeriesModelFromJson(String str) => LiveTestSeriesModel.fromJson(json.decode(str));
+TestSeriesModel testSeriesModelFromJson(String str) => TestSeriesModel.fromJson(json.decode(str));
 
-String liveTestSeriesModelToJson(LiveTestSeriesModel data) => json.encode(data.toJson());
+String testSeriesModelToJson(TestSeriesModel data) => json.encode(data.toJson());
 
-class LiveTestSeriesModel {
-  LiveTestSeriesModel({
+class TestSeriesModel {
+  TestSeriesModel({
     this.statusCode,
     this.testseries,
     this.totalCount,
@@ -19,7 +19,7 @@ class LiveTestSeriesModel {
   List<Testsery>? testseries;
   int? totalCount;
 
-  factory LiveTestSeriesModel.fromJson(Map<String, dynamic> json) => LiveTestSeriesModel(
+  factory TestSeriesModel.fromJson(Map<String, dynamic> json) => TestSeriesModel(
     statusCode: json["statusCode"],
     testseries: List<Testsery>.from(json["testseries"].map((x) => Testsery.fromJson(x))),
     totalCount: json["totalCount"],

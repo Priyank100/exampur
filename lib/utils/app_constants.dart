@@ -102,7 +102,7 @@ class API {
   static const String myCourse_notification_URL = BASE_URL3 + 'course_notification';
 
   //testSeries
-  static const String livetestSeries_URL  = BASE_URL4 + 'live_testseries';
+  static const String liveTestSeries_URL  = BASE_URL4 + 'live_testseries';
   static const String myTestSeries_URL    = BASE_URL4 + 'test_series/621e0782b46ad30fca32614d';
 
 }

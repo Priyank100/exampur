@@ -107,7 +107,6 @@ flutter:
     - assets/LocalJson/booklist.json
     - assets/LocalJson/currentaffairtab.json
     - assets/LocalJson/myCourseTab.json
-    - assets/mypdf.pdf
     - assets/LiveLottie.json
 
 

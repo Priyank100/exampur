@@ -35,7 +35,7 @@ import 'data/repository/MyPurchaseRepo.dart';
 import 'data/repository/OfflineBatches_repo.dart';
 import 'data/repository/One2One_repo.dart';
 import 'data/repository/JobAlertsRepo.dart';
-import 'data/repository/TestSeries.dart';
+import 'data/repository/test_series_repo.dart';
 import 'data/repository/paid_course_repo.dart';
 
 

@@ -11,6 +11,7 @@ import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart'
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/ca_bytes/ca_bytes.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
+import 'package:exampur_mobile/presentation/home/daily_quiz/daily_quiz.dart';
 import 'package:exampur_mobile/presentation/home/home_banner.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
 
@@ -29,7 +30,7 @@ import 'package:flutter/material.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 
 import '../../main.dart';
-import 'TestSeries/testseries.dart';
+import 'TestSeries/test_series_tab.dart';
 
 import 'banner_link_detail_page.dart';
 
@@ -216,18 +217,14 @@ class _HomeState extends State<Home> {
                     image: Images.dailyquiz,
                     title: getTranslated(context, 'daily_quiz')!,
                     color: AppColors.quiz,
-                    navigateTo:
-                    TestSeriesview()
-                   // UploadImage()
+                    navigateTo:DailyQuiz()
                 ),
 
                 SquareButton(
                     image: Images.testseries,
                     title: getTranslated(context, 'test_courses')!,
                     color: AppColors.series,
-                    navigateTo:
-                    //UploadImage()
-                    TestSeriesview()
+                    navigateTo: TestSeriesTab()
                     ),
               ],
             ),
