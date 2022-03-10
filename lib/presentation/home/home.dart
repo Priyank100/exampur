@@ -197,14 +197,21 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'books')!,
                     color: AppColors.book,
                     navigateTo: BooksEbook()),
-
                 SquareButton(
-                    image: Images.one2one,
-                    title: getTranslated(context, 'exampur_one2one')!,
-                    color: AppColors.one2one,
+                    image: Images.testseries,
+                    title: getTranslated(context, 'test_courses')!,
+                    color: AppColors.series,
                     navigateTo:
-                    Exampuron2oneView()
+                    //UploadImage()
+                    TestSeriesview()
                 ),
+                // SquareButton(
+                //     image: Images.one2one,
+                //     title: getTranslated(context, 'exampur_one2one')!,
+                //     color: AppColors.one2one,
+                //     navigateTo:
+                //     Exampuron2oneView()
+                // ),
               ],
             ),
             SizedBox(
@@ -220,15 +227,12 @@ class _HomeState extends State<Home> {
                     TestSeriesview()
                    // UploadImage()
                 ),
-
                 SquareButton(
-                    image: Images.testseries,
-                    title: getTranslated(context, 'test_courses')!,
-                    color: AppColors.series,
-                    navigateTo:
-                    //UploadImage()
-                    TestSeriesview()
-                    ),
+                    image: Images.studymaterial,
+                    title: getTranslated(context, 'study_materials')!,
+                    color: AppColors.one2one,
+                    navigateTo: CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)),
+
               ],
             ),
             SizedBox(
@@ -264,11 +268,11 @@ class _HomeState extends State<Home> {
                 //     color: AppColors.affairs,
                 //     navigateTo: CurrentAffairs()),
 
-                SquareButton(
-                    image: Images.studymaterial,
-                    title: getTranslated(context, 'study_materials')!,
-                    color: AppColors.quiz,
-                    navigateTo: CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)),
+                // SquareButton(
+                //     image: Images.studymaterial,
+                //     title: getTranslated(context, 'study_materials')!,
+                //     color: AppColors.quiz,
+                //     navigateTo: CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)),
                 SquareButton(
                     image: Images.caBytes,
                     title: getTranslated(context,StringConstant.CaBytes)!,

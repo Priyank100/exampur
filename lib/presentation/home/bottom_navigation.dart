@@ -408,34 +408,34 @@ class _BottomNavigationState extends State<BottomNavigation>
                     //             builder: (context) => MyTimeTable()));
                     //   },
                     // ),
-                    ListTile(
-                      dense: true,
-                      title: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              Images.calculator,
-                              width: 30,
-                              height: 20,
-                              color: AppColors.amber,
-                            ),
-                            SizedBox(
-                              width: Dimensions.PADDING_SIZE_SMALL,
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                  style: CustomTextStyle.drawerText(context),
-                                  text: getTranslated(context, 'eligibility_calculator')),
-                            ),
-                          ]),
-                      onTap: () {
-                        _scaffoldKey.currentState?.openEndDrawer();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EligibilityCalculator()));
-                      },
-                    ),
+                    // ListTile(
+                    //   dense: true,
+                    //   title: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.start,
+                    //       children: [
+                    //         Image.asset(
+                    //           Images.calculator,
+                    //           width: 30,
+                    //           height: 20,
+                    //           color: AppColors.amber,
+                    //         ),
+                    //         SizedBox(
+                    //           width: Dimensions.PADDING_SIZE_SMALL,
+                    //         ),
+                    //         RichText(
+                    //           text: TextSpan(
+                    //               style: CustomTextStyle.drawerText(context),
+                    //               text: getTranslated(context, 'eligibility_calculator')),
+                    //         ),
+                    //       ]),
+                    //   onTap: () {
+                    //     _scaffoldKey.currentState?.openEndDrawer();
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => EligibilityCalculator()));
+                    //   },
+                    // ),
                     ListTile(
                       dense: true,
                       title: Row(
@@ -553,7 +553,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                       onTap: () {
                         SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
                         SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
-                        SharedPref.clearSharedPref(SharedPrefConstants.PHONE_VERIFY);
+                        // SharedPref.clearSharedPref(SharedPrefConstants.PHONE_VERIFY);
                         Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
                       },
                     ),
