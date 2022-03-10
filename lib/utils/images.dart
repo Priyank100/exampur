@@ -34,5 +34,6 @@ class Images {
   static const String mycourse2 = 'assets/images/mucourse2.jpg';
   static const String caBytes = 'assets/images/ca_bytes.png';
   static const String coming_soon = 'assets/images/comingsoon.jpg';
+  static const String error = 'assets/images/error.png';
 
 }

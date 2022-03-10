@@ -10,7 +10,9 @@ import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/MyCourseRepo.dart';
 import 'package:exampur_mobile/data/repository/test_series_repo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class TestSeriesProvider extends ChangeNotifier {
   final TestSeriesRepo testseriesRepo;
@@ -35,9 +37,13 @@ class TestSeriesProvider extends ChangeNotifier {
       }
       notifyListeners();
     } else {
-      AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
-          AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ErrorScreen()
+          )
+      );
       notifyListeners();
     }
   }

@@ -26,7 +26,7 @@ class TestSeriesListingState extends State<TestSeriesListing> {
 
   Future<void> getLists() async {
     isLoading = true;
-    liveTestSeriesList= (await Provider.of<TestSeriesProvider>(context, listen: false).getLiveTestSeriesList(context))!;
+    liveTestSeriesList = (await Provider.of<TestSeriesProvider>(context, listen: false).getLiveTestSeriesList(context))!;
     isLoading = false;
     setState(() {});
   }
@@ -35,7 +35,8 @@ class TestSeriesListingState extends State<TestSeriesListing> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-        liveTestSeriesList.length==0 ? AppConstants.noDataFound() : SingleChildScrollView(
+        liveTestSeriesList.length==0 ? AppConstants.noDataFound() :
+        SingleChildScrollView(
           child: Column(
             children: [
               ListView.builder(
