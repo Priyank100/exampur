@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exampur_mobile/ChatModule/chat_page.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/Pushnotification/pushnotification.dart';
@@ -223,7 +224,8 @@ class _HomeState extends State<Home> {
                     image: Images.dailyquiz,
                     title: getTranslated(context, 'daily_quiz')!,
                     color: AppColors.quiz,
-                    navigateTo:DailyQuiz()
+                    // navigateTo:DailyQuiz()
+                    navigateTo:ChatPage()
                 ),
                 SquareButton(
                     image: Images.studymaterial,

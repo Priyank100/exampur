@@ -72,6 +72,8 @@ dependencies:
 #  grouped_list: ^4.2.0
   marquee: ^2.2.1
   intl: ^0.17.0
+  cloud_firestore: ^1.0.7
+#  firebase_storage: ^10.2.8
 
 
 

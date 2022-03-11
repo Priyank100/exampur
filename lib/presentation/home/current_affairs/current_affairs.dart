@@ -3,9 +3,6 @@ import 'package:exampur_mobile/data/model/cuurntaffairtab.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/contents_ca.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/videos_ca.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
-import 'package:exampur_mobile/provider/CaProvider.dart';
-import 'package:exampur_mobile/utils/app_constants.dart';
-import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,13 +21,12 @@ class CurrentAffairsState extends State<CurrentAffairs> with SingleTickerProvide
  // TabController? _controller;
   List<Data> videoList = [];
   List<Data> contentList = [];
-  bool isLoading = false;
   List<Currentaffairs> tablist = [];
+
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/LocalJson/currentaffairtab.json');
   }
   void gettabList() async {
-   // isLoading=true;
     String jsonString = await loadJsonFromAssets();
     final BookResponse = cuurntaffairtabFromJson(jsonString);
     tablist  =BookResponse.currentaffairs!;
@@ -43,7 +39,6 @@ class CurrentAffairsState extends State<CurrentAffairs> with SingleTickerProvide
   void initState() {
     super.initState();
     gettabList();
-
   }
 
   @override

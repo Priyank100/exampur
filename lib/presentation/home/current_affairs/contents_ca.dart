@@ -18,35 +18,33 @@ class ContentsCA extends StatefulWidget {
 }
 
 class _ContentsCAState extends State<ContentsCA> {
-  bool isLoading = false;
   bool isBottomLoading = false;
   List<Data> contentList = [];
   var scrollController = ScrollController();
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
   int page = 0;
   bool isData = true;
-  Future<void> getBooksList(pageNo) async {
-contentList.clear();
-     isLoading = true;
-    List<Data> list = (await Provider.of<CaProvider>(context, listen: false)
-        .getCaSmList(context, widget.contentCatId, 'content', AppConstants.encodeCategory(),pageNo))!;
+  int isLoad = 0;
+
+  Future<void> getContentList(pageNo) async {
+    List<Data> list = (await Provider.of<CaProvider>(context, listen: false).getCaSmList(context, widget.contentCatId, 'content', AppConstants.encodeCategory(),pageNo))!;
     if(list.length > 0) {
       isData = true;
       contentList = contentList + list;
     } else {
       isData = false;
     }
-     isLoading = false;
-     isBottomLoading = false;
-     setState(() {
-
-     });
+    isBottomLoading = false;
+    isLoad++;
+    setState(() {});
   }
+
   @override
   void initState() {
     // TODO: implement initState
     scrollController.addListener(pagination);
-    getBooksList(page);
+    isLoad = 0;
+    getContentList(page);
     super.initState();
   }
   void pagination() {
@@ -56,21 +54,22 @@ contentList.clear();
           page += 1;
         }
         isBottomLoading = true;
-        getBooksList(page);
+        getContentList(page);
         AppConstants.printLog('page>> ' + page.toString());
       });
     }
   }
   Future<void> _refreshLocalGallery() async{
-  return   getBooksList(page);
-
+    page = 0;
+    contentList.clear();
+    return getContentList(page);
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :contentList.length == 0
-          ? AppConstants.noDataFound()
-          :  RefreshWidget(
+      body:isLoad==0? Center(child: CircularProgressIndicator(color: AppColors.amber,)):
+      contentList.length==0 ? AppConstants.noDataFound() :
+      RefreshWidget(
         keyRefresh: keyRefresh,
         onRefresh:_refreshLocalGallery,
             child: listing(contentList)

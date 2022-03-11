@@ -20,36 +20,33 @@ class VideosCA extends StatefulWidget {
 }
 
 class _VideosCAState extends State<VideosCA> {
-  bool isLoading = false;
   bool isBottomLoading = false;
   List<Data> videoList = [];
   var scrollController = ScrollController();
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
   int page = 0;
   bool isData = true;
-  Future<void> getBooksList(pageNo) async {
-    videoList.clear();
-    isLoading = true;
-    List<Data> list =  (await Provider.of<CaProvider>(context, listen: false)
-        .getCaSmList(context, widget.contentCatId, 'video', AppConstants.encodeCategory(),pageNo))!;
+  int isLoad = 0;
+
+  Future<void> getVideoList(pageNo) async {
+    List<Data> list =  (await Provider.of<CaProvider>(context, listen: false).getCaSmList(context, widget.contentCatId, 'video', AppConstants.encodeCategory(),pageNo))!;
     if(list.length > 0) {
       isData = true;
       videoList = videoList + list;
     } else {
       isData = false;
     }
-    isLoading = false;
-  isBottomLoading = false;
-  setState(() {
-
-  });
+    isBottomLoading = false;
+    isLoad++;
+    setState(() {});
   }
+
   @override
   void initState() {
     // TODO: implement initState
     scrollController.addListener(pagination);
-    getBooksList(page);
-    print(widget.contentCatId);
+    isLoad = 0;
+    getVideoList(page);
     super.initState();
   }
   void pagination() {
@@ -59,23 +56,26 @@ class _VideosCAState extends State<VideosCA> {
           page += 1;
         }
         isBottomLoading = true;
-        getBooksList(page);
+        getVideoList(page);
         AppConstants.printLog('page>> ' + page.toString());
       });
     }
   }
-  Future<void>_refreshLocalGallery() async{
-    return getBooksList(page);
 
+  Future<void>_refreshScreen() async{
+    page = 0;
+    videoList.clear();
+    return getVideoList(page);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : videoList.length == 0
-          ? AppConstants.noDataFound()
-          :   RefreshWidget(
+      body:isLoad==0? Center(child: CircularProgressIndicator(color: AppColors.amber,)):
+      videoList.length==0 ? AppConstants.noDataFound() :
+      RefreshWidget(
         keyRefresh: keyRefresh,
-        onRefresh:_refreshLocalGallery,
+        onRefresh:_refreshScreen,
             child: ListView.builder(
                 physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             itemCount: videoList.length,

@@ -33,6 +33,7 @@ class _BooksScreenState extends State<BooksScreen> {
    isLoad++;
    setState(() {});
   }
+
   @override
   void initState() {
     scrollController.addListener(pagination);
@@ -52,6 +53,7 @@ class _BooksScreenState extends State<BooksScreen> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
