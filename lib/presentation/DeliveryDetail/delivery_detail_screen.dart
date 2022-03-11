@@ -88,7 +88,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           children: [
             widget.type == 'Course' ?
              Text(
-              getTranslated(context, StringConstant.provideFurtherDetailsForDeliveryOfCourses)!,
+              getTranslated(context, StringConstant.use_coupon)!,
               maxLines: 2,softWrap: true,
               style: TextStyle(fontSize: 25),
             ) :

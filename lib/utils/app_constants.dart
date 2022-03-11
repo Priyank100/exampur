@@ -391,7 +391,7 @@ class StringConstant {
   static String pleaseChooseTheCategory= 'please_choose_the_category';
   static String phoneNumber= 'phone_number';
   static String pinCode= 'pin_code';
-  static String provideFurtherDetailsForDeliveryOfCourses= 'provide_further_details_for_delivery_of_courses';
+  static String use_coupon= 'use_coupon';
   static String provideFurtherDetailsForDeliveryOfBooks= 'provide_further_details_for_delivery_of_books';
   static String preference= 'preference';
   static String PromoCode_REQUIRED= 'PromoCode_REQUIRED';

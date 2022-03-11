@@ -6,6 +6,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PaidCourseDetails extends StatefulWidget {
@@ -18,113 +19,317 @@ int courseType;
 }
 
 class _PaidCourseDetailsState extends State<PaidCourseDetails> {
-  String videoID = '';
+  // String videoID = '';
+  // late YoutubePlayerController _controller;
+  //
+  // @override
+  // void initState() {
+  //   try {
+  //     videoID = YoutubePlayer.convertUrlToId(
+  //         widget.paidcourseList.videoPath.toString())!;
+  //     _controller = YoutubePlayerController(
+  //       initialVideoId: videoID,
+  //       flags: YoutubePlayerFlags(
+  //         hideControls: false,
+  //         controlsVisibleAtStart: true,
+  //         autoPlay: true,
+  //         mute: false,
+  //         hideThumbnail: true,
+  //       ),
+  //     );
+  //   } on Exception catch (exception) {
+  //     AppConstants.printLog(exception.toString());
+  //     videoID = '';
+  //   } catch (error) {
+  //     AppConstants.printLog(error.toString());
+  //     videoID = '';
+  //   }
+  // }
+  //
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //    // resizeToAvoidBottomInset: true,
+  //      appBar: MediaQuery.of(context).orientation == Orientation.landscape ? null : CustomAppBar(),
+  //    // appBar: CustomAppBar(),
+  //     body:
+  //     // MediaQuery.of(context).orientation == Orientation.landscape ? YoutubePlayer(
+  //     //   controller: _controller,
+  //     //   showVideoProgressIndicator: true,
+  //     //   progressIndicatorColor: AppColors.amber,
+  //     // ):
+  //     WillPopScope(
+  //       onWillPop: () async {
+  //         _controller.toggleFullScreenMode();
+  //         return Future.value(false);
+  //       },
+  //       child: Container(
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             YoutubePlayer(
+  //               controller: _controller,
+  //               showVideoProgressIndicator: true,
+  //               progressIndicatorColor: AppColors.amber,
+  //              // aspectRatio:16/9,
+  //             ),
+  //             //SizedBox(height: 20),
+  //
+  //         Flexible(
+  //                 child: Padding(
+  //               padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+  //               child: Text(widget.paidcourseList.title.toString(),
+  //                   textAlign: TextAlign.center,
+  //                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+  //             )),
+  //             Flexible(
+  //               child: Padding(
+  //                 padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+  //                 child: Text(widget.paidcourseList.description.toString(),
+  //                     style: TextStyle(
+  //                         fontWeight: FontWeight.bold,
+  //                         fontSize: 10,
+  //                         color: AppColors.grey)),
+  //               ),
+  //             ),
+  //             widget.courseType==1 ?  Padding(
+  //               padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
+  //               child: Row(
+  //                 children: [
+  //                   Text(
+  //                     '\u{20B9}',
+  //                     style: TextStyle(color: AppColors.black, fontSize: 25),
+  //                   ),
+  //                   SizedBox(
+  //                     width: 15,
+  //                   ),
+  //                   Text(
+  //                     widget.paidcourseList.regularPrice.toString(),
+  //                     style: TextStyle(color: AppColors.grey, fontSize: 18,decoration: TextDecoration.lineThrough),
+  //                   ),
+  //                   SizedBox(width: 5,),
+  //                   Text(
+  //                     widget.paidcourseList.salePrice.toString(),
+  //                     style: TextStyle(color: AppColors.black, fontSize: 18),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ):SizedBox(),
+  //             widget.courseType==1 ?     InkWell(
+  //               onTap: () {
+  //                // showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
+  //                 // _BuyCourseBottomSheet(
+  //                 //   context,
+  //                 // );
+  //                 Navigator.push(
+  //                   context,
+  //                   // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
+  //                   MaterialPageRoute(builder: (context) =>
+  //                       DeliveryDetailScreen('Course', widget.paidcourseList.id.toString(),
+  //                           widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
+  //                       )
+  //                   ),
+  //                 );
+  //               },
+  //               child: Container(
+  //                 width: double.infinity,
+  //                 decoration: BoxDecoration(
+  //                     color: AppColors.amber,
+  //                     borderRadius: BorderRadius.all(Radius.circular(10))),
+  //                 height: 50,
+  //                 margin: EdgeInsets.all(28),
+  //                 child: Center(
+  //                     child: Text(
+  //                       getTranslated(context, StringConstant.buyCourse)!,
+  //                   style: TextStyle(color: AppColors.white, fontSize: 18),
+  //                 )),
+  //               ),
+  //             ):SizedBox()
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+
   late YoutubePlayerController _controller;
+  late TextEditingController _idController;
+  late TextEditingController _seekToController;
+
+  late PlayerState _playerState;
+  late YoutubeMetaData _videoMetaData;
+
+  bool _muted = false;
+  bool _isPlayerReady = false;
 
   @override
   void initState() {
-    try {
-      videoID = YoutubePlayer.convertUrlToId(
-          widget.paidcourseList.videoPath.toString())!;
-      _controller = YoutubePlayerController(
-        initialVideoId: videoID,
-        flags: YoutubePlayerFlags(
-          hideControls: false,
-          controlsVisibleAtStart: true,
-          autoPlay: true,
-          mute: false,
-        ),
-      );
-    } on Exception catch (exception) {
-      AppConstants.printLog(exception.toString());
-      videoID = '';
-    } catch (error) {
-      AppConstants.printLog(error.toString());
-      videoID = '';
+    String videoId = (YoutubePlayer.convertUrlToId(widget.paidcourseList.videoPath.toString()) == null)
+        ? "errorstring"
+        : YoutubePlayer.convertUrlToId(widget.paidcourseList.videoPath.toString())!;
+
+    _controller = YoutubePlayerController(
+      initialVideoId: videoId, //widget.url,
+      flags: YoutubePlayerFlags(
+        mute: false,
+        autoPlay: true,
+        disableDragSeek: false,
+        loop: false,
+        isLive: false,
+        //forceHD: widget.fullHD ??= false,
+        enableCaption: true,
+        hideThumbnail: true,
+      ),
+    )..addListener(listener);
+
+    _idController = TextEditingController();
+    _seekToController = TextEditingController();
+    _videoMetaData = const YoutubeMetaData();
+    _playerState = PlayerState.unknown;
+    super.initState();
+  }
+
+  void listener() {
+    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
+      setState(() {
+        _playerState = _controller.value.playerState;
+        _videoMetaData = _controller.metadata;
+      });
     }
   }
 
   @override
+  void deactivate() {
+    // Pauses video while navigating to next page.
+    _controller.pause();
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _idController.dispose();
+    _seekToController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-     // resizeToAvoidBottomInset: true,
-       appBar: MediaQuery.of(context).orientation == Orientation.landscape ? null : CustomAppBar(),
-     // appBar: CustomAppBar(),
-      body:MediaQuery.of(context).orientation == Orientation.landscape ? YoutubePlayer(
+    return YoutubePlayerBuilder(
+      // onExitFullScreen: () {
+      //   // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
+      //   SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+      // },
+
+      player: YoutubePlayer(
+        //aspectRatio: 19 / 9,
         controller: _controller,
         showVideoProgressIndicator: true,
-        progressIndicatorColor: AppColors.amber,
-      ): Container(
-        child: Column(
+        progressIndicatorColor: Colors.blueAccent,
+        topActions: <Widget>[
+          //todo: change video quality
+        ],
+        onReady: () {
+          _isPlayerReady = true;
+        },
+        // onEnded: (data) {
+        //   _showSnackBar('Video over!');
+        // },
+      ),
+      builder: (context, player) => Scaffold(
+        appBar:CustomAppBar()
+        ,
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            YoutubePlayer(
-              controller: _controller,
-              showVideoProgressIndicator: true,
-              progressIndicatorColor: AppColors.amber,
-            ),
-            //SizedBox(height: 20),
-            Flexible(
-                child: Padding(
-              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: Text(widget.paidcourseList.title.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-            )),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                child: Text(widget.paidcourseList.description.toString(),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                        color: AppColors.grey)),
-              ),
-            ),
-            widget.courseType==1 ?  Padding(
-              padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
-              child: Row(
-                children: [
-                  Text(
-                    '\u{20B9}',
-                    style: TextStyle(color: AppColors.black, fontSize: 25),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    widget.paidcourseList.regularPrice.toString(),
-                    style: TextStyle(color: AppColors.grey, fontSize: 18,decoration: TextDecoration.lineThrough),
-                  ),
-                  SizedBox(width: 5,),
-                  Text(
-                    widget.paidcourseList.salePrice.toString(),
-                    style: TextStyle(color: AppColors.black, fontSize: 18),
-                  ),
-                ],
-              ),
-            ):SizedBox(),
-            widget.courseType==1 ?     InkWell(
-              onTap: () {
-                showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
-                // _BuyCourseBottomSheet(
-                //   context,
-                // );
-              },
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: AppColors.amber,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                height: 50,
-                margin: EdgeInsets.all(28),
-                child: Center(
-                    child: Text(
-                      getTranslated(context, StringConstant.buyCourse)!,
-                  style: TextStyle(color: AppColors.white, fontSize: 18),
+            player,
+            SizedBox(height: 20),
+    Flexible(
+                    child: Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                  child: Text(widget.paidcourseList.title.toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 )),
-              ),
-            ):SizedBox()
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                    child: Text(widget.paidcourseList.description.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10,
+                            color: AppColors.grey)),
+                  ),
+                ),
+                widget.courseType==1 ?  Padding(
+                  padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
+                  child: Row(
+                    children: [
+                      Text(
+                        '\u{20B9}',
+                        style: TextStyle(color: AppColors.black, fontSize: 25),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        widget.paidcourseList.regularPrice.toString(),
+                        style: TextStyle(color: AppColors.grey, fontSize: 18,decoration: TextDecoration.lineThrough),
+                      ),
+                      SizedBox(width: 5,),
+                      Text(
+                        widget.paidcourseList.salePrice.toString(),
+                        style: TextStyle(color: AppColors.black, fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ):SizedBox(),
+                widget.courseType==1 ?     InkWell(
+                  onTap: () {
+                   // showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
+                    // _BuyCourseBottomSheet(
+                    //   context,
+                    // );
+                    Navigator.push(
+                      context,
+                      // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
+                      MaterialPageRoute(builder: (context) =>
+                          DeliveryDetailScreen('Course', widget.paidcourseList.id.toString(),
+                              widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
+                          )
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: AppColors.amber,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    height: 50,
+                    margin: EdgeInsets.all(28),
+                    child: Center(
+                        child: Text(
+                          getTranslated(context, StringConstant.buyCourse)!,
+                      style: TextStyle(color: AppColors.white, fontSize: 18),
+                    )),
+                  ),
+                ):SizedBox()
+            // Padding(
+            //   padding: EdgeInsets.all(15),
+            //   child: RichText(
+            //     text: TextSpan(
+            //        // style: CustomTextStyle.headingSemiBold(context),
+            //         text: widget.paidcourseList.title.toString()),
+            //   ),
+            // ),
+            // SizedBox(height: 5),
+            // Padding(
+            //   padding: EdgeInsets.only(bottom: 10, left: 15, right: 15),
+            //   child: RichText(
+            //     text: TextSpan(
+            //         //style: CustomTextStyle.subHeading2(context),
+            //         ),
+            //   ),
+           // ),
           ],
         ),
       ),
@@ -132,18 +337,20 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   }
 
 
+  }
 
 
-// @override
-// void dispose() {
-//   _controller.dispose();
-//   SystemChrome.setPreferredOrient
-//   ations([
-//     DeviceOrientation.portraitUp,
-//   ]);
-//   super.dispose();
-// }
-}
+
+
+  // @override
+  // void dispose() {
+  //   _controller.dispose();
+  //   SystemChrome.setPreferredOrientations([
+  //     DeviceOrientation.portraitUp,
+  //   ]);
+  //   super.dispose();
+  // }
+
 
 
 class Bottomsheet2 extends StatefulWidget {
@@ -425,7 +632,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
                             // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
                             MaterialPageRoute(builder: (context) =>
                                 DeliveryDetailScreen('Course', widget.paidcourseList.id.toString(),
-                                widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
+                                    widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
                                 )
                             ),
                           );
