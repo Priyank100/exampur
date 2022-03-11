@@ -48,7 +48,6 @@ class TestSeriesProvider extends ChangeNotifier {
     }
   }
 
-
   /*Future<List<Testsery>?> getTestSeriesList(BuildContext context,) async {
     ApiResponse apiResponse = await testseriesRepo.testSeriesDetailList();
 
