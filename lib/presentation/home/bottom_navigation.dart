@@ -91,16 +91,9 @@ class _BottomNavigationState extends State<BottomNavigation>
     Home(),
     Demo(),
     MyCourses(),
-    // Downloads(),
-     Help()
+    Downloads(),
+    Help()
   ];
-  // final List<String> widgetNames = [
-  //   ,
-  //   "Demo",
-  //   "My Courses",
-  //   // "Downloads",
-  //   // "Help"
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -131,15 +124,15 @@ class _BottomNavigationState extends State<BottomNavigation>
        // FaIcon(FontAwesomeIcons.camera),
           _currIndex==2?   Image.asset(Images.mycourse2,height: 30,width: 25,):Image.asset(Images.mycourse,height: 30,width: 25,)
       ),
-      // ItemClass(
-      //   3,
-      //   "Downloads",
-      //     _currIndex==3?   Image.asset(Images.download,height: 30,width: 25,color: AppColors.amber,):Image.asset(Images.download,height: 30,width: 25,)
-      // ),
       ItemClass(
         3,
+        "Downloads",
+          _currIndex==3?   Image.asset(Images.download,height: 30,width: 25,color: AppColors.amber,):Image.asset(Images.download,height: 30,width: 25,)
+      ),
+      ItemClass(
+        4,
         "Help",
-          _currIndex==3?  Image.asset(Images.help,height: 30,width: 25,color: AppColors.amber): Image.asset(Images.help,height: 30,width: 25,)
+          _currIndex==4?  Image.asset(Images.help,height: 30,width: 25,color: AppColors.amber): Image.asset(Images.help,height: 30,width: 25,)
       ),
     ];
 

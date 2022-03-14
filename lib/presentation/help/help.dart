@@ -222,20 +222,18 @@ issuevalue='Select issue';
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomTextButton(onPressed: () { AppConstants.makePhoneCall('tel:'+AppConstants.Mobile_number);}, text: getTranslated(context, StringConstant.callUs)!),
+                  CustomTextButton(onPressed: () { AppConstants.makeCallEmail('tel:'+AppConstants.Mobile_number);}, text: getTranslated(context, StringConstant.callUs)!),
                   Text('/'),
-                  CustomTextButton(onPressed: () { AppConstants.makePhoneCall('mailto:${AppConstants.Email_id}?subject=${AppConstants.Email_sub}');}, text:getTranslated(context, StringConstant.emailUs)! )
+                  CustomTextButton(onPressed: () {
+                    Uri params = Uri(
+                        scheme: 'mailto',
+                        path: AppConstants.Email_id,
+                        query: 'subject=${AppConstants.Email_sub}'
+                    );
+                    AppConstants.makeCallEmail(params.toString());
+                    }, text:getTranslated(context, StringConstant.emailUs)! )
                 ],
-
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Text("Facing problem in Application",style: TextStyle(color: AppColors.grey600)),
-              //     CustomTextButton(onPressed: () { AppConstants.makePhoneCall('mailto:${AppConstants.Email_id}?subject=${AppConstants.Email_sub}');}, text: "Email")
-              //   ],
-              //
-              // )
             ],
           ),
         ),

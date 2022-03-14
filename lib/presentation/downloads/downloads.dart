@@ -56,27 +56,6 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
     });
   }
 
-  /*Future<void> downloadFile() async {
-    Dio dio = Dio();
-    try {
-      var dir = await getApplicationDocumentsDirectory();
-      AppConstants.printLog("path ${dir.path}");
-      await dio.download(imgUrl, "${dir.path}/demo.mp4",
-          onReceiveProgress: (rec, total) {
-            AppConstants.printLog("Rec: $rec , Total: $total");
-            setState(() {
-              progressString = ((rec / total) * 100).toStringAsFixed(0) + "%";
-            });
-          });
-    } catch (e) {
-      AppConstants.printLog(e);
-    }
-    setState(() {
-      progressString = "Completed";
-    });
-    AppConstants.printLog("Download completed");
-  }*/
-
   Future<List> getDownloadingVideosList() async {
     List<String> list = [];
     return list;

@@ -1,19 +1,23 @@
+import 'dart:convert';
+
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
+import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PaidCourseDetails extends StatefulWidget {
-  final Courses paidcourseList;
-
-int courseType;
-  PaidCourseDetails(this.paidcourseList,this.courseType) : super();
+  final Courses courseData;
+  int courseType;
+  PaidCourseDetails(this.courseData,this.courseType) : super();
 
   @override
   _PaidCourseDetailsState createState() => _PaidCourseDetailsState();
@@ -34,9 +38,9 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   @override
   void initState() {
-    String videoId = (YoutubePlayer.convertUrlToId(widget.paidcourseList.videoPath.toString()) == null)
+    String videoId = (YoutubePlayer.convertUrlToId(widget.courseData.videoPath.toString()) == null)
         ? "errorstring"
-        : YoutubePlayer.convertUrlToId(widget.paidcourseList.videoPath.toString())!;
+        : YoutubePlayer.convertUrlToId(widget.courseData.videoPath.toString())!;
 
     _controller = YoutubePlayerController(
       initialVideoId: videoId, //widget.url,
@@ -114,20 +118,54 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
           children: [
             player,
             SizedBox(height: 20),
-    Flexible(
-                    child: Padding(
+            Flexible(
+                child: Padding(
                   padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: Text(widget.paidcourseList.title.toString(),
+                  child: Text(widget.courseData.title.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 )),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                    child: Text(widget.paidcourseList.description.toString(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  child: Text('Validity : 20th April 2022',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5, left: 20, right: 10),
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                          ViewPdf(AppConstants.BANNER_BASE + 'pdf link')
+                      ));
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(3.0),
+                      width: Dimensions.DailyMonthlyViewBtnWidth,
+                      height: Dimensions.DailyMonthlyViewBtnHeight,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.black),
+                          color: AppColors.red
+                      ),
+                      child: Text('View PDF', style: TextStyle(color:AppColors.white, fontSize: 12)),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            // SingleChildScrollView(
+            //     child: Html(data:utf8.decode(base64.decode(widget.courseData.description.toString())))
+            // ),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                    child: Text(widget.courseData.description.toString(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 10,
+                            fontSize: 15,
                             color: AppColors.grey)),
                   ),
                 ),
@@ -143,18 +181,18 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                         width: 15,
                       ),
                       Text(
-                        widget.paidcourseList.regularPrice.toString(),
+                        widget.courseData.regularPrice.toString(),
                         style: TextStyle(color: AppColors.grey, fontSize: 18,decoration: TextDecoration.lineThrough),
                       ),
                       SizedBox(width: 5,),
                       Text(
-                        widget.paidcourseList.salePrice.toString(),
+                        widget.courseData.salePrice.toString(),
                         style: TextStyle(color: AppColors.black, fontSize: 18),
                       ),
                     ],
                   ),
                 ):SizedBox(),
-                widget.courseType==1 ?     InkWell(
+                widget.courseType==1 ? InkWell(
                   onTap: () {
                    // showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
                     // _BuyCourseBottomSheet(
@@ -164,8 +202,8 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                       context,
                       // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
                       MaterialPageRoute(builder: (context) =>
-                          DeliveryDetailScreen('Course', widget.paidcourseList.id.toString(),
-                              widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
+                          DeliveryDetailScreen('Course', widget.courseData.id.toString(),
+                              widget.courseData.title.toString(), widget.courseData.salePrice.toString()
                           )
                       ),
                     );

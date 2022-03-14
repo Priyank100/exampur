@@ -200,7 +200,7 @@ textInputType: TextInputType.number,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text("Facing problem in signing in?",style: TextStyle(color: AppColors.grey600)),
-                          CustomTextButton(onPressed: () { AppConstants.makePhoneCall('tel:'+AppConstants.Mobile_number);}, text: "Call us")
+                          CustomTextButton(onPressed: () { AppConstants.makeCallEmail('tel:'+AppConstants.Mobile_number);}, text: "Call us")
                         ],
                       )
                     ],

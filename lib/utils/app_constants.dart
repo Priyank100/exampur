@@ -152,7 +152,7 @@ class AppConstants {
       print('Exampur');
   }
 
-  static Future<void> makePhoneCall(String url) async {
+  static Future<void> makeCallEmail(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {

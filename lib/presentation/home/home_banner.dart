@@ -73,9 +73,11 @@ bool isLoading =false;
                           item.type=='Book'?
                           Navigator.push(context, MaterialPageRoute(builder: (_) =>
                               BannerLinkBookDetailPage(item.type.toString(),item.link.toString())
-                          )): Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                              BannerDetailPage(item.link.toString(),item.title.toString())
-                          ));
+                          )):
+                          // Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                          //     BannerDetailPage(item.link.toString(),item.title.toString())
+                          // ));
+                          AppConstants.makeCallEmail(item.link.toString());
                         }),
                   );
                 },
