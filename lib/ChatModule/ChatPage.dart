@@ -20,6 +20,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   String collectionName = 'live_chat';
   String userName = '';
+  String userPhone = '';
   String videoId = '12345';
   String videoTitle = 'qwerty';
   TextEditingController _sendchat = TextEditingController();
@@ -31,7 +32,7 @@ class _ChatPageState extends State<ChatPage> {
 
   late PlayerState _playerState;
   late YoutubeMetaData _videoMetaData;
-
+  final ScrollController _scrollController = ScrollController();
   bool _muted = false;
   bool _isPlayerReady = false;
 
@@ -65,11 +66,15 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
   }
 
+
+
+
   Future<void> getSharedPrefData() async {
     var jsonValue = jsonDecode(
         await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
+    userPhone = jsonValue[0]['data']['phone'].toString();
     setState(() {});
   }
   Future<bool> checkIfDocExists(String docId) async {
@@ -93,7 +98,7 @@ class _ChatPageState extends State<ChatPage> {
         FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
         firestoreInstance.collection(collectionName).doc(videoId).update(
             {
-              'chat.$userName-$time': text
+              'chat.$userName-$userPhone-$time': text
             }).then((value) {
           _sendchat.text = '';
           setState(() {});
@@ -105,7 +110,7 @@ class _ChatPageState extends State<ChatPage> {
               'id': videoId,
               'title': videoTitle,
               'chat': {
-                '$userName-$time': text
+                '$userName-$userPhone-$time': text
               }
             }, SetOptions(merge : false)).then((value) {
           _sendchat.text = '';
@@ -129,7 +134,13 @@ class _ChatPageState extends State<ChatPage> {
           map.addAll(res.doc.data()!['chat']);
           AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
           AppConstants.printLog(map);
-          setState(() {});
+          setState(() {
+            _scrollController.animateTo(
+                _scrollController.position.maxScrollExtent,
+                duration: Duration(milliseconds: 200),
+                curve: Curves.easeInOut
+            );
+          });
         });
       });
     } catch(ex) {
@@ -189,14 +200,15 @@ class _ChatPageState extends State<ChatPage> {
         //   _showSnackBar('Video over!');
         // },
       ),
-      builder: (context, player) => Scaffold(
+      builder: (context, player) =>
+          Scaffold(
         resizeToAvoidBottomInset: false,
 
 
         appBar:CustomAppBar()
         ,
         body:  SingleChildScrollView(
-          physics:ClampingScrollPhysics(parent: NeverScrollableScrollPhysics()),
+         physics:ClampingScrollPhysics(parent: NeverScrollableScrollPhysics()),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -212,27 +224,29 @@ class _ChatPageState extends State<ChatPage> {
                   child: Text(' Live Chat',style: TextStyle(fontSize: 18)),
                 ),
                 Divider(thickness: 1,),
-                // Container(
-                //   height: MediaQuery.of(context).size.width,
-                //   child:
+                Container(
+                  height: MediaQuery.of(context).size.width,
+                  child:
                   ListView.builder(
                     itemCount: map.length,
-                    physics: ScrollPhysics(),
+                    //scrollDirection: Axis.vertical,
+                    physics: BouncingScrollPhysics(),
                     shrinkWrap: true,
-                   // controller:  _scrollController,
+                    controller:  _scrollController,
                     itemBuilder: (BuildContext context, int index) {
                       String key = map.keys.elementAt(index);
 
                       var parts = key.split('-');
                       var name = parts[0].trim();
-                      var time =parts[1].trim();
-                      var sec = time.split(':');
+                      var times =parts[2].trim();
+                     // var time =times[2].trim();
+                      var sec = times.split(':');
                       var second1 = sec[0].trim();
                       var second2 = sec[2].trim();
                       return new Column(
                         children: <Widget>[
                           Container(
-                            //height: 45,
+                           // height: 45,
                             child:Padding(
                               padding: const EdgeInsets.only(left: 12,top: 5,right: 8),
                               child: Column(
@@ -250,18 +264,7 @@ class _ChatPageState extends State<ChatPage> {
                               ],),
                             )
                           ),
-                          // new ListTile(
-                          //   title: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //     children: [
-                          //       new Text(name,style: TextStyle(fontSize: 12,color: AppColors.green),),
-                          //       new Text(time,style: TextStyle(color: AppColors.grey,fontSize: 12),),
-                          //     ],
-                          //   ),
-                          //   subtitle:
-                          //   new Text("${map[key]}"),
-                          //
-                          // ),
+
                           new Divider(
                             height: 2.0,
                           ),
@@ -269,50 +272,46 @@ class _ChatPageState extends State<ChatPage> {
                       );
                     },
                   ),
-               // )
+                )
 
 
 
               ],
             ),
         ),
+            bottomNavigationBar: Container(
+                padding: MediaQuery.of(context).viewInsets,
+                color: AppColors.transparent,
+                child:  Row(
+        children: [
+          Expanded(child: CustomTextField(
 
-        bottomNavigationBar:  Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(child: CustomTextField(
-
-                  hintText: "Type your doubt here",
-                  controller: _sendchat,
-                  value: (value) {}),
-              ),
-              SizedBox(width: 8,),
-              InkWell(
-          onTap: () {
-           FocusScope.of(context).unfocus();
-          addVideoTitle(_sendchat.text.toString());
-        },
-                child: Container(
-                  height: 45,
-                  width: 90,
-                  decoration: BoxDecoration(color: AppColors.amber,borderRadius:  BorderRadius.all(const Radius.circular(8)),),
-
-                    child: Center(child: Text('Send',style: TextStyle(color: AppColors.white),))
-                ),
-              )
-              // MaterialButton(
-              //
-              //   color: AppColors.amber,
-              //     onPressed: () {
-              //   FocusScope.of(context).unfocus();
-              //   addVideoTitle(_sendchat.text.toString());
-              // },
-              //     child: Text('Send',style: TextStyle(color: AppColors.white),))
-            ],
+              hintText: "Type your doubt here",
+              controller: _sendchat,
+              value: (value) {}),
           ),
-        ),
-      ),
+          
+          InkWell(
+      onTap: () {
+       FocusScope.of(context).unfocus();
+       //_animateToIndex(height) => _scrollController.animateTo(height, duration: Duration(seconds: 2), curve: Curves.fastOutSlowIn);
+      addVideoTitle(_sendchat.text.toString());
+    },
+            child: Container(
+             // padding: EdgeInsets.all(8),
+              margin: EdgeInsets.all(8),
+              height: 45,
+              width: 90,
+              decoration: BoxDecoration(color: AppColors.amber,borderRadius:  BorderRadius.all(const Radius.circular(8)),),
+
+                child: Center(child: Text('Send',style: TextStyle(color: AppColors.white),))
+            ),
+          )
+
+        ],
+      ),)
+            ),
+
     );
 
   }

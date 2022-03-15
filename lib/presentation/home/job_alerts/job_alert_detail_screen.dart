@@ -3,6 +3,7 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/job_alerts_detail_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
+import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -46,9 +47,25 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
             children: [
               Text(getTranslated(context, StringConstant.jobAlerts)!, style: CustomTextStyle.headingMediumBold(context)),
               Expanded(child: SingleChildScrollView(
-                  child: Html(data:utf8.decode(base64.decode(jobAlertsData!.description.toString())))
-              )
-              )
+                  child: Column(
+                    children: [
+                      Html(data:utf8.decode(base64.decode(jobAlertsData!.description.toString())),
+                      ),
+                      jobAlertsData!.pdfPath=='null'? SizedBox():     InkWell(
+                          onTap: (){
+
+                            Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                ViewPdf(AppConstants.BANNER_BASE + jobAlertsData!.pdfPath.toString())
+                            ));
+                          },
+                          child: Text(getTranslated(context, StringConstant.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
+                      )
+                    ],
+                  )
+              ),
+
+              ),
+
             ]
           )
       )

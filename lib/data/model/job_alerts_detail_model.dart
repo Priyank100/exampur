@@ -44,30 +44,31 @@ class DetailsData {
   DetailsData({
       String? id, 
       String? title, 
-      String? description,}){
+      String? description,String? pdfPath,}){
     _id = id;
     _title = title;
-    _description = description;
+    _description = description; _pdfPath = pdfPath;
 }
 
   DetailsData.fromJson(dynamic json) {
     _id = json['_id'];
     _title = json['title'];
-    _description = json['description'];
+    _description = json['description'];_pdfPath = json['pdf_path'];
   }
   String? _id;
   String? _title;
   String? _description;
-
+  String? _pdfPath;
   String? get id => _id;
   String? get title => _title;
   String? get description => _description;
-
+  String? get pdfPath => _pdfPath;
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['_id'] = _id;
     map['title'] = _title;
     map['description'] = _description;
+    map['pdf_path'] = _pdfPath;
     return map;
   }
 
