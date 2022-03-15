@@ -83,7 +83,7 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ViewPdf(AppConstants.BANNER_BASE + widget.data.pdfPath.toString())
+                                        builder: (context) => ViewPdf(AppConstants.BANNER_BASE + widget.data.pdfPath.toString(),'')
                                     )
                                 );
                               },

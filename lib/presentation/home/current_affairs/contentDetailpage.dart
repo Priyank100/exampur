@@ -39,7 +39,7 @@ widget.contentlist.type=='PDF'?
                             InkWell(
                               onTap: (){
                                 Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                    ViewPdf(AppConstants.BANNER_BASE + widget.contentlist.targetLink.toString())
+                                    ViewPdf(AppConstants.BANNER_BASE + widget.contentlist.targetLink.toString(),'')
                                 ));
                               },
                                 child: Text(getTranslated(context, StringConstant.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)

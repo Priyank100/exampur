@@ -35,5 +35,6 @@ class Images {
   static const String caBytes = 'assets/images/ca_bytes.png';
   static const String coming_soon = 'assets/images/comingsoon.jpg';
   static const String error = 'assets/images/error.png';
+  static const String download_pdf = 'assets/images/download_pdf.png';
 
 }

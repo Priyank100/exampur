@@ -9,7 +9,8 @@ import 'package:http/http.dart' as http;
 
 class ViewPdf extends StatefulWidget {
   final String pdfUrl;
-  const ViewPdf(this.pdfUrl) : super();
+  final String pdfFilePath;
+  const ViewPdf(this.pdfUrl, this.pdfFilePath) : super();
 
   @override
   _ViewPdfState createState() => _ViewPdfState();
@@ -46,19 +47,26 @@ class _ViewPdfState extends State<ViewPdf> {
   void initState() {
     // requestPersmission();
     AppConstants.printLog('Anchal>> ' + widget.pdfUrl);
-    getFileFromUrl(widget.pdfUrl).then(
-          (value) => {
-        setState(() {
-          if (value != null) {
-            urlPDFPath = value.path;
-            loaded = true;
-            exists = true;
-          } else {
-            exists = false;
-          }
-        })
-      },
-    );
+    if(widget.pdfUrl.isNotEmpty) {
+      getFileFromUrl(widget.pdfUrl).then(
+            (value) => {
+          setState(() {
+            if (value != null) {
+              urlPDFPath = value.path;
+              loaded = true;
+              exists = true;
+            } else {
+              exists = false;
+            }
+          })
+        },
+      );
+    } else {
+      urlPDFPath = widget.pdfFilePath;
+      loaded = true;
+      exists = true;
+    }
+
     super.initState();
   }
 

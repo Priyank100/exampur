@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
+import 'package:exampur_mobile/presentation/downloads/pdf_downloads.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -11,7 +13,10 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PaidCourseDetails extends StatefulWidget {
@@ -111,8 +116,22 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
         // },
       ),
       builder: (context, player) => Scaffold(
-        appBar:CustomAppBar()
-        ,
+        appBar:CustomAppBar(),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () async {
+            String pdfLink = 'https://www.learningcontainer.com/download/sample-pdf-file-for-testing/?wpdmdl=1566&amp;refresh=621508d3713281645545683';
+            String pdfName = 'my_first_pdf';
+            // requestDownload(pdfLink, pdfName);
+            checkPermission(pdfLink, pdfName);
+          },
+          backgroundColor: AppColors.white,
+          elevation: 8.0,
+          label: ImageIcon(
+            AssetImage(Images.download_pdf),
+            color: AppColors.red,
+            size: 24,
+          ),
+        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -138,7 +157,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                   child: InkWell(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                          ViewPdf(AppConstants.BANNER_BASE + 'pdf link')
+                          ViewPdf(AppConstants.BANNER_BASE + 'pdf link','')
                       ));
                     },
                     child: Container(
@@ -245,8 +264,39 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
     );
   }
 
-
+  Future<void> requestDownload(String _url, String _name) async {
+    final dir =
+    await getApplicationDocumentsDirectory();
+    var _localPath = dir.path + '/' + _name;
+    final savedDir = Directory(_localPath);
+    await savedDir.create(recursive: true).then((value) async {
+      String? _taskid = await FlutterDownloader.enqueue(
+        url: _url,
+        fileName: _name,
+        savedDir: _localPath,
+        showNotification: false,
+        openFileFromNotification: false,
+        saveInPublicStorage: false,
+      );
+      AppConstants.printLog(_taskid);
+    });
   }
+
+  Future<void> checkPermission(pdfLink, pdfName) async {
+    var status = await Permission.storage.status;
+    if (status.isGranted) {
+      await requestDownload(pdfLink, pdfName);
+    } else {
+      await Permission.storage.request().then((value) async {
+        if(value.isGranted) {
+          await requestDownload(pdfLink, pdfName);
+        } else {
+          AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
+        }
+      });
+    }
+  }
+}
 
 
 
@@ -420,6 +470,7 @@ class BottomSheeet1 extends StatefulWidget {
 }
 
 class _BottomSheeet1State extends State<BottomSheeet1> {
+
   @override
   Widget build(BuildContext context) {
     return
@@ -571,5 +622,7 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
     ),
       );
   }
-  }
+
+
+}
 
