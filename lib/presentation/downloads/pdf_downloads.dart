@@ -100,13 +100,6 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
             return GestureDetector(
               onTap: () {
                 if (_status == DownloadTaskStatus.complete) {
-                  // _openDownloadedFile(_id).then((success) {
-                  //   AppConstants.printLog('>>>>>>>>>>>>>');
-                  //   AppConstants.printLog(success);
-                  //   if (!success) {
-                  //     AppConstants.showBottomMessage(context, 'Cannot open this file', AppColors.black)
-                  //   }
-                  // });
                   Navigator.push(context, MaterialPageRoute(builder: (_) =>
                       ViewPdf('',_file!.path)
                   ));
