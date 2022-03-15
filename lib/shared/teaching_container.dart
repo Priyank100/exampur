@@ -7,6 +7,7 @@ import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
+import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
@@ -145,9 +146,12 @@ class _TeachingContainerState extends State<TeachingContainer> {
                       Column(
                         children: [
                           InkWell(onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                            widget.courseType==1?  Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 PaidCourseDetails(widget.courseData,widget.courseType)
-                            ));
+                            )): Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                MyCourseTabView(widget.courseData.id.toString())
+                            ))
+                           ;
                           },
                             child: Container(height: 30,width: 120,decoration: BoxDecoration( color: Color(0xFF060929),
                               borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, 'view_details')!,style: TextStyle(color: Colors.white)))),

@@ -18,7 +18,7 @@ class _ChatPageState extends State<ChatPage> {
   String userName = 'Priyank';
   String videoId = '12345';
   String videoTitle = 'qwerty';
-  TextEditingController _controller = TextEditingController();
+  TextEditingController _sendchat = TextEditingController();
   Map<String, dynamic> map = Map();
 
 
@@ -50,7 +50,7 @@ class _ChatPageState extends State<ChatPage> {
             {
               'chat.$userName-$time': text
             }).then((value) {
-          _controller.text = '';
+          _sendchat.text = '';
           setState(() {});
         });
 
@@ -63,7 +63,7 @@ class _ChatPageState extends State<ChatPage> {
                 '$userName-$time': text
               }
             }, SetOptions(merge : false)).then((value) {
-          _controller.text = '';
+          _sendchat.text = '';
           setState(() {});
         });
       }
@@ -122,12 +122,12 @@ class _ChatPageState extends State<ChatPage> {
               children: [
                 Expanded(child: CustomTextField(
                     hintText: "Type your doubt here",
-                    controller: _controller,
+                    controller: _sendchat,
                     value: (value) {}),
                 ),
                 MaterialButton(onPressed: () {
                   FocusScope.of(context).unfocus();
-                  addVideoTitle(_controller.text.toString());
+                  addVideoTitle(_sendchat.text.toString());
                   },
                 child: Text('Send'))
               ],
