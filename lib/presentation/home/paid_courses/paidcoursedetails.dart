@@ -29,8 +29,6 @@ class PaidCourseDetails extends StatefulWidget {
 }
 
 class _PaidCourseDetailsState extends State<PaidCourseDetails> {
-
-
   late YoutubePlayerController _controller;
   late TextEditingController _idController;
   late TextEditingController _seekToController;
@@ -40,6 +38,9 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   bool _muted = false;
   bool _isPlayerReady = false;
+
+  String pdfLink = 'https://www.learningcontainer.com/download/sample-pdf-file-for-testing/?wpdmdl=1566&amp;refresh=621508d3713281645545683';
+  String pdfName = 'my_first_pdf';
 
   @override
   void initState() {
@@ -119,10 +120,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
         appBar:CustomAppBar(),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () async {
-            String pdfLink = 'https://www.learningcontainer.com/download/sample-pdf-file-for-testing/?wpdmdl=1566&amp;refresh=621508d3713281645545683';
-            String pdfName = 'my_first_pdf';
-            // requestDownload(pdfLink, pdfName);
-            checkPermission(pdfLink, pdfName);
+            AppConstants.checkPermission(context, Permission.storage, requestDownload);
           },
           backgroundColor: AppColors.white,
           elevation: 8.0,
@@ -241,38 +239,20 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     )),
                   ),
                 ):SizedBox()
-            // Padding(
-            //   padding: EdgeInsets.all(15),
-            //   child: RichText(
-            //     text: TextSpan(
-            //        // style: CustomTextStyle.headingSemiBold(context),
-            //         text: widget.paidcourseList.title.toString()),
-            //   ),
-            // ),
-            // SizedBox(height: 5),
-            // Padding(
-            //   padding: EdgeInsets.only(bottom: 10, left: 15, right: 15),
-            //   child: RichText(
-            //     text: TextSpan(
-            //         //style: CustomTextStyle.subHeading2(context),
-            //         ),
-            //   ),
-           // ),
           ],
         ),
       ),
     );
   }
 
-  Future<void> requestDownload(String _url, String _name) async {
-    final dir =
-    await getApplicationDocumentsDirectory();
-    var _localPath = dir.path + '/' + _name;
+  Future<void> requestDownload() async {
+    final dir = await getApplicationDocumentsDirectory();
+    var _localPath = dir.path + '/' + pdfName;
     final savedDir = Directory(_localPath);
     await savedDir.create(recursive: true).then((value) async {
       String? _taskid = await FlutterDownloader.enqueue(
-        url: _url,
-        fileName: _name,
+        url: pdfLink,
+        fileName: pdfName,
         savedDir: _localPath,
         showNotification: false,
         openFileFromNotification: false,
@@ -281,38 +261,9 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       AppConstants.printLog(_taskid);
     });
   }
-
-  Future<void> checkPermission(pdfLink, pdfName) async {
-    var status = await Permission.storage.status;
-    if (status.isGranted) {
-      await requestDownload(pdfLink, pdfName);
-    } else {
-      await Permission.storage.request().then((value) async {
-        if(value.isGranted) {
-          await requestDownload(pdfLink, pdfName);
-        } else {
-          AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
-        }
-      });
-    }
-  }
 }
 
-
-
-
-  // @override
-  // void dispose() {
-  //   _controller.dispose();
-  //   SystemChrome.setPreferredOrientations([
-  //     DeviceOrientation.portraitUp,
-  //   ]);
-  //   super.dispose();
-  // }
-
-
-
-class Bottomsheet2 extends StatefulWidget {
+/*class Bottomsheet2 extends StatefulWidget {
   const Bottomsheet2({Key? key}) : super(key: key);
 
   @override
@@ -624,5 +575,5 @@ class _BottomSheeet1State extends State<BottomSheeet1> {
   }
 
 
-}
+}*/
 

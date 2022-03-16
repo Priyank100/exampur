@@ -253,6 +253,21 @@ class AppConstants {
     return encodeCategory;
   }
 
+  static Future<void> checkPermission(BuildContext context, Permission permission, Function callback) async {
+    var status = await permission.status;
+    if (status.isGranted) {
+      callback();
+    } else {
+      await permission.request().then((value) async {
+        if(value.isGranted) {
+          callback();
+        } else {
+          AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
+        }
+      });
+    }
+  }
+
   // static const String COUNTRY_CODE = 'country_code';
   // static const String LANGUAGE_CODE = 'language_code';
 
