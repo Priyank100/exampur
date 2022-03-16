@@ -2,8 +2,10 @@ import 'dart:core';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 
@@ -74,7 +76,8 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
       _map['id'] = _task.taskId;
       _map['filename'] = _task.filename;
       _map['savedDirectory'] = _task.savedDir;
-      downloadsListMaps.add(_map);
+      if(_task.savedDir.contains('.pdf'))
+        downloadsListMaps.add(_map);
     });
     setState(() {});
   }
@@ -97,15 +100,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
             String _savedDirectory = _map['savedDirectory'];
             List<FileSystemEntity> _directories = Directory(_savedDirectory).listSync(followLinks: true);
             File? _file = (_directories.isNotEmpty ? _directories.first : null) as File?;
-            return GestureDetector(
-              onTap: () {
-                if (_status == DownloadTaskStatus.complete) {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                      ViewPdf('',_file!.path)
-                  ));
-                }
-              },
-              child: Card(
+            return  Card(
                 elevation: 10,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
@@ -115,12 +110,36 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
                   children: <Widget>[
                     ListTile(
                       isThreeLine: false,
+                      leading: Image.asset(Images.pdfIcon),
                       title: Text(_filename),
-                      subtitle: downloadStatus(_status),
+                     // subtitle: downloadStatus(_status),
                       trailing: SizedBox(
                         child: buttons(_status, _id, i),
                         width: 60,
                       ),
+                      subtitle: Row(children: [
+                        InkWell(
+                          onTap: (){
+                            if (_status == DownloadTaskStatus.complete) {
+                              Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                  ViewPdf('',_file!.path)
+                              ));
+                            }
+                          },
+                          child: Container(margin: EdgeInsets.only(top: 8), decoration: BoxDecoration(
+                              color:Color(0xFF060929),
+                              borderRadius: BorderRadius.all(Radius.circular(5))),
+                           height: 30,width: 90,child: Center(child: Text(getTranslated(context, StringConstant.viewPdf)!,style: TextStyle(color: AppColors.white,fontSize: 12),)),),
+                        ),
+              // InkWell(
+              //   onTap: (){
+              //     // buttons(_status, _id, i);
+              //     FlutterDownloader.cancel(taskId: _id);
+              //     downloadsListMaps.removeAt(i);
+              //     FlutterDownloader.remove(taskId: _id, shouldDeleteContent: true);
+              //     setState(() {});
+              //   },child: Container( margin:EdgeInsets.only(top: 8,left: 8),color: AppColors.white,height: 30,width: 70,child: Center(child: Text('Remove',style: TextStyle(color: AppColors.red)))))
+                      ],),
                     ),
                     _status == DownloadTaskStatus.complete
                         ? Container()
@@ -138,6 +157,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
                             children: <Widget>[
                               Expanded(
                                 child: LinearProgressIndicator(
+                                  color: Colors.amber,
                                   value: _progress / 100,
                                 ),
                               ),
@@ -149,7 +169,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
                     SizedBox(height: 10)
                   ],
                 ),
-              ),
+
             );
           },
         ),
@@ -183,7 +203,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
 
     return _status == DownloadTaskStatus.canceled
         ? GestureDetector(
-      child: Icon(Icons.cached, size: 20, color: Colors.green),
+      child: Icon(Icons.cached, size: 20, color: AppColors.green),
       onTap: () {
         FlutterDownloader.retry(taskId: taskid).then((newTaskID) {
           changeTaskID(taskid, newTaskID!);
@@ -192,7 +212,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
     )
         : _status == DownloadTaskStatus.failed
         ? GestureDetector(
-      child: Icon(Icons.cached, size: 20, color: Colors.green),
+      child: Icon(Icons.cached, size: 20, color: AppColors.green),
       onTap: () {
         FlutterDownloader.retry(taskId: taskid).then((newTaskID) {
           changeTaskID(taskid, newTaskID!);
@@ -206,7 +226,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
       children: <Widget>[
         GestureDetector(
           child: Icon(Icons.play_arrow,
-              size: 20, color: Colors.blue),
+              size: 20, color: AppColors.blue),
           onTap: () {
             FlutterDownloader.resume(taskId: taskid).then(
                   (newTaskID) => changeTaskID(taskid, newTaskID!),
@@ -214,7 +234,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
           },
         ),
         GestureDetector(
-          child: Icon(Icons.close, size: 20, color: Colors.red),
+          child: Icon(Icons.close, size: 20, color: AppColors.red),
           onTap: () {
             FlutterDownloader.cancel(taskId: taskid);
           },
@@ -228,14 +248,14 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
       children: <Widget>[
         GestureDetector(
           child: Icon(Icons.pause,
-              size: 20, color: Colors.green),
+              size: 20, color: AppColors.green),
           onTap: () {
             FlutterDownloader.pause(taskId: taskid);
           },
         ),
         GestureDetector(
           child:
-          Icon(Icons.close, size: 20, color: Colors.red),
+          Icon(Icons.close, size: 20, color: AppColors.red),
           onTap: () {
             FlutterDownloader.cancel(taskId: taskid);
             downloadsListMaps.removeAt(index);
@@ -248,7 +268,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
         : _status == DownloadTaskStatus.complete
         ? GestureDetector(
       child:
-      Icon(Icons.delete, size: 20, color: Colors.red),
+      Icon(Icons.close, size: 20, color:AppColors.red),
       onTap: () {
         downloadsListMaps.removeAt(index);
         FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: true);

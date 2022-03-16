@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
+import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/downloads/pdf_downloads.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -247,7 +248,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   Future<void> requestDownload() async {
     final dir = await getApplicationDocumentsDirectory();
-    var _localPath = dir.path + '/' + pdfName;
+    var _localPath = dir.path + '/' + pdfName + '.pdf';
     final savedDir = Directory(_localPath);
     await savedDir.create(recursive: true).then((value) async {
       String? _taskid = await FlutterDownloader.enqueue(
@@ -259,6 +260,9 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
         saveInPublicStorage: false,
       );
       AppConstants.printLog(_taskid);
+      Navigator.push(context, MaterialPageRoute(builder: (_) =>
+          Downloads()
+      ));
     });
   }
 }
