@@ -74,7 +74,8 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
       _map['id'] = _task.taskId;
       _map['filename'] = _task.filename;
       _map['savedDirectory'] = _task.savedDir;
-      downloadsListMaps.add(_map);
+      if(_task.savedDir.contains('.pdf'))
+        downloadsListMaps.add(_map);
     });
     setState(() {});
   }
