@@ -55,7 +55,7 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
                           onTap: (){
 
                             Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                ViewPdf(AppConstants.BANNER_BASE + jobAlertsData!.pdfPath.toString())
+                                ViewPdf(AppConstants.BANNER_BASE + jobAlertsData!.pdfPath.toString(),'')
                             ));
                           },
                           child: Text(getTranslated(context, StringConstant.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
