@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/downloads/pdf_downloads.dart';
 import 'package:exampur_mobile/presentation/downloads/video_downloads.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
@@ -51,7 +52,7 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
               DownloadedVideo(),
               DownloadedPdf()
             ],
-            title: "Downloads"),
+            title: getTranslated(context, StringConstant.downloads)!),
       );
     });
   }

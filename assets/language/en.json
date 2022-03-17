@@ -129,6 +129,8 @@
   "transaction_receipt": "Transaction Receipt ",
   "thank_you": "Thank You ",
   "transcation_id": "Transcation Id ",
+  "type_your_doubt_here":"Type your doubt here",
+  "live_chat": "Live Chat",
 
 
   "offline_batches": "Offline Batches",
@@ -163,6 +165,7 @@
   "student_name": "Student Name",
   "select_subject": "Select Subject",
   "select_chapter": "Select Chapter",
+  "send": "Send",
 
 
   "watch_app_tutorial": "Watch App Tutorials",

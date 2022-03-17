@@ -19,6 +19,7 @@
   "transaction_receipt": "लेनदेन रसीद",
   "thank_you": "धन्यवाद",
   "transcation_id": "लेन-देन आईडी",
+  "type_your_doubt_here": "अपना संदेह यहां टाइप करें",
 
   "offline_batches": "ऑफ़लाइन बैच",
   "order_date": "आर्डर की तारीख",
@@ -84,6 +85,7 @@
   "landmark_tehsil": "लैंडमार्क / तहसील",
   "language_preferences": "भाषा वरीयताएँ",
   "loading...": "लोड हो रहा है...",
+  "live_chat": "सीधी बातचीत",
 
 
 
@@ -108,6 +110,7 @@
 
 
   "use_coupon":"कूपन का उपयोग करेंं",
+
   "provide_further_details_for_delivery_of_books": "पुस्तकों के वितरण के लिए और विवरण प्रदान करें",
   "please_choose_the_category": "कृपया श्रेणी चुनें",
   "preference": "पसंद",
@@ -129,7 +132,7 @@
   "price_breakdown": "मूल्य विभाजन",
   "price": "कीमत",
   "place_order": "एक आदेश दें",
-   "price": "कीमत",
+
 
 
   "general": "सामान्य",
@@ -198,6 +201,7 @@
   "student_name": "छात्र का नाम",
   "select_subject": "विषय चुनें",
   "select_chapter": "अध्याय चुनें",
+  "send": "भेजना",
 
   "job_alerts": "नौकरी अलर्ट",
 
@@ -205,7 +209,7 @@
   "view_details": "विवरण देखें",
   "view_all": "सभी को देखें",
   "view": "दृश्य",
-  "view_pdf": "पीडीएफदेखें",
+  "view_pdf": "पीडीएफ देखें",
   "view_invoice": "चालान देखें",
 
 

@@ -402,6 +402,7 @@ class StringConstant {
   static String landmarkTehsil= 'landmark_tehsil';
   static String languagePreferences= 'language_preferences';
   static String LearningClosetPvt= 'Learning Closet Pvt. Ltd. (Exampur)';
+  static String LiveChat= 'live_chat';
 
   static String paidCourse= 'paid_course';
   static String pleaseChooseTheCategory= 'please_choose_the_category';
@@ -442,6 +443,7 @@ class StringConstant {
   static String TranscationId= 'transcation_id';
   static String TermsandConditions= 'Terms and Conditions.';
   static String ThisitemnonRefundable= 'This item is non-refundable.';
+  static String TypeYourDoubtHere= 'type_your_doubt_here';
 
   static String offlineBatches= 'offline_batches';
   static String OrderDate= 'order_date';
@@ -470,6 +472,7 @@ class StringConstant {
   static String StudentName= 'student_name';
   static String selectSubject= 'select_subject';
   static String selectChapter= 'select_chapter';
+  static String Send= 'send';
 
   static String viewPdf= 'view_pdf';
 

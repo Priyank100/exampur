@@ -193,9 +193,8 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
 
   Widget buttons(DownloadTaskStatus _status, String taskid, int index) {
     void changeTaskID(String taskid, String newTaskID) {
-      Map? task = downloadsListMaps.firstWhere(
-            (element) => element['taskId'] == taskid,
-        orElse: () => ,
+      Map? task = downloadsListMaps.firstWhere((element) => element['taskId'] == taskid
+       orElse: () => {},
       );
       task['taskId'] = newTaskID;
       setState(() {});
