@@ -56,7 +56,7 @@ class AuthProvider extends ChangeNotifier {
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
         await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
-        // await SharedPref.saveSharedPref(SharedPrefConstants.PHONE_VERIFY, 'Yes');
+        await SharedPref.saveSharedPref(SharedPrefConstants.PHONE_VERIFY, 'Yes');
 
         callback(true, '');
       } else {
