@@ -42,7 +42,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   String pdfLink = 'https://www.learningcontainer.com/download/sample-pdf-file-for-testing/?wpdmdl=1566&amp;refresh=621508d3713281645545683';
   String pdfName = 'my_first_pdf';
-  // String videoLink = 'https://rr4---sn-qxoedn7z.googlevideo.com/videoplayback?expire=1647436896&ei=AJAxYrSSJ6aKir4PjfKAuAU&ip=64.145.93.28&id=o-AIOf30mWS6a-aMMzDS3DYYsKUzHaUamWNTBiW7d6A9ku&itag=22&source=youtube&requiressl=yes&mh=cE&mm=31%2C26&mn=sn-qxoedn7z%2Csn-tt1eln7s&ms=au%2Conr&mv=m&mvi=4&pl=26&initcwndbps=278750&vprv=1&mime=video%2Fmp4&ns=13YXWEXCOaflbwrdoTPbnwUG&cnr=14&ratebypass=yes&dur=2980.048&lmt=1647239317883159&mt=1647414780&fvip=4&fexp=24001373%2C24007246&c=WEB&txp=7310224&n=QLo28DGh9I8YYQ&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIhAI8NLjLspAoCqJPFOZUb62cATkyybPURKa541cWpebAHAiBkZmqXWEr0Alara090urQ0rHdd3ATEnUFF-exJvcIjrA%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAI_O0HKwtvgMm6344rH3ROA9I3NiitHN8sZXJ4luSlj8AiEAkIcbJYqjOz_6bPqdCF1hULbegUt0zQGHSQPRRcwzuxk%3D&title=UP%20Lekhpal%20Hindi%20%7C%20UP%20Constable%20Hindi%20%7C%20UPP%20Hindi%20Practice%20Set%20%7C%20Hindi%20Grammar%20%7C%20Hindi%20by%20Mohit%20Sir';
+  // String videoLink = 'https://rr1---sn-4g5edndl.googlevideo.com/videoplayback?expire=1647515102&ei=fsEyYpX6NMmB8gPU6aEg&ip=86.106.74.120&id=o-AG1qzOZA9l1G3gLwwm83IuyH071vIV3eVR-UoTnCOXvp&itag=22&source=youtube&requiressl=yes&mh=J8&mm=31%2C26&mn=sn-4g5edndl%2Csn-5hne6nzd&ms=au%2Conr&mv=m&mvi=1&pl=24&initcwndbps=915000&vprv=1&mime=video%2Fmp4&ns=gdF-WaWoLlpYelRv1QmlkewG&ratebypass=yes&dur=30.325&lmt=1639459638914296&mt=1647493257&fvip=5&fexp=24001373%2C24007246&c=WEB&txp=5311224&n=N24rJPD-XPN2aQ&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIhAIxc5VLozFot-AOWlgCkiOKZcJojkd-zF5M5pO6ksTEDAiAW9H-A2F7amaJsjIuGlZyoIqkgqLEW0fUG1ekZkahsLw%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIgVQIpsbNsF14nsSbOh4XeqbhtvmZAFYo9OIcFXtP7l2oCIQDDh3c6SRpmNwCaqWI89DkMIIiJxyJyTjnvLn2YIJcILw%3D%3D&title=30%20seconds%20whatsapp%20status%20nature%20videos';
   // String videoName = 'my_first_video';
 
   @override
@@ -59,7 +59,6 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
         disableDragSeek: false,
         loop: false,
         isLive: false,
-        //forceHD: widget.fullHD ??= false,
         enableCaption: true,
         hideThumbnail: true,
       ),
