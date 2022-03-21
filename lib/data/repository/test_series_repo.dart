@@ -12,11 +12,35 @@ class TestSeriesRepo {
 
   Future<ApiResponse> liveTestSeriesData() async {
     try {
-      Map<String, dynamic> header = {
-        "Authorization": AppConstants.testSeriesToken,
-      };
+      // Map<String, dynamic> header = {
+      //   "Authorization": AppConstants.testSeriesToken,
+      // };
       String url = API.liveTestSeries_URL;
-      final response = await dioClient.get(url, options: Options(headers: header));
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  Future<ApiResponse> myTestSeriesData() async {
+    try {
+      // Map<String, dynamic> header = {
+      //   "Authorization": AppConstants.testSeriesToken,
+      // };
+      String url = API.myTestSeries_URL;
+      // final response = await dioClient.get(url, options: Options(headers: header));
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  Future<ApiResponse> allTestSeriesData() async {
+    try {
+      String url = API.allTestSeries_URL;
+      final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

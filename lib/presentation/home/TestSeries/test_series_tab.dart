@@ -19,27 +19,29 @@ class TestSeriesTabState extends State<TestSeriesTab> with TickerProviderStateMi
     "My Test Series",
     "All Test Series"
   ];
+  // String testSeriesType = '';
 
   @override
   void initState() {
     super.initState();
     _controller = TabController(length: tabNames.length, vsync: this);
 
-    _controller.addListener(() {
-      setState(() {
-        _selectedIndex = _controller.index;
-      });
-      AppConstants.printLog("Selected Index: " + _controller.index.toString());
-      switch( _controller.index) {
-        case 0:
-          break;
-        case 1:
-          break;
-        case 2:
-          break;
-        case 3:
-          break;
-  }  });
+  //   _controller.addListener(() {
+  //     setState(() {
+  //       _selectedIndex = _controller.index;
+  //     });
+  //     AppConstants.printLog("Selected Index: " + _controller.index.toString());
+  //     switch( _controller.index) {
+  //       case 0:
+  //         testSeriesType = 'LIVE';
+  //         break;
+  //       case 1:
+  //         testSeriesType = 'MY';
+  //         break;
+  //       case 2:
+  //         testSeriesType = 'ALL';
+  //         break;
+  // }  });
   }
 
   @override
@@ -51,9 +53,9 @@ class TestSeriesTabState extends State<TestSeriesTab> with TickerProviderStateMi
             names: tabNames,
             title: '',
             routes: [
-              TestSeriesListing(),
-              TestSeriesListing(),
-              TestSeriesListing()
+              TestSeriesListing('LIVE'),
+              TestSeriesListing('MY'),
+              TestSeriesListing('ALL')
             ]
         )
     );

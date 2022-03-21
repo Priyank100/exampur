@@ -105,8 +105,10 @@ class API {
   static const String myCourse_notification_URL = BASE_URL3 + 'course_notification';
 
   //testSeries
-  static const String liveTestSeries_URL  = BASE_URL4 + 'live_testseries';
-  static const String myTestSeries_URL    = BASE_URL4 + 'test_series/621e0782b46ad30fca32614d';
+  static const String allTestSeries_URL   = BASE_URL3 + 'test_series';
+  static const String liveTestSeries_URL  = BASE_URL3 + 'live_testseries';
+  static const String myTestSeries_URL    = BASE_URL2 + 'testseries/enrolled/get_my_testseries';
+  static const String testSeriesWeb_URL  = 'https://exampurtest.vercel.app/testseries/list/' + 'TEST_SERIES_ID' + '?auth_token=' + 'AUTH_TOKEN';
 
 }
 
@@ -268,6 +270,24 @@ class AppConstants {
         }
       });
     }
+  }
+
+  static Future<void> goTo(BuildContext context, Widget route) async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => route
+        )
+    );
+  }
+
+  static Future<void> goAndReplace(BuildContext context, Widget route) async {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => route
+        )
+    );
   }
 
   // static const String COUNTRY_CODE = 'country_code';

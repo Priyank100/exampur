@@ -1,20 +1,25 @@
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/test_series_model.dart';
 import 'package:exampur_mobile/provider/TestSeriesProvider.dart';
+import 'package:exampur_mobile/shared/custom_web_view.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'aatempttestseries.dart';
 
 class TestSeriesListing extends StatefulWidget {
+  final String testSeriesType;
+  const TestSeriesListing(this.testSeriesType) : super();
 
   @override
   TestSeriesListingState createState() => TestSeriesListingState();
 }
 
 class TestSeriesListingState extends State<TestSeriesListing> {
-  List<Testsery> liveTestSeriesList = [];
+  List<Data> testSeriesList = [];
   var scrollController = ScrollController();
   bool isLoading = false;
 
@@ -26,7 +31,18 @@ class TestSeriesListingState extends State<TestSeriesListing> {
 
   Future<void> getLists() async {
     isLoading = true;
-    liveTestSeriesList = (await Provider.of<TestSeriesProvider>(context, listen: false).getLiveTestSeriesList(context))!;
+
+    switch(widget.testSeriesType) {
+      case 'LIVE':
+        testSeriesList = (await Provider.of<TestSeriesProvider>(context, listen: false).getLiveTestSeriesList(context))!;
+        break;
+      case 'MY':
+        testSeriesList = (await Provider.of<TestSeriesProvider>(context, listen: false).getMyTestSeriesList(context))!;
+        break;
+      case 'ALL':
+        testSeriesList = (await Provider.of<TestSeriesProvider>(context, listen: false).getAllTestSeriesList(context))!;
+        break;
+    }
     isLoading = false;
     setState(() {});
   }
@@ -35,12 +51,12 @@ class TestSeriesListingState extends State<TestSeriesListing> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-        liveTestSeriesList.length==0 ? AppConstants.noDataFound() :
+        testSeriesList.length==0 ? AppConstants.noDataFound() :
         SingleChildScrollView(
           child: Column(
             children: [
               ListView.builder(
-                  itemCount: liveTestSeriesList.length,
+                  itemCount: testSeriesList.length,
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
@@ -51,36 +67,32 @@ class TestSeriesListingState extends State<TestSeriesListing> {
                         child: Material(
                           color: AppColors.transparent,
                           child: InkWell(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AttemptSeries()));
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            onTap: () async {
+                              if(widget.testSeriesType == 'ALL') {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AttemptSeries()));
+
+                              } else {
+                                await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {
+                                  String url = API.testSeriesWeb_URL
+                                      .replaceAll('TEST_SERIES_ID', testSeriesList[index].id.toString())
+                                      .replaceAll('AUTH_TOKEN', value);
+                                  AppConstants.printLog('url>> $url');
+                                  AppConstants.goTo(context, CustomWebView(url));
+                                });
+                              }
                             },
                             child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
                               child: Row(
                                 children: [
                                   Container(
                                       padding: EdgeInsets.only(left: 10),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      //flex: 1,
-                                      // child: FadeInImage(
-                                      //   image: NetworkImage(a[index].image),
-                                      //   placeholder: AssetImage(
-                                      //       Images.noimage),
-                                      //   imageErrorBuilder:
-                                      //       (context, error, stackTrace) {
-                                      //     return Image.asset(
-                                      //       a[index].image,
-                                      //       height: 40,
-                                      //       width: 60,
-                                      //     );
-                                      //   },
-                                      // )
-                                    child:Image.asset(Images.exampur_logo, height: 40, width: 60),
+                                      width: MediaQuery.of(context).size.width * 0.25,
+                                    child: AppConstants.image(AppConstants.BANNER_BASE + testSeriesList[index].image.toString(), width: 40.0, height: 60.0),
                                   ),
                                   const SizedBox(
                                     width: 15,
@@ -95,7 +107,7 @@ class TestSeriesListingState extends State<TestSeriesListing> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            liveTestSeriesList[index].title.toString(),
+                                            testSeriesList[index].title.toString(),
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(

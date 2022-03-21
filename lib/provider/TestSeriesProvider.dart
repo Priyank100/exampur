@@ -23,14 +23,18 @@ class TestSeriesProvider extends ChangeNotifier {
 
 
 
-  Future<List<Testsery>?> getLiveTestSeriesList(BuildContext context,) async {
+  Future<List<Data>?> getLiveTestSeriesList(BuildContext context) async {
     ApiResponse apiResponse = await testseriesRepo.liveTestSeriesData();
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if (statusCode == '200') {
-        _testSeiesListModel = TestSeriesModel.fromJson(json.decode(apiResponse.response.toString()));
-        return _testSeiesListModel.testseries??[];
+        try {
+          _testSeiesListModel = TestSeriesModel.fromJson(json.decode(apiResponse.response.toString()));
+          return _testSeiesListModel.data??[];
+        } catch(e) {
+          return [];
+        }
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);
@@ -38,34 +42,58 @@ class TestSeriesProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ErrorScreen()
-          )
-      );
+      AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }
   }
 
-  /*Future<List<Testsery>?> getTestSeriesList(BuildContext context,) async {
-    ApiResponse apiResponse = await testseriesRepo.testSeriesDetailList();
+  Future<List<Data>?> getMyTestSeriesList(BuildContext context) async {
+    ApiResponse apiResponse = await testseriesRepo.myTestSeriesData();
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if (statusCode == '200') {
-        _myLiveTestSeiesListModel = LiveTestSeriesModel.fromJson(json.decode(apiResponse.response.toString()));
-        return _myLiveTestSeiesListModel.testseries??[];
+        try {
+          _testSeiesListModel = TestSeriesModel.fromJson(
+              json.decode(apiResponse.response.toString()));
+          return _testSeiesListModel.data ?? [];
+        } catch(e) {
+          return [];
+        }
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);
       }
       notifyListeners();
     } else {
-      AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
-          AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }
-  }*/
+  }
+
+  Future<List<Data>?> getAllTestSeriesList(BuildContext context) async {
+    ApiResponse apiResponse = await testseriesRepo.allTestSeriesData();
+
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        try {
+          _testSeiesListModel = TestSeriesModel.fromJson(
+              json.decode(apiResponse.response.toString()));
+          return _testSeiesListModel.data ?? [];
+        } catch(e) {
+          return [];
+        }
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.goAndReplace(context, ErrorScreen());
+      notifyListeners();
+    }
+  }
 }

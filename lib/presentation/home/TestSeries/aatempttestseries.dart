@@ -17,7 +17,7 @@ class _AttemptSeriesState extends State<AttemptSeries> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-appBar: CustomAppBar(),
+        appBar: CustomAppBar(),
         body: Padding(
             padding: EdgeInsets.all(10),
             child: Column(
