@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'images.dart';
 
 class API {
