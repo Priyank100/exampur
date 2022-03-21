@@ -13,9 +13,13 @@ import 'images.dart';
 class API {
 
   static const String BASE_URL  = 'https://6b07f566-12f7-4b32-8f2f-8b6046fa0957.mock.pstmn.io/';
-  static const String BASE_URL2 = 'https://auth.exampur.work/';
-  static const String BASE_URL3 = 'https://static.exampur.work/';
+  // static const String BASE_URL2 = 'https://auth.exampur.work/';
+  // static const String BASE_URL3 = 'https://static.exampur.work/';
   static const String BASE_URL4 = 'http://3.1.205.105:3001/';
+
+  static const String BASE_URL2 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com';
+  static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com';
+
 
   //BannerBase
   static const String BANNER_BASE_URL = BASE_URL3 + 'get_cdn';
