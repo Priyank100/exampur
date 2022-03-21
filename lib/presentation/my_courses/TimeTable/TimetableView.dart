@@ -1,17 +1,15 @@
-
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import 'TimeTableVideo.dart';
+
 class TimeTableView extends StatefulWidget {
   final String courseId;
 TimeTableView(this.courseId) ;
@@ -56,11 +54,6 @@ class _TimeTableViewState extends State<TimeTableView> {
         return InkWell(
           onTap: (){
             myCourseTimeLineList[index].type.toString()=='Livesteam'?
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => MyTimeTableViedo(
-            //             myCourseTimeLineList[index]))):
             MaterialPageRoute(
                 builder: (context) => YoutubeVideo(myCourseTimeLineList[index].targetLink.toString(),
                     myCourseTimeLineList[index].title.toString())

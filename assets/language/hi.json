@@ -45,6 +45,7 @@
   "age": "आयु",
   "attempt_history": "प्रयास इतिहास",
   "audio_only": "सिर्फ़ ध्वनि",
+  "attempt_quiz": "प्रश्नोत्तरी का प्रयास करें",
 
 
 
@@ -211,6 +212,7 @@
   "view": "दृश्य",
   "view_pdf": "पीडीएफ देखें",
   "view_invoice": "चालान देखें",
+  "validity": "वैधता",
 
 
 "qualification": "योग्यता"

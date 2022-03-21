@@ -6,7 +6,9 @@ import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/Books_EBooks_repo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class BooksEBooksProvider extends ChangeNotifier {
   final BooksEBooksRepo  booksEbooksRepo;
@@ -38,6 +40,12 @@ class BooksEBooksProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ErrorScreen()
+          )
+      );
       notifyListeners();
     }
   }
@@ -61,6 +69,12 @@ class BooksEBooksProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ErrorScreen()
+          )
+      );
       notifyListeners();
     }
   }

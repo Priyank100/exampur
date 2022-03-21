@@ -1,5 +1,4 @@
 import 'package:exampur_mobile/data/model/paid_course_tab.dart';
-
 import 'package:exampur_mobile/presentation/home/paid_courses/teaching_list.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';

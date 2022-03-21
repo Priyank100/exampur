@@ -1,5 +1,4 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/app_tutorial_model.dart';
 import 'package:exampur_mobile/data/model/appp_toutorial.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';

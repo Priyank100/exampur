@@ -15,8 +15,8 @@ class API {
   // static const String BASE_URL3 = 'https://static.exampur.work/';
   static const String BASE_URL4 = 'http://3.1.205.105:3001/';
 
-  static const String BASE_URL2 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com';
-  static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com';
+  static const String BASE_URL2 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
+  static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
 
   //BannerBase
@@ -104,9 +104,14 @@ class API {
   static const String myCourse_timeline_URL     = BASE_URL3 + 'course_timeline';
   static const String myCourse_notification_URL = BASE_URL3 + 'course_notification';
 
+
   //testSeries
-  static const String liveTestSeries_URL  = BASE_URL4 + 'live_testseries';
+  static const String liveTestSeries_URL  = BASE_URL3 + 'live_testseries';
   static const String myTestSeries_URL    = BASE_URL4 + 'test_series/621e0782b46ad30fca32614d';
+
+  //dailyQuiz
+  static const String dailyQuiz_URL  = BASE_URL3 + 'quiz/find_all_quiz?page_id=';
+  static const String dailuQuiz_web_URL  = 'https://exampurtest.vercel.app/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
 
 }
 
@@ -327,6 +332,7 @@ class StringConstant {
   static String Age= 'age';
   static String attempthistory= 'attempt_history';
   static String audioOnly= 'audio_only';
+  static String attemptQuiz= 'attempt_quiz';
 
   static String books= 'books';
   static String buy= 'buy';
@@ -499,6 +505,7 @@ class StringConstant {
   static String viewAll= 'view_all';
   static String view= 'view';
   static String viewInvoice= 'view_invoice';
+  static String Validity= 'validity';
 
   static String qualification= 'qualification';
 

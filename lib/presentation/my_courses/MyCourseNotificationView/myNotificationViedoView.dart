@@ -1,9 +1,6 @@
-import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/my_course_notification_model.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
-import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MyNotificationViedo extends StatefulWidget {

@@ -3,14 +3,10 @@ import 'package:exampur_mobile/data/model/BookBannerDetail.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
-import 'package:exampur_mobile/shared/view_pdf.dart';
-import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:exampur_mobile/data/model/banner_detail_model.dart';
 import 'package:provider/provider.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class BannerLinkBookDetailPage extends StatefulWidget {
   String type;

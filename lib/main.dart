@@ -12,6 +12,7 @@ import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/provider/CABytesProvider.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
+import 'package:exampur_mobile/provider/DailyQuizProvider.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/provider/Helpandfeedback.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
@@ -68,6 +69,7 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl<MyPurchaseProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<MyCourseProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<TestSeriesProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<DailyQuizProvider>()),
   ], child: MyApp()));
 }
 

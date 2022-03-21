@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/mypurchase_innvoice.dart';
@@ -7,7 +6,6 @@ import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:exampur_mobile/data/model/my_purchase_model.dart';
 import 'package:provider/provider.dart';
 class InvoiceDetailPage extends StatefulWidget {
   String mypurchaseIDData;

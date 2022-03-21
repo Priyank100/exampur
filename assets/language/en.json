@@ -9,6 +9,7 @@
   "age": "Age",
   "attempt_history": "Attempt History",
   "audio_only": "Audio Only",
+  "attempt_quiz": "Attempt Quiz",
 
   "books": "Books",
   "buy": "Buy",
@@ -197,6 +198,7 @@
   "view": "View",
   "view_pdf": "View PDF",
   "view_invoice": "View Invoice",
+  "validity": "Validity",
 
   "qualification": "Qualification"
 

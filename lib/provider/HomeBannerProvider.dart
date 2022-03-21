@@ -11,8 +11,10 @@ import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
 import 'package:exampur_mobile/data/repository/Authrepo.dart';
 import 'package:exampur_mobile/data/repository/HomeBanner_repo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/error_screen.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class HomeBannerProvider extends ChangeNotifier {
   final HomeBannerRepo homeBannerRepo;
@@ -74,6 +76,12 @@ class HomeBannerProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => ErrorScreen()
+      //     )
+      // );
       notifyListeners();
     }
   }
@@ -97,6 +105,12 @@ class HomeBannerProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => ErrorScreen()
+      //     )
+      // );
       notifyListeners();
     }
   }

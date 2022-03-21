@@ -1,12 +1,8 @@
-import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/booktitle.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/subjectView.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
-import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'LiveClass.dart';
 import 'MyCourseNotificationView/myCourseNotification.dart';
 import 'TimeTable/TimetableView.dart';
 
@@ -51,10 +47,10 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
                   length: tabList.length,
                   names: tabList.map((item) => item.name.toString()).toList(),
                   routes: tabList.length == 0 ? [] : [
-                    LiveClass(),
+                    TimeTableView(widget.courseId),
                     SubjectView(widget.courseId),
                     MyCourseNotifications(widget.courseId),
-                    TimeTableView(widget.courseId),
+
                   ],
                   title: '')
           );

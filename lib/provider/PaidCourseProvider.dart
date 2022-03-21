@@ -6,7 +6,9 @@ import 'package:exampur_mobile/data/model/paid_course_tab.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/paid_course_repo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class PaidCoursesProvider extends ChangeNotifier {
   final PaidCoursesRepo paidcoursesRepo;
@@ -38,6 +40,12 @@ class PaidCoursesProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ErrorScreen()
+          )
+      );
       notifyListeners();
     }
   }
@@ -60,6 +68,12 @@ class PaidCoursesProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ErrorScreen()
+          )
+      );
       notifyListeners();
     }
   }
@@ -83,6 +97,12 @@ class PaidCoursesProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ErrorScreen()
+          )
+      );
       notifyListeners();
     }
   }
@@ -105,6 +125,12 @@ class PaidCoursesProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ErrorScreen()
+          )
+      );
       notifyListeners();
     }}
 }

@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/c_a_bytes_model.dart';
 import 'package:exampur_mobile/provider/CABytesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';

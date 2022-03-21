@@ -1,12 +1,8 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/response/languagemodel.dart';
-import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
-import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
-import 'package:exampur_mobile/presentation/widgets/dropdown_selector.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../main.dart';
 
 class PreferencesSettings extends StatefulWidget {

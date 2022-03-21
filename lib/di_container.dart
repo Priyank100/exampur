@@ -7,6 +7,7 @@ import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/provider/CABytesProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
+import 'package:exampur_mobile/provider/DailyQuizProvider.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/provider/Helpandfeedback.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
@@ -27,6 +28,7 @@ import 'data/repository/Authrepo.dart';
 import 'data/repository/Books_EBooks_repo.dart';
 import 'data/repository/CA_Bytes.dart';
 import 'data/repository/ChooseCategory_repo.dart';
+import 'data/repository/DailyQuiz_repo.dart';
 import 'data/repository/Demorepo.dart';
 import 'data/repository/HelpandFeedback.dart';
 import 'data/repository/HomeBanner_repo.dart';
@@ -63,6 +65,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => MyPurchaseRepo(dioClient: sl()));
   sl.registerLazySingleton(() => MyCourseRepo(dioClient: sl()));
   sl.registerLazySingleton(() => TestSeriesRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => DailyQuizRepo(dioClient: sl()));
 
 
   // Provider
@@ -82,6 +85,7 @@ Future<void> init() async {
   sl.registerFactory(() =>  MyPurchaseProvider(myPurchaseRepo: sl()));
   sl.registerFactory(() =>  MyCourseProvider(myCourseRepo: sl()));
   sl.registerFactory(() =>  TestSeriesProvider(testseriesRepo: sl()));
+  sl.registerFactory(() =>  DailyQuizProvider(dailyQuizRepo: sl()));
 
   //External
   final sharedPreferences = await SharedPreferences.getInstance();
