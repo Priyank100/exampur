@@ -36,5 +36,6 @@ class Images {
   static const String coming_soon = 'assets/images/comingsoon.jpg';
   static const String error = 'assets/images/error.png';
   static const String download_pdf = 'assets/images/download_pdf.png';
+  static const String download_video = 'assets/images/download_video.jpg';
 
 }

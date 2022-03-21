@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -208,7 +209,9 @@ class _ChatPageState extends State<ChatPage> {
         appBar:CustomAppBar()
         ,
         body:  SingleChildScrollView(
-         physics:ClampingScrollPhysics(parent: NeverScrollableScrollPhysics()),
+          controller:  _scrollController,
+          physics: ScrollPhysics(),
+        // physics:ClampingScrollPhysics(parent: NeverScrollableScrollPhysics()),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -221,18 +224,20 @@ class _ChatPageState extends State<ChatPage> {
                 Divider(thickness: 1,),
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
-                  child: Text(' Live Chat',style: TextStyle(fontSize: 18)),
+                  child: Text(getTranslated(context, StringConstant.LiveChat)!,style: TextStyle(fontSize: 18)),
                 ),
                 Divider(thickness: 1,),
                 Container(
+                  margin: EdgeInsets.all(5),
                   height: MediaQuery.of(context).size.width,
                   child:
                   ListView.builder(
                     itemCount: map.length,
                     //scrollDirection: Axis.vertical,
-                    physics: BouncingScrollPhysics(),
+                   //physics: BouncingScrollPhysics(),
+
                     shrinkWrap: true,
-                    controller:  _scrollController,
+
                     itemBuilder: (BuildContext context, int index) {
                       String key = map.keys.elementAt(index);
 
@@ -286,7 +291,7 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Expanded(child: CustomTextField(
 
-              hintText: "Type your doubt here",
+              hintText: getTranslated(context, StringConstant.TypeYourDoubtHere)!,
               controller: _sendchat,
               value: (value) {}),
           ),
@@ -304,7 +309,7 @@ class _ChatPageState extends State<ChatPage> {
               width: 90,
               decoration: BoxDecoration(color: AppColors.amber,borderRadius:  BorderRadius.all(const Radius.circular(8)),),
 
-                child: Center(child: Text('Send',style: TextStyle(color: AppColors.white),))
+                child: Center(child: Text(getTranslated(context, StringConstant.Send)!,style: TextStyle(color: AppColors.white),))
             ),
           )
 
