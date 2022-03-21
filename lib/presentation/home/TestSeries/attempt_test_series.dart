@@ -6,14 +6,14 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
-class AttemptSeries extends StatefulWidget {
-  const AttemptSeries({Key? key}) : super(key: key);
+class AttemptTestSeries extends StatefulWidget {
+  const AttemptTestSeries({Key? key}) : super(key: key);
 
   @override
-  _AttemptSeriesState createState() => _AttemptSeriesState();
+  _AttemptTestSeriesState createState() => _AttemptTestSeriesState();
 }
 
-class _AttemptSeriesState extends State<AttemptSeries> {
+class _AttemptTestSeriesState extends State<AttemptTestSeries> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

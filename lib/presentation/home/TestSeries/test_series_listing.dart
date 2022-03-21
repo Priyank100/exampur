@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'aatempttestseries.dart';
+import 'attempt_test_series.dart';
 
 class TestSeriesListing extends StatefulWidget {
   final String testSeriesType;
@@ -73,7 +73,7 @@ class TestSeriesListingState extends State<TestSeriesListing> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => AttemptSeries()));
+                                        builder: (context) => AttemptTestSeries()));
 
                               } else {
                                 await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {
