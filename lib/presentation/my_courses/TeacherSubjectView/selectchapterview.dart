@@ -45,50 +45,42 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                       SizedBox(height: 25,),
                       Row(
                         children: [
-                          Container(
-                            width: Dimensions.AppTutorialImageHeight,
-                            height: 25,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:AppColors.dark),
-                            child: widget.data.videoLink == null || widget.data.videoLink.toString().isEmpty ?
-                            SizedBox() :
-                            MaterialButton(
-                              child: Row(
-                                children: [
-                                  Icon(Icons.play_arrow, color: AppColors.white,size: 10,),
-                                  Text(getTranslated(context, StringConstant.watch)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white))
-                                ],
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => YoutubeVideo(widget.data.videoLink.toString(),
-                                            widget.data.title.toString())
-                                    )
-                                );
-                              },
+                          widget.data.videoLink == null || widget.data.videoLink.toString().isEmpty ?SizedBox():    InkWell(
+                            onTap: (){
+                              Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => YoutubeVideo(widget.data.videoLink.toString(),
+                                                    widget.data.title.toString())
+                                            )
+                                        );
+                            },
+                            child: Container(
+                              width: Dimensions.AppTutorialImageHeight,
+                                height: 25,
+                                decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:AppColors.dark),
+                             child:   Center(child: Text(getTranslated(context, StringConstant.watch)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white)))
                             ),
                           ),
                           SizedBox(width: 5),
-                          Container(
-                            height: 25,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:Color(0xFF1c1d3b)),
-                            child: widget.data.pdfPath == null || widget.data.pdfPath.toString().isEmpty ?
-                            SizedBox() :
-                            MaterialButton(
-                              child:
-                              Text(getTranslated(context, StringConstant.viewPdf)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white)),
+              widget.data.pdfPath == null || widget.data.pdfPath.toString().isEmpty ?  SizedBox() :   InkWell(
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ViewPdf(AppConstants.BANNER_BASE + widget.data.pdfPath.toString(),'')
+                      )
+                  );
+                },
+                child: Container(
+                              height: 25,
+                  width: Dimensions.AppTutorialImageHeight,
+                              decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:Color(0xFF1c1d3b)),
+                              child:  Center(child: Text(getTranslated(context, StringConstant.viewPdf)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white))),
 
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ViewPdf(AppConstants.BANNER_BASE + widget.data.pdfPath.toString(),'')
-                                    )
-                                );
-                              },
+
                             ),
-                          ),
+              ),
                         ],
                       ),
                     ],

@@ -63,7 +63,7 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
             ColumnText(text: mypurchaseInnvoice!.product!.type.toString(),
                 title: getTranslated(context, StringConstant.Course,)),
             SizedBox(height: 8,),
-            ColumnText(text: mypurchaseInnvoice!.finalAmount.toString(),
+            ColumnText(text:'₹ '+ mypurchaseInnvoice!.finalAmount.toString(),
                 title: getTranslated(context, StringConstant.Pricegst,)),
 
         ],),
