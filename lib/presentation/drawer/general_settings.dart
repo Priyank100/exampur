@@ -49,6 +49,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     _emailController.text = Email;
     _cityController.text = City;
     setState(() {
+
     });
   }
 
