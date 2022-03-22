@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/course_timeline_live_stream_model.dart';
 import 'package:exampur_mobile/data/model/my_course_list_model.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
 import 'package:exampur_mobile/data/model/my_course_notification_model.dart';
@@ -8,7 +9,7 @@ import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/MyCourseRepo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-import 'package:exampur_mobile/utils/error_screen.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,10 @@ class MyCourseProvider extends ChangeNotifier {
 
   MyCourseTimelineModel _myCourseTimelineListModel = MyCourseTimelineModel();
   MyCourseTimelineModel get myCourseTimelineListModel => _myCourseTimelineListModel;
+
+
+  CourseTimelineLiveStreamModel _myCourseTimelineliveStreamModel = CourseTimelineLiveStreamModel();
+  CourseTimelineLiveStreamModel get myCourseTimelineliveStreamModel => _myCourseTimelineliveStreamModel;
 
   Future<List<CourseData>?> getMyCourseList(BuildContext context, String token) async {
     ApiResponse apiResponse = await myCourseRepo.myCourseData(token);
@@ -123,6 +128,32 @@ class MyCourseProvider extends ChangeNotifier {
       if (statusCode == '200') {
         _myCourseTimelineListModel = MyCourseTimelineModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseTimelineListModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
+    } else {
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => ErrorScreen()
+      //     )
+      // );
+      notifyListeners();
+    }
+  }
+  Future<Data?> getMyCourseTimeLineLiveStream(BuildContext context, String courseId ,String token) async {
+    ApiResponse apiResponse = await myCourseRepo.myCourseTimelineshareStreamToMobile(courseId, token);
+
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _myCourseTimelineliveStreamModel = CourseTimelineLiveStreamModel.fromJson(json.decode(apiResponse.response.toString()));
+        return _myCourseTimelineliveStreamModel.data;
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);

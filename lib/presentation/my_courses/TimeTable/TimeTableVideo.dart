@@ -1,138 +1,59 @@
+import 'package:chewie/chewie.dart';
 import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MyTimeTableViedo extends StatefulWidget {
-  final TimelineData notificationList;
-  MyTimeTableViedo(this.notificationList) : super();
+// String url;
+//   MyTimeTableViedo(this.url) : super();
 
   @override
   _MyTimeTableViedoState createState() => _MyTimeTableViedoState();
 }
 
 class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
-  late YoutubePlayerController _controller;
-  late TextEditingController _idController;
-  late TextEditingController _seekToController;
-
-  late PlayerState _playerState;
-  late YoutubeMetaData _videoMetaData;
-
-  bool _muted = false;
-  bool _isPlayerReady = false;
+  late VideoPlayerController videoPlayerController;
+  late ChewieController chewieController;
 
   @override
   void initState() {
-    String videoId = (YoutubePlayer.convertUrlToId(widget.notificationList.targetLink.toString()) == null)
-        ? "errorstring"
-        : YoutubePlayer.convertUrlToId(widget.notificationList.targetLink.toString())!;
-
-    _controller = YoutubePlayerController(
-      initialVideoId: videoId, //widget.url,
-      flags: YoutubePlayerFlags(
-        mute: false,
-        autoPlay: true,
-        disableDragSeek: false,
-        loop: false,
-        isLive: false,
-        //forceHD: widget.fullHD ??= false,
-        enableCaption: true,
-        hideThumbnail: true,
-      ),
-    )..addListener(listener);
-
-    _idController = TextEditingController();
-    _seekToController = TextEditingController();
-    _videoMetaData = const YoutubeMetaData();
-    _playerState = PlayerState.unknown;
     super.initState();
+    videoPlayerController = VideoPlayerController.network('widget.url');
+    chewieController = ChewieController(
+      videoPlayerController: videoPlayerController,
+      aspectRatio: 3 / 2,
+      autoPlay: true,
+      looping: true,
+    );
   }
-
-  void listener() {
-    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
-      setState(() {
-        _playerState = _controller.value.playerState;
-        _videoMetaData = _controller.metadata;
-      });
-    }
-  }
-
-  @override
-  void deactivate() {
-    // Pauses video while navigating to next page.
-    _controller.pause();
-    super.deactivate();
-  }
-
   @override
   void dispose() {
-    _controller.dispose();
-    _idController.dispose();
-    _seekToController.dispose();
+    videoPlayerController.dispose();
+    chewieController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return YoutubePlayerBuilder(
-      // onExitFullScreen: () {
-      //   // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
-      //   SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-      // },
-
-      player: YoutubePlayer(
-        //aspectRatio: 19 / 9,
-        controller: _controller,
-        showVideoProgressIndicator: true,
-        progressIndicatorColor: Colors.blueAccent,
-        topActions: <Widget>[
-          //todo: change video quality
+    return Scaffold(
+      appBar: CustomAppBar(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: 8),
+            height: 250,
+            child: Chewie(
+                controller: chewieController
+            ),
+          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child:   Text(widget.title),
+          // )
         ],
-        onReady: () {
-          _isPlayerReady = true;
-        },
-        // onEnded: (data) {
-        //   _showSnackBar('Video over!');
-        // },
-      ),
-      builder: (context, player) => Scaffold(
-        appBar:CustomAppBar()
-        ,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            player,
-            SizedBox(height: 20),
-            Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: Text(widget.notificationList.title.toString(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                )),
-
-
-
-            // Padding(
-            //   padding: EdgeInsets.all(15),
-            //   child: RichText(
-            //     text: TextSpan(
-            //        // style: CustomTextStyle.headingSemiBold(context),
-            //         text: widget.paidcourseList.title.toString()),
-            //   ),
-            // ),
-            // SizedBox(height: 5),
-            // Padding(
-            //   padding: EdgeInsets.only(bottom: 10, left: 15, right: 15),
-            //   child: RichText(
-            //     text: TextSpan(
-            //         //style: CustomTextStyle.subHeading2(context),
-            //         ),
-            //   ),
-            // ),
-          ],
-        ),
       ),
     );
   }

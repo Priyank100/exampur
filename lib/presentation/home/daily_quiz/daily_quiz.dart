@@ -1,6 +1,7 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/provider/DailyQuizProvider.dart';
+import 'package:exampur_mobile/shared/custom_web_view.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -147,7 +148,7 @@ class _DailyQuizState extends State<DailyQuiz> {
                                                         .replaceAll('QUIZ_ID', dailyQuizList[index].id.toString())
                                                         .replaceAll('AUTH_TOKEN', value);
                                                     AppConstants.printLog('url>> $url');
-                                                    // AppConstants.goTo(context, CustomWebView(url));
+                                                    AppConstants.goTo(context, CustomWebView(url));
                                                   });
                                                 },
                                                 child: Container(padding: EdgeInsets.all(2),

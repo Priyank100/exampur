@@ -102,6 +102,7 @@ class API {
   static const String myCourse_subject_URL      = BASE_URL3 + 'course_subject/';
   static const String myCourse_material_URL     = BASE_URL3 + 'course_material/';
   static const String myCourse_timeline_URL     = BASE_URL3 + 'course_timeline';
+  static const String myCourse_timelineshareStream_URL     = BASE_URL3 + 'course_timeline/shareStreamToMobile';
   static const String myCourse_notification_URL = BASE_URL3 + 'course_notification';
 
   //testSeries

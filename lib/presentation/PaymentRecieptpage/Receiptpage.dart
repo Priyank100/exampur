@@ -140,8 +140,8 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                   height: 38,
                 ),
                 Container(
-                    padding: EdgeInsets.all(14),
-                    margin: EdgeInsets.all(8),
+                    padding: EdgeInsets.all(10),
+                   // margin: EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: AppColors.grey.withOpacity(0.1),
                       border: Border.all(
@@ -185,7 +185,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                               getTranslated(context, StringConstant.TotalAmount)!,
                               style: TextStyle(fontSize: 18),
                             ),
-                            Text(model.data!.finalAmount.toString(),
+                            Text('₹ '+model.data!.finalAmount.toString(),
                                 style: TextStyle(
                                     color: Colors.blue, fontSize: 16)),
                           ],
@@ -250,9 +250,12 @@ class TextUse extends StatelessWidget {
           title!,
           style: TextStyle(),
         ),
-        Text(
-          text!,
-          style: TextStyle(color: Colors.red),
+        SizedBox(width: 5,),
+        Flexible(
+          child: Text(
+            text!,
+            style: TextStyle(color: Colors.red),
+          ),
         )
       ],
     );
