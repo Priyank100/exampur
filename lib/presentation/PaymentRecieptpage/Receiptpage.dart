@@ -9,6 +9,7 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class PaymentReceiptPage extends StatefulWidget {
   final String type;
@@ -25,16 +26,19 @@ class PaymentReceiptPage extends StatefulWidget {
 class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
   FinalOrderPayModel model = FinalOrderPayModel();
   bool isLoad = true;
+  String error = '';
 
   @override
   void initState() {
     getReceipt();
     // subscription();
   }
+
   void subscription(String topic) async {
     await FirebaseMessaging.instance.subscribeToTopic(topic);
     AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+topic);
   }
+
   void getReceipt() async {
     String url = '';
     final param = {
@@ -45,24 +49,30 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
 
     if(widget.type == 'Course')
       url = API.finalize_order_course;
-    else url = API.finalize_order_book;
+    else if(widget.type == 'TestSeries')
+      url = API.finalize_order_test_series;
+    else
+      url = API.finalize_order_book;
 
     await Service.post(url, body: param).then((response) {
       AppConstants.printLog(response.body.toString());
 
-      if (response == null) {
-        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, Colors.red);
-      } else if (response.statusCode == 200) {
-        model = FinalOrderPayModel.fromJson(json.decode(response.body.toString()));
-        subscription(model.data!.product!.id.toString().replaceAll(' ', '_'));
-        setState(() {
-          isLoad = false;
-        });
-      } else {
+      if (response != null && response.statusCode == 200) {
         final body = json.decode(response.body);
-        AppConstants.showAlertDialog(context, body['data'].toString());
-        return;
+        var statusCode = body['statusCode'].toString();
+        if (statusCode == '200') {
+          model = FinalOrderPayModel.fromJson(body);
+          subscription(model.data!.product!.id.toString().replaceAll(' ', '_'));
+        } else {
+          error = body['data'].toString();
+          AppConstants.showBottomMessage(context, error, AppColors.black);
+        }
+      } else {
+        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
       }
+      setState(() {
+        isLoad = false;
+      });
     });
   }
 
@@ -105,8 +115,9 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
             ),
           ),
           body: isLoad
-              ? SizedBox()
-              : Padding(
+              ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+          model.data == null ? Center(child: Text(error)) :
+          Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +164,9 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                     child: Column(
                       children: [
                         TextUse(
-                          title: widget.type == 'Course' ?  getTranslated(context, StringConstant.coursename)! + ' :' :  getTranslated(context, StringConstant.books)! +':',
+                          title: widget.type == 'Course' ?  getTranslated(context, StringConstant.coursename)! + ' :' :
+                          widget.type == 'TestSeries' ?  'TestSeries Name' + ' :' :
+                          getTranslated(context, StringConstant.books)! +':',
                           text: model.data!.product!.title.toString(),
                         ),
                         SizedBox(

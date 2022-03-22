@@ -1,13 +1,13 @@
+import 'package:exampur_mobile/data/model/test_series_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
-import 'package:exampur_mobile/shared/books_card.dart';
 import 'package:exampur_mobile/shared/quiz_card_ca.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
-import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class AttemptTestSeries extends StatefulWidget {
-  const AttemptTestSeries({Key? key}) : super(key: key);
+  final Data testSeriesData;
+  const AttemptTestSeries(this.testSeriesData) : super();
 
   @override
   _AttemptTestSeriesState createState() => _AttemptTestSeriesState();
@@ -30,14 +30,19 @@ class _AttemptTestSeriesState extends State<AttemptTestSeries> {
                   style:  CustomTextStyle.headingBold(context),
                 ),
                 SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
+                Text(
+                  'Mock Test',
+                  style:  CustomTextStyle.headingMediumBold(context),
+                ),
+                SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: 6,
+                    itemCount: 1,
                       shrinkWrap: true,
-                      itemBuilder: (BuildContext , context){
+                      itemBuilder: (BuildContext c, context){
                     return Padding(
                       padding: const EdgeInsets.all(3.0),
-                      child: QuizCardCA(),
+                      child: QuizCardCA(widget.testSeriesData),
                     );
                   }),
                 )

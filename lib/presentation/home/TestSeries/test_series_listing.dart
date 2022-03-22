@@ -3,11 +3,9 @@ import 'package:exampur_mobile/data/model/test_series_model.dart';
 import 'package:exampur_mobile/provider/TestSeriesProvider.dart';
 import 'package:exampur_mobile/shared/custom_web_view.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'attempt_test_series.dart';
 
 class TestSeriesListing extends StatefulWidget {
@@ -73,7 +71,7 @@ class TestSeriesListingState extends State<TestSeriesListing> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => AttemptTestSeries()));
+                                        builder: (context) => AttemptTestSeries(testSeriesList[index])));
 
                               } else {
                                 await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {

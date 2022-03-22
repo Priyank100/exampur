@@ -1,14 +1,12 @@
+import 'package:exampur_mobile/data/model/test_series_model.dart';
+import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-import 'package:exampur_mobile/utils/dimensions.dart';
-import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class QuizCardCA extends StatefulWidget {
-  QuizCardCA({
-    Key? key,
-  }) : super(key: key);
+  final Data testSeriesData;
+  const QuizCardCA(this.testSeriesData) : super();
 
   @override
   _QuizCardCAState createState() => _QuizCardCAState();
@@ -30,7 +28,17 @@ class _QuizCardCAState extends State<QuizCardCA> {
         child: Material(
           color: AppColors.transparent,
          child: Column(
+           mainAxisAlignment: MainAxisAlignment.center,
            children: [
+             Padding(
+               padding: EdgeInsets.all(5),
+               child: Text(widget.testSeriesData.title.toString(),
+                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                   maxLines: 2,
+                   softWrap: true,
+                   overflow: TextOverflow.ellipsis
+               ),
+             ),
              Row(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
@@ -38,64 +46,41 @@ class _QuizCardCAState extends State<QuizCardCA> {
                    child: Column(
                      children: [
                        Padding(
-                         padding: const EdgeInsets.all(5),
-                         child: Text('REET L-2(Sci+Maths)[91-150 Q] Test series',
-                           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                           maxLines: 2,
-                           softWrap: true,
-                           overflow: TextOverflow.ellipsis
-                         ),
-                       ),
-                       Padding(
-                         padding: const EdgeInsets.only(left: 5),
-                         child: Text('REET L-2(Sci+Maths)[91-150 Q] Test series',
-                             style: TextStyle(fontSize: 10)),
-                       ),
-                       Padding(
-                         padding: const EdgeInsets.only(left: 5),
-                         child: Text('10,0000000+'+ 'Attempts',style: TextStyle(fontSize: 10)),
-                       ),
-                       Row(
-                         children: [
-                           SizedBox(width: 8),
-                           Padding(
-                             padding: const EdgeInsets.only(left: 5),
-                             child: Text('60 Questions',style: TextStyle(fontSize: 10)),
-                           ),
-                           SizedBox(width: 8),
-                           Text('60 Marks',style: TextStyle(fontSize: 10)),
-                           SizedBox(width: 8),
-                           Text('60 Minutes',style: TextStyle(fontSize: 10))
-                         ],
+                         padding: EdgeInsets.only(left: 10),
+                         child: Text('\u2713 ${widget.testSeriesData.description.toString()}',
+                             style: TextStyle(fontSize: 12)),
                        ),
                      ],
                    ),
                  ),
-
                  Padding(
                      padding: EdgeInsets.all(5),
-                   child: Image.asset(Images.exampur_logo,height: 50)
+                   // child: Image.asset(Images.exampur_logo,height: 50)
+                   child: AppConstants.image(AppConstants.BANNER_BASE + widget.testSeriesData.image.toString(), height: 60.0)
                  )
-
                ],
              ),
-
              SizedBox(height: 5),
              Align(
                alignment: FractionalOffset.bottomCenter,
                child: InkWell(
-                 onTap: () {},
+                 onTap: () {
+
+                   AppConstants.goTo(context, DeliveryDetailScreen('TestSeries', widget.testSeriesData.id.toString(),
+                       widget.testSeriesData.title.toString(), widget.testSeriesData.salePrice.toString()
+                   ));
+                 },
                  child: Container(
                    height: 40,
                    alignment: Alignment.center,
-                   decoration: BoxDecoration(
+                   decoration: const BoxDecoration(
                      color: AppColors.amber,
                      borderRadius: BorderRadius.only(
                        bottomRight: Radius.circular(5),
                        bottomLeft: Radius.circular(5),
                      ),
                    ),
-                   child: Text('Attempt', style: TextStyle(color: AppColors.white)),
+                   child: Text('BUY NOW', style: TextStyle(color: AppColors.white)),
                  ),
                ),
              ),

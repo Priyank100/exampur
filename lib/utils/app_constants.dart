@@ -76,6 +76,10 @@ class API {
   static const String order_book          = BASE_URL2 + 'order_book/create';
   static const String finalize_order_book = BASE_URL2 + 'order_book/finalize';
 
+  //order_testSeries
+  static const String order_test_series          = BASE_URL2 + 'order_testseries/create';
+  static const String finalize_order_test_series = BASE_URL2 + 'order_testseries/finalize';
+
   //coupon
   static const String CouponCode_URL = BASE_URL2 +'promo_code/';
 

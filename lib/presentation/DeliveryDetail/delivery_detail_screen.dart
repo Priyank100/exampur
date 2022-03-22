@@ -14,8 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 
 class DeliveryDetailScreen extends StatefulWidget {
-  // final Courses paidcourseList;
-  // const DeliveryDetailScreen(this.paidcourseList) ;
   final String type;
   final String id;
   final String title;
@@ -85,26 +83,26 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               getTranslated(context, StringConstant.use_coupon)!,
               maxLines: 2,softWrap: true,
               style: TextStyle(fontSize: 25),
-            ) :
+            ) : widget.type == 'TestSeries' ? Text('Test Series', style: TextStyle(fontSize: 25)) :
         Text(
           getTranslated(context, StringConstant.provideFurtherDetailsForDeliveryOfBooks)! ,
     maxLines: 2,softWrap: true,
     style: TextStyle(fontSize: 25),
     ),
+
             SizedBox(
               height: 20,
             ),
-            widget.type == 'Course' ? SizedBox(
-            ):    TextUse(
+
+            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox():
+            TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.address),
             ),
+            SizedBox(height: 15),
 
-            SizedBox(
-              height: 15,
-            ),
-            widget.type == 'Course' ? SizedBox(
-            ):   CustomTextField(
+            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox():
+            CustomTextField(
               hintText: getTranslated(context, StringConstant.enterAddress)!,
               textInputType: TextInputType.text,
               controller: _billingAddressController,
@@ -113,7 +111,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' ? SizedBox(
+            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
             ):    TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.city),
@@ -121,7 +119,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' ? SizedBox(
+            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
             ):   CustomTextField(
               hintText: getTranslated(context, StringConstant.enterCity)!,
               //focusNode: _phoneNode,
@@ -132,16 +130,16 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' ? SizedBox(
+            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
             ):  TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.state),
             ),
-            widget.type == 'Course' ? SizedBox(
+            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
             ):  SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' ? SizedBox(
+            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
             ):   CustomTextField(
               hintText: getTranslated(context, StringConstant.enterState)!,
               //focusNode: _phoneNode,
@@ -149,20 +147,20 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               controller: _billingStateController,
               value: (value) {},
             ),
-            widget.type == 'Course' ? SizedBox(
+            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
             ):   SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' ? SizedBox(
+            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
             ):  TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.pinCode),
             ),
-            widget.type == 'Course' ? SizedBox(
+            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
             ):    SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' ? SizedBox(
+            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
             ):   CustomTextField(
               hintText: getTranslated(context, StringConstant.enterPinCode)!,
               //focusNode: _phoneNode,
@@ -261,9 +259,12 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                     Text(
                       getTranslated(context, StringConstant.continueToBuyCourse)!,
                       style: TextStyle(color: AppColors.white,fontSize: 18),
-                    ) :
+                    ) :  widget.type == 'TestSeries' ?
                     Text(
-    getTranslated(context, StringConstant.continueToBuyBook)! ,
+                      'Continue to Buy Test Series',
+                      style: TextStyle(color: AppColors.white,fontSize: 18),
+                    ) :
+                    Text(getTranslated(context, StringConstant.continueToBuyBook)! ,
                       style: TextStyle(color: AppColors.white,fontSize: 18),
                     )
                 ),
@@ -281,6 +282,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     String url = '';
     widget.type == 'Course' ?
     url = API.CouponCode_URL + promoCode + '/' +'Course' +'/'+id :
+    widget.type == 'TestSeries' ?
+    url = API.CouponCode_URL + promoCode + '/' +'TestSeries' +'/'+id :
     url = API.CouponCode_URL + promoCode + '/' +'Book' +'/'+id;
     AppConstants.printLog(url);
 
@@ -321,10 +324,21 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         "course_id": widget.id.toString(),
         "promo_code": _promocode,
         "billing_address": _address,
-        "billing_city":  _city,
+        "billing_city": _city,
         "billing_state": _state,
         "billing_country": AppConstants.defaultCountry,
-        "billing_pincode":  _pincode
+        "billing_pincode": _pincode
+      };
+    } else if(widget.type == 'TestSeries') {
+      url = API.order_test_series;
+      param = {
+        "testseries_id": widget.id.toString(),
+        "promo_code": _promocode,
+        "billing_address": _address,
+        "billing_city": _city,
+        "billing_state": _state,
+        "billing_country": AppConstants.defaultCountry,
+        "billing_pincode": _pincode
       };
     } else {
       url = API.order_book;

@@ -49,8 +49,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
               textUse(getTranslated(context, StringConstant.phoneNumber)!+' : ' + widget.billingModel.mobile.toString(), 15),
               SizedBox(height: 10),
               textUse(getTranslated(context, StringConstant.email)!+' : ' + widget.billingModel.eMail.toString(), 15),
-              widget.type == 'Course' ?SizedBox(): SizedBox(height: 10),
-              widget.type == 'Course' ?SizedBox():  textUse(getTranslated(context, StringConstant.address)!+' : ' + widget.billingModel.address.toString(), 15),
+              widget.type == 'Course' || widget.type == 'TestSeries' ?SizedBox(): SizedBox(height: 10),
+              widget.type == 'Course' || widget.type == 'TestSeries' ?SizedBox():  textUse(getTranslated(context, StringConstant.address)!+' : ' + widget.billingModel.address.toString(), 15),
               SizedBox(height: 10),
               textUse(getTranslated(context, StringConstant.city)!+' : ' + widget.billingModel.city.toString(), 15),
               SizedBox(height: 10),
@@ -58,12 +58,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
               SizedBox(height: 10),
               textUse(getTranslated(context, StringConstant.country)!+' : ' + widget.billingModel.country.toString(), 15),
               SizedBox(height: 10),
-              widget.type == 'Course' ?SizedBox(): textUse(getTranslated(context, StringConstant.pinCode)!+' : ' + widget.billingModel.pincode.toString(), 15),
+              widget.type == 'Course' || widget.type == 'TestSeries' ?SizedBox(): textUse(getTranslated(context, StringConstant.pinCode)!+' : ' + widget.billingModel.pincode.toString(), 15),
               SizedBox(height: 10),
               Divider(),
               SizedBox(height: 10),
               widget.type == 'Course' ?
               textUse(getTranslated(context, StringConstant.coursename)!+' : ' + widget.billingModel.itemName.toString(), 15) :
+              widget.type == 'TestSeries' ?
+              textUse('TestSeries Name'+' : ' + widget.billingModel.itemName.toString(), 15) :
               textUse(getTranslated(context, StringConstant.book_name)! + ' : ' + widget.billingModel.itemName.toString(), 15),
               SizedBox(height: 10),
               textUse(getTranslated(context, StringConstant.TotalAmount)!+' : ' + widget.billingModel.itemAmount.toString(), 15),
