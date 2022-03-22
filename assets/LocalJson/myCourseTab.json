@@ -2,7 +2,7 @@
   "book": [
     {
       "id": "0",
-      "name": "Live"
+      "name": "TimeTable"
     },
 
     {
@@ -12,14 +12,7 @@
     {
       "id": "1",
       "name": "Notification"
-    },
-
-    {
-      "id": "1",
-      "name": "TimeTable"
     }
-
-
 
   ]
 }

@@ -64,6 +64,8 @@ class Courses {
     String? bannerPath,
     String? logoPath,
     String? description,
+    String? pdfPath,
+    int? validtime,
     String? videoPath,
     String? flag,
     List<Macro>? macro,
@@ -74,6 +76,8 @@ class Courses {
     _bannerPath = bannerPath;
     _logoPath = logoPath;
     _description = description;
+    _pdfPath = pdfPath;
+    _validtime = validtime;
     _videoPath = videoPath;
     _flag = flag;
     _macro = macro;
@@ -87,6 +91,8 @@ class Courses {
     _bannerPath = json['banner_path'];
     _logoPath = json['logo_path'];
     _description = json['description'];
+    _pdfPath = json['pdf_path'];
+    _validtime = json['validTime'];
     _videoPath = json['video_path'];
     _flag = json['flag'];
     if (json['macro'] != null) {
@@ -103,6 +109,8 @@ class Courses {
   String? _bannerPath;
   String? _logoPath;
   String? _description;
+  String? _pdfPath;
+  int? _validtime;
   String? _videoPath;
   String? _flag;
   List<Macro>? _macro;
@@ -114,6 +122,8 @@ class Courses {
   String? get bannerPath => _bannerPath;
   String? get logoPath => _logoPath;
   String? get description => _description;
+  String? get pdfPath => _pdfPath;
+  int? get validtime => _validtime;
   String? get videoPath => _videoPath;
   String? get flag => _flag;
   List<Macro>? get macro => _macro;
@@ -127,6 +137,8 @@ class Courses {
     map['banner_path'] = _bannerPath;
     map['logo_path'] = _logoPath;
     map['description'] = _description;
+    map['pdf_path'] = _pdfPath;
+    map['validTime'] = _validtime;
     map['video_path'] = _videoPath;
     map['flag'] = _flag;
     if (_macro != null) {

@@ -1,24 +1,16 @@
 import 'dart:convert';
-
-import 'package:exampur_mobile/ChatModule/ChatPage.dart';
-
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/Pushnotification/pushnotification.dart';
-import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
 import 'package:exampur_mobile/data/model/response/languagemodel.dart';
-import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
-
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/ca_bytes/ca_bytes.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/daily_quiz/daily_quiz.dart';
 import 'package:exampur_mobile/presentation/home/home_banner.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
-
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
-
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
@@ -28,16 +20,9 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
-
 import '../../main.dart';
 import 'TestSeries/test_series_tab.dart';
-
-import 'banner_link_detail_page.dart';
-
-import 'exampurone2one/exampurone2oneview.dart';
-import 'offlinebatches/offline_course.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -225,8 +210,8 @@ class _HomeState extends State<Home> {
                     image: Images.dailyquiz,
                     title: getTranslated(context, 'daily_quiz')!,
                     color: AppColors.quiz,
-                    // navigateTo:DailyQuiz()
-                    navigateTo:ChatPage()
+                     navigateTo:DailyQuiz()
+                   // navigateTo:ChatPage()
                 ),
                 SquareButton(
                     image: Images.studymaterial,

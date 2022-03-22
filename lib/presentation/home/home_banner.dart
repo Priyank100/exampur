@@ -1,17 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
-import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
-import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:exampur_mobile/data/model/banner_detail_model.dart';
 import 'BannerBookDetailPage.dart';
-import 'LandingChooseCategory.dart';
-import 'bannerdetailspage.dart';
 import 'banner_link_detail_page.dart';
 
 class LargeBanner extends StatefulWidget {

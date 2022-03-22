@@ -1,20 +1,13 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
-import 'package:exampur_mobile/data/Pushnotification/pushnotification.dart';
 import 'package:exampur_mobile/data/model/my_course_notification_model.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
-import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
-import 'package:exampur_mobile/utils/images.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'myNotificationViedoView.dart';
-
 class MyCourseNotifications extends StatefulWidget {
   final String courseId;
   MyCourseNotifications(this.courseId) ;

@@ -10,8 +10,10 @@ import 'package:exampur_mobile/data/repository/Demorepo.dart';
 import 'package:exampur_mobile/data/repository/One2One_repo.dart';
 
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/error_screen.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class AppTutorialProvider extends ChangeNotifier {
   final AppTutorialRepo appTutorialRepo;
@@ -41,6 +43,12 @@ class AppTutorialProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => ErrorScreen()
+      //     )
+      // );
       notifyListeners();
     }
   }

@@ -110,6 +110,10 @@ class API {
   static const String myTestSeries_URL    = BASE_URL2 + 'testseries/enrolled/get_my_testseries';
   static const String testSeriesWeb_URL  = 'https://exampurtest.vercel.app/testseries/list/' + 'TEST_SERIES_ID' + '?auth_token=' + 'AUTH_TOKEN';
 
+  //dailyQuiz
+  static const String dailyQuiz_URL  = BASE_URL3 + 'quiz/find_all_quiz?page_id=';
+  static const String dailuQuiz_web_URL  = 'https://exampurtest.vercel.app/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
+
 }
 
 class Keys {
@@ -347,6 +351,7 @@ class StringConstant {
   static String Age= 'age';
   static String attempthistory= 'attempt_history';
   static String audioOnly= 'audio_only';
+  static String attemptQuiz= 'attempt_quiz';
 
   static String books= 'books';
   static String buy= 'buy';
@@ -519,6 +524,7 @@ class StringConstant {
   static String viewAll= 'view_all';
   static String view= 'view';
   static String viewInvoice= 'view_invoice';
+  static String Validity= 'validity';
 
   static String qualification= 'qualification';
 

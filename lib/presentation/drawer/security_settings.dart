@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/datasource/remote/dio/dio_client.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
@@ -63,7 +62,7 @@ class _SecuritySettingsState extends State<SecuritySettings> {
 
   Widget buttonChangePassword() {
     if(isLoading) {
-      return Center(child: CircularProgressIndicator());
+      return Center(child: CircularProgressIndicator(color: AppColors.amber,));
     } else {
       return ElevatedButton(
         style: ButtonStyle(

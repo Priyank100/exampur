@@ -2,35 +2,23 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
-import 'package:exampur_mobile/presentation/Search/searchview.dart';
-import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
-import 'package:exampur_mobile/presentation/drawer/eligibility_calculator.dart';
 import 'package:exampur_mobile/presentation/drawer/Parchase_course/my_purchases.dart';
 import 'package:exampur_mobile/presentation/drawer/settings.dart';
-import 'package:exampur_mobile/presentation/drawer/time_table.dart';
 import 'package:exampur_mobile/presentation/help/help.dart';
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
-import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
-import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:launch_review/launch_review.dart';
-import 'package:provider/provider.dart';
-import 'package:share/share.dart';
-
-import 'LandingChooseCategory.dart';
 
 class ItemClass {
   const ItemClass(this.index, this.label, this.icon);

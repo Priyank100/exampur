@@ -1,11 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
-import 'package:exampur_mobile/presentation/downloads/pdf_downloads.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -13,9 +10,7 @@ import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -42,8 +37,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   String pdfLink = 'https://www.learningcontainer.com/download/sample-pdf-file-for-testing/?wpdmdl=1566&amp;refresh=621508d3713281645545683';
   String pdfName = 'my_first_pdf';
-  //String videoLink = 'https://rr3---sn-vgqsrnlz.googlevideo.com/videoplayback?expire=1647517284&ei=BMoyYvHbD8yU8wTNv4_QAQ&ip=216.131.104.131&id=o-AMhdZ_FI4y_4JJhGkVjDL9GaINGtjGhaTd6WzVswF7gD&itag=22&source=youtube&requiressl=yes&mh=rX&mm=31%2C29&mn=sn-vgqsrnlz%2Csn-vgqsknlr&ms=au%2Crdu&mv=m&mvi=3&pl=27&initcwndbps=752500&vprv=1&mime=video%2Fmp4&ns=FUNe6YBUxbV1QIbEP_PygS4G&cnr=14&ratebypass=yes&dur=101.030&lmt=1647460820864827&mt=1647495187&fvip=3&fexp=24001373%2C24007246&c=WEB&txp=6310224&n=tKM9zmqTF_rtSA&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhANSHJ55vtBikAtDlzy7XjnvJY7JXRjyDMKog7YxCOj74AiEApUq-jUPeadfKCU-zMIj7hIBdC-a06t5uiTiSeK_HBBM%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAMUQRhHYg0LU75srmyMLDXUsYiRKD72KCMVpC5TkagZKAiEAj8QSFKSA4tOMI86XiQ1tTjgD0MrSXMi20vYP0Z9Wnkg%3D&title=Flutter%3A%20Null%20Safety%20(!%2C%20%3F%2C%20%3F%3F%2C%20late)';
- String videoLink='https://rr1---sn-4g5edndl.googlevideo.com/videoplayback?expire=1647515102&ei=fsEyYpX6NMmB8gPU6aEg&ip=86.106.74.120&id=o-AG1qzOZA9l1G3gLwwm83IuyH071vIV3eVR-UoTnCOXvp&itag=22&source=youtube&requiressl=yes&mh=J8&mm=31%2C26&mn=sn-4g5edndl%2Csn-5hne6nzd&ms=au%2Conr&mv=m&mvi=1&pl=24&initcwndbps=915000&vprv=1&mime=video%2Fmp4&ns=gdF-WaWoLlpYelRv1QmlkewG&ratebypass=yes&dur=30.325&lmt=1639459638914296&mt=1647493257&fvip=5&fexp=24001373%2C24007246&c=WEB&txp=5311224&n=N24rJPD-XPN2aQ&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIhAIxc5VLozFot-AOWlgCkiOKZcJojkd-zF5M5pO6ksTEDAiAW9H-A2F7amaJsjIuGlZyoIqkgqLEW0fUG1ekZkahsLw%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIgVQIpsbNsF14nsSbOh4XeqbhtvmZAFYo9OIcFXtP7l2oCIQDDh3c6SRpmNwCaqWI89DkMIIiJxyJyTjnvLn2YIJcILw%3D%3D&title=30%20seconds%20whatsapp%20status%20nature%20videos';
+  String videoLink= 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4';
   String videoName = 'my_first_video2';
 
   @override
@@ -180,7 +174,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                  child: Text('Validity : 20th April 2022',
+                  child: Text(getTranslated(context, StringConstant.Validity)!+' :  '+widget.courseData.validtime.toString(),
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                 ),
                 Padding(
@@ -188,7 +182,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                   child: InkWell(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                          ViewPdf(AppConstants.BANNER_BASE + 'pdf link','')
+                          ViewPdf(AppConstants.BANNER_BASE + widget.courseData.pdfPath.toString(),'')
                       ));
                     },
                     child: Container(

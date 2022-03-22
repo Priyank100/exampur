@@ -32,6 +32,12 @@ class CaProvider extends ChangeNotifier {
 
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => ErrorScreen()
+      //     )
+      // );
       notifyListeners();
     }
   }

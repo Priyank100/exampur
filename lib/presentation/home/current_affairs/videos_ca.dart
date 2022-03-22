@@ -1,6 +1,5 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
-import 'package:exampur_mobile/presentation/home/current_affairs/viedodetailpage.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
