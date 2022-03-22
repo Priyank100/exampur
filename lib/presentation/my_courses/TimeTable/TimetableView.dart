@@ -7,9 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:exampur_mobile/data/model/course_timeline_live_stream_model.dart';
-
-import 'AlertBoxForTimeLine.dart';
+import 'TimeTableVideo.dart';
 
 class TimeTableView extends StatefulWidget {
   final String courseId;
@@ -93,8 +91,8 @@ class _TimeTableViewState extends State<TimeTableView> {
                  // ):
                  InkWell(
                    onTap: (){
-                     AppConstants.goTo(context, AlertStream(myCourseTimeLineList[index].id.toString()));
-
+                    // AppConstants.goTo(context, AlertStream(myCourseTimeLineList[index].id.toString()));
+                     callLiveStream(index);
                    },
                    child: Container(decoration: BoxDecoration(
                        border: Border.all(color: AppColors.red)
@@ -107,6 +105,100 @@ class _TimeTableViewState extends State<TimeTableView> {
 
         );
         })
+    );
+  }
+
+  Future<void> callLiveStream(index) async {
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseTimeLineLiveStream(context, myCourseTimeLineList[index].id.toString(), token).then((liveStreamData) {
+      AlertDialog alert = AlertDialog(
+        titlePadding: EdgeInsets.only(top: 0, ),
+        contentPadding: EdgeInsets.only(top: 0, ),
+        //insetPadding: EdgeInsets.symmetric(horizontal: 1),
+        // title: const Text('Popup example'),
+        content: Column(
+
+          mainAxisSize: MainAxisSize.min,
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(color: AppColors.amber,height: 30,width: MediaQuery.of(context).size.width,
+              alignment: Alignment.topRight,
+              child: InkWell(onTap:(){
+                Navigator.pop(context);
+              },child:  Icon(Icons.close,color: AppColors.white,),
+              ),
+            ),
+            SizedBox(height: 10,),
+            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hlsURL.toString()) ,title: 'Normal',),
+            SizedBox(height: 10,),
+            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData!.apexLink!.hls240pURL.toString()),title: '240p',),
+            SizedBox(height: 10,),
+            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hls360pURL.toString()) ,title: '360p',),
+            SizedBox(height: 10,),
+            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hls480pURL.toString()) ,title: '480p',),
+            SizedBox(height: 10,),
+            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData!.apexLink!.hls720pURL.toString()) ,title: '720p',),
+            SizedBox(height: 10,),
+
+          ],
+        ),
+
+        // actions: <Widget>[
+        //   new FlatButton(
+        //     onPressed: () {
+        //       Navigator.of(context).pop();
+        //     },
+        //     textColor: Theme.of(context).primaryColor,
+        //     child: const Text('Close'),
+        //   ),
+        // ],
+      );
+      showDialog(barrierDismissible: true,
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    });
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final String? image;
+  final String? title;
+  final Widget? navigateTo;
+  final Color? color;
+
+  CustomButton(
+      {@required this.image,
+        @required this.title,
+        @required this.navigateTo,
+        this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width - 60;
+    return InkWell(
+        onTap: () {  Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => navigateTo!));},
+        child: Container(
+            width: width / 2,
+            height: 40,
+            // alignment: Alignment.center,
+            //padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8), color: AppColors.amber),
+            child:
+
+            Center(
+              child: new Text(
+                title!,
+                style: TextStyle(color: AppColors.white),
+              ),
+            ))
+
+
     );
   }
 }

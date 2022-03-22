@@ -36,12 +36,24 @@ class MyCourseRepo {
     }
   }
 
-  Future<ApiResponse> materialData(String subjectId, String courseId, String token) async {
+  Future<ApiResponse> materialData(String subjectId, String courseId,String chapterName, String token) async {
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
       };
-      String url = API.myCourse_material_URL + '${subjectId}/${courseId}/${token}';
+      String url = API.myCourse_material_URL + '${subjectId}/${courseId}/${chapterName}/${token}';
+      final response = await dioClient.get(url, options: Options(headers: header));
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+  Future<ApiResponse> chapterData(String subjectId, String courseId, String token) async {
+    try {
+      Map<String, dynamic> header = {
+        "appAuthToken": token,
+      };
+      String url = API.myCourse_chapter_URL + '${subjectId}/${courseId}/${token}';
       final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {

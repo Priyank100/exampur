@@ -1,5 +1,7 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
+import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -7,21 +9,40 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SelectChapterView extends StatefulWidget {
-  final MaterialData data;
-  const SelectChapterView(this.data) : super();
+  String subjectId;
+  String courseId;
+  String chaptername;
+   SelectChapterView(this.subjectId,this.courseId,this.chaptername) : super();
 
   @override
   State<SelectChapterView> createState() => _SelectChapterViewState();
 }
 
 class _SelectChapterViewState extends State<SelectChapterView> {
+  List<MaterialData> materialList = [];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    callProvider();
+    super.initState();
+  }
+
+  Future<void> callProvider() async {
+    isLoading = true;
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getMaterialList(context, widget.subjectId, widget.courseId, widget.chaptername, token))!;
+    isLoading = false;
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: ListView.builder(itemCount: 1,
+      body: ListView.builder(itemCount: materialList.length,
     padding: EdgeInsets.all(5),
     shrinkWrap: true,
     itemBuilder: (BuildContext context,int index){
@@ -37,21 +58,22 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                     child: Image.asset(Images.studymaterial,fit: BoxFit.fill,),
                     ),
                 SizedBox(width: 10),
+
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.data.subjectId!.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
+                      Text(materialList[index].subjectId!.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
                       SizedBox(height: 25,),
                       Row(
                         children: [
-                          widget.data.videoLink == null || widget.data.videoLink.toString().isEmpty ?SizedBox():    InkWell(
+                          materialList[index].timeline!.apexLink!.hlsURL == null ||  materialList[index].timeline!.apexLink!.hlsURL.toString().isEmpty ?SizedBox():    InkWell(
                             onTap: (){
                               Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => YoutubeVideo(widget.data.videoLink.toString(),
-                                                    widget.data.title.toString())
+                                                builder: (context) => YoutubeVideo( materialList[index].timeline!.apexLink!.hlsURL.toString(),
+                                                    materialList[index].timeline!.apexLink!.hlsURL.toString())
                                             )
                                         );
                             },
@@ -63,12 +85,12 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                             ),
                           ),
                           SizedBox(width: 5),
-              widget.data.pdfPath == null || widget.data.pdfPath.toString().isEmpty ?  SizedBox() :   InkWell(
+             materialList[index].pdfPath == null || materialList[index].pdfPath.toString().isEmpty ?  SizedBox() :   InkWell(
                 onTap: (){
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ViewPdf(AppConstants.BANNER_BASE + widget.data.pdfPath.toString(),'')
+                          builder: (context) => ViewPdf(AppConstants.BANNER_BASE + materialList[index].pdfPath.toString(),'')
                       )
                   );
                 },

@@ -1,6 +1,7 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
-import 'package:exampur_mobile/data/model/my_course_material_model.dart';
+import 'package:exampur_mobile/data/model/teacher_chapter_model.dart';
+
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/selectchapterview.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
@@ -20,7 +21,7 @@ class TeacherSubjectView extends StatefulWidget {
 }
 
 class _TeacherSubjectViewState extends State<TeacherSubjectView> {
-  List<MaterialData> materialList = [];
+  List<String> materialList = [];
   bool isLoading = false;
 
   @override
@@ -32,7 +33,7 @@ class _TeacherSubjectViewState extends State<TeacherSubjectView> {
   Future<void> callProvider() async {
     isLoading = true;
     String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-    materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getMaterialList(context, widget.subjectId, widget.courseId, token))!;
+       materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getChapterList(context, widget.subjectId, widget.courseId, token))!;
     isLoading = false;
     setState(() {});
   }
@@ -41,7 +42,7 @@ class _TeacherSubjectViewState extends State<TeacherSubjectView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : materialList.length == 0 ?
+      body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :materialList.length == 0 ?
       AppConstants.noDataFound() :
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -79,13 +80,13 @@ class _TeacherSubjectViewState extends State<TeacherSubjectView> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>SelectChapterView(materialList[index])));
+                                    builder: (context) =>SelectChapterView(widget.subjectId,widget.courseId,materialList[index].toString())));
                           },
                           leading: Image.asset(Images.exampur_logo,height: 40,width: 60,),
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(materialList[index].title.toString(),style:CustomTextStyle.drawerText(context),),
+                              Text(materialList[index].toString(),style:CustomTextStyle.drawerText(context),),
                               ],
                           ),
                           trailing: Icon(Icons.arrow_forward_ios_sharp,size: 18,color: AppColors.black,)

@@ -7,6 +7,7 @@ import 'package:exampur_mobile/data/model/my_course_notification_model.dart';
 import 'package:exampur_mobile/data/model/my_course_subject_model.dart';
 import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
+import 'package:exampur_mobile/data/model/teacher_chapter_model.dart';
 import 'package:exampur_mobile/data/repository/MyCourseRepo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 
@@ -36,6 +37,9 @@ class MyCourseProvider extends ChangeNotifier {
 
   CourseTimelineLiveStreamModel _myCourseTimelineliveStreamModel = CourseTimelineLiveStreamModel();
   CourseTimelineLiveStreamModel get myCourseTimelineliveStreamModel => _myCourseTimelineliveStreamModel;
+
+  TeacherChapterModel _teacherchapterModel = TeacherChapterModel();
+  TeacherChapterModel get teacherchapterModel => _teacherchapterModel;
 
   Future<List<CourseData>?> getMyCourseList(BuildContext context, String token) async {
     ApiResponse apiResponse = await myCourseRepo.myCourseData(token);
@@ -91,8 +95,8 @@ class MyCourseProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<MaterialData>?> getMaterialList(BuildContext context, String subjectId, String courseId, String token) async {
-    ApiResponse apiResponse = await myCourseRepo.materialData(subjectId, courseId, token);
+  Future<List<MaterialData>?> getMaterialList(BuildContext context, String subjectId, String courseId,String chapterName, String token) async {
+    ApiResponse apiResponse = await myCourseRepo.materialData(subjectId, courseId,chapterName, token);
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
@@ -118,6 +122,34 @@ class MyCourseProvider extends ChangeNotifier {
     }
   }
 
+
+
+  Future<List<String>?> getChapterList(BuildContext context, String subjectId, String courseId, String token) async {
+    ApiResponse apiResponse = await myCourseRepo.chapterData(subjectId, courseId, token);
+
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _teacherchapterModel = TeacherChapterModel.fromJson(json.decode(apiResponse.response.toString()));
+        return _teacherchapterModel.data??[];
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
+    } else {
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => ErrorScreen()
+      //     )
+      // );
+      notifyListeners();
+    }
+  }
 
 
   Future<List<TimelineData>?> getMyCourseTimeLineList(BuildContext context, String courseId ,String token) async {
