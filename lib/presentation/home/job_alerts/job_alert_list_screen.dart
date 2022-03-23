@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/job_alert_list_model.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class _JobAlertListScreenState extends State<JobAlertListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+      body: isLoading ? Center(child: LoadingIndicator(context)) :
       alertsDataList.length==0 ?
       AppConstants.noDataFound() : listing(alertsDataList),
       bottomNavigationBar: isBottomLoading ? Container(

@@ -1,5 +1,7 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/DailyQuizProvider.dart';
 import 'package:exampur_mobile/shared/custom_web_view.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -78,7 +80,7 @@ class _DailyQuizState extends State<DailyQuiz> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-        body: isLoad==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+        body: isLoad==0 ? Center(child: LoadingIndicator(context)) :
         dailyQuizList.length==0 ? AppConstants.noDataFound() :
         SingleChildScrollView(
           child: Column(
@@ -141,22 +143,15 @@ class _DailyQuizState extends State<DailyQuiz> {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              InkWell(
-                                                onTap: () async{
-                                                  await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {
-                                                    String url = API.dailuQuiz_web_URL
-                                                        .replaceAll('QUIZ_ID', dailyQuizList[index].id.toString())
-                                                        .replaceAll('AUTH_TOKEN', value);
-                                                    AppConstants.printLog('url>> $url');
-                                                    AppConstants.goTo(context, CustomWebView(url));
-                                                  });
-                                                },
-                                                child: Container(padding: EdgeInsets.all(2),
-                                                  margin: EdgeInsets.only(top: 8), decoration: BoxDecoration(
-                                                    color:Color(0xFF060929),
-                                                    borderRadius: BorderRadius.all(Radius.circular(5))),
-                                                  height: 30,width: 110,child: Center(child: Text(getTranslated(context, StringConstant.attemptQuiz)!,style: TextStyle(color: AppColors.white,fontSize: 10),)),),
-                                              ),
+                                              CustomRoundButton(onPressed: ()async{
+                                                await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {
+                                                  String url = API.dailuQuiz_web_URL
+                                                      .replaceAll('QUIZ_ID', dailyQuizList[index].id.toString())
+                                                      .replaceAll('AUTH_TOKEN', value);
+                                                  AppConstants.printLog('url>> $url');
+                                                  AppConstants.goTo(context, CustomWebView(url));
+                                                });},text: getTranslated(context, StringConstant.attemptQuiz)!,),
+
                                               Row(
                                                 children: [
                                                   Icon(Icons.timer,size: 15,),

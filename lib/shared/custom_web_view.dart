@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,7 +42,7 @@ class _CustomWebViewState extends State<CustomWebView> {
               });
             },
           ),
-          isLoading ? Center( child: CircularProgressIndicator(color: AppColors.amber))
+          isLoading ? Center( child:LoadingIndicator(context))
               : Stack(),
         ],
       )

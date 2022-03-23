@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/shared/teaching_container.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -74,17 +75,17 @@ class _TeachingListState extends State<TeachingList> {
     return Scaffold(
         body: widget.courseType==1 ?
 
-        isLoad==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+        isLoad==0 ? Center(child: LoadingIndicator(context)) :
         paidCourseList.length==0 ? AppConstants.noDataFound() : listing(paidCourseList) :
 
-        isLoad==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+        isLoad==0 ? Center(child:LoadingIndicator(context)) :
         freeCourseList.length==0 ? AppConstants.noDataFound() : listing(freeCourseList),
 
       bottomNavigationBar: isLoading ? Container(
          // padding: EdgeInsets.all(8),
           height:40,
           width: 40,
-          child: Center(child: CircularProgressIndicator(color:AppColors.amber,))) :
+          child: Center(child: LoadingIndicator(context))) :
       SizedBox(),
     );
   }

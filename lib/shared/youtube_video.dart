@@ -38,7 +38,6 @@ class _YoutubeVideoState extends State<YoutubeVideo> {
         disableDragSeek: false,
         loop: false,
         isLive: false,
-        //forceHD: widget.fullHD ??= false,
         enableCaption: true,
         hideThumbnail: true,
       ),
@@ -62,7 +61,6 @@ class _YoutubeVideoState extends State<YoutubeVideo> {
 
   @override
   void deactivate() {
-    // Pauses video while navigating to next page.
     _controller.pause();
     super.deactivate();
   }
@@ -78,11 +76,6 @@ class _YoutubeVideoState extends State<YoutubeVideo> {
   @override
   Widget build(BuildContext context) {
     return YoutubePlayerBuilder(
-      // onExitFullScreen: () {
-      //   // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
-      //   SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-      // },
-
       player: YoutubePlayer(
         //aspectRatio: 19 / 9,
         controller: _controller,
@@ -94,9 +87,6 @@ class _YoutubeVideoState extends State<YoutubeVideo> {
         onReady: () {
           _isPlayerReady = true;
         },
-        // onEnded: (data) {
-        //   _showSnackBar('Video over!');
-        // },
       ),
       builder: (context, player) => Scaffold(
         appBar:CustomAppBar()
@@ -113,26 +103,6 @@ class _YoutubeVideoState extends State<YoutubeVideo> {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 )),
-
-
-
-            // Padding(
-            //   padding: EdgeInsets.all(15),
-            //   child: RichText(
-            //     text: TextSpan(
-            //        // style: CustomTextStyle.headingSemiBold(context),
-            //         text: widget.paidcourseList.title.toString()),
-            //   ),
-            // ),
-            // SizedBox(height: 5),
-            // Padding(
-            //   padding: EdgeInsets.only(bottom: 10, left: 15, right: 15),
-            //   child: RichText(
-            //     text: TextSpan(
-            //         //style: CustomTextStyle.subHeading2(context),
-            //         ),
-            //   ),
-            // ),
           ],
         ),
       ),

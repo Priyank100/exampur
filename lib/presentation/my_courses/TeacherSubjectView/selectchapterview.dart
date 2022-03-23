@@ -1,9 +1,14 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
+import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/videomaterial.dart';
+import 'package:exampur_mobile/presentation/my_courses/TimeTable/TimeTableVideo.dart';
+import 'package:exampur_mobile/presentation/my_courses/TimeTable/TimetableView.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_button_amber_color_watch.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
-import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -42,7 +47,7 @@ class _SelectChapterViewState extends State<SelectChapterView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: ListView.builder(itemCount: materialList.length,
+      body:materialList.length==0?LoadingIndicator(context): ListView.builder(itemCount: materialList.length,
     padding: EdgeInsets.all(5),
     shrinkWrap: true,
     itemBuilder: (BuildContext context,int index){
@@ -52,10 +57,15 @@ class _SelectChapterViewState extends State<SelectChapterView> {
             padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
             child: Row(
               children: [
+                // Container(
+                //     width: Dimensions.AppTutorialImageWidth,
+                //     height: Dimensions.AppTutorialImageHeight,
+                //     child:Image.network(AppConstants.BANNER_BASE+materialList[index].timeline!.logoPath.toString(),fit: BoxFit.fill,),
+                //     ),
                 Container(
-                    width: Dimensions.AppTutorialImageWidth,
+                    width: Dimensions.WatchButtonWidth,
                     height: Dimensions.AppTutorialImageHeight,
-                    child: Image.asset(Images.studymaterial,fit: BoxFit.fill,),
+                    child:Image.asset(Images.exampur_logo,fit: BoxFit.fill,),
                     ),
                 SizedBox(width: 10),
 
@@ -67,42 +77,55 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                       SizedBox(height: 25,),
                       Row(
                         children: [
-                          materialList[index].timeline!.apexLink!.hlsURL == null ||  materialList[index].timeline!.apexLink!.hlsURL.toString().isEmpty ?SizedBox():    InkWell(
-                            onTap: (){
-                              Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => YoutubeVideo( materialList[index].timeline!.apexLink!.hlsURL.toString(),
-                                                    materialList[index].timeline!.apexLink!.hlsURL.toString())
-                                            )
-                                        );
+                          CustomAmberButton(onPressed: (){AlertDialog alert = AlertDialog(
+                            titlePadding: EdgeInsets.only(top: 0, ),
+                            contentPadding: EdgeInsets.only(top: 0, ),
+                            //insetPadding: EdgeInsets.symmetric(horizontal: 1),
+                            // title: const Text('Popup example'),
+                            content: Column(
+
+                              mainAxisSize: MainAxisSize.min,
+                              //crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(color: AppColors.amber,height: 30,width: MediaQuery.of(context).size.width,
+                                  alignment: Alignment.topRight,
+                                  child: InkWell(onTap:(){
+                                    Navigator.pop(context);
+                                  },child:  Icon(Icons.close,color: AppColors.white,),
+                                  ),
+                                ),
+                                SizedBox(height: 10,),
+                                CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hlsUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString()) ,title: 'Normal',),
+                                SizedBox(height: 10,),
+                                CustomButton(navigateTo: MyMaterialViedo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString()),title: '240p',),
+                                SizedBox(height: 10,),
+                                CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the360.toString()) ,title: '360p',),
+                                SizedBox(height: 10,),
+                                CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the576.toString()) ,title: '480p',),
+                                SizedBox(height: 10,),
+                                CustomButton(navigateTo: MyMaterialViedo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString()) ,title: '720p',),
+                                SizedBox(height: 10,),
+
+                              ],
+                            ),
+                          );
+                          showDialog(barrierDismissible: true,
+                            context: context,
+                            builder: (BuildContext context) {
+                              return alert;
                             },
-                            child: Container(
-                              width: Dimensions.AppTutorialImageHeight,
-                                height: 25,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:AppColors.dark),
-                             child:   Center(child: Text(getTranslated(context, StringConstant.watch)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white)))
-                            ),
-                          ),
+                          );},text: getTranslated(context, StringConstant.watch)!,),
+
                           SizedBox(width: 5),
-             materialList[index].pdfPath == null || materialList[index].pdfPath.toString().isEmpty ?  SizedBox() :   InkWell(
-                onTap: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ViewPdf(AppConstants.BANNER_BASE + materialList[index].pdfPath.toString(),'')
-                      )
-                  );
-                },
-                child: Container(
-                              height: 25,
-                  width: Dimensions.AppTutorialImageHeight,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:Color(0xFF1c1d3b)),
-                              child:  Center(child: Text(getTranslated(context, StringConstant.viewPdf)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white))),
+                          CustomRoundButton(onPressed: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ViewPdf(AppConstants.BANNER_BASE + materialList[index].pdfPath.toString(),'')
+                                )
+                            );
+                          },text:getTranslated(context, StringConstant.viewPdf)! ,)
 
-
-                            ),
-              ),
                         ],
                       ),
                     ],
@@ -115,4 +138,5 @@ class _SelectChapterViewState extends State<SelectChapterView> {
       }),
     );
   }
+
 }

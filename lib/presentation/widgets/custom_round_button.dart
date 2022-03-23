@@ -17,25 +17,10 @@ class CustomRoundButton extends StatefulWidget {
 class _CustomRoundButtonState extends State<CustomRoundButton> {
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-          Theme.of(context).primaryColor,
-        ),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-          ),
-        ),
-      ),
-      onPressed: () {
-        widget.onPressed();
-      },
-      child: Text(
-        widget.text,
-        style: TextStyle(color: AppColors.black),
 
-      ),
+    return  InkWell(onTap: () {widget.onPressed();},
+      child: Container(height: 30,width: 120,decoration: BoxDecoration( color: Color(0xFF060929),
+          borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(widget.text,style: TextStyle(color: Colors.white,fontSize: 11)))),
     );
   }
 }

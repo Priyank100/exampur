@@ -8,6 +8,7 @@ import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
 import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
@@ -127,63 +128,30 @@ class _TeachingContainerState extends State<TeachingContainer> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      // Expanded(
-                      //   child: ListView.builder(
-                      //       itemCount: 4,
-                      //       shrinkWrap: true,
-                      //       itemBuilder: (BuildContext context,int index){
-                      //         return Column(
-                      //                 crossAxisAlignment: CrossAxisAlignment.start,
-                      //                 mainAxisAlignment: MainAxisAlignment.start,
-                      //                 children: [
-                      //                   RowTile(title: 'jhgcf', ),
-                      //
-                      //                 ],
-                      //               );
-                      //   }),
-                      // ),
+
 
                       Column(
                         children: [
-                          InkWell(onTap: (){
+                          CustomRoundButton(onPressed: (){
                             widget.courseType==1?  Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 PaidCourseDetails(widget.courseData,widget.courseType)
                             )): Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 MyCourseTabView(widget.courseData.id.toString())
                             ))
-                           ;
-                          },
-                            child: Container(height: 30,width: 120,decoration: BoxDecoration( color: Color(0xFF060929),
-                              borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, 'view_details')!,style: TextStyle(color: Colors.white)))),
-                          ),
+                            ;
+                          },text: getTranslated(context, 'view_details')!,),
                           SizedBox(height: 10,),
-                          widget.courseType==1?     InkWell(
-                            onTap: (){
-                              // Navigator.push(
-                              //   context,
-                              //   // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
-                              //   MaterialPageRoute(builder: (context) =>
-                              //       DeliveryDetailScreen('Course', widget.courseData.id.toString(),
-                              //           widget.courseData.title.toString(), widget.courseData.salePrice.toString()
-                              //       )
-                              //   ),
-                              // );
-                              Navigator.push(
-                                context,
-                                // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
-                                MaterialPageRoute(builder: (context) =>
-                                    DeliveryDetailScreen('Course', widget.courseData.id.toString(),
-                                        widget.courseData.title.toString(), widget.courseData.salePrice.toString()
-                                    )
-                                ),
-                              );
-                              // showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (context) =>
-                              //     BottomSheeet1(widget.courseData));
-                            },
-                            child: Container(height: 30,width: 110,decoration: BoxDecoration( color: Color(0xFF060929),
-                                borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, 'buy_course')!,style: TextStyle(color: Colors.white)))),
-                          ):SizedBox(),
-
+                          widget.courseType==1? CustomRoundButton(onPressed: (){
+                            Navigator.push(
+                              context,
+                              // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
+                              MaterialPageRoute(builder: (context) =>
+                                  DeliveryDetailScreen('Course', widget.courseData.id.toString(),
+                                      widget.courseData.title.toString(), widget.courseData.salePrice.toString()
+                                  )
+                              ),
+                            );
+                          },text: getTranslated(context, 'buy_course')!,):SizedBox(),
                           SizedBox(height: 10,),
                           Row(
                             children: [

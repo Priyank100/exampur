@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -118,19 +119,30 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
                         width: 60,
                       ),
                       subtitle: Row(children: [
-                        InkWell(
-                          onTap: (){
-                            if (_status == DownloadTaskStatus.complete) {
-                              Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                  ViewPdf('',_file!.path)
-                              ));
-                            }
-                          },
-                          child: Container(margin: EdgeInsets.only(top: 8), decoration: BoxDecoration(
-                              color:Color(0xFF060929),
-                              borderRadius: BorderRadius.all(Radius.circular(5))),
-                           height: 30,width: 90,child: Center(child: Text(getTranslated(context, StringConstant.viewPdf)!,style: TextStyle(color: AppColors.white,fontSize: 12),)),),
+
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: CustomRoundButton(text: getTranslated(context, StringConstant.viewPdf)!, onPressed: (){
+            if (_status == DownloadTaskStatus.complete) {
+            Navigator.push(context, MaterialPageRoute(builder: (_) =>
+            ViewPdf('',_file!.path)
+            ));
+            }
+            },),
                         ),
+                        // InkWell(
+                        //   onTap: (){
+                        //     if (_status == DownloadTaskStatus.complete) {
+                        //       Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                        //           ViewPdf('',_file!.path)
+                        //       ));
+                        //     }
+                        //   },
+                        //   child: Container(margin: EdgeInsets.only(top: 8), decoration: BoxDecoration(
+                        //       color:Color(0xFF060929),
+                        //       borderRadius: BorderRadius.all(Radius.circular(5))),
+                        //    height: 30,width: 90,child: Center(child: Text(getTranslated(context, StringConstant.viewPdf)!,style: TextStyle(color: AppColors.white,fontSize: 12),)),),
+                        // ),
               // InkWell(
               //   onTap: (){
               //     // buttons(_status, _id, i);

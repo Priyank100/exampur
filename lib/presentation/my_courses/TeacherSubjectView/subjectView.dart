@@ -2,6 +2,7 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_subject_model.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/teachersubjectview.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,7 +39,7 @@ class _SubjectViewState extends State<SubjectView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber,)) : subjectList.length == 0 ?
+      body: isLoading ? Center(child: LoadingIndicator(context)) : subjectList.length == 0 ?
       AppConstants.noDataFound() :
       SingleChildScrollView(
         child: Column(

@@ -1,6 +1,7 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -47,7 +48,7 @@ class _TimeTableViewState extends State<TimeTableView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    body: isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)):myCourseTimeLineList.length ==0?AppConstants.noDataFound(): ListView.builder(
+    body: isLoading?Center(child: LoadingIndicator(context)):myCourseTimeLineList.length ==0?AppConstants.noDataFound(): ListView.builder(
         itemCount: myCourseTimeLineList.length,
 
         shrinkWrap: true,
@@ -129,15 +130,15 @@ class _TimeTableViewState extends State<TimeTableView> {
               ),
             ),
             SizedBox(height: 10,),
-            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hlsURL.toString()) ,title: 'Normal',),
+            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hlsURL.toString(),myCourseTimeLineList[index].title.toString()) ,title: 'Normal',),
             SizedBox(height: 10,),
-            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData!.apexLink!.hls240pURL.toString()),title: '240p',),
+            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData.apexLink!.hls240pURL.toString(),myCourseTimeLineList[index].title.toString()),title: '240p',),
             SizedBox(height: 10,),
-            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hls360pURL.toString()) ,title: '360p',),
+            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData.apexLink!.hls360pURL.toString(),myCourseTimeLineList[index].title.toString() ) ,title: '360p',),
             SizedBox(height: 10,),
-            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hls480pURL.toString()) ,title: '480p',),
+            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData.apexLink!.hls480pURL.toString(),myCourseTimeLineList[index].title.toString()) ,title: '480p',),
             SizedBox(height: 10,),
-            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData!.apexLink!.hls720pURL.toString()) ,title: '720p',),
+            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData.apexLink!.hls720pURL.toString(),myCourseTimeLineList[index].title.toString()) ,title: '720p',),
             SizedBox(height: 10,),
 
           ],

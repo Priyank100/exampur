@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/my_purchase_model.dart';
@@ -110,29 +111,19 @@ class _PurchaseListContainerState extends State<PurchaseListContainer> {
                     ],
                   ),
                 ),
-
-
                 Padding(
                   padding: const EdgeInsets.only(bottom:12,right: 12),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-
-
                       Column(
                         children: [
-                          InkWell(onTap: (){
+                          CustomRoundButton(text: getTranslated(context, StringConstant.viewInvoice)!, onPressed: (){
                             Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                            InvoiceDetailPage(widget.mypurchaseData.id.toString(),widget.mypurchaseData.product!.type.toString(),)
+                                InvoiceDetailPage(widget.mypurchaseData.id.toString(),widget.mypurchaseData.product!.type.toString(),)
                             ));
-                          },
-                            child: Container(height: 30,width: 120,decoration: BoxDecoration( color: Color(0xFF060929),
-                                borderRadius: BorderRadius.all(Radius.circular(6))),child: Center(child: Text(getTranslated(context, StringConstant.viewInvoice)!,style: TextStyle(color: Colors.white)))),
-                          ),
-                         
-
-                          
+                          },)
                         ],
                       ),
 

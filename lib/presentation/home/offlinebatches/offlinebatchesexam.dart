@@ -1,6 +1,7 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/offline_batch_center_courses_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -71,7 +72,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
     return Scaffold(
         appBar: CustomAppBar(),
         body: offlineBatchesList.length == 0
-            ? Center(child: CircularProgressIndicator())
+            ? Center(child: LoadingIndicator(context))
             : SingleChildScrollView(
           controller: scrollController,
                 child: Column(

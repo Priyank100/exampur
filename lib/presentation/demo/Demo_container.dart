@@ -1,12 +1,10 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/demo_model.dart';
+import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'DemovideoVeiw.dart';
-
 class DemoContainer extends StatefulWidget {
   final List<Datum> demoList;
   final int index;
@@ -54,36 +52,15 @@ class _DemoContainerState extends State<DemoContainer> {
                            ],
                          ),
                          onPressed: () {
-                           // showDialog(
-                           //   context: context,
-                           //   builder: (BuildContext context) => _speedDialog(context),
-                           // );
+
                            Navigator.push(
                                context,
                                MaterialPageRoute(
-                                   builder: (context) =>DemoViedoView(widget.demoList[widget.index])));
+                                   builder: (context) =>YoutubeVideo(widget.demoList[widget.index].targetLink.toString(),widget.demoList[widget.index].title.toString())));
                          },
                        ),
                      ),
-                     // SizedBox(width: 5,),
-                     // Container(
-                     //   //width: Dimensions.AppTutorialImageHeight,
-                     //   height: 25,
-                     //   decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:Color(0xFF1c1d3b)),
-                     //   child: MaterialButton(
-                     //
-                     //     child:
-                     //         Text(getTranslated(context, StringConstant.viewPdf)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white)),
-                     //
-                     //     onPressed: () {
-                     //       // Navigator.push(
-                     //       //     context,
-                     //       //     MaterialPageRoute(
-                     //       //         builder: (context) => AppTutorialVideo(widget.list[widget.index].videoPath.toString(),
-                     //       //             widget.list[widget.index].title.toString())));
-                     //     },
-                     //   ),
-                     // ),
+
                    ],
                  ),
                ],

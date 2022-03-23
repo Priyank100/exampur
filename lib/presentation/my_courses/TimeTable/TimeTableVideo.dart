@@ -8,7 +8,8 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MyTimeTableViedo extends StatefulWidget {
 String url;
-  MyTimeTableViedo(this.url) : super();
+String title;
+  MyTimeTableViedo(this.url,this.title) : super();
 
   @override
   _MyTimeTableViedoState createState() => _MyTimeTableViedoState();
@@ -59,10 +60,10 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                 controller: chewieController
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child:   Text(widget.title),
-          // )
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child:   Text(widget.title),
+          ),
         ],
       ),
     );

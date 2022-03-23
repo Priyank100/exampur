@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/offlinebatches_courses_video.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -60,7 +61,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
     return Scaffold(
       // appBar: MediaQuery.of(context).orientation == Orientation.landscape ? null : CustomAppBar(),
       appBar: CustomAppBar(),
-      body: videoID.isEmpty ? Center(child: CircularProgressIndicator()) :
+      body: videoID.isEmpty ? Center(child:LoadingIndicator(context)) :
       Container(
         child: Column(
           children: [

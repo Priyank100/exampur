@@ -51,7 +51,7 @@ class _LocalVideoScreenState extends State<LocalVideoScreen> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child:   Text(widget.title),
+            child:   Text(widget.title,style: TextStyle(fontSize: 20),),
           )
         ],
       ),

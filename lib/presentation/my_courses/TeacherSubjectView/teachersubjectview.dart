@@ -4,6 +4,7 @@ import 'package:exampur_mobile/data/model/teacher_chapter_model.dart';
 
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/selectchapterview.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -42,7 +43,7 @@ class _TeacherSubjectViewState extends State<TeacherSubjectView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :materialList.length == 0 ?
+      body: isLoading ? Center(child: LoadingIndicator(context)) :materialList.length == 0 ?
       AppConstants.noDataFound() :
       Padding(
         padding: const EdgeInsets.all(8.0),

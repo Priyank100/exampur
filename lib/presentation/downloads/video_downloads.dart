@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/shared/local_video_screen.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -138,22 +139,20 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
                       ),
                       subtitle: Row(children: [
                         _status == DownloadTaskStatus.failed ? Text('Failed') :
-                        InkWell(
-                          onTap: (){
-                            if (_status == DownloadTaskStatus.complete) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LocalVideoScreen(_file!, _filename)
-                                  )
-                              );
-                            }
-                          },
-                          child: Container(margin: EdgeInsets.only(top: 8), decoration: BoxDecoration(
-                              color:Color(0xFF060929),
-                              borderRadius: BorderRadius.all(Radius.circular(5))),
-                            height: 30,width: 90,child: Center(child: Text(getTranslated(context, StringConstant.watch)!,style: TextStyle(color: AppColors.white,fontSize: 12),)),),
-                        ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: CustomRoundButton(text:getTranslated(context, StringConstant.watch)!, onPressed: (){
+                                if (_status == DownloadTaskStatus.complete) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LocalVideoScreen(_file!, _filename)
+                                      )
+                                  );
+                                }
+                              },),
+                            )
+
                         // InkWell(
                         //   onTap: (){
                         //     // buttons(_status, _id, i);

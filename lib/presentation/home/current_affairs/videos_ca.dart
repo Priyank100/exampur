@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -70,7 +71,7 @@ class _VideosCAState extends State<VideosCA> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:isLoad==0? Center(child: CircularProgressIndicator(color: AppColors.amber,)):
+      body:isLoad==0? Center(child: LoadingIndicator(context)):
       videoList.length==0 ? AppConstants.noDataFound() :
       RefreshWidget(
         keyRefresh: keyRefresh,

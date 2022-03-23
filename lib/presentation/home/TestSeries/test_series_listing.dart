@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/test_series_model.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/TestSeriesProvider.dart';
 import 'package:exampur_mobile/shared/custom_web_view.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -48,7 +49,7 @@ class TestSeriesListingState extends State<TestSeriesListing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+        body: isLoading ? Center(child:LoadingIndicator(context)) :
         testSeriesList.length==0 ? AppConstants.noDataFound() :
         SingleChildScrollView(
           child: Column(

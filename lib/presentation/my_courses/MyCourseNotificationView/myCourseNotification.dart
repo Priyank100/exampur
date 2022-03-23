@@ -1,6 +1,7 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_notification_model.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -38,7 +39,7 @@ class _MyCourseNotificationsState extends State<MyCourseNotifications> {
   Widget build(BuildContext context) {
     return  Scaffold(
 
-        body:isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)):myCourseNotificationList.length ==0?AppConstants.noDataFound() :ListView.separated(
+        body:isLoading?Center(child: LoadingIndicator(context)):myCourseNotificationList.length ==0?AppConstants.noDataFound() :ListView.separated(
                   itemCount:myCourseNotificationList.length ,
                   padding: EdgeInsets.all(8),
 
@@ -67,12 +68,6 @@ class _MyCourseNotificationsState extends State<MyCourseNotifications> {
                                   ],
                                 ),
                                 onPressed: () {
-
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => MyNotificationViedo(
-                                  //           myCourseNotificationList[index])));
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

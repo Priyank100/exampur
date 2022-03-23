@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/data/model/e_book_model.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/shared/ebooksContainer.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -57,7 +58,7 @@ class _EBooksScreenState extends State<EBooksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-         body:isLoad==0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :eBooksList.length==0 ?
+         body:isLoad==0 ? Center(child: LoadingIndicator(context)) :eBooksList.length==0 ?
          AppConstants.noDataFound() :
         ListView.builder(
             itemCount: eBooksList.length,

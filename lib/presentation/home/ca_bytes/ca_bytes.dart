@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:exampur_mobile/data/model/c_a_bytes_model.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/CABytesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -44,7 +45,7 @@ class _CaBytesState extends State<CaBytes> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(),
-        body:isLoading? Center(child: CircularProgressIndicator(color: AppColors.amber,)):caBytesList.length==0?
+        body:isLoading? Center(child:LoadingIndicator(context)):caBytesList.length==0?
         AppConstants.noDataFound():
         CarouselSlider(
           options: CarouselOptions(

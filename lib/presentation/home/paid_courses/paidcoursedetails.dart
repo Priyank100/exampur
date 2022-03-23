@@ -102,7 +102,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       player: YoutubePlayer(
         //aspectRatio: 19 / 9,
         controller: _controller,
-        showVideoProgressIndicator: false,
+       // showVideoProgressIndicator: false,
         progressIndicatorColor: Colors.blueAccent,
         topActions: <Widget>[
           //todo: change video quality

@@ -3,6 +3,7 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -68,7 +69,7 @@ isLoading=true;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body:isLoading?Center(child: CircularProgressIndicator(color: Colors.amber,)):
+      body:isLoading?Center(child: LoadingIndicator(context)):
       one2oneList.length == 0
           ? AppConstants.noDataFound()
           :

@@ -1,6 +1,6 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/appp_toutorial.dart';
-import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial_video.dart';
+import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +55,7 @@ class _AppTutorialCardState extends State<AppTutorialCard> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AppTutorialVideo(widget.listData.videoLink.toString(),
+                                    builder: (context) => YoutubeVideo(widget.listData.videoLink.toString(),
                                         widget.listData.title.toString())));
                           },
                         ),

@@ -2,6 +2,7 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/BookBannerDetail.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -39,7 +40,7 @@ class _BannerLinkBookDetailPageState extends State<BannerLinkBookDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:bannerDetailData==null?Center(child: CircularProgressIndicator(color: AppColors.amber,)):
+        body:bannerDetailData==null?Center(child: LoadingIndicator(context)):
         BookBannerDetail(bannerDetailData)
         // Viedobanner(bannerDetailData!.videoPath.toString(), bannerDetailData!.title.toString(), bannerDetailData!.id.toString(), bannerDetailData!.salePrice.toString(),)
 

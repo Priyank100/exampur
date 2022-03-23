@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/job_alerts_detail_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -39,7 +40,7 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
     return Scaffold(
       appBar: CustomAppBar(),
       body: jobAlertsData == null ?
-      Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+      Center(child: LoadingIndicator(context)) :
       Padding(
         padding: EdgeInsets.all(10),
           child: Column(

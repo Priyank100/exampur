@@ -128,13 +128,13 @@ class SignUpState extends State<SignUp> {
                     SizedBox(
                       height: 15,
                     ),
-                    CustomTextField(
-                        hintText: "Username",
-                        controller: _userNameController,
-                        value: (value) {}),
-                    SizedBox(
-                      height: 15,
-                    ),
+                    // CustomTextField(
+                    //     hintText: "Username",
+                    //     controller: _userNameController,
+                    //     value: (value) {}),
+                    // SizedBox(
+                    //   height: 15,
+                    // ),
                     CustomTextField(
                         hintText: "Phone number",
                         controller: _phoneController,
@@ -292,14 +292,16 @@ class SignUpState extends State<SignUp> {
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      } else if (_userName.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please enter your Username'),
-          backgroundColor: AppColors.black,
-          margin: EdgeInsets.all(20),
-          behavior: SnackBarBehavior.floating,
-        ));
-      } else if (_phone.isEmpty) {
+      }
+      // else if (_userName.isEmpty) {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Please enter your Username'),
+      //     backgroundColor: AppColors.black,
+      //     margin: EdgeInsets.all(20),
+      //     behavior: SnackBarBehavior.floating,
+      //   ));
+     // }
+    else if (_phone.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Phone Number'),
           backgroundColor: AppColors.black,
@@ -340,7 +342,7 @@ class SignUpState extends State<SignUp> {
         CreateUserbody.emailId = _email;
         CreateUserbody.password = _password;
         CreateUserbody.phone = _phone;
-        CreateUserbody.lastName = _userName;
+        CreateUserbody.lastName = 'null';
         CreateUserbody.state = selectedState;
         CreateUserbody.city = _city;
         CreateUserbody.country = AppConstants.defaultCountry;

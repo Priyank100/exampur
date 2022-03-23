@@ -113,9 +113,11 @@ flutter:
     - assets/LocalJson/State.json
     - assets/LocalJson/issuename.json
     - assets/LocalJson/booklist.json
+    - assets/LocalJson/downloadlist.json
     - assets/LocalJson/currentaffairtab.json
     - assets/LocalJson/myCourseTab.json
     - assets/LiveLottie.json
+    - assets/DoneLottie.json
 
 
   fonts:

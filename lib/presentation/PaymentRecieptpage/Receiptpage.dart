@@ -3,12 +3,14 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/final_order_pay_model.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class PaymentReceiptPage extends StatefulWidget {
@@ -115,7 +117,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
             ),
           ),
           body: isLoad
-              ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+              ? Center(child: LoadingIndicator(context)) :
           model.data == null ? Center(child: Text(error)) :
           Padding(
             padding: const EdgeInsets.all(12.0),
@@ -134,10 +136,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                 ),
                 Align(
                     alignment: Alignment.center,
-                    child: Image.asset(
-                      Images.done,
-                      height: 70,
-                    )),
+                    child: Lottie.asset('assets/DoneLottie.json',height: 70,)),
                 SizedBox(
                   height: 8,
                 ),
