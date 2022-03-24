@@ -95,7 +95,7 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
       );
       AppConstants.printLog(_taskid);
       Navigator.push(context, MaterialPageRoute(builder: (_) =>
-          Downloads(1)
+          Downloads(0)
       ));
     });
   }
