@@ -25,6 +25,7 @@ class TestSeriesListingState extends State<TestSeriesListing> {
   @override
   void initState() {
     getLists();
+
     super.initState();
   }
 

@@ -288,7 +288,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       );
       AppConstants.printLog(_taskid);
       Navigator.push(context, MaterialPageRoute(builder: (_) =>
-          Downloads()
+          Downloads(1)
       ));
     });
   }
@@ -309,7 +309,7 @@ Future<void> requestVideoDownload() async {
     );
     AppConstants.printLog(_taskid);
     Navigator.push(context, MaterialPageRoute(builder: (_) =>
-        Downloads()
+        Downloads(0)
     ));
   });
 }
