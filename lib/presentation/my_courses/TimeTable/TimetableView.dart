@@ -65,46 +65,37 @@ class _TimeTableViewState extends State<TimeTableView> {
            //  )
            //  :
            // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.noLiveStreamPresent), AppColors.grey);
-          Container(
-            padding: EdgeInsets.all(8),
-              color: index % 2 == 0
-                  ? Theme.of(context).backgroundColor
-                  : AppColors.transparent,
+          InkWell(
+            onTap: (){
+              callLiveStream(index);
+            },
+            child: Container(
+              padding: EdgeInsets.all(8),
+                color: index % 2 == 0
+                    ? Theme.of(context).backgroundColor
+                    : AppColors.transparent,
        child:   Row(
-           mainAxisAlignment:MainAxisAlignment.start,children: [
-              // Image.asset(Images.free_course,height: 120,width: 100,),
-           AppConstants.image(AppConstants.BANNER_BASE + myCourseTimeLineList[index].logoPath.toString(),height: 120.0,width: 100.0,),
-           SizedBox(width: 9,),
-           Flexible(
-             child: Column(
-               crossAxisAlignment: CrossAxisAlignment.start,
+             mainAxisAlignment:MainAxisAlignment.start,children: [
+                // Image.asset(Images.free_course,height: 120,width: 100,),
+             AppConstants.image(AppConstants.BANNER_BASE + myCourseTimeLineList[index].logoPath.toString(),height: 80.0,width: 100.0,),
+             SizedBox(width: 9,),
+             Flexible(
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
 
-               children: [
-               Text(myCourseTimeLineList[index].title.toString() + ' || ' + myCourseTimeLineList[index].chapterName.toString() + ' || ' + myCourseTimeLineList[index].subjectId!.title.toString(),style: TextStyle(fontSize: 15),),
-                 SizedBox(height: 10,),
-                 // myCourseTimeLineList[index].targetLink == null || myCourseTimeLineList[index].targetLink.toString().isEmpty ?  InkWell(
-                 //   onTap: (){
-                 //     //AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.noLiveStreamPresent), AppColors.grey);
-                 //   },
-                 //   child: Container(decoration: BoxDecoration(
-                 //       border: Border.all(color: AppColors.red)
-                 //   ),height: 25,width: 200,child: Center(child: Text('Live at '+outputDate,style: TextStyle(color: AppColors.red,fontSize: 10),)),),
-                 // ):
-                 InkWell(
-                   onTap: (){
-                    // AppConstants.goTo(context, AlertStream(myCourseTimeLineList[index].id.toString()));
-                     callLiveStream(index);
-                   },
-                   child: Container(decoration: BoxDecoration(
-                       border: Border.all(color: AppColors.red)
-                   ),height: 25,width: 200,child: Center(child: Text('Live at '+outputDate,style: TextStyle(color: AppColors.red,fontSize: 10),)),),
-                 )
-               ],
-             ),
-           )
-            ],)
+                 children: [
+                 Text(myCourseTimeLineList[index].title.toString() + ' || ' + myCourseTimeLineList[index].chapterName.toString() + ' || ' + myCourseTimeLineList[index].subjectId!.title.toString(),style: TextStyle(fontSize: 15),),
+                   SizedBox(height: 10,),
+                    Container(decoration: BoxDecoration(
+                         border: Border.all(color: AppColors.red)
+                     ),height: 25,width: 200,child: Center(child: Text('Live at '+outputDate,style: TextStyle(color: AppColors.red,fontSize: 10),)),),
+                 ],
+               ),
+             )
+              ],)
 
-        );
+        ),
+          );
         })
     );
   }
@@ -115,12 +106,8 @@ class _TimeTableViewState extends State<TimeTableView> {
       AlertDialog alert = AlertDialog(
         titlePadding: EdgeInsets.only(top: 0, ),
         contentPadding: EdgeInsets.only(top: 0, ),
-        //insetPadding: EdgeInsets.symmetric(horizontal: 1),
-        // title: const Text('Popup example'),
         content: Column(
-
           mainAxisSize: MainAxisSize.min,
-          //crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(color: AppColors.amber,height: 30,width: MediaQuery.of(context).size.width,
               alignment: Alignment.topRight,
@@ -130,15 +117,15 @@ class _TimeTableViewState extends State<TimeTableView> {
               ),
             ),
             SizedBox(height: 10,),
-            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hlsURL.toString(),myCourseTimeLineList[index].title.toString()) ,title: 'Normal',),
+            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hlsURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString()) ,title: 'Normal',),
             SizedBox(height: 10,),
-            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData.apexLink!.hls240pURL.toString(),myCourseTimeLineList[index].title.toString()),title: '240p',),
+            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData.apexLink!.hls240pURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString()),title: '240p',),
             SizedBox(height: 10,),
-            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData.apexLink!.hls360pURL.toString(),myCourseTimeLineList[index].title.toString() ) ,title: '360p',),
+            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData.apexLink!.hls360pURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString() ) ,title: '360p',),
             SizedBox(height: 10,),
-            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData.apexLink!.hls480pURL.toString(),myCourseTimeLineList[index].title.toString()) ,title: '480p',),
+            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData.apexLink!.hls480pURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString()) ,title: '480p',),
             SizedBox(height: 10,),
-            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData.apexLink!.hls720pURL.toString(),myCourseTimeLineList[index].title.toString()) ,title: '720p',),
+            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData.apexLink!.hls720pURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString()) ,title: '720p',),
             SizedBox(height: 10,),
 
           ],

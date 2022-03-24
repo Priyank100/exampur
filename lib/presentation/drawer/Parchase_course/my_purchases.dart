@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/drawer/Parchase_course/purchaseListContainer.dart';
 import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
@@ -46,7 +47,7 @@ class _MyPurchasesState extends State<MyPurchases> {
             Padding(
               padding: const EdgeInsets.only(left: Dimensions.FONT_SIZE_SMALL,bottom: Dimensions.FONT_SIZE_SMALL),
               child: Text(
-                'My Purcahses',
+                getTranslated(context, StringConstant.myPurchase)!,
                 style: TextStyle(fontSize: 25),
               ),
             ),

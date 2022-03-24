@@ -9,6 +9,7 @@ import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
+import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -62,11 +63,15 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                 //     height: Dimensions.AppTutorialImageHeight,
                 //     child:Image.network(AppConstants.BANNER_BASE+materialList[index].timeline!.logoPath.toString(),fit: BoxFit.fill,),
                 //     ),
-                Container(
-                    width: Dimensions.WatchButtonWidth,
-                    height: Dimensions.AppTutorialImageHeight,
-                    child:Image.asset(Images.exampur_logo,fit: BoxFit.fill,),
-                    ),
+                 Container(
+                  width: Dimensions.WatchButtonWidth,
+                  height: Dimensions.AppTutorialImageHeight,
+                  child:Image.asset(Images.exampur_logo,fit: BoxFit.fill,)),
+                // ):  Container(
+                //     width: Dimensions.WatchButtonWidth,
+                //     height: Dimensions.AppTutorialImageHeight,
+                //     child:Image.network(AppConstants.BANNER_BASE+materialList[index].timeline!.logoPath.toString(),fit: BoxFit.fill,),
+                //     ),
                 SizedBox(width: 10),
 
                 Flexible(
@@ -77,7 +82,17 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                       SizedBox(height: 25,),
                       Row(
                         children: [
-                          CustomAmberButton(onPressed: (){AlertDialog alert = AlertDialog(
+                      materialList[index].videoLink==''?CustomAmberButton(text:getTranslated(context, StringConstant.watch)!, onPressed: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>YoutubeVideo(materialList[index].videoLink.toString(), materialList[index].title.toString())
+                            )
+                        );
+                       // YoutubeVideo(materialList[index].videoLink.toString(), materialList[index].title.toString())
+                      }):
+                      CustomAmberButton(onPressed: (){
+                            AlertDialog alert = AlertDialog(
                             titlePadding: EdgeInsets.only(top: 0, ),
                             contentPadding: EdgeInsets.only(top: 0, ),
                             //insetPadding: EdgeInsets.symmetric(horizontal: 1),
@@ -95,15 +110,15 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                                   ),
                                 ),
                                 SizedBox(height: 10,),
-                                CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hlsUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString()) ,title: 'Normal',),
+                                CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hlsUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].timeline!.recordingProps!.thumbnail.toString()) ,title: 'Normal',),
                                 SizedBox(height: 10,),
-                                CustomButton(navigateTo: MyMaterialViedo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString()),title: '240p',),
+                                CustomButton(navigateTo: MyMaterialViedo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].timeline!.recordingProps!.thumbnail.toString()),title: '240p',),
                                 SizedBox(height: 10,),
-                                CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the360.toString()) ,title: '360p',),
+                                CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the360.toString() ,materialList[index].timeline!.recordingProps!.thumbnail.toString()),title: '360p',),
                                 SizedBox(height: 10,),
-                                CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the576.toString()) ,title: '480p',),
+                                CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the576.toString(),materialList[index].timeline!.recordingProps!.thumbnail.toString() ),title: '480p',),
                                 SizedBox(height: 10,),
-                                CustomButton(navigateTo: MyMaterialViedo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString()) ,title: '720p',),
+                                CustomButton(navigateTo: MyMaterialViedo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].timeline!.recordingProps!.thumbnail.toString()),title: '720p',),
                                 SizedBox(height: 10,),
 
                               ],

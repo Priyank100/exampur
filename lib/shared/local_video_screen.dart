@@ -23,7 +23,7 @@ class _LocalVideoScreenState extends State<LocalVideoScreen> {
     videoPlayerController = VideoPlayerController.file(widget.file);
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
-      aspectRatio: 3 / 2,
+      aspectRatio: 16/9 ,
       autoPlay: true,
       looping: true,
     );
@@ -44,7 +44,7 @@ class _LocalVideoScreenState extends State<LocalVideoScreen> {
         children: [
           Container(
             padding: EdgeInsets.only(top: 8),
-            height: 250,
+            height: (MediaQuery.of(context).size.width)/16*9,
             child: Chewie(
                 controller: chewieController
             ),
