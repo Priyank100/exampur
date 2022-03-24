@@ -79,7 +79,7 @@ class _BottomNavigationState extends State<BottomNavigation>
     Home(),
     Demo(),
     MyCourses(),
-    Downloads(),
+    Downloads(0),
     Help()
   ];
 
@@ -342,7 +342,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Downloads()));
+                                builder: (context) => Downloads(0)));
                       },
                     ),
                     ListTile(

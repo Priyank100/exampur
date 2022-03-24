@@ -32,7 +32,7 @@ class AppRouter {
         );
       case '/downloads':
         return MaterialPageRoute(
-          builder: (_) => Downloads(),
+          builder: (_) => Downloads(0),
         );
       case '/help':
         return MaterialPageRoute(
