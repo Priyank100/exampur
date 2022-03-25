@@ -166,7 +166,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                                   .name
                                                   .toString(),
                                               style: TextStyle(
-                                                fontSize: 17.0,
+                                                fontSize: 12.0,
                                                 fontWeight:
                                                 FontWeight.bold,
                                                 color: AppColors.black,

@@ -117,7 +117,7 @@ class _TimeTableViewState extends State<TimeTableView> {
               ),
             ),
             SizedBox(height: 10,),
-            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hlsURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString()) ,title: 'Normal',),
+            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hlsURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString()) ,title: getTranslated(context, StringConstant.Normal),),
             SizedBox(height: 10,),
             CustomButton(navigateTo: MyTimeTableViedo(liveStreamData.apexLink!.hls240pURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString()),title: '240p',),
             SizedBox(height: 10,),

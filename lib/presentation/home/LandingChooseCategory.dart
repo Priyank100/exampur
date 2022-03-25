@@ -170,7 +170,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                                         .name
                                                         .toString(),
                                                     style: TextStyle(
-                                                      fontSize: 17.0,
+                                                      fontSize: 14.0,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: AppColors.black,

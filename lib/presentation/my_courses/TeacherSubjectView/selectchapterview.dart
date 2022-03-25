@@ -110,7 +110,7 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                                   ),
                                 ),
                                 SizedBox(height: 10,),
-                                CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hlsUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].timeline!.recordingProps!.thumbnail.toString()) ,title: 'Normal',),
+                                CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hlsUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].timeline!.recordingProps!.thumbnail.toString()) ,title: getTranslated(context, StringConstant.Normal),),
                                 SizedBox(height: 10,),
                                 CustomButton(navigateTo: MyMaterialViedo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(),materialList[index].title.toString(),materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].timeline!.recordingProps!.thumbnail.toString()),title: '240p',),
                                 SizedBox(height: 10,),

@@ -118,7 +118,7 @@ class API {
 
   //dailyQuiz
   static const String dailyQuiz_URL  = BASE_URL3 + 'quiz/find_all_quiz?page_id=';
-  static const String dailuQuiz_web_URL  = 'https://exampurtest.vercel.app/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
+  static const String dailuQuiz_web_URL  = 'https://test.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
 
 }
 
@@ -468,6 +468,7 @@ class StringConstant {
   static String Name_Field_Required= 'name_field_required';
   static String noData= 'no_data';
   static String noLiveStreamPresent= 'no_live_stream_present';
+  static String Normal= 'normal';
 
   static String testCourses= 'test_courses';
   static String TotalAmount= 'total_amount';

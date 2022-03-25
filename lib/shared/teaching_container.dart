@@ -13,6 +13,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:share/share.dart';
 
 class TeachingContainer extends StatefulWidget {
@@ -56,8 +57,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.all( Radius.circular(10),
-                    // bottomRight: Radius.circular(20),
-                    // bottomLeft: Radius.circular(20),
+
                   ),
                   child: Container(
                     //padding: EdgeInsets.all(8),
@@ -66,11 +66,6 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           Radius.circular(10),
                         )),
                     width: double.infinity,
-                    // child: CachedNetworkImage(
-                    //   imageUrl: AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString(),
-                    //   placeholder: (context, url) => new Image.asset(Images.noimage),
-                    //   errorWidget: (context, url, error) => new Icon(Icons.error),
-                    // ),
                     child: AppConstants.image(AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString()),
                   ),
                 ),
@@ -91,24 +86,12 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(fontSize: 18),
                                     ),
-                                  Text(
-                                    widget.courseData.description.toString(),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 18),
-                                  ),
+                                  Container(height:60,child: Html(data:widget.courseData.description.toString(),)),
+
                                 ],
                               ),
                             ),
-                            // ClipOval(
-                            //   clipper: MyClip(),
-                            //   child: FadeInImage.assetNetwork(
-                            //     placeholder: Images.noimage,
-                            //     image: widget.paidcourseList[widget.index].logoPath.toString(),
-                            //
-                            //     fit: BoxFit.fill,
-                            //   ),
-                            // ),
+
                             ClipOval(
                               child: Image.asset(
                                Images.exampur_logo,
@@ -144,7 +127,6 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           widget.courseType==1? CustomRoundButton(onPressed: (){
                             Navigator.push(
                               context,
-                              // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
                               MaterialPageRoute(builder: (context) =>
                                   DeliveryDetailScreen('Course', widget.courseData.id.toString(),
                                       widget.courseData.title.toString(), widget.courseData.salePrice.toString()
@@ -179,15 +161,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                     ],),
                 ),
-                // Container(
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.only(
-                //           bottomLeft: Radius.circular(10),
-                //           bottomRight: Radius.circular(10)),
-                //       color: Theme.of(context).primaryColor,
-                //     ),
-                //     height: 40,
-                //     child: Center(child: Text("Watch Now")))
+
               ],
             ),
           ),
