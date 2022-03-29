@@ -7,6 +7,7 @@ import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'bottom_navigation.dart';
@@ -264,7 +265,10 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                               // child: SizedBox(
                               //   width: double.infinity,
                               child: InkWell(
-                                onTap: () {
+                                onTap: () async{
+                                  await FirebaseAnalytics.instance.logEvent(name: 'EXAM_SELECTED',parameters: {
+                                    'exam_categories': selectedCountries.toString()
+                                  });
                                   SharedPref.saveSharedPref(
                                       SharedPrefConstants.CATEGORY_LENGTH,
                                       selectedCountries.length.toString());

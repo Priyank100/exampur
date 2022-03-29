@@ -9,6 +9,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/custompassword_textfield.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -87,6 +88,9 @@ class SignInState extends State<SignIn> {
 
   route(bool isRoute, String errorMessage) async {
     if (isRoute) {
+    await  FirebaseAnalytics.instance.logEvent(name: 'LOGIN_SCREEN',parameters: {
+        'User_phoneNumber':_phoneController.text.toString()
+      });
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => BottomNavigation()), (route) => false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage), backgroundColor: AppColors.grey,));

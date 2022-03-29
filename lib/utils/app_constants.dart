@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -218,6 +219,15 @@ class AppConstants {
       },
     );
   }
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+  FirebaseAnalyticsObserver(analytics: analytics);
+  static void  sendAnalyticsEvent(String nameofclick) async {
+    await analytics.logEvent(
+      name: nameofclick,
+    );
+  }
+
 
   static void showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(

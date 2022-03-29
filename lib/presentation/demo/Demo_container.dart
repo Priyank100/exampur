@@ -4,6 +4,7 @@ import 'package:exampur_mobile/presentation/widgets/custom_button_amber_color_wa
 import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 class DemoContainer extends StatefulWidget {
@@ -40,7 +41,11 @@ class _DemoContainerState extends State<DemoContainer> {
                  SizedBox(height: 25,),
                  Row(
                    children: [
-                     CustomAmberButton(onPressed: () {
+                     CustomAmberButton(onPressed: ()async {
+                       await   FirebaseAnalytics.instance.logEvent(name: 'Demo_Details_Clicks',parameters: {
+                         'Course_id':widget.demoList[widget.index].id.toString(),
+                         'Course_title':widget.demoList[widget.index].title.toString()
+                       });
 
      Navigator.push(
      context,

@@ -11,6 +11,7 @@ import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -116,6 +117,10 @@ class _TeachingContainerState extends State<TeachingContainer> {
                       Column(
                         children: [
                           CustomRoundButton(onPressed: (){
+                            // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
+                            // // courseIdList.add(widget.courseData.id.toString());
+                            // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;
+
                             widget.courseType==1?  Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 PaidCourseDetails(widget.courseData,widget.courseType)
                             )): Navigator.push(context, MaterialPageRoute(builder: (_) =>
@@ -124,7 +129,11 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             ;
                           },text: getTranslated(context, 'view_details')!,),
                           SizedBox(height: 10,),
-                          widget.courseType==1? CustomRoundButton(onPressed: (){
+                          widget.courseType==1? CustomRoundButton(onPressed: ()async{
+                            await   FirebaseAnalytics.instance.logEvent(name: 'Paid_Courdse_Details'+widget.courseData.title.toString(),parameters: {
+                              'Course_id':widget.courseData.id.toString(),
+                              'Course_title':widget.courseData.title.toString()
+                            });
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>
