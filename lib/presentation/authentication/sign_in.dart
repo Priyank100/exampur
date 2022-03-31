@@ -86,11 +86,9 @@ class SignInState extends State<SignIn> {
     }
   }
 
-  route(bool isRoute, String errorMessage) async {
+  route(bool isRoute, String errorMessage) {
     if (isRoute) {
-    await  FirebaseAnalytics.instance.logEvent(name: 'LOGIN_SCREEN',parameters: {
-        'User_phoneNumber':_phoneController.text.toString()
-      });
+    AppConstants.sendAnalyticsEvent('LOGIN_SCREEN');
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => BottomNavigation()), (route) => false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage), backgroundColor: AppColors.grey,));

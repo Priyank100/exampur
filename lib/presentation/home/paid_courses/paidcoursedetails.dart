@@ -7,6 +7,7 @@ import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -220,7 +221,10 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
             Html(data:widget.courseData.description.toString(),),
             widget.courseType==1 ? InkWell(
                   onTap: () {
-
+FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
+  'Couse_Id':widget.courseData.id.toString(),
+  'Couse_Name':widget.courseData.title.toString()
+});
                     Navigator.push(
                       context, MaterialPageRoute(builder: (context) =>
                           DeliveryDetailScreen('Course', widget.courseData.id.toString(),

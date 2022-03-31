@@ -102,9 +102,9 @@ class _OtpScreenState extends State<OtpScreen> {
                 Theme.of(context).primaryColor),
           ),
           onPressed: ()async {
-        await    FirebaseAnalytics.instance.logEvent(name: 'OTP_REQUESTED',parameters: {
-          'User_phoneNumber':_phoneController.text.toString()
-        });
+        // await    FirebaseAnalytics.instance.logEvent(name: 'OTP_REQUESTED',parameters: {
+        //   'User_phoneNumber':_phoneController.text.toString()
+        // });
             sendOtp();
           },
           child: Padding(
@@ -283,9 +283,9 @@ class _OtpScreenState extends State<OtpScreen> {
       AppConstants.showBottomMessage(context, 'Enter the OTP', Colors.black);
       return;
     }
-    await FirebaseAnalytics.instance.logEvent(name: 'OTP_SUBMIT',parameters: {
-      'User_PhoneNumber':_phoneController.text.toString()
-    });
+    // await FirebaseAnalytics.instance.logEvent(name: 'OTP_SUBMIT',parameters: {
+    //   'User_PhoneNumber':_phoneController.text.toString()
+    // });
     AppConstants.showLoaderDialog(context);
     var body = {
       // "phone_ext": "91",

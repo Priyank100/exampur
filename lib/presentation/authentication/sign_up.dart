@@ -360,7 +360,7 @@ class SignUpState extends State<SignUp> {
       await FirebaseAnalytics.instance.logEvent(name: 'USER_SIGNUP',parameters: {
         'Name':_nameController.text.toString(),
         'Email':_emailController.text.toString(),
-        'Phone':_phoneController.text.toString(),
+       // 'Phone':_phoneController.text.toString(),
 
       });
       SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, '0');

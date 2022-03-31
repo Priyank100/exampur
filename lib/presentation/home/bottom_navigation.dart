@@ -148,7 +148,9 @@ class _BottomNavigationState extends State<BottomNavigation>
           leading: Builder(builder: (BuildContext context) {
             return IconButton(
                 icon: Image.asset(Images.menu_icon,width: Dimensions.ICON_SIZE_LARGE,color: AppColors.black,),
-                onPressed: () => Scaffold.of(context).openDrawer());
+                onPressed: () {
+                  AppConstants.sendAnalyticsEvent('SIDE_BAR_CLICKED');
+                  Scaffold.of(context).openDrawer();});
           }),
           actions: [
             // IconButton(

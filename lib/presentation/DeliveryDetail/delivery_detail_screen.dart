@@ -9,6 +9,7 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
@@ -215,12 +216,16 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
                 child: InkWell(
                   onTap: (){
+
                     FocusScope.of(context).unfocus();
                     String cuponCode = _cuponCodeController.text.toUpperCase();
                     // String id = widget.paidcourseList.id.toString();
                     String id = widget.id.toString();
 
                    if(chechCoupon(cuponCode)){
+                     FirebaseAnalytics.instance.logEvent(name: 'PROMOCODE_APPLIED',parameters: {
+                       'promocode':_cuponCodeController.text.toString(),
+                     });
                      couponApi(cuponCode,id);
                    }
 

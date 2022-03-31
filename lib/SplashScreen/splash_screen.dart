@@ -7,6 +7,9 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:new_version/new_version.dart';
+//import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen() : super();
@@ -21,11 +24,42 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     AppConstants.sendAnalyticsEvent('Splash_Screen');
-    callProvider();
+    // callProvider();
+    _checkVersion();
+  }
+
+  void _checkVersion() async {
+    final newVersion = NewVersion(
+       androidId: "com.example.exampur_mobile",
+     // androidId: "com.edudrive.exampur",
+    );
+    final status = await newVersion.getVersionStatus();
+
+    if(status == null || status.localVersion == status.storeVersion) {
+      callProvider();
+    } else {
+      newVersion.showUpdateDialog(
+        context: context,
+        versionStatus: status,
+        dialogTitle: "UPDATE!!!",
+        dismissButtonText: "Skip",
+        dialogText: "Please update the app from " + "${status.localVersion}" + " to " + "${status.storeVersion}",
+        dismissAction: () {
+          SystemNavigator.pop();
+        },
+        updateButtonText: "Lets update",
+      );
+    }
+
+
+
+    // print("DEVICE : " + status.localVersion);
+    // print("STORE : " + status.storeVersion);
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body:  Container(
        // padding: EdgeInsets.only(left: 60,right: 60,top: 30),
@@ -98,3 +132,4 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
 }
+

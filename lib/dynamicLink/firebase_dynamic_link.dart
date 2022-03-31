@@ -57,6 +57,7 @@ class FirebaseDynamicLinkService {
     );
 
     final PendingDynamicLinkData? data = await FirebaseDynamicLinks.instance.getInitialLink();
+
     handleDeepLink(context, data!);
 
   }
