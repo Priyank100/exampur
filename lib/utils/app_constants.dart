@@ -15,8 +15,11 @@ class API {
   // static const String BASE_URL3 = 'https://static.exampur.work/';
   static const String BASE_URL4 = 'http://3.1.205.105:3001/';
 
-  static const String BASE_URL2 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
-  static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
+  // static const String BASE_URL2 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
+  // static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
+
+  static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
+  static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
 
 
   //BannerBase
@@ -155,8 +158,10 @@ class AppConstants {
 
   // static String currentAffairesId = '61efe9771dbf84752e750373';
   // static String studyMaterialsId = '61efe9921dbf84752e750384';
-  static String currentAffairesId = '6225f4b40536af56be90ed66';
-  static String studyMaterialsId = '6225f4540536af56be90ed28';
+  // static String currentAffairesId = '6225f4b40536af56be90ed66';
+  // static String studyMaterialsId = '6225f4540536af56be90ed28';
+  static String currentAffairesId = 'CURRENTAFFAIRS';
+  static String studyMaterialsId = 'STUDYMATERIALS';
 
   static String testSeriesToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjI4NjZiNTI2M2JjZDU5NGNlYjQ2OTEiLCJpYXQiOjE2NDY4MTQ5ODIsImV4cCI6MTY0NjkwMTM4Mn0.nC3XmvNX2Y_hKsiF1ZARgaMrWMVJ2w80AFyAKT0mLsA';
 
