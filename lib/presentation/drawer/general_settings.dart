@@ -193,7 +193,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       updateUserInfoModel.phone = Mobile;
       updateUserInfoModel.password = '123456789';
       updateUserInfoModel.firstName = _firstName;
-      updateUserInfoModel.lastName = '';
+      updateUserInfoModel.lastName = 'jjj';
       updateUserInfoModel.emailId = _email;
       updateUserInfoModel.city = _city;
       updateUserInfoModel.state = selectedState;

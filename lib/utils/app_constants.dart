@@ -19,12 +19,12 @@ class API {
   // static const String BASE_URL2 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
   // static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
-  static const String BASE_URL2 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
-  static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
+  // static const String BASE_URL2 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
+  // static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
   //Stage
-  // static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
-  // static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
+  static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
+  static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
 
   //Dev
   // static const String BASE_URL2 = 'https://auth-dev.exampur.xyz/';
@@ -126,11 +126,14 @@ class API {
   static const String allTestSeries_URL   = BASE_URL3 + 'test_series';
   static const String liveTestSeries_URL  = BASE_URL3 + 'live_testseries';
   static const String myTestSeries_URL    = BASE_URL2 + 'testseries/enrolled/get_my_testseries';
-  static const String testSeriesWeb_URL  = 'https://exampurtest.vercel.app/testseries/list/' + 'TEST_SERIES_ID' + '?auth_token=' + 'AUTH_TOKEN';
+ // static const String testSeriesWeb_URL  = 'https://exampurtest.vercel.app/testseries/list/' + 'TEST_SERIES_ID' + '?auth_token=' + 'AUTH_TOKEN';
+ // https://testweb.exampur.xyz/TESTSERIES_ID/list?auth_token=AUTH_TOKE
+  static const String testSeriesWeb_URL  = 'https://testweb.exampur.xyz/' + 'TESTSERIES_ID'+'/list' + '?auth_token=' + 'AUTH_TOKEN';
 
   //dailyQuiz
   static const String dailyQuiz_URL  = BASE_URL3 + 'quiz/find_all_quiz?page_id=';
-  static const String dailuQuiz_web_URL  = 'https://test.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
+ // static const String dailuQuiz_web_URL  = 'https://test.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
+  static const String dailuQuiz_web_URL  = 'https://testweb.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
 
 }
 
@@ -169,6 +172,8 @@ class AppConstants {
   // static String studyMaterialsId = '61efe9921dbf84752e750384';
   static String currentAffairesId = '6225f4b40536af56be90ed66';
   static String studyMaterialsId = '6225f4540536af56be90ed28';
+  // static String currentAffairesId = 'CURRENTAFFAIR';
+  // static String studyMaterialsId = 'STUDYMATERIALS';
 
   static String testSeriesToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjI4NjZiNTI2M2JjZDU5NGNlYjQ2OTEiLCJpYXQiOjE2NDY4MTQ5ODIsImV4cCI6MTY0NjkwMTM4Mn0.nC3XmvNX2Y_hKsiF1ZARgaMrWMVJ2w80AFyAKT0mLsA';
 

@@ -78,7 +78,7 @@ class TestSeriesListingState extends State<TestSeriesListing> {
                               } else {
                                 await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {
                                   String url = API.testSeriesWeb_URL
-                                      .replaceAll('TEST_SERIES_ID', testSeriesList[index].id.toString())
+                                      .replaceAll('TESTSERIES_ID', testSeriesList[index].id.toString())
                                       .replaceAll('AUTH_TOKEN', value);
                                   AppConstants.printLog('url>> $url');
                                   AppConstants.goTo(context, CustomWebView(url));

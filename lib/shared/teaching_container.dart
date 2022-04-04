@@ -87,7 +87,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(fontSize: 18),
                                     ),
-                                  Container(height:60,child: Html(data:widget.courseData.description.toString(),)),
+                                  Container(height:100,child: Html(data:widget.courseData.description.toString(),)),
 
                                 ],
                               ),
