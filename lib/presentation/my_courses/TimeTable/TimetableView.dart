@@ -84,7 +84,7 @@ class _TimeTableViewState extends State<TimeTableView> {
                  crossAxisAlignment: CrossAxisAlignment.start,
 
                  children: [
-                 Text(myCourseTimeLineList[index].title.toString() + ' || ' + myCourseTimeLineList[index].chapterName.toString() + ' || ' + myCourseTimeLineList[index].subjectId!.title.toString(),style: TextStyle(fontSize: 15),),
+                 Text(myCourseTimeLineList[index].title.toString() +  ' || ' + myCourseTimeLineList[index].subjectId!.title.toString(),style: TextStyle(fontSize: 15),),
                    SizedBox(height: 10,),
                     Container(decoration: BoxDecoration(
                          border: Border.all(color: AppColors.red)

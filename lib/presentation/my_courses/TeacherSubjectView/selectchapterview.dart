@@ -162,6 +162,7 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                           );},text: getTranslated(context, StringConstant.watch)!,),
 
                           SizedBox(width: 5),
+                          materialList[index].pdfPath==null?SizedBox():
                           CustomRoundButton(onPressed: (){
                             Navigator.push(
                                 context,

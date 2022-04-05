@@ -90,6 +90,8 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                   Text(getTranslated(context, StringConstant.name)!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
                   CustomTextField(hintText:'${Name}', value: (value) {},controller: _nameController,),
+                  SizedBox(height: 8,),
+                  CustomTextField(hintText:'${lastname}', value: (value) {},controller: _lastnameController,),
                   SizedBox(height: 10,),
                   Text(getTranslated(context,StringConstant.phoneNumber )!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
@@ -194,7 +196,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       CreateUserModel updateUserInfoModel = CreateUserModel();
       updateUserInfoModel.phoneExt = '+91';
       updateUserInfoModel.phone = Mobile;
-      updateUserInfoModel.password = '123456789';
+      updateUserInfoModel.password = '12345678';
       updateUserInfoModel.firstName = _firstName;
       updateUserInfoModel.lastName = lastname;
       updateUserInfoModel.emailId = _email;
