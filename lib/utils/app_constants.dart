@@ -84,6 +84,10 @@ class API {
   static const String order_course          = BASE_URL2 + 'order_course/create';
   static const String finalize_order_course = BASE_URL2 + 'order_course/finalize';
 
+  //order_combo_course
+  static const String order_combo_course          = BASE_URL2 + 'order_combo_course/create';
+  static const String finalize_order_combo_course = BASE_URL2 + 'order_combo_course/finalize';
+
   //order_book
   static const String order_book          = BASE_URL2 + 'order_book/create';
   static const String finalize_order_book = BASE_URL2 + 'order_book/finalize';
@@ -115,12 +119,12 @@ class API {
 
   //my_course
   static const String myCourse_URL              = BASE_URL2 + 'mycourses';
-  static const String myCourse_subject_URL      = BASE_URL3 + 'course_subject/';
-  static const String myCourse_material_URL     = BASE_URL3 + 'course_material/material/';
-  static const String myCourse_chapter_URL     = BASE_URL3 + 'course_material/chapter/';
-  static const String myCourse_timeline_URL     = BASE_URL3 + 'course_timeline';
-  static const String myCourse_timelineshareStream_URL     = BASE_URL3 + 'course_timeline/shareStreamToMobile';
-  static const String myCourse_notification_URL = BASE_URL3 + 'course_notification';
+  static const String myCourse_subject_URL      = BASE_URL2 + 'course_subject/';
+  static const String myCourse_material_URL     = BASE_URL2 + 'course_material/material/';
+  static const String myCourse_chapter_URL     = BASE_URL2 + 'course_material/chapter/';
+  static const String myCourse_timeline_URL     = BASE_URL2 + 'course_timeline';
+  static const String myCourse_timelineshareStream_URL     = BASE_URL2 + 'course_timeline/shareStreamToMobile';
+  static const String myCourse_notification_URL = BASE_URL2 + 'course_notification';
 
   //testSeries
   static const String allTestSeries_URL   = BASE_URL3 + 'test_series';

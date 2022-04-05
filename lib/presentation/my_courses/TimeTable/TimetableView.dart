@@ -31,8 +31,8 @@ class _TimeTableViewState extends State<TimeTableView> {
 
   Future<void> callProvider() async {
     isLoading = true;
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-    myCourseTimeLineList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseTimeLineList(context, widget.courseId, token))!;
+   // String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    myCourseTimeLineList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseTimeLineList(context, widget.courseId))!;
     isLoading = false;
     setState(() {});
 

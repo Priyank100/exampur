@@ -20,7 +20,8 @@ import 'package:share/share.dart';
 class TeachingContainer extends StatefulWidget {
   final Courses courseData;
   int courseType;
-    TeachingContainer (this.courseData,this.courseType) : super();
+  String tabId;
+    TeachingContainer (this.courseData,this.courseType,this.tabId) : super();
 
   @override
   _TeachingContainerState createState() => _TeachingContainerState();
@@ -82,7 +83,8 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    widget.courseData.title.toString(),
+                                    new String.fromCharCodes(new Runes(widget.courseData.title.toString()))
+                                    ,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(fontSize: 18),
@@ -121,8 +123,15 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             // // courseIdList.add(widget.courseData.id.toString());
                             // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;
 
+                            String courseTabType = 'Course';
+                            if(widget.tabId=='combo_course'){
+                              courseTabType = 'Combo';
+                            }else{
+                              courseTabType = 'Course';
+                            }
+
                             widget.courseType==1?  Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                PaidCourseDetails(widget.courseData,widget.courseType)
+                                PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
                             )): Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 MyCourseTabView(widget.courseData.id.toString())
                             ))
@@ -134,14 +143,23 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               'Course_id':widget.courseData.id.toString(),
                               'Course_title':widget.courseData.title.toString()
                             });
+                            String courseTabType = 'Course';
+                            if(widget.tabId=='combo_course'){
+                              courseTabType = 'Combo';
+                            }else{
+                              courseTabType = 'Course';
+                            }
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>
-                                  DeliveryDetailScreen('Course', widget.courseData.id.toString(),
-                                      widget.courseData.title.toString(), widget.courseData.salePrice.toString()
+                                  DeliveryDetailScreen(courseTabType, widget.courseData.id.toString(),
+                                    widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
                                   )
                               ),
                             );
+
+
                           },text: getTranslated(context, 'buy_course')!,):SizedBox(),
                           SizedBox(height: 10,),
                           Row(
@@ -150,9 +168,15 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               SizedBox(width: 5,),
                               InkWell(
                                 onTap: () async {
+                                  String courseTabType = '';
+                                  if(widget.tabId=='combo_course'){
+                                    courseTabType = 'combo';
+                                  }else{
+                                    courseTabType = 'courses';
+                                  }
                                   String data = json.encode(widget.courseData);
                                   String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink(
-                                      'courses', data, widget.courseType.toString()
+                                      courseTabType, data, widget.courseType.toString()
                                   );
                                   String shareContent =
                                       'Get "' + widget.courseData.title.toString() + '" Course from Exampur Now.\n' +

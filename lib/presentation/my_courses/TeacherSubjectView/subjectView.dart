@@ -31,7 +31,7 @@ class _SubjectViewState extends State<SubjectView> {
   Future<void> callProvider() async {
     isLoading = true;
     String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-    subjectList = (await Provider.of<MyCourseProvider>(context, listen: false).getSubjectList(context, widget.courseId, token))!;
+    subjectList = (await Provider.of<MyCourseProvider>(context, listen: false).getSubjectList(context, widget.courseId,))!;
     isLoading = false;
     setState(() {});
   }

@@ -148,8 +148,8 @@ class Courses {
     map['sale_price'] = _salePrice;
     return map;
   }
-
 }
+
 
 /// icon : "right-tik"
 /// title : "Feature 1"

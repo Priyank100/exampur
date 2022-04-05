@@ -30,8 +30,8 @@ class _MyCourseNotificationsState extends State<MyCourseNotifications> {
 
   Future<void> callProvider() async {
     isLoading = true;
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-    myCourseNotificationList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseNotificationList(context, widget.courseId, token))!;
+   // String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    myCourseNotificationList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseNotificationList(context, widget.courseId))!;
     isLoading = false;
     setState(() {});
   }

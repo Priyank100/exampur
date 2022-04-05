@@ -16,9 +16,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PaidCourseDetails extends StatefulWidget {
+  String courseTabType;
   final Courses courseData;
   int courseType;
-  PaidCourseDetails(this.courseData,this.courseType) : super();
+  PaidCourseDetails(this.courseTabType,this.courseData,this.courseType) : super();
 
   @override
   _PaidCourseDetailsState createState() => _PaidCourseDetailsState();
@@ -227,7 +228,7 @@ FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
 });
                     Navigator.push(
                       context, MaterialPageRoute(builder: (context) =>
-                          DeliveryDetailScreen('Course', widget.courseData.id.toString(),
+                          DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
                               widget.courseData.title.toString(), widget.courseData.salePrice.toString()
                           )
                       ),

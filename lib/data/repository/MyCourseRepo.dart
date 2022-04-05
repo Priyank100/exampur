@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/dio/dio_client.dart';
 import 'package:exampur_mobile/data/datasource/remote/exception/api_error_handler.dart';
 import 'package:exampur_mobile/data/model/helpandfeedback.dart';
@@ -23,12 +24,13 @@ class MyCourseRepo {
     }
   }
 
-  Future<ApiResponse> subjectData(String courseId, String token) async {
+  Future<ApiResponse> subjectData(String courseId,) async {
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
       };
-      String url = API.myCourse_subject_URL + '${courseId}/${token}';
+      String url = API.myCourse_subject_URL + '${courseId}';
       final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -36,24 +38,26 @@ class MyCourseRepo {
     }
   }
 
-  Future<ApiResponse> materialData(String subjectId, String courseId,String chapterName, String token) async {
+  Future<ApiResponse> materialData(String subjectId, String courseId,String chapterName) async {
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
       };
-      String url = API.myCourse_material_URL + '${subjectId}/${courseId}/${chapterName}/${token}';
+      String url = API.myCourse_material_URL + '${subjectId}/${courseId}/${chapterName}';
       final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-  Future<ApiResponse> chapterData(String subjectId, String courseId, String token) async {
+  Future<ApiResponse> chapterData(String subjectId, String courseId,) async {
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
       };
-      String url = API.myCourse_chapter_URL + '${subjectId}/${courseId}/${token}';
+      String url = API.myCourse_chapter_URL + '${subjectId}/${courseId}';
       final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -61,24 +65,27 @@ class MyCourseRepo {
     }
   }
 
-  Future<ApiResponse> myCourseTimelineData(String courseId,String token) async {
+  Future<ApiResponse> myCourseTimelineData(String courseId,) async {
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
       };
-      String url = API.myCourse_timeline_URL+'/'+courseId+'/'+token;
-      final response = await dioClient.get(url, options: Options(headers: header));
+      String url = API.myCourse_timeline_URL+'/'+courseId;
+      final response = await dioClient.get(url,options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
   Future<ApiResponse> myCourseTimelineshareStreamToMobile(String courseId,String token) async {
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
       };
-      String url = API.myCourse_timelineshareStream_URL+'/'+courseId+'/'+token;
+      String url = API.myCourse_timelineshareStream_URL+'/'+courseId;
+      AppConstants.printLog(url);
       final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -86,12 +93,13 @@ class MyCourseRepo {
     }
   }
 
-  Future<ApiResponse> myCourseNotificationData(String courseId,String token) async {
+  Future<ApiResponse> myCourseNotificationData(String courseId) async {
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
       };
-      String url = API.myCourse_notification_URL+'/'+courseId+'/'+token;
+      String url = API.myCourse_notification_URL+'/'+courseId;
       final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {

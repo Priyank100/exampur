@@ -36,6 +36,7 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
         aspectRatio: 16/9,
         autoPlay: true,
         looping: true,
+        autoInitialize: true,
         errorBuilder: (context, errorMessage) {
           return Center(
             child: Text("Video unavanilable",style: TextStyle(color: AppColors.white),),

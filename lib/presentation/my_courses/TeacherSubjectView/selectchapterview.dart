@@ -40,7 +40,7 @@ class _SelectChapterViewState extends State<SelectChapterView> {
   Future<void> callProvider() async {
     isLoading = true;
     String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-    materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getMaterialList(context, widget.subjectId, widget.courseId, widget.chaptername, token))!;
+    materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getMaterialList(context, widget.subjectId, widget.courseId, widget.chaptername))!;
     isLoading = false;
     setState(() {});
   }
