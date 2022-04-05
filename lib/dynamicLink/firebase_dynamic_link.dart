@@ -68,7 +68,6 @@ class FirebaseDynamicLinkService {
 
       if(deepLink!=null) {
         String data = deepLink.queryParameters['data'].toString();
-        print('>>>>>>>>>>>>>>>>>>>' + deepLink.pathSegments.toString());
         var isCourses = deepLink.pathSegments.contains('courses');
         var isBooks = deepLink.pathSegments.contains('books');
         var isOne2One = deepLink.pathSegments.contains('one2one');
@@ -92,7 +91,7 @@ class FirebaseDynamicLinkService {
                 One2OneVideo(one2OneData)));
           case 4:
             String type = deepLink.queryParameters['type'].toString();
-            Courses courseData = Courses.fromJson(json.decode(utf8.decode(data.codeUnits)));
+            Courses courseData = Courses.fromJson(json.decode(data));
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>
                 PaidCourseDetails('Combo',courseData, int.parse(type.toString()))));
         }

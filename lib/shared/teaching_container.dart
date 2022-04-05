@@ -18,7 +18,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:share/share.dart';
 
 class TeachingContainer extends StatefulWidget {
-  final Courses courseData;
+  Courses courseData;
   int courseType;
   String tabId;
     TeachingContainer (this.courseData,this.courseType,this.tabId) : super();
@@ -83,14 +83,14 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    new String.fromCharCodes(new Runes(widget.courseData.title.toString()))
-                                    ,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                  Container(height:100,child: Html(data:widget.courseData.description.toString(),)),
-
+                                    widget.courseData.title.toString(),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  Container(
+                                      height:100,
+                                      child: Html(data:widget.courseData.description.toString())),
                                 ],
                               ),
                             ),
@@ -174,9 +174,10 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                   }else{
                                     courseTabType = 'courses';
                                   }
+
                                   String data = json.encode(widget.courseData);
                                   String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink(
-                                      courseTabType, data, widget.courseType.toString()
+                                      courseTabType, data.replaceAll('&', ''), widget.courseType.toString()
                                   );
                                   String shareContent =
                                       'Get "' + widget.courseData.title.toString() + '" Course from Exampur Now.\n' +
