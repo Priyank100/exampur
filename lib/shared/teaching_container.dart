@@ -11,14 +11,17 @@ import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:share/share.dart';
 
 class TeachingContainer extends StatefulWidget {
   final Courses courseData;
   int courseType;
-    TeachingContainer (this.courseData,this.courseType) : super();
+  String tabId;
+    TeachingContainer (this.courseData,this.courseType,this.tabId) : super();
 
   @override
   _TeachingContainerState createState() => _TeachingContainerState();
@@ -56,8 +59,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.all( Radius.circular(10),
-                    // bottomRight: Radius.circular(20),
-                    // bottomLeft: Radius.circular(20),
+
                   ),
                   child: Container(
                     //padding: EdgeInsets.all(8),
@@ -66,11 +68,6 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           Radius.circular(10),
                         )),
                     width: double.infinity,
-                    // child: CachedNetworkImage(
-                    //   imageUrl: AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString(),
-                    //   placeholder: (context, url) => new Image.asset(Images.noimage),
-                    //   errorWidget: (context, url, error) => new Icon(Icons.error),
-                    // ),
                     child: AppConstants.image(AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString()),
                   ),
                 ),
@@ -86,29 +83,18 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    widget.courseData.title.toString(),
+                                    new String.fromCharCodes(new Runes(widget.courseData.title.toString()))
+                                    ,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(fontSize: 18),
                                     ),
-                                  Text(
-                                    widget.courseData.description.toString(),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 18),
-                                  ),
+                                  Container(height:100,child: Html(data:widget.courseData.description.toString(),)),
+
                                 ],
                               ),
                             ),
-                            // ClipOval(
-                            //   clipper: MyClip(),
-                            //   child: FadeInImage.assetNetwork(
-                            //     placeholder: Images.noimage,
-                            //     image: widget.paidcourseList[widget.index].logoPath.toString(),
-                            //
-                            //     fit: BoxFit.fill,
-                            //   ),
-                            // ),
+
                             ClipOval(
                               child: Image.asset(
                                Images.exampur_logo,
@@ -133,24 +119,47 @@ class _TeachingContainerState extends State<TeachingContainer> {
                       Column(
                         children: [
                           CustomRoundButton(onPressed: (){
+                            // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
+                            // // courseIdList.add(widget.courseData.id.toString());
+                            // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;
+
+                            String courseTabType = 'Course';
+                            if(widget.tabId=='combo_course'){
+                              courseTabType = 'Combo';
+                            }else{
+                              courseTabType = 'Course';
+                            }
+
                             widget.courseType==1?  Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                PaidCourseDetails(widget.courseData,widget.courseType)
+                                PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
                             )): Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 MyCourseTabView(widget.courseData.id.toString())
                             ))
                             ;
                           },text: getTranslated(context, 'view_details')!,),
                           SizedBox(height: 10,),
-                          widget.courseType==1? CustomRoundButton(onPressed: (){
+                          widget.courseType==1? CustomRoundButton(onPressed: ()async{
+                            await   FirebaseAnalytics.instance.logEvent(name: 'Paid_Courdse_Details'+widget.courseData.title.toString(),parameters: {
+                              'Course_id':widget.courseData.id.toString(),
+                              'Course_title':widget.courseData.title.toString()
+                            });
+                            String courseTabType = 'Course';
+                            if(widget.tabId=='combo_course'){
+                              courseTabType = 'Combo';
+                            }else{
+                              courseTabType = 'Course';
+                            }
+
                             Navigator.push(
                               context,
-                              // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
                               MaterialPageRoute(builder: (context) =>
-                                  DeliveryDetailScreen('Course', widget.courseData.id.toString(),
-                                      widget.courseData.title.toString(), widget.courseData.salePrice.toString()
+                                  DeliveryDetailScreen(courseTabType, widget.courseData.id.toString(),
+                                    widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
                                   )
                               ),
                             );
+
+
                           },text: getTranslated(context, 'buy_course')!,):SizedBox(),
                           SizedBox(height: 10,),
                           Row(
@@ -159,9 +168,15 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               SizedBox(width: 5,),
                               InkWell(
                                 onTap: () async {
+                                  String courseTabType = '';
+                                  if(widget.tabId=='combo_course'){
+                                    courseTabType = 'combo';
+                                  }else{
+                                    courseTabType = 'courses';
+                                  }
                                   String data = json.encode(widget.courseData);
                                   String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink(
-                                      'courses', data, widget.courseType.toString()
+                                      courseTabType, data, widget.courseType.toString()
                                   );
                                   String shareContent =
                                       'Get "' + widget.courseData.title.toString() + '" Course from Exampur Now.\n' +
@@ -179,15 +194,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                     ],),
                 ),
-                // Container(
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.only(
-                //           bottomLeft: Radius.circular(10),
-                //           bottomRight: Radius.circular(10)),
-                //       color: Theme.of(context).primaryColor,
-                //     ),
-                //     height: 40,
-                //     child: Center(child: Text("Watch Now")))
+
               ],
             ),
           ),

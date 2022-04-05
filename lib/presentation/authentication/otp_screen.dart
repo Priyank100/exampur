@@ -8,6 +8,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/custompassword_textfield.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
 import 'landing_page.dart';
@@ -100,7 +101,10 @@ class _OtpScreenState extends State<OtpScreen> {
             backgroundColor: MaterialStateProperty.all<Color>(
                 Theme.of(context).primaryColor),
           ),
-          onPressed: () {
+          onPressed: ()async {
+        // await    FirebaseAnalytics.instance.logEvent(name: 'OTP_REQUESTED',parameters: {
+        //   'User_phoneNumber':_phoneController.text.toString()
+        // });
             sendOtp();
           },
           child: Padding(
@@ -156,6 +160,7 @@ class _OtpScreenState extends State<OtpScreen> {
             backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
           ),
           onPressed: () {
+
             widget.isReset ? verifyOtpResetPassword() : verifyOtp();
           },
           child: Padding(
@@ -278,6 +283,9 @@ class _OtpScreenState extends State<OtpScreen> {
       AppConstants.showBottomMessage(context, 'Enter the OTP', Colors.black);
       return;
     }
+    // await FirebaseAnalytics.instance.logEvent(name: 'OTP_SUBMIT',parameters: {
+    //   'User_PhoneNumber':_phoneController.text.toString()
+    // });
     AppConstants.showLoaderDialog(context);
     var body = {
       // "phone_ext": "91",

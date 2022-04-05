@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:exampur_mobile/ChatModule/ChatPage.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/Pushnotification/pushnotification.dart';
@@ -17,6 +18,7 @@ import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +99,7 @@ class _HomeState extends State<Home> {
     Locale _locale = await setLocale(language.languageCode);
     MyApp.setLocale(context, _locale);
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -163,16 +165,28 @@ class _HomeState extends State<Home> {
             SizedBox(height: Dimensions.FONT_SIZE_OVER_LARGE),
             Row(
               children: [
+
                 SquareButton(
                     image: Images.paidcourse,
                     title: getTranslated(context, 'paid_course')!,
                     color: AppColors.paidCourses,
-                    navigateTo: PaidCourses(1)),
+                   onPressed: (){
+                     AppConstants.sendAnalyticsEvent('PAID_COURSES_CLICK');
+                     // _sendAnalyticsEvent('PAID_COURSES_CLICK');
+                      Navigator.push(
+         context, MaterialPageRoute(builder: (_) =>PaidCourses(1) ));},
+                   // navigateTo: PaidCourses(1)
+                ),
                 SquareButton(
                     image: Images.free_course,
                     title: getTranslated(context, 'free_courses')!,
                     color: AppColors.freeCourses,
-                    navigateTo:PaidCourses(0)),
+                  onPressed: (){
+                    AppConstants.sendAnalyticsEvent('FREE_COURSES_CLICKED');
+                      Navigator.push(
+
+                      context, MaterialPageRoute(builder: (_) =>PaidCourses(0) ));},),
+                    //navigateTo:PaidCourses(0)),
               ],
             ),
             SizedBox(
@@ -184,13 +198,22 @@ class _HomeState extends State<Home> {
                     image: Images.book,
                     title: getTranslated(context, 'books')!,
                     color: AppColors.book,
-                    navigateTo: BooksEbook()),
+                    //navigateTo: BooksEbook()
+                  onPressed: (){
+                      AppConstants.sendAnalyticsEvent('BOOKS_CLICKED');
+                      Navigator.push(
+                      context, MaterialPageRoute(builder: (_) =>BooksEbook() ));},
+                ),
                 SquareButton(
                     image: Images.testseries,
                     title: getTranslated(context, 'test_courses')!,
                     color: AppColors.series,
-                    navigateTo:
-                    TestSeriesTab()
+                   // navigateTo: TestSeriesTab()
+                  onPressed: (){
+                    AppConstants.sendAnalyticsEvent('TEST_SERIES_CLICKED');
+                 // AppConstants._sendAnalyticsEvent('TEST_SERIES_CLICKED');
+                      Navigator.push(
+                      context, MaterialPageRoute(builder: (_) =>TestSeriesTab() ));},
                 ),
                 // SquareButton(
                 //     image: Images.one2one,
@@ -210,14 +233,23 @@ class _HomeState extends State<Home> {
                     image: Images.dailyquiz,
                     title: getTranslated(context, 'daily_quiz')!,
                     color: AppColors.quiz,
-                     navigateTo:DailyQuiz()
+                  onPressed: (){
+                    AppConstants.sendAnalyticsEvent('DAILY_QUIZ_CLICKED');
+                      Navigator.push(
+                      context, MaterialPageRoute(builder: (_) =>DailyQuiz() ));},
+                    // navigateTo:DailyQuiz()
                    // navigateTo:ChatPage()
                 ),
                 SquareButton(
                     image: Images.studymaterial,
                     title: getTranslated(context, 'study_materials')!,
                     color: AppColors.one2one,
-                    navigateTo: CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)),
+                  onPressed: (){
+                    AppConstants.sendAnalyticsEvent('CURRENT_AFFAIRS_CLICKED');
+                      Navigator.push(
+                      context, MaterialPageRoute(builder: (_) =>CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)));},
+                    //navigateTo: CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)
+                  ),
 
               ],
             ),
@@ -230,12 +262,16 @@ class _HomeState extends State<Home> {
                     image: Images.jobalert,
                     title: getTranslated(context, 'job_alerts')!,
                     color: AppColors.jobAlert,
-                    navigateTo:JobAlerts()),
+                    onPressed: (){Navigator.push(
+                        context, MaterialPageRoute(builder: (_) =>JobAlerts() ));},),
+                   // navigateTo:JobAlerts()),
                 SquareButton(
                     image: Images.current_affair,
                     title: getTranslated(context, 'current_affairs')!,
                     color: AppColors.affairs,
-                    navigateTo: CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId)),
+                  onPressed: (){Navigator.push(
+                      context, MaterialPageRoute(builder: (_) =>CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId) ));},),
+                   // navigateTo: CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId)),
                 // SquareButton(
                 //     image: Images.offlinebatch,
                 //     title: getTranslated(context, 'offline_batches')!,
@@ -263,7 +299,10 @@ class _HomeState extends State<Home> {
                     image: Images.caBytes,
                     title: getTranslated(context,StringConstant.CaBytes)!,
                     color: AppColors.jobAlert,
-                    navigateTo: CaBytes()),
+                    onPressed: (){Navigator.push(
+                        context, MaterialPageRoute(builder: (_) =>CaBytes() ));},
+                  //  navigateTo: CaBytes()
+                ),
               ],
             ),
             SizedBox(
@@ -281,21 +320,24 @@ class _HomeState extends State<Home> {
 class SquareButton extends StatelessWidget {
   final String? image;
   final String? title;
-  final Widget? navigateTo;
+  final VoidCallback onPressed;
   final Color? color;
 
   SquareButton(
       {@required this.image,
       @required this.title,
-      @required this.navigateTo,
+      required this.onPressed,
       this.color});
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width - 40;
     return InkWell(
-      onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (_) => navigateTo!)),
+      onTap: () {
+        onPressed();
+      },
+      // onTap: () => Navigator.push(
+      //     context, MaterialPageRoute(builder: (_) => navigateTo!)),
       child: Container(
         width: width / 2,
         height: 80,

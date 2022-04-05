@@ -5,6 +5,7 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -86,14 +87,22 @@ class MyCoursesState extends State<MyCourses> {
         decoration: BoxDecoration(
           border: Border.all(width: 1.5),
             borderRadius: BorderRadius.all(Radius.circular(10))),
-        margin: EdgeInsets.all(10),
-        padding: EdgeInsets.all(5),
+        margin: EdgeInsets.all(8),
+        padding: EdgeInsets.all(3),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppConstants.image(AppConstants.BANNER_BASE + myCourseList[index].logoPath.toString()),
+            Container(
+                height:70,width:MediaQuery.of(context).size.width,child:
+            //Image.asset(Images.exampur_logo,fit: BoxFit.fill)
+           AppConstants.image(AppConstants.BANNER_BASE + myCourseList[index].logoPath.toString(),boxfit: BoxFit.fill)
+            ),
             SizedBox(height: 10),
-            Flexible(child: Text(myCourseList[index].title.toString(), overflow: TextOverflow.ellipsis, maxLines: 2)),
+            Flexible(child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Text(myCourseList[index].title.toString(),style: TextStyle(fontSize: 12
+              ), overflow: TextOverflow.ellipsis,maxLines: 3,),
+            )),
           ],
         )
       ),

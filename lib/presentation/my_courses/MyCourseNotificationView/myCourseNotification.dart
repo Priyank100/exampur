@@ -30,8 +30,8 @@ class _MyCourseNotificationsState extends State<MyCourseNotifications> {
 
   Future<void> callProvider() async {
     isLoading = true;
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-    myCourseNotificationList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseNotificationList(context, widget.courseId, token))!;
+   // String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    myCourseNotificationList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseNotificationList(context, widget.courseId))!;
     isLoading = false;
     setState(() {});
   }
@@ -49,7 +49,7 @@ class _MyCourseNotificationsState extends State<MyCourseNotifications> {
                   itemBuilder: (context, index) {
                     return ListTile(
                         //leading: Image.asset(Images.exampur_logo,height: 70,width: 70,),
-                      leading:  AppConstants.image(AppConstants.BANNER_BASE + myCourseNotificationList[index].imagePath.toString(),height: 70.0,width: 70.0),
+                      leading:  AppConstants.image(AppConstants.BANNER_BASE + myCourseNotificationList[index].imagePath.toString(),height: 90.0,width: 110.0),
                         title:Column (
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

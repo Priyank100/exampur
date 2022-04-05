@@ -9,6 +9,7 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
@@ -18,6 +19,7 @@ class DeliveryDetailScreen extends StatefulWidget {
   final String id;
   final String title;
   final String salePrice;
+
   const DeliveryDetailScreen(this.type, this.id, this.title, this.salePrice) ;
 
   @override
@@ -78,7 +80,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         child: ListView(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            widget.type == 'Course' ?
+            widget.type == 'Course'||widget.type=='Combo' ?
              Text(
               getTranslated(context, StringConstant.use_coupon)!,
               maxLines: 2,softWrap: true,
@@ -94,14 +96,14 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               height: 20,
             ),
 
-            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox():
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox():
             TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.address),
             ),
             SizedBox(height: 15),
 
-            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox():
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox():
             CustomTextField(
               hintText: getTranslated(context, StringConstant.enterAddress)!,
               textInputType: TextInputType.text,
@@ -111,7 +113,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
             ):    TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.city),
@@ -119,7 +121,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
             ):   CustomTextField(
               hintText: getTranslated(context, StringConstant.enterCity)!,
               //focusNode: _phoneNode,
@@ -130,7 +132,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
             ):  TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.state),
@@ -139,7 +141,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             ):  SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
             ):   CustomTextField(
               hintText: getTranslated(context, StringConstant.enterState)!,
               //focusNode: _phoneNode,
@@ -147,20 +149,20 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               controller: _billingStateController,
               value: (value) {},
             ),
-            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
             ):   SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
             ):  TextUse(
               image: Icons.location_city,
               title: getTranslated(context, StringConstant.pinCode),
             ),
-            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
             ):    SizedBox(
               height: 15,
             ),
-            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
             ):   CustomTextField(
               hintText: getTranslated(context, StringConstant.enterPinCode)!,
               //focusNode: _phoneNode,
@@ -215,12 +217,16 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
                 child: InkWell(
                   onTap: (){
+
                     FocusScope.of(context).unfocus();
                     String cuponCode = _cuponCodeController.text.toUpperCase();
                     // String id = widget.paidcourseList.id.toString();
                     String id = widget.id.toString();
 
                    if(chechCoupon(cuponCode)){
+                     FirebaseAnalytics.instance.logEvent(name: 'PROMOCODE_APPLIED',parameters: {
+                       'promocode':_cuponCodeController.text.toString(),
+                     });
                      couponApi(cuponCode,id);
                    }
 
@@ -255,7 +261,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(15),),color: AppColors.amber),
 
                 child: Center(
-                    child: widget.type == 'Course' ?
+                    child: widget.type == 'Course'||widget.type=='Combo' ?
                     Text(
                       getTranslated(context, StringConstant.continueToBuyCourse)!,
                       style: TextStyle(color: AppColors.white,fontSize: 18),
@@ -283,6 +289,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     widget.type == 'Course' ?
     url = API.CouponCode_URL + promoCode + '/' +'Course' +'/'+id :
     widget.type == 'TestSeries' ?
+
     url = API.CouponCode_URL + promoCode + '/' +'TestSeries' +'/'+id :
     url = API.CouponCode_URL + promoCode + '/' +'Book' +'/'+id;
     AppConstants.printLog(url);
@@ -317,7 +324,6 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     AppConstants.showLoaderDialog(context);
     final param;
     String url = '';
-
     if(widget.type == 'Course') {
       url = API.order_course;
       param = {
@@ -329,7 +335,20 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         "billing_country": AppConstants.defaultCountry,
         "billing_pincode": _pincode
       };
-    } else if(widget.type == 'TestSeries') {
+    }
+    else if(widget.type=='Combo') {
+      url = API.order_combo_course;
+      param = {
+        "course_id": widget.id.toString(),
+        "promo_code": _promocode,
+        "billing_address": _address,
+        "billing_city": _city,
+        "billing_state": _state,
+        "billing_country": AppConstants.defaultCountry,
+        "billing_pincode": _pincode
+      };
+    }
+    else if(widget.type == 'TestSeries') {
       url = API.order_test_series;
       param = {
         "testseries_id": widget.id.toString(),

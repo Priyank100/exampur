@@ -51,6 +51,8 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
 
     if(widget.type == 'Course')
       url = API.finalize_order_course;
+    else if(widget.type == 'Combo')
+      url = API.finalize_order_combo_course;
     else if(widget.type == 'TestSeries')
       url = API.finalize_order_test_series;
     else
@@ -163,7 +165,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                     child: Column(
                       children: [
                         TextUse(
-                          title: widget.type == 'Course' ?  getTranslated(context, StringConstant.coursename)! + ' :' :
+                          title: widget.type == 'Course' || widget.type == 'Combo' ?  getTranslated(context, StringConstant.coursename)! + ' :' :
                           widget.type == 'TestSeries' ?  'TestSeries Name' + ' :' :
                           getTranslated(context, StringConstant.books)! +':',
                           text: model.data!.product!.title.toString(),

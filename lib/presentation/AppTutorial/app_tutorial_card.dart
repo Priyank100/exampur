@@ -3,6 +3,7 @@ import 'package:exampur_mobile/data/model/appp_toutorial.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -16,6 +17,9 @@ class AppTutorialCard extends StatefulWidget {
 }
 
 class _AppTutorialCardState extends State<AppTutorialCard> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,6 +56,7 @@ class _AppTutorialCardState extends State<AppTutorialCard> {
                             ],
                           ),
                           onPressed: () {
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

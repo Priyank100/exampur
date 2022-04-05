@@ -13,12 +13,15 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:launch_review/launch_review.dart';
+
 
 class ItemClass {
   const ItemClass(this.index, this.label, this.icon);
@@ -62,6 +65,7 @@ class _BottomNavigationState extends State<BottomNavigation>
     _hide = AnimationController(vsync: this, duration: kThemeAnimationDuration);
   }
 
+
   @override
   void dispose() {
     for (AnimationController controller in _faders) controller.dispose();
@@ -93,6 +97,7 @@ class _BottomNavigationState extends State<BottomNavigation>
       ItemClass(
         0,
         //'Home',
+
     getTranslated(context, 'home')!,
          _currIndex==0? Image.asset(Images.home,height: 30,width: 25,color: AppColors.amber):Image.asset(Images.home,height: 30,width: 25,)
       ),
@@ -143,7 +148,9 @@ class _BottomNavigationState extends State<BottomNavigation>
           leading: Builder(builder: (BuildContext context) {
             return IconButton(
                 icon: Image.asset(Images.menu_icon,width: Dimensions.ICON_SIZE_LARGE,color: AppColors.black,),
-                onPressed: () => Scaffold.of(context).openDrawer());
+                onPressed: () {
+                  AppConstants.sendAnalyticsEvent('SIDE_BAR_CLICKED');
+                  Scaffold.of(context).openDrawer();});
           }),
           actions: [
             // IconButton(
@@ -278,8 +285,13 @@ class _BottomNavigationState extends State<BottomNavigation>
                                   ),
                             ),
                           ]),
-                      onTap: () {
+                      onTap: () async{
+                       // await  FirebaseAnalytics.instance.logEvent(name: 'COURSE',parameters: {
+                       //    'id':'123456'
+                       //  });
+
                         _scaffoldKey.currentState?.openEndDrawer();
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -543,6 +555,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                             ),
                           ]),
                       onTap: () {
+                        AppConstants.sendAnalyticsEvent('LOGOUT_CLICKED');
                         SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
                         SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
                         // SharedPref.clearSharedPref(SharedPrefConstants.PHONE_VERIFY);
@@ -598,6 +611,14 @@ class _BottomNavigationState extends State<BottomNavigation>
             setState(() {
               _currIndex = index;
             });
+          print('Anchal>>>>>>>>>>>>>>>>>>>>>>> $_currIndex');
+          if(_currIndex == 1 || _currIndex == 2 || _currIndex == 3) {
+            AppConstants.sendAnalyticsEvent(
+                _currIndex == 1 ? 'DEMO_CLICKED' :
+                _currIndex == 2 ? 'MY_COURSES_CLICKED' :
+                'DOWNLOADS_CLICKED'
+            );
+          }
           },
           iconSize: 20,
 selectedItemColor: AppColors.amber,

@@ -62,7 +62,7 @@ dependencies:
   flutter_windowmanager: ^0.2.0
   flutter_pdfview:
   fluttertoast: ^8.0.8
-  firebase_messaging: ^11.2.5
+  firebase_messaging: ^11.2.7
   flutter_local_notifications: ^9.2.0
   firebase_core: ^1.11.0
   percent_indicator: ^3.4.0
@@ -75,7 +75,15 @@ dependencies:
   cloud_firestore: ^1.0.7
 #  video_player: ^2.3.0
   chewie: ^1.3.1
-#  yoyo_player: ^0.1.0
+  firebase_analytics: ^9.1.1
+  firebase_crashlytics: ^2.0.7
+  new_version: ^0.3.0
+
+
+
+
+
+
 
 
 
@@ -88,6 +96,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dependency_overrides:
+  platform: ^3.1.0
+  firebase_analytics_platform_interface: 3.0.5
+  firebase_messaging_platform_interface: 3.1.6
+
 
 
   # The "flutter_lints" package below contains a set of recommended lints to

@@ -7,18 +7,19 @@ import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
-import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PaidCourseDetails extends StatefulWidget {
+  String courseTabType;
   final Courses courseData;
   int courseType;
-  PaidCourseDetails(this.courseData,this.courseType) : super();
+  PaidCourseDetails(this.courseTabType,this.courseData,this.courseType) : super();
 
   @override
   _PaidCourseDetailsState createState() => _PaidCourseDetailsState();
@@ -94,11 +95,6 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   @override
   Widget build(BuildContext context) {
     return YoutubePlayerBuilder(
-      // onExitFullScreen: () {
-      //   // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
-      //   SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-      // },
-
       player: YoutubePlayer(
         //aspectRatio: 19 / 9,
         controller: _controller,
@@ -116,35 +112,35 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       ),
       builder: (context, player) => Scaffold(
         appBar:CustomAppBar(),
-        floatingActionButton:  Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton.extended(
-                onPressed: () async {
-                  AppConstants.checkPermission(context, Permission.storage, requestDownload);
-                },
-                backgroundColor: AppColors.white,
-                elevation: 8.0,
-                label: ImageIcon(
-                  AssetImage(Images.download_pdf),
-                  color: AppColors.red,
-                  size: 24,
-                ),
-    ),
-      SizedBox(width: 8,),
-      FloatingActionButton.extended(
-          onPressed: () async {
-            AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
-          },
-          backgroundColor: AppColors.amber,
-          elevation: 8.0,
-          label: ImageIcon(
-            AssetImage(Images.download),
-            color: AppColors.white,
-            size: 24,
-          )),
-          ],
-        ),
+    //     floatingActionButton:  Row(
+    //       mainAxisAlignment: MainAxisAlignment.end,
+    //       children: [
+    //         FloatingActionButton.extended(
+    //             onPressed: () async {
+    //               AppConstants.checkPermission(context, Permission.storage, requestDownload);
+    //             },
+    //             backgroundColor: AppColors.white,
+    //             elevation: 8.0,
+    //             label: ImageIcon(
+    //               AssetImage(Images.download_pdf),
+    //               color: AppColors.red,
+    //               size: 24,
+    //             ),
+    // ),
+    //   SizedBox(width: 8,),
+    //   FloatingActionButton.extended(
+    //       onPressed: () async {
+    //         AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+    //       },
+    //       backgroundColor: AppColors.amber,
+    //       elevation: 8.0,
+    //       label: ImageIcon(
+    //         AssetImage(Images.download),
+    //         color: AppColors.white,
+    //         size: 24,
+    //       )),
+    //       ],
+    //     ),
         // floatingActionButton: FloatingActionButton.extended(
         //   onPressed: () async {
         //     AppConstants.checkPermission(context, Permission.storage, requestDownload);
@@ -200,53 +196,39 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                 )
               ],
             ),
-            // SingleChildScrollView(
-            //     child: Html(data:utf8.decode(base64.decode(widget.courseData.description.toString())))
-            // ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                    child: Text(widget.courseData.description.toString(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: AppColors.grey)),
+            widget.courseType==1 ?  Padding(
+              padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
+              child: Row(
+                children: [
+                  Text(
+                    '\u{20B9}',
+                    style: TextStyle(color: AppColors.black, fontSize: 25),
                   ),
-                ),
-                widget.courseType==1 ?  Padding(
-                  padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
-                  child: Row(
-                    children: [
-                      Text(
-                        '\u{20B9}',
-                        style: TextStyle(color: AppColors.black, fontSize: 25),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        widget.courseData.regularPrice.toString(),
-                        style: TextStyle(color: AppColors.grey, fontSize: 18,decoration: TextDecoration.lineThrough),
-                      ),
-                      SizedBox(width: 5,),
-                      Text(
-                        widget.courseData.salePrice.toString(),
-                        style: TextStyle(color: AppColors.black, fontSize: 18),
-                      ),
-                    ],
+                  SizedBox(
+                    width: 15,
                   ),
-                ):SizedBox(),
-                widget.courseType==1 ? InkWell(
+                  Text(
+                    widget.courseData.regularPrice.toString(),
+                    style: TextStyle(color: AppColors.grey, fontSize: 18,decoration: TextDecoration.lineThrough),
+                  ),
+                  SizedBox(width: 5,),
+                  Text(
+                    widget.courseData.salePrice.toString(),
+                    style: TextStyle(color: AppColors.black, fontSize: 18),
+                  ),
+                ],
+              ),
+            ):SizedBox(),
+            Html(data:widget.courseData.description.toString(),),
+            widget.courseType==1 ? InkWell(
                   onTap: () {
-                   // showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
-                    // _BuyCourseBottomSheet(
-                    //   context,
-                    // );
+FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
+  'Couse_Id':widget.courseData.id.toString(),
+  'Couse_Name':widget.courseData.title.toString()
+});
                     Navigator.push(
-                      context,
-                      // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
-                      MaterialPageRoute(builder: (context) =>
-                          DeliveryDetailScreen('Course', widget.courseData.id.toString(),
+                      context, MaterialPageRoute(builder: (context) =>
+                          DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
                               widget.courseData.title.toString(), widget.courseData.salePrice.toString()
                           )
                       ),

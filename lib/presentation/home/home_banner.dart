@@ -58,7 +58,10 @@ bool isLoading =false;
                           child: AppConstants.image(AppConstants.BANNER_BASE + item.imagePath.toString(), boxfit: BoxFit.fill),
                         ),
                         onTap: () {
+                          item.type=='Course'? AppConstants.sendAnalyticsEvent('BANNER_Course_CLICKED'):
+                          item.type=='Book'?AppConstants.sendAnalyticsEvent('BANNER_Course_Book'):AppConstants.sendAnalyticsEvent('BANNER_Course_ExternalLink');
                           item.type=='Course'?
+
                           Navigator.push(context, MaterialPageRoute(builder: (_) =>
                           BannerLinkDetailPage(item.type.toString(),item.link.toString())
                           )):

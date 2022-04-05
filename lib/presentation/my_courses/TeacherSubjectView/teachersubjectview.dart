@@ -34,7 +34,7 @@ class _TeacherSubjectViewState extends State<TeacherSubjectView> {
   Future<void> callProvider() async {
     isLoading = true;
     String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-       materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getChapterList(context, widget.subjectId, widget.courseId, token))!;
+       materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getChapterList(context, widget.subjectId, widget.courseId))!;
     isLoading = false;
     setState(() {});
   }

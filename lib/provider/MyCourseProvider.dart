@@ -68,8 +68,8 @@ class MyCourseProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<SubjectData>?> getSubjectList(BuildContext context, String courseId, String token) async {
-    ApiResponse apiResponse = await myCourseRepo.subjectData(courseId, token);
+  Future<List<SubjectData>?> getSubjectList(BuildContext context, String courseId,) async {
+    ApiResponse apiResponse = await myCourseRepo.subjectData(courseId, );
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
@@ -95,8 +95,8 @@ class MyCourseProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<MaterialData>?> getMaterialList(BuildContext context, String subjectId, String courseId,String chapterName, String token) async {
-    ApiResponse apiResponse = await myCourseRepo.materialData(subjectId, courseId,chapterName, token);
+  Future<List<MaterialData>?> getMaterialList(BuildContext context, String subjectId, String courseId,String chapterName) async {
+    ApiResponse apiResponse = await myCourseRepo.materialData(subjectId, courseId,chapterName);
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
@@ -124,8 +124,8 @@ class MyCourseProvider extends ChangeNotifier {
 
 
 
-  Future<List<String>?> getChapterList(BuildContext context, String subjectId, String courseId, String token) async {
-    ApiResponse apiResponse = await myCourseRepo.chapterData(subjectId, courseId, token);
+  Future<List<String>?> getChapterList(BuildContext context, String subjectId, String courseId,) async {
+    ApiResponse apiResponse = await myCourseRepo.chapterData(subjectId, courseId, );
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
@@ -152,8 +152,8 @@ class MyCourseProvider extends ChangeNotifier {
   }
 
 
-  Future<List<TimelineData>?> getMyCourseTimeLineList(BuildContext context, String courseId ,String token) async {
-    ApiResponse apiResponse = await myCourseRepo.myCourseTimelineData(courseId, token);
+  Future<List<TimelineData>?> getMyCourseTimeLineList(BuildContext context, String courseId ) async {
+    ApiResponse apiResponse = await myCourseRepo.myCourseTimelineData(courseId,);
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
@@ -205,8 +205,8 @@ class MyCourseProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<NotificationData>?> getMyCourseNotificationList(BuildContext context, String courseId ,String token) async {
-    ApiResponse apiResponse = await myCourseRepo.myCourseNotificationData(courseId, token);
+  Future<List<NotificationData>?> getMyCourseNotificationList(BuildContext context, String courseId ) async {
+    ApiResponse apiResponse = await myCourseRepo.myCourseNotificationData(courseId);
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();

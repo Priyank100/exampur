@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:chewie/chewie.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -14,7 +15,8 @@ class MyMaterialViedo extends StatefulWidget {
   String url;
   String title;
   String download;
-  MyMaterialViedo(this.url,this.title,this.download) : super();
+  String Image;
+  MyMaterialViedo(this.url,this.title,this.download,this.Image) : super();
 
   @override
   _MyMaterialViedoState createState() => _MyMaterialViedoState();
@@ -31,9 +33,10 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
     chewieController = ChewieController(
         cupertinoProgressColors: ChewieProgressColors(),
         videoPlayerController: videoPlayerController,
-        aspectRatio: 3 / 2,
+        aspectRatio: 16/9,
         autoPlay: true,
         looping: true,
+        autoInitialize: true,
         errorBuilder: (context, errorMessage) {
           return Center(
             child: Text("Video unavanilable",style: TextStyle(color: AppColors.white),),
@@ -59,7 +62,7 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
           SizedBox(height: 8,),
           Container(
             //padding: EdgeInsets.only(top: 8),
-            height: 280,
+            height: (MediaQuery.of(context).size.width)/16*9,
             width: MediaQuery.of(context).size.width,
             child: Chewie(
                 controller: chewieController
@@ -72,7 +75,7 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
           SizedBox(height: 60,),
           Center(child: CustomElevatedButton(onPressed: (){
             AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
-          },text: 'Download Video',))
+          },text: getTranslated(context, StringConstant.downloadVideo)!,))
         ],
       ),
     );
@@ -93,7 +96,7 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
       );
       AppConstants.printLog(_taskid);
       Navigator.push(context, MaterialPageRoute(builder: (_) =>
-          Downloads(1)
+          Downloads(0)
       ));
     });
   }

@@ -70,7 +70,7 @@ class _BooksScreenState extends State<BooksScreen> {
         // padding: EdgeInsets.all(8),
         height:40,
         width: 40,
-        child: Center(child: CircularProgressIndicator(color:AppColors.amber,))) :
+        child: Center(child:LoadingIndicator(context))) :
     SizedBox(),
     );
   }

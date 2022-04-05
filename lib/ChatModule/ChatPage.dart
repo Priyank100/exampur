@@ -90,7 +90,7 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Future<void> addVideoTitle(String text) async {
-    String time = DateFormat('hh:mm:ss a').format(DateTime.now());
+    String time = DateFormat('hh:mm a').format(DateTime.now());
     if(text.isNotEmpty) {
 
       bool docExists = await checkIfDocExists(videoId);
@@ -243,11 +243,11 @@ class _ChatPageState extends State<ChatPage> {
 
                       var parts = key.split('-');
                       var name = parts[0].trim();
-                      var times =parts[2].trim();
+                      var times =parts[1].trim();
                      // var time =times[2].trim();
-                      var sec = times.split(':');
-                      var second1 = sec[0].trim();
-                      var second2 = sec[2].trim();
+                     //  var sec = times.split(':');
+                     //  var second1 = sec[0].trim();
+                     //  var second2 = sec[2].trim();
                       return new Column(
                         children: <Widget>[
                           Container(
@@ -261,7 +261,7 @@ class _ChatPageState extends State<ChatPage> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       new Text(name,style: TextStyle(fontSize: 12,color: AppColors.green),),
-                                      new Text(second1+ ':'+second2,style: TextStyle(color: AppColors.grey,fontSize: 12),),
+                                      new Text(times,style: TextStyle(color: AppColors.grey,fontSize: 12),),
 
                                     ],
                                   ),

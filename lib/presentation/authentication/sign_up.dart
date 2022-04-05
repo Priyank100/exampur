@@ -13,6 +13,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/custompassword_textfield.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -356,6 +357,12 @@ class SignUpState extends State<SignUp> {
 
   route(bool isRoute, String errorMessage) async {
     if (isRoute) {
+      await FirebaseAnalytics.instance.logEvent(name: 'USER_SIGNUP',parameters: {
+        'Name':_nameController.text.toString(),
+        'Email':_emailController.text.toString(),
+       // 'Phone':_phoneController.text.toString(),
+
+      });
       SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, '0');
       Navigator.pushReplacement(
           context,

@@ -79,7 +79,7 @@ class _YoutubeVideoState extends State<YoutubeVideo> {
       player: YoutubePlayer(
         //aspectRatio: 19 / 9,
         controller: _controller,
-        showVideoProgressIndicator: true,
+       // showVideoProgressIndicator: true,
         progressIndicatorColor: Colors.blueAccent,
         topActions: <Widget>[
           //todo: change video quality

@@ -57,6 +57,7 @@ class FirebaseDynamicLinkService {
     );
 
     final PendingDynamicLinkData? data = await FirebaseDynamicLinks.instance.getInitialLink();
+
     handleDeepLink(context, data!);
 
   }
@@ -67,18 +68,20 @@ class FirebaseDynamicLinkService {
 
       if(deepLink!=null) {
         String data = deepLink.queryParameters['data'].toString();
+        print('>>>>>>>>>>>>>>>>>>>' + deepLink.pathSegments.toString());
         var isCourses = deepLink.pathSegments.contains('courses');
         var isBooks = deepLink.pathSegments.contains('books');
         var isOne2One = deepLink.pathSegments.contains('one2one');
+        var isCombo = deepLink.pathSegments.contains('combo');
 
-        int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : 0;
+        int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 : 0;
 
         switch(condition) {
           case 1:
             String type = deepLink.queryParameters['type'].toString();
             Courses courseData = Courses.fromJson(json.decode(data));
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                PaidCourseDetails(courseData, int.parse(type.toString()))));
+                PaidCourseDetails('Course',courseData, int.parse(type.toString()))));
           case 2:
             BookEbook bookData = BookEbook.fromJson(json.decode(data));
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>
@@ -87,6 +90,11 @@ class FirebaseDynamicLinkService {
             One2OneCourses one2OneData = One2OneCourses.fromJson(json.decode(data));
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>
                 One2OneVideo(one2OneData)));
+          case 4:
+            String type = deepLink.queryParameters['type'].toString();
+            Courses courseData = Courses.fromJson(json.decode(utf8.decode(data.codeUnits)));
+            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                PaidCourseDetails('Combo',courseData, int.parse(type.toString()))));
         }
 
 

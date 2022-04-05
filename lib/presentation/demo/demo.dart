@@ -1,6 +1,7 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/demo_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -69,7 +70,7 @@ class DemoState extends State<Demo> {
             ),
             backgroundColor: AppColors.transparent,
             elevation: 0),
-        body:isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)) :demoList.length==0?
+        body:isLoading?Center(child: LoadingIndicator(context)) :demoList.length==0?
         AppConstants.noDataFound():
         Padding(
             padding: EdgeInsets.all(10),

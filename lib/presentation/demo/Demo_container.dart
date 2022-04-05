@@ -1,8 +1,10 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/demo_model.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_button_amber_color_watch.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 class DemoContainer extends StatefulWidget {
@@ -39,27 +41,18 @@ class _DemoContainerState extends State<DemoContainer> {
                  SizedBox(height: 25,),
                  Row(
                    children: [
-                     Container(
-                       width: Dimensions.AppTutorialImageHeight,
-                       height: 25,
-                       decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8),),color:AppColors.dark),
-                       child: MaterialButton(
+                     CustomAmberButton(onPressed: ()async {
+                       await   FirebaseAnalytics.instance.logEvent(name: 'Demo_Details_Clicks',parameters: {
+                         'Course_id':widget.demoList[widget.index].id.toString(),
+                         'Course_title':widget.demoList[widget.index].title.toString()
+                       });
 
-                         child: Row(
-                           children: [
-                             Icon(Icons.play_arrow, color: AppColors.white,size: 10,),
-                             Text(getTranslated(context, StringConstant.watch)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white))
-                           ],
-                         ),
-                         onPressed: () {
+     Navigator.push(
+     context,
+     MaterialPageRoute(
+     builder: (context) =>YoutubeVideo(widget.demoList[widget.index].targetLink.toString(),widget.demoList[widget.index].title.toString())));
+     },text:getTranslated(context, StringConstant.watch)!,),
 
-                           Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                   builder: (context) =>YoutubeVideo(widget.demoList[widget.index].targetLink.toString(),widget.demoList[widget.index].title.toString())));
-                         },
-                       ),
-                     ),
 
                    ],
                  ),

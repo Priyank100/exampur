@@ -21,21 +21,21 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/LocalJson/downloadlist.json');
   }
-  late TabController _controller;
+ TabController? _controller;
 
   void getTabList() async {
     String jsonString = await loadJsonFromAssets();
     final BookResponse = downloadModelFromJson(jsonString);
     tabList = BookResponse.download!;
     _controller = TabController(length: tabList.length, vsync: this);
-    _controller.index = widget.selectedIndex;
-      _controller.addListener(() {
+    _controller!.index = widget.selectedIndex;
+      _controller!.addListener(() {
         setState(() {
-          _controller.index = widget.selectedIndex;
+          _controller!.index = widget.selectedIndex;
         });
 
-        AppConstants.printLog("Selected Index: " + _controller.index.toString());
-        switch(_controller.index) {
+        AppConstants.printLog("Selected Index: " + _controller!.index.toString());
+        switch(_controller!.index) {
           case 0:
             DownloadedVideo();
             break;

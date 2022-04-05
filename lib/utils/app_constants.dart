@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -13,13 +14,21 @@ class API {
   static const String BASE_URL  = 'https://6b07f566-12f7-4b32-8f2f-8b6046fa0957.mock.pstmn.io/';
   // static const String BASE_URL2 = 'https://auth.exampur.work/';
   // static const String BASE_URL3 = 'https://static.exampur.work/';
-  static const String BASE_URL4 = 'http://3.1.205.105:3001/';
+ // static const String BASE_URL4 = 'http://3.1.205.105:3001/';
 
   // static const String BASE_URL2 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
   // static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
+  // static const String BASE_URL2 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
+  // static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
+
+  //Stage
   static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
   static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
+
+  //Dev
+  // static const String BASE_URL2 = 'https://auth-dev.exampur.xyz/';
+  // static const String BASE_URL3 = 'https://static-dev.exampur.xyz/';
 
 
   //BannerBase
@@ -75,6 +84,10 @@ class API {
   static const String order_course          = BASE_URL2 + 'order_course/create';
   static const String finalize_order_course = BASE_URL2 + 'order_course/finalize';
 
+  //order_combo_course
+  static const String order_combo_course          = BASE_URL2 + 'order_combo_course/create';
+  static const String finalize_order_combo_course = BASE_URL2 + 'order_combo_course/finalize';
+
   //order_book
   static const String order_book          = BASE_URL2 + 'order_book/create';
   static const String finalize_order_book = BASE_URL2 + 'order_book/finalize';
@@ -106,23 +119,25 @@ class API {
 
   //my_course
   static const String myCourse_URL              = BASE_URL2 + 'mycourses';
-  static const String myCourse_subject_URL      = BASE_URL3 + 'course_subject/';
-  static const String myCourse_material_URL     = BASE_URL3 + 'course_material/material/';
-  static const String myCourse_chapter_URL     = BASE_URL3 + 'course_material/chapter/';
-  static const String myCourse_timeline_URL     = BASE_URL3 + 'course_timeline';
-  static const String myCourse_timelineshareStream_URL     = BASE_URL3 + 'course_timeline/shareStreamToMobile';
-  static const String myCourse_notification_URL = BASE_URL3 + 'course_notification';
+  static const String myCourse_subject_URL      = BASE_URL2 + 'course_subject/';
+  static const String myCourse_material_URL     = BASE_URL2 + 'course_material/material/';
+  static const String myCourse_chapter_URL     = BASE_URL2 + 'course_material/chapter/';
+  static const String myCourse_timeline_URL     = BASE_URL2 + 'course_timeline';
+  static const String myCourse_timelineshareStream_URL     = BASE_URL2 + 'course_timeline/shareStreamToMobile';
+  static const String myCourse_notification_URL = BASE_URL2 + 'course_notification';
 
   //testSeries
   static const String allTestSeries_URL   = BASE_URL3 + 'test_series';
   static const String liveTestSeries_URL  = BASE_URL3 + 'live_testseries';
   static const String myTestSeries_URL    = BASE_URL2 + 'testseries/enrolled/get_my_testseries';
-  // static const String testSeriesWeb_URL  = 'https://exampurtest.vercel.app/testseries/list/' + 'TEST_SERIES_ID' + '?auth_token=' + 'AUTH_TOKEN';
-  static const String testSeriesWeb_URL  = 'https://testweb.exampur.xyz/' + 'TEST_SERIES_ID' + '/list?auth_token=' + 'AUTH_TOKEN';
+ // static const String testSeriesWeb_URL  = 'https://exampurtest.vercel.app/testseries/list/' + 'TEST_SERIES_ID' + '?auth_token=' + 'AUTH_TOKEN';
+ // https://testweb.exampur.xyz/TESTSERIES_ID/list?auth_token=AUTH_TOKE
+  static const String testSeriesWeb_URL  = 'https://testweb.exampur.xyz/' + 'TESTSERIES_ID'+'/list' + '?auth_token=' + 'AUTH_TOKEN';
 
   //dailyQuiz
   static const String dailyQuiz_URL  = BASE_URL3 + 'quiz/find_all_quiz?page_id=';
-  static const String dailuQuiz_web_URL  = 'https://exampurtest.vercel.app/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
+ // static const String dailuQuiz_web_URL  = 'https://test.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
+  static const String dailuQuiz_web_URL  = 'https://testweb.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
 
 }
 
@@ -161,7 +176,7 @@ class AppConstants {
   // static String studyMaterialsId = '61efe9921dbf84752e750384';
   static String currentAffairesId = '6225f4b40536af56be90ed66';
   static String studyMaterialsId = '6225f4540536af56be90ed28';
-  // static String currentAffairesId = 'CURRENTAFFAIRS';
+  // static String currentAffairesId = 'CURRENTAFFAIR';
   // static String studyMaterialsId = 'STUDYMATERIALS';
 
   static String testSeriesToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjI4NjZiNTI2M2JjZDU5NGNlYjQ2OTEiLCJpYXQiOjE2NDY4MTQ5ODIsImV4cCI6MTY0NjkwMTM4Mn0.nC3XmvNX2Y_hKsiF1ZARgaMrWMVJ2w80AFyAKT0mLsA';
@@ -224,6 +239,15 @@ class AppConstants {
       },
     );
   }
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+  FirebaseAnalyticsObserver(analytics: analytics);
+  static void  sendAnalyticsEvent(String nameofclick) async {
+    await analytics.logEvent(
+      name: nameofclick,
+    );
+  }
+
 
   static void showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
@@ -474,6 +498,7 @@ class StringConstant {
   static String Name_Field_Required= 'name_field_required';
   static String noData= 'no_data';
   static String noLiveStreamPresent= 'no_live_stream_present';
+  static String Normal= 'normal';
 
   static String testCourses= 'test_courses';
   static String TotalAmount= 'total_amount';
