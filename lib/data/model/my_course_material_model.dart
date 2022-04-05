@@ -114,7 +114,8 @@ class Timeline {
     timelineStatus: json["timelineStatus"],
     apexLink: ApexLink.fromJson(json["apex_link"]),
     liveStreamStatus: json["liveStreamStatus"],
-    recordingProps: RecordingProps.fromJson(json["recordingProps"]),
+    recordingProps:  json["recordingProps"] == null ? null : RecordingProps.fromJson(json["recordingProps"])
+    // RecordingProps.fromJson(json["recordingProps"]),
   );
 
   Map<String, dynamic> toJson() => {

@@ -25,6 +25,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   String City='';
   String password='';
   String selectedState='';
+  String lastname ='';
   //String token ='';
   List<States> stateList = [];
 
@@ -32,6 +33,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _lastnameController = TextEditingController();
 
   bool isLoading = false;
 
@@ -43,6 +45,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     Mobile = jsonValue[0]['data']['phone'].toString();
     Email = jsonValue[0]['data']['email_id'].toString();
     Name = jsonValue[0]['data']['first_name'].toString();
+    lastname = jsonValue[0]['data']['last_name'].toString();
     City = jsonValue[0]['data']['city'].toString();
     password = jsonValue[0]['data']['password'].toString();
     _nameController.text = userName;
@@ -193,7 +196,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       updateUserInfoModel.phone = Mobile;
       updateUserInfoModel.password = '123456789';
       updateUserInfoModel.firstName = _firstName;
-      updateUserInfoModel.lastName = 'jjj';
+      updateUserInfoModel.lastName = lastname;
       updateUserInfoModel.emailId = _email;
       updateUserInfoModel.city = _city;
       updateUserInfoModel.state = selectedState;

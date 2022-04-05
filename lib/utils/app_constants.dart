@@ -27,7 +27,8 @@ class API {
   static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
 
   //Dev
-  // static const String BASE_URL2 = 'https://auth-dev.exampur.xyz/';
+  // static const String BASE_URL2 = 'https://auth-
+  //  dev.exampur.xyz/';
   // static const String BASE_URL3 = 'https://static-dev.exampur.xyz/';
 
 

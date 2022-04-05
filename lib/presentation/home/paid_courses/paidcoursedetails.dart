@@ -173,6 +173,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                   child: Text(getTranslated(context, StringConstant.Validity)!+' :  '+widget.courseData.validtime.toString(),
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                 ),
+                widget.courseData.pdfPath==null?SizedBox():
                 Padding(
                   padding: const EdgeInsets.only(top: 5, left: 20, right: 10),
                   child: InkWell(
