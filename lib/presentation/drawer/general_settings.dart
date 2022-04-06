@@ -120,7 +120,9 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                         BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1))
                       ],
                     ),
+
                     padding: EdgeInsets.only(left: 10),
+
                     child: DropdownButton(
                       underline: SizedBox(),
                       isExpanded: true,
