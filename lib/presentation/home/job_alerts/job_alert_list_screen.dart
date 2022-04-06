@@ -22,10 +22,12 @@ class _JobAlertListScreenState extends State<JobAlertListScreen> {
   bool isBottomLoading = false;
   int page = 0;
   bool isData = true;
+  int isLoad = 0;
 
   @override
   void initState() {
     scrollController.addListener(pagination);
+    isLoad = 0;
     getLists(page);
     super.initState();
   }
@@ -42,8 +44,9 @@ class _JobAlertListScreenState extends State<JobAlertListScreen> {
      } else {
        isData = false;
      }
-     isLoading = false;
-     isBottomLoading = false;
+    isBottomLoading = false;
+    isLoad++;
+
      setState(() {});
   }
 
@@ -63,14 +66,15 @@ class _JobAlertListScreenState extends State<JobAlertListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading ? Center(child: LoadingIndicator(context)) :
+      body:isLoad==0? Center(child: LoadingIndicator(context)) :
       alertsDataList.length==0 ?
       AppConstants.noDataFound() : listing(alertsDataList),
       bottomNavigationBar: isBottomLoading ? Container(
-          padding: EdgeInsets.all(8),
+
+         // padding: EdgeInsets.all(8),
           height:40,
           width: 40,
-          child: Center(child: CircularProgressIndicator())) :
+          child: Center(child: LoadingIndicator(context))) :
       SizedBox(),
     );
   }

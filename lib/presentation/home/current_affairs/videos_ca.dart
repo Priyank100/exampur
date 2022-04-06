@@ -96,7 +96,7 @@ class _VideosCAState extends State<VideosCA> {
 
   Widget myCard(index) {
     return Container(
-      height: MediaQuery.of(context).size.width/1.3,
+     // height: MediaQuery.of(context).size.width/1.3,
       margin: EdgeInsets.all(5),
       child: Card(
         elevation: 5,
@@ -113,19 +113,26 @@ class _VideosCAState extends State<VideosCA> {
                       topLeft: Radius.circular(5),
                       topRight: Radius.circular(5),
                     ),
-                    image: DecorationImage(
-                        image: NetworkImage(AppConstants.BANNER_BASE + videoList[index].bannerPath.toString()),
-                        fit: BoxFit.fill
-                    ),
+                    // image: DecorationImage(
+                    //     image: NetworkImage(AppConstants.BANNER_BASE + videoList[index].bannerPath.toString()),
+                    //     fit: BoxFit.fill
+                    // ),
+
                   ),
+                  child:  AppConstants.image(AppConstants.BANNER_BASE + videoList[index].bannerPath.toString()),
                 )
             ),
-            Expanded(
-              child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Text(videoList[index].title.toString())
-              ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(videoList[index].title.toString(),maxLines: 2,),
             ),
+            // Expanded(
+            //   child: Container(
+            //       padding: EdgeInsets.all(10),
+            //       child: Text(videoList[index].title.toString(),maxLines: 2
+            //         ,)
+            //   ),
+            // ),
             Align(
               alignment: FractionalOffset.bottomCenter,
               child: InkWell(
