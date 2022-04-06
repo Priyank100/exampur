@@ -37,17 +37,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
     chooseList =
     (await Provider.of<ChooseCategoryProvider>(context, listen: false)
         .getchooseCategoryList(context))!;
-    // getSelectList =
-    // (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-    //     .getSelectchooseCategoryList(context))!;
 
-    // if (getSelectList.every((item) => chooseList.contains(item))) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
-
-    // for(int i=0; i < getSelectList.length; i++) {
     for(int i=0; i < AppConstants.selectedCategoryList.length; i++) {
       for(int j=0; j<chooseList.length; j++) {
         if(AppConstants.selectedCategoryList[i] == chooseList[j].id) {

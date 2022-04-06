@@ -303,7 +303,6 @@ class _OtpScreenState extends State<OtpScreen> {
         var statusCode = body['statusCode'].toString();
         var msg = body['data'].toString();
         if(statusCode == '200') {
-          await SharedPref.saveSharedPref(SharedPrefConstants.PHONE_VERIFY, 'Yes');
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => LandingChooseCategory()),

@@ -19,6 +19,8 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
   TabController? _controller;
   List<Data> paidCourseTabList = [];
   List<Data> freeCourseTabList = [];
+  bool isPaidData = false;
+  bool isFreeData = false;
 
   Future<void> getLists() async {
     if (widget.courseType == 1) {
@@ -43,6 +45,8 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
     }
     paidCourseTabList.insertAll(0,newList1);
     freeCourseTabList.insertAll(0,newList2);
+    isPaidData = true;
+    isFreeData = true;
   }
 
   @override
@@ -59,24 +63,33 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Future.delayed(Duration.zero, () => getLists()),
+        future: Future.delayed(Duration.zero, () => getLists()),//Center(child: AppConstants.noDataFound())
         builder: (context, snapshot) {
           return Scaffold(
-              body: TabBarDemo(
-                  controller: _controller,
-                  length: widget.courseType == 1 ? paidCourseTabList.length : freeCourseTabList.length,
+              body:
+              widget.courseType == 1 ?
+              !isPaidData ? Center(child: CircularProgressIndicator()) : paidCourseTabList.length == 0 ? Center(child: AppConstants.noDataFound()) : tabBar()
+              :
+              !isFreeData ? Center(child: CircularProgressIndicator()) : freeCourseTabList.length == 0 ? Center(child: AppConstants.noDataFound()) : tabBar()
 
-                  names: widget.courseType == 1
-                      ? paidCourseTabList.map((item) => item.name.toString()).toList()
-                      : freeCourseTabList.map((item) => item.name.toString()).toList(),
-
-                  routes: widget.courseType == 1
-                      ? paidCourseTabList.map((item) => TeachingList(1, item.id.toString())).toList()
-                      : freeCourseTabList.map((item) => TeachingList(0, item.id.toString())).toList(),
-
-                  title: "")
           );
         });
+  }
+
+  Widget tabBar() {
+    return TabBarDemo(
+        controller: _controller,
+        length: widget.courseType == 1 ? paidCourseTabList.length : freeCourseTabList.length,
+
+        names: widget.courseType == 1
+            ? paidCourseTabList.map((item) => item.name.toString()).toList()
+            : freeCourseTabList.map((item) => item.name.toString()).toList(),
+
+        routes: widget.courseType == 1
+            ? paidCourseTabList.map((item) => TeachingList(1, item.id.toString())).toList()
+            : freeCourseTabList.map((item) => TeachingList(0, item.id.toString())).toList(),
+
+        title: "");
   }
 
   @override

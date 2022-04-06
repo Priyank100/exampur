@@ -23,6 +23,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   String Email='';
   String Mobile='';
   String City='';
+  String State='';
   String password='';
   String selectedState='';
   String lastname ='';
@@ -33,7 +34,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _lastnameController = TextEditingController();
 
   bool isLoading = false;
 
@@ -47,6 +47,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     Name = jsonValue[0]['data']['first_name'].toString();
     lastname = jsonValue[0]['data']['last_name'].toString();
     City = jsonValue[0]['data']['city'].toString();
+    State = jsonValue[0]['data']['state'].toString();
     password = jsonValue[0]['data']['password'].toString();
     _nameController.text = userName;
     _emailController.text = Email;
@@ -90,8 +91,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                   Text(getTranslated(context, StringConstant.name)!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
                   CustomTextField(hintText:'${Name}', value: (value) {},controller: _nameController,),
-                  SizedBox(height: 8,),
-                  CustomTextField(hintText:'${lastname}', value: (value) {},controller: _lastnameController,),
                   SizedBox(height: 10,),
                   Text(getTranslated(context,StringConstant.phoneNumber )!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
@@ -169,6 +168,16 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             ),
           ),
     );
+  }
+
+  String selState() {
+    String selState = '';
+    for(int i=0; i<stateList.length; i++) {
+      if(stateList[i].toString().toLowerCase() == State.toLowerCase()) {
+        selState = stateList[i].name.toString();
+      }
+    }
+    return selState;
   }
 
   bool checkValidation(_firstName, _email, _city) {

@@ -558,7 +558,6 @@ class _BottomNavigationState extends State<BottomNavigation>
                         AppConstants.sendAnalyticsEvent('LOGOUT_CLICKED');
                         SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
                         SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
-                        // SharedPref.clearSharedPref(SharedPrefConstants.PHONE_VERIFY);
                         Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
                       },
                     ),

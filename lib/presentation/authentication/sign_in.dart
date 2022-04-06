@@ -81,7 +81,7 @@ class SignInState extends State<SignIn> {
 
         // loginBody.phone = '9099998988';
         // loginBody.password = '@Zakir123';
-        await Provider.of<AuthProvider>(context, listen: false).login(loginBody, route);
+        await Provider.of<AuthProvider>(context, listen: false).login(context, loginBody, route);
       }
     }
   }

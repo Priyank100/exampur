@@ -39,7 +39,7 @@ class AuthProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   ///login
-  Future login(LoginModel loginBody, Function callback) async {
+  Future login(BuildContext context, LoginModel loginBody, Function callback) async {
     _isLoading = true;
     ApiResponse apiResponse = await authRepo.login(loginBody);
     _isLoading = false;
@@ -56,9 +56,14 @@ class AuthProvider extends ChangeNotifier {
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
         await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
-        await SharedPref.saveSharedPref(SharedPrefConstants.PHONE_VERIFY, 'Yes');
+        // callback(true, '');
 
-        callback(true, '');
+        if(_informationModel.data!.phoneConf == true) {
+          callback(true, '');
+        } else {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => OtpScreen(false)));
+        }
+
       } else {
         callback(false, apiResponse.response!.data['data'].toString());
       }
@@ -168,15 +173,11 @@ class AuthProvider extends ChangeNotifier {
         _userData.add(_informationModel);
         await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
 
-        await SharedPref.getSharedPref(SharedPrefConstants.PHONE_VERIFY).then((value) {
-          if(value.toString() == 'Yes') {
-            checkSelectCategory(context);
-          } else {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => OtpScreen(false)));
-          }
-        });
+        if(_informationModel.data!.phoneConf == true) {
+          checkSelectCategory(context);
+        } else {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => OtpScreen(false)));
+        }
 
       } else {
         // String msg = _informationModel.data.toString();
