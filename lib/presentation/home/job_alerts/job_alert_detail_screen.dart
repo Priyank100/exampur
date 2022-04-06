@@ -52,9 +52,8 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
                     children: [
                       Html(data:utf8.decode(base64.decode(jobAlertsData!.description.toString())),
                       ),
-                      jobAlertsData!.pdfPath=='null'? SizedBox():     InkWell(
+                      jobAlertsData!.pdfPath==null? SizedBox():InkWell(
                           onTap: (){
-
                             Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 ViewPdf(AppConstants.BANNER_BASE + jobAlertsData!.pdfPath.toString(),'')
                             ));

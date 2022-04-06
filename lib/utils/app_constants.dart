@@ -27,7 +27,8 @@ class API {
   static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
 
   //Dev
-  // static const String BASE_URL2 = 'https://auth-dev.exampur.xyz/';
+  // static const String BASE_URL2 = 'https://auth-
+  //  dev.exampur.xyz/';
   // static const String BASE_URL3 = 'https://static-dev.exampur.xyz/';
 
 
@@ -55,7 +56,7 @@ class API {
 
   //Book/E-Book
   static const String Books_URL   = BASE_URL3 + 'books/printed/10/';
-  static const String E_Books_URL = BASE_URL3 + 'books/ebook/10/0';
+  static const String E_Books_URL = BASE_URL3 + 'books/ebook/10/';
 
   //PaidCourse
   static const String PaidCoursesTab_URL  = BASE_URL3 + 'category/course_paid';
@@ -174,10 +175,10 @@ class AppConstants {
 
   // static String currentAffairesId = '61efe9771dbf84752e750373';
   // static String studyMaterialsId = '61efe9921dbf84752e750384';
-  static String currentAffairesId = '6225f4b40536af56be90ed66';
-  static String studyMaterialsId = '6225f4540536af56be90ed28';
-  // static String currentAffairesId = 'CURRENTAFFAIR';
-  // static String studyMaterialsId = 'STUDYMATERIALS';
+  // static String currentAffairesId = '6225f4b40536af56be90ed66';
+  // static String studyMaterialsId = '6225f4540536af56be90ed28';
+  static String currentAffairesId = 'CURRENTAFFAIR';
+  static String studyMaterialsId = 'STUDYMATERIALS';
 
   static String testSeriesToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjI4NjZiNTI2M2JjZDU5NGNlYjQ2OTEiLCJpYXQiOjE2NDY4MTQ5ODIsImV4cCI6MTY0NjkwMTM4Mn0.nC3XmvNX2Y_hKsiF1ZARgaMrWMVJ2w80AFyAKT0mLsA';
 

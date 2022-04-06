@@ -33,7 +33,7 @@ class _ContentDetailPageState extends State<ContentDetailPage> {
                       children: [
                         Html(data:utf8.decode(base64.decode(widget.contentlist.description.toString()))),
 
-widget.contentlist.type=='PDF'?widget.contentlist.targetLink=='null'?
+widget.contentlist.type=='PDF'?widget.contentlist.targetLink==null||widget.contentlist.targetLink=='null'?SizedBox():
                             InkWell(
                               onTap: (){
 
@@ -42,7 +42,7 @@ widget.contentlist.type=='PDF'?widget.contentlist.targetLink=='null'?
                                 ));
                               },
                                 child: Text(getTranslated(context, StringConstant.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
-                            ):SizedBox()
+                            )
                           //  Container(height: 3,color: AppColors.blue,margin:EdgeInsets.only(left: 15,right: 15) ,)
                           :SizedBox()
 

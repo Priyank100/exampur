@@ -17,6 +17,8 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'apexvideo.dart';
+
 class SelectChapterView extends StatefulWidget {
   String subjectId;
   String courseId;
@@ -97,7 +99,34 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                             contentPadding: EdgeInsets.only(top: 0, ),
                             //insetPadding: EdgeInsets.symmetric(horizontal: 1),
                             // title: const Text('Popup example'),
-                            content: Column(
+                            content:
+                            materialList[index].timeline!.recordingProps == null ?
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  //crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(color: AppColors.amber,height: 30,width: MediaQuery.of(context).size.width,
+                                      alignment: Alignment.topRight,
+                                      child: InkWell(onTap:(){
+
+                                        Navigator.pop(context);
+                                      },child:  Icon(Icons.close,color: AppColors.white,),
+                                      ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    CustomButton(navigateTo:MyApexVideoMaterial(materialList[index].timeline!.apexLink!.hlsUrl.toString(),materialList[index].title.toString()) ,title: getTranslated(context, StringConstant.Normal),),
+                                    SizedBox(height: 10,),
+                                    CustomButton(navigateTo: MyApexVideoMaterial(materialList[index].timeline!.apexLink!.hls240PUrl.toString(),materialList[index].title.toString()),title: '240p',),
+                                    SizedBox(height: 10,),
+                                    CustomButton(navigateTo:MyApexVideoMaterial(materialList[index].timeline!.apexLink!.hls360PUrl.toString(),materialList[index].title.toString()),title: '360p',),
+                                    SizedBox(height: 10,),
+                                    CustomButton(navigateTo:MyApexVideoMaterial(materialList[index].timeline!.apexLink!.hls480PUrl.toString(),materialList[index].title.toString() ),title: '480p',),
+                                    SizedBox(height: 10,),
+                                    CustomButton(navigateTo: MyApexVideoMaterial(materialList[index].timeline!.apexLink!.hls720PUrl.toString(),materialList[index].title.toString()),title: '720p',),
+                                    SizedBox(height: 10,),
+                                  ],
+                                ) :
+                            Column(
 
                               mainAxisSize: MainAxisSize.min,
                               //crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,6 +134,7 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                                 Container(color: AppColors.amber,height: 30,width: MediaQuery.of(context).size.width,
                                   alignment: Alignment.topRight,
                                   child: InkWell(onTap:(){
+
                                     Navigator.pop(context);
                                   },child:  Icon(Icons.close,color: AppColors.white,),
                                   ),
@@ -132,6 +162,7 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                           );},text: getTranslated(context, StringConstant.watch)!,),
 
                           SizedBox(width: 5),
+                          materialList[index].pdfPath==null?SizedBox():
                           CustomRoundButton(onPressed: (){
                             Navigator.push(
                                 context,

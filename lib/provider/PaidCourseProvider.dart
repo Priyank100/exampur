@@ -40,12 +40,12 @@ class PaidCoursesProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ErrorScreen()
-          )
-      );
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => ErrorScreen()
+      //     )
+      // );
       notifyListeners();
     }
   }
@@ -68,12 +68,12 @@ class PaidCoursesProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ErrorScreen()
-          )
-      );
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => ErrorScreen()
+      //     )
+      // );
       notifyListeners();
     }
   }
@@ -97,12 +97,12 @@ class PaidCoursesProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ErrorScreen()
-          )
-      );
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => ErrorScreen()
+      //     )
+      // );
       notifyListeners();
     }
   }
@@ -125,12 +125,12 @@ class PaidCoursesProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ErrorScreen()
-          )
-      );
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => ErrorScreen()
+      //     )
+      // );
       notifyListeners();
     }}
 }
