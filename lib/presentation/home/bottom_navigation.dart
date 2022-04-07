@@ -151,6 +151,18 @@ class _BottomNavigationState extends State<BottomNavigation>
                   AppConstants.sendAnalyticsEvent('SIDE_BAR_CLICKED');
                   Scaffold.of(context).openDrawer();});
           }),
+          title: InkWell(
+            onTap: (){
+              Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ChooseCategory()));
+            },
+            child: Row(children: [
+              Text('UP Exam',style: TextStyle(color: AppColors.black),),
+              Icon(Icons.arrow_drop_down)
+            ],),
+          ),
           actions: [
             // IconButton(
             //     onPressed: () {
