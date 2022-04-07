@@ -65,7 +65,6 @@ class _BottomNavigationState extends State<BottomNavigation>
     _hide = AnimationController(vsync: this, duration: kThemeAnimationDuration);
   }
 
-
   @override
   void dispose() {
     for (AnimationController controller in _faders) controller.dispose();
