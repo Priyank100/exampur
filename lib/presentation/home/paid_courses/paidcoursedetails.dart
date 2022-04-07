@@ -160,16 +160,16 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
             SizedBox(height: 20),
             Flexible(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                   child: Text(widget.courseData.title.toString(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                      textAlign: TextAlign.center     ,
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                 )),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
                   child: Text(getTranslated(context, StringConstant.Validity)!+' :  '+widget.courseData.validtime.toString(),
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                 ),
@@ -203,54 +203,61 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                 children: [
                   Text(
                     '\u{20B9}',
-                    style: TextStyle(color: AppColors.black, fontSize: 25),
+                    style: TextStyle(color: AppColors.black, fontSize: 15),
                   ),
                   SizedBox(
-                    width: 15,
+                    width: 8,
                   ),
                   Text(
                     widget.courseData.regularPrice.toString(),
-                    style: TextStyle(color: AppColors.grey, fontSize: 18,decoration: TextDecoration.lineThrough),
+                    style: TextStyle(color: AppColors.grey, fontSize: 15,decoration: TextDecoration.lineThrough),
                   ),
                   SizedBox(width: 5,),
                   Text(
                     widget.courseData.salePrice.toString(),
-                    style: TextStyle(color: AppColors.black, fontSize: 18),
+                    style: TextStyle(color: AppColors.black, fontSize: 15),
                   ),
                 ],
               ),
             ):SizedBox(),
-            Html(data:widget.courseData.description.toString(),),
-            widget.courseType==1 ? InkWell(
-                  onTap: () {
-FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
-  'Couse_Id':widget.courseData.id.toString(),
-  'Couse_Name':widget.courseData.title.toString()
-});
-                    Navigator.push(
-                      context, MaterialPageRoute(builder: (context) =>
-                          DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
-                              widget.courseData.title.toString(), widget.courseData.salePrice.toString()
-                          )
-                      ),
-                    );
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: AppColors.amber,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    height: 50,
-                    margin: EdgeInsets.all(28),
-                    child: Center(
-                        child: Text(
-                          getTranslated(context, StringConstant.buyCourse)!,
-                      style: TextStyle(color: AppColors.white, fontSize: 18),
-                    )),
-                  ),
-                ):SizedBox()
+           Html(data:widget.courseData.description.toString(), style: {
+             "body": Style(
+               fontSize: FontSize(12.0),
+               fontWeight: FontWeight.bold,
+             ),
+           },),
+
+
           ],
         ),
+        bottomNavigationBar: Container(child:      widget.courseType==1 ? InkWell(
+          onTap: () {
+            FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
+              'Couse_Id':widget.courseData.id.toString(),
+              'Couse_Name':widget.courseData.title.toString()
+            });
+            Navigator.push(
+              context, MaterialPageRoute(builder: (context) =>
+                DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
+                    widget.courseData.title.toString(), widget.courseData.salePrice.toString()
+                )
+            ),
+            );
+          },
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: AppColors.amber,
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            height: 40,
+            margin: EdgeInsets.all(10),
+            child: Center(
+                child: Text(
+                  getTranslated(context, StringConstant.buyCourse)!,
+                  style: TextStyle(color: AppColors.white, fontSize: 18),
+                )),
+          ),
+        ):SizedBox() ,),
       ),
     );
   }

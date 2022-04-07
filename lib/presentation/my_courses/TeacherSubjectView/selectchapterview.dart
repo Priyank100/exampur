@@ -81,20 +81,24 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(materialList[index].subjectId!.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
                       Text(materialList[index].title.toString(),style: TextStyle(fontSize: 12),),
+                      Text(materialList[index].subjectId!.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
+
                       SizedBox(height: 5,),
+
                       Row(
                         children: [
-                      materialList[index].videoLink==''?CustomAmberButton(text:getTranslated(context, StringConstant.watch)!, onPressed: (){
+                      materialList[index].timeline==null || materialList[index].timeline!.apexLink==null ?
+                      CustomAmberButton(text:getTranslated(context, StringConstant.watch)!, onPressed: (){
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>YoutubeVideo(materialList[index].videoLink.toString(), materialList[index].title.toString())
+                                builder: (context) =>MyMaterialViedo(materialList[index].videoLink.toString(), materialList[index].title.toString(),'','')
                             )
                         );
                        // YoutubeVideo(materialList[index].videoLink.toString(), materialList[index].title.toString())
-                      }):
+                      })
+                          :
                       CustomAmberButton(onPressed: (){
                             AlertDialog alert = AlertDialog(
                             titlePadding: EdgeInsets.only(top: 0, ),
