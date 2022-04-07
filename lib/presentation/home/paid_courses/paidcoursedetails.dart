@@ -7,12 +7,14 @@ import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PaidCourseDetails extends StatefulWidget {
@@ -36,10 +38,10 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   bool _muted = false;
   bool _isPlayerReady = false;
 
-  String pdfLink = 'https://www.learningcontainer.com/download/sample-pdf-file-for-testing/?wpdmdl=1566&amp;refresh=621508d3713281645545683';
-  String pdfName = 'my_first_pdf';
-  String videoLink= 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4';
-  String videoName = 'my_first_video2';
+  // String pdfLink = 'https://www.learningcontainer.com/download/sample-pdf-file-for-testing/?wpdmdl=1566&amp;refresh=621508d3713281645545683';
+  // String pdfName = 'my_first_pdf';
+  // String videoLink= 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4';
+  // String videoName = 'my_first_video2';
 
   @override
   void initState() {
@@ -106,53 +108,38 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
         onReady: () {
           _isPlayerReady = true;
         },
-        // onEnded: (data) {
-        //   _showSnackBar('Video over!');
-        // },
       ),
       builder: (context, player) => Scaffold(
         appBar:CustomAppBar(),
-    //     floatingActionButton:  Row(
-    //       mainAxisAlignment: MainAxisAlignment.end,
-    //       children: [
-    //         FloatingActionButton.extended(
-    //             onPressed: () async {
-    //               AppConstants.checkPermission(context, Permission.storage, requestDownload);
-    //             },
-    //             backgroundColor: AppColors.white,
-    //             elevation: 8.0,
-    //             label: ImageIcon(
-    //               AssetImage(Images.download_pdf),
-    //               color: AppColors.red,
-    //               size: 24,
-    //             ),
-    // ),
-    //   SizedBox(width: 8,),
-    //   FloatingActionButton.extended(
-    //       onPressed: () async {
-    //         AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
-    //       },
-    //       backgroundColor: AppColors.amber,
-    //       elevation: 8.0,
-    //       label: ImageIcon(
-    //         AssetImage(Images.download),
-    //         color: AppColors.white,
-    //         size: 24,
-    //       )),
-    //       ],
-    //     ),
-        // floatingActionButton: FloatingActionButton.extended(
-        //   onPressed: () async {
-        //     AppConstants.checkPermission(context, Permission.storage, requestDownload);
-        //   },
-        //   backgroundColor: AppColors.white,
-        //   elevation: 8.0,
-        //   label: ImageIcon(
-        //     AssetImage(Images.download_pdf),
-        //     color: AppColors.red,
-        //     size: 24,
-        //   ),
-        // ),
+        /*floatingActionButton:  Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton.extended(
+                onPressed: () async {
+                  AppConstants.checkPermission(context, Permission.storage, requestDownload);
+                },
+                backgroundColor: AppColors.white,
+                elevation: 8.0,
+                label: ImageIcon(
+                  AssetImage(Images.download_pdf),
+                  color: AppColors.red,
+                  size: 24,
+                ),
+    ),
+      SizedBox(width: 8,),
+      FloatingActionButton.extended(
+          onPressed: () async {
+            AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+          },
+          backgroundColor: AppColors.amber,
+          elevation: 8.0,
+          label: ImageIcon(
+            AssetImage(Images.download),
+            color: AppColors.white,
+            size: 24,
+          )),
+          ],
+        ),*/
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -255,7 +242,7 @@ FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
     );
   }
 
-  Future<void> requestDownload() async {
+  /*Future<void> requestDownload() async {
     final dir = await getApplicationDocumentsDirectory();
     var _localPath = dir.path + '/' + pdfName + '.pdf';
     // var _localPath = dir.path + '/' + videoName;
@@ -274,9 +261,9 @@ FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
           Downloads(1)
       ));
     });
-  }
+  }*/
 
-Future<void> requestVideoDownload() async {
+  /*Future<void> requestVideoDownload() async {
   final dir = await getApplicationDocumentsDirectory();
 
    var _localPath = dir.path + '/' + videoName;
@@ -295,7 +282,8 @@ Future<void> requestVideoDownload() async {
         Downloads(0)
     ));
   });
-}
+}*/
+
 }
 
 /*class Bottomsheet2 extends StatefulWidget {

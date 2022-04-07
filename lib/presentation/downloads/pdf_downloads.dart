@@ -7,6 +7,7 @@ import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 
@@ -20,6 +21,7 @@ class DownloadedPdf extends StatefulWidget with WidgetsBindingObserver {
 class _DownloadedPdfState extends State<DownloadedPdf> {
   ReceivePort _port = ReceivePort();
   List<Map<dynamic, dynamic>> downloadsListMaps = [];
+  final keyRefresh = GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
@@ -28,6 +30,13 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
     _bindBackgroundIsolate();
     FlutterDownloader.registerCallback(downloadCallback);
     setState(() {});
+  }
+
+  Future<void>_refreshScreen() async{
+    downloadsListMaps.clear();
+    task();
+    _bindBackgroundIsolate();
+    FlutterDownloader.registerCallback(downloadCallback);
   }
 
   @override
@@ -57,8 +66,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
     });
   }
 
-  static void downloadCallback(
-      String id, DownloadTaskStatus status, int progress) {
+  static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
     final SendPort? send =
     IsolateNameServer.lookupPortByName('downloader_send_port');
     send!.send([id, status, progress]);
@@ -86,11 +94,17 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: downloadsListMaps.length == 0
-          ? AppConstants.noDataFound()
-          // ? Center(child: Text("No Downloads yet"))
-          : Container(
-        child: ListView.builder(
+        body: RefreshWidget(
+        keyRefresh: keyRefresh,
+        onRefresh:_refreshScreen,
+        child: Container(
+        child: downloadsListMaps.length == 0 ?
+        ListView.builder(
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int i) {
+          return AppConstants.noDataFound();
+        }) :
+        ListView.builder(
           itemCount: downloadsListMaps.length,
           itemBuilder: (BuildContext context, int i) {
             Map _map = downloadsListMaps[i];
@@ -186,6 +200,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
           },
         ),
       ),
+        )
     );
   }
 

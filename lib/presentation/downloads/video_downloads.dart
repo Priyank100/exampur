@@ -6,6 +6,7 @@ import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/shared/local_video_screen.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 
@@ -19,6 +20,7 @@ class DownloadedVideo extends StatefulWidget {
 class _DownloadedVideoState extends State<DownloadedVideo> {
   ReceivePort _port = ReceivePort();
   List<Map<dynamic, dynamic>> downloadsListMaps = [];
+  final keyRefresh = GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
@@ -27,6 +29,13 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
     _bindBackgroundIsolate();
     FlutterDownloader.registerCallback(downloadCallback);
     setState(() {});
+  }
+
+  Future<void>_refreshScreen() async{
+    downloadsListMaps.clear();
+    task();
+    _bindBackgroundIsolate();
+    FlutterDownloader.registerCallback(downloadCallback);
   }
 
   @override
@@ -85,60 +94,66 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: downloadsListMaps.length == 0
-          ? AppConstants.noDataFound()
-      // ? Center(child: Text("No Downloads yet"))
-          : Container(
-        child: ListView.builder(
-          itemCount: downloadsListMaps.length,
-          itemBuilder: (BuildContext context, int i) {
-            Map _map = downloadsListMaps[i];
-            String _filename = _map['filename'];
-            int _progress = _map['progress'];
-            DownloadTaskStatus _status = _map['status'];
-            String _id = _map['id'];
-            String _savedDirectory = _map['savedDirectory'];
-            List<FileSystemEntity> _directories = Directory(_savedDirectory).listSync(followLinks: true);
-            File? _file = (_directories.isNotEmpty ? _directories.first : null) as File?;
-            return GestureDetector(
-              onTap: () {
-                // if (_status == DownloadTaskStatus.complete) {
-                //   Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //           builder: (context) => LocalVideoScreen(_file!, _filename)
-                //       )
-                //   );
-                // }
-              },
-              child: Card(
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    // ListTile(
-                    //   isThreeLine: false,
-                    //   title: Text(_filename),
-                    //   subtitle: downloadStatus(_status),
-                    //   trailing: SizedBox(
-                    //     child: buttons(_status, _id, i),
-                    //     width: 60,
-                    //   ),
-                    // ),
-                    ListTile(
-                      isThreeLine: false,
-                      leading: Image.asset(Images.download_video),
-                      title: Text(_filename),
-                      // subtitle: downloadStatus(_status),
-                      trailing: SizedBox(
-                        child: buttons(_status, _id, i),
-                        width: 60,
-                      ),
-                      subtitle: Row(children: [
-                        _status == DownloadTaskStatus.failed ? Text('Failed') :
+      body: RefreshWidget(
+          keyRefresh: keyRefresh,
+          onRefresh:_refreshScreen,
+          child: Container(
+            child: downloadsListMaps.length == 0 ?
+            ListView.builder(
+                itemCount: 1,
+                itemBuilder: (BuildContext context, int i) {
+                  return AppConstants.noDataFound();
+                }) :
+            ListView.builder(
+              itemCount: downloadsListMaps.length,
+              itemBuilder: (BuildContext context, int i) {
+                Map _map = downloadsListMaps[i];
+                String _filename = _map['filename'];
+                int _progress = _map['progress'];
+                DownloadTaskStatus _status = _map['status'];
+                String _id = _map['id'];
+                String _savedDirectory = _map['savedDirectory'];
+                List<FileSystemEntity> _directories = Directory(_savedDirectory).listSync(followLinks: true);
+                File? _file = (_directories.isNotEmpty ? _directories.first : null) as File?;
+                return GestureDetector(
+                  onTap: () {
+                    // if (_status == DownloadTaskStatus.complete) {
+                    //   Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) => LocalVideoScreen(_file!, _filename)
+                    //       )
+                    //   );
+                    // }
+                  },
+                  child: Card(
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        // ListTile(
+                        //   isThreeLine: false,
+                        //   title: Text(_filename),
+                        //   subtitle: downloadStatus(_status),
+                        //   trailing: SizedBox(
+                        //     child: buttons(_status, _id, i),
+                        //     width: 60,
+                        //   ),
+                        // ),
+                        ListTile(
+                          isThreeLine: false,
+                          leading: Image.asset(Images.download_video),
+                          title: Text(_filename),
+                          // subtitle: downloadStatus(_status),
+                          trailing: SizedBox(
+                            child: buttons(_status, _id, i),
+                            width: 60,
+                          ),
+                          subtitle: Row(children: [
+                            _status == DownloadTaskStatus.failed ? Text('Failed') :
                             Padding(
                               padding: const EdgeInsets.only(top: 10),
                               child: CustomRoundButton(text:getTranslated(context, StringConstant.watch)!, onPressed: (){
@@ -153,50 +168,51 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
                               },),
                             )
 
-                        // InkWell(
-                        //   onTap: (){
-                        //     // buttons(_status, _id, i);
-                        //     FlutterDownloader.cancel(taskId: _id);
-                        //     downloadsListMaps.removeAt(i);
-                        //     FlutterDownloader.remove(taskId: _id, shouldDeleteContent: true);
-                        //     setState(() {});
-                        //   },child: Container( margin:EdgeInsets.only(top: 8,left: 8),color: AppColors.white,height: 30,width: 70,child: Center(child: Text('Remove',style: TextStyle(color: AppColors.red)))))
-                      ],),
-                    ),
-                    _status == DownloadTaskStatus.complete
-                        ? Container()
-                        : SizedBox(height: 5),
-                    _status == DownloadTaskStatus.complete || _status == DownloadTaskStatus.failed
-                        ? Container()
-                        : Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text('$_progress%'),
-                          Row(
+                            // InkWell(
+                            //   onTap: (){
+                            //     // buttons(_status, _id, i);
+                            //     FlutterDownloader.cancel(taskId: _id);
+                            //     downloadsListMaps.removeAt(i);
+                            //     FlutterDownloader.remove(taskId: _id, shouldDeleteContent: true);
+                            //     setState(() {});
+                            //   },child: Container( margin:EdgeInsets.only(top: 8,left: 8),color: AppColors.white,height: 30,width: 70,child: Center(child: Text('Remove',style: TextStyle(color: AppColors.red)))))
+                          ],),
+                        ),
+                        _status == DownloadTaskStatus.complete
+                            ? Container()
+                            : SizedBox(height: 5),
+                        _status == DownloadTaskStatus.complete || _status == DownloadTaskStatus.failed
+                            ? Container()
+                            : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
-                              Expanded(
-                                child: LinearProgressIndicator(
-                                  color: AppColors.amber,
-                                  backgroundColor: AppColors.grey,
-                                  value: _progress / 100,
-                                ),
+                              Text('$_progress%'),
+                              Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: LinearProgressIndicator(
+                                      color: AppColors.amber,
+                                      backgroundColor: AppColors.grey,
+                                      value: _progress / 100,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 10)
+                      ],
                     ),
-                    SizedBox(height: 10)
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ),
+                  ),
+                );
+              },
+            ),
+          )
+      )
     );
   }
 
