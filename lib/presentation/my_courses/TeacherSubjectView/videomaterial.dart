@@ -28,6 +28,7 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
 
   @override
   void initState() {
+    print(widget.url);
     super.initState();
     videoPlayerController = VideoPlayerController.network(widget.url);
     chewieController = ChewieController(
@@ -73,9 +74,15 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
             child:   Text(widget.title,style: TextStyle(fontSize: 20)),
           ),
           SizedBox(height: 60,),
-          Center(child: CustomElevatedButton(onPressed: (){
-            AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
-          },text: getTranslated(context, StringConstant.downloadVideo)!,))
+          Center(
+            child: Container(
+    height: 45,width:MediaQuery.of(context).size.width/1.10,decoration: BoxDecoration( color:AppColors.amber,
+    borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, StringConstant.downloadVideo)!,style: TextStyle(color: Colors.white,fontSize: 15)
+            ))),
+          )
+          // Center(child: CustomElevatedButton(onPressed: (){
+          //   AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+          // },text: getTranslated(context, StringConstant.downloadVideo)!,))
         ],
       ),
     );

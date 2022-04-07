@@ -36,6 +36,7 @@ class MyCoursesState extends State<MyCourses> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: isLoading ? Center(child: LoadingIndicator(context)) : myCourseList.length == 0 ?
       AppConstants.noDataFound() :
@@ -79,6 +80,7 @@ class MyCoursesState extends State<MyCourses> {
   Widget GridItem(index) {
     return InkWell(
       onTap: () {
+
         Navigator.push(context, MaterialPageRoute(builder: (_) =>
             MyCourseTabView(myCourseList[index].id.toString())
         ));
@@ -95,7 +97,7 @@ class MyCoursesState extends State<MyCourses> {
             Container(
                 height:70,width:MediaQuery.of(context).size.width,child:
             //Image.asset(Images.exampur_logo,fit: BoxFit.fill)
-           AppConstants.image(AppConstants.BANNER_BASE + myCourseList[index].logoPath.toString(),boxfit: BoxFit.fill)
+           AppConstants.image(AppConstants.BANNER_BASE + myCourseList[index].bannerPath.toString(),boxfit: BoxFit.fill)
             ),
             SizedBox(height: 10),
             Flexible(child: Padding(

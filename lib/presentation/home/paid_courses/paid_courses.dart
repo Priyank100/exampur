@@ -68,9 +68,9 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
           return Scaffold(
               body:
               widget.courseType == 1 ?
-              !isPaidData ? Center(child: CircularProgressIndicator()) : paidCourseTabList.length == 0 ? Center(child: AppConstants.noDataFound()) : tabBar()
+              !isPaidData ? Center(child: CircularProgressIndicator(color: AppColors.amber,)) : paidCourseTabList.length == 0 ? Center(child: AppConstants.noDataFound()) : tabBar()
               :
-              !isFreeData ? Center(child: CircularProgressIndicator()) : freeCourseTabList.length == 0 ? Center(child: AppConstants.noDataFound()) : tabBar()
+              !isFreeData ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : freeCourseTabList.length == 0 ? Center(child: AppConstants.noDataFound()) : tabBar()
 
           );
         });
