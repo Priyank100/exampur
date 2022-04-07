@@ -37,30 +37,27 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
 
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(5.0),
             child: Text(
               widget.books.title.toString(),
               softWrap: true,
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 15),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(5.0),
             child: Text(
               widget.books.description.toString(),
               softWrap: true,
               style: TextStyle(fontSize: 15),
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
               getTranslated(context,StringConstant.priceBreakdown)!,
               softWrap: true,
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 15),
             ),
           ),
           Padding(

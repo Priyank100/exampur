@@ -101,7 +101,7 @@ class _YoutubeVideoState extends State<YoutubeVideo> {
                   padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                   child: Text(widget.title.toString(),
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                 )),
           ],
         ),
