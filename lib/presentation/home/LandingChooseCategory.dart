@@ -13,11 +13,11 @@ import 'package:provider/provider.dart';
 import 'bottom_navigation.dart';
 
 class LandingChooseCategory extends StatefulWidget {
-  final bool isMultiSelection;
+  // final bool isMultiSelection;
 
-  const LandingChooseCategory({
-    this.isMultiSelection = false,
-  });
+  const LandingChooseCategory(
+      // {this.isMultiSelection = false}
+      );
 
   @override
   _LandingChooseCategoryState createState() => _LandingChooseCategoryState();
@@ -269,13 +269,11 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                   await FirebaseAnalytics.instance.logEvent(name: 'EXAM_SELECTED',parameters: {
                                     'exam_categories': selectedCountries.toString()
                                   });
-                                  SharedPref.saveSharedPref(
-                                      SharedPrefConstants.CATEGORY_LENGTH,
-                                      selectedCountries.length.toString());
-                                  // AppConstants.printLog(
-                                  //     selectedCountries.length.toString());
+
+                                  // SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, selectedCountries.length.toString());
+
                                   AppConstants.printLog(selectedCountries.length.toString());
-                                  if(selectedCountries.length >0){
+                                  if(selectedCountries.length > 0){
                                     UpdateChoosecategory(selectedCountries);
 
                                   }

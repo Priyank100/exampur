@@ -252,11 +252,9 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                   child: !isLoading
                       ?InkWell(
                     onTap: () {
-                      SharedPref.saveSharedPref(
-                          SharedPrefConstants.CATEGORY_LENGTH,
-                          selectedCountries.length.toString());
-                      // AppConstants.printLog(
-                      //     selectedCountries.length.toString());
+
+                      // SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, selectedCountries.length.toString());
+
                       AppConstants.printLog(selectedCountries.length.toString());
                       if(selectedCountries.length >0){
                         setState(() {

@@ -37,6 +37,7 @@ class Data {
     this.country,
     this.phoneConf,
     this.authToken,
+    this.countCategories
   });
 
   int? phoneExt;
@@ -50,6 +51,7 @@ class Data {
   String? country;
   bool? phoneConf;
   String? authToken;
+  int? countCategories;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     phoneExt: json["phone_ext"],
@@ -63,6 +65,7 @@ class Data {
     country: json["country"],
     phoneConf: json["phone_conf"],
     authToken: json["authToken"],
+    countCategories: json["count_categories"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -77,5 +80,6 @@ class Data {
     "country": country,
     "phone_conf": phoneConf,
     "authToken": authToken,
+    "count_categories": countCategories,
   };
 }

@@ -363,7 +363,7 @@ class SignUpState extends State<SignUp> {
        // 'Phone':_phoneController.text.toString(),
 
       });
-      SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, '0');
+      // SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, '0');
       Navigator.pushReplacement(
           context,
               MaterialPageRoute(builder: (_) => OtpScreen(false)));

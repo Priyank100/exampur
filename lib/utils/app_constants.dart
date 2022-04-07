@@ -149,7 +149,7 @@ class SharedPrefConstants {
   static const String TOKEN           = 'Token';
   static const String BANNER_BASE_SP  = 'Banner_Base';
   static const String USER_DATA       = 'user_data';
-  static const String CATEGORY_LENGTH = 'category_length';
+  // static const String CATEGORY_LENGTH = 'category_length';
 }
 
 class AppConstants {

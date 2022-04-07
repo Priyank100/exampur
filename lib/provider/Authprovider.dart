@@ -59,7 +59,9 @@ class AuthProvider extends ChangeNotifier {
         // callback(true, '');
 
         if(_informationModel.data!.phoneConf == true) {
-          callback(true, '');
+          // callback(true, '');
+          checkSelectCategory(context, _informationModel.data!.countCategories);
+
         } else {
           Navigator.push(context, MaterialPageRoute(builder: (_) => OtpScreen(false)));
         }
@@ -174,7 +176,7 @@ class AuthProvider extends ChangeNotifier {
         await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
 
         if(_informationModel.data!.phoneConf == true) { //line change true
-          checkSelectCategory(context);
+          checkSelectCategory(context, _informationModel.data!.countCategories);
         } else {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => OtpScreen(false)));
         }
@@ -229,25 +231,25 @@ class AuthProvider extends ChangeNotifier {
     });
   }
 
-  Future<void> checkSelectCategory(context) async {
+  Future<void> checkSelectCategory(context, countCategories) async {
 
-    await SharedPref.getSharedPref(SharedPrefConstants.CATEGORY_LENGTH).then((value) => {
-      if(value == '0') {
+    // await SharedPref.getSharedPref(SharedPrefConstants.CATEGORY_LENGTH).then((countCategories) => {
+      if(countCategories == 0) {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
                 LandingChooseCategory()
             )
-        )
+        );
       } else {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
                 BottomNavigation()
             )
-        )
+        );
       }
-    });
+    // });
   }
 
   Future changePasswordPro(context, parameters) async {
