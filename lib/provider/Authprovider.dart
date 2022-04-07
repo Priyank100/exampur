@@ -173,7 +173,7 @@ class AuthProvider extends ChangeNotifier {
         _userData.add(_informationModel);
         await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
 
-        if(_informationModel.data!.phoneConf == true) {
+        if(_informationModel.data!.phoneConf == false) { //line change true
           checkSelectCategory(context);
         } else {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => OtpScreen(false)));

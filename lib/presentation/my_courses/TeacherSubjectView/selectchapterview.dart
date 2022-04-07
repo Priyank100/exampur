@@ -17,6 +17,7 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'DownloadPdfView.dart';
 import 'apexvideo.dart';
 
 class SelectChapterView extends StatefulWidget {
@@ -81,7 +82,8 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(materialList[index].subjectId!.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
-                      SizedBox(height: 25,),
+                      Text(materialList[index].title.toString(),style: TextStyle(fontSize: 12),),
+                      SizedBox(height: 5,),
                       Row(
                         children: [
                       materialList[index].videoLink==''?CustomAmberButton(text:getTranslated(context, StringConstant.watch)!, onPressed: (){
@@ -162,15 +164,27 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                           );},text: getTranslated(context, StringConstant.watch)!,),
 
                           SizedBox(width: 5),
-                          materialList[index].pdfPath==null?SizedBox():
-                          CustomRoundButton(onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ViewPdf(AppConstants.BANNER_BASE + materialList[index].pdfPath.toString(),'')
-                                )
-                            );
-                          },text:getTranslated(context, StringConstant.viewPdf)! ,)
+                          materialList[index].pdfPath==null?SizedBox():  InkWell(
+                           onTap: (){
+                               Navigator.push(
+                                   context,
+                                   MaterialPageRoute(
+                                       builder: (context) => DownloadViewPdf(AppConstants.BANNER_BASE + materialList[index].pdfPath.toString(),materialList[index].title.toString(),'')
+                                   )
+                               );
+                           },
+                           child: Container(height: 30,width:MediaQuery.of(context).size.width/4.10,decoration: BoxDecoration( color: Color(0xFF060929),
+      borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, StringConstant.viewPdf)!,style: TextStyle(color: Colors.white,fontSize: 11)))),
+                         )
+                         // materialList[index].pdfPath==null?SizedBox():
+                          // CustomRoundButton(onPressed: (){
+                          //   Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //           builder: (context) => DownloadViewPdf(AppConstants.BANNER_BASE + materialList[index].pdfPath.toString(),materialList[index].title.toString(),'')
+                          //       )
+                          //   );
+                          // },text:getTranslated(context, StringConstant.viewPdf)! ,)
 
                         ],
                       ),
