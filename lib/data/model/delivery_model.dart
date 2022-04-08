@@ -45,7 +45,7 @@ String dataToJson(Data data) => json.encode(data.toJson());
 class Data {
   Data({
       String? orderId, 
-      int? amount, 
+      double? amount,
       String? paymentSource, 
       String? paymentOrderId, 
       String? description, 
@@ -60,21 +60,21 @@ class Data {
 
   Data.fromJson(dynamic json) {
     _orderId = json['order_id'];
-    _amount = json['amount'];
+    _amount = json['amount'].toDouble();
     _paymentSource = json['payment_source'];
     _paymentOrderId = json['payment_order_id'];
     _description = json['description'];
     _status = json['status'];
   }
   String? _orderId;
-  int? _amount;
+  double? _amount;
   String? _paymentSource;
   String? _paymentOrderId;
   String? _description;
   String? _status;
 
   String? get orderId => _orderId;
-  int? get amount => _amount;
+  double? get amount => _amount;
   String? get paymentSource => _paymentSource;
   String? get paymentOrderId => _paymentOrderId;
   String? get description => _description;
