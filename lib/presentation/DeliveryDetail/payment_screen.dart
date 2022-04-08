@@ -61,6 +61,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox(): textUse(getTranslated(context, StringConstant.pinCode)!+' : ' + widget.billingModel.pincode.toString(), 15),
               SizedBox(height: 10),
               Divider(),
+
               SizedBox(height: 10),
               widget.type == 'Course' || widget.type == 'Combo' ?
               textUse(getTranslated(context, StringConstant.coursename)!+' : ' + widget.billingModel.itemName.toString(), 15) :
