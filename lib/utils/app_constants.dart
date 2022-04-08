@@ -247,7 +247,6 @@ class AppConstants {
     );
   }
 
-
   static void showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       content: new Row(
