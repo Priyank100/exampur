@@ -80,9 +80,9 @@ class _HomeState extends State<Home> {
         .data!
         .firstName
         .toString();
-    String token = await Provider.of<AuthProvider>(context, listen: false).informationModel.data!.authToken.toString();
+    // String token = await Provider.of<AuthProvider>(context, listen: false).informationModel.data!.authToken.toString();
     bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context))!;
-    AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
+    // AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
     // AppConstants.selectedCategoryList = selectCategorylist;
     setState(() {});
   }

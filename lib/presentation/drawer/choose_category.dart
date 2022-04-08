@@ -11,15 +11,16 @@ import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ChooseCategory extends StatefulWidget {
-  const ChooseCategory({Key? key}) : super(key: key);
+class ChooseCategoryScreen extends StatefulWidget {
+  final List<Data> chooseList;
+  const ChooseCategoryScreen(this.chooseList) : super();
 
   @override
-  _ChooseCategoryState createState() => _ChooseCategoryState();
+  _ChooseCategoryScreenState createState() => _ChooseCategoryScreenState();
 }
 
-class _ChooseCategoryState extends State<ChooseCategory> {
-  List<Data> chooseList = [];
+class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
+  // List<Data> chooseList = [];
   //List<String> getSelectList = [];
   List<String> selectedCountries = [];
 
@@ -34,15 +35,13 @@ class _ChooseCategoryState extends State<ChooseCategory> {
   }
 
   Future<void> callProvider() async {
-    chooseList =
-    (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-        .getchooseCategoryList(context))!;
+    //chooseList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getAllCategoryList(context))!;
 
     for(int i=0; i < AppConstants.selectedCategoryList.length; i++) {
-      for(int j=0; j<chooseList.length; j++) {
-        if(AppConstants.selectedCategoryList[i] == chooseList[j].id) {
-          chooseList[j].isSelected = true;
-          selectedCountries.add(chooseList[j].id.toString());
+      for(int j=0; j<widget.chooseList.length; j++) {
+        if(AppConstants.selectedCategoryList[i] == widget.chooseList[j].id) {
+          widget.chooseList[j].isSelected = true;
+          selectedCountries.add(widget.chooseList[j].id.toString());
         }
       }
     }
@@ -56,7 +55,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
 
     return Scaffold(
         appBar: CustomAppBar(),
-        body: chooseList.length != 0
+        body: widget.chooseList.length != 0
             ? SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -112,7 +111,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                     SliverGrid(
                       delegate: SliverChildBuilderDelegate(
                             (context, index) {
-                          final isSelected = chooseList[index].isSelected;
+                          final isSelected = widget.chooseList[index].isSelected;
                           return Padding(
                               padding: const EdgeInsets.all(0),
                               child: InkWell(
@@ -120,30 +119,29 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                   // chooseList[index].isSelected = !chooseList[index].isSelected;
                                   // setState(() {});
                                   setState(() {
-                                    chooseList[index].isSelected =
-                                    !chooseList[index].isSelected;
-                                    if (chooseList[index].isSelected ==
+                                    widget.chooseList[index].isSelected =
+                                    !widget.chooseList[index].isSelected;
+                                    if (widget.chooseList[index].isSelected ==
                                         true) {
                                       selectedCountries.add(
-                                          chooseList[index]
+                                          widget.chooseList[index]
                                               .id
                                               .toString());
-                                    } else if (chooseList[index]
+                                    } else if (widget.chooseList[index]
                                         .isSelected ==
                                         false) {
                                       selectedCountries.removeWhere(
                                               (element) =>
                                           element.toString() ==
-                                              chooseList[index].id);
+                                              widget.chooseList[index].id);
                                     }
                                   });
                                 },
                                 child: Container(
 
-                                  padding: EdgeInsets.all(8),
+                                  padding: EdgeInsets.all(5),
                                   child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
@@ -152,7 +150,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                         children: [
                                           Flexible(
                                             child: Text(
-                                              chooseList[index]
+                                              widget.chooseList[index]
                                                   .name
                                                   .toString(),
                                               style: TextStyle(
@@ -168,7 +166,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                             AppColors.transparent,
                                             backgroundImage:
                                             new NetworkImage(
-                                                AppConstants.BANNER_BASE + chooseList[index]
+                                                AppConstants.BANNER_BASE + widget.chooseList[index]
                                                     .logoPath
                                                     .toString()),
                                             radius: 20.0,
@@ -187,9 +185,9 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                       ),
                                       Flexible(
                                         child: Text(
-                                          chooseList[index]
+                                          widget.chooseList[index]
                                               .description
-                                              .toString(),
+                                              .toString(),overflow: TextOverflow.ellipsis,maxLines: 1,
                                           style: TextStyle(
                                             fontSize: 12.0,
                                             color: AppColors.grey600,
@@ -202,7 +200,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                   //height: 100.0,
                                   decoration: BoxDecoration(
                                     border:
-                                    chooseList[index].isSelected
+                                    widget.chooseList[index].isSelected
                                         ? Border.all(
                                       color: AppColors.amber,
                                       width: 3,
@@ -228,7 +226,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                 ),
                               ));
                         },
-                        childCount: chooseList.length,
+                        childCount: widget.chooseList.length,
                       ),
                       gridDelegate:
                       SliverGridDelegateWithFixedCrossAxisCount(

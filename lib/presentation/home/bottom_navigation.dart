@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
@@ -10,6 +11,7 @@ import 'package:exampur_mobile/presentation/drawer/settings.dart';
 import 'package:exampur_mobile/presentation/help/help.dart';
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -21,6 +23,7 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:launch_review/launch_review.dart';
+import 'package:provider/provider.dart';
 
 
 class ItemClass {
@@ -46,6 +49,8 @@ class _BottomNavigationState extends State<BottomNavigation>
   late List<Key> _destinationKeys;
   int _counter = 0;
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  List<Data> allCategoriesList = [];
+  List<String> selectedCategoryName = [];
 
   @override
   void initState() {
@@ -63,6 +68,30 @@ class _BottomNavigationState extends State<BottomNavigation>
         List<Key>.generate(widgetList.length, (int index) => GlobalKey())
             .toList();
     _hide = AnimationController(vsync: this, duration: kThemeAnimationDuration);
+
+    callProvider();
+  }
+
+  Future<void> callProvider() async {
+    allCategoriesList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getAllCategoryList(context))!;
+    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((token) async {
+      AppConstants.printLog('TOKEN>> $token');
+      AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
+      // AppConstants.printLog( 'Anchal>>>>>>>>>>>>>>>>>>>>>>>'+AppConstants.selectedCategoryList.toString());
+
+      for(int i=0; i < AppConstants.selectedCategoryList.length; i++) {
+        for(int j=0; j<allCategoriesList.length; j++) {
+          if(AppConstants.selectedCategoryList[i] == allCategoriesList[j].id) {
+            allCategoriesList[j].isSelected = true;
+            selectedCategoryName.add(allCategoriesList[j].name.toString());
+          }
+        }
+      }
+      AppConstants.printLog( 'Anchal>>>>>>>>>>>>>>>>>>>>>>>'+selectedCategoryName[0].toString());
+      setState(() {
+      });
+
+    });
   }
 
   @override
@@ -151,18 +180,18 @@ class _BottomNavigationState extends State<BottomNavigation>
                   AppConstants.sendAnalyticsEvent('SIDE_BAR_CLICKED');
                   Scaffold.of(context).openDrawer();});
           }),
-          // title: InkWell(
-          //   onTap: (){
-          //     Navigator.push(
-          //                     context,
-          //                     MaterialPageRoute(
-          //                         builder: (context) => const ChooseCategory()));
-          //   },
-          //   child: Row(children: [
-          //     Text('UP Exam',style: TextStyle(color: AppColors.black),),
-          //     Icon(Icons.arrow_drop_down)
-          //   ],),
-          // ),
+          title: InkWell(
+            onTap: (){
+              // Navigator.push(
+              //                 context,
+              //                 MaterialPageRoute(
+              //                     builder: (context) => const ChooseCategory()));
+            },
+            child: Row(children: [
+              Text(selectedCategoryName.length == 0 ? '' :selectedCategoryName[selectedCategoryName.length-1].toString(),style: TextStyle(color: AppColors.black,fontSize: 15),),
+              Icon(Icons.arrow_drop_down)
+            ],),
+          ),
           actions: [
             // IconButton(
             //     onPressed: () {
@@ -336,8 +365,10 @@ class _BottomNavigationState extends State<BottomNavigation>
                             MaterialPageRoute(
                                 builder: (context) =>
                                     //LandingChooseCategory()
-                                    ChooseCategory()
-                            ));
+                                ChooseCategoryScreen(allCategoriesList)
+                            )).then((value) {
+                              callProvider();
+                        });
                       },
                     ),
                     ListTile(

@@ -42,7 +42,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
   Future<void> callProvider() async {
     chooseList =
         (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-            .getchooseCategoryList(context))!;
+            .getAllCategoryList(context))!;
     // getSelectList =
     // (await Provider.of<ChooseCategoryProvider>(context, listen: false)
     //     .getSelectchooseCategoryList(context))!;

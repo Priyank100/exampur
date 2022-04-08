@@ -49,7 +49,7 @@ class API {
   static const String homeBannerbooklink_URL    = BASE_URL3 + 'books/findone/';
 
   //Category
-  static const String Choose_category_URL         = BASE_URL3 + 'category/all';
+  static const String All_category_URL         = BASE_URL3 + 'category/all';
   static const String Update_Choose_category_URL  = BASE_URL2 + 'user/updateCategory';
   static const String Select_Choose_category_URL  = BASE_URL2 + 'user/getCategory';
 

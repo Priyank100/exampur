@@ -21,8 +21,8 @@ class ChooseCategoryProvider extends ChangeNotifier {
   GetCategoriesModel _getCategoriesModel =GetCategoriesModel();
   GetCategoriesModel get getCategoriesModel => _getCategoriesModel;
 
-  Future<List<Data>?> getchooseCategoryList(BuildContext context) async {
-    ApiResponse apiResponse = await chooseCategoryRepo.chooseCategory();
+  Future<List<Data>?> getAllCategoryList(BuildContext context) async {
+    ApiResponse apiResponse = await chooseCategoryRepo.allCategory();
 
     if(apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       AppConstants.printLog(apiResponse.response!.data);
