@@ -53,7 +53,7 @@ class _VideosCAState extends State<VideosCA> {
     if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
       setState(() {
         if(isData) {
-          page += 1;
+          page += 10;
         }
         isBottomLoading = true;
         getVideoList(page);

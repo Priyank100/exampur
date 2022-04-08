@@ -28,7 +28,7 @@ class _CaBytesState extends State<CaBytes> {
     List<Data> list=  (await Provider.of<CABytesProvider>(context, listen: false)
         .getCaBytesList(context,encodeCat, pageNo))!;
     if(list.length > 0) {
-      page +=1;
+      page += 10;
       caBytesList = caBytesList + list;
     }
     isLoading=false;

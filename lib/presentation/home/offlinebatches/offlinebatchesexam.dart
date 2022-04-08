@@ -57,7 +57,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
     if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
       setState(() {
         if(isData) {
-          page += 1;
+          page += 10;
         }
         isLoading = true;
         callProvider(page);

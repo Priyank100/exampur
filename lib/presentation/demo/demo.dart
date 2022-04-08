@@ -52,7 +52,7 @@ class DemoState extends State<Demo> {
      if(scrollController.position.pixels==scrollController.position.maxScrollExtent){
        setState(() {
          if(isData){
-           page +=1;
+           page += 10;
            AppConstants.printLog(page.toString());
          }
       isBottomLoading = true;

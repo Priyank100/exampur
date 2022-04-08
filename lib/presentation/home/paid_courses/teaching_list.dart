@@ -61,7 +61,7 @@ class _TeachingListState extends State<TeachingList> {
     if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
       setState(() {
         if(isData) {
-          page += 1;
+          page += 10;
         }
         isLoading = true;
         getLists(page);

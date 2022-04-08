@@ -54,7 +54,7 @@ class _JobAlertListScreenState extends State<JobAlertListScreen> {
     if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
       setState(() {
         if(isData) {
-          page += 1;
+          page += 10;
         }
         isBottomLoading = true;
         getLists(page);

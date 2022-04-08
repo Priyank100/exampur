@@ -47,7 +47,7 @@ class _EBooksScreenState extends State<EBooksScreen> {
     if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
       setState(() {
         if(isData) {
-          page += 1;
+          page += 10;
         }
         isBottomLoading = true;
         getBooksList(page);

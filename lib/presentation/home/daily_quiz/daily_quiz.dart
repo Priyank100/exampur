@@ -67,7 +67,7 @@ class _DailyQuizState extends State<DailyQuiz> {
     if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
       setState(() {
         if(isData) {
-          page += 1;
+          page += 10;
         }
         isBottomLoading = true;
         getDailyQuizList(page);
