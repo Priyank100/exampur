@@ -145,7 +145,7 @@ class _DailyQuizState extends State<DailyQuiz> {
                                             children: [
                                               CustomRoundButton(onPressed: ()async{
                                                 await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {
-                                                  String url = API.dailuQuiz_web_URL
+                                                  String url = API.dailyQuiz_web_URL
                                                       .replaceAll('QUIZ_ID', dailyQuizList[index].id.toString())
                                                       .replaceAll('AUTH_TOKEN', value);
                                                   AppConstants.printLog('url>> $url');
