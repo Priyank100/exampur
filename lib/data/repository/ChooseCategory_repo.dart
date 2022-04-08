@@ -14,10 +14,10 @@ class ChooseCategoryRepo {
 
   ChooseCategoryRepo({required this.dioClient});
 
-  Future<ApiResponse> chooseCategory() async {
+  Future<ApiResponse> allCategory() async {
     try {
 
-      final url =  '${API.Choose_category_URL}';
+      final url =  '${API.All_category_URL}';
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
