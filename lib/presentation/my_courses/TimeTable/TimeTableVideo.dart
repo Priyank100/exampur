@@ -8,6 +8,7 @@ import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:video_player/video_player.dart';
@@ -178,10 +179,10 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
             ),
             Divider(thickness: 1,),
             Container(
-              margin: EdgeInsets.all(5),
               //height: MediaQuery.of(context).size.height*0.35,
               height: MediaQuery.of(context).size.height*0.43,
               //height: 400,
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
               child:
               ListView.builder(
                 itemCount: map.length,
@@ -221,7 +222,6 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                       ),
 
                       new Divider(
-                        height: 2.0,
                       ),
                     ],
                   );
