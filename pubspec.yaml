@@ -78,7 +78,7 @@ dependencies:
   firebase_analytics: ^9.1.1
   firebase_crashlytics: ^2.0.7
   new_version: ^0.3.0
-
+  sms_autofill: ^2.2.0
 
 
 
