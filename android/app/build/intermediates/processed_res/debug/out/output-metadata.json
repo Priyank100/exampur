@@ -4,7 +4,7 @@
     "type": "PROCESSED_RES",
     "kind": "Directory"
   },
-  "applicationId": "com.example.exampur_mobile",
+  "applicationId": "com.edudrive.exampur",
   "variantName": "processDebugResources",
   "elements": [
     {

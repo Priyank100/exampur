@@ -180,6 +180,7 @@ class _OtpScreenState extends State<OtpScreen> {
         SizedBox(height: 10),
         CustomTextField(hintText: "Enter the OTP",
             textInputType: TextInputType.number,
+            autofillHints: const <String>[AutofillHints.oneTimeCode],
             controller: _otpController,
             value: (value) {}),
         SizedBox(height: 20),

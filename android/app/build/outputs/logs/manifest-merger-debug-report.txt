@@ -116,7 +116,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\fl
 		ADDED from C:\Users\flutt\StudioProjects\exampur_mobile\android\app\src\main\AndroidManifest.xml:9:9-39
 	android:icon
 		ADDED from C:\Users\flutt\StudioProjects\exampur_mobile\android\app\src\main\AndroidManifest.xml:10:9-43
-activity#com.example.exampur_mobile.MainActivity
+activity#com.edudrive.exampur.MainActivity
 ADDED from C:\Users\flutt\StudioProjects\exampur_mobile\android\app\src\main\AndroidManifest.xml:11:9-50:20
 	android:launchMode
 		ADDED from C:\Users\flutt\StudioProjects\exampur_mobile\android\app\src\main\AndroidManifest.xml:14:13-43

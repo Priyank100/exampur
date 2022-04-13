@@ -18,6 +18,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? textInputType;
  final bool? readOnly;
  final int? maxLength;
+ final List<String>? autofillHints;
  final List<TextInputFormatter>? textInputFormatter;
  //inputFormatters: <TextInputFormatter>[
   //     FilteringTextInputFormatter.digitsOnly
@@ -34,6 +35,7 @@ class CustomTextField extends StatefulWidget {
     this.textInputType,
     this.readOnly,
     this.maxLength,
+    this.autofillHints,
     this.textInputFormatter
   }) : super(key: key);
 
@@ -84,6 +86,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           keyboardType: widget.textInputType,
           controller: widget.controller,
           maxLength: widget.maxLength,
+          autofillHints: widget.autofillHints,
           onChanged: (s) {
             widget.value(s);
           },

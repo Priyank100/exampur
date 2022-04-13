@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "500116480566",
-    "project_id": "exampurofficial-212c3",
-    "storage_bucket": "exampurofficial-212c3.appspot.com"
+    "project_number": "833066424354",
+    "project_id": "exampurofficial-7284c",
+    "storage_bucket": "exampurofficial-7284c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:500116480566:android:78ee230f1878e7afc56e97",
+        "mobilesdk_app_id": "1:833066424354:android:164cf327a0f40da850527b",
         "android_client_info": {
-          "package_name": "com.example.exampur_mobile"
+          "package_name": "com.edudrive.exampur"
         }
       },
       "oauth_client": [
         {
-          "client_id": "500116480566-ebp94s5rdqt389hkgh9uc5u9aapm0qhu.apps.googleusercontent.com",
+          "client_id": "833066424354-jtc0ej6s685tt5mj5926l35vpdpvgm2l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCIZgdf0BdcWtIGWS_EE81ttN2UDI30UVc"
+          "current_key": "AIzaSyADauLjxvQiyrdm5OlcRmtRNPtKGV7H2fA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "500116480566-ebp94s5rdqt389hkgh9uc5u9aapm0qhu.apps.googleusercontent.com",
+              "client_id": "833066424354-jtc0ej6s685tt5mj5926l35vpdpvgm2l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

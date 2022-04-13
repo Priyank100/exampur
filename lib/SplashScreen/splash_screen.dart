@@ -30,8 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _checkVersion() async {
     final newVersion = NewVersion(
-       androidId: "com.example.exampur_mobile",
-     // androidId: "com.edudrive.exampur",
+       androidId: "com.edudrive.exampur",
     );
     final status = await newVersion.getVersionStatus();
 
@@ -42,7 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
         context: context,
         versionStatus: status,
         dialogTitle: "UPDATE!!!",
-        dismissButtonText: "Skip",
+        dismissButtonText: "Close",
+        allowDismissal: false,
         dialogText: "Please update the app from " + "${status.localVersion}" + " to " + "${status.storeVersion}",
         dismissAction: () {
           SystemNavigator.pop();

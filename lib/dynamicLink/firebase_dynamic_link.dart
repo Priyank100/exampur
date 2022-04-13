@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 
 class FirebaseDynamicLinkService {
-  static String uriPrefix = 'https://exampurapp.page.link';
-  static String packageName = 'com.example.exampur_mobile';
+  static String uriPrefix = 'https://edudrive.page.link';
+  static String packageName = 'com.edudrive.exampur';
   static int minVersion = 1;
 
   static Future<String> createDynamicLink(String dataType, String data, String courseType) async {
