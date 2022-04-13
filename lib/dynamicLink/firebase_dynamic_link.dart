@@ -12,7 +12,9 @@ import 'package:exampur_mobile/data/model/e_book_model.dart';
 
 class FirebaseDynamicLinkService {
   static String uriPrefix = 'https://edudrive.page.link';
-  static String packageName = 'com.edudrive.exampur';
+  static String fallbackUrl = 'https://www.exampur.com';
+  static String exampurTitle = 'Exampur';
+  static String exampurLogo = 'https://exampur.com/assets/images/logo/exampur-logo.png';
   static int minVersion = 1;
 
   static Future<String> createDynamicLink(String dataType, String data, String courseType) async {
@@ -22,9 +24,9 @@ class FirebaseDynamicLinkService {
         uriPrefix: uriPrefix,
         link: Uri.parse(uriPrefix + '/${dataType}?data=${data}&type=${courseType}'),
         androidParameters: AndroidParameters(
-        packageName: packageName,
+        packageName: AppConstants.androidId,
         minimumVersion: minVersion,
-        fallbackUrl: Uri.parse('https://www.exampur.com'),
+        fallbackUrl: Uri.parse(fallbackUrl),
       ),
       // iosParameters: IosParameters(
       //   bundleId: '',
@@ -33,8 +35,8 @@ class FirebaseDynamicLinkService {
       //   fallbackUrl: Uri.parse('url')
       // ),
       socialMetaTagParameters: SocialMetaTagParameters(
-        title: 'Exampur',
-        imageUrl: Uri.parse('https://exampur.com/assets/images/logo/exampur-logo.png'),
+        title: exampurTitle,
+        imageUrl: Uri.parse(exampurLogo),
         // description: 'Course',
       )
     );

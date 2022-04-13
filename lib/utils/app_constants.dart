@@ -205,6 +205,7 @@ class AppConstants {
   static String iosId         = '';
 
   static String shareAppContent = 'Hey check out EXAMPUR App at: ' + playStoreAppUrl;
+  static String googleFeedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScCCm43CYzI4C0h4HgFCg5XB5dYa0my6q8rDif8IR_3RGuACQ/viewform';
 
   static List<String> selectedCategoryList = [];
 

@@ -17,7 +17,7 @@ class FeedbackView extends StatelessWidget {
         // print('anchal');
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => MyWebView(
-              selectedUrl: "https://docs.google.com/forms/d/e/1FAIpQLScCCm43CYzI4C0h4HgFCg5XB5dYa0my6q8rDif8IR_3RGuACQ/viewform",
+              selectedUrl: AppConstants.googleFeedbackFormUrl,
             )
         ));},child: Center(child: Container(height: 40,width: 200,color: AppColors.amber,child: Center(child: Text('FeedBack',style: TextStyle(color: AppColors.white),)),))),
     );
