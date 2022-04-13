@@ -223,8 +223,6 @@ class AppConstants {
   static void printLog(message) {
     if (isPrint)
       print(message);
-    else
-      print('Exampur');
   }
 
   static Future<void> makeCallEmail(String url) async {
