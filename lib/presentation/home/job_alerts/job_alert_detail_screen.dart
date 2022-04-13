@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/job_alerts_detail_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
@@ -11,6 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:http/http.dart' as http;
 
 class JobAlertDetailScreen extends StatefulWidget {
   final String id;
@@ -38,37 +42,46 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: CustomAppBar(),
-      body: jobAlertsData == null ?
-      Center(child: LoadingIndicator(context)) :
-      Padding(
-        padding: EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(getTranslated(context, StringConstant.jobAlerts)!, style: CustomTextStyle.headingMediumBold(context)),
-              Expanded(child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Html(data:utf8.decode(base64.decode(jobAlertsData!.description.toString())),
-                      ),
-                      jobAlertsData!.pdfPath==null? SizedBox():InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                ViewPdf(AppConstants.BANNER_BASE + jobAlertsData!.pdfPath.toString(),'')
-                            ));
-                          },
-                          child: Text(getTranslated(context, StringConstant.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
-                      )
-                    ],
-                  )
-              ),
-
-              ),
-
-            ]
-          )
-      )
+      // appBar: CustomAppBar(),
+      body:
+      jobAlertsData == null ?
+      Center(child: LoadingIndicator(context)) : jobAlertsData!.pdfPath==null? AppConstants.noDataFound():ViewPdf(AppConstants.BANNER_BASE +jobAlertsData!.pdfPath.toString(),'')
+      // InkWell(
+      //     onTap: (){
+      //       Navigator.push(context, MaterialPageRoute(builder: (_) =>
+      //           ViewPdf(AppConstants.BANNER_BASE + jobAlertsData!.pdfPath.toString(),'')
+      //       ));
+      //     },
+      //     child: Text(getTranslated(context, StringConstant.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
+      // )
+      // Padding(
+      //   padding: EdgeInsets.all(10),
+      //     child: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       children: [
+      //         Text(getTranslated(context, StringConstant.jobAlerts)!, style: CustomTextStyle.headingMediumBold(context)),
+      //         Expanded(child: SingleChildScrollView(
+      //             child: Column(
+      //               children: [
+      //                 Html(data:utf8.decode(base64.decode(jobAlertsData!.description.toString())),
+      //                 ),
+      //                 jobAlertsData!.pdfPath==null? SizedBox():InkWell(
+      //                     onTap: (){
+      //                       Navigator.push(context, MaterialPageRoute(builder: (_) =>
+      //                           ViewPdf(AppConstants.BANNER_BASE + jobAlertsData!.pdfPath.toString(),'')
+      //                       ));
+      //                     },
+      //                     child: Text(getTranslated(context, StringConstant.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
+      //                 )
+      //               ],
+      //             )
+      //         ),
+      //
+      //         ),
+      //
+      //       ]
+      //     )
+      // )
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
+import 'package:exampur_mobile/presentation/authentication/otp_screen.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
@@ -182,105 +183,113 @@ class _BottomNavigationState extends State<BottomNavigation>
           }),
           title: InkWell(
             onTap: (){
-              // Navigator.push(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                     builder: (context) => const ChooseCategory()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                      //LandingChooseCategory()
+                      ChooseCategoryScreen(allCategoriesList)
+                  )).then((value) {
+                callProvider();
+              });
             },
-            child: Row(children: [
-              Text(selectedCategoryName.length == 0 ? '' :selectedCategoryName[selectedCategoryName.length-1].toString(),style: TextStyle(color: AppColors.black,fontSize: 15),),
-              Icon(Icons.arrow_drop_down)
-            ],),
+            child: Container(
+              width: 120,
+              child: Row(children: [
+                Flexible(child: Text(selectedCategoryName.length == 0 ? '' :selectedCategoryName[selectedCategoryName.length-1].toString(),overflow: TextOverflow.fade,style: TextStyle(color: AppColors.black,fontSize: 15),)),
+                Icon(Icons.arrow_drop_down)
+              ],),
+            ),
           ),
-          actions: [
-            // IconButton(
-            //     onPressed: () {
-            //       Navigator.push(context,
-            //           MaterialPageRoute(builder: (context) => SearchView()));
-            //     },
-            //     icon: const Icon(
-            //       Icons.search_outlined,
-            //       color: AppColors.black,
-            //       size: 30.0,
-            //     )),
-            // const SizedBox(
-            //   width: 20.0,
-            // ),
-// InkWell(
-//   onTap: (){
-//     Navigator.push(context,
-//                   MaterialPageRoute(builder: (context) => SearchView()));
-//   },
-//   child:   Icon( Icons.search_outlined,
+//           actions: [
+//             // IconButton(
+//             //     onPressed: () {
+//             //       Navigator.push(context,
+//             //           MaterialPageRoute(builder: (context) => SearchView()));
+//             //     },
+//             //     icon: const Icon(
+//             //       Icons.search_outlined,
+//             //       color: AppColors.black,
+//             //       size: 30.0,
+//             //     )),
+//             // const SizedBox(
+//             //   width: 20.0,
+//             // ),
+// // InkWell(
+// //   onTap: (){
+// //     Navigator.push(context,
+// //                   MaterialPageRoute(builder: (context) => SearchView()));
+// //   },
+// //   child:   Icon( Icons.search_outlined,
+// //
+// //                   color: AppColors.black,
+// //
+// //                   size: 30.0,),
+// // ),
+// //             InkWell(
+// //               onTap:() {
+// //             Navigator.push(
+// //                         context,
+// //                         MaterialPageRoute(
+// //                             builder: (context) => const Notifications()));
+// //               },
+// //               child: Container(
+// //                // padding: EdgeInsets.all(8),
+// //                 margin:EdgeInsets.all(8) ,
+// //                 width: 30,
+// //                 height: 30,
+// //                 //color: Colors.amber,
+// //                 child: Stack(
+// //                   children: [
+// //                     Icon(
+// //                       Icons.notifications,
+// //                       color: Colors.black,
+// //                       size: 30,
+// //                     ),
+// //                     Container(
+// //                       width: 30,
+// //                       height: 30,
+// //                       alignment: Alignment.topRight,
+// //                       margin: EdgeInsets.only(top: 5),
+// //                       child: Container(
+// //                         width: 15,
+// //                         height: 15,
+// //                         decoration: BoxDecoration(
+// //                             shape: BoxShape.circle,
+// //                             color: Color(0xffc32c37),
+// //                             border: Border.all(color: Colors.white, width: 1)),
+// //                         child: Padding(
+// //                           padding: const EdgeInsets.all(0.0),
+// //                           child: Center(
+// //                             child: Text(
+// //                               _counter.toString(),
+// //                               style: TextStyle(fontSize: 10),
+// //                             ),
+// //                           ),
+// //                         ),
+// //                       ),
+// //                     ),
+// //                   ],
+// //                 ),
+// //               ),
+// //             )
 //
-//                   color: AppColors.black,
-//
-//                   size: 30.0,),
-// ),
-//             InkWell(
-//               onTap:() {
-//             Navigator.push(
-//                         context,
-//                         MaterialPageRoute(
-//                             builder: (context) => const Notifications()));
-//               },
-//               child: Container(
-//                // padding: EdgeInsets.all(8),
-//                 margin:EdgeInsets.all(8) ,
-//                 width: 30,
-//                 height: 30,
-//                 //color: Colors.amber,
-//                 child: Stack(
-//                   children: [
-//                     Icon(
-//                       Icons.notifications,
-//                       color: Colors.black,
-//                       size: 30,
-//                     ),
-//                     Container(
-//                       width: 30,
-//                       height: 30,
-//                       alignment: Alignment.topRight,
-//                       margin: EdgeInsets.only(top: 5),
-//                       child: Container(
-//                         width: 15,
-//                         height: 15,
-//                         decoration: BoxDecoration(
-//                             shape: BoxShape.circle,
-//                             color: Color(0xffc32c37),
-//                             border: Border.all(color: Colors.white, width: 1)),
-//                         child: Padding(
-//                           padding: const EdgeInsets.all(0.0),
-//                           child: Center(
-//                             child: Text(
-//                               _counter.toString(),
-//                               style: TextStyle(fontSize: 10),
-//                             ),
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             )
-
-            // Padding(
-            //   padding: const EdgeInsets.only(right: 10.0),
-            //   child: IconButton(
-            //       onPressed: () {
-            //         Navigator.push(
-            //             context,
-            //             MaterialPageRoute(
-            //                 builder: (context) => const Notifications()));
-            //       },
-            //       icon: const Icon(
-            //         Icons.notifications,
-            //         color: AppColors.black,
-            //         size: 30.0,
-            //       )),
-            // ),
-          ],
+//             // Padding(
+//             //   padding: const EdgeInsets.only(right: 10.0),
+//             //   child: IconButton(
+//             //       onPressed: () {
+//             //         Navigator.push(
+//             //             context,
+//             //             MaterialPageRoute(
+//             //                 builder: (context) => const Notifications()));
+//             //       },
+//             //       icon: const Icon(
+//             //         Icons.notifications,
+//             //         color: AppColors.black,
+//             //         size: 30.0,
+//             //       )),
+//             // ),
+//           ],
         ),
         drawer: Drawer(
           elevation: 0,
@@ -650,6 +659,10 @@ class _BottomNavigationState extends State<BottomNavigation>
         //  unselectedItemColor: AppColors.black,
           onTap: (index) {
             setState(() {
+              if(index==2 && !AppConstants.PHONE_VERIFY) {
+                AppConstants.showAlertDialogWithButton(context, getTranslated(context, StringConstant.Pleaseverifyyourphoneno)!, route);
+                return;
+              }
               _currIndex = index;
             });
           print('Anchal>>>>>>>>>>>>>>>>>>>>>>> $_currIndex');
@@ -679,5 +692,9 @@ selectedItemColor: AppColors.amber,
         // ),
       ),
     );
+  }
+
+  route() {
+    AppConstants.goAndReplace(context, OtpScreen(false));
   }
 }

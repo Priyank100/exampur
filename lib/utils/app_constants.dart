@@ -26,6 +26,13 @@ class API {
   static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
   static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
 
+  static const String BASE_URL4 = ' https://qvjplseirk.execute-api.ap-northeast-1.amazonaws.com/';
+
+  //cachestage producation
+  // static const String BASE_URL2 = 'https://auth.exampurcache.xyz/';
+  // static const String BASE_URL3 = 'https://static.exampurcache.xyz/';
+
+
   //Dev
   // static const String BASE_URL2 = 'https://auth-dev.exampur.xyz/';
   // static const String BASE_URL3 = 'https://static-dev.exampur.xyz/';
@@ -43,6 +50,14 @@ class API {
   static const String Reset_Password_URL  = BASE_URL2 + 'auth/resetPassword';
   static const String Verify_OTP_URL      = BASE_URL2 + 'auth/verification';
 
+  static const String Login_URL_2           = BASE_URL4 + 'auth/login';
+  static const String Valid_Token_URL_2     = BASE_URL4 + 'user';
+  static const String Update_User_URL_2    = BASE_URL4 + 'user';
+  static const String Change_Password_URL_2 = BASE_URL4 + 'auth/changePassword';
+  static const String Send_OTP_URL_2        = BASE_URL4 + 'otp';
+  static const String Reset_Password_URL_2  = BASE_URL4 + 'auth/resetPassword';
+  static const String Verify_OTP_URL_2      = BASE_URL4 + 'auth/verification';
+
   //HomeBanner
   static const String homeBanner_URL            = BASE_URL3 + 'banners';
   static const String homeBannerCourselink_URL  = BASE_URL3 + 'courses/findone/';
@@ -52,6 +67,9 @@ class API {
   static const String All_category_URL         = BASE_URL3 + 'category/all';
   static const String Update_Choose_category_URL  = BASE_URL2 + 'user/updateCategory';
   static const String Select_Choose_category_URL  = BASE_URL2 + 'user/getCategory';
+
+  static const String Update_Choose_category_URL_2  = BASE_URL4 + 'user/updateCategory';
+  static const String Select_Choose_category_URL_2  = BASE_URL4 + 'user/getCategory';
 
   //Book/E-Book
   static const String Books_URL   = BASE_URL3 + 'books/printed/10/';
@@ -80,24 +98,40 @@ class API {
   //helpandfeedback
   static const String HelpFeedback_URL = BASE_URL2 + 'ticket/create';
 
+  static const String HelpFeedback_URL_2 = BASE_URL4 + 'ticket/create';
+
   //order_course
   static const String order_course          = BASE_URL2 + 'order_course/create';
   static const String finalize_order_course = BASE_URL2 + 'order_course/finalize';
+
+  static const String order_course_2          = BASE_URL4 + 'order_course/create';
+  static const String finalize_order_course_2 = BASE_URL4 + 'order_course/finalize';
 
   //order_combo_course
   static const String order_combo_course          = BASE_URL2 + 'order_combo_course/create';
   static const String finalize_order_combo_course = BASE_URL2 + 'order_combo_course/finalize';
 
+   static const String order_combo_course_2          = BASE_URL4 + 'order_combo_course/create';
+  static const String finalize_order_combo_course_2 = BASE_URL4 + 'order_combo_course/finalize';
+
   //order_book
   static const String order_book          = BASE_URL2 + 'order_book/create';
   static const String finalize_order_book = BASE_URL2 + 'order_book/finalize';
+
+  static const String order_book_2          = BASE_URL4 + 'order_book/create';
+  static const String finalize_order_book_2 = BASE_URL4 + 'order_book/finalize';
 
   //order_testSeries
   static const String order_test_series          = BASE_URL2 + 'order_testseries/create';
   static const String finalize_order_test_series = BASE_URL2 + 'order_testseries/finalize';
 
+  static const String order_test_series_2          = BASE_URL4 + 'order_testseries/create';
+  static const String finalize_order_test_series_2 = BASE_URL4 + 'order_testseries/finalize';
+
   //coupon
   static const String CouponCode_URL = BASE_URL2 +'promo_code/';
+
+  static const String CouponCode_URL_2 = BASE_URL4 +'promo_code/';
 
   //demo
   static const String Demo_URL = BASE_URL3 +'course_timeline_demo';
@@ -117,6 +151,9 @@ class API {
   static const String mypurchase  = BASE_URL2 + 'mypurchase/findall';
   static const String myinvoice   = BASE_URL2 + 'mypurchase/findone/';
 
+  static const String mypurchase_2  = BASE_URL4 + 'mypurchase/findall';
+  static const String myinvoice_2   = BASE_URL4 + 'mypurchase/findone/';
+
   //my_course
   static const String myCourse_URL              = BASE_URL2 + 'mycourses';
   static const String myCourse_subject_URL      = BASE_URL2 + 'course_subject/';
@@ -133,6 +170,7 @@ class API {
  // static const String testSeriesWeb_URL  = 'https://exampurtest.vercel.app/testseries/list/' + 'TEST_SERIES_ID' + '?auth_token=' + 'AUTH_TOKEN';
  // https://testweb.exampur.xyz/TESTSERIES_ID/list?auth_token=AUTH_TOKE
   static const String testSeriesWeb_URL  = 'https://testweb.exampur.xyz/' + 'TESTSERIES_ID'+'/list' + '?auth_token=' + 'AUTH_TOKEN';
+
 
   //dailyQuiz
   static const String dailyQuiz_URL  = BASE_URL3 + 'quiz/find_all_quiz?page_id=';
@@ -179,6 +217,9 @@ class AppConstants {
   static String studyMaterialsId = 'STUDYMATERIALS';
 
   static String testSeriesToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjI4NjZiNTI2M2JjZDU5NGNlYjQ2OTEiLCJpYXQiOjE2NDY4MTQ5ODIsImV4cCI6MTY0NjkwMTM4Mn0.nC3XmvNX2Y_hKsiF1ZARgaMrWMVJ2w80AFyAKT0mLsA';
+
+  static bool PHONE_VERIFY            = true;
+  static String CATEGORY_LENGTH       = '0';
 
   static void printLog(message) {
     if (isPrint)
@@ -238,9 +279,38 @@ class AppConstants {
       },
     );
   }
+
+  static void showAlertDialogWithButton(BuildContext context, String message, Function function) {
+    Widget cancelButton = TextButton(
+      child: Text(getTranslated(context, StringConstant.cancel)!,style: TextStyle(color: AppColors.amber)),
+      onPressed:  () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text(getTranslated(context, StringConstant.Continue)!,style: TextStyle(color: AppColors.amber),),
+      onPressed:  () {
+        function();
+      },
+    );
+    AlertDialog alert = AlertDialog(
+      title: Text(getTranslated(context, StringConstant.Alert)!),
+      content: Text(message),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static FirebaseAnalyticsObserver observer =
-  FirebaseAnalyticsObserver(analytics: analytics);
+  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
   static void  sendAnalyticsEvent(String nameofclick) async {
     await analytics.logEvent(
       name: nameofclick,
@@ -386,6 +456,7 @@ class StringConstant {
   static String attempthistory= 'attempt_history';
   static String audioOnly= 'audio_only';
   static String attemptQuiz= 'attempt_quiz';
+  static String Alert= 'alert';
 
   static String books= 'books';
   static String buy= 'buy';
@@ -416,6 +487,8 @@ class StringConstant {
   static String center= 'center';
   static String Course= 'course';
   static String callUs= 'call_us';
+  static String cancel= 'cancel';
+  static String Continue= 'continue';
 
   static String downloads= 'downloads';
   static String dailyQuiz= 'daily_quiz';
@@ -460,7 +533,7 @@ class StringConstant {
 
   static String lastName= 'last_name';
   static String logOut= 'log_out';
-  static String landmarkTehsil= 'landmark_tehsil';
+  static String landmarkTehsil= 'landmark';
   static String languagePreferences= 'language_preferences';
   static String LearningClosetPvt= 'Learning Closet Pvt. Ltd. (Exampur)';
   static String LiveChat= 'live_chat';
@@ -488,6 +561,7 @@ class StringConstant {
   static String PleaseletterPassword= 'please_letter_password';
   static String PleaseEnternewPassword= 'please_enter_new_password';
   static String PleasecurrentPassword= 'please_enter_current_password';
+  static String Pleaseverifyyourphoneno = 'please_verify_your_phone_no.';
 
   static String name= 'name';
   static String newPassword= 'new_password';

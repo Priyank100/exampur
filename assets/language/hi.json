@@ -46,6 +46,7 @@
   "attempt_history": "प्रयास इतिहास",
   "audio_only": "सिर्फ़ ध्वनि",
   "attempt_quiz": "प्रश्नोत्तरी का प्रयास करें",
+  "alert": "चेतावनी",
 
 
 
@@ -83,7 +84,7 @@
 
 
   "last_name": "अंतिम नाम",
-  "landmark_tehsil": "लैंडमार्क / तहसील",
+  "landmark": "लैंडमार्क",
   "language_preferences": "भाषा वरीयताएँ",
   "loading...": "लोड हो रहा है...",
   "live_chat": "सीधी बातचीत",
@@ -133,6 +134,7 @@
   "price_breakdown": "मूल्य विभाजन",
   "price": "कीमत",
   "place_order": "एक आदेश दें",
+  "please_verify_your_phone_no.": "कृपया अपना फ़ोन नंबर सत्यापित करें",
 
 
 
@@ -181,6 +183,8 @@
   "center": "केंद्र",
   "course": "कोर्स",
   "call_us": "हमें कॉल करें",
+  "cancel": "रद्द करें",
+  "continue": "जारी रखें",
 
   "settings": "समायोजन",
   "save_the_course":"पाठ्यक्रम सहेजें",

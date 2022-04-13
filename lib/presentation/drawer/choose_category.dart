@@ -12,36 +12,40 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ChooseCategoryScreen extends StatefulWidget {
-  final List<Data> chooseList;
-  const ChooseCategoryScreen(this.chooseList) : super();
+  final List<Data> allCategoryList;
+  const ChooseCategoryScreen(this.allCategoryList) : super();
 
   @override
   _ChooseCategoryScreenState createState() => _ChooseCategoryScreenState();
 }
 
 class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
-  // List<Data> chooseList = [];
+  // List<Data> allCategoryList = [];
   //List<String> getSelectList = [];
   List<String> selectedCountries = [];
 
   // late final List<Category> selectedList;
   // late final bool isSelected;
 //  List<String> selectedList = [];
+
+  List<Data> myList = [];
+
   @override
   initState() {
     callProvider();
     super.initState();
-    //selectedCountries = chooseList;
+    //selectedCountries = allCategoryList;
   }
 
   Future<void> callProvider() async {
-    //chooseList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getAllCategoryList(context))!;
+    //allCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getAllCategoryList(context))!;
+    myList = widget.allCategoryList;
 
     for(int i=0; i < AppConstants.selectedCategoryList.length; i++) {
-      for(int j=0; j<widget.chooseList.length; j++) {
-        if(AppConstants.selectedCategoryList[i] == widget.chooseList[j].id) {
-          widget.chooseList[j].isSelected = true;
-          selectedCountries.add(widget.chooseList[j].id.toString());
+      for(int j=0; j<myList.length; j++) {
+        if(AppConstants.selectedCategoryList[i] == myList[j].id) {
+          myList[j].isSelected = true;
+          selectedCountries.add(myList[j].id.toString());
         }
       }
     }
@@ -55,8 +59,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
 
     return Scaffold(
         appBar: CustomAppBar(),
-        body: widget.chooseList.length != 0
-            ? SafeArea(
+        body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -83,7 +86,11 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                     ),
                     child: TextField(
                       autocorrect: false,
-                      onChanged: (s) {},
+                      onChanged: (s) {
+                        List<Data> searchResults = widget.allCategoryList.where((Data item)=>item.name.toString().toLowerCase().contains(s.toLowerCase())).toList();
+                        myList = searchResults;
+                        setState(() {});
+                      },
                       onEditingComplete: () {
                         FocusScope.of(context).nextFocus();
                       },
@@ -111,29 +118,29 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                     SliverGrid(
                       delegate: SliverChildBuilderDelegate(
                             (context, index) {
-                          final isSelected = widget.chooseList[index].isSelected;
+                          final isSelected = myList[index].isSelected;
                           return Padding(
                               padding: const EdgeInsets.all(0),
                               child: InkWell(
                                 onTap: () {
-                                  // chooseList[index].isSelected = !chooseList[index].isSelected;
+                                  // allCategoryList[index].isSelected = !allCategoryList[index].isSelected;
                                   // setState(() {});
                                   setState(() {
-                                    widget.chooseList[index].isSelected =
-                                    !widget.chooseList[index].isSelected;
-                                    if (widget.chooseList[index].isSelected ==
+                                    myList[index].isSelected =
+                                    !myList[index].isSelected;
+                                    if (myList[index].isSelected ==
                                         true) {
                                       selectedCountries.add(
-                                          widget.chooseList[index]
+                                          myList[index]
                                               .id
                                               .toString());
-                                    } else if (widget.chooseList[index]
+                                    } else if (myList[index]
                                         .isSelected ==
                                         false) {
                                       selectedCountries.removeWhere(
                                               (element) =>
                                           element.toString() ==
-                                              widget.chooseList[index].id);
+                                              myList[index].id);
                                     }
                                   });
                                 },
@@ -150,7 +157,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                                         children: [
                                           Flexible(
                                             child: Text(
-                                              widget.chooseList[index]
+                                              myList[index]
                                                   .name
                                                   .toString(),
                                               style: TextStyle(
@@ -166,7 +173,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                                             AppColors.transparent,
                                             backgroundImage:
                                             new NetworkImage(
-                                                AppConstants.BANNER_BASE + widget.chooseList[index]
+                                                AppConstants.BANNER_BASE + myList[index]
                                                     .logoPath
                                                     .toString()),
                                             radius: 20.0,
@@ -175,7 +182,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                                           //   clipper: MyClip(),
                                           //   child: FadeInImage.assetNetwork(
                                           //     placeholder: Images.noimage,
-                                          //     image: chooseList[index]
+                                          //     image: allCategoryList[index]
                                           //         .logoPath
                                           //         .toString(),
                                           //     fit: BoxFit.fill,
@@ -185,7 +192,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                                       ),
                                       Flexible(
                                         child: Text(
-                                          widget.chooseList[index]
+                                          myList[index]
                                               .description
                                               .toString(),overflow: TextOverflow.ellipsis,maxLines: 1,
                                           style: TextStyle(
@@ -200,7 +207,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                                   //height: 100.0,
                                   decoration: BoxDecoration(
                                     border:
-                                    widget.chooseList[index].isSelected
+                                    myList[index].isSelected
                                         ? Border.all(
                                       color: AppColors.amber,
                                       width: 3,
@@ -226,7 +233,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                                 ),
                               ));
                         },
-                        childCount: widget.chooseList.length,
+                        childCount: myList.length,
                       ),
                       gridDelegate:
                       SliverGridDelegateWithFixedCrossAxisCount(
@@ -321,11 +328,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
               ],
             ),
           ),
-        )
-            : Center(
-            child: CircularProgressIndicator(
-              color: AppColors.amber,
-            )));
+        ));
   }
 
   UpdateChoosecategory(List? categories) async {
@@ -347,17 +350,53 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       } else if (response.statusCode == 200) {
         AppConstants.printLog(response.body.toString());
-        var jsonObject =  jsonDecode(response.body);
-        AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
-        if(jsonObject['statusCode'].toString() == '200'){
+        var jsonObject = jsonDecode(response.body);
+        AppConstants.printLog(
+            'priyank>> ' + jsonObject['statusCode'].toString());
+        if (jsonObject['statusCode'].toString() == '200') {
           AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
           Navigator.pop(context);
           // setState(() {});
 
-        }  else {
-          AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
+        } else {
+          AppConstants.showBottomMessage(
+              context, jsonObject['data'].toString(), AppColors.black);
         }
+      } else if(response.statusCode==429) {
+        await Service.post(
+          API.Update_Choose_category_URL_2,
+          body: body,
+        ).then((response) async {
+          isLoading = false;
+          AppConstants.printLog(response.body.toString());
+          if (response == null) {
+            var snackBar = SnackBar( margin: EdgeInsets.all(20),
+                behavior: SnackBarBehavior.floating,
+                content: Text('Server Error'),backgroundColor: AppColors.red);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          } else if (response.statusCode == 200) {
+            AppConstants.printLog(response.body.toString());
+            var jsonObject =  jsonDecode(response.body);
+            AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
+            if(jsonObject['statusCode'].toString() == '200'){
+              AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
+              Navigator.pop(context);
+              // setState(() {});
 
+            }  else {
+              AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
+            }
+
+          } else {
+
+            AppConstants.printLog("init address fail");
+            final body = json.decode(response.body);
+            var snackBar = SnackBar( margin: EdgeInsets.all(20),
+                behavior: SnackBarBehavior.floating,
+                content: Text(body['data'].toString()),backgroundColor: AppColors.red);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        });
       } else {
         AppConstants.printLog("init address fail");
         final body = json.decode(response.body);

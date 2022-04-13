@@ -10,6 +10,7 @@
   "attempt_history": "Attempt History",
   "audio_only": "Audio Only",
   "attempt_quiz": "Attempt Quiz",
+  "alert": "Alert",
 
   "books": "Books",
   "buy": "Buy",
@@ -40,6 +41,8 @@
   "center": "Center",
   "course": "Course",
   "call_us": "Call Us",
+  "cancel": "Cancel",
+  "continue": "Continue",
 
   "downloads": "Downloads",
   "daily_quiz": "Daily Quiz",
@@ -82,7 +85,7 @@
 
   "last_name": "Last Name",
   "log_out": "Log Out",
-  "landmark_tehsil": "Landmark / Tehsil",
+  "landmark": "Landmark",
   "language_preferences": "Language Preferences",
   "loading...": "Loading...",
 
@@ -111,6 +114,7 @@
   "price": "Price",
   "place_order": "Place Order",
   "price": "Price (Including GST)",
+  "please_verify_your_phone_no.": "Please verify your phone number",
 
 
 

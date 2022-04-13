@@ -20,7 +20,22 @@ class MyPurchaseRepo {
       final response = await dioClient.get(url,options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      ApiResponse response = ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      if(response.error.toString().substring(response.error.toString().length-3) == '429') {
+        try {
+          Map<String, dynamic> header = {
+            "appAuthToken": token,
+          };
+          String url = API.mypurchase_2;
+          final response = await dioClient.get(url,options: Options(headers: header));
+          return ApiResponse.withSuccess(response);
+        } catch (e) {
+          return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+        }
+
+      } else {
+        return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      }
     }
   }
 
@@ -33,7 +48,21 @@ class MyPurchaseRepo {
       final response = await dioClient.get(url,options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
-    }
+      ApiResponse response = ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      if(response.error.toString().substring(response.error.toString().length-3) == '429') {
+        try {
+          Map<String, dynamic> header = {
+            "appAuthToken": token,
+          };
+          String url = API.myinvoice_2;
+          final response = await dioClient.get(url,options: Options(headers: header));
+          return ApiResponse.withSuccess(response);
+        } catch (e) {
+          return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+        }
+
+      } else {
+        return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      }}
   }
   }

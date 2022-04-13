@@ -53,6 +53,11 @@ class _BooksCardState extends State<BooksCard> {
             softWrap: true,
             style: TextStyle(fontSize: 18),
           ),
+          Text(
+          '( MRP : ₹ ' +  widget.books.regularPrice.toString()+ ', Selling Price : ₹ ' +widget.books.salePrice.toString()+' )',
+            softWrap: true,
+            style: TextStyle(fontSize: 12),
+          ),
           SizedBox(height: 10),
           CustomElevatedButton(
             onPressed: () {

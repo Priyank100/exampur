@@ -33,7 +33,8 @@ class _MyCourseNotificationsState extends State<MyCourseNotifications> {
    // String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     myCourseNotificationList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseNotificationList(context, widget.courseId))!;
     isLoading = false;
-    setState(() {});
+    setState(() {}
+    );
   }
   @override
   Widget build(BuildContext context) {

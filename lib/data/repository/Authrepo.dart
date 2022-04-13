@@ -18,6 +18,7 @@ class AuthRepo {
   AuthRepo({required this.dioClient});
 
   Future<ApiResponse> login(LoginModel loginBody) async {
+
     try {
       Response response = await dioClient.post(
         API.Login_URL,
@@ -25,7 +26,21 @@ class AuthRepo {
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      ApiResponse response = ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      if(response.error.toString().substring(response.error.toString().length-3) == '429') {
+        try {
+        Response response = await dioClient.post(
+          API.Login_URL_2,
+          data: loginBody.toJson(),
+        );
+        return ApiResponse.withSuccess(response);
+        } catch (e) {
+          return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+        }
+
+      } else {
+        return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      }
     }
   }
 
@@ -37,7 +52,21 @@ class AuthRepo {
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      ApiResponse response = ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      if(response.error.toString().substring(response.error.toString().length-3) == '429') {
+        try {
+          Response response = await dioClient.post(
+            API.Valid_Token_URL_2,
+            data: registerModel.toJson(),
+          );
+          return ApiResponse.withSuccess(response);
+        } catch (e) {
+          return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+        }
+
+      } else {
+        return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      }
     }
   }
 
@@ -49,7 +78,21 @@ class AuthRepo {
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      ApiResponse response = ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      if(response.error.toString().substring(response.error.toString().length-3) == '429') {
+        try {
+          Response response = await dioClient.post(
+            API.Update_User_URL_2,
+            data: updateProfileBody.toJson(),
+          );
+          return ApiResponse.withSuccess(response);
+        } catch (e) {
+          return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+        }
+
+      } else {
+        return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      }
     }
   }
 
@@ -63,7 +106,22 @@ class AuthRepo {
       final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      ApiResponse response = ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      if(response.error.toString().substring(response.error.toString().length-3) == '429') {
+        try {
+          Map<String, dynamic> header = {
+            "appAuthToken": token,
+          };
+          final url = '${API.Valid_Token_URL_2}';
+          final response = await dioClient.get(url, options: Options(headers: header));
+          return ApiResponse.withSuccess(response);
+        } catch (e) {
+          return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+        }
+
+      } else {
+        return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      }
     }
   }
 
@@ -75,7 +133,21 @@ class AuthRepo {
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      ApiResponse response = ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      if(response.error.toString().substring(response.error.toString().length-3) == '429') {
+        try {
+          Response response = await dioClient.post(
+            API.Change_Password_URL_2,
+            data: param,
+          );
+          return ApiResponse.withSuccess(response);
+        } catch (e) {
+          return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+        }
+
+      } else {
+        return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      }
     }
   }
 }

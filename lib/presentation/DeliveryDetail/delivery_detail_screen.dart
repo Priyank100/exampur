@@ -35,6 +35,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   String Mobile='';
   String City='';
   String State='';
+  String LandMark='';
   bool isCouponValid = false;
 
   final TextEditingController _billingAddressController = TextEditingController();
@@ -42,6 +43,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   final TextEditingController _billingStateController = TextEditingController();
   final TextEditingController _billingPincodeController = TextEditingController();
   final TextEditingController _cuponCodeController = TextEditingController();
+  final TextEditingController _billinglandMarkController = TextEditingController();
 
   Future<void> getSharedPrefData() async {
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
@@ -108,6 +110,21 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               hintText: getTranslated(context, StringConstant.enterAddress)!,
               textInputType: TextInputType.text,
               controller: _billingAddressController,
+              value: (value) {},
+            ),
+            SizedBox(height: 15),
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox():
+            TextUse(
+              image: Icons.location_city,
+              title: getTranslated(context, StringConstant.landmarkTehsil),
+            ),
+            SizedBox(height: 15),
+
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox():
+            CustomTextField(
+              hintText: getTranslated(context, StringConstant.landmarkTehsil)!,
+              textInputType: TextInputType.text,
+              controller: _billinglandMarkController,
               value: (value) {},
             ),
             SizedBox(
@@ -224,10 +241,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                     String id = widget.id.toString();
 
                    if(chechCoupon(cuponCode)){
-                     FirebaseAnalytics.instance.logEvent(name: 'PROMOCODE_APPLIED',parameters: {
-                       'promocode':_cuponCodeController.text.toString(),
+                     FirebaseAnalytics.instance.logEvent(name:'PROMOCODE_APPLIED_',parameters: {
+                       'promocode':_cuponCodeController.text.toString().replaceAll(' ', '_'),
                      });
-                     couponApi(cuponCode,id);
+                     couponApi(API.CouponCode_URL, cuponCode,id);
                    }
 
                   },
@@ -250,9 +267,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _city = _billingCityController.text.trim();
                 String _pincode = _billingPincodeController.text.trim();
                 String _state = _billingStateController.text.trim();
+                String _landmark = _billinglandMarkController.text.trim();
                 String _promocode = _cuponCodeController.text.trim();
-                if(checkValidation(_address, _state, _city, _pincode,_promocode)) {
-                  saveDeliveryAddress(_address, _pincode, _city, _state, _promocode);
+                if(checkValidation(_address, _state, _city, _pincode,_landmark,_promocode)) {
+                  saveDeliveryAddress(true, _address, _pincode, _city, _state,_landmark, _promocode);
                 }
               },
 
@@ -282,16 +300,15 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     );
   }
 
-  couponApi(promoCode, id ) async {
+  couponApi(couponUrl, promoCode, id ) async {
     FocusScope.of(context).unfocus();
     AppConstants.showLoaderDialog(context);
     String url = '';
     widget.type == 'Course' ?
-    url = API.CouponCode_URL + promoCode + '/' +'Course' +'/'+id :
+    url = couponUrl + promoCode + '/' +'Course' +'/'+id :
     widget.type == 'TestSeries' ?
-
-    url = API.CouponCode_URL + promoCode + '/' +'TestSeries' +'/'+id :
-    url = API.CouponCode_URL + promoCode + '/' +'Book' +'/'+id;
+    url = couponUrl + promoCode + '/' +'TestSeries' +'/'+id :
+    url = couponUrl + promoCode + '/' +'Book' +'/'+id;
     AppConstants.printLog(url);
 
     await Service.get(url).then((response) async {
@@ -299,16 +316,21 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       AppConstants.printLog(response.body.toString());
 
       if(response != null && response.statusCode == 200) {
-        var jsonObject =  jsonDecode(response.body);
+        var jsonObject = jsonDecode(response.body);
 
-        if(jsonObject['statusCode'].toString() == '200') {
-          AppConstants.printLog('anchal'+ jsonObject['data']['promo_code']);
-          AppConstants.showBottomMessage(context,getTranslated(context, StringConstant.apply), AppColors.black);
+        if (jsonObject['statusCode'].toString() == '200') {
+          AppConstants.printLog('anchal' + jsonObject['data']['promo_code']);
+          AppConstants.showBottomMessage(
+              context, getTranslated(context, StringConstant.apply),
+              AppColors.black);
           isCouponValid = true;
         } else {
-          AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
+          AppConstants.showBottomMessage(
+              context, jsonObject['data'].toString(), AppColors.black);
           isCouponValid = false;
         }
+      }else if(response.statusCode==429) {
+        couponApi(API.CouponCode_URL_2, promoCode, id);
 
       } else {
         AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
@@ -319,13 +341,12 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
 
 
-  saveDeliveryAddress(_address, _pincode, _city, _state, _promocode) async {
+  saveDeliveryAddress(bool flag, _address, _pincode, _city, _state,_landmark, _promocode) async {
     FocusScope.of(context).unfocus();
     AppConstants.showLoaderDialog(context);
     final param;
     String url = '';
     if(widget.type == 'Course') {
-      url = API.order_course;
       param = {
         "course_id": widget.id.toString(),
         "promo_code": _promocode,
@@ -337,7 +358,6 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       };
     }
     else if(widget.type=='Combo') {
-      url = API.order_combo_course;
       param = {
         "course_id": widget.id.toString(),
         "promo_code": _promocode,
@@ -349,7 +369,6 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       };
     }
     else if(widget.type == 'TestSeries') {
-      url = API.order_test_series;
       param = {
         "testseries_id": widget.id.toString(),
         "promo_code": _promocode,
@@ -359,8 +378,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         "billing_country": AppConstants.defaultCountry,
         "billing_pincode": _pincode
       };
-    } else {
-      url = API.order_book;
+    }
+    else {
       param = {
         "book_id": widget.id.toString(),
         "promo_code": _promocode,
@@ -368,8 +387,37 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         "billing_city":  _city,
         "billing_state": _state,
         "billing_country": AppConstants.defaultCountry,
+        "billing_landmark":_landmark,
         "billing_pincode":  _pincode
       };
+    }
+
+    if(flag) {
+      if(widget.type == 'Course') {
+        url = API.order_course;
+      }
+      else if(widget.type=='Combo') {
+        url = API.order_combo_course;
+      }
+      else if(widget.type == 'TestSeries') {
+        url = API.order_test_series;
+      }
+      else {
+        url = API.order_book;
+      }
+    } else {
+      if(widget.type == 'Course') {
+        url = API.order_course_2;
+      }
+      else if(widget.type=='Combo') {
+        url = API.order_combo_course_2;
+      }
+      else if(widget.type == 'TestSeries') {
+        url = API.order_test_series_2;
+      }
+      else {
+        url = API.order_book_2;
+      }
     }
 
     await Service.post(url, body: param).then((response) async {
@@ -377,41 +425,54 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       AppConstants.printLog(response.body.toString());
 
       if(response != null && response.statusCode == 200) {
-        var jsonObject =  jsonDecode(response.body);
+        var jsonObject = jsonDecode(response.body);
 
-        if(jsonObject['statusCode'].toString() == '200') {
+        if (jsonObject['statusCode'].toString() == '200') {
           AppConstants.printLog('anchal');
           AppConstants.printLog(response.body.toString());
           Delivery_model deliveryModel = Delivery_model.fromJson(jsonObject);
-          AppConstants.printLog('status>> ' + deliveryModel.data!.status.toString());
+          AppConstants.printLog(
+              'status>> ' + deliveryModel.data!.status.toString());
           String status = deliveryModel.data!.status.toString();
 
-          if(status == "Pending"){
+          if (status == "Pending") {
             BillingModel billingModel = BillingModel(
-                Name, Email, Mobile, _address, _city, _state, AppConstants.defaultCountry, _pincode,
+                Name,
+                Email,
+                Mobile,
+                _address,
+                _city,
+                _state,
+                AppConstants.defaultCountry,
+                _pincode,
+                _landmark,
                 // widget.paidcourseList.title.toString(), widget.paidcourseList.salePrice.toString()
-                widget.title.toString(), widget.salePrice.toString()
+                widget.title.toString(),
+                widget.salePrice.toString()
             );
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PaymentScreen(widget.type, billingModel, deliveryModel)
+                    builder: (context) =>
+                        PaymentScreen(widget.type, billingModel, deliveryModel)
                 )
             );
-
-          } else{
+          } else {
             AppConstants.printLog('yes');
             Navigator.push(context, MaterialPageRoute(builder:
                 (context) =>
-                PaymentReceiptPage(widget.type, deliveryModel.data!.orderId.toString(),
+                PaymentReceiptPage(
+                    widget.type, deliveryModel.data!.orderId.toString(),
                     deliveryModel.data!.paymentOrderId.toString(),
                     'signature')
             ));
           }
-
         } else {
-          AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
+          AppConstants.showBottomMessage(
+              context, jsonObject['data'].toString(), AppColors.black);
         }
+      } else if(response.statusCode==429) {
+        saveDeliveryAddress(false, _address, _pincode, _city, _state,_landmark, _promocode);
 
       } else {
         AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
@@ -420,7 +481,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     });
   }
 
-  bool checkValidation(_address, _state, _city,_pincode,_promocode) {
+  bool checkValidation(_address, _state, _city,_pincode,_landmark,_promocode) {
     if (widget.type == 'Book' && _address.isEmpty) {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.address_REQUIRED)!, AppColors.black);
       return false;
@@ -435,7 +496,11 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     }else if (widget.type == 'Book' && _pincode.isEmpty) {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.pincode_REQUIRED)!, AppColors.black);
       return false;
-    } else if(_promocode.toString().isNotEmpty && !isCouponValid) {
+    }
+    else if (widget.type == 'Book' && _landmark.isEmpty) {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.landmarkTehsil)!, AppColors.black);
+      return false;
+    }else if(_promocode.toString().isNotEmpty && !isCouponValid) {
       AppConstants.showBottomMessage(context,getTranslated(context, StringConstant.applyCoupon)!, AppColors.black);
       return false;
     }

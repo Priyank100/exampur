@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'MyCourseNotificationView/myCourseNotification.dart';
 import 'TimeTable/TimetableView.dart';
+import 'feedbackView.dart';
 
 
 class MyCourseTabView extends StatefulWidget {
@@ -50,7 +51,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
                     TimeTableView(widget.courseId),
                     SubjectView(widget.courseId),
                     MyCourseNotifications(widget.courseId),
-
+                    FeedbackView()
                   ],
                   title: '')
           );

@@ -16,7 +16,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
+typedef YoutubeQualityChangeCallback(String quality, Duration position);
 class PaidCourseDetails extends StatefulWidget {
   String courseTabType;
   final Courses courseData;
@@ -31,13 +31,14 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   late YoutubePlayerController _controller;
   late TextEditingController _idController;
   late TextEditingController _seekToController;
-
+ // late YoutubeQualityChangeCallback qualityChangeCallback;
+  //String? defaultQuality='';
   late PlayerState _playerState;
   late YoutubeMetaData _videoMetaData;
 
   bool _muted = false;
   bool _isPlayerReady = false;
-
+// String _selectedQuality='';
   // String pdfLink = 'https://www.learningcontainer.com/download/sample-pdf-file-for-testing/?wpdmdl=1566&amp;refresh=621508d3713281645545683';
   // String pdfName = 'my_first_pdf';
   // String videoLink= 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4';
@@ -67,6 +68,13 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
     _seekToController = TextEditingController();
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
+    // if (defaultQuality == '720p') {
+    //   _selectedQuality = 'HD';
+    // } else if (defaultQuality == '1080p') {
+    //   _selectedQuality = 'Full HD';
+    // } else {
+    //   _selectedQuality =defaultQuality!.toUpperCase();
+    // }
     super.initState();
   }
 
@@ -104,6 +112,28 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
         progressIndicatorColor: Colors.blueAccent,
         topActions: <Widget>[
           //todo: change video quality
+          // const SizedBox(width: 8.0),
+          // Expanded(
+          //   child: Text(
+          //     _controller.metadata.title,
+          //     style: const TextStyle(
+          //       color: Colors.white,
+          //       fontSize: 18.0,
+          //     ),
+          //     overflow: TextOverflow.ellipsis,
+          //     maxLines: 1,
+          //   ),
+          // ),
+          // IconButton(
+          //   icon: const Icon(
+          //     Icons.settings,
+          //     color: Colors.white,
+          //     size: 25.0,
+          //   ),
+          //   onPressed: () {
+          //     _resolutionBottomSheet();
+          //   },
+          // ),
         ],
         onReady: () {
           _isPlayerReady = true;
@@ -248,6 +278,66 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       ),
     );
   }
+
+  // void _resolutionBottomSheet() {
+  //   showModalBottomSheet(
+  //     context: context,
+  //     builder: (context) {
+  //       return Container(
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: <Widget>[
+  //             _qualityRow('1080p'),
+  //             _qualityRow('720p'),
+  //             _qualityRow('480p'),
+  //             _qualityRow('360p'),
+  //             _qualityRow('240p'),
+  //             _qualityRow('144p'),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  // Widget _qualityRow(String quality) {
+  //   String currentQuality;
+  //   if (quality == '1080p') {
+  //     currentQuality = 'Full HD';
+  //   } else if (quality == '720p') {
+  //     currentQuality = 'HD';
+  //   } else {
+  //     currentQuality = quality.toUpperCase();
+  //   }
+  //   return InkWell(
+  //     onTap: () {
+  //       qualityChangeCallback(
+  //         quality.toLowerCase(),
+  //         _controller.value.position,
+  //       );
+  //       Navigator.pop(context);
+  //     },
+  //     child: Row(
+  //       children: <Widget>[
+  //         Padding(
+  //           padding: const EdgeInsets.all(15.0),
+  //           child: currentQuality == _selectedQuality
+  //               ? Icon(
+  //             Icons.check,
+  //           )
+  //               : Container(
+  //             height: 30,
+  //             width: 30,
+  //           ),
+  //         ),
+  //         Text(
+  //           quality,
+  //           style: TextStyle(fontWeight: FontWeight.w900),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   /*Future<void> requestDownload() async {
     final dir = await getApplicationDocumentsDirectory();

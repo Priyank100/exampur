@@ -31,6 +31,7 @@ class _ViewPdfState extends State<ViewPdf> {
       fileName = name;
     }
     try {
+
       var data = await http.get(Uri.parse(url));
       var bytes = data.bodyBytes;
       var dir = await getApplicationDocumentsDirectory();

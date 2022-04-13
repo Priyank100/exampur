@@ -276,10 +276,46 @@ issuevalue='Select issue';
 
         }  else {
           AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
-        }
+        }}
+      else if(response.statusCode==429){
+        await Service.post(
+          API.HelpFeedback_URL_2,
+          body: body,
+        ).then((response) async {
+          isLoading = false;
+          print(response.body.toString());
+          if (response == null) {
+            var snackBar = SnackBar( margin: EdgeInsets.all(20),
+                behavior: SnackBarBehavior.floating,
+                content: Text(getTranslated(context, StringConstant.serverError)!),backgroundColor: AppColors.red);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          } else if (response.statusCode == 200) {
+            AppConstants.printLog(response.body.toString());
+            var jsonObject =  jsonDecode(response.body);
+            AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
+            if(jsonObject['statusCode'].toString() == '200'){
+              AppConstants.printLog(jsonObject['data']);
+              _descriptionController.clear();
+              AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
+              //AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
+              setState(() {});
 
-      } else {
-        AppConstants.printLog("init address fail");
+            }  else {
+              AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
+            }
+
+          } else {
+            AppConstants.printLog("init address fail");
+            final body = json.decode(response.body);
+            var snackBar = SnackBar( margin: EdgeInsets.all(20),
+                behavior: SnackBarBehavior.floating,
+                content: Text(body['data'].toString()),backgroundColor: AppColors.red);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        });
+
+    } else {
+      AppConstants.printLog("init address fail");
         final body = json.decode(response.body);
         var snackBar = SnackBar( margin: EdgeInsets.all(20),
             behavior: SnackBarBehavior.floating,
