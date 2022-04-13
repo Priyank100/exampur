@@ -42,9 +42,9 @@ class _DemoContainerState extends State<DemoContainer> {
                  Row(
                    children: [
                      CustomAmberButton(onPressed: ()async {
-                       await   FirebaseAnalytics.instance.logEvent(name: 'Demo_Details_Clicks',parameters: {
-                         'Course_id':widget.demoList[widget.index].id.toString(),
-                         'Course_title':widget.demoList[widget.index].title.toString()
+                       await   FirebaseAnalytics.instance.logEvent(name: 'Demo_Details_Clicks_',parameters: {
+                         'Course_id':widget.demoList[widget.index].id.toString().replaceAll(' ', '_'),
+                         'Course_title':widget.demoList[widget.index].title.toString().replaceAll(' ', '_')
                        });
 
      Navigator.push(

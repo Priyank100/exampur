@@ -32,6 +32,10 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
   // late final List<Category> selectedList;
   // late final bool isSelected;
 //  List<String> selectedList = [];
+
+  List<Data> myList = [];
+
+
   @override
   initState() {
     callProvider();
@@ -62,6 +66,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
     //   }
    // }
 
+    myList = chooseList;
     setState(() {});
   }
 
@@ -71,7 +76,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
 
     return Scaffold(
         appBar: CustomAppBar(),
-        body: chooseList.length != 0
+        body: myList.length != 0
             ? SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -99,7 +104,11 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                           ),
                           child: TextField(
                             autocorrect: false,
-                            onChanged: (s) {},
+                            onChanged: (s) {
+                              List<Data> searchResults = chooseList.where((Data item)=>item.name.toString().toLowerCase().contains(s.toLowerCase())).toList();
+                              myList = searchResults;
+                              setState(() {});
+                            },
                             onEditingComplete: () {
                               FocusScope.of(context).nextFocus();
                             },
@@ -127,7 +136,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                           SliverGrid(
                             delegate: SliverChildBuilderDelegate(
                               (context, index) {
-                                final isSelected = chooseList[index].isSelected;
+                                final isSelected = myList[index].isSelected;
                                 return Padding(
                                     padding: const EdgeInsets.all(0),
                                     child: InkWell(
@@ -135,21 +144,21 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                         // chooseList[index].isSelected = !chooseList[index].isSelected;
                                         // setState(() {});
                                         setState(() {
-                                          chooseList[index].isSelected =
-                                              !chooseList[index].isSelected;
-                                          if (chooseList[index].isSelected ==
+                                          myList[index].isSelected =
+                                              !myList[index].isSelected;
+                                          if (myList[index].isSelected ==
                                               true) {
                                             selectedCountries.add(
-                                                chooseList[index]
+                                                myList[index]
                                                     .id
                                                     .toString());
-                                          } else if (chooseList[index]
+                                          } else if (myList[index]
                                                   .isSelected ==
                                               false) {
                                             selectedCountries.removeWhere(
                                                 (element) =>
                                                     element.toString() ==
-                                                    chooseList[index].id);
+                                                        myList[index].id);
                                           }
                                         });
                                       },
@@ -167,7 +176,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                               children: [
                                                 Flexible(
                                                   child: Text(
-                                                    chooseList[index]
+                                                    myList[index]
                                                         .name
                                                         .toString(),
                                                     style: TextStyle(
@@ -183,7 +192,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                                       Colors.transparent,
                                                   backgroundImage:
                                                       new NetworkImage(
-                                                          AppConstants.BANNER_BASE + chooseList[index]
+                                                          AppConstants.BANNER_BASE + myList[index]
                                                               .logoPath
                                                               .toString()),
                                                   radius: 20.0,
@@ -202,9 +211,9 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                             ),
                                             Flexible(
                                               child: Text(
-                                                chooseList[index]
+                                                myList[index]
                                                     .description
-                                                    .toString(),
+                                                    .toString(),overflow: TextOverflow.ellipsis,maxLines: 1,
                                                 style: TextStyle(
                                                   fontSize: 12.0,
                                                   color: AppColors.grey600,
@@ -217,7 +226,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                         //height: 100.0,
                                         decoration: BoxDecoration(
                                           border:
-                                          chooseList[index].isSelected
+                                          myList[index].isSelected
                                               ? Border.all(
                                                   color: Colors.amber,
                                                   width: 3,
@@ -243,7 +252,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                       ),
                                     ));
                               },
-                              childCount: chooseList.length,
+                              childCount: myList.length,
                             ),
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
@@ -362,6 +371,34 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                 BottomNavigation()
             )
         );
+      } else if(response.statusCode == 429) {
+        await Service.post(
+          API.Update_Choose_category_URL_2,
+          body: body,
+        ).then((response) async {
+          AppConstants.printLog(response.body.toString());
+          if (response == null) {
+            var snackBar = SnackBar( margin: EdgeInsets.all(20),
+              behavior: SnackBarBehavior.floating,
+              content: Text('Server Error'),backgroundColor: Colors.red,);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          } else if (response.statusCode == 200) {
+            AppConstants.printLog(response.body.toString());
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder:
+                    (context) =>
+                    BottomNavigation()
+                )
+            );
+          } else {
+            AppConstants.printLog("init address fail");
+            final body = json.decode(response.body);
+            var snackBar = SnackBar( margin: EdgeInsets.all(20),
+              behavior: SnackBarBehavior.floating,
+              content: Text(body['data'].toString()),backgroundColor: Colors.red,);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        });
       } else {
         AppConstants.printLog("init address fail");
        final body = json.decode(response.body);

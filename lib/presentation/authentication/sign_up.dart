@@ -34,6 +34,7 @@ class SignUpState extends State<SignUp> {
   late TextEditingController _userNameController;
   late TextEditingController _phoneController;
   late TextEditingController _cityController;
+  late TextEditingController _dobController;
   late GlobalKey<FormState> _formKeySignUp;
   bool _isCheckTerms = false;
 
@@ -62,6 +63,7 @@ class SignUpState extends State<SignUp> {
     _passwordController = TextEditingController();
     _userNameController = TextEditingController();
     _cityController = TextEditingController();
+    _dobController = TextEditingController();
     getStateList();
   }
 
@@ -73,6 +75,7 @@ class SignUpState extends State<SignUp> {
     _userNameController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
+    _dobController.dispose();
     super.dispose();
   }
 
@@ -108,6 +111,16 @@ class SignUpState extends State<SignUp> {
                         hintText: "Name",
                         controller: _nameController,
                         value: (value) {}),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    CustomTextField(
+                        hintText: "D.O.B",
+                        controller: _dobController,
+                        textInputType: TextInputType.datetime,
+                        value: (value) {}),
+
+
                     SizedBox(
                       height: 15,
                     ),
@@ -226,6 +239,7 @@ class SignUpState extends State<SignUp> {
                         ),
                         onPressed: () {
                           FocusScope.of(context).unfocus();
+                          print(_dobController.text.toString());
                           registerUser();
                         },
                         child: Padding(
@@ -269,6 +283,7 @@ class SignUpState extends State<SignUp> {
       String _userName = _userNameController.text.trim();
       String _phone = _phoneController.text.trim();
       String _city = _cityController.text.trim();
+      String _dob = _dobController.text.trim();
 
       if (_name.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -286,7 +301,15 @@ class SignUpState extends State<SignUp> {
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      } else if (_password.isEmpty) {
+      }
+      else if (_dob.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Please enter your Date of Birth'),
+          backgroundColor: AppColors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+        ));
+      }else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter atleast 8 letter Password'),
           backgroundColor: AppColors.black,
@@ -341,6 +364,7 @@ class SignUpState extends State<SignUp> {
         CreateUserbody.phoneExt = '91';
         CreateUserbody.firstName = _name;
         CreateUserbody.emailId = _email;
+        CreateUserbody.dob=_dob;
         CreateUserbody.password = _password;
         CreateUserbody.phone = _phone;
         CreateUserbody.lastName = 'null';

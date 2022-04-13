@@ -32,7 +32,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
 
   @override
   void initState() {
-    getReceipt();
+    getReceipt(true);
     // subscription();
   }
 
@@ -41,7 +41,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
     AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+topic);
   }
 
-  void getReceipt() async {
+  void getReceipt(flag) async {
     String url = '';
     final param = {
       "order_id": widget.orderId,
@@ -49,14 +49,26 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
       "payment_signature": widget.signature,
     };
 
-    if(widget.type == 'Course')
-      url = API.finalize_order_course;
-    else if(widget.type == 'Combo')
-      url = API.finalize_order_combo_course;
-    else if(widget.type == 'TestSeries')
-      url = API.finalize_order_test_series;
-    else
-      url = API.finalize_order_book;
+    if(flag) {
+      if(widget.type == 'Course')
+        url = API.finalize_order_course;
+      else if(widget.type == 'Combo')
+        url = API.finalize_order_combo_course;
+      else if(widget.type == 'TestSeries')
+        url = API.finalize_order_test_series;
+      else
+        url = API.finalize_order_book;
+
+    } else {
+      if(widget.type == 'Course')
+        url = API.finalize_order_course_2;
+      else if(widget.type == 'Combo')
+        url = API.finalize_order_combo_course_2;
+      else if(widget.type == 'TestSeries')
+        url = API.finalize_order_test_series_2;
+      else
+        url = API.finalize_order_book_2;
+    }
 
     await Service.post(url, body: param).then((response) {
       AppConstants.printLog(response.body.toString());
@@ -71,6 +83,9 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
           error = body['data'].toString();
           AppConstants.showBottomMessage(context, error, AppColors.black);
         }
+      } else if(response.statusCode == 429) {
+        getReceipt(false);
+
       } else {
         AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
       }

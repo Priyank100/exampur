@@ -51,9 +51,9 @@ class Data {
       String? orderNo, 
       String? date, 
       String? paymentTransactionId, 
-      int? amount, 
+      double? amount,
       dynamic promoCode, 
-      int? finalAmount, 
+      double? finalAmount,
       String? status, 
       Product? product,}){
     _orderId = orderId;
@@ -72,9 +72,9 @@ class Data {
     _orderNo = json['order_no'];
     _date = json['date'];
     _paymentTransactionId = json['payment_transaction_id'];
-    _amount = json['amount'];
+    _amount = json['amount'].toDouble();
     _promoCode = json['promo_code'];
-    _finalAmount = json['final_amount'];
+    _finalAmount = json['final_amount'].toDouble();
     _status = json['status'];
     _product = json['product'] != null ? Product.fromJson(json['product']) : null;
   }
@@ -82,9 +82,9 @@ class Data {
   String? _orderNo;
   String? _date;
   String? _paymentTransactionId;
-  int? _amount;
+  double? _amount;
   dynamic _promoCode;
-  int? _finalAmount;
+  double? _finalAmount;
   String? _status;
   Product? _product;
 
@@ -92,9 +92,9 @@ class Data {
   String? get orderNo => _orderNo;
   String? get date => _date;
   String? get paymentTransactionId => _paymentTransactionId;
-  int? get amount => _amount;
+ double? get amount => _amount;
   dynamic get promoCode => _promoCode;
-  int? get finalAmount => _finalAmount;
+  double? get finalAmount => _finalAmount;
   String? get status => _status;
   Product? get product => _product;
 

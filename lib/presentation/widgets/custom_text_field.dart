@@ -1,7 +1,13 @@
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+extension EmailValidator on String {
+  bool isValidEmail() {
+    return RegExp(
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(this);
+  }
+}
 class CustomTextField extends StatefulWidget {
   final String hintText;
   final Function(String) value;
@@ -70,7 +76,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ],
         ),
         child: TextField(
-
           autofocus: widget.autofocus == null ? false : true,
           obscureText: widget.obscureText == null ? false : true,
           readOnly: widget.readOnly==null?false:true,

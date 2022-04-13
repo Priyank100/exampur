@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/presentation/home/LandingChooseCategory.dart';
+import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -27,10 +29,26 @@ class _OtpScreenState extends State<OtpScreen> {
   TextEditingController _newPasswordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
   bool isOtp = false;
+  bool enableSkip = false;
+  int skipCounter = 20;
+  late Timer timer;
+
+
 
 
   @override
   void initState() {
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if(skipCounter > 0) {
+          skipCounter--;
+          enableSkip = false;
+        } else {
+          timer.cancel();
+          enableSkip = true;
+        }
+      });
+    });
     super.initState();
     if(widget.isReset) {
       _phoneController.text = '';
@@ -44,6 +62,12 @@ class _OtpScreenState extends State<OtpScreen> {
     String mobile = jsonValue[0]['data']['phone'].toString();
     _phoneController.text = mobile;
     sendOtp();
+  }
+
+
+  @override
+  void dispose() {
+    timer.cancel();
   }
 
   @override
@@ -71,7 +95,29 @@ class _OtpScreenState extends State<OtpScreen> {
                   style: CustomTextStyle.headingBigBold(context)),
               SizedBox(height: 20),
               !isOtp ? phoneWidget() : otpWidget(),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
+              enableSkip ? InkWell(
+                onTap: () {
+                  AppConstants.PHONE_VERIFY = false;
+                  if(AppConstants.CATEGORY_LENGTH == '0' || AppConstants.CATEGORY_LENGTH == 'null') {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder:
+                            (context) =>
+                            LandingChooseCategory()
+                        )
+                    );
+                  } else {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder:
+                            (context) =>
+                            BottomNavigation()
+                        )
+                    );
+                  }
+                },
+                child: Text('skip', style: TextStyle(color: Colors.blue)),
+              ) : Text('Skip in Seconds 0:${skipCounter}s', style: TextStyle(color: Colors.blue)),
+              SizedBox(height: 10),
               InkWell(
                 onTap: () {
                   Navigator.pushAndRemoveUntil(
@@ -207,14 +253,37 @@ class _OtpScreenState extends State<OtpScreen> {
         final body = json.decode(response.body);
         var statusCode = body['statusCode'].toString();
         var msg = body['data'].toString();
-        if(statusCode == '200') {
-          AppConstants.showBottomMessage(context, 'OTP send to the number', Colors.black);
+        if (statusCode == '200') {
+          AppConstants.showBottomMessage(
+              context, 'OTP send to the number', Colors.black);
           isOtp = true;
           setState(() {});
         } else {
           AppConstants.showBottomMessage(context, msg, Colors.black);
         }
+      } else if(response.statusCode == 429) {
+        await Service.post(API.Send_OTP_URL_2, body: body).then((response) async {
+          Navigator.pop(context);
+          if (response == null) {
+            AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+          } else if (response.statusCode == 200) {
+            AppConstants.printLog(response.body.toString());
+            final body = json.decode(response.body);
+            var statusCode = body['statusCode'].toString();
+            var msg = body['data'].toString();
+            if(statusCode == '200') {
+              AppConstants.showBottomMessage(context, 'OTP send to the number', Colors.black);
+              isOtp = true;
+              setState(() {});
+            } else {
+              AppConstants.showBottomMessage(context, msg, Colors.black);
+            }
 
+          } else {
+
+            AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+          }
+        });
       } else {
         AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
       }
@@ -264,13 +333,33 @@ class _OtpScreenState extends State<OtpScreen> {
         final body = json.decode(response.body);
         var statusCode = body['statusCode'].toString();
         var msg = body['data'].toString();
-        if(statusCode == '200') {
+        if (statusCode == '200') {
           AppConstants.showBottomMessage(context, msg, Colors.black);
           Navigator.pop(context);
         } else {
           AppConstants.showBottomMessage(context, msg, Colors.black);
         }
+      } else if(response.statusCode==429) {
+        await Service.post(API.Reset_Password_URL_2, body: body).then((response) async {
+          Navigator.pop(context);
+          if (response == null) {
+            AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+          } else if (response.statusCode == 200) {
+            AppConstants.printLog(response.body.toString());
+            final body = json.decode(response.body);
+            var statusCode = body['statusCode'].toString();
+            var msg = body['data'].toString();
+            if(statusCode == '200') {
+              AppConstants.showBottomMessage(context, msg, Colors.black);
+              Navigator.pop(context);
+            } else {
+              AppConstants.showBottomMessage(context, msg, Colors.black);
+            }
 
+          } else {
+            AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+          }
+        });
       } else {
         AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
       }
@@ -302,7 +391,7 @@ class _OtpScreenState extends State<OtpScreen> {
         final body = json.decode(response.body);
         var statusCode = body['statusCode'].toString();
         var msg = body['data'].toString();
-        if(statusCode == '200') {
+        if (statusCode == '200') {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => LandingChooseCategory()),
@@ -310,7 +399,30 @@ class _OtpScreenState extends State<OtpScreen> {
         } else {
           AppConstants.showBottomMessage(context, msg, Colors.black);
         }
+      } else if(response.statusCode==429){
+        await Service.post(API.Verify_OTP_URL_2, body: body).then((response) async {
+          Navigator.pop(context);
+          if (response == null) {
+            AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
 
+          } else if (response.statusCode == 200) {
+            AppConstants.printLog(response.body.toString());
+            final body = json.decode(response.body);
+            var statusCode = body['statusCode'].toString();
+            var msg = body['data'].toString();
+            if(statusCode == '200') {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => LandingChooseCategory()),
+                      (route) => false);
+            } else {
+              AppConstants.showBottomMessage(context, msg, Colors.black);
+            }
+
+          } else {
+            AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
+          }
+        });
       } else {
         AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
       }

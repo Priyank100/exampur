@@ -139,9 +139,9 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           },text: getTranslated(context, 'view_details')!,),
                           SizedBox(height: 10,),
                           widget.courseType==1? CustomRoundButton(onPressed: ()async{
-                            await   FirebaseAnalytics.instance.logEvent(name: 'Paid_Courdse_Details'+widget.courseData.title.toString(),parameters: {
-                              'Course_id':widget.courseData.id.toString(),
-                              'Course_title':widget.courseData.title.toString()
+                            await   FirebaseAnalytics.instance.logEvent(name:'Paid_Courdse_Details_'+widget.courseData.title.toString().replaceAll(' ', '_'),parameters: {
+                              'Course_id':widget.courseData.id.toString().replaceAll(' ', '_'),
+                              'Course_title':widget.courseData.title.toString().replaceAll(' ', '_')
                             });
                             String courseTabType = 'Course';
                             if(widget.tabId=='combo_course'){

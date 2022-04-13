@@ -52,9 +52,9 @@ class InvoiceData {
       String? date, 
       String? paymentSource, 
       String? transactionId, 
-      int? amount, 
+      double? amount,
       dynamic promoCode, 
-      int? finalAmount, 
+      double? finalAmount,
       Product? product,}){
     _id = id;
     _orderNo = orderNo;
@@ -73,9 +73,9 @@ class InvoiceData {
     _date = json['date'];
     _paymentSource = json['payment_source'];
     _transactionId = json['transaction_id'];
-    _amount = json['amount'];
+    _amount = json['amount'].toDouble();
     _promoCode = json['promo_code'];
-    _finalAmount = json['final_amount'];
+    _finalAmount = json['final_amount'].toDouble();
     _product = json['product'] != null ? Product.fromJson(json['product']) : null;
   }
   String? _id;
@@ -83,9 +83,9 @@ class InvoiceData {
   String? _date;
   String? _paymentSource;
   String? _transactionId;
-  int? _amount;
+  double? _amount;
   dynamic _promoCode;
-  int? _finalAmount;
+  double? _finalAmount;
   Product? _product;
 
   String? get id => _id;
@@ -93,9 +93,9 @@ class InvoiceData {
   String? get date => _date;
   String? get paymentSource => _paymentSource;
   String? get transactionId => _transactionId;
-  int? get amount => _amount;
+  double? get amount => _amount;
   dynamic get promoCode => _promoCode;
-  int? get finalAmount => _finalAmount;
+  double? get finalAmount => _finalAmount;
   Product? get product => _product;
 
   Map<String, dynamic> toJson() {

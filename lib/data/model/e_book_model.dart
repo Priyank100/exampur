@@ -64,8 +64,8 @@ class BookEbook {
       List<Category>? category, 
       String? title, 
       String? description, 
-      int? regularPrice, 
-      int? salePrice, 
+      double? regularPrice,
+      double? salePrice,
       String? flag, 
       List<dynamic>? macro, 
       String? bannerPath, 
@@ -92,8 +92,8 @@ class BookEbook {
     }
     _title = json['title'];
     _description = json['description'];
-    _regularPrice = json['regular_price'];
-    _salePrice = json['sale_price'];
+    _regularPrice = json['regular_price'].toDouble();
+    _salePrice = json['sale_price'].toDouble();
     _flag = json['flag'];
     if (json['macro'] != null) {
       _macro = [];
@@ -108,8 +108,8 @@ class BookEbook {
   List<Category>? _category;
   String? _title;
   String? _description;
-  int? _regularPrice;
-  int? _salePrice;
+  double? _regularPrice;
+  double? _salePrice;
   String? _flag;
   List<dynamic>? _macro;
   String? _bannerPath;
@@ -119,8 +119,8 @@ class BookEbook {
   List<Category>? get category => _category;
   String? get title => _title;
   String? get description => _description;
-  int? get regularPrice => _regularPrice;
-  int? get salePrice => _salePrice;
+  double? get regularPrice => _regularPrice;
+  double? get salePrice => _salePrice;
   String? get flag => _flag;
   List<dynamic>? get macro => _macro;
   String? get bannerPath => _bannerPath;

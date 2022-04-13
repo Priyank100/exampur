@@ -9,6 +9,7 @@ class CreateUserModel {
   String? city;
   String? state;
   String? country;
+  String? dob;
 
   CreateUserModel(
       {this.phoneExt,
@@ -20,7 +21,8 @@ class CreateUserModel {
         this.language,
         this.city,
         this.state,
-        this.country});
+        this.country,
+      this.dob});
 
   CreateUserModel.fromJson(Map<String, dynamic> json) {
     phoneExt = json['phone_ext'];
@@ -33,6 +35,7 @@ class CreateUserModel {
     city = json['city'];
     state = json['state'];
     country = json['country'];
+    dob = json['dob'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +50,7 @@ class CreateUserModel {
     data['city'] = this.city;
     data['state'] = this.state;
     data['country'] = this.country;
+    data['dob'] = this.dob;
     return data;
   }
 }

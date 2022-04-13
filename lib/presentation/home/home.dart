@@ -185,7 +185,8 @@ class _HomeState extends State<Home> {
                     AppConstants.sendAnalyticsEvent('FREE_COURSES_CLICKED');
                       Navigator.push(
 
-                      context, MaterialPageRoute(builder: (_) =>PaidCourses(0) ));},),
+                     // context, MaterialPageRoute(builder: (_) =>PaidCourses(0) ));},),
+    context, MaterialPageRoute(builder: (_) =>PaidCourses(0) ));},),
                     //navigateTo:PaidCourses(0)),
               ],
             ),
@@ -236,7 +237,9 @@ class _HomeState extends State<Home> {
                   onPressed: (){
                     AppConstants.sendAnalyticsEvent('DAILY_QUIZ_CLICKED');
                       Navigator.push(
-                      context, MaterialPageRoute(builder: (_) =>DailyQuiz() ));},
+                      context, MaterialPageRoute(builder: (_) =>
+                          DailyQuiz()
+                      ));},
                     // navigateTo:DailyQuiz()
                    // navigateTo:ChatPage()
                 ),

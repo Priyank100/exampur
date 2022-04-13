@@ -7,12 +7,12 @@ class BillingModel {
   String? state;
   String? country;
   String? pincode;
-
+  String? landmark;
   String? itemName;
   String? itemAmount;
 
   BillingModel(this.name, this.eMail, this.mobile, this.address, this.city, this.state, this.country,
-      this.pincode, this.itemName, this.itemAmount);
+      this.pincode,this.landmark, this.itemName, this.itemAmount);
 
   BillingModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -23,6 +23,7 @@ class BillingModel {
     state = json['state'];
     country = json['country'];
     pincode = json['pincode'];
+    landmark=json['landmark'];
     itemName = json['itemName'];
     itemAmount = json['itemAmount'];
   }
@@ -37,6 +38,7 @@ class BillingModel {
     data['state'] = this.state;
     data['country'] = this.country;
     data['pincode'] = this.pincode;
+    data['landmark']=this.landmark;
     data['itemName'] = this.itemName;
     data['itemAmount'] = this.itemAmount;
     return data;
