@@ -23,14 +23,15 @@ class API {
   // static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
   //Stage
-  static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
-  static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
+  // static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
+  // static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
 
+  // call if BASE_URL2 error-429
   static const String BASE_URL4 = ' https://qvjplseirk.execute-api.ap-northeast-1.amazonaws.com/';
 
   //cachestage producation
-  // static const String BASE_URL2 = 'https://auth.exampurcache.xyz/';
-  // static const String BASE_URL3 = 'https://static.exampurcache.xyz/';
+  static const String BASE_URL2 = 'https://auth.exampurcache.xyz/';
+  static const String BASE_URL3 = 'https://static.exampurcache.xyz/';
 
 
   //Dev
@@ -180,7 +181,8 @@ class API {
 }
 
 class Keys {
-  static const String Rozar_pay_key = 'rzp_test_tnxy74fGchHvRY';
+  // static const String Rozar_pay_key = 'rzp_test_tnxy74fGchHvRY';
+  static const String Rozar_pay_key = 'rzp_live_2OGpV3khEWcs8M';
 }
 
 class SharedPrefConstants {
@@ -205,7 +207,8 @@ class AppConstants {
   static String iosId         = '';
 
   static String shareAppContent = 'Hey check out EXAMPUR App at: ' + playStoreAppUrl;
-  static String googleFeedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScCCm43CYzI4C0h4HgFCg5XB5dYa0my6q8rDif8IR_3RGuACQ/viewform';
+  // static String googleFeedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScCCm43CYzI4C0h4HgFCg5XB5dYa0my6q8rDif8IR_3RGuACQ/viewform';
+  static String googleFeedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdnU2iboo0rPFiVBWcJZYHXSlIJeDZqiye8D2IqGjvZjrOMdA/viewform?usp=pp_url&entry.43008044=USER_NAME&entry.2068509611=USER_MOBILE';
 
   static List<String> selectedCategoryList = [];
 

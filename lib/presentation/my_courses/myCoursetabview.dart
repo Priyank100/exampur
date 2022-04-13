@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/booktitle.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/subjectView.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'MyCourseNotificationView/myCourseNotification.dart';
@@ -19,6 +23,8 @@ class MyCourseTabView extends StatefulWidget {
 
 class _MyCourseTabViewState extends State<MyCourseTabView> {
   List<Book> tabList = [];
+  String userName = '';
+  String userMobile = '';
 
 
   Future<String> loadJsonFromAssets() async {
@@ -29,6 +35,13 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
     String jsonString = await loadJsonFromAssets();
     final myCourseTabResponse = booktitleFromJson(jsonString);
     tabList = myCourseTabResponse.book!;
+    setState(() {});
+  }
+
+  Future<void> getSharedPrefData() async {
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    userName = jsonValue[0]['data']['first_name'].toString();
+    userMobile = jsonValue[0]['data']['phone'].toString();
     setState(() {});
   }
 
@@ -51,7 +64,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
                     TimeTableView(widget.courseId),
                     SubjectView(widget.courseId),
                     MyCourseNotifications(widget.courseId),
-                    FeedbackView()
+                    FeedbackView(userName, userMobile)
                   ],
                   title: '')
           );

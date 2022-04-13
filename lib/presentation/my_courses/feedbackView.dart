@@ -1,14 +1,14 @@
 import 'dart:async';
-
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class FeedbackView extends StatelessWidget {
-  const FeedbackView({Key? key}) : super(key: key);
+  final String userName;
+  final String userMobile;
+  const FeedbackView(this.userName, this.userMobile) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class FeedbackView extends StatelessWidget {
         // print('anchal');
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => MyWebView(
-              selectedUrl: AppConstants.googleFeedbackFormUrl,
+              selectedUrl: AppConstants.googleFeedbackFormUrl.replaceAll('USER_NAME', userName).replaceAll('USER_MOBILE', userMobile),
             )
         ));},child: Center(child: Container(height: 40,width: 200,color: AppColors.amber,child: Center(child: Text('FeedBack',style: TextStyle(color: AppColors.white),)),))),
     );
