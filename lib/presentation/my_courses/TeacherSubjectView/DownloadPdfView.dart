@@ -40,7 +40,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
       var bytes = data.bodyBytes;
       var dir = await getApplicationDocumentsDirectory();
       File file = File("${dir.path}/" + fileName + ".pdf");
-      print(dir.path);
+      // print(dir.path);
       File urlFile = await file.writeAsBytes(bytes);
       return urlFile;
     } catch (e) {

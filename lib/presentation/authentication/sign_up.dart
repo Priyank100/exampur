@@ -239,7 +239,7 @@ class SignUpState extends State<SignUp> {
                         ),
                         onPressed: () {
                           FocusScope.of(context).unfocus();
-                          print(_dobController.text.toString());
+                          // print(_dobController.text.toString());
                           registerUser();
                         },
                         child: Padding(

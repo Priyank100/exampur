@@ -14,7 +14,7 @@ class FeedbackView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: InkWell(onTap:(){
-        print('anchal');
+        // print('anchal');
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => MyWebView(
               selectedUrl: "https://docs.google.com/forms/d/e/1FAIpQLScCCm43CYzI4C0h4HgFCg5XB5dYa0my6q8rDif8IR_3RGuACQ/viewform",

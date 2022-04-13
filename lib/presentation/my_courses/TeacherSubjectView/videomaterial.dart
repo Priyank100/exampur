@@ -28,7 +28,7 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
 
   @override
   void initState() {
-    print(widget.url);
+    // print(widget.url);
     super.initState();
     videoPlayerController = VideoPlayerController.network(widget.url);
     chewieController = ChewieController(

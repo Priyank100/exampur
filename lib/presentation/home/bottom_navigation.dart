@@ -665,7 +665,7 @@ class _BottomNavigationState extends State<BottomNavigation>
               }
               _currIndex = index;
             });
-          print('Anchal>>>>>>>>>>>>>>>>>>>>>>> $_currIndex');
+          // print('Anchal>>>>>>>>>>>>>>>>>>>>>>> $_currIndex');
           if(_currIndex == 1 || _currIndex == 2 || _currIndex == 3) {
             AppConstants.sendAnalyticsEvent(
                 _currIndex == 1 ? 'DEMO_CLICKED' :
