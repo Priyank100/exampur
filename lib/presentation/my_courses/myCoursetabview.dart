@@ -48,6 +48,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
   @override
   void initState() {
     getTabList();
+    getSharedPrefData();
     super.initState();
   }
 
