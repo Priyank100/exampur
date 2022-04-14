@@ -21,6 +21,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:launch_review/launch_review.dart';
@@ -161,11 +162,15 @@ class _BottomNavigationState extends State<BottomNavigation>
     return WillPopScope(
       onWillPop: () async {
         //Use this code if you just want to go back to 0th index
-        if (_currIndex == 0) return true;
-        setState(() {
-          _currIndex = 0;
-        });
-        return false;
+        if (_currIndex == 0) {
+          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+          return true;
+        } else {
+          setState(() {
+            _currIndex = 0;
+          });
+          return false;
+        }
       },
       child: Scaffold(
         key: _scaffoldKey,
