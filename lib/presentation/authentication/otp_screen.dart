@@ -245,22 +245,33 @@ class _OtpScreenState extends State<OtpScreen> {
       "phone_ext": "91",
       "phone": _phoneController.text.trim().toString()
     };
-    await Service.post(API.Send_OTP_URL, body: body).then((response) async {
+
+    // await Service.post(API.Send_OTP_URL, body: body).then((response) async {
+    await Service.get(API.Send_OTP_URL.replaceAll('USER_MOBILE', _phoneController.text.trim().toString())).then((response) async {
       Navigator.pop(context);
       if (response == null) {
         AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
       } else if (response.statusCode == 200) {
         AppConstants.printLog(response.body.toString());
         final body = json.decode(response.body);
-        var statusCode = body['statusCode'].toString();
-        var msg = body['data'].toString();
-        if (statusCode == '200') {
+        // var statusCode = body['statusCode'].toString();
+        // var msg = body['data'].toString();
+        var type = body['type'].toString();
+        // if (statusCode == '200') {
+        //   AppConstants.showBottomMessage(
+        //       context, 'OTP send to the number', Colors.black);
+        //   isOtp = true;
+        //   setState(() {});
+        // } else {
+        //   AppConstants.showBottomMessage(context, msg, Colors.black);
+        // }
+        if (type == 'success') {
           AppConstants.showBottomMessage(
               context, 'OTP send to the number', Colors.black);
           isOtp = true;
           setState(() {});
         } else {
-          AppConstants.showBottomMessage(context, msg, Colors.black);
+          AppConstants.showBottomMessage(context, 'Error in OTP', Colors.black);
         }
       } else if(response.statusCode == 429) {
         await Service.post(API.Send_OTP_URL_2, body: body).then((response) async {
@@ -279,9 +290,7 @@ class _OtpScreenState extends State<OtpScreen> {
             } else {
               AppConstants.showBottomMessage(context, msg, Colors.black);
             }
-
           } else {
-
             AppConstants.showBottomMessage(context, 'Server Error', Colors.red);
           }
         });

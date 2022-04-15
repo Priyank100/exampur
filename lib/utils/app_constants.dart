@@ -26,10 +26,10 @@ class API {
   // static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
   // static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
 
-  // call if BASE_URL2 error-429
-  static const String BASE_URL4 = ' https://qvjplseirk.execute-api.ap-northeast-1.amazonaws.com/';
+  // call if BASE_URL2 got error-429
+  static const String BASE_URL4 = 'https://qvjplseirk.execute-api.ap-northeast-1.amazonaws.com/';
 
-  //cachestage producation
+  //cache production
   static const String BASE_URL2 = 'https://auth.exampurcache.xyz/';
   static const String BASE_URL3 = 'https://static.exampurcache.xyz/';
 
@@ -47,9 +47,10 @@ class API {
   static const String Valid_Token_URL     = BASE_URL2 + 'user';
   static const String Update_User_URL     = BASE_URL2 + 'user';
   static const String Change_Password_URL = BASE_URL2 + 'auth/changePassword';
-  static const String Send_OTP_URL        = BASE_URL2 + 'otp';
+  // static const String Send_OTP_URL        = BASE_URL2 + 'otp';
   static const String Reset_Password_URL  = BASE_URL2 + 'auth/resetPassword';
   static const String Verify_OTP_URL      = BASE_URL2 + 'auth/verification';
+  static const String Send_OTP_URL        = 'http://sms.bitss.tech/api/v5/otp?template_id=624ecd020f1c701b4605cbb7&mobile=91USER_MOBILE&authkey=369403Ao8iwaB6hF624ecd56P1';
 
   static const String Login_URL_2           = BASE_URL4 + 'auth/login';
   static const String Valid_Token_URL_2     = BASE_URL4 + 'user';
