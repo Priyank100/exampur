@@ -5,6 +5,7 @@ import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -94,6 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> callProvider() async {
+    await FirebaseMessaging.instance.subscribeToTopic('ALL');
     await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context).then((value) {
       checkSharedPrefToken();
     });
