@@ -34,12 +34,13 @@ class SignUpState extends State<SignUp> {
   late TextEditingController _userNameController;
   late TextEditingController _phoneController;
   late TextEditingController _cityController;
-  late TextEditingController _dobController;
   late GlobalKey<FormState> _formKeySignUp;
   bool _isCheckTerms = false;
 
   String selectedState='';
   List<States> stateList = [];
+
+  String selectedDate = 'D.O.B';
 
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/LocalJson/State.json');
@@ -63,7 +64,6 @@ class SignUpState extends State<SignUp> {
     _passwordController = TextEditingController();
     _userNameController = TextEditingController();
     _cityController = TextEditingController();
-    _dobController = TextEditingController();
     getStateList();
   }
 
@@ -75,7 +75,6 @@ class SignUpState extends State<SignUp> {
     _userNameController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
-    _dobController.dispose();
     super.dispose();
   }
 
@@ -114,11 +113,29 @@ class SignUpState extends State<SignUp> {
                     SizedBox(
                       height: 15,
                     ),
-                    CustomTextField(
-                        hintText: "D.O.B",
-                        controller: _dobController,
-                        textInputType: TextInputType.datetime,
-                        value: (value) {}),
+
+                    InkWell(
+                      onTap: () async {
+                        String date = await AppConstants.selectDate(context);
+                        if(date.isNotEmpty) {
+                          setState(() {
+                            selectedDate = date;
+                          });
+                        }
+                      },
+                      child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: AppColors.grey300,
+                            borderRadius:  BorderRadius.all(const Radius.circular(8)),
+                            boxShadow: [
+                              BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
+                            ],
+                          ),
+                          child: Text(selectedDate)
+                      ),
+                    ),
 
 
                     SizedBox(
@@ -283,7 +300,6 @@ class SignUpState extends State<SignUp> {
       String _userName = _userNameController.text.trim();
       String _phone = _phoneController.text.trim();
       String _city = _cityController.text.trim();
-      String _dob = _dobController.text.trim();
 
       if (_name.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -294,22 +310,26 @@ class SignUpState extends State<SignUp> {
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      } else if (_email.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please enter your Email Id'),
-          backgroundColor: AppColors.black,
-          margin: EdgeInsets.all(20),
-          behavior: SnackBarBehavior.floating,
-        ));
       }
-      else if (_dob.isEmpty) {
+      else if (selectedDate == 'D.O.B') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Date of Birth'),
           backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      }else if (_password.isEmpty) {
+      }
+      else if (_email.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Please enter your Email Id'),
+          backgroundColor: AppColors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+        ));
+      } else if(!AppConstants.isEmailValid(_email)) {
+        AppConstants.showBottomMessage(context, 'Please enter valid Email Id', AppColors.black);
+      }
+      else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter atleast 8 letter Password'),
           backgroundColor: AppColors.black,
@@ -364,7 +384,7 @@ class SignUpState extends State<SignUp> {
         CreateUserbody.phoneExt = '91';
         CreateUserbody.firstName = _name;
         CreateUserbody.emailId = _email;
-        CreateUserbody.dob=_dob;
+        CreateUserbody.dob=selectedDate;
         CreateUserbody.password = _password;
         CreateUserbody.phone = _phone;
         CreateUserbody.lastName = 'null';
@@ -397,7 +417,6 @@ class SignUpState extends State<SignUp> {
           SnackBar(content: Text(errorMessage), backgroundColor: AppColors.red));
     }
   }
-
 
 
 }

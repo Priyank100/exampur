@@ -96,7 +96,7 @@ class _OtpScreenState extends State<OtpScreen> {
               SizedBox(height: 20),
               !isOtp ? phoneWidget() : otpWidget(),
               SizedBox(height: 20),
-              enableSkip ? InkWell(
+              widget.isReset ? SizedBox() : enableSkip ? InkWell(
                 onTap: () {
                   AppConstants.PHONE_VERIFY = false;
                   if(AppConstants.CATEGORY_LENGTH == '0' || AppConstants.CATEGORY_LENGTH == 'null') {

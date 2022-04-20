@@ -4,6 +4,7 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,15 +24,15 @@ class API {
   // static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
   //Stage
-  // static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
-  // static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
+  static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
+  static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
 
   // call if BASE_URL2 got error-429
   static const String BASE_URL4 = 'https://qvjplseirk.execute-api.ap-northeast-1.amazonaws.com/';
 
   //cache production
-  static const String BASE_URL2 = 'https://auth.exampurcache.xyz/';
-  static const String BASE_URL3 = 'https://static.exampurcache.xyz/';
+  // static const String BASE_URL2 = 'https://auth.exampurcache.xyz/';
+  // static const String BASE_URL3 = 'https://static.exampurcache.xyz/';
 
 
   //Dev
@@ -195,7 +196,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static String BANNER_BASE = '';
 
   static String defaultCountry = 'India';
@@ -359,6 +360,12 @@ class AppConstants {
     );
   }
 
+  static bool isEmailValid(String emailId) {
+    return RegExp(
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(emailId);
+  }
+
   static String encodeCategory() {
     List<String> catIdList = [];
     for (var id in AppConstants.selectedCategoryList)
@@ -398,6 +405,20 @@ class AppConstants {
             builder: (context) => route
         )
     );
+  }
+
+  static Future<String> selectDate(BuildContext context) async {
+    DateTime selectedDate = DateTime.now();
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1900, 1),
+        lastDate: selectedDate);
+    if (picked != null && picked != selectedDate) {
+      return DateFormat('dd/MM/yyyy').format(picked);
+    } else {
+      return '';
+    }
   }
 
   // static const String COUNTRY_CODE = 'country_code';
