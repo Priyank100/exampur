@@ -58,12 +58,13 @@ bool isLoading =false;
                           child: AppConstants.image(AppConstants.BANNER_BASE + item.imagePath.toString(), boxfit: BoxFit.fill),
                         ),
                         onTap: () {
-                          item.type=='Course'? AppConstants.sendAnalyticsEvent('BANNER_Course_CLICKED'):
+                          //for sendAnalyticsEvent
+                          item.type=='Course' || item.type=='Combo Course' ? AppConstants.sendAnalyticsEvent('BANNER_Course_CLICKED'):
                           item.type=='Book'?AppConstants.sendAnalyticsEvent('BANNER_Course_Book'):AppConstants.sendAnalyticsEvent('BANNER_Course_ExternalLink');
-                          item.type=='Course'?
 
+                          item.type=='Course' || item.type=='Combo Course'?
                           Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                          BannerLinkDetailPage(item.type.toString(),item.link.toString())
+                              BannerLinkDetailPage(item.type.toString(),item.link.toString())
                           )):
                           item.type=='Book'?
                           Navigator.push(context, MaterialPageRoute(builder: (_) =>

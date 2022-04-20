@@ -21,11 +21,10 @@ class BannerLinkBookDetailPage extends StatefulWidget {
 class _BannerLinkBookDetailPageState extends State<BannerLinkBookDetailPage> {
   Book? bannerDetailData;
   bool isLoading=false;
+
   Future<void> getLists() async {
     isLoading=true;
-
-      bannerDetailData= (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannnerBookDetail(context, widget.datalink.toString()))! ;
-
+    bannerDetailData= (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannnerBookDetail(context, widget.datalink.toString()))!;
     isLoading=false;
     setState(() {});
   }
@@ -42,7 +41,7 @@ class _BannerLinkBookDetailPageState extends State<BannerLinkBookDetailPage> {
     return Scaffold(
         body:bannerDetailData==null?Center(child: LoadingIndicator(context)):
         BookBannerDetail(bannerDetailData)
-        // Viedobanner(bannerDetailData!.videoPath.toString(), bannerDetailData!.title.toString(), bannerDetailData!.id.toString(), bannerDetailData!.salePrice.toString(),)
+      // Viedobanner(bannerDetailData!.videoPath.toString(), bannerDetailData!.title.toString(), bannerDetailData!.id.toString(), bannerDetailData!.salePrice.toString(),)
 
     );
   }
@@ -78,30 +77,30 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
 
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.only(left: 8),
             child: Text(
               widget.bookDetailData!.title.toString(),
               softWrap: true,
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 15),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(8.0),
             child: Text(
               widget.bookDetailData!.description.toString(),
               softWrap: true,
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(fontSize: 12),
             ),
           ),
           SizedBox(
             height: 10,
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.only(left: 8),
             child: Text(
               getTranslated(context,StringConstant.priceBreakdown)!,
               softWrap: true,
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 14),
             ),
           ),
           Padding(
@@ -112,12 +111,12 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
                 Text(
                   getTranslated(context,StringConstant.Price)!,
                   softWrap: true,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 12),
                 ),
                 Text(
                   '₹ ${widget.bookDetailData!.regularPrice.toString()}',
                   softWrap: true,
-                  style: TextStyle(fontSize: 14,decoration: TextDecoration.lineThrough,color: AppColors.grey),
+                  style: TextStyle(fontSize: 12,decoration: TextDecoration.lineThrough,color: AppColors.grey),
                 ),
               ],
             ),
@@ -130,19 +129,19 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
                 Text(
                   getTranslated(context,StringConstant.sellingPrice)!,
                   softWrap: true,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 12),
                 ),
                 Text(
                   '₹ ${widget.bookDetailData!.salePrice.toString()}',
                   softWrap: true,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 12),
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Divider(thickness: 1,),
+            padding: const EdgeInsets.only(left: 8,right: 8),
+            child: Divider(thickness: 0,),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -152,19 +151,19 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
                 Text(
                   getTranslated(context, StringConstant.TotalAmount)!,
                   softWrap: true,
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 14),
                 ),
                 Text(
                   '₹ ${widget.bookDetailData!.salePrice.toString()}',
                   softWrap: true,
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 14),
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Divider(thickness: 1,),
+            padding: const EdgeInsets.only(left: 8,right: 8),
+            child: Divider(thickness: 0,),
           ),
           Spacer(),
           Padding(
