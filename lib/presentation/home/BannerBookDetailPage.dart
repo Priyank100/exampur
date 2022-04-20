@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BannerLinkBookDetailPage extends StatefulWidget {
-  String type;
-  final datalink;
+  final String type;
+  final String datalink;
   BannerLinkBookDetailPage(this.type, this.datalink) ;
 
   @override
