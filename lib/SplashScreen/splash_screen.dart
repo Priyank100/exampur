@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
         versionStatus: status,
         dialogTitle: "UPDATE!!!",
         dismissButtonText: "Close",
-        allowDismissal: false,
+        allowDismissal: true,
         dialogText: "Please update the app from " + "${status.localVersion}" + " to " + "${status.storeVersion}",
         dismissAction: () {
           SystemNavigator.pop();
