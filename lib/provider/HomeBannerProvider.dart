@@ -114,4 +114,32 @@ class HomeBannerProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<Data?> getHomeBannnerComboDetail(BuildContext context,String id) async {
+    ApiResponse apiResponse = await homeBannerRepo.getHomeBannerCombolink(id);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _bannerdetailModel = BannerDetailModel.fromJson(
+            json.decode(apiResponse.response.toString()));
+        return _bannerdetailModel.data;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
+    } else {
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, StringConstant.serverError)!,
+          AppColors.red);
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => ErrorScreen()
+      //     )
+      // );
+      notifyListeners();
+    }
+  }
 }

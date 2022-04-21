@@ -50,4 +50,17 @@ class HomeBannerRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+  Future<ApiResponse> getHomeBannerCombolink(String id) async {
+
+    try {
+
+      final url = API.homeBannerCombolink_URL+id;
+      AppConstants.printLog(url);
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 }
