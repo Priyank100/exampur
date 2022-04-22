@@ -6,7 +6,7 @@ MyCourseListModel myCourseListModelFromJson(String str) => MyCourseListModel.fro
 String myCourseListModelToJson(MyCourseListModel data) => json.encode(data.toJson());
 class MyCourseListModel {
   MyCourseListModel({
-      int? statusCode, 
+      int? statusCode,
       List<CourseData>? data,}){
     _statusCode = statusCode;
     _data = data;
@@ -47,14 +47,16 @@ CourseData dataFromJson(String str) => CourseData.fromJson(json.decode(str));
 String dataToJson(CourseData data) => json.encode(data.toJson());
 class CourseData {
   CourseData({
-      String? id, 
-      String? title, 
-      String? logoPath, 
-      String? bannerPath,}){
+      String? id,
+      String? title,
+      String? logoPath,
+      String? bannerPath,
+      List<Category>? category}){
     _id = id;
     _title = title;
     _logoPath = logoPath;
     _bannerPath = bannerPath;
+    _category = category;
 }
 
   CourseData.fromJson(dynamic json) {
@@ -62,16 +64,24 @@ class CourseData {
     _title = json['title'];
     _logoPath = json['logo_path'];
     _bannerPath = json['banner_path'];
+    if (json['category'] != null) {
+      _category = [];
+      json['category'].forEach((v) {
+        _category!.add(Category.fromJson(v));
+      });
+    }
   }
   String? _id;
   String? _title;
   String? _logoPath;
   String? _bannerPath;
+  List<Category>? _category;
 
   String? get id => _id;
   String? get title => _title;
   String? get logoPath => _logoPath;
   String? get bannerPath => _bannerPath;
+  List<Category>? get category => _category;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -79,6 +89,39 @@ class CourseData {
     map['title'] = _title;
     map['logo_path'] = _logoPath;
     map['banner_path'] = _bannerPath;
+    if (_category != null) {
+      map['category'] = _category!.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+}
+
+/// _id : "624d21298e64bc5e0e75f32f"
+/// name : "ALL EXAMS"
+
+class Category {
+  Category({
+    String? id,
+    String? name,}){
+    _id = id;
+    _name = name;
+  }
+
+  Category.fromJson(dynamic json) {
+    _id = json['_id'];
+    _name = json['name'];
+  }
+  String? _id;
+  String? _name;
+
+  String? get id => _id;
+  String? get name => _name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['_id'] = _id;
+    map['name'] = _name;
     return map;
   }
 

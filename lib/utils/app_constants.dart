@@ -24,15 +24,15 @@ class API {
   // static const String BASE_URL3 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
   //Stage
-  // static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
-  // static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
+  static const String BASE_URL2 = 'https://auth-stage.exampur.xyz/';
+  static const String BASE_URL3 = 'https://static-stage.exampur.xyz/';
 
   // call if BASE_URL2 got error-429
   static const String BASE_URL4 = 'https://qvjplseirk.execute-api.ap-northeast-1.amazonaws.com/';
 
   //cache production
-  static const String BASE_URL2 = 'https://auth.exampurcache.xyz/';
-  static const String BASE_URL3 = 'https://static.exampurcache.xyz/';
+  // static const String BASE_URL2 = 'https://auth.exampurcache.xyz/';
+  // static const String BASE_URL3 = 'https://static.exampurcache.xyz/';
 
 
   //Dev

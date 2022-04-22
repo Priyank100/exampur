@@ -331,6 +331,14 @@ class SignUpState extends State<SignUp> {
       }
       else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Please enter Password'),
+          backgroundColor: AppColors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+        ));
+      }
+      else if (_password.length < 8) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter atleast 8 letter Password'),
           backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
@@ -359,16 +367,16 @@ class SignUpState extends State<SignUp> {
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      } else if (_city.isEmpty) {
+      } else if (selectedState=='Select States') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please enter City'),
+          content: Text('Please select State'),
           backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      } else if (selectedState=='Select States') {
+      } else if (_city.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please select State'),
+          content: Text('Please enter City'),
           backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,

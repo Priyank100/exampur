@@ -2,6 +2,7 @@ import 'package:exampur_mobile/data/model/paid_course_tab.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/teaching_list.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
+import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -68,9 +69,11 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
           return Scaffold(
               body:
               widget.courseType == 1 ?
-              !isPaidData ? Center(child: CircularProgressIndicator(color: AppColors.amber,)) : paidCourseTabList.length == 0 ? Center(child: AppConstants.noDataFound()) : tabBar()
+              !isPaidData ? Center(child: CircularProgressIndicator(color: AppColors.amber,)) :
+              paidCourseTabList.length == 0 ? Center(child: AppConstants.noDataFound()) : tabBar()
               :
-              !isFreeData ? Center(child: CircularProgressIndicator(color: AppColors.amber)) : freeCourseTabList.length == 0 ? Center(child: AppConstants.noDataFound()) : tabBar()
+              !isFreeData ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+              freeCourseTabList.length == 0 ? noData() : tabBar()
 
           );
         });
@@ -90,6 +93,15 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
             : freeCourseTabList.map((item) => TeachingList(0, item.id.toString())).toList(),
 
         title: "");
+  }
+
+  Widget noData() {
+    return Scaffold(
+      appBar: CustomAppBar(),
+      body: Center(
+        child: AppConstants.noDataFound(),
+      ),
+    );
   }
 
   @override

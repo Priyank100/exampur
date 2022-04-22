@@ -19,6 +19,7 @@ class MyCourses extends StatefulWidget {
 class MyCoursesState extends State<MyCourses> {
   List<CourseData> myCourseList = [];
   bool isLoading = false;
+  var groupedLists = {};
 
   @override
   void initState() {
@@ -31,6 +32,24 @@ class MyCoursesState extends State<MyCourses> {
     String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     myCourseList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseList(context, token))!;
     isLoading = false;
+    grouping();
+    AppConstants.printLog('>>>>>>>>>>>>>>>>>');
+    // AppConstants.printLog(groupedLists);
+    // myCourseList.forEach((course) {
+    //   course.category!.forEach((category) {
+    //     if (groupedLists['${category.name}'] == null) {
+    //       groupedLists['${category.name}'] = <CourseData>[];
+    //     }
+    //     (groupedLists['${category.name}'] as List<CourseData>).add(course);
+    //   });
+    // });
+
+    /*groupedLists.forEach((key, value) {
+      AppConstants.printLog('Category> ' + key.toString());
+      value.forEach((course) {
+        AppConstants.printLog('Course> ' + course.title.toString());
+      });
+    });*/
     setState(() {});
   }
 
@@ -54,16 +73,42 @@ class MyCoursesState extends State<MyCourses> {
   }
 
   Widget DataContainer() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Text('Group Name'),
-        GridViewData()
-      ],
-    );
+    return ListView.builder(
+      itemCount: groupedLists.length,
+        shrinkWrap: true,
+        physics: BouncingScrollPhysics(),
+        itemBuilder:(context, index) {
+          String key = groupedLists.keys.elementAt(index);
+          var value = groupedLists.values.elementAt(index);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(child: Text(key, style: TextStyle(fontSize: 16))),
+              GridViewData(value)
+        ],
+      );
+    });
+    // return Column(
+    //   crossAxisAlignment: CrossAxisAlignment.start,
+    //   children: [
+    //     Text('Group Name'),
+    //     GridViewData()
+    //   ],
+    // );
   }
 
-  Widget GridViewData() {
+  Widget GridViewData(var val) {
+    // return GridView.builder(
+    //   physics: NeverScrollableScrollPhysics(),
+    //   shrinkWrap: true,
+    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    //       crossAxisCount: 2,
+    //       childAspectRatio: MediaQuery.of(context).size.width /
+    //           (MediaQuery.of(context).size.height / 2.5)
+    //   ),
+    //   itemBuilder: (_, index) => GridItem(index),
+    //   itemCount: myCourseList.length,
+    // );
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -72,15 +117,17 @@ class MyCoursesState extends State<MyCourses> {
           childAspectRatio: MediaQuery.of(context).size.width /
               (MediaQuery.of(context).size.height / 2.5)
       ),
-      itemBuilder: (_, index) => GridItem(index),
-      itemCount: myCourseList.length,
+      itemCount: val.length,
+      itemBuilder: (_, index) {
+        var courseData = val[index];
+        return GridItem(courseData);
+      },
     );
   }
 
-  Widget GridItem(index) {
+  /*Widget GridItem(index) {
     return InkWell(
       onTap: () {
-
         Navigator.push(context, MaterialPageRoute(builder: (_) =>
             MyCourseTabView(myCourseList[index].id.toString())
         ));
@@ -109,5 +156,49 @@ class MyCoursesState extends State<MyCourses> {
         )
       ),
     );
+  }*/
+
+  Widget GridItem(courseData) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) =>
+            MyCourseTabView(courseData.id.toString())
+        ));
+      },
+      child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(width: 1.5),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          margin: EdgeInsets.all(8),
+          padding: EdgeInsets.all(3),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  height:70,width:MediaQuery.of(context).size.width,child:
+              //Image.asset(Images.exampur_logo,fit: BoxFit.fill)
+              AppConstants.image(AppConstants.BANNER_BASE + courseData.bannerPath.toString(),boxfit: BoxFit.fill)
+              ),
+              SizedBox(height: 10),
+              Flexible(child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text(courseData.title.toString(),style: TextStyle(fontSize: 12
+                ), overflow: TextOverflow.ellipsis,maxLines: 3,),
+              )),
+            ],
+          )
+      ),
+    );
+  }
+
+  void grouping() {
+    myCourseList.forEach((course) {
+      course.category!.forEach((category) {
+        if (groupedLists['${category.name}'] == null) {
+          groupedLists['${category.name}'] = <CourseData>[];
+        }
+        (groupedLists['${category.name}'] as List<CourseData>).add(course);
+      });
+    });
   }
 }
