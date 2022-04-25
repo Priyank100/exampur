@@ -95,6 +95,7 @@ class MyCoursesState extends State<MyCourses> {
     //     GridViewData()
     //   ],
     // );
+
   }
 
   Widget GridViewData(var val) {
