@@ -9,6 +9,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:new_version/new_version.dart';
 //import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -38,19 +39,56 @@ class _SplashScreenState extends State<SplashScreen> {
     if(status == null || status.localVersion == status.storeVersion) {
       callProvider();
     } else {
-      newVersion.showUpdateDialog(
-        context: context,
-        versionStatus: status,
-        dialogTitle: "UPDATE!!!",
-        dismissButtonText: "Skip",
-        allowDismissal: true,
-        dialogText: "Please update the app from " + "${status.localVersion}" + " to " + "${status.storeVersion}",
-        dismissAction: () {
-          // SystemNavigator.pop();
+      // newVersion.showUpdateDialog(
+      //   context: context,
+      //   versionStatus: status,
+      //   dialogTitle: "UPDATE!!!",
+      //   dismissButtonText: "Skip",
+      //   allowDismissal: true,
+      //   dialogText: "Please update the app from " + "${status.localVersion}" + " to " + "${status.storeVersion}",
+      //   dismissAction: () {
+      //     // SystemNavigator.pop();
+      //     Navigator.pop(context);
+      //     callProvider();
+      //   },
+      //   updateButtonText: "Lets update",
+      // );
+
+      Widget cancelButton = TextButton(
+        child: Text("Skip",style: TextStyle(color: AppColors.amber)),
+        onPressed:  () {
           Navigator.pop(context);
           callProvider();
         },
-        updateButtonText: "Lets update",
+      );
+      Widget continueButton = TextButton(
+        child: Text("Lets update",style: TextStyle(color: AppColors.amber),),
+        onPressed:  () {
+          SystemNavigator.pop();
+          LaunchReview.launch(androidAppId: AppConstants.androidId, iOSAppId: AppConstants.iosId);
+        },
+      );
+      AlertDialog alert = AlertDialog(
+        title: Text("UPDATE!!!"),
+        content: Text("Please update the app from " + "${status.localVersion}" + " to " + "${status.storeVersion}"),
+        actions: [
+          cancelButton,
+          continueButton,
+        ],
+      );
+
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return WillPopScope(
+              onWillPop: () async {
+                SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                return true;
+              },
+              child: alert);
+          // return alert;
+        },
       );
     }
 

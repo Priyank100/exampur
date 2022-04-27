@@ -32,11 +32,13 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
     setState(() {});
   }
 
-  Future<void>_refreshScreen() async{
-    downloadsListMaps.clear();
-    task();
-    _bindBackgroundIsolate();
-    FlutterDownloader.registerCallback(downloadCallback);
+  Future<void> _refreshScreen() async{
+    setState(() {
+      downloadsListMaps.clear();
+      task();
+      _bindBackgroundIsolate();
+      FlutterDownloader.registerCallback(downloadCallback);
+    });
   }
 
   @override
@@ -95,111 +97,111 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: RefreshWidget(
-        keyRefresh: keyRefresh,
-        onRefresh:_refreshScreen,
-        child: Container(
-        child: downloadsListMaps.length == 0 ?
-        ListView.builder(
-        itemCount: 1,
-        itemBuilder: (BuildContext context, int i) {
-          return AppConstants.noDataFound();
-        }) :
-        ListView.builder(
-          itemCount: downloadsListMaps.length,
-          itemBuilder: (BuildContext context, int i) {
-            Map _map = downloadsListMaps[i];
-            String _filename = _map['filename'];
-            int _progress = _map['progress'];
-            DownloadTaskStatus _status = _map['status'];
-            String _id = _map['id'];
-            String _savedDirectory = _map['savedDirectory'];
-            List<FileSystemEntity> _directories = Directory(_savedDirectory).listSync(followLinks: true);
-            File? _file = (_directories.isNotEmpty ? _directories.first : null) as File?;
-            return  Card(
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ListTile(
-                      isThreeLine: false,
-                      leading: Image.asset(Images.pdfIcon),
-                      title: Text(_filename),
-                     // subtitle: downloadStatus(_status),
-                      trailing: SizedBox(
-                        child: buttons(_status, _id, i),
-                        width: 60,
-                      ),
-                      subtitle: Row(children: [
-
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: CustomRoundButton(text: getTranslated(context, StringConstant.viewPdf)!, onPressed: (){
-            if (_status == DownloadTaskStatus.complete) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) =>
-            ViewPdf('',_file!.path)
-            ));
-            }
-            },),
+          keyRefresh: keyRefresh,
+          onRefresh: _refreshScreen,
+          child: Container(
+            child: downloadsListMaps.length == 0 ?
+            ListView.builder(
+                itemCount: 1,
+                itemBuilder: (BuildContext context, int i) {
+                  return AppConstants.noDataFound();
+                }) :
+            ListView.builder(
+              itemCount: downloadsListMaps.length,
+              itemBuilder: (BuildContext context, int i) {
+                Map _map = downloadsListMaps[i];
+                String _filename = _map['filename'];
+                int _progress = _map['progress'];
+                DownloadTaskStatus _status = _map['status'];
+                String _id = _map['id'];
+                String _savedDirectory = _map['savedDirectory'];
+                List<FileSystemEntity> _directories = Directory(_savedDirectory).listSync(followLinks: true);
+                File? _file = (_directories.isNotEmpty ? _directories.first : null) as File?;
+                return  Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      ListTile(
+                        isThreeLine: false,
+                        leading: Image.asset(Images.pdfIcon),
+                        title: Text(_filename),
+                        // subtitle: downloadStatus(_status),
+                        trailing: SizedBox(
+                          child: buttons(_status, _id, i),
+                          width: 60,
                         ),
-                        // InkWell(
-                        //   onTap: (){
-                        //     if (_status == DownloadTaskStatus.complete) {
-                        //       Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                        //           ViewPdf('',_file!.path)
-                        //       ));
-                        //     }
-                        //   },
-                        //   child: Container(margin: EdgeInsets.only(top: 8), decoration: BoxDecoration(
-                        //       color:Color(0xFF060929),
-                        //       borderRadius: BorderRadius.all(Radius.circular(5))),
-                        //    height: 30,width: 90,child: Center(child: Text(getTranslated(context, StringConstant.viewPdf)!,style: TextStyle(color: AppColors.white,fontSize: 12),)),),
-                        // ),
-              // InkWell(
-              //   onTap: (){
-              //     // buttons(_status, _id, i);
-              //     FlutterDownloader.cancel(taskId: _id);
-              //     downloadsListMaps.removeAt(i);
-              //     FlutterDownloader.remove(taskId: _id, shouldDeleteContent: true);
-              //     setState(() {});
-              //   },child: Container( margin:EdgeInsets.only(top: 8,left: 8),color: AppColors.white,height: 30,width: 70,child: Center(child: Text('Remove',style: TextStyle(color: AppColors.red)))))
-                      ],),
-                    ),
-                    _status == DownloadTaskStatus.complete
-                        ? Container()
-                        : SizedBox(height: 5),
-                    _status == DownloadTaskStatus.complete
-                        ? Container()
-                        : Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text('$_progress%'),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: LinearProgressIndicator(
-                                  color: Colors.amber,
-                                  value: _progress / 100,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10)
-                  ],
-                ),
+                        subtitle: Row(children: [
 
-            );
-          },
-        ),
-      ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: CustomRoundButton(text: getTranslated(context, StringConstant.viewPdf)!, onPressed: (){
+                              if (_status == DownloadTaskStatus.complete) {
+                                Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                    ViewPdf('',_file!.path)
+                                ));
+                              }
+                            },),
+                          ),
+                          // InkWell(
+                          //   onTap: (){
+                          //     if (_status == DownloadTaskStatus.complete) {
+                          //       Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                          //           ViewPdf('',_file!.path)
+                          //       ));
+                          //     }
+                          //   },
+                          //   child: Container(margin: EdgeInsets.only(top: 8), decoration: BoxDecoration(
+                          //       color:Color(0xFF060929),
+                          //       borderRadius: BorderRadius.all(Radius.circular(5))),
+                          //    height: 30,width: 90,child: Center(child: Text(getTranslated(context, StringConstant.viewPdf)!,style: TextStyle(color: AppColors.white,fontSize: 12),)),),
+                          // ),
+                          // InkWell(
+                          //   onTap: (){
+                          //     // buttons(_status, _id, i);
+                          //     FlutterDownloader.cancel(taskId: _id);
+                          //     downloadsListMaps.removeAt(i);
+                          //     FlutterDownloader.remove(taskId: _id, shouldDeleteContent: true);
+                          //     setState(() {});
+                          //   },child: Container( margin:EdgeInsets.only(top: 8,left: 8),color: AppColors.white,height: 30,width: 70,child: Center(child: Text('Remove',style: TextStyle(color: AppColors.red)))))
+                        ],),
+                      ),
+                      _status == DownloadTaskStatus.complete
+                          ? Container()
+                          : SizedBox(height: 5),
+                      _status == DownloadTaskStatus.complete
+                          ? Container()
+                          : Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text('$_progress%'),
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: LinearProgressIndicator(
+                                    color: Colors.amber,
+                                    value: _progress / 100,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 10)
+                    ],
+                  ),
+
+                );
+              },
+            ),
+          ),
         )
     );
   }
@@ -221,7 +223,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
   Widget buttons(DownloadTaskStatus _status, String taskid, int index) {
     void changeTaskID(String taskid, String newTaskID) {
       Map? task = downloadsListMaps.firstWhere((element) => element['taskId'] == taskid
-       orElse: () => {},
+          orElse: () => {},
       );
       task['taskId'] = newTaskID;
       setState(() {});
