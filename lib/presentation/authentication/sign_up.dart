@@ -34,6 +34,7 @@ class SignUpState extends State<SignUp> {
   late TextEditingController _userNameController;
   late TextEditingController _phoneController;
   late TextEditingController _cityController;
+  late TextEditingController _dobController;
   late GlobalKey<FormState> _formKeySignUp;
   bool _isCheckTerms = false;
 
@@ -64,6 +65,7 @@ class SignUpState extends State<SignUp> {
     _passwordController = TextEditingController();
     _userNameController = TextEditingController();
     _cityController = TextEditingController();
+    _dobController = TextEditingController();
     getStateList();
   }
 
@@ -75,6 +77,7 @@ class SignUpState extends State<SignUp> {
     _userNameController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
+    _dobController.dispose();
     super.dispose();
   }
 
@@ -151,10 +154,10 @@ class SignUpState extends State<SignUp> {
                     ),
 
                     CustomPasswordTextField(
-                        hintTxt: 'Password',
-                        controller: _passwordController,
-                        textInputAction: TextInputAction.next,
-                      ),
+                      hintTxt: 'Password',
+                      controller: _passwordController,
+                      textInputAction: TextInputAction.next,
+                    ),
 
                     SizedBox(
                       height: 15,
@@ -236,7 +239,7 @@ class SignUpState extends State<SignUp> {
                         ),
                         InkWell(
                             onTap: () {
-    Navigator.push(context, MaterialPageRoute(builder: (_) =>TermsAndConditions()));},
+                              Navigator.push(context, MaterialPageRoute(builder: (_) =>TermsAndConditions()));},
                             child: Text(
                               'Terms and Conditions',
                               style: TextStyle(
@@ -280,7 +283,7 @@ class SignUpState extends State<SignUp> {
                       children: [
                         Text("Facing problem in signing in?",style: TextStyle(color: AppColors.grey600),),
                         CustomTextButton(onPressed: () {
-                         AppConstants.makeCallEmail('tel:'+AppConstants.Mobile_number);
+                          AppConstants.makeCallEmail('tel:'+AppConstants.Mobile_number);
                         }, text: "Call us")
                       ],
                     )
@@ -300,6 +303,7 @@ class SignUpState extends State<SignUp> {
       String _userName = _userNameController.text.trim();
       String _phone = _phoneController.text.trim();
       String _city = _cityController.text.trim();
+      String _dob = _dobController.text.trim();
 
       if (_name.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -310,34 +314,28 @@ class SignUpState extends State<SignUp> {
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      }
-      else if (selectedDate == 'D.O.B') {
+      } else if (selectedDate == 'D.O.B') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Date of Birth'),
           backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      }
-      else if (_email.isEmpty) {
+      } else if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Email Id'),
           backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      } else if(!AppConstants.isEmailValid(_email)) {
-        AppConstants.showBottomMessage(context, 'Please enter valid Email Id', AppColors.black);
-      }
-      else if (_password.isEmpty) {
+      } else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please enter Password'),
+          content: Text('Please enter your Password'),
           backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      }
-      else if (_password.length < 8) {
+      } else if (_password.length < 8) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter atleast 8 letter Password'),
           backgroundColor: AppColors.black,
@@ -352,8 +350,8 @@ class SignUpState extends State<SignUp> {
       //     margin: EdgeInsets.all(20),
       //     behavior: SnackBarBehavior.floating,
       //   ));
-     // }
-    else if (_phone.isEmpty) {
+      // }
+      else if (_phone.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Phone Number'),
           backgroundColor: AppColors.black,
@@ -392,7 +390,7 @@ class SignUpState extends State<SignUp> {
         CreateUserbody.phoneExt = '91';
         CreateUserbody.firstName = _name;
         CreateUserbody.emailId = _email;
-        CreateUserbody.dob=selectedDate;
+        CreateUserbody.dob = selectedDate;
         CreateUserbody.password = _password;
         CreateUserbody.phone = _phone;
         CreateUserbody.lastName = 'null';
@@ -412,19 +410,20 @@ class SignUpState extends State<SignUp> {
       await FirebaseAnalytics.instance.logEvent(name: 'USER_SIGNUP',parameters: {
         'Name':_nameController.text.toString(),
         'Email':_emailController.text.toString(),
-       // 'Phone':_phoneController.text.toString(),
+        // 'Phone':_phoneController.text.toString(),
 
       });
       // SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, '0');
       Navigator.pushReplacement(
           context,
-              MaterialPageRoute(builder: (_) => OtpScreen(false)));
+          MaterialPageRoute(builder: (_) => OtpScreen(false)));
 
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(errorMessage), backgroundColor: AppColors.red));
     }
   }
+
 
 
 }

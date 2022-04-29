@@ -27,7 +27,7 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
     String jsonString = await loadJsonFromAssets();
     final BookResponse = downloadModelFromJson(jsonString);
     tabList = BookResponse.download!;
-    _controller = TabController(length: tabList.length, vsync: this, initialIndex: widget.selectedIndex);
+    // _controller = TabController(length: tabList.length, vsync: this, initialIndex: widget.selectedIndex);
     _controller = TabController(length: tabList.length, vsync: this, initialIndex: 0);
     /*_controller!.index = widget.selectedIndex;
       _controller!.addListener(() {
