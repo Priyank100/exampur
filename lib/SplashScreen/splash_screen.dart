@@ -36,7 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
     );
     final status = await newVersion.getVersionStatus();
 
-    if(status == null || status.localVersion == status.storeVersion) {
+    if(status == null
+        || status.localVersion == status.storeVersion
+        || getExtendedVersionNumber(status.localVersion) >= getExtendedVersionNumber(status.storeVersion)) {
       callProvider();
     } else {
       // newVersion.showUpdateDialog(
@@ -171,6 +173,12 @@ class _SplashScreenState extends State<SplashScreen> {
           )
       );
     }
+  }
+
+  int getExtendedVersionNumber(String version) {
+    List versionCells = version.split('.');
+    versionCells = versionCells.map((i) => int.parse(i)).toList();
+    return versionCells[0] * 100000 + versionCells[1] * 1000 + versionCells[2];
   }
 
 }
