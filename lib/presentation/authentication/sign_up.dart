@@ -174,6 +174,9 @@ class SignUpState extends State<SignUp> {
                         controller: _phoneController,
                         textInputType: TextInputType.number,
                         maxLength: 10,
+                        textInputFormatter: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         value: (value) {}),
 
                     SizedBox(
@@ -324,6 +327,13 @@ class SignUpState extends State<SignUp> {
       } else if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Email Id'),
+          backgroundColor: AppColors.black,
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+        ));
+      } else if (!AppConstants.isEmailValid(_email)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Please enter valid Email Id'),
           backgroundColor: AppColors.black,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,

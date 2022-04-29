@@ -12,6 +12,7 @@ import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'landing_page.dart';
 
@@ -140,6 +141,9 @@ class _OtpScreenState extends State<OtpScreen> {
             textInputType: TextInputType.number,
             controller: _phoneController,
             maxLength: 10,
+            textInputFormatter: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
             value: (value) {}),
         SizedBox(height: 30),
         ElevatedButton(
@@ -182,6 +186,9 @@ class _OtpScreenState extends State<OtpScreen> {
             textInputType: TextInputType.number,
             autofillHints: const <String>[AutofillHints.oneTimeCode],
             controller: _otpController,
+            textInputFormatter: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
             value: (value) {}),
         SizedBox(height: 20),
         widget.isReset ? Container(

@@ -12,6 +12,7 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
@@ -133,10 +134,13 @@ class SignInState extends State<SignIn> {
                       SizedBox(height: 20),
 
                       CustomTextField(hintText: "Phone No.",  focusNode: _phoneNode,
-textInputType: TextInputType.number,
+                        textInputType: TextInputType.number,
                         controller: _phoneController,
                         maxLength: 10,
-                        value: (value) {},),
+                          textInputFormatter: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                        value: (value) {}),
                       SizedBox(height: 20,),
                       CustomPasswordTextField(
                         hintTxt: 'Password',
