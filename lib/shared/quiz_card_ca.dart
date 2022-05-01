@@ -56,7 +56,9 @@ class _QuizCardCAState extends State<QuizCardCA> {
                  Padding(
                      padding: EdgeInsets.all(5),
                    // child: Image.asset(Images.exampur_logo,height: 50)
-                   child: AppConstants.image(AppConstants.BANNER_BASE + widget.testSeriesData.image.toString(), height: 60.0)
+                   child: widget.testSeriesData.image.toString().contains('http') ?
+                   AppConstants.image(widget.testSeriesData.image.toString(), height: 60.0) :
+                   AppConstants.image(AppConstants.BANNER_BASE + widget.testSeriesData.image.toString(), height: 60.0)
                  )
                ],
              ),

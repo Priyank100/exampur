@@ -92,7 +92,9 @@ class TestSeriesListingState extends State<TestSeriesListing> {
                                   Container(
                                       padding: EdgeInsets.only(left: 10),
                                       width: MediaQuery.of(context).size.width * 0.25,
-                                    child: AppConstants.image(AppConstants.BANNER_BASE + testSeriesList[index].image.toString(), width: 40.0, height: 60.0),
+                                    child: testSeriesList[index].image.toString().contains('http') ?
+                                    AppConstants.image(testSeriesList[index].image.toString(), width: 40.0, height: 60.0) :
+                                    AppConstants.image(AppConstants.BANNER_BASE + testSeriesList[index].image.toString(), width: 40.0, height: 60.0),
                                   ),
                                   const SizedBox(
                                     width: 15,

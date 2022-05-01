@@ -73,10 +73,9 @@ class _SubjectViewState extends State<SubjectView> {
       child: Column(
         children: [
           ClipOval(
-            child: AppConstants.image(
-              AppConstants.BANNER_BASE + subjectList[index].logoPath.toString(),
-              width: 80.0,height: 80.0,boxfit: BoxFit.fill
-            ),
+            child: subjectList[index].logoPath.toString().contains('http') ?
+            AppConstants.image(subjectList[index].logoPath.toString(), width: 80.0,height: 80.0,boxfit: BoxFit.fill) :
+            AppConstants.image(AppConstants.BANNER_BASE + subjectList[index].logoPath.toString(), width: 80.0,height: 80.0,boxfit: BoxFit.fill),
           ),
           Text(subjectList[index].title.toString(), overflow: TextOverflow.ellipsis, maxLines: 1),
         ],

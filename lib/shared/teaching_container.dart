@@ -68,7 +68,9 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           Radius.circular(10),
                         )),
                     width: double.infinity,
-                    child: AppConstants.image(AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString()),
+                    child: widget.courseData.bannerPath.toString().contains('http') ?
+                    AppConstants.image(widget.courseData.bannerPath.toString()) :
+                    AppConstants.image(AppConstants.BANNER_BASE + widget.courseData.bannerPath.toString()),
                   ),
                 ),
 

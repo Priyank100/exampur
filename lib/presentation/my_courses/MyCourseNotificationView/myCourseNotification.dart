@@ -50,7 +50,9 @@ class _MyCourseNotificationsState extends State<MyCourseNotifications> {
                   itemBuilder: (context, index) {
                     return ListTile(
                         //leading: Image.asset(Images.exampur_logo,height: 70,width: 70,),
-                      leading:  AppConstants.image(AppConstants.BANNER_BASE + myCourseNotificationList[index].imagePath.toString(),height: 90.0,width: 110.0),
+                      leading: myCourseNotificationList[index].imagePath.toString().contains('http') ?
+                      AppConstants.image(myCourseNotificationList[index].imagePath.toString(),height: 90.0,width: 110.0) :
+                      AppConstants.image(AppConstants.BANNER_BASE + myCourseNotificationList[index].imagePath.toString(),height: 90.0,width: 110.0),
                         title:Column (
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

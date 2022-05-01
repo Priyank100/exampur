@@ -46,7 +46,9 @@ class _BooksCardState extends State<BooksCard> {
       ),
       child: Column(
         children: [
-          AppConstants.image(AppConstants.BANNER_BASE +widget.books.bannerPath.toString()),
+          widget.books.bannerPath.toString().contains('http') ?
+          AppConstants.image(widget.books.bannerPath.toString()) :
+          AppConstants.image(AppConstants.BANNER_BASE + widget.books.bannerPath.toString()),
           SizedBox(height: 10),
           Text(
             widget.books.title.toString(),

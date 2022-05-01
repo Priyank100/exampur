@@ -79,8 +79,9 @@ class _One2onelistState extends State<One2onelist> {
                             padding: EdgeInsets.only(left: 10),
                             width: MediaQuery.of(context).size.width * 0.17,
 
-                          child: AppConstants.image(
-                              AppConstants.BANNER_BASE+  widget.one2oneData.logoPath.toString()),
+                          child: widget.one2oneData.logoPath.toString().contains('http') ?
+                          AppConstants.image(widget.one2oneData.logoPath.toString()) :
+                          AppConstants.image(AppConstants.BANNER_BASE +  widget.one2oneData.logoPath.toString()),
                         ),
                         const SizedBox(
                           width: 15,

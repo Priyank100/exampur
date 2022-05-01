@@ -45,7 +45,11 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
       // appBar: CustomAppBar(),
       body:
       jobAlertsData == null ?
-      Center(child: LoadingIndicator(context)) : jobAlertsData!.pdfPath==null? AppConstants.noDataFound():ViewPdf(AppConstants.BANNER_BASE +jobAlertsData!.pdfPath.toString(),'')
+      Center(child: LoadingIndicator(context)) : jobAlertsData!.pdfPath==null?
+      AppConstants.noDataFound():
+      jobAlertsData!.pdfPath.toString().contains('http') ?
+      ViewPdf(jobAlertsData!.pdfPath.toString(),'') :
+      ViewPdf(AppConstants.BANNER_BASE + jobAlertsData!.pdfPath.toString(),'')
       // InkWell(
       //     onTap: (){
       //       Navigator.push(context, MaterialPageRoute(builder: (_) =>

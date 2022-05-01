@@ -172,10 +172,9 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                                             backgroundColor:
                                             AppColors.transparent,
                                             backgroundImage:
-                                            new NetworkImage(
-                                                AppConstants.BANNER_BASE + myList[index]
-                                                    .logoPath
-                                                    .toString()),
+                                            myList[index].logoPath.toString().contains('http') ?
+                                            new NetworkImage(myList[index].logoPath.toString()) :
+                                            new NetworkImage(AppConstants.BANNER_BASE + myList[index].logoPath.toString()),
                                             radius: 20.0,
                                           ),
                                           // ClipOval(

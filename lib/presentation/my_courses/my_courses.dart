@@ -176,8 +176,11 @@ class MyCoursesState extends State<MyCourses> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  height:70,width:MediaQuery.of(context).size.width,child:
+                  height:70,width:MediaQuery.of(context).size.width,
+              child:
               //Image.asset(Images.exampur_logo,fit: BoxFit.fill)
+              courseData.bannerPath.toString().contains('http') ?
+              AppConstants.image(courseData.bannerPath.toString(),boxfit: BoxFit.fill) :
               AppConstants.image(AppConstants.BANNER_BASE + courseData.bannerPath.toString(),boxfit: BoxFit.fill)
               ),
               SizedBox(height: 10),

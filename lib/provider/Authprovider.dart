@@ -219,7 +219,7 @@ class AuthProvider extends ChangeNotifier {
       if(response != null && response.statusCode == 200) {
         var jsonObject =  jsonDecode(response.body);
         if(jsonObject['statusCode'].toString() == '200') {
-          await SharedPref.saveSharedPref(SharedPrefConstants.BANNER_BASE_SP, jsonObject['data'].toString());
+          // await SharedPref.saveSharedPref(SharedPrefConstants.BANNER_BASE_SP, jsonObject['data'].toString());
           AppConstants.printLog('BANNER_BASE>> ' + jsonObject['data'].toString());
           AppConstants.BANNER_BASE = jsonObject['data'].toString() + '/';
         } else {

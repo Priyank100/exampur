@@ -38,6 +38,8 @@ widget.contentlist.type=='PDF'?widget.contentlist.targetLink==null||widget.conte
                               onTap: (){
 
                                 Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                widget.contentlist.targetLink.toString().contains('http') ?
+                                    ViewPdf(widget.contentlist.targetLink.toString(),'') :
                                     ViewPdf(AppConstants.BANNER_BASE + widget.contentlist.targetLink.toString(),'')
                                 ));
                               },

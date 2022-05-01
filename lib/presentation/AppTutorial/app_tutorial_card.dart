@@ -37,7 +37,9 @@ class _AppTutorialCardState extends State<AppTutorialCard> {
                   width: Dimensions.AppTutorialImageWidth,
                   height: Dimensions.AppTutorialImageHeight,
                   // child: Image.network(API.homeBanner_URL + widget.listData.imagePath.toString(), fit: BoxFit.fill)
-                  child: AppConstants.image(AppConstants.BANNER_BASE + widget.listData.imagePath.toString(), boxfit: BoxFit.fill)
+                  child: widget.listData.imagePath.toString().contains('http') ?
+                  AppConstants.image(widget.listData.imagePath.toString(), boxfit: BoxFit.fill) :
+                  AppConstants.image(AppConstants.BANNER_BASE + widget.listData.imagePath.toString(), boxfit: BoxFit.fill)
                 ),
                 SizedBox(width: 10),
                 Flexible(

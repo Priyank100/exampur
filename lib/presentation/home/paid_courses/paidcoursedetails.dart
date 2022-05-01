@@ -196,6 +196,8 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                   child: InkWell(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                      widget.courseData.pdfPath.toString().contains('http') ?
+                          ViewPdf(widget.courseData.pdfPath.toString(),'') :
                           ViewPdf(AppConstants.BANNER_BASE + widget.courseData.pdfPath.toString(),'')
                       ));
                     },

@@ -77,6 +77,8 @@ class _TimeTableViewState extends State<TimeTableView> {
        child:   Row(
              mainAxisAlignment:MainAxisAlignment.start,children: [
                 // Image.asset(Images.free_course,height: 120,width: 100,),
+         myCourseTimeLineList[index].logoPath.toString().contains('http') ?
+             AppConstants.image(myCourseTimeLineList[index].logoPath.toString(),height: 80.0,width: 100.0) :
              AppConstants.image(AppConstants.BANNER_BASE + myCourseTimeLineList[index].logoPath.toString(),height: 80.0,width: 100.0,),
              SizedBox(width: 9,),
              Flexible(

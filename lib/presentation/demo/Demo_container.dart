@@ -29,8 +29,9 @@ class _DemoContainerState extends State<DemoContainer> {
            Container(
                width: Dimensions.AppTutorialImageWidth,
                height: Dimensions.AppTutorialImageHeight,
-               // child: Image.network(AppConstants.BANNER_BASE+widget.demoList[widget.index].bannerPath.toString(), fit: BoxFit.fill)
-               child: AppConstants.image(AppConstants.BANNER_BASE+widget.demoList[widget.index].logoPath.toString(), boxfit: BoxFit.fill)
+               child: widget.demoList[widget.index].logoPath.toString().contains('http') ?
+               AppConstants.image(widget.demoList[widget.index].logoPath.toString(), boxfit: BoxFit.fill) :
+               AppConstants.image(AppConstants.BANNER_BASE + widget.demoList[widget.index].logoPath.toString(), boxfit: BoxFit.fill)
            ),
            SizedBox(width: 10),
            Flexible(

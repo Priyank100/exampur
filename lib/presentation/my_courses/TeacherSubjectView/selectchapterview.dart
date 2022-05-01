@@ -173,7 +173,9 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                                Navigator.push(
                                    context,
                                    MaterialPageRoute(
-                                       builder: (context) => DownloadViewPdf(AppConstants.BANNER_BASE + materialList[index].pdfPath.toString(),materialList[index].title.toString(),'')
+                                       builder: (context) => materialList[index].pdfPath.toString().contains('http') ?
+                                           DownloadViewPdf(materialList[index].pdfPath.toString(),materialList[index].title.toString(),'') :
+                                           DownloadViewPdf(AppConstants.BANNER_BASE + materialList[index].pdfPath.toString(),materialList[index].title.toString(),'')
                                    )
                                );
                            },

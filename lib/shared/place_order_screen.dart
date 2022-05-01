@@ -33,7 +33,9 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
             //       widget.books.bannerPath.toString(),
             //   errorWidget: (context, url, error) => new Icon(Icons.error),
             // ),
-            child: AppConstants.image(AppConstants.BANNER_BASE +widget.books.bannerPath.toString()),
+            child: widget.books.bannerPath.toString().contains('http') ?
+            AppConstants.image(widget.books.bannerPath.toString()) :
+            AppConstants.image(AppConstants.BANNER_BASE + widget.books.bannerPath.toString()),
 
           ),
           Padding(

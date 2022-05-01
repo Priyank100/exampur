@@ -73,7 +73,9 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
             //       widget.books.bannerPath.toString(),
             //   errorWidget: (context, url, error) => new Icon(Icons.error),
             // ),
-            child: AppConstants.image(AppConstants.BANNER_BASE +widget.bookDetailData!.bannerPath.toString()),
+            child: widget.bookDetailData!.bannerPath.toString().contains('http') ?
+            AppConstants.image(widget.bookDetailData!.bannerPath.toString()) :
+            AppConstants.image(AppConstants.BANNER_BASE + widget.bookDetailData!.bannerPath.toString()),
 
           ),
           Padding(

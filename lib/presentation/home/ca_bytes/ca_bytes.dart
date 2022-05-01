@@ -71,9 +71,9 @@ class _CaBytesState extends State<CaBytes> {
                     decoration: BoxDecoration(color: AppColors.transparent,
                       //  border: Border.all(width: 3,color: AppColors.red)
                     ),
-                    child: AppConstants.image(
-                        AppConstants.BANNER_BASE + i.imagePath.toString(), boxfit: BoxFit.fill
-                    )
+                    child: i.imagePath.toString().contains('http') ?
+                    AppConstants.image(i.imagePath.toString(), boxfit: BoxFit.fill) :
+                    AppConstants.image(AppConstants.BANNER_BASE + i.imagePath.toString(), boxfit: BoxFit.fill)
                 );
               },
             );

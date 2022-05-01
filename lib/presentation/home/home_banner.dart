@@ -37,7 +37,7 @@ bool isLoading =false;
                 setState(() {
                   _current = index;
                   AppConstants.printLog("${_current}");
-                  AppConstants.printLog(AppConstants.BANNER_BASE + widget.bannerList[index].imagePath.toString());
+                  // AppConstants.printLog(AppConstants.BANNER_BASE + widget.bannerList[index].imagePath.toString());
                 });
               },
             ),
@@ -55,7 +55,9 @@ bool isLoading =false;
                           //   placeholder: (context, url) => new Image.asset(Images.noimage),
                           //   errorWidget: (context, url, error) => new Icon(Icons.error),
                           // ),
-                          child: AppConstants.image(AppConstants.BANNER_BASE + item.imagePath.toString(), boxfit: BoxFit.fill),
+                          child: item.imagePath.toString().contains('http') ?
+                          AppConstants.image(item.imagePath.toString(), boxfit: BoxFit.fill) :
+                          AppConstants.image(AppConstants.BANNER_BASE + item.imagePath.toString(), boxfit: BoxFit.fill),
                         ),
                         onTap: () {
                           //for sendAnalyticsEvent

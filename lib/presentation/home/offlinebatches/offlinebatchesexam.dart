@@ -68,7 +68,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
 
   @override
   Widget build(BuildContext context) {
-    AppConstants.printLog(AppConstants.BANNER_BASE);
+    // AppConstants.printLog(AppConstants.BANNER_BASE);
     return Scaffold(
         appBar: CustomAppBar(),
         body: offlineBatchesList.length == 0
@@ -178,7 +178,9 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                         //     return Image.asset(Images.exampur_logo);
                                         //   },
                                         // )
-                                      child: AppConstants.image(AppConstants.BANNER_BASE + offlineBatchesList[index].logoPath.toString()),
+                                      child: offlineBatchesList[index].logoPath.toString().contains('http') ?
+                                      AppConstants.image(offlineBatchesList[index].logoPath.toString()) :
+                                      AppConstants.image(AppConstants.BANNER_BASE + offlineBatchesList[index].logoPath.toString()),
                                     ),
                                     const SizedBox(
                                       width: 10,

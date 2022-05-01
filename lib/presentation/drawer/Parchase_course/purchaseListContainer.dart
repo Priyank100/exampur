@@ -62,7 +62,9 @@ class _PurchaseListContainerState extends State<PurchaseListContainer> {
                     //   errorWidget: (context, url, error) => new Icon(Icons.error),
                     // ),
                    // child: Image.asset(Images.exampur_logo),
-                    child: AppConstants.image(AppConstants.BANNER_BASE + widget.mypurchaseData.product!.bannerPath.toString()),
+                    child: widget.mypurchaseData.product!.bannerPath.toString().contains('http') ?
+                    AppConstants.image(widget.mypurchaseData.product!.bannerPath.toString()) :
+                    AppConstants.image(AppConstants.BANNER_BASE + widget.mypurchaseData.product!.bannerPath.toString()),
                   ),
                 ),
 

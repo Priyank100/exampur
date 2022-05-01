@@ -32,7 +32,10 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
               Container(
                   width: Dimensions.DailyMonthlyImageWidth,
                   height: Dimensions.DailyMonthlyImageHeight,
-                  child: AppConstants.image(AppConstants.BANNER_BASE + widget.listData.bannerPath.toString())) :
+                  child: widget.listData.bannerPath.toString().contains('http') ?
+                  AppConstants.image( widget.listData.bannerPath.toString()) :
+                  AppConstants.image(AppConstants.BANNER_BASE + widget.listData.bannerPath.toString())
+              ) :
               Container(
                   width: Dimensions.DailyMonthlyImageWidth,
                   height: Dimensions.DailyMonthlyImageHeight,

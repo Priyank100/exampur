@@ -119,7 +119,9 @@ class _VideosCAState extends State<VideosCA> {
                     // ),
 
                   ),
-                  child:  AppConstants.image(AppConstants.BANNER_BASE + videoList[index].bannerPath.toString()),
+                  child:  videoList[index].bannerPath.toString().contains('http') ?
+                  AppConstants.image(videoList[index].bannerPath.toString()) :
+                  AppConstants.image(AppConstants.BANNER_BASE + videoList[index].bannerPath.toString()),
                 )
             ),
             Padding(

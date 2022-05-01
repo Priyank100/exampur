@@ -122,7 +122,9 @@ isLoading=true;
                                       builder: (context) => One2onelist(one2oneList[index])));
                             },
                             // leading: Image.network(AppConstants.BANNER_BASE+one2oneList[index].logoPath.toString(),height: 40,width: 60,),
-                            leading: AppConstants.image(AppConstants.BANNER_BASE+one2oneList[index].logoPath.toString(),height: 40.0, width: 60.0),
+                            leading: one2oneList[index].logoPath.toString().contains('http') ?
+                            AppConstants.image(one2oneList[index].logoPath.toString(),height: 40.0, width: 60.0) :
+                            AppConstants.image(AppConstants.BANNER_BASE + one2oneList[index].logoPath.toString(),height: 40.0, width: 60.0),
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
