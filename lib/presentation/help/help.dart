@@ -38,10 +38,8 @@ class HelpState extends State<Help> {
 
     _descriptionController = TextEditingController();
   }
-
   @override
   void dispose() {
-
     _descriptionController.dispose();
     super.dispose();
   }
