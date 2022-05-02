@@ -45,57 +45,59 @@ class _TeacherSubjectViewState extends State<TeacherSubjectView> {
       appBar: CustomAppBar(),
       body: isLoading ? Center(child: LoadingIndicator(context)) :materialList.length == 0 ?
       AppConstants.noDataFound() :
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(getTranslated(context, StringConstant.selectChapter)!, style: TextStyle(fontSize: 25)),
-            ),
-            ListView.builder(itemCount: materialList.length,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context,int index){
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        boxShadow:const [
-                          BoxShadow(
-                            color: AppColors.grey,
-                            offset:  Offset(
-                              0.0,
-                              0.0,
+      SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(getTranslated(context, StringConstant.selectChapter)!, style: TextStyle(fontSize: 25)),
+              ),
+              ListView.builder(itemCount: materialList.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context,int index){
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          boxShadow:const [
+                            BoxShadow(
+                              color: AppColors.grey,
+                              offset:  Offset(
+                                0.0,
+                                0.0,
+                              ),
+                              blurRadius: 0.95,
+                              spreadRadius: 0.0,
                             ),
-                            blurRadius: 0.95,
-                            spreadRadius: 0.0,
-                          ),
-                        ],
-                        color: Theme.of(context).backgroundColor,
+                          ],
+                          color: Theme.of(context).backgroundColor,
+                        ),
+                        child:ListTile(
+                            contentPadding: EdgeInsets.all(8),
+                            onTap: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>SelectChapterView(widget.subjectId,widget.courseId,materialList[index].toString())));
+                            },
+                            leading: Image.asset(Images.exampur_logo,height: 40,width: 60,),
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(materialList[index].toString(),style:CustomTextStyle.drawerText(context),),
+                                ],
+                            ),
+                            trailing: Icon(Icons.arrow_forward_ios_sharp,size: 18,color: AppColors.black,)
+                        ),
                       ),
-                      child:ListTile(
-                          contentPadding: EdgeInsets.all(8),
-                          onTap: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>SelectChapterView(widget.subjectId,widget.courseId,materialList[index].toString())));
-                          },
-                          leading: Image.asset(Images.exampur_logo,height: 40,width: 60,),
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(materialList[index].toString(),style:CustomTextStyle.drawerText(context),),
-                              ],
-                          ),
-                          trailing: Icon(Icons.arrow_forward_ios_sharp,size: 18,color: AppColors.black,)
-                      ),
-                    ),
-                  );
-                })
-          ],
+                    );
+                  })
+            ],
+          ),
         ),
       ),
     );

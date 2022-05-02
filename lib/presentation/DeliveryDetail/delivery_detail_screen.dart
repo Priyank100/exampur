@@ -82,10 +82,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         child: ListView(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            widget.type == 'Course'||widget.type=='Combo' ?
+            widget.type == 'Course'|| widget.type=='Combo' ?
              Text(
               getTranslated(context, StringConstant.use_coupon)!,
-              maxLines: 2,softWrap: true,
+              maxLines: 2, softWrap: true,
               style: TextStyle(fontSize: 25),
             ) : widget.type == 'TestSeries' ? Text('Test Series', style: TextStyle(fontSize: 25)) :
         Text(

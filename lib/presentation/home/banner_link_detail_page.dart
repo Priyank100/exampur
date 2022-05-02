@@ -8,30 +8,35 @@ import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/banner_detail_model.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
 class BannerLinkDetailPage extends StatefulWidget {
   String type;
   final datalink;
-  BannerLinkDetailPage(this.type, this.datalink) ;
+
+  BannerLinkDetailPage(this.type, this.datalink);
 
   @override
   _BannerLinkDetailPageState createState() => _BannerLinkDetailPageState();
 }
 
 class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
-   Data? bannerDetailData;
-   bool isLoading=false;
+  Data? bannerDetailData;
+  bool isLoading = false;
 
   Future<void> getLists() async {
-    isLoading=true;
-   if (widget.type == 'Course') {
-      bannerDetailData= (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannnerCourseDetail(context, widget.datalink.toString()))! ;
+    isLoading = true;
+    if (widget.type == 'Course') {
+      bannerDetailData = (await Provider.of<HomeBannerProvider>(context,
+              listen: false)
+          .getHomeBannnerCourseDetail(context, widget.datalink.toString()))!;
     } else {
-      bannerDetailData= (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannnerComboDetail(context, widget.datalink.toString()))! ;
+      bannerDetailData =
+          (await Provider.of<HomeBannerProvider>(context, listen: false)
+              .getHomeBannnerComboDetail(context, widget.datalink.toString()))!;
     }
-    isLoading=false;
+    isLoading = false;
     setState(() {});
   }
-
 
   @override
   void initState() {
@@ -39,31 +44,39 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
     super.initState();
     getLists();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:bannerDetailData==null?Center(child: LoadingIndicator(context)):
-      Viedobanner(bannerDetailData!.videoPath.toString(), bannerDetailData!.title.toString(), bannerDetailData!.id.toString(), bannerDetailData!.salePrice.toString(),bannerDetailData!.regularPrice.toString())
-
-    );
+        body: bannerDetailData == null
+            ? Center(child: LoadingIndicator(context))
+            : Viedobanner(
+                widget.type,
+                bannerDetailData!.videoPath.toString(),
+                bannerDetailData!.title.toString(),
+                bannerDetailData!.id.toString(),
+                bannerDetailData!.salePrice.toString(),
+                bannerDetailData!.regularPrice.toString()));
   }
 }
 
 class Viedobanner extends StatefulWidget {
+  final String type;
   final String videoUrl;
   final String title;
   final String id;
   final String salePrice;
   final String regularPrice;
-  const Viedobanner(this.videoUrl, this.title,this.id,this.salePrice,this.regularPrice) : super();
+
+  const Viedobanner(this.type, this.videoUrl, this.title, this.id,
+      this.salePrice, this.regularPrice)
+      : super();
 
   @override
   _ViedobannerState createState() => _ViedobannerState();
 }
 
 class _ViedobannerState extends State<Viedobanner> {
-
-
   late YoutubePlayerController _controller;
   late TextEditingController _idController;
   late TextEditingController _seekToController;
@@ -76,9 +89,10 @@ class _ViedobannerState extends State<Viedobanner> {
 
   @override
   void initState() {
-    String videoId = (YoutubePlayer.convertUrlToId(widget.videoUrl.toString()) == null)
-        ? "errorstring"
-        : YoutubePlayer.convertUrlToId(widget.videoUrl.toString())!;
+    String videoId =
+        (YoutubePlayer.convertUrlToId(widget.videoUrl.toString()) == null)
+            ? "errorstring"
+            : YoutubePlayer.convertUrlToId(widget.videoUrl.toString())!;
 
     _controller = YoutubePlayerController(
       initialVideoId: videoId, //widget.url,
@@ -149,8 +163,7 @@ class _ViedobannerState extends State<Viedobanner> {
         // },
       ),
       builder: (context, player) => Scaffold(
-        appBar:CustomAppBar()
-        ,
+        appBar: CustomAppBar(),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -158,13 +171,13 @@ class _ViedobannerState extends State<Viedobanner> {
             SizedBox(height: 20),
             Flexible(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: Text(widget.title.toString(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                )),
+              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+              child: Text(widget.title.toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            )),
 
-             Padding(
+            Padding(
               padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
               child: Row(
                 children: [
@@ -177,31 +190,52 @@ class _ViedobannerState extends State<Viedobanner> {
                   ),
                   Text(
                     widget.regularPrice.toString(),
-                    style: TextStyle(color: AppColors.grey, fontSize: 18,decoration: TextDecoration.lineThrough),
+                    style: TextStyle(
+                        color: AppColors.grey,
+                        fontSize: 18,
+                        decoration: TextDecoration.lineThrough),
                   ),
-                  SizedBox(width: 5,),
+                  SizedBox(
+                    width: 5,
+                  ),
                   Text(
                     widget.salePrice.toString(),
-                    style: TextStyle( fontSize: 18,),
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
                   ),
                 ],
               ),
             ),
-               InkWell(
+            InkWell(
               onTap: () {
                 // showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
                 // _BuyCourseBottomSheet(
                 //   context,
                 // );
-                Navigator.push(
-                  context,
-                  // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
-                  MaterialPageRoute(builder: (context) =>
-                      DeliveryDetailScreen('Course', widget.id.toString(),
-                          widget.title.toString(), widget.salePrice.toString()
-                      )
-                  ),
-                );
+                // AppConstants.printLog(widget.type);
+                if (widget.type == 'Combo Course') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DeliveryDetailScreen(
+                            'Combo',
+                            widget.id.toString(),
+                            widget.title.toString(),
+                            widget.salePrice.toString())),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
+                    MaterialPageRoute(
+                        builder: (context) => DeliveryDetailScreen(
+                            'Course',
+                            widget.id.toString(),
+                            widget.title.toString(),
+                            widget.salePrice.toString())),
+                  );
+                }
               },
               child: Container(
                 width: double.infinity,
@@ -212,9 +246,9 @@ class _ViedobannerState extends State<Viedobanner> {
                 margin: EdgeInsets.all(28),
                 child: Center(
                     child: Text(
-                      getTranslated(context, StringConstant.buyCourse)!,
-                      style: TextStyle(color: AppColors.white, fontSize: 18),
-                    )),
+                  getTranslated(context, StringConstant.buyCourse)!,
+                  style: TextStyle(color: AppColors.white, fontSize: 18),
+                )),
               ),
             )
             // Padding(
@@ -238,6 +272,5 @@ class _ViedobannerState extends State<Viedobanner> {
         ),
       ),
     );
-
   }
 }
