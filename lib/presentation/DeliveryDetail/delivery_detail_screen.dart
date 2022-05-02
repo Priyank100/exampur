@@ -320,14 +320,12 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
         if (jsonObject['statusCode'].toString() == '200') {
           AppConstants.printLog('anchal' + jsonObject['data']['promo_code']);
-          AppConstants.showBottomMessage(
-              context, getTranslated(context, StringConstant.apply),
-              AppColors.black);
+          AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.apply), AppColors.black);
           isCouponValid = true;
         } else {
-          AppConstants.showBottomMessage(
-              context, jsonObject['data'].toString(), AppColors.black);
+          AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
           isCouponValid = false;
+          _cuponCodeController.text = '';
         }
       }else if(response.statusCode==429) {
         couponApi(API.CouponCode_URL_2, promoCode, id);
@@ -335,6 +333,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       } else {
         AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
         isCouponValid = false;
+        _cuponCodeController.text = '';
       }
     });
   }
