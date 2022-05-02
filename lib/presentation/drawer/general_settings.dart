@@ -213,6 +213,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       updateUserInfoModel.firstName = _firstName;
       updateUserInfoModel.lastName = lastname;
       updateUserInfoModel.emailId = _email;
+      updateUserInfoModel.dob = '';
       updateUserInfoModel.city = _city;
       updateUserInfoModel.state = selectedState;
       updateUserInfoModel.country = AppConstants.defaultCountry;

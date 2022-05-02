@@ -195,7 +195,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static String BANNER_BASE = '';
 
   static String defaultCountry = 'India';
