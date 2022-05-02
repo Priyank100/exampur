@@ -57,6 +57,7 @@ class _TeacherSubjectViewState extends State<TeacherSubjectView> {
               ),
               ListView.builder(itemCount: materialList.length,
                   shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context,int index){
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
