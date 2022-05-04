@@ -5,6 +5,7 @@ import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
@@ -24,9 +25,9 @@ class MyMaterialViedo extends StatefulWidget {
 }
 
 class _MyMaterialViedoState extends State<MyMaterialViedo> {
-  late VideoPlayerController videoPlayerController;
-  ChewieController? chewieController;
-
+  // late VideoPlayerController videoPlayerController;
+  // ChewieController? chewieController;
+  FlickManager? flickManager;
   @override
   void initState() {
     // print(widget.url);
@@ -47,42 +48,46 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
     //         ),
     //       );
     //     });
-    initializePlayer();
-  }
-  Future<void> initializePlayer() async {
-   // videoPlayerController = VideoPlayerController.network('https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4');
-    videoPlayerController = VideoPlayerController.network(widget.url);
-    await Future.wait([
-      videoPlayerController.initialize(),
-    ]);
-    chewieController = ChewieController(
-      videoPlayerController: videoPlayerController,
-      autoPlay: true,
-      looping: true,
-      aspectRatio: 16 / 9,
-      // Try playing around with some of these other options:
-
-      // showControls: false,
-      // materialProgressColors: ChewieProgressColors(
-      //   playedColor: Colors.red,
-      //   handleColor: Colors.blue,
-      //   backgroundColor: Colors.grey,
-      //   bufferedColor: Colors.lightGreen,
-      // ),
-      // placeholder: Container(
-      //   color: Colors.grey,
-      // ),
-      // autoInitialize: true,
-        errorBuilder: (context, errorMessage) {
-          return Center(
-            child: Text(
-              errorMessage,
-              style: TextStyle(color: AppColors.white),
-            ),
-          );}
+   // initializePlayer();
+    flickManager = FlickManager(
+      videoPlayerController:
+      VideoPlayerController.network('https://vod.teachx.in/videos/EAXTiOQo-3iwbS6ep.mp4'),
     );
-    setState(() {});
   }
+  // Future<void> initializePlayer() async {
+  //  // videoPlayerController = VideoPlayerController.network('https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4');
+  //   videoPlayerController = VideoPlayerController.network(widget.url);
+  //   await Future.wait([
+  //     videoPlayerController.initialize(),
+  //   ]);
+  //   chewieController = ChewieController(
+  //     videoPlayerController: videoPlayerController,
+  //     autoPlay: true,
+  //     looping: true,
+  //     aspectRatio: 16 / 9,
+  //     // Try playing around with some of these other options:
+  //
+  //     // showControls: false,
+  //     // materialProgressColors: ChewieProgressColors(
+  //     //   playedColor: Colors.red,
+  //     //   handleColor: Colors.blue,
+  //     //   backgroundColor: Colors.grey,
+  //     //   bufferedColor: Colors.lightGreen,
+  //     // ),
+  //     // placeholder: Container(
+  //     //   color: Colors.grey,
+  //     // ),
+  //     // autoInitialize: true,
+  //       errorBuilder: (context, errorMessage) {
+  //         return Center(
+  //           child: Text(
+  //             errorMessage,
+  //             style: TextStyle(color: AppColors.white),
+  //           ),
+  //         );}
+  //   );
+  //   setState(() {});
+  // }
 
   // @override
   // void dispose() {
@@ -90,12 +95,12 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
   //   chewieController.dispose();
   //   super.dispose();
   // }
-  @override
-  void dispose() {
-    videoPlayerController.dispose();
-    chewieController?.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   videoPlayerController.dispose();
+  //   chewieController?.dispose();
+  //   super.dispose();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,19 +115,22 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
             color: AppColors.transparent,
             height: (MediaQuery.of(context).size.width) / 16 * 9,
             width: MediaQuery.of(context).size.width,
-            child: chewieController != null &&
-                chewieController!
-                    .videoPlayerController.value.isInitialized
-                ? Chewie(
-              controller: chewieController!,
-            )
-                : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                CircularProgressIndicator(color: AppColors.amber,),
-
-              ],
+            child: FlickVideoPlayer(
+                flickManager: flickManager!
             ),
+            // child: chewieController != null &&
+            //     chewieController!
+            //         .videoPlayerController.value.isInitialized
+            //     ? Chewie(
+            //   controller: chewieController!,
+            // )
+            //     : Column(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: const [
+            //     CircularProgressIndicator(color: AppColors.amber,),
+
+            //   ],
+            // ),
           ),
           // Container(
           //   //padding: EdgeInsets.only(top: 8),
