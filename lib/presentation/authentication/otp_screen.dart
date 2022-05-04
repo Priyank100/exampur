@@ -4,7 +4,7 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/presentation/home/LandingChooseCategory.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
-import 'package:exampur_mobile/presentation/home/bottom_navigation_new.dart';
+
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -111,7 +111,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder:
                             (context) =>
-                            BottomNavigationNew()
+                            BottomNavigation()
                         )
                     );
                   }

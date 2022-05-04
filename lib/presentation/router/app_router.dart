@@ -4,7 +4,7 @@ import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/help/help.dart';
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
-import 'package:exampur_mobile/presentation/home/bottom_navigation_new.dart';
+
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
 import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
@@ -16,7 +16,7 @@ class AppRouter {
     switch (routeSettings.name) {
       case '/':
         return MaterialPageRoute(
-          builder: (_) => BottomNavigationNew(),
+          builder: (_) => BottomNavigation(),
         );
 
       case '/home':

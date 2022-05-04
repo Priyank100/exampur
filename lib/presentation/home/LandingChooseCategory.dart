@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
-import 'package:exampur_mobile/presentation/home/bottom_navigation_new.dart';
+
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -368,7 +368,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
-                BottomNavigationNew()
+                BottomNavigation()
             )
         );
       } else if(response.statusCode == 429) {
@@ -387,7 +387,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder:
                     (context) =>
-                    BottomNavigationNew()
+                    BottomNavigation()
                 )
             );
           } else {

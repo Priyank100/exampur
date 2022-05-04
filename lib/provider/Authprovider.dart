@@ -15,7 +15,7 @@ import 'package:exampur_mobile/presentation/authentication/otp_screen.dart';
 import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
 import 'package:exampur_mobile/presentation/home/LandingChooseCategory.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
-import 'package:exampur_mobile/presentation/home/bottom_navigation_new.dart';
+
 import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -247,7 +247,7 @@ class AuthProvider extends ChangeNotifier {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
-                BottomNavigationNew()
+                BottomNavigation()
             )
         );
       }

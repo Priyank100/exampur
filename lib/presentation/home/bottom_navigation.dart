@@ -36,14 +36,14 @@ class ItemClass {
   final icon;
 }
 
-class BottomNavigationOld extends StatefulWidget {
-  const BottomNavigationOld({Key? key}) : super(key: key);
+class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({Key? key}) : super(key: key);
 
   @override
-  _BottomNavigationOldState createState() => _BottomNavigationOldState();
+  _BottomNavigationState createState() => _BottomNavigationState();
 }
 
-class _BottomNavigationOldState extends State<BottomNavigationOld>
+class _BottomNavigationState extends State<BottomNavigation>
     with TickerProviderStateMixin {
   int _currIndex = 0;
   late AnimationController _hide;
