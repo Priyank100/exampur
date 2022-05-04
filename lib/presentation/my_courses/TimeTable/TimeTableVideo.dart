@@ -34,7 +34,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
   final ScrollController _scrollController = ScrollController();
   Map<String, dynamic> map = Map();
   late VideoPlayerController videoPlayerController;
-  late ChewieController chewieController;
+  ChewieController? chewieController;
 
 
 
@@ -123,26 +123,62 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
   @override
   void initState() {
     super.initState();
+    initializePlayer();
     getChat();
     getSharedPrefData();
+    // videoPlayerController = VideoPlayerController.network(widget.url);
+    // chewieController = ChewieController(
+    //   cupertinoProgressColors: ChewieProgressColors(),
+    //   videoPlayerController: videoPlayerController,
+    //     aspectRatio: 16/9,
+    //   autoPlay: true,
+    //   looping: true,
+    //     errorBuilder: (context, errorMessage) {
+    //       return Center(
+    //         child: Text("Video unavanilable",style: TextStyle(color: AppColors.white),),
+    //       );
+    //     });
+
+  }
+
+  Future<void> initializePlayer() async {
+    // videoPlayerController = VideoPlayerController.network('https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4');
     videoPlayerController = VideoPlayerController.network(widget.url);
+    await Future.wait([
+      videoPlayerController.initialize(),
+    ]);
     chewieController = ChewieController(
-      cupertinoProgressColors: ChewieProgressColors(),
-      videoPlayerController: videoPlayerController,
-        aspectRatio: 16/9,
-      autoPlay: true,
-      looping: true,
+        videoPlayerController: videoPlayerController,
+        autoPlay: true,
+        looping: true,
+        aspectRatio: 16 / 9,
+        // Try playing around with some of these other options:
+
+        // showControls: false,
+        // materialProgressColors: ChewieProgressColors(
+        //   playedColor: Colors.red,
+        //   handleColor: Colors.blue,
+        //   backgroundColor: Colors.grey,
+        //   bufferedColor: Colors.lightGreen,
+        // ),
+        // placeholder: Container(
+        //   color: Colors.grey,
+        // ),
+        // autoInitialize: true,
         errorBuilder: (context, errorMessage) {
           return Center(
-            child: Text("Video unavanilable",style: TextStyle(color: AppColors.white),),
-          );
-        });
-
+            child: Text(
+              errorMessage,
+              style: TextStyle(color: AppColors.white),
+            ),
+          );}
+    );
+    setState(() {});
   }
   @override
   void dispose() {
     videoPlayerController.dispose();
-    chewieController.dispose();
+    chewieController!.dispose();
     super.dispose();
   }
 
@@ -164,9 +200,13 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
               height: (MediaQuery.of(context).size.width)/16*9,
             //  height: MediaQuery.of(context).size.height*0.4,
               //width: MediaQuery.of(context).size.width,
-              child: Chewie(
-                  controller: chewieController
-              ),
+              child: chewieController != null &&
+                  chewieController!
+                      .videoPlayerController.value.isInitialized
+                  ? Chewie(
+                controller: chewieController!,
+              )
+                  :   Center(child: CircularProgressIndicator(color: AppColors.amber,)),
             ),
             Padding(
               padding: const EdgeInsets.all(8),
