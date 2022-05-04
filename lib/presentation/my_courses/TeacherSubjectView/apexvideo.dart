@@ -18,30 +18,65 @@ class MyApexVideoMaterial extends StatefulWidget {
 
 class _MyApexVideoMaterialState extends State<MyApexVideoMaterial> {
   late VideoPlayerController videoPlayerController;
-  late ChewieController chewieController;
+  ChewieController? chewieController;
 
   @override
   void initState() {
     super.initState();
+    // videoPlayerController = VideoPlayerController.network(widget.url);
+    // chewieController = ChewieController(
+    //     cupertinoProgressColors: ChewieProgressColors(),
+    //     videoPlayerController: videoPlayerController,
+    //     aspectRatio: 16/9,
+    //     autoPlay: true,
+    //     looping: true,
+    //     autoInitialize: true,
+    //     errorBuilder: (context, errorMessage) {
+    //       return Center(
+    //         child: Text("Video unavanilable",style: TextStyle(color: AppColors.white),),
+    //       );
+    //     });
+    initializePlayer();
+
+  }
+  Future<void> initializePlayer() async {
+    // videoPlayerController = VideoPlayerController.network('https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4');
     videoPlayerController = VideoPlayerController.network(widget.url);
+    await Future.wait([
+      videoPlayerController.initialize(),
+    ]);
     chewieController = ChewieController(
-        cupertinoProgressColors: ChewieProgressColors(),
         videoPlayerController: videoPlayerController,
-        aspectRatio: 16/9,
         autoPlay: true,
         looping: true,
-        autoInitialize: true,
+        aspectRatio: 16 / 9,
+        // Try playing around with some of these other options:
+
+        // showControls: false,
+        // materialProgressColors: ChewieProgressColors(
+        //   playedColor: Colors.red,
+        //   handleColor: Colors.blue,
+        //   backgroundColor: Colors.grey,
+        //   bufferedColor: Colors.lightGreen,
+        // ),
+        // placeholder: Container(
+        //   color: Colors.grey,
+        // ),
+        // autoInitialize: true,
         errorBuilder: (context, errorMessage) {
           return Center(
-            child: Text("Video unavanilable",style: TextStyle(color: AppColors.white),),
-          );
-        });
-
+            child: Text(
+              errorMessage,
+              style: TextStyle(color: AppColors.white),
+            ),
+          );}
+    );
+    setState(() {});
   }
   @override
   void dispose() {
     videoPlayerController.dispose();
-    chewieController.dispose();
+    chewieController!.dispose();
     super.dispose();
   }
 
@@ -58,9 +93,16 @@ class _MyApexVideoMaterialState extends State<MyApexVideoMaterial> {
             //padding: EdgeInsets.only(top: 8),
             height: (MediaQuery.of(context).size.width)/16*9,
             width: MediaQuery.of(context).size.width,
-            child: Chewie(
-                controller: chewieController
-            ),
+            child:chewieController != null &&
+                chewieController!
+                    .videoPlayerController.value.isInitialized
+                ? Chewie(
+              controller: chewieController!,
+            )
+                :
+                Center(child: CircularProgressIndicator(color: AppColors.amber,)),
+
+
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
