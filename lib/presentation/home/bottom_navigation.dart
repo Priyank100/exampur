@@ -36,14 +36,14 @@ class ItemClass {
   final icon;
 }
 
-class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({Key? key}) : super(key: key);
+class BottomNavigationOld extends StatefulWidget {
+  const BottomNavigationOld({Key? key}) : super(key: key);
 
   @override
-  _BottomNavigationState createState() => _BottomNavigationState();
+  _BottomNavigationOldState createState() => _BottomNavigationOldState();
 }
 
-class _BottomNavigationState extends State<BottomNavigation>
+class _BottomNavigationOldState extends State<BottomNavigationOld>
     with TickerProviderStateMixin {
   int _currIndex = 0;
   late AnimationController _hide;
@@ -664,10 +664,10 @@ class _BottomNavigationState extends State<BottomNavigation>
         //  unselectedItemColor: AppColors.black,
           onTap: (index) {
             setState(() {
-              if(index==2 && !AppConstants.PHONE_VERIFY) {
-                AppConstants.showAlertDialogWithButton(context, getTranslated(context, StringConstant.Pleaseverifyyourphoneno)!, route);
-                return;
-              }
+              // if(index==2 && !AppConstants.PHONE_VERIFY) {
+              //   AppConstants.showAlertDialogWithButton(context, getTranslated(context, StringConstant.Pleaseverifyyourphoneno)!, route);
+              //   return;
+              // }
               _currIndex = index;
             });
           // print('Anchal>>>>>>>>>>>>>>>>>>>>>>> $_currIndex');

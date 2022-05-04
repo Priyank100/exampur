@@ -222,7 +222,7 @@ class AppConstants {
 
   static String testSeriesToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjI4NjZiNTI2M2JjZDU5NGNlYjQ2OTEiLCJpYXQiOjE2NDY4MTQ5ODIsImV4cCI6MTY0NjkwMTM4Mn0.nC3XmvNX2Y_hKsiF1ZARgaMrWMVJ2w80AFyAKT0mLsA';
 
-  static bool PHONE_VERIFY            = true;
+  // static bool PHONE_VERIFY            = true;
   static String CATEGORY_LENGTH       = '0';
 
   static void printLog(message) {
