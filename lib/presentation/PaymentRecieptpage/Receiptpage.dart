@@ -33,7 +33,6 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
   @override
   void initState() {
     getReceipt(true);
-    //subscription();
   }
 
   void subscription(String topic) async {
