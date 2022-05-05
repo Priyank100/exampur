@@ -140,7 +140,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
                             padding: const EdgeInsets.only(top: 10),
                             child: CustomRoundButton(text: getTranslated(context, StringConstant.viewPdf)!, onPressed: (){
                               if (_status == DownloadTaskStatus.complete) {
-                                Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
                                     ViewPdf('',_file!.path)
                                 ));
                               }

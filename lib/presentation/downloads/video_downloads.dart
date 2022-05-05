@@ -158,8 +158,7 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
                               padding: const EdgeInsets.only(top: 10),
                               child: CustomRoundButton(text:getTranslated(context, StringConstant.watch)!, onPressed: (){
                                 if (_status == DownloadTaskStatus.complete) {
-                                  Navigator.push(
-                                      context,
+                                  Navigator.of(context, rootNavigator: true).push(
                                       MaterialPageRoute(
                                           builder: (context) => LocalVideoScreen(_file!, _filename)
                                       )

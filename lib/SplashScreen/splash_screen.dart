@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
-import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
+import 'package:exampur_mobile/presentation/home/bottom_navigation_old.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';

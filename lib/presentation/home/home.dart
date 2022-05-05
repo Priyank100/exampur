@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
     ///gives you the message on which user taps
     ///and it opened the app from terminated state
     FirebaseMessaging.instance.getInitialMessage().then((message) {
-      if(message != null){
+      if (message != null) {
         final routeFromMessage = message.data["route"];
 
         Navigator.of(context).pushNamed(routeFromMessage);
@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
 
     ///forground work
     FirebaseMessaging.onMessage.listen((message) {
-      if(message.notification != null){
+      if (message.notification != null) {
         AppConstants.printLog(message.notification!.body);
         AppConstants.printLog(message.notification!.title);
       }
@@ -81,7 +81,8 @@ class _HomeState extends State<Home> {
         .firstName
         .toString();
     // String token = await Provider.of<AuthProvider>(context, listen: false).informationModel.data!.authToken.toString();
-    bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context))!;
+    bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false)
+        .getHomeBannner(context))!;
     // AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
     // AppConstants.selectedCategoryList = selectCategorylist;
     setState(() {});
@@ -99,7 +100,7 @@ class _HomeState extends State<Home> {
     Locale _locale = await setLocale(language.languageCode);
     MyApp.setLocale(context, _locale);
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -117,31 +118,34 @@ class _HomeState extends State<Home> {
                 ),
                 Flexible(
                   child: DropdownButton<Language>(
-                      underline: SizedBox(),
-                      icon:Image.asset(Images.language,height: 35,width: 30,),
-                      onChanged: (Language? language) {
-                        _changeLanguage(language!);
-                      },
-                      items: Language.languageList()
-                          .map<DropdownMenuItem<Language>>(
-                            (e) => DropdownMenuItem<Language>(
-                              value: e,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Text(
-                                    e.flag,
-                                    style: TextStyle(fontSize: 30),
-                                  ),
-                                  Text(e.name)
-                                ],
-                              ),
-                            ),
-                          )
-                          .toList(),
+                    underline: SizedBox(),
+                    icon: Image.asset(
+                      Images.language,
+                      height: 35,
+                      width: 30,
                     ),
+                    onChanged: (Language? language) {
+                      _changeLanguage(language!);
+                    },
+                    items: Language.languageList()
+                        .map<DropdownMenuItem<Language>>(
+                          (e) => DropdownMenuItem<Language>(
+                            value: e,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Text(
+                                  e.flag,
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                                Text(e.name)
+                              ],
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
-
               ],
             ),
             // SizedBox(height: 5),
@@ -165,29 +169,32 @@ class _HomeState extends State<Home> {
             SizedBox(height: Dimensions.FONT_SIZE_OVER_LARGE),
             Row(
               children: [
-
                 SquareButton(
-                    image: Images.paidcourse,
-                    title: getTranslated(context, 'paid_course')!,
-                    color: AppColors.paidCourses,
-                   onPressed: (){
-                     AppConstants.sendAnalyticsEvent('PAID_COURSES_CLICK');
-                     // _sendAnalyticsEvent('PAID_COURSES_CLICK');
-                      Navigator.push(
-         context, MaterialPageRoute(builder: (_) =>PaidCourses(1) ));},
-                   // navigateTo: PaidCourses(1)
+                  image: Images.paidcourse,
+                  title: getTranslated(context, 'paid_course')!,
+                  color: AppColors.paidCourses,
+                  onPressed: () {
+                    AppConstants.sendAnalyticsEvent('PAID_COURSES_CLICK');
+                    // _sendAnalyticsEvent('PAID_COURSES_CLICK');
+                    //  Navigator.push(context, MaterialPageRoute(builder: (_) =>PaidCourses(1) ));
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(builder: (_) => PaidCourses(1)));
+                  },
+                  // navigateTo: PaidCourses(1)
                 ),
                 SquareButton(
-                    image: Images.free_course,
-                    title: getTranslated(context, 'free_courses')!,
-                    color: AppColors.freeCourses,
-                  onPressed: (){
+                  image: Images.free_course,
+                  title: getTranslated(context, 'free_courses')!,
+                  color: AppColors.freeCourses,
+                  onPressed: () {
                     AppConstants.sendAnalyticsEvent('FREE_COURSES_CLICKED');
-                      Navigator.push(
+                    Navigator.of(context, rootNavigator: true).push(
 
-                     // context, MaterialPageRoute(builder: (_) =>PaidCourses(0) ));},),
-    context, MaterialPageRoute(builder: (_) =>PaidCourses(0) ));},),
-                    //navigateTo:PaidCourses(0)),
+                        // context, MaterialPageRoute(builder: (_) =>PaidCourses(0) ));},),
+                        MaterialPageRoute(builder: (_) => PaidCourses(0)));
+                  },
+                ),
+                //navigateTo:PaidCourses(0)),
               ],
             ),
             SizedBox(
@@ -196,25 +203,27 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 SquareButton(
-                    image: Images.book,
-                    title: getTranslated(context, 'books')!,
-                    color: AppColors.book,
-                    //navigateTo: BooksEbook()
-                  onPressed: (){
-                      AppConstants.sendAnalyticsEvent('BOOKS_CLICKED');
-                      Navigator.push(
-                      context, MaterialPageRoute(builder: (_) =>BooksEbook() ));},
+                  image: Images.book,
+                  title: getTranslated(context, 'books')!,
+                  color: AppColors.book,
+                  //navigateTo: BooksEbook()
+                  onPressed: () {
+                    AppConstants.sendAnalyticsEvent('BOOKS_CLICKED');
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(builder: (_) => BooksEbook()));
+                  },
                 ),
                 SquareButton(
-                    image: Images.testseries,
-                    title: getTranslated(context, 'test_courses')!,
-                    color: AppColors.series,
-                   // navigateTo: TestSeriesTab()
-                  onPressed: (){
+                  image: Images.testseries,
+                  title: getTranslated(context, 'test_courses')!,
+                  color: AppColors.series,
+                  // navigateTo: TestSeriesTab()
+                  onPressed: () {
                     AppConstants.sendAnalyticsEvent('TEST_SERIES_CLICKED');
-                 // AppConstants._sendAnalyticsEvent('TEST_SERIES_CLICKED');
-                      Navigator.push(
-                      context, MaterialPageRoute(builder: (_) =>TestSeriesTab() ));},
+                    // AppConstants._sendAnalyticsEvent('TEST_SERIES_CLICKED');
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(builder: (_) => TestSeriesTab()));
+                  },
                 ),
                 // SquareButton(
                 //     image: Images.one2one,
@@ -231,29 +240,31 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 SquareButton(
-                    image: Images.dailyquiz,
-                    title: getTranslated(context, 'daily_quiz')!,
-                    color: AppColors.quiz,
-                  onPressed: (){
+                  image: Images.dailyquiz,
+                  title: getTranslated(context, 'daily_quiz')!,
+                  color: AppColors.quiz,
+                  onPressed: () {
                     AppConstants.sendAnalyticsEvent('DAILY_QUIZ_CLICKED');
-                      Navigator.push(
-                      context, MaterialPageRoute(builder: (_) =>
-                          DailyQuiz()
-                      ));},
-                    // navigateTo:DailyQuiz()
-                   // navigateTo:ChatPage()
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(builder: (_) => DailyQuiz()));
+                  },
+                  // navigateTo:DailyQuiz()
+                  // navigateTo:ChatPage()
                 ),
                 SquareButton(
-                    image: Images.studymaterial,
-                    title: getTranslated(context, 'study_materials')!,
-                    color: AppColors.one2one,
-                  onPressed: (){
+                  image: Images.studymaterial,
+                  title: getTranslated(context, 'study_materials')!,
+                  color: AppColors.one2one,
+                  onPressed: () {
                     AppConstants.sendAnalyticsEvent('CURRENT_AFFAIRS_CLICKED');
-                      Navigator.push(
-                      context, MaterialPageRoute(builder: (_) =>CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)));},
-                    //navigateTo: CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)
-                  ),
-
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (_) => CurrentAffairs(
+                                getTranslated(context, 'study_materials')!,
+                                AppConstants.studyMaterialsId)));
+                  },
+                  //navigateTo: CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)
+                ),
               ],
             ),
             SizedBox(
@@ -262,19 +273,28 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 SquareButton(
-                    image: Images.jobalert,
-                    title: getTranslated(context, 'job_alerts')!,
-                    color: AppColors.jobAlert,
-                    onPressed: (){Navigator.push(
-                        context, MaterialPageRoute(builder: (_) =>JobAlerts() ));},),
-                   // navigateTo:JobAlerts()),
+                  image: Images.jobalert,
+                  title: getTranslated(context, 'job_alerts')!,
+                  color: AppColors.jobAlert,
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(builder: (_) => JobAlerts()));
+                  },
+                ),
+                // navigateTo:JobAlerts()),
                 SquareButton(
-                    image: Images.current_affair,
-                    title: getTranslated(context, 'current_affairs')!,
-                    color: AppColors.affairs,
-                  onPressed: (){Navigator.push(
-                      context, MaterialPageRoute(builder: (_) =>CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId) ));},),
-                   // navigateTo: CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId)),
+                  image: Images.current_affair,
+                  title: getTranslated(context, 'current_affairs')!,
+                  color: AppColors.affairs,
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (_) => CurrentAffairs(
+                                getTranslated(context, 'current_affairs')!,
+                                AppConstants.currentAffairesId)));
+                  },
+                ),
+                // navigateTo: CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId)),
                 // SquareButton(
                 //     image: Images.offlinebatch,
                 //     title: getTranslated(context, 'offline_batches')!,
@@ -299,11 +319,13 @@ class _HomeState extends State<Home> {
                 //     color: AppColors.quiz,
                 //     navigateTo: CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)),
                 SquareButton(
-                    image: Images.caBytes,
-                    title: getTranslated(context,StringConstant.CaBytes)!,
-                    color: AppColors.jobAlert,
-                    onPressed: (){Navigator.push(
-                        context, MaterialPageRoute(builder: (_) =>CaBytes() ));},
+                  image: Images.caBytes,
+                  title: getTranslated(context, StringConstant.CaBytes)!,
+                  color: AppColors.jobAlert,
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(builder: (_) => CaBytes()));
+                  },
                   //  navigateTo: CaBytes()
                 ),
               ],
@@ -311,12 +333,10 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 10,
             ),
-
           ],
         ),
       ),
     );
-
   }
 }
 

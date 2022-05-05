@@ -48,9 +48,7 @@ class _DemoContainerState extends State<DemoContainer> {
                          'Course_title':widget.demoList[widget.index].title.toString().replaceAll(' ', '_')
                        });
 
-     Navigator.push(
-     context,
-     MaterialPageRoute(
+                       Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
      builder: (context) =>YoutubeVideo(widget.demoList[widget.index].targetLink.toString(),widget.demoList[widget.index].title.toString())));
      },text:getTranslated(context, StringConstant.watch)!,),
 

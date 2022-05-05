@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/final_order_pay_model.dart';
-import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
+import 'package:exampur_mobile/presentation/home/bottom_navigation_old.dart';
+import 'package:exampur_mobile/presentation/home/bottom_navigation_new.dart';
 
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -103,7 +104,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
               context,
               MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      BottomNavigation()),
+                      BottomNavigationNew()),
                   (Route<dynamic> route) => false);
           return true;
         },
@@ -120,7 +121,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              BottomNavigation()),
+                              BottomNavigationNew()),
                           (Route<dynamic> route) => false);
                 },
                 child: Icon(Icons.arrow_back)),
@@ -239,7 +240,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          BottomNavigation()),
+                          BottomNavigationNew()),
                       (Route<dynamic> route) => false);
             },
             child: Container(

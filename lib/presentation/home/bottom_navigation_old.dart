@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
@@ -36,15 +38,14 @@ class ItemClass {
   final icon;
 }
 
-class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({Key? key}) : super(key: key);
+class BottomNavigationOld extends StatefulWidget {
+  const BottomNavigationOld({Key? key}) : super(key: key);
 
   @override
-  _BottomNavigationState createState() => _BottomNavigationState();
+  _BottomNavigationOldState createState() => _BottomNavigationOldState();
 }
 
-class _BottomNavigationState extends State<BottomNavigation>
-    with TickerProviderStateMixin {
+class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerProviderStateMixin {
   int _currIndex = 0;
   late AnimationController _hide;
   late List<AnimationController> _faders;
@@ -53,6 +54,15 @@ class _BottomNavigationState extends State<BottomNavigation>
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<Data> allCategoriesList = [];
   List<String> selectedCategoryName = [];
+  String PHONE_VERIFY = '';
+
+  final List<Widget> widgetList = [
+    Home(),
+    Demo(),
+    MyCourses(),
+    Downloads(0),
+    Help()
+  ];
 
   @override
   void initState() {
@@ -66,9 +76,7 @@ class _BottomNavigationState extends State<BottomNavigation>
       );
     }).toList();
     _faders[_currIndex].value = 1.0;
-    _destinationKeys =
-        List<Key>.generate(widgetList.length, (int index) => GlobalKey())
-            .toList();
+    _destinationKeys = List<Key>.generate(widgetList.length, (int index) => GlobalKey()).toList();
     _hide = AnimationController(vsync: this, duration: kThemeAnimationDuration);
 
     callProvider();
@@ -76,10 +84,13 @@ class _BottomNavigationState extends State<BottomNavigation>
 
   Future<void> callProvider() async {
     allCategoriesList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getAllCategoryList(context))!;
+
+    var userData = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    PHONE_VERIFY = userData[0]['data']['phone_conf'].toString();
+
     await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((token) async {
       AppConstants.printLog('TOKEN>> $token');
       AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
-      // AppConstants.printLog( 'Anchal>>>>>>>>>>>>>>>>>>>>>>>'+AppConstants.selectedCategoryList.toString());
 
       for(int i=0; i < AppConstants.selectedCategoryList.length; i++) {
         for(int j=0; j<allCategoriesList.length; j++) {
@@ -89,10 +100,7 @@ class _BottomNavigationState extends State<BottomNavigation>
           }
         }
       }
-      AppConstants.printLog( 'Anchal>>>>>>>>>>>>>>>>>>>>>>>'+selectedCategoryName[0].toString());
-      setState(() {
-      });
-
+      setState(() {});
     });
   }
 
@@ -109,13 +117,6 @@ class _BottomNavigationState extends State<BottomNavigation>
       _counter++;
     });
   }
-  final List<Widget> widgetList = [
-    Home(),
-    Demo(),
-    MyCourses(),
-    Downloads(0),
-    Help()
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -652,25 +653,24 @@ class _BottomNavigationState extends State<BottomNavigation>
           ),
         ),
 
-        // bottomNavigationBar: SizeTransition(
-        //   sizeFactor: _hide,
-        //   axisAlignment: -1.0,
-        //   child: BottomNavigationBar(
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _currIndex,
           showUnselectedLabels: true,
-        //  fixedColor: Theme.of(context).primaryColor,
-        //  unselectedItemColor: AppColors.black,
           onTap: (index) {
             setState(() {
-              // if(index==2 && !AppConstants.PHONE_VERIFY) {
-              //   AppConstants.showAlertDialogWithButton(context, getTranslated(context, StringConstant.Pleaseverifyyourphoneno)!, route);
-              //   return;
-              // }
+              if(index==2 && PHONE_VERIFY=='false') {
+                AppConstants.showAlertDialogWithButton(context, getTranslated(context, StringConstant.Pleaseverifyyourphoneno)!, route);
+                return;
+              }
+              if(index==2) {
+
+                setState(() {
+                  MyCourses();
+                });
+              }
               _currIndex = index;
             });
-          // print('Anchal>>>>>>>>>>>>>>>>>>>>>>> $_currIndex');
           if(_currIndex == 1 || _currIndex == 2 || _currIndex == 3) {
             AppConstants.sendAnalyticsEvent(
                 _currIndex == 1 ? 'DEMO_CLICKED' :
@@ -680,21 +680,16 @@ class _BottomNavigationState extends State<BottomNavigation>
           }
           },
           iconSize: 20,
-selectedItemColor: AppColors.amber,
-
+          selectedItemColor: AppColors.amber,
           unselectedFontSize: 12,
           selectedFontSize: 12,
-          //unselectedLabelStyle: TextStyle(color: AppColors.amber),
           items: allItems.map((item) {
             return BottomNavigationBarItem(
               icon: item.icon,
               label: item.label,
-
             );
           }).toList(),
         ),
-        // ),
-        // ),
       ),
     );
   }

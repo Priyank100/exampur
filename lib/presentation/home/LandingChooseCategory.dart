@@ -11,7 +11,8 @@ import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'bottom_navigation.dart';
+import 'bottom_navigation_old.dart';
+import 'bottom_navigation_new.dart';
 
 class LandingChooseCategory extends StatefulWidget {
   // final bool isMultiSelection;
@@ -368,7 +369,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
-                BottomNavigation()
+                BottomNavigationNew()
             )
         );
       } else if(response.statusCode == 429) {
@@ -387,7 +388,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder:
                     (context) =>
-                    BottomNavigation()
+                    BottomNavigationNew()
                 )
             );
           } else {

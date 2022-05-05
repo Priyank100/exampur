@@ -162,7 +162,7 @@ class MyCoursesState extends State<MyCourses> {
   Widget GridItem(courseData) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) =>
+        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
             MyCourseTabView(courseData.id.toString())
         ));
       },

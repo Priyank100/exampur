@@ -198,7 +198,7 @@ issuevalue='Select issue';
                         elevation: 5.0,
                       ),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) =>AppTutorial()));
+                        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) =>AppTutorial()));
                       },
                       child: Text(
                         getTranslated(context, StringConstant.watchAppTutorial)!,

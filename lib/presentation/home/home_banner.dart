@@ -62,15 +62,12 @@ bool isLoading =false;
                         onTap: () {
                           //for sendAnalyticsEvent
                           item.type=='Course' || item.type=='Combo Course' ? AppConstants.sendAnalyticsEvent('BANNER_Course_CLICKED'):
-                          item.type=='Book'?AppConstants.sendAnalyticsEvent('BANNER_Course_Book'):AppConstants.sendAnalyticsEvent('BANNER_Course_ExternalLink');
+                          item.type=='Book'? AppConstants.sendAnalyticsEvent('BANNER_Course_Book'):AppConstants.sendAnalyticsEvent('BANNER_Course_ExternalLink');
 
                           item.type=='Course' || item.type=='Combo Course'?
-                          Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                              BannerLinkDetailPage(item.type.toString(),item.link.toString())
-                          )):
+                          Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => BannerLinkDetailPage(item.type.toString(),item.link.toString()))):
                           item.type=='Book'?
-                          Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                              BannerLinkBookDetailPage(item.type.toString(),item.link.toString())
+                          Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => BannerLinkBookDetailPage(item.type.toString(),item.link.toString())
                           )):
                           // Navigator.push(context, MaterialPageRoute(builder: (_) =>
                           //     BannerDetailPage(item.link.toString(),item.title.toString())
