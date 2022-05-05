@@ -22,7 +22,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = true;
+  static bool isPrint       = false;
   static String BANNER_BASE = '';
 
   static String defaultCountry = 'India';
@@ -53,7 +53,7 @@ class AppConstants {
 
   static void printLog(message) {
     if (isPrint) {
-      print('Exampur>');
+      print('Exampur> ');
       print(message);
     }
   }
