@@ -8,6 +8,7 @@ import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -33,9 +34,9 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
   TextEditingController _sendchat = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   Map<String, dynamic> map = Map();
-  late VideoPlayerController videoPlayerController;
-  ChewieController? chewieController;
-
+  // late VideoPlayerController videoPlayerController;
+  // ChewieController? chewieController;
+  FlickManager? flickManager;
 
 
   Future<bool> checkIfDocExists(String docId) async {
@@ -123,9 +124,13 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
   @override
   void initState() {
     super.initState();
-    initializePlayer();
+    // initializePlayer();
     getChat();
     getSharedPrefData();
+    flickManager = FlickManager(
+      videoPlayerController:
+      VideoPlayerController.network(widget.url),
+    );
     // videoPlayerController = VideoPlayerController.network(widget.url);
     // chewieController = ChewieController(
     //   cupertinoProgressColors: ChewieProgressColors(),
@@ -140,47 +145,47 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     //     });
 
   }
-
-  Future<void> initializePlayer() async {
-    // videoPlayerController = VideoPlayerController.network('https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4');
-    videoPlayerController = VideoPlayerController.network(widget.url);
-    await Future.wait([
-      videoPlayerController.initialize(),
-    ]);
-    chewieController = ChewieController(
-        videoPlayerController: videoPlayerController,
-        autoPlay: true,
-        looping: true,
-        aspectRatio: 16 / 9,
-        // Try playing around with some of these other options:
-
-        // showControls: false,
-        // materialProgressColors: ChewieProgressColors(
-        //   playedColor: Colors.red,
-        //   handleColor: Colors.blue,
-        //   backgroundColor: Colors.grey,
-        //   bufferedColor: Colors.lightGreen,
-        // ),
-        // placeholder: Container(
-        //   color: Colors.grey,
-        // ),
-        // autoInitialize: true,
-        errorBuilder: (context, errorMessage) {
-          return Center(
-            child: Text(
-              errorMessage,
-              style: TextStyle(color: AppColors.white),
-            ),
-          );}
-    );
-    setState(() {});
-  }
-  @override
-  void dispose() {
-    videoPlayerController.dispose();
-    chewieController!.dispose();
-    super.dispose();
-  }
+  //
+  // Future<void> initializePlayer() async {
+  //   // videoPlayerController = VideoPlayerController.network('https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4');
+  //   videoPlayerController = VideoPlayerController.network(widget.url);
+  //   await Future.wait([
+  //     videoPlayerController.initialize(),
+  //   ]);
+  //   chewieController = ChewieController(
+  //       videoPlayerController: videoPlayerController,
+  //       autoPlay: true,
+  //       looping: true,
+  //       aspectRatio: 16 / 9,
+  //       // Try playing around with some of these other options:
+  //
+  //       // showControls: false,
+  //       // materialProgressColors: ChewieProgressColors(
+  //       //   playedColor: Colors.red,
+  //       //   handleColor: Colors.blue,
+  //       //   backgroundColor: Colors.grey,
+  //       //   bufferedColor: Colors.lightGreen,
+  //       // ),
+  //       // placeholder: Container(
+  //       //   color: Colors.grey,
+  //       // ),
+  //       // autoInitialize: true,
+  //       errorBuilder: (context, errorMessage) {
+  //         return Center(
+  //           child: Text(
+  //             errorMessage,
+  //             style: TextStyle(color: AppColors.white),
+  //           ),
+  //         );}
+  //   );
+  //   setState(() {});
+  // }
+  // @override
+  // void dispose() {
+  //   videoPlayerController.dispose();
+  //   chewieController!.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -198,15 +203,18 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
              //padding: EdgeInsets.only(top: 8),
 
               height: (MediaQuery.of(context).size.width)/16*9,
+              child: FlickVideoPlayer(
+                  flickManager: flickManager!
+              ),
             //  height: MediaQuery.of(context).size.height*0.4,
               //width: MediaQuery.of(context).size.width,
-              child: chewieController != null &&
-                  chewieController!
-                      .videoPlayerController.value.isInitialized
-                  ? Chewie(
-                controller: chewieController!,
-              )
-                  :   Center(child: CircularProgressIndicator(color: AppColors.amber,)),
+              // child: chewieController != null &&
+              //     chewieController!
+              //         .videoPlayerController.value.isInitialized
+              //     ? Chewie(
+              //   controller: chewieController!,
+              // )
+              //     :   Center(child: CircularProgressIndicator(color: AppColors.amber,)),
             ),
             Padding(
               padding: const EdgeInsets.all(8),

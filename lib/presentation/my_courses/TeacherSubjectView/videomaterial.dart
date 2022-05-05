@@ -51,8 +51,14 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
    // initializePlayer();
     flickManager = FlickManager(
       videoPlayerController:
-      VideoPlayerController.network('https://vod.teachx.in/videos/EAXTiOQo-3iwbS6ep.mp4'),
+      VideoPlayerController.network(widget.url),
     );
+  }
+
+  @override
+  void dispose() {
+    flickManager!.dispose();
+    super.dispose();
   }
   // Future<void> initializePlayer() async {
   //  // videoPlayerController = VideoPlayerController.network('https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4');
