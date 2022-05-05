@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/StudtMaterialNewModel.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/CaRepo.dart';
@@ -13,6 +14,10 @@ class CaProvider extends ChangeNotifier {
 
   CaSmModel _caSmModel = CaSmModel();
   CaSmModel get caSmModel => _caSmModel;
+
+
+  StudyMaterialNewModel _studyMaterialNew = StudyMaterialNewModel();
+  StudyMaterialNewModel get studyMaterialNew => _studyMaterialNew;
 
 
   Future<List<Data>?> getCaSmList(BuildContext context, String contentCatId, String type, String encodeCat,int pageNo) async {
@@ -38,6 +43,19 @@ class CaProvider extends ChangeNotifier {
       //         builder: (context) => ErrorScreen()
       //     )
       // );
+      notifyListeners();
+    }
+  }
+
+  //studyMaterialNew
+  Future<List<StudyMaterialNewModel>?> getStudyMaterialNew(BuildContext context) async {
+    ApiResponse apiResponse = await caRepo.studyMaterialNew();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+        _studyMaterialNew = StudyMaterialNewModel.fromJson(json.decode(apiResponse.response.toString()));
+        // return _studyMaterialNew ?? [];
+
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
       notifyListeners();
     }
   }

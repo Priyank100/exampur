@@ -19,4 +19,15 @@ class CaRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+  //StudyMaterial
+  Future<ApiResponse> studyMaterialNew() async {
+    try {
+      String url = 'https://exampur.com/api/study-material/';
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 }
