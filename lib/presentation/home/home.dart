@@ -11,6 +11,7 @@ import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs
 import 'package:exampur_mobile/presentation/home/daily_quiz/daily_quiz.dart';
 import 'package:exampur_mobile/presentation/home/home_banner.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
+import 'package:exampur_mobile/presentation/home/study_material_new/study_material_new.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
@@ -325,6 +326,16 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(builder: (_) => CaBytes()));
+                  },
+                  //  navigateTo: CaBytes()
+                ),
+                SquareButton(
+                  image: Images.studymaterial,
+                  title: getTranslated(context, StringConstant.studyMaterials)!,
+                  color: AppColors.paidCourses,
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(builder: (_) => StudyMaterialNew()));
                   },
                   //  navigateTo: CaBytes()
                 ),
