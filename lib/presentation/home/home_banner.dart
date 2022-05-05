@@ -61,8 +61,9 @@ bool isLoading =false;
                         ),
                         onTap: () {
                           //for sendAnalyticsEvent
-                          item.type=='Course' || item.type=='Combo Course' ? AppConstants.sendAnalyticsEvent('BANNER_Course_CLICKED'):
-                          item.type=='Book'? AppConstants.sendAnalyticsEvent('BANNER_Course_Book'):AppConstants.sendAnalyticsEvent('BANNER_Course_ExternalLink');
+                          item.type=='Course' || item.type=='Combo Course' ? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerCourseClick):
+                          item.type=='Book'? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerBookClick):
+                          AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerExternalLinksClick);
 
                           item.type=='Course' || item.type=='Combo Course'?
                           Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => BannerLinkDetailPage(item.type.toString(),item.link.toString()))):

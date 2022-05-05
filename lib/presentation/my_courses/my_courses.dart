@@ -20,6 +20,7 @@ class MyCoursesState extends State<MyCourses> {
   List<CourseData> myCourseList = [];
   bool isLoading = false;
   var groupedLists = {};
+  var myFilterList = {};
 
   @override
   void initState() {
@@ -33,23 +34,6 @@ class MyCoursesState extends State<MyCourses> {
     myCourseList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseList(context, token))!;
     isLoading = false;
     grouping();
-    AppConstants.printLog('>>>>>>>>>>>>>>>>>');
-    // AppConstants.printLog(groupedLists);
-    // myCourseList.forEach((course) {
-    //   course.category!.forEach((category) {
-    //     if (groupedLists['${category.name}'] == null) {
-    //       groupedLists['${category.name}'] = <CourseData>[];
-    //     }
-    //     (groupedLists['${category.name}'] as List<CourseData>).add(course);
-    //   });
-    // });
-
-    /*groupedLists.forEach((key, value) {
-      AppConstants.printLog('Category> ' + key.toString());
-      value.forEach((course) {
-        AppConstants.printLog('Course> ' + course.title.toString());
-      });
-    });*/
     setState(() {});
   }
 
@@ -57,15 +41,57 @@ class MyCoursesState extends State<MyCourses> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: isLoading ? Center(child: LoadingIndicator(context)) : myCourseList.length == 0 ?
-      AppConstants.noDataFound() :
-        SingleChildScrollView(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(getTranslated(context, StringConstant.myCourses)!, style: CustomTextStyle.headingBold(context)),
-            DataContainer()
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 5),
+              child: Container(
+                height: 30,
+                decoration: BoxDecoration(
+                  color: AppColors.grey200,
+                  border: Border.all(color: AppColors.grey, width: 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: TextField(
+                  autocorrect: false,
+                  onChanged: (s) {
+                    myFilterList.clear();
+                    List<CourseData> searchResults = myCourseList.where((CourseData item)=>item.title.toString().toLowerCase().contains(s.toLowerCase())).toList();
+
+                    searchResults.forEach((course) {
+                      course.category!.forEach((category) {
+                        if (myFilterList['${category.name}'] == null) {
+                          myFilterList['${category.name}'] = <CourseData>[];
+                        }
+                        (myFilterList['${category.name}'] as List<CourseData>).add(course);
+                      });
+                    });
+                    setState(() {});
+                  },
+                  onEditingComplete: () {
+                    FocusScope.of(context).nextFocus();
+                  },
+                  cursorColor: AppColors.amber,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search,size: 20,color: AppColors.grey400),
+                    hintText: getTranslated(context,StringConstant.searchCourse),
+                    hintStyle: TextStyle(fontSize: 13,
+                      color: AppColors.grey400,
+                    ),
+                    isDense: true,
+                    counterText: '',
+                    errorStyle: TextStyle(height: 1.5),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+            isLoading ? Center(child: LoadingIndicator(context)) : myFilterList.length == 0 ?
+            AppConstants.noDataFound() : DataContainer()
           ],
         ),
       ),
@@ -74,12 +100,15 @@ class MyCoursesState extends State<MyCourses> {
 
   Widget DataContainer() {
     return ListView.builder(
-      itemCount: groupedLists.length,
+      // itemCount: groupedLists.length,
+      itemCount: myFilterList.length,
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         itemBuilder:(context, index) {
-          String key = groupedLists.keys.elementAt(index);
-          var value = groupedLists.values.elementAt(index);
+          // String key = groupedLists.keys.elementAt(index);
+          String key = myFilterList.keys.elementAt(index);
+          // var value = groupedLists.values.elementAt(index);
+          var value = myFilterList.values.elementAt(index);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -204,5 +233,6 @@ class MyCoursesState extends State<MyCourses> {
         (groupedLists['${category.name}'] as List<CourseData>).add(course);
       });
     });
+    myFilterList = groupedLists;
   }
 }

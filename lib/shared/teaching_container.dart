@@ -138,7 +138,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                 MyCourseTabView(widget.courseData.id.toString())
                             ))
                             ;
-                          },text: getTranslated(context, 'view_details')!,),
+                          },text: getTranslated(context, StringConstant.viewDetails)!,),
                           SizedBox(height: 10,),
                           widget.courseType==1? CustomRoundButton(onPressed: ()async{
                             await   FirebaseAnalytics.instance.logEvent(name:'Paid_Courdse_Details',parameters: {
@@ -162,7 +162,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             );
 
 
-                          },text: getTranslated(context, 'buy_course')!,):SizedBox(),
+                          },text: getTranslated(context, StringConstant.buyCourse)!,):SizedBox(),
                           SizedBox(height: 10,),
                           Row(
                             children: [
@@ -187,7 +187,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                   Share.share(shareContent);
                                   // Share.share(dynamicUrl);
                                 },
-                                child: Text(getTranslated(context, 'share')!)
+                                child: Text(getTranslated(context, StringConstant.share)!)
                               )
                             ],
                           ),

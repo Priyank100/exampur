@@ -91,7 +91,7 @@ class SignInState extends State<SignIn> {
 
   route(bool isRoute, String errorMessage) {
     if (isRoute) {
-    AppConstants.sendAnalyticsEvent('LOGIN_SCREEN');
+      AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.loginScreen);
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => BottomNavigationNew()), (route) => false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage), backgroundColor: AppColors.grey,));

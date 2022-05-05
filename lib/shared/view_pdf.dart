@@ -109,7 +109,7 @@ class _ViewPdfState extends State<ViewPdf> {
             IconButton(
               icon: Icon(Icons.chevron_left),
               iconSize: 50,
-              color: Colors.black,
+              color: AppColors.black,
               onPressed: () {
                 setState(() {
                   if (_currentPage > 0) {
@@ -121,12 +121,12 @@ class _ViewPdfState extends State<ViewPdf> {
             ),
             Text(
               "${_currentPage + 1}/$_totalPages",
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: AppColors.black, fontSize: 20),
             ),
             IconButton(
               icon: Icon(Icons.chevron_right),
               iconSize: 50,
-              color: Colors.black,
+              color: AppColors.black,
               onPressed: () {
                 setState(() {
                   if (_currentPage < _totalPages - 1) {

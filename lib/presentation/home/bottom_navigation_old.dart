@@ -184,7 +184,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
             return IconButton(
                 icon: Image.asset(Images.menu_icon,width: Dimensions.ICON_SIZE_LARGE,color: AppColors.black,),
                 onPressed: () {
-                  AppConstants.sendAnalyticsEvent('SIDE_BAR_CLICKED');
+                  AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.sideBarClick);
                   Scaffold.of(context).openDrawer();});
           }),
           title: InkWell(
@@ -612,7 +612,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                             ),
                           ]),
                       onTap: () {
-                        AppConstants.sendAnalyticsEvent('LOGOUT_CLICKED');
+                        AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.logoutClick);
                         SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
                         SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
                         Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
@@ -672,10 +672,10 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
               _currIndex = index;
             });
           if(_currIndex == 1 || _currIndex == 2 || _currIndex == 3) {
-            AppConstants.sendAnalyticsEvent(
-                _currIndex == 1 ? 'DEMO_CLICKED' :
-                _currIndex == 2 ? 'MY_COURSES_CLICKED' :
-                'DOWNLOADS_CLICKED'
+            AnalyticsConstants.sendAnalyticsEvent(
+                _currIndex == 1 ? AnalyticsConstants.demoClick :
+                _currIndex == 2 ? AnalyticsConstants.myCoursesClick :
+                AnalyticsConstants.downloadsClick
             );
           }
           },

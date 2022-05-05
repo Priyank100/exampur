@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    AppConstants.sendAnalyticsEvent('Splash_Screen');
+    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.splashScreen);
     // callProvider();
     _checkVersion();
   }

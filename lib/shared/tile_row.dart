@@ -33,7 +33,7 @@ class TitleRow extends StatelessWidget {
         onTap: onTap,
         child: Row(children: [
          // isDetailsPage == null
-          Text(getTranslated(context, 'view_all')!,
+          Text(getTranslated(context, StringConstant.viewAll)!,
 
               ),
              // : SizedBox.shrink(),

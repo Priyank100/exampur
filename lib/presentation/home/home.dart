@@ -113,7 +113,7 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  getTranslated(context, 'hello')! + ', ' + '${userName} !',
+                  getTranslated(context, StringConstant.hello)! + ', ' + '${userName} !',
                   style: CustomTextStyle.headingMediumBold(context),
                 ),
                 Flexible(
@@ -171,10 +171,10 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(
                   image: Images.paidcourse,
-                  title: getTranslated(context, 'paid_course')!,
+                  title: getTranslated(context, StringConstant.paidCourse)!,
                   color: AppColors.paidCourses,
                   onPressed: () {
-                    AppConstants.sendAnalyticsEvent('PAID_COURSES_CLICK');
+                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.paidCourseClick);
                     // _sendAnalyticsEvent('PAID_COURSES_CLICK');
                     //  Navigator.push(context, MaterialPageRoute(builder: (_) =>PaidCourses(1) ));
                     Navigator.of(context, rootNavigator: true).push(
@@ -184,10 +184,10 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                   image: Images.free_course,
-                  title: getTranslated(context, 'free_courses')!,
+                  title: getTranslated(context, StringConstant.freeCourses)!,
                   color: AppColors.freeCourses,
                   onPressed: () {
-                    AppConstants.sendAnalyticsEvent('FREE_COURSES_CLICKED');
+                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.freeCourseClick);
                     Navigator.of(context, rootNavigator: true).push(
 
                         // context, MaterialPageRoute(builder: (_) =>PaidCourses(0) ));},),
@@ -208,7 +208,7 @@ class _HomeState extends State<Home> {
                   color: AppColors.book,
                   //navigateTo: BooksEbook()
                   onPressed: () {
-                    AppConstants.sendAnalyticsEvent('BOOKS_CLICKED');
+                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.booksClick);
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(builder: (_) => BooksEbook()));
                   },
@@ -219,7 +219,7 @@ class _HomeState extends State<Home> {
                   color: AppColors.series,
                   // navigateTo: TestSeriesTab()
                   onPressed: () {
-                    AppConstants.sendAnalyticsEvent('TEST_SERIES_CLICKED');
+                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.testSeriesClick);
                     // AppConstants._sendAnalyticsEvent('TEST_SERIES_CLICKED');
                     Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(builder: (_) => TestSeriesTab()));
@@ -244,7 +244,7 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, 'daily_quiz')!,
                   color: AppColors.quiz,
                   onPressed: () {
-                    AppConstants.sendAnalyticsEvent('DAILY_QUIZ_CLICKED');
+                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.dailyQuizClick);
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(builder: (_) => DailyQuiz()));
                   },
@@ -256,7 +256,7 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, 'study_materials')!,
                   color: AppColors.one2one,
                   onPressed: () {
-                    AppConstants.sendAnalyticsEvent('CURRENT_AFFAIRS_CLICKED');
+                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.currentAffairsClick);
                     Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(
                             builder: (_) => CurrentAffairs(

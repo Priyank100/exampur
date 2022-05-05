@@ -162,7 +162,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                             },
                           child: Container(height: 50, color: AppColors.amber,child: Center(child: Text(getTranslated(context, 'save_profile')!,style: TextStyle(color: Colors.white),)),))
                           :
-                      Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.amber))),
+                      Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(AppColors.amber))),
                     ),
                   ),
                 ],
@@ -184,19 +184,19 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 
   bool checkValidation(_firstName, _email, _city) {
     if (_firstName.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.Name_Field_Required)!), backgroundColor: Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.Name_Field_Required)!), backgroundColor: AppColors.black));
       return false;
     }else if (_email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.Email_Required)!), backgroundColor:Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.Email_Required)!), backgroundColor:AppColors.black));
       return false;
     }else if (!AppConstants.isEmailValid(_email)) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please enter valid Email Id'), backgroundColor:Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please enter valid Email Id'), backgroundColor:AppColors.black));
       return false;
     }else if (_city.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.CITY_REQUIRED)!), backgroundColor:Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.CITY_REQUIRED)!), backgroundColor:AppColors.black));
       return false;
     }else if (selectedState=='Select States') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text( getTranslated(context,StringConstant.State_Required)!), backgroundColor:Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text( getTranslated(context,StringConstant.State_Required)!), backgroundColor:AppColors.black));
       return false;
     }else {
       return true;

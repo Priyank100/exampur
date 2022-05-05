@@ -87,7 +87,7 @@
   "log_out": "Log Out",
   "landmark": "Landmark",
   "language_preferences": "Language Preferences",
-  "loading...": "Loading...",
+  "loading": "Loading...",
 
 
 
@@ -156,6 +156,7 @@
   "share_now": "Share Now",
   "select_categories": "Select Categories",
   "search_category": "Search Category",
+  "search_course": "Search Course",
   "state": "State",
   "select_language": "Select language",
   "security": "Security",

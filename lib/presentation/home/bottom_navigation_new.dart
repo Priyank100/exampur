@@ -105,7 +105,7 @@ class _BottomNavigationNewState extends State<BottomNavigationNew> {
               return IconButton(
                   icon: Image.asset(Images.menu_icon,width: Dimensions.ICON_SIZE_LARGE,color: AppColors.black,),
                   onPressed: () {
-                    AppConstants.sendAnalyticsEvent('SIDE_BAR_CLICKED');
+                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.sideBarClick);
                     Scaffold.of(context).openDrawer();});
             }),
             title: InkWell(
@@ -354,7 +354,7 @@ class _BottomNavigationNewState extends State<BottomNavigationNew> {
                               ),
                             ]),
                         onTap: () {
-                          AppConstants.sendAnalyticsEvent('LOGOUT_CLICKED');
+                          AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.logoutClick);
                           SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
                           SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
                           Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
@@ -410,11 +410,11 @@ class _BottomNavigationNewState extends State<BottomNavigationNew> {
         _navigatorKey.currentState!.pushReplacement(MaterialPageRoute(builder: (_) => Home()));
         break;
       case 1:
-        AppConstants.sendAnalyticsEvent('DEMO_CLICKED');
+        AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.demoClick);
         _navigatorKey.currentState!.pushReplacement(MaterialPageRoute(builder: (_) => Demo()));
         break;
       case 2:
-        AppConstants.sendAnalyticsEvent('MY_COURSES_CLICKED');
+        AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.myCoursesClick);
         if(PHONE_VERIFY=='false') {
           AppConstants.showAlertDialogWithButton(context, getTranslated(context, StringConstant.Pleaseverifyyourphoneno)!, route);
           return;
@@ -423,7 +423,7 @@ class _BottomNavigationNewState extends State<BottomNavigationNew> {
         }
         break;
       case 3:
-        AppConstants.sendAnalyticsEvent('DOWNLOADS_CLICKED');
+        AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.downloadsClick);
         _navigatorKey.currentState!.pushReplacement(MaterialPageRoute(builder: (_) => Downloads(0)));
         break;
       case 4:

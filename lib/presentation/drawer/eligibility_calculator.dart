@@ -425,7 +425,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                 ),
                 elevation: 10,
                 padding: EdgeInsets.all(8),
-                shadowColor: Colors.black,
+                shadowColor: AppColors.black,
                 disabledColor: AppColors.grey300,
                 selectedColor: AppColors.amber,
                 selected: attemptVal == 0,

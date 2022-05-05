@@ -86,7 +86,7 @@
   "last_name": "अंतिम नाम",
   "landmark": "लैंडमार्क",
   "language_preferences": "भाषा वरीयताएँ",
-  "loading...": "लोड हो रहा है...",
+  "loading": "लोड हो रहा है...",
   "live_chat": "सीधी बातचीत",
 
 
@@ -195,6 +195,7 @@
   "select_language": "भाषा का चयन करें",
   "select_categories":"श्रेणियों का चयन करें",
   "search_category": "खोज श्रेणी",
+  "search_course": "खोज पाठ्यक्रम",
   "submit_issue": "मुद्दा जमा करें",
   "share_now": "अब साझा करें",
   "study_materials": "अध्ययन सामग्री",
