@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/StudtMaterialNewModel.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
+import 'package:exampur_mobile/data/model/study_material_new_model.dart';
 import 'package:exampur_mobile/data/repository/CaRepo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +49,13 @@ class CaProvider extends ChangeNotifier {
 
   //studyMaterialNew
   Future<List<StudyMaterialNewModel>?> getStudyMaterialNew(BuildContext context) async {
+    List<StudyMaterialNewModel> studyMaterialNewDataList = [];
     ApiResponse apiResponse = await caRepo.studyMaterialNew();
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-        _studyMaterialNew = StudyMaterialNewModel.fromJson(json.decode(apiResponse.response.toString()));
-        // return _studyMaterialNew ?? [];
+      // _studyMaterialNew = StudyMaterialNewModel.fromJson(json.decode(apiResponse.response.toString()));
+      // studyMaterialNewDataList.add(_studyMaterialNew);
+      studyMaterialNewDataList = List<StudyMaterialNewModel>.from(json.decode(apiResponse.response.toString()).map((model)=> StudyMaterialNewModel.fromJson(model)));
+      return studyMaterialNewDataList;
 
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);

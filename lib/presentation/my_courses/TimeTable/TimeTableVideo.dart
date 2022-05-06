@@ -314,5 +314,11 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
           ),)
     );
   }
+
+  @override
+  void dispose() {
+    flickManager!.dispose();
+    super.dispose();
+  }
 }
 

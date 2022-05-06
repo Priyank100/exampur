@@ -1,5 +1,5 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/StudtMaterialNewModel.dart';
+import 'package:exampur_mobile/data/model/study_material_new_model.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
