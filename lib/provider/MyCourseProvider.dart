@@ -178,6 +178,7 @@ class MyCourseProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   Future<Data?> getMyCourseTimeLineLiveStream(BuildContext context, String courseId ,String token) async {
     ApiResponse apiResponse = await myCourseRepo.myCourseTimelineshareStreamToMobile(courseId, token);
 

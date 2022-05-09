@@ -86,6 +86,14 @@ class AppConstants {
 
   static void showAlertDialog(BuildContext context, String message) {
     AlertDialog alert = AlertDialog(
+      actions: [
+        TextButton(
+          child: Text(getTranslated(context, StringConstant.cancel)!,style: TextStyle(color: AppColors.amber)),
+          onPressed:  () {
+            Navigator.pop(context);
+          },
+        )
+      ],
       content: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         alignment: WrapAlignment.center,
