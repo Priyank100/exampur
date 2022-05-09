@@ -22,7 +22,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static String BANNER_BASE = '';
 
   static String defaultCountry = 'India';
@@ -53,7 +53,6 @@ class AppConstants {
 
   static void printLog(message) {
     if (isPrint) {
-      print('Exampur> ');
       print(message);
     }
   }
@@ -87,6 +86,14 @@ class AppConstants {
 
   static void showAlertDialog(BuildContext context, String message) {
     AlertDialog alert = AlertDialog(
+      actions: [
+        TextButton(
+          child: Text(getTranslated(context, StringConstant.cancel)!,style: TextStyle(color: AppColors.amber)),
+          onPressed:  () {
+            Navigator.pop(context);
+          },
+        )
+      ],
       content: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         alignment: WrapAlignment.center,

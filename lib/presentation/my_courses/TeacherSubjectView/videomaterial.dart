@@ -153,7 +153,10 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
           ),
           Center(
             child: InkWell(onTap: (){
-              AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+              if(widget.url.contains('mp4'))
+                AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+              else
+                AppConstants.showAlertDialog(context, 'Url not in mp4 format');
             },
               child: Container(
                   height: 45,width:MediaQuery.of(context).size.width/1.10,decoration: BoxDecoration( color:AppColors.amber,
@@ -173,7 +176,7 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
     final savedDir = Directory(_localPath);
     await savedDir.create(recursive: true).then((value) async {
       String? _taskid = await FlutterDownloader.enqueue(
-        url: widget.download ==""?widget.url: widget.download,
+        url: widget.download =="" ? widget.url: widget.download,
         fileName: widget.title,
         savedDir: _localPath,
         showNotification: false,

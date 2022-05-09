@@ -329,16 +329,16 @@ class _HomeState extends State<Home> {
                   },
                   //  navigateTo: CaBytes()
                 ),
-                SquareButton(
-                  image: Images.studymaterial,
-                  title: getTranslated(context, StringConstant.studyMaterials)!,
-                  color: AppColors.paidCourses,
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(builder: (_) => StudyMaterialNew()));
-                  },
-                  //  navigateTo: CaBytes()
-                ),
+                // SquareButton(
+                //   image: Images.studymaterial,
+                //   title: getTranslated(context, StringConstant.studyMaterials)!,
+                //   color: AppColors.paidCourses,
+                //   onPressed: () {
+                //     Navigator.of(context, rootNavigator: true)
+                //         .push(MaterialPageRoute(builder: (_) => StudyMaterialNew()));
+                //   },
+                //   //  navigateTo: CaBytes()
+                // ),
               ],
             ),
             SizedBox(

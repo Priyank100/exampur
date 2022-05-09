@@ -12,17 +12,21 @@ import 'TimeTableVideo.dart';
 
 class TimeTableView extends StatefulWidget {
   final String courseId;
-TimeTableView(this.courseId) ;
+
+  TimeTableView(this.courseId);
 
   @override
   _TimeTableViewState createState() => _TimeTableViewState();
 }
 
 class _TimeTableViewState extends State<TimeTableView> {
-
+  List<TimelineData> allDataList = [];
   List<TimelineData> myCourseTimeLineList = [];
   bool isLoading = false;
+// bool pressAttention =false;
   // Data? liveStreamData;
+  String activeButton = "L";
+
   @override
   void initState() {
     callProvider();
@@ -31,12 +35,14 @@ class _TimeTableViewState extends State<TimeTableView> {
 
   Future<void> callProvider() async {
     isLoading = true;
-   // String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-    myCourseTimeLineList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseTimeLineList(context, widget.courseId))!;
+    // String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    allDataList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseTimeLineList(context, widget.courseId))!;
+    // myCourseTimeLineList = allDataList;
+    filterList(allDataList, activeButton);
     isLoading = false;
     setState(() {});
-
   }
+
   // Future<void> callLiveStream() async {
   //   String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
   //   liveStreamData = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseTimeLineLiveStream(context, myCourseTimeLineList.first.id.toString(), token))!;
@@ -48,108 +54,284 @@ class _TimeTableViewState extends State<TimeTableView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    body: isLoading?Center(child: LoadingIndicator(context)):myCourseTimeLineList.length ==0?AppConstants.noDataFound(): ListView.builder(
-        itemCount: myCourseTimeLineList.length,
+        body: isLoading
+            ? Center(child: LoadingIndicator(context))
+            : myCourseTimeLineList.length == 0
+                ? AppConstants.noDataFound()
+                :  Column(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width,
 
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context,int index){
-          DateTime parseDate = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(myCourseTimeLineList[index].schedule.toString());
-          var inputDate = DateTime.parse(parseDate.toString());
-          var outputFormat = DateFormat('dd-MMM-yyyy hh:mm a');
-          var outputDate = outputFormat.format(inputDate);
-        return
-           //  myCourseTimeLineList[index].type.toString()=='Livesteam'?
-           //  MaterialPageRoute(
-           //      builder: (context) => YoutubeVideo(myCourseTimeLineList[index].targetLink.toString(),
-           //          myCourseTimeLineList[index].title.toString())
-           //  )
-           //  :
-           // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.noLiveStreamPresent), AppColors.grey);
-          InkWell(
-            onTap: (){
-              callLiveStream(index);
-            },
-            child: Container(
-              padding: EdgeInsets.all(8),
-                color: index % 2 == 0
-                    ? Theme.of(context).backgroundColor
-                    : AppColors.transparent,
-       child:   Row(
-             mainAxisAlignment:MainAxisAlignment.start,children: [
-                // Image.asset(Images.free_course,height: 120,width: 100,),
-         myCourseTimeLineList[index].logoPath.toString().contains('http') ?
-             AppConstants.image(myCourseTimeLineList[index].logoPath.toString(),height: 80.0,width: 100.0) :
-             AppConstants.image(AppConstants.BANNER_BASE + myCourseTimeLineList[index].logoPath.toString(),height: 80.0,width: 100.0,),
-             SizedBox(width: 9,),
-             Flexible(
-               child: Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
+                         child:  Row(
 
-                 children: [
-                 Text(myCourseTimeLineList[index].title.toString() +  ' || ' + myCourseTimeLineList[index].subjectId!.title.toString(),style: TextStyle(fontSize: 15),),
-                   SizedBox(height: 10,),
-                    Container(decoration: BoxDecoration(
-                         border: Border.all(color: AppColors.red)
-                     ),height: 25,width: 200,child: Center(child: Text('Live at '+outputDate,style: TextStyle(color: AppColors.red,fontSize: 10),)),),
-                 ],
-               ),
-             )
-              ],)
+                              children: [
+                                MaterialButton(
+                                    minWidth:MediaQuery.of(context).size.width/2,
+                                    onPressed:(){
+                                      setState(() {
+                                        activeButton = "L";
+                                      });
+                                      filterList(allDataList, activeButton);
+                                    },
+                                    color:activeButton=='L'? AppColors.amber:AppColors.grey400,
+                                    child: Text('Live',style: TextStyle(color: AppColors.white),)),
 
-        ),
-          );
-        })
-    );
+                                MaterialButton(
+                                    minWidth:MediaQuery.of(context).size.width/2,
+                                    color:activeButton=='L'? AppColors.grey400:AppColors.amber,
+                                    onPressed:(){
+                                      setState(() {
+                                        activeButton = "U";
+                                      });
+                                      filterList(allDataList, activeButton);
+                                    },
+                                    child:  Text('Upcoming',style: TextStyle(color: AppColors.white))),
+                              ],
+                            ),
+                          ),
+                        Expanded(
+                          child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                //  physics:BouncingScrollPhysics(),
+                                  itemCount: myCourseTimeLineList.length,
+
+                                  shrinkWrap: true,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    DateTime parseDate =
+                                        new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                                            .parse(myCourseTimeLineList[index]
+                                                .schedule
+                                                .toString());
+                                    var inputDate = DateTime.parse(parseDate.toString());
+                                    var outputFormat = DateFormat('dd-MMM-yyyy hh:mm a');
+                                    var outputDate = outputFormat.format(inputDate);
+                                    return
+                                        //  myCourseTimeLineList[index].type.toString()=='Livesteam'?
+                                        //  MaterialPageRoute(
+                                        //      builder: (context) => YoutubeVideo(myCourseTimeLineList[index].targetLink.toString(),
+                                        //          myCourseTimeLineList[index].title.toString())
+                                        //  )
+                                        //  :
+                                        // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.noLiveStreamPresent), AppColors.grey);
+                                        InkWell(
+                                      onTap: () {
+                                        callLiveStream(index);
+                                      },
+                                      child: Container(
+                                          padding: EdgeInsets.all(8),
+                                          color: index % 2 == 0
+                                              ? Theme.of(context).backgroundColor
+                                              : AppColors.transparent,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              // Image.asset(Images.free_course,height: 120,width: 100,),
+                                              myCourseTimeLineList[index]
+                                                      .logoPath
+                                                      .toString()
+                                                      .contains('http')
+                                                  ? AppConstants.image(
+                                                      myCourseTimeLineList[index]
+                                                          .logoPath
+                                                          .toString(),
+                                                      height: 80.0,
+                                                      width: 100.0)
+                                                  : AppConstants.image(
+                                                      AppConstants.BANNER_BASE +
+                                                          myCourseTimeLineList[index]
+                                                              .logoPath
+                                                              .toString(),
+                                                      height: 80.0,
+                                                      width: 100.0,
+                                                    ),
+                                              SizedBox(
+                                                width: 9,
+                                              ),
+                                              Flexible(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      myCourseTimeLineList[index]
+                                                              .title
+                                                              .toString() +
+                                                          ' || ' +
+                                                          myCourseTimeLineList[index]
+                                                              .subjectId!
+                                                              .title
+                                                              .toString(),
+                                                      style: TextStyle(fontSize: 15),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: AppColors.red)),
+                                                      height: 25,
+                                                      width: 200,
+                                                      child: Center(
+                                                          child: Text(
+                                                        'Live at ' + outputDate,
+                                                        style: TextStyle(
+                                                            color: AppColors.red,
+                                                            fontSize: 10),
+                                                      )),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          )),
+                                    );
+                                  }),
+                        ),
+                      ],
+                    ),
+                  );
   }
 
   Future<void> callLiveStream(index) async {
     String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-    await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseTimeLineLiveStream(context, myCourseTimeLineList[index].id.toString(), token).then((liveStreamData) {
-      AlertDialog alert = AlertDialog(
-        titlePadding: EdgeInsets.only(top: 0, ),
-        contentPadding: EdgeInsets.only(top: 0, ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Container(color: AppColors.amber,height: 30,width: MediaQuery.of(context).size.width,
-              alignment: Alignment.topRight,
-              child: InkWell(onTap:(){
-                Navigator.pop(context);
-              },child:  Icon(Icons.close,color: AppColors.white,),
+    await Provider.of<MyCourseProvider>(context, listen: false)
+        .getMyCourseTimeLineLiveStream(
+            context, myCourseTimeLineList[index].id.toString(), token)
+        .then((liveStreamData) {
+          if(liveStreamData!.apexLink == null) {
+            AppConstants.showAlertDialog(context, 'No video link is available !');
+            return;
+          } else {
+            AlertDialog alert = AlertDialog(
+              titlePadding: EdgeInsets.only(
+                top: 0,
               ),
-            ),
-            SizedBox(height: 10,),
-            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData!.apexLink!.hlsURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString()) ,title: getTranslated(context, StringConstant.Normal),),
-            SizedBox(height: 10,),
-            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData.apexLink!.hls240pURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString()),title: '240p',),
-            SizedBox(height: 10,),
-            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData.apexLink!.hls360pURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString() ) ,title: '360p',),
-            SizedBox(height: 10,),
-            CustomButton(navigateTo:MyTimeTableViedo(liveStreamData.apexLink!.hls480pURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString()) ,title: '480p',),
-            SizedBox(height: 10,),
-            CustomButton(navigateTo: MyTimeTableViedo(liveStreamData.apexLink!.hls720pURL.toString(),myCourseTimeLineList[index].title.toString(),liveStreamData.id.toString()) ,title: '720p',),
-            SizedBox(height: 10,),
+              contentPadding: EdgeInsets.only(
+                top: 0,
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                    color: AppColors.amber,
+                    height: 30,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
+                    alignment: Alignment.topRight,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.close,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomButton(
+                    navigateTo: MyTimeTableViedo(
+                        liveStreamData.apexLink!.hlsURL.toString(),
+                        myCourseTimeLineList[index].title.toString(),
+                        liveStreamData.id.toString()),
+                    title: getTranslated(context, StringConstant.Normal),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomButton(
+                    navigateTo: MyTimeTableViedo(
+                        liveStreamData.apexLink!.hls240pURL.toString(),
+                        myCourseTimeLineList[index].title.toString(),
+                        liveStreamData.id.toString()),
+                    title: '240p',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomButton(
+                    navigateTo: MyTimeTableViedo(
+                        liveStreamData.apexLink!.hls360pURL.toString(),
+                        myCourseTimeLineList[index].title.toString(),
+                        liveStreamData.id.toString()),
+                    title: '360p',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomButton(
+                    navigateTo: MyTimeTableViedo(
+                        liveStreamData.apexLink!.hls480pURL.toString(),
+                        myCourseTimeLineList[index].title.toString(),
+                        liveStreamData.id.toString()),
+                    title: '480p',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomButton(
+                    navigateTo: MyTimeTableViedo(
+                        liveStreamData.apexLink!.hls720pURL.toString(),
+                        myCourseTimeLineList[index].title.toString(),
+                        liveStreamData.id.toString()),
+                    title: '720p',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
 
-          ],
-        ),
-
-        // actions: <Widget>[
-        //   new FlatButton(
-        //     onPressed: () {
-        //       Navigator.of(context).pop();
-        //     },
-        //     textColor: Theme.of(context).primaryColor,
-        //     child: const Text('Close'),
-        //   ),
-        // ],
-      );
-      showDialog(barrierDismissible: true,
-        context: context,
-        builder: (BuildContext context) {
-          return alert;
-        },
-      );
+              // actions: <Widget>[
+              //   new FlatButton(
+              //     onPressed: () {
+              //       Navigator.of(context).pop();
+              //     },
+              //     textColor: Theme.of(context).primaryColor,
+              //     child: const Text('Close'),
+              //   ),
+              // ],
+            );
+            showDialog(
+              barrierDismissible: true,
+              context: context,
+              builder: (BuildContext context) {
+                return alert;
+              },
+            );
+          }
     });
+  }
+
+  void filterList(List<TimelineData> list, String activeBtn) {
+    myCourseTimeLineList.clear();
+    DateFormat outputFormat = DateFormat('dd-MM-yyyy HH:mm:ss');
+    String now = outputFormat.format(DateTime.now());
+    DateTime todayDate = outputFormat.parse(now);
+
+    for(int i=0; i<list.length; i++) {
+      DateTime parseDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(list[i].schedule.toString());
+      DateTime inputDate = DateTime.parse(parseDate.toString());
+      String outputDate = outputFormat.format(inputDate);
+      DateTime scheduleDate = outputFormat.parse(outputDate);
+      int diff = scheduleDate.difference(todayDate).inSeconds;
+      // print(diff);
+
+      if(activeButton == "L" && diff <= 0) {
+        myCourseTimeLineList.add(list[i]);
+      }
+      if(activeButton == "U" && diff > 0) {
+        myCourseTimeLineList.add(list[i]);
+      }
+    }
   }
 }
 
@@ -161,17 +343,19 @@ class CustomButton extends StatelessWidget {
 
   CustomButton(
       {@required this.image,
-        @required this.title,
-        @required this.navigateTo,
-        this.color});
+      @required this.title,
+      @required this.navigateTo,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width - 60;
     return InkWell(
-        onTap: () {  Navigator.pop(context);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => navigateTo!));},
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => navigateTo!));
+        },
         child: Container(
             width: width / 2,
             height: 40,
@@ -179,16 +363,13 @@ class CustomButton extends StatelessWidget {
             //padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8), color: AppColors.amber),
-            child:
-
-            Center(
+            child: Center(
               child: new Text(
                 title!,
                 style: TextStyle(color: AppColors.white),
               ),
-            ))
-
-
-    );
+            )));
   }
+
+
 }

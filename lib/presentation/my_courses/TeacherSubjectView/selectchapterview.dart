@@ -69,12 +69,17 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                  Container(
                   width: Dimensions.WatchButtonWidth,
                   height: Dimensions.AppTutorialImageHeight,
-                  child:Image.asset(Images.exampur_logo,fit: BoxFit.fill,)),
-                // ):  Container(
-                //     width: Dimensions.WatchButtonWidth,
-                //     height: Dimensions.AppTutorialImageHeight,
-                //     child:Image.network(AppConstants.BANNER_BASE+materialList[index].timeline!.logoPath.toString(),fit: BoxFit.fill,),
-                //     ),
+                  // child:Image.asset(Images.exampur_logo,fit: BoxFit.fill,)
+                   child: AppConstants.image(
+                     materialList[index].timeline!=null &&
+                         materialList[index].timeline!.logoPath!=null &&
+                         materialList[index].timeline!.logoPath.toString().isNotEmpty ?
+                     materialList[index].timeline!.logoPath.toString().contains('http') ?
+                     materialList[index].timeline!.logoPath.toString() :
+                     AppConstants.BANNER_BASE+materialList[index].timeline!.logoPath.toString() :
+                     'error',
+                       boxfit: BoxFit.fill),
+                 ),
                 SizedBox(width: 10),
 
                 Flexible(
@@ -120,15 +125,15 @@ class _SelectChapterViewState extends State<SelectChapterView> {
                                       ),
                                     ),
                                     SizedBox(height: 10,),
-                                    CustomButton(navigateTo:MyApexVideoMaterial(materialList[index].timeline!.apexLink!.hlsUrl.toString(),materialList[index].title.toString()) ,title: getTranslated(context, StringConstant.Normal),),
+                                    CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hlsUrl.toString(),materialList[index].title.toString(),'','') ,title: getTranslated(context, StringConstant.Normal),),
                                     SizedBox(height: 10,),
-                                    CustomButton(navigateTo: MyApexVideoMaterial(materialList[index].timeline!.apexLink!.hls240PUrl.toString(),materialList[index].title.toString()),title: '240p',),
+                                    CustomButton(navigateTo: MyMaterialViedo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(),materialList[index].title.toString(),'',''),title: '240p',),
                                     SizedBox(height: 10,),
-                                    CustomButton(navigateTo:MyApexVideoMaterial(materialList[index].timeline!.apexLink!.hls360PUrl.toString(),materialList[index].title.toString()),title: '360p',),
+                                    CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(),materialList[index].title.toString(),'',''),title: '360p',),
                                     SizedBox(height: 10,),
-                                    CustomButton(navigateTo:MyApexVideoMaterial(materialList[index].timeline!.apexLink!.hls480PUrl.toString(),materialList[index].title.toString() ),title: '480p',),
+                                    CustomButton(navigateTo:MyMaterialViedo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(),materialList[index].title.toString() ,'',''),title: '480p',),
                                     SizedBox(height: 10,),
-                                    CustomButton(navigateTo: MyApexVideoMaterial(materialList[index].timeline!.apexLink!.hls720PUrl.toString(),materialList[index].title.toString()),title: '720p',),
+                                    CustomButton(navigateTo: MyMaterialViedo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(),materialList[index].title.toString(),'',''),title: '720p',),
                                     SizedBox(height: 10,),
                                   ],
                                 ) :
