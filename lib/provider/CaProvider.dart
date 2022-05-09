@@ -54,7 +54,10 @@ class CaProvider extends ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       // _studyMaterialNew = StudyMaterialNewModel.fromJson(json.decode(apiResponse.response.toString()));
       // studyMaterialNewDataList.add(_studyMaterialNew);
-      studyMaterialNewDataList = List<StudyMaterialNewModel>.from(json.decode(apiResponse.response.toString()).map((model)=> StudyMaterialNewModel.fromJson(model)));
+
+      var tagsJson = jsonDecode(apiResponse.response.toString());
+      List<dynamic> tags = List.from(tagsJson);
+      print("+++ " + tags[0]["super_category"]);
       return studyMaterialNewDataList;
 
     } else {

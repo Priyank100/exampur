@@ -24,7 +24,6 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
   }
   Future<void> getLists() async {
     studyMaterialDataList = (await Provider.of<CaProvider>(context, listen: false).getStudyMaterialNew(context))!;
-    AppConstants.printLog('++++++++++++++++++++++++++++++++');
     AppConstants.printLog(studyMaterialDataList.length);
     setState(() {
 
@@ -37,7 +36,7 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
         future:  Future.delayed(Duration.zero, () => getLists()),
         builder: (context, snapshot) {
           return Scaffold(
-              body: studyMaterialDataList.length == 0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+              body: /*studyMaterialDataList.length == 0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :*/
                TabBarDemo(
                   length: studyMaterialDataList.length,
                   names: studyMaterialDataList.map((item) => item.superCategory.toString()).toList(),
