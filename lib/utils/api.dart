@@ -17,6 +17,7 @@ class API {
   //Dev
   // static const String BASE_URL2 = 'https://auth-dev.exampur.xyz/';
   // static const String BASE_URL3 = 'https://static-dev.exampur.xyz/';
+  // static const String BASE_URL3 = 'https://kubernetes.static.exampur.xyz/';
 
   //cache production
   static const String BASE_URL2 = 'https://auth.exampurcache.xyz/';

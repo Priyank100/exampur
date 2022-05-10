@@ -1,17 +1,25 @@
 
+import 'dart:io';
+
 import 'package:chewie/chewie.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'package:video_player/video_player.dart';
 
 class MyApexVideoMaterial extends StatefulWidget {
   String url;
   String title;
-  MyApexVideoMaterial(this.url,this.title) : super();
+  String recordingprops;
+  MyApexVideoMaterial(this.url,this.title,this.recordingprops) : super();
 
   @override
   _MyApexVideoMaterialState createState() => _MyApexVideoMaterialState();
@@ -121,9 +129,41 @@ class _MyApexVideoMaterialState extends State<MyApexVideoMaterial> {
             padding: const EdgeInsets.all(8.0),
             child:   Text(widget.title,style: TextStyle(fontSize: 20)),
           ),
+          SizedBox(
+            height: 60,
+          ),
+          Center(
+            child: InkWell(onTap: (){
 
+                AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+
+            },
+              child: Container(
+                  height: 45,width:MediaQuery.of(context).size.width/1.10,decoration: BoxDecoration( color:AppColors.amber,
+                  borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, StringConstant.downloadVideo)!,style: TextStyle(color: Colors.white,fontSize: 15)
+              ))),
+            ),
+          )
         ],
       ),
     );
+  }
+  Future<void> requestVideoDownload() async {
+    final dir = await getApplicationDocumentsDirectory();
+
+    var _localPath = dir.path + '/' + widget.title;
+    final savedDir = Directory(_localPath);
+    await savedDir.create(recursive: true).then((value) async {
+      String? _taskid = await FlutterDownloader.enqueue(
+        url: widget.recordingprops,
+        fileName: widget.title,
+        savedDir: _localPath,
+        showNotification: false,
+        openFileFromNotification: false,
+        saveInPublicStorage: false,
+      );
+      AppConstants.printLog(_taskid);
+      Navigator.push(context, MaterialPageRoute(builder: (_) => Downloads(0)));
+    });
   }
 }

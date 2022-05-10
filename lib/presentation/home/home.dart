@@ -114,40 +114,40 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  getTranslated(context, StringConstant.hello)! + ', ' + '${userName} !',
-                  style: CustomTextStyle.headingMediumBold(context),
-                ),
                 Flexible(
-                  child: DropdownButton<Language>(
-                    underline: SizedBox(),
-                    icon: Image.asset(
-                      Images.language,
-                      height: 35,
-                      width: 30,
-                    ),
-                    onChanged: (Language? language) {
-                      _changeLanguage(language!);
-                    },
-                    items: Language.languageList()
-                        .map<DropdownMenuItem<Language>>(
-                          (e) => DropdownMenuItem<Language>(
-                            value: e,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Text(
-                                  e.flag,
-                                  style: TextStyle(fontSize: 30),
-                                ),
-                                Text(e.name)
-                              ],
-                            ),
-                          ),
-                        )
-                        .toList(),
+                  child: Text(
+                    getTranslated(context, StringConstant.hello)! + ', ' + '${userName} !', overflow: TextOverflow.ellipsis,maxLines: 1,
+                    style: CustomTextStyle.headingBold(context),
                   ),
                 ),
+                DropdownButton<Language>(
+                  underline: SizedBox(),
+                  icon: Image.asset(
+                    Images.language,
+                    height: 35,
+                    width: 30,
+                  ),
+                  onChanged: (Language? language) {
+                    _changeLanguage(language!);
+                  },
+                  items: Language.languageList()
+                      .map<DropdownMenuItem<Language>>(
+                        (e) => DropdownMenuItem<Language>(
+                      value: e,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text(
+                            e.flag,
+                            style: TextStyle(fontSize: 30),
+                          ),
+                          Text(e.name)
+                        ],
+                      ),
+                    ),
+                  )
+                      .toList(),
+                )
               ],
             ),
             // SizedBox(height: 5),
