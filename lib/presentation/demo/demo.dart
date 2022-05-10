@@ -27,7 +27,7 @@ class DemoState extends State<Demo> {
    @override
   void initState() {
     super.initState();
-    scrollController.addListener(pagination);
+   // scrollController.addListener(pagination);
      getDemoList();
   }
 
@@ -87,7 +87,7 @@ class DemoState extends State<Demo> {
                Expanded(
                  child: ListView.builder(
                    shrinkWrap: true,
-                   controller: scrollController,
+                 //  controller: scrollController,
                    itemCount: demoList.length,
                      itemBuilder: (BuildContext context, index){
                    return DemoContainer(demoList,index);
