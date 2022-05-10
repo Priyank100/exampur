@@ -16,6 +16,7 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
+import 'package:exampur_mobile/shared/priyank_player.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -324,8 +325,10 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, StringConstant.CaBytes)!,
                   color: AppColors.jobAlert,
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(builder: (_) => CaBytes()));
+                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CaBytes()));
+                    // Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
+                    //     PriyankPlayer('Priyank Video Player',
+                    //         'https://downloadexampur.appx.co.in/paid_course/0.46657945645736841649068141070.mp4')));
                   },
                   //  navigateTo: CaBytes()
                 ),
