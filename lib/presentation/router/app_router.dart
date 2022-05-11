@@ -17,7 +17,7 @@ class AppRouter {
     switch (routeSettings.name) {
       case '/':
         return MaterialPageRoute(
-          builder: (_) => BottomNavigationNew(),
+          builder: (_) => BottomNavigationOld(),
         );
 
       case '/home':
