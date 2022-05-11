@@ -105,30 +105,8 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             color: AppColors.transparent,
             height: (MediaQuery.of(context).size.width) / 16 * 9,
             width: MediaQuery.of(context).size.width,
-            child: Stack(
-              children: [
-                FlickVideoPlayer(
-                    flickManager: flickManager!
-                ),
-                /*Positioned(
-                  right: MediaQuery.of(context).size.width/8,
-                  bottom: 0.0,
-                  child: DropdownButton<VideoSpeed>(
-                    underline: SizedBox(),
-                    icon: Icon(Icons.speed, color: AppColors.white),
-                    onChanged: (VideoSpeed? videoSpeed) {
-                      changeSpeed(videoSpeed!);
-                    },
-                    items: VideoSpeed.getVideoSpeedList()
-                        .map<DropdownMenuItem<VideoSpeed>>(
-                          (e) => DropdownMenuItem<VideoSpeed>(
-                          value: e,
-                          child: Text(e.title)
-                      ),
-                    ).toList(),
-                  )
-                )*/
-              ],
+            child: FlickVideoPlayer(
+                flickManager: flickManager!
             ),
           ),
           Padding(
