@@ -249,7 +249,7 @@ class AuthProvider extends ChangeNotifier {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
-                BottomNavigationNew()
+                BottomNavigationOld()
             )
         );
       }

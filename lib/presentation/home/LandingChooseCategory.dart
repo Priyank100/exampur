@@ -370,7 +370,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
-                BottomNavigationNew()
+                BottomNavigationOld()
             )
         );
       } else if(response.statusCode == 429) {
@@ -389,7 +389,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder:
                     (context) =>
-                    BottomNavigationNew()
+                    BottomNavigationOld()
                 )
             );
           } else {
