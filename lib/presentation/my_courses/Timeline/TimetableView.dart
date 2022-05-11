@@ -85,27 +85,18 @@ class _TimeTableViewState extends State<TimeTableView> {
 
                                   shrinkWrap: true,
                                   itemBuilder: (BuildContext context, int index) {
-                                    // DateTime parseDate =
-                                    //     new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                                    //         .parse(myCourseTimeLineList[index]
-                                    //             .schedule
-                                    //             .toString());
-                                    // var inputDate = DateTime.parse(parseDate.toString());
-                                    // var outputFormat = DateFormat('dd-MMM-yyyy hh:mm a');
-                                    // var outputDate = outputFormat.format(inputDate);
+                                  //10/05/2022, 04:00:00
+                                    DateTime parseDate = new DateFormat("dd/MM/yyyy, HH:mm:ss")
+                                        .parse(myCourseTimeLineList[index].schedule.toString());
+                                    var inputDate = DateTime.parse(parseDate.toString());
+                                    var outputFormat = DateFormat('dd MMM yyyy hh:mm a');
+                                    var outputDate = outputFormat.format(inputDate);
                                     return
-                                        //  myCourseTimeLineList[index].type.toString()=='Livesteam'?
-                                        //  MaterialPageRoute(
-                                        //      builder: (context) => YoutubeVideo(myCourseTimeLineList[index].targetLink.toString(),
-                                        //          myCourseTimeLineList[index].title.toString())
-                                        //  )
-                                        //  :
-                                        // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.noLiveStreamPresent), AppColors.grey);
                                         InkWell(
-                                      onTap: () {
-                                        activeButton=='L' ? callLiveStream(index) : null;
-                                      },
-                                      child: Container(
+                                          onTap: () {
+                                            activeButton=='L' ? callLiveStream(index) : null;
+                                            },
+                                          child: Container(
                                           padding: EdgeInsets.all(8),
                                           color: index % 2 == 0
                                               ? Theme.of(context).backgroundColor
@@ -163,7 +154,7 @@ class _TimeTableViewState extends State<TimeTableView> {
                                                       width: 200,
                                                       child: Center(
                                                           child: Text(
-                                                        'Live at ',
+                                                        'Live at ' + outputDate,
                                                         style: TextStyle(
                                                             color: AppColors.red,
                                                             fontSize: 10),
