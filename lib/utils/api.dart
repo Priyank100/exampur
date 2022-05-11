@@ -150,9 +150,11 @@ class API {
   static const String myCourse_subject_URL      = BASE_URL2 + 'course_subject/';
   static const String myCourse_material_URL     = BASE_URL2 + 'course_material/material/';
   static const String myCourse_chapter_URL     = BASE_URL2 + 'course_material/chapter/';
-  static const String myCourse_timeline_URL     = BASE_URL2 + 'course_timeline';
-  static const String myCourse_timelineshareStream_URL     = BASE_URL2 + 'course_timeline/shareStreamToMobile';
+  // static const String myCourse_timeline_URL     = BASE_URL2 + 'course_timeline';
+  static const String myCourse_timelineshareStream_URL   = BASE_URL2 + 'course_timeline/shareStreamToMobile';
   static const String myCourse_notification_URL = BASE_URL2 + 'course_notification';
+  static const String myCourse_timeline_live_URL     = BASE_URL2 + 'course_timeline/live';
+  static const String myCourse_timeline_upcoming_URL     = BASE_URL2 + 'course_timeline/upcoming';
 
   //testSeries
   static const String allTestSeries_URL   = BASE_URL3 + 'test_series';

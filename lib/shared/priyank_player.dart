@@ -52,7 +52,7 @@ class _PriyankPlayerState extends State<PriyankPlayer> {
         appBar: isFullscreen ? null : AppBar(title: Text(widget.appBarTitle)),
       body: _playerController.value.isInitialized ?
       AspectRatio(
-          aspectRatio: 3/4,
+          aspectRatio: _playerController.value.aspectRatio,
           child: Stack(
               children: [
                 player(),

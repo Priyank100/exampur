@@ -20,11 +20,9 @@ class TimeTableView extends StatefulWidget {
 }
 
 class _TimeTableViewState extends State<TimeTableView> {
-  List<TimelineData> allDataList = [];
+  // List<TimelineData> allDataList = [];
   List<TimelineData> myCourseTimeLineList = [];
   bool isLoading = false;
-// bool pressAttention =false;
-  // Data? liveStreamData;
   String activeButton = "L";
 
   @override
@@ -35,78 +33,66 @@ class _TimeTableViewState extends State<TimeTableView> {
 
   Future<void> callProvider() async {
     isLoading = true;
-    // String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-    allDataList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseTimeLineList(context, widget.courseId))!;
-    // myCourseTimeLineList = allDataList;
-    filterList(allDataList, activeButton);
+    myCourseTimeLineList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseTimeLineList(context, widget.courseId, activeButton))!;
+    // filterList(allDataList, activeButton);
     isLoading = false;
     setState(() {});
   }
 
-  // Future<void> callLiveStream() async {
-  //   String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
-  //   liveStreamData = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseTimeLineLiveStream(context, myCourseTimeLineList.first.id.toString(), token))!;
-  //  print(liveStreamData);
-  //   setState(() {});
-  // }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: isLoading
-            ? Center(child: LoadingIndicator(context))
-            : myCourseTimeLineList.length == 0
-                ? AppConstants.noDataFound()
-                :  Column(
-                      children: [
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width,
+        body:Column(
+          children: [
+            Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width,
+              child:  Row(
+                children: [
+                  MaterialButton(
+                      minWidth:MediaQuery.of(context).size.width/2,
+                  onPressed:(){
+                    setState(() {
+                      activeButton = "L";
+                    });
+                    // filterList(allDataList, activeButton);
+                    callProvider();
+                  },
+                  color:activeButton=='L'? AppColors.amber:AppColors.grey400,
+                  child: Text('Live',style: TextStyle(color: AppColors.white),)),
 
-                         child:  Row(
-
-                              children: [
-                                MaterialButton(
-                                    minWidth:MediaQuery.of(context).size.width/2,
-                                    onPressed:(){
-                                      setState(() {
-                                        activeButton = "L";
-                                      });
-                                      filterList(allDataList, activeButton);
-                                    },
-                                    color:activeButton=='L'? AppColors.amber:AppColors.grey400,
-                                    child: Text('Live',style: TextStyle(color: AppColors.white),)),
-
-                                MaterialButton(
-                                    minWidth:MediaQuery.of(context).size.width/2,
-                                    color:activeButton=='L'? AppColors.grey400:AppColors.amber,
-                                    onPressed:(){
-                                      setState(() {
-                                        activeButton = "U";
-                                      });
-                                      filterList(allDataList, activeButton);
-                                    },
-                                    child:  Text('Upcoming',style: TextStyle(color: AppColors.white))),
-                              ],
-                            ),
-                          ),
-                        Expanded(
-                          child: ListView.builder(
+              MaterialButton(
+                  minWidth:MediaQuery.of(context).size.width/2,
+                  color:activeButton=='L'? AppColors.grey400:AppColors.amber,
+                  onPressed:(){
+                    setState(() {
+                      activeButton = "U";
+                    });
+                    // filterList(allDataList, activeButton);
+                    callProvider();
+                  },
+                  child:  Text('Upcoming',style: TextStyle(color: AppColors.white))),
+            ],
+          ),
+        ),
+            isLoading ? Center(child: LoadingIndicator(context)) : myCourseTimeLineList.length == 0 ?
+            AppConstants.noDataFound() :
+            Expanded(
+              child: ListView.builder(
                                 scrollDirection: Axis.vertical,
                                 //  physics:BouncingScrollPhysics(),
                                   itemCount: myCourseTimeLineList.length,
 
                                   shrinkWrap: true,
                                   itemBuilder: (BuildContext context, int index) {
-                                    DateTime parseDate =
-                                        new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                                            .parse(myCourseTimeLineList[index]
-                                                .schedule
-                                                .toString());
-                                    var inputDate = DateTime.parse(parseDate.toString());
-                                    var outputFormat = DateFormat('dd-MMM-yyyy hh:mm a');
-                                    var outputDate = outputFormat.format(inputDate);
+                                    // DateTime parseDate =
+                                    //     new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                                    //         .parse(myCourseTimeLineList[index]
+                                    //             .schedule
+                                    //             .toString());
+                                    // var inputDate = DateTime.parse(parseDate.toString());
+                                    // var outputFormat = DateFormat('dd-MMM-yyyy hh:mm a');
+                                    // var outputDate = outputFormat.format(inputDate);
                                     return
                                         //  myCourseTimeLineList[index].type.toString()=='Livesteam'?
                                         //  MaterialPageRoute(
@@ -117,7 +103,7 @@ class _TimeTableViewState extends State<TimeTableView> {
                                         // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.noLiveStreamPresent), AppColors.grey);
                                         InkWell(
                                       onTap: () {
-                                        callLiveStream(index);
+                                        activeButton=='L' ? callLiveStream(index) : null;
                                       },
                                       child: Container(
                                           padding: EdgeInsets.all(8),
@@ -177,7 +163,7 @@ class _TimeTableViewState extends State<TimeTableView> {
                                                       width: 200,
                                                       child: Center(
                                                           child: Text(
-                                                        'Live at ' + outputDate,
+                                                        'Live at ',
                                                         style: TextStyle(
                                                             color: AppColors.red,
                                                             fontSize: 10),
@@ -190,10 +176,9 @@ class _TimeTableViewState extends State<TimeTableView> {
                                           )),
                                     );
                                   }),
-                        ),
-                      ],
-                    ),
-                  );
+            ),
+          ])
+    );
   }
 
   Future<void> callLiveStream(index) async {
@@ -311,7 +296,7 @@ class _TimeTableViewState extends State<TimeTableView> {
     });
   }
 
-  void filterList(List<TimelineData> list, String activeBtn) {
+  /*void filterList(List<TimelineData> list, String activeBtn) {
     myCourseTimeLineList.clear();
     DateFormat outputFormat = DateFormat('dd-MM-yyyy HH:mm:ss');
     String now = outputFormat.format(DateTime.now());
@@ -332,7 +317,7 @@ class _TimeTableViewState extends State<TimeTableView> {
         myCourseTimeLineList.add(list[i]);
       }
     }
-  }
+  }*/
 }
 
 class CustomButton extends StatelessWidget {

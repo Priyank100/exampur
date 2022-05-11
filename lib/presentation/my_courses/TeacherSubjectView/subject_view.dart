@@ -1,7 +1,7 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_subject_model.dart';
-import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/teachersubjectview.dart';
+import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/chapter_view.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -67,7 +67,7 @@ class _SubjectViewState extends State<SubjectView> {
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) =>
-            TeacherSubjectView(widget.courseId, subjectList[index].id.toString())
+            ChapterView(widget.courseId, subjectList[index].id.toString())
         ));
       },
       child: Column(

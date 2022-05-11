@@ -152,8 +152,8 @@ class MyCourseProvider extends ChangeNotifier {
   }
 
 
-  Future<List<TimelineData>?> getMyCourseTimeLineList(BuildContext context, String courseId ) async {
-    ApiResponse apiResponse = await myCourseRepo.myCourseTimelineData(courseId,);
+  Future<List<TimelineData>?> getMyCourseTimeLineList(BuildContext context, String courseId, String activeBtn) async {
+    ApiResponse apiResponse = await myCourseRepo.myCourseTimelineData(courseId,activeBtn);
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
@@ -169,12 +169,6 @@ class MyCourseProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(
           context, getTranslated(context, StringConstant.serverError)!,
           AppColors.red);
-      // Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => ErrorScreen()
-      //     )
-      // );
       notifyListeners();
     }
   }

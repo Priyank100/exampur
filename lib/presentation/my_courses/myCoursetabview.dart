@@ -2,15 +2,15 @@ import 'dart:convert';
 
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/booktitle.dart';
-import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/subjectView.dart';
+import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/subject_view.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'MyCourseNotificationView/myCourseNotification.dart';
-import 'TimeTable/TimetableView.dart';
-import 'feedbackView.dart';
+import 'Feedback/feedbackView.dart';
+import 'Timeline/TimetableView.dart';
 
 
 class MyCourseTabView extends StatefulWidget {

@@ -12,46 +12,28 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:video_player/video_player.dart';
 
-class MyMaterialViedo extends StatefulWidget {
+class MyMaterialVideo extends StatefulWidget {
   String url;
   String title;
   String download;
-  String Image;
 
-  MyMaterialViedo(this.url, this.title, this.download, this.Image) : super();
+  MyMaterialVideo(this.url, this.title, this.download) : super();
 
   @override
-  _MyMaterialViedoState createState() => _MyMaterialViedoState();
+  _MyMaterialVideoState createState() => _MyMaterialVideoState();
 }
 
-class _MyMaterialViedoState extends State<MyMaterialViedo> {
-  // late VideoPlayerController videoPlayerController;
-  // ChewieController? chewieController;
+class _MyMaterialVideoState extends State<MyMaterialVideo> {
   FlickManager? flickManager;
+  late VideoPlayerController _playerController;
+
   @override
   void initState() {
-    // print(widget.url);
     super.initState();
-    // videoPlayerController = VideoPlayerController.network(widget.url);
-    // chewieController = ChewieController(
-    //     cupertinoProgressColors: ChewieProgressColors(),
-    //     videoPlayerController: videoPlayerController,
-    //     aspectRatio: 16 / 9,
-    //     autoPlay: true,
-    //     looping: true,
-    //     autoInitialize: true,
-    //     errorBuilder: (context, errorMessage) {
-    //       return Center(
-    //         child: Text(
-    //           "Video unavanilable",
-    //           style: TextStyle(color: AppColors.white),
-    //         ),
-    //       );
-    //     });
-   // initializePlayer();
+    _playerController = VideoPlayerController.network(widget.url);
     flickManager = FlickManager(
-      videoPlayerController:
-      VideoPlayerController.network(widget.url),
+      // videoPlayerController: VideoPlayerController.network(widget.url),
+      videoPlayerController: _playerController,
     );
   }
 
@@ -60,6 +42,7 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
     flickManager!.dispose();
     super.dispose();
   }
+
   // Future<void> initializePlayer() async {
   //  // videoPlayerController = VideoPlayerController.network('https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4');
   //   videoPlayerController = VideoPlayerController.network(widget.url);
@@ -107,6 +90,7 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
   //   chewieController?.dispose();
   //   super.dispose();
   // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,29 +105,32 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
             color: AppColors.transparent,
             height: (MediaQuery.of(context).size.width) / 16 * 9,
             width: MediaQuery.of(context).size.width,
-            child: FlickVideoPlayer(
-                flickManager: flickManager!
+            child: Stack(
+              children: [
+                FlickVideoPlayer(
+                    flickManager: flickManager!
+                ),
+                /*Positioned(
+                  right: MediaQuery.of(context).size.width/8,
+                  bottom: 0.0,
+                  child: DropdownButton<VideoSpeed>(
+                    underline: SizedBox(),
+                    icon: Icon(Icons.speed, color: AppColors.white),
+                    onChanged: (VideoSpeed? videoSpeed) {
+                      changeSpeed(videoSpeed!);
+                    },
+                    items: VideoSpeed.getVideoSpeedList()
+                        .map<DropdownMenuItem<VideoSpeed>>(
+                          (e) => DropdownMenuItem<VideoSpeed>(
+                          value: e,
+                          child: Text(e.title)
+                      ),
+                    ).toList(),
+                  )
+                )*/
+              ],
             ),
-            // child: chewieController != null &&
-            //     chewieController!
-            //         .videoPlayerController.value.isInitialized
-            //     ? Chewie(
-            //   controller: chewieController!,
-            // )
-            //     : Column(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: const [
-            //     CircularProgressIndicator(color: AppColors.amber,),
-
-            //   ],
-            // ),
           ),
-          // Container(
-          //   //padding: EdgeInsets.only(top: 8),
-          //   height: (MediaQuery.of(context).size.width) / 16 * 9,
-          //   width: MediaQuery.of(context).size.width,
-          //   child: Chewie(controller: chewieController),
-          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(widget.title, style: TextStyle(fontSize: 20)),
@@ -186,5 +173,30 @@ class _MyMaterialViedoState extends State<MyMaterialViedo> {
       AppConstants.printLog(_taskid);
       Navigator.push(context, MaterialPageRoute(builder: (_) => Downloads(0)));
     });
+  }
+
+  void changeSpeed(VideoSpeed videoSpeed) {
+    setState(() {
+      _playerController.setPlaybackSpeed(videoSpeed.speed);
+    });
+  }
+}
+
+class VideoSpeed {
+  final String title;
+  final double speed;
+  VideoSpeed(this.title, this.speed);
+
+  static List<VideoSpeed> getVideoSpeedList() {
+    return <VideoSpeed>[
+      VideoSpeed('2.0x', 2.0),
+      VideoSpeed('1.75x', 1.75),
+      VideoSpeed('1.5x', 1.5),
+      VideoSpeed('1.25x', 1.25),
+      VideoSpeed('Normal', 1.0),
+      VideoSpeed('0.75x', 0.75),
+      VideoSpeed('0.5x', 0.5),
+      VideoSpeed('0.25x', 0.25)
+    ];
   }
 }

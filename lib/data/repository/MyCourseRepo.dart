@@ -66,19 +66,22 @@ class MyCourseRepo {
     }
   }
 
-  Future<ApiResponse> myCourseTimelineData(String courseId,) async {
+  Future<ApiResponse> myCourseTimelineData(String courseId,String activeBtn) async {
     String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
       };
-      String url = API.myCourse_timeline_URL+'/'+courseId;
+      String url = activeBtn=='L' ?
+      API.myCourse_timeline_live_URL+'/'+courseId : API.myCourse_timeline_upcoming_URL+'/'+courseId;
+
       final response = await dioClient.get(url,options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
   Future<ApiResponse> myCourseTimelineshareStreamToMobile(String courseId,String token) async {
     String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     try {
