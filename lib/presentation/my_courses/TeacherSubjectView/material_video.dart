@@ -152,29 +152,4 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
       Navigator.push(context, MaterialPageRoute(builder: (_) => Downloads(0)));
     });
   }
-
-  void changeSpeed(VideoSpeed videoSpeed) {
-    setState(() {
-      _playerController.setPlaybackSpeed(videoSpeed.speed);
-    });
-  }
-}
-
-class VideoSpeed {
-  final String title;
-  final double speed;
-  VideoSpeed(this.title, this.speed);
-
-  static List<VideoSpeed> getVideoSpeedList() {
-    return <VideoSpeed>[
-      VideoSpeed('2.0x', 2.0),
-      VideoSpeed('1.75x', 1.75),
-      VideoSpeed('1.5x', 1.5),
-      VideoSpeed('1.25x', 1.25),
-      VideoSpeed('Normal', 1.0),
-      VideoSpeed('0.75x', 0.75),
-      VideoSpeed('0.5x', 0.5),
-      VideoSpeed('0.25x', 0.25)
-    ];
-  }
 }

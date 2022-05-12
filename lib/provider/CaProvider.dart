@@ -15,7 +15,6 @@ class CaProvider extends ChangeNotifier {
   CaSmModel _caSmModel = CaSmModel();
   CaSmModel get caSmModel => _caSmModel;
 
-
   StudyMaterialNewModel _studyMaterialNew = StudyMaterialNewModel();
   StudyMaterialNewModel get studyMaterialNew => _studyMaterialNew;
 
@@ -49,16 +48,17 @@ class CaProvider extends ChangeNotifier {
 
   //studyMaterialNew
   Future<List<StudyMaterialNewModel>?> getStudyMaterialNew(BuildContext context) async {
-    List<StudyMaterialNewModel> studyMaterialNewDataList = [];
+    List<StudyMaterialNewModel> myList = [];
     ApiResponse apiResponse = await caRepo.studyMaterialNew();
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       // _studyMaterialNew = StudyMaterialNewModel.fromJson(json.decode(apiResponse.response.toString()));
       // studyMaterialNewDataList.add(_studyMaterialNew);
 
-      var tagsJson = jsonDecode(apiResponse.response.toString());
-      List<dynamic> tags = List.from(tagsJson);
-      print("+++ " + tags[0]["super_category"]);
-      return studyMaterialNewDataList;
+      List<dynamic> list = apiResponse.response!.data;
+      print('+++ '+ list.length.toString());
+      print('+++ '+ list[0]['super_category'].toString());
+      //_InternalLinkedHashMap<String, dynamic>
+      return [];
 
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);

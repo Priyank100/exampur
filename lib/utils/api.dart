@@ -171,6 +171,6 @@ class API {
   static const String dailyQuiz_web_URL  = 'https://testweb.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
 
   //study Material New
-  static const String studyMaterialNewUrl = 'https://exampur.com/study-material/';
+  static const String studyMaterialNewUrl = 'https://exampur.com/api/study-material/';
 
 }

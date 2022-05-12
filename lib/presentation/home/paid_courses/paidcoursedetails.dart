@@ -16,7 +16,9 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
 typedef YoutubeQualityChangeCallback(String quality, Duration position);
+
 class PaidCourseDetails extends StatefulWidget {
   String courseTabType;
   final Courses courseData;
@@ -108,7 +110,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       player: YoutubePlayer(
         //aspectRatio: 19 / 9,
         controller: _controller,
-       // showVideoProgressIndicator: false,
+        // showVideoProgressIndicator: false,
         progressIndicatorColor: Colors.blueAccent,
         topActions: <Widget>[
           //todo: change video quality
@@ -141,142 +143,118 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       ),
       builder: (context, player) => Scaffold(
         appBar:CustomAppBar(),
-        /*floatingActionButton:  Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton.extended(
-                onPressed: () async {
-                  AppConstants.checkPermission(context, Permission.storage, requestDownload);
-                },
-                backgroundColor: AppColors.white,
-                elevation: 8.0,
-                label: ImageIcon(
-                  AssetImage(Images.download_pdf),
-                  color: AppColors.red,
-                  size: 24,
-                ),
-    ),
-      SizedBox(width: 8,),
-      FloatingActionButton.extended(
-          onPressed: () async {
-            AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
-          },
-          backgroundColor: AppColors.amber,
-          elevation: 8.0,
-          label: ImageIcon(
-            AssetImage(Images.download),
-            color: AppColors.white,
-            size: 24,
-          )),
-          ],
-        ),*/
         body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             player,
-            SizedBox(height: 20),
-            Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                  child: Text(widget.courseData.title.toString(),
-                      textAlign: TextAlign.center     ,
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
-                  child: Text(getTranslated(context, StringConstant.Validity)!+' :  '+widget.courseData.validtime.toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-                ),
-                widget.courseData.pdfPath==null?SizedBox():
-                Padding(
-                  padding: const EdgeInsets.only(top: 5, left: 20, right: 10),
-                  child: InkWell(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                      widget.courseData.pdfPath.toString().contains('http') ?
-                          ViewPdf(widget.courseData.pdfPath.toString(),'') :
-                          ViewPdf(AppConstants.BANNER_BASE + widget.courseData.pdfPath.toString(),'')
-                      ));
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(3.0),
-                      width: Dimensions.DailyMonthlyViewBtnWidth,
-                      height: Dimensions.DailyMonthlyViewBtnHeight,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.black),
-                          color: AppColors.red
-                      ),
-                      child: Text(getTranslated(context, StringConstant.viewPdf)!, style: TextStyle(color:AppColors.white, fontSize: 10)),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      child: Text(widget.courseData.title.toString(),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                     ),
-                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        widget.courseData.validtime == null || widget.courseData.validtime == 'null' ? SizedBox() :
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
+                          child: Text(getTranslated(context, StringConstant.Validity)!+' :  '+widget.courseData.validtime.toString(),
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                        ),
+                        widget.courseData.pdfPath==null || widget.courseData.pdfPath=='null' || widget.courseData.pdfPath!.isEmpty ? SizedBox():
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
+                          child: InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                              widget.courseData.pdfPath.toString().contains('http') ?
+                              ViewPdf(widget.courseData.pdfPath.toString(),'') :
+                              ViewPdf(AppConstants.BANNER_BASE + widget.courseData.pdfPath.toString(),'')
+                              ));
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(3.0),
+                              width: Dimensions.DailyMonthlyViewBtnWidth,
+                              height: Dimensions.DailyMonthlyViewBtnHeight,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: AppColors.black),
+                                  color: AppColors.red
+                              ),
+                              child: Text(getTranslated(context, StringConstant.viewPdf)!, style: TextStyle(color:AppColors.white, fontSize: 10)),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    widget.courseType==1 ?  Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
+                      child: Row(
+                        children: [
+                          Text(
+                            '\u{20B9}',
+                            style: TextStyle(color: AppColors.black, fontSize: 15),
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            widget.courseData.regularPrice.toString(),
+                            style: TextStyle(color: AppColors.grey, fontSize: 15,decoration: TextDecoration.lineThrough),
+                          ),
+                          SizedBox(width: 5,),
+                          Text(
+                            widget.courseData.salePrice.toString(),
+                            style: TextStyle(color: AppColors.black, fontSize: 15),
+                          ),
+                        ],
+                      ),
+                    ):SizedBox(),
+                    Html(data:widget.courseData.description.toString(), style: {
+                      "body": Style(
+                        fontSize: FontSize(12.0),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    },)
+                  ],
                 )
-              ],
-            ),
-            widget.courseType==1 ?  Padding(
-              padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
-              child: Row(
-                children: [
-                  Text(
-                    '\u{20B9}',
-                    style: TextStyle(color: AppColors.black, fontSize: 15),
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    widget.courseData.regularPrice.toString(),
-                    style: TextStyle(color: AppColors.grey, fontSize: 15,decoration: TextDecoration.lineThrough),
-                  ),
-                  SizedBox(width: 5,),
-                  Text(
-                    widget.courseData.salePrice.toString(),
-                    style: TextStyle(color: AppColors.black, fontSize: 15),
-                  ),
-                ],
               ),
-            ):SizedBox(),
-           Html(data:widget.courseData.description.toString(), style: {
-             "body": Style(
-               fontSize: FontSize(12.0),
-               fontWeight: FontWeight.bold,
-             ),
-           },),
-
-
+            )
           ],
         ),
-        bottomNavigationBar: Container(child:      widget.courseType==1 ? InkWell(
-          onTap: () {
-            FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
-              'Couse_Id':widget.courseData.id.toString(),
-              'Couse_Name':widget.courseData.title.toString()
-            });
-            Navigator.push(
-              context, MaterialPageRoute(builder: (context) =>
-                DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
-                    widget.courseData.title.toString(), widget.courseData.salePrice.toString()
-                )
+        bottomNavigationBar: Container(
+          child: widget.courseType==1 ? InkWell(
+            onTap: () {
+              FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
+                'Couse_Id':widget.courseData.id.toString(),
+                'Couse_Name':widget.courseData.title.toString()
+              });
+              Navigator.push(
+                context, MaterialPageRoute(builder: (context) =>
+                  DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
+                      widget.courseData.title.toString(), widget.courseData.salePrice.toString()
+                  )
+              ),
+              );
+            },
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: AppColors.amber,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              height: 40,
+              margin: EdgeInsets.all(10),
+              child: Center(
+                  child: Text(
+                    getTranslated(context, StringConstant.buyCourse)!,
+                    style: TextStyle(color: AppColors.white, fontSize: 18),
+                  )),
             ),
-            );
-          },
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: AppColors.amber,
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            height: 40,
-            margin: EdgeInsets.all(10),
-            child: Center(
-                child: Text(
-                  getTranslated(context, StringConstant.buyCourse)!,
-                  style: TextStyle(color: AppColors.white, fontSize: 18),
-                )),
-          ),
-        ):SizedBox() ,),
+          ):SizedBox() ,),
       ),
     );
   }

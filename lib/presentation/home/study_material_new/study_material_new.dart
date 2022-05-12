@@ -24,10 +24,8 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
   }
   Future<void> getLists() async {
     studyMaterialDataList = (await Provider.of<CaProvider>(context, listen: false).getStudyMaterialNew(context))!;
+    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>');
     AppConstants.printLog(studyMaterialDataList.length);
-    setState(() {
-
-    });
   }
 
   @override
