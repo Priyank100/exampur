@@ -184,11 +184,13 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
             return IconButton(
                 icon: Image.asset(Images.menu_icon,width: Dimensions.ICON_SIZE_LARGE,color: AppColors.black,),
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.sideBarClick);
                   Scaffold.of(context).openDrawer();});
           }),
           title: InkWell(
             onTap: (){
+              FocusScope.of(context).unfocus();
               Navigator.push(
                   context,
                   MaterialPageRoute(

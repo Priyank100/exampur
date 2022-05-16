@@ -8,6 +8,7 @@ import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ class MyCoursesState extends State<MyCourses> {
   List<CourseData> myCourseList = [];
   bool isLoading = false;
   // var groupedLists = {};
+  final keyRefresh = GlobalKey<RefreshIndicatorState>();
 
   TextEditingController _controller = TextEditingController();
   List<String> allCategoryNameList = [];
@@ -44,64 +46,71 @@ class MyCoursesState extends State<MyCourses> {
     // grouping();
     setState(() {});
   }
-
+  Future<void>_refreshScreen() async{
+    myCourseList.clear();
+    return callProvider();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(getTranslated(context, StringConstant.myCourses)!,
-                    style: CustomTextStyle.headingBold(context)),
-                myCourseList.length == 0 ? SizedBox() : CategoryDropDownButton()
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 5),
-              child: Container(
-                height: 30,
-                decoration: BoxDecoration(
-                  color: AppColors.grey200,
-                  border: Border.all(color: AppColors.grey, width: 1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: TextField(
-                  controller: _controller,
-                  autocorrect: false,
-                  onChanged: (s) {
-                    dropdownValue = 'Select Category';
-                    myCourseList = allCourseList.where((CourseData item)=>item.title.toString().toLowerCase().contains(s.toLowerCase())).toList();
-                    setState(() {});
-                  },
-                  onEditingComplete: () {
-                    FocusScope.of(context).nextFocus();
-                  },
-                  cursorColor: AppColors.amber,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search,size: 20,color: AppColors.grey400),
-                    hintText: getTranslated(context,StringConstant.searchCourse),
-                    hintStyle: TextStyle(fontSize: 13,
-                      color: AppColors.grey400,
+      body: RefreshWidget(
+        keyRefresh: keyRefresh,
+        onRefresh:_refreshScreen,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(getTranslated(context, StringConstant.myCourses)!,
+                      style: CustomTextStyle.headingBold(context)),
+                  myCourseList.length == 0 ? SizedBox() : CategoryDropDownButton()
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 5),
+                child: Container(
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: AppColors.grey200,
+                    border: Border.all(color: AppColors.grey, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextField(
+                    controller: _controller,
+                    autocorrect: false,
+                    onChanged: (s) {
+                      dropdownValue = 'Select Category';
+                      myCourseList = allCourseList.where((CourseData item)=>item.title.toString().toLowerCase().contains(s.toLowerCase())).toList();
+                      setState(() {});
+                    },
+                    onEditingComplete: () {
+                      FocusScope.of(context).nextFocus();
+                    },
+                    cursorColor: AppColors.amber,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search,size: 20,color: AppColors.grey400),
+                      hintText: getTranslated(context,StringConstant.searchCourse),
+                      hintStyle: TextStyle(fontSize: 13,
+                        color: AppColors.grey400,
+                      ),
+                      isDense: true,
+                      counterText: '',
+                      errorStyle: TextStyle(height: 1.5),
+                      border: InputBorder.none,
                     ),
-                    isDense: true,
-                    counterText: '',
-                    errorStyle: TextStyle(height: 1.5),
-                    border: InputBorder.none,
                   ),
                 ),
               ),
-            ),
-            isLoading
-                ? Center(child: LoadingIndicator(context))
-                : myCourseList.length == 0
-                    ? AppConstants.noDataFound()
-                    : DataContainer()
-          ],
+              isLoading
+                  ? Center(child: LoadingIndicator(context))
+                  : myCourseList.length == 0
+                      ? AppConstants.noDataFound()
+                      : DataContainer()
+            ],
+          ),
         ),
       ),
     );
@@ -126,6 +135,7 @@ class MyCoursesState extends State<MyCourses> {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: InkWell(
         onTap: () {
+          FocusScope.of(context).unfocus();
           Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute(
                   builder: (_) =>
@@ -313,6 +323,9 @@ class MyCoursesState extends State<MyCourses> {
         height: 1,
         color: AppColors.amber,
       ),
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
       onChanged: (data) {
         setState(() {
           _controller.text = '';
