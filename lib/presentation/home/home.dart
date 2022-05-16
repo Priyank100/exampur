@@ -326,22 +326,22 @@ class _HomeState extends State<Home> {
                   color: AppColors.jobAlert,
                   onPressed: () {
                     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CaBytes()));
-                    // Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
-                    //     PriyankPlayer('Priyank Video Player',
-                    //         'https://downloadexampur.appx.co.in/paid_course/0.46657945645736841649068141070.mp4')));
+
+                    // own player testing
+                    /*Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
+                        PriyankPlayer('Priyank Video Player',
+                            'https://downloadexampur.appx.co.in/paid_course/0.46657945645736841649068141070.mp4')));*/
                   },
-                  //  navigateTo: CaBytes()
                 ),
-                // SquareButton(
-                //   image: Images.studymaterial,
-                //   title: getTranslated(context, StringConstant.studyMaterials)!,
-                //   color: AppColors.paidCourses,
-                //   onPressed: () {
-                //     Navigator.of(context, rootNavigator: true)
-                //         .push(MaterialPageRoute(builder: (_) => StudyMaterialNew()));
-                //   },
-                //   //  navigateTo: CaBytes()
-                // ),
+                /*SquareButton(
+                  image: Images.studymaterial,
+                  title: getTranslated(context, StringConstant.studyMaterials)!,
+                  color: AppColors.paidCourses,
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(builder: (_) => StudyMaterialNew()));
+                  },
+                ),*/
               ],
             ),
             SizedBox(

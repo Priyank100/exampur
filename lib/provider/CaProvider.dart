@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
@@ -51,14 +52,8 @@ class CaProvider extends ChangeNotifier {
     List<StudyMaterialNewModel> myList = [];
     ApiResponse apiResponse = await caRepo.studyMaterialNew();
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      // _studyMaterialNew = StudyMaterialNewModel.fromJson(json.decode(apiResponse.response.toString()));
-      // studyMaterialNewDataList.add(_studyMaterialNew);
-
-      List<dynamic> list = apiResponse.response!.data;
-      print('+++ '+ list.length.toString());
-      print('+++ '+ list[0]['super_category'].toString());
-      //_InternalLinkedHashMap<String, dynamic>
-      return [];
+      myList = List<StudyMaterialNewModel>.from(apiResponse.response!.data.map((x) => StudyMaterialNewModel.fromJson(x)));
+      return myList;
 
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);

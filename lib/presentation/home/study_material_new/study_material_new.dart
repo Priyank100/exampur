@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/study_material_new_model.dart';
+import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -24,8 +25,6 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
   }
   Future<void> getLists() async {
     studyMaterialDataList = (await Provider.of<CaProvider>(context, listen: false).getStudyMaterialNew(context))!;
-    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>');
-    AppConstants.printLog(studyMaterialDataList.length);
   }
 
   @override
@@ -34,25 +33,58 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
         future:  Future.delayed(Duration.zero, () => getLists()),
         builder: (context, snapshot) {
           return Scaffold(
-              body: /*studyMaterialDataList.length == 0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :*/
+              body: studyMaterialDataList.length == 0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
                TabBarDemo(
                   length: studyMaterialDataList.length,
                   names: studyMaterialDataList.map((item) => item.superCategory.toString()).toList(),
-                  routes: studyMaterialDataList.length == 0 ? [] : [
-                    dataList(0, studyMaterialDataList[0].category!.length),
-                    dataList(1, studyMaterialDataList[1].category!.length)
-                    ],
+                  routes: studyMaterialDataList.length == 0 ? [] :
+                  List.generate(studyMaterialDataList.length, (index) => dataList(index)),
                   title: getTranslated(context, StringConstant.studyMaterials)!)
           );
         });
   }
 
-  Widget dataList(tabId, dataLength) {
+  Widget dataList(tabPos) {
     return ListView.builder(
-        itemCount: dataLength,
+        itemCount: studyMaterialDataList[tabPos].category!.length,
         itemBuilder: (context, index) {
-          return Text(studyMaterialDataList[tabId].category![index].name.toString());
+          return ItemList(studyMaterialDataList[tabPos].category![index]);
         });
+  }
+
+  Widget ItemList(Category category) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius:
+          BorderRadius.all(Radius.circular(12)),
+          boxShadow: const [
+            BoxShadow(
+              color: AppColors.grey,
+              offset: Offset(0.0, 0.0),
+              blurRadius: 1.0,
+              spreadRadius: 0.0,
+            ),
+          ],
+          color: Theme.of(context).backgroundColor,
+        ),
+        child: ListTile(
+            onTap: () {
+              AppConstants.printLog('id> ' + category.id.toString());
+            },
+            title: Text(
+              category.name.toString(),
+              style: CustomTextStyle.subHeading(context),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_sharp,
+              size: 12,
+              color: AppColors.black,
+            )
+        ),
+      ),
+    );
   }
 }
 
