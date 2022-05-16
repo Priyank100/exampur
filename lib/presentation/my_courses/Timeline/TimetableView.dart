@@ -154,11 +154,11 @@ class _TimeTableViewState extends State<TimeTableView> {
                                                       width: 200,
                                                       child: Center(
                                                           child: Text(
-                                                        'Live at ' + outputDate,
-                                                        style: TextStyle(
-                                                            color: AppColors.red,
-                                                            fontSize: 10),
-                                                      )),
+                                                              activeButton=='L' ? 'Watch Now' :
+                                                              'Live at ' + outputDate,
+                                                              style: TextStyle(color: AppColors.red, fontSize: 10)
+                                                          )
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
