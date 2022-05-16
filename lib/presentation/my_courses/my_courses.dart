@@ -46,10 +46,12 @@ class MyCoursesState extends State<MyCourses> {
     // grouping();
     setState(() {});
   }
+
   Future<void>_refreshScreen() async{
     myCourseList.clear();
     return callProvider();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
