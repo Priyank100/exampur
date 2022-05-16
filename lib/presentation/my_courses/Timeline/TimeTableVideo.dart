@@ -246,7 +246,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
 
                   var sec = times.split(':');
                   var second1 = sec[0].trim();
-                  var second2 = sec[2].trim();
+                  var second2 = sec[1].trim();
                   return new Column(
                     children: <Widget>[
                       Container(

@@ -77,7 +77,7 @@ class _VideosCAState extends State<VideosCA> {
         keyRefresh: keyRefresh,
         onRefresh:_refreshScreen,
             child: ListView.builder(
-                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+               // physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             itemCount: videoList.length,
          controller: scrollController,
          // shrinkWrap: true,
