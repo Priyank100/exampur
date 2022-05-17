@@ -71,7 +71,7 @@ class MyCoursesState extends State<MyCourses> {
                   myCourseList.length == 0 ? SizedBox() : CategoryDropDownButton()
                 ],
               ),
-              myCourseList.length == 0 ? SizedBox() :     Padding(
+              myCourseList.length == 0 ? SizedBox() : Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 5),
                 child: Container(
                   height: 30,
@@ -109,7 +109,7 @@ class MyCoursesState extends State<MyCourses> {
               isLoading
                   ? Center(child: LoadingIndicator(context))
                   : myCourseList.length == 0
-                      ? AppConstants.noDataFound()
+                      ? noData()
                       : DataContainer()
             ],
           ),
@@ -172,6 +172,18 @@ class MyCoursesState extends State<MyCourses> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget noData() {
+    return Expanded(
+      child: ListView.builder(
+          itemCount: 1,
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) {
+            return AppConstants.noDataFound();
+          }),
     );
   }
 
