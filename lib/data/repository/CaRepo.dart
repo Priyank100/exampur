@@ -21,7 +21,7 @@ class CaRepo {
     }
   }
 
-  //StudyMaterial
+  //StudyMaterialNew
   Future<ApiResponse> studyMaterialNew() async {
     try {
       String url = API.studyMaterialNewUrl;
@@ -31,4 +31,15 @@ class CaRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+  Future<ApiResponse> studyMaterialSubCatData(String catId) async {
+    try {
+      String url = API.studyMaterialNewSubCatUrl + catId;
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+  //StudyMaterialNew
 }

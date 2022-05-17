@@ -8,13 +8,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
+import 'dart:io' as io;
 
 
 class DownloadViewPdf extends StatefulWidget {
+  final String pdfTitle;
   final String pdfUrl;
-  final String pdfTitleUrl;
   final String pdfFilePath;
-  const DownloadViewPdf(this.pdfUrl,this.pdfTitleUrl, this.pdfFilePath) : super();
+  const DownloadViewPdf(this.pdfTitle, this.pdfUrl, this.pdfFilePath) : super();
 
   @override
   _DownloadViewPdfState createState() => _DownloadViewPdfState();
@@ -173,27 +174,35 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
       }
     }
   }
+
   Future<void> requestDownload() async {
     final dir = await getApplicationDocumentsDirectory();
-    var _localPath = dir.path + '/' + widget.pdfTitleUrl + '.pdf';
-    // var _localPath = dir.path + '/' + videoName;
-    final savedDir = Directory(_localPath);
-    await savedDir.create(recursive: true).then((value) async {
-      String? _taskid = await FlutterDownloader.enqueue(
-        url: widget.pdfUrl,
-        fileName: widget.pdfTitleUrl,
-        savedDir: _localPath,
-        showNotification: false,
-        openFileFromNotification: false,
-        saveInPublicStorage: false,
-      );
-      AppConstants.printLog(_taskid);
-      setState(() {
+    var _localPath = dir.path + '/' + widget.pdfTitle + '.pdf';
 
-      });
-      Navigator.push(context, MaterialPageRoute(builder: (_) =>
-          Downloads(1)
-      ));
+    await Directory(_localPath).exists().then((alreadyExist) async {
+      AppConstants.printLog(alreadyExist);
+      if(alreadyExist) {
+        AppConstants.showBottomMessage(context, 'This file is already exist', AppColors.black);
+        return;
+
+      } else {
+        final savedDir = Directory(_localPath);
+        await savedDir.create(recursive: true).then((value) async {
+          String? _taskid = await FlutterDownloader.enqueue(
+            url: widget.pdfUrl,
+            fileName: widget.pdfTitle,
+            savedDir: _localPath,
+            showNotification: false,
+            openFileFromNotification: false,
+            saveInPublicStorage: false,
+          );
+          AppConstants.printLog(_taskid);
+          setState(() {});
+          Navigator.push(context, MaterialPageRoute(builder: (_) =>
+              Downloads(1)
+          ));
+        });
+      }
     });
   }
 }

@@ -4,6 +4,7 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/study_material_new_model.dart';
+import 'package:exampur_mobile/data/model/study_material_sub_cat_model.dart';
 import 'package:exampur_mobile/data/repository/CaRepo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,8 @@ class CaProvider extends ChangeNotifier {
   CaSmModel _caSmModel = CaSmModel();
   CaSmModel get caSmModel => _caSmModel;
 
-  StudyMaterialNewModel _studyMaterialNew = StudyMaterialNewModel();
-  StudyMaterialNewModel get studyMaterialNew => _studyMaterialNew;
+  StudyMaterialSubCatModel _studyMaterialSubCatModel = StudyMaterialSubCatModel();
+  StudyMaterialSubCatModel get studyMaterialSubCatModel => _studyMaterialSubCatModel;
 
 
   Future<List<Data>?> getCaSmList(BuildContext context, String contentCatId, String type, String encodeCat,int pageNo) async {
@@ -37,12 +38,6 @@ class CaProvider extends ChangeNotifier {
 
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
-      // Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => ErrorScreen()
-      //     )
-      // );
       notifyListeners();
     }
   }
@@ -60,4 +55,18 @@ class CaProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<StudyMaterialSubCatModel?> getStudyMaterialSubCatData(BuildContext context, String catId) async {
+    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(catId);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _studyMaterialSubCatModel = StudyMaterialSubCatModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _studyMaterialSubCatModel;
+
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      notifyListeners();
+    }
+  }
+  //studyMaterialNew
+
 }

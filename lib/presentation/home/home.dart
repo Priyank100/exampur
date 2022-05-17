@@ -338,8 +338,7 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, StringConstant.studyMaterials)!,
                   color: AppColors.paidCourses,
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(builder: (_) => StudyMaterialNew()));
+                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyMaterialNew()));
                   },
                 ),*/
               ],

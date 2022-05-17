@@ -1,5 +1,6 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/study_material_new_model.dart';
+import 'package:exampur_mobile/presentation/home/study_material_new/study_material_sub_category.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
@@ -23,6 +24,7 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
     getLists();
     super.initState();
   }
+
   Future<void> getLists() async {
     studyMaterialDataList = (await Provider.of<CaProvider>(context, listen: false).getStudyMaterialNew(context))!;
   }
@@ -48,11 +50,11 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
     return ListView.builder(
         itemCount: studyMaterialDataList[tabPos].category!.length,
         itemBuilder: (context, index) {
-          return ItemList(studyMaterialDataList[tabPos].category![index]);
+          return itemList(studyMaterialDataList[tabPos].superCategory.toString(), studyMaterialDataList[tabPos].category![index]);
         });
   }
 
-  Widget ItemList(Category category) {
+  Widget itemList(String tabTitle, Category category) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -71,7 +73,7 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
         ),
         child: ListTile(
             onTap: () {
-              AppConstants.printLog('id> ' + category.id.toString());
+              AppConstants.goTo(context, StudyMaterialSubCategory(tabTitle, category.id.toString()));
             },
             title: Text(
               category.name.toString(),

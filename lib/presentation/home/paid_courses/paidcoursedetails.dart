@@ -319,48 +319,6 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   //   );
   // }
 
-  /*Future<void> requestDownload() async {
-    final dir = await getApplicationDocumentsDirectory();
-    var _localPath = dir.path + '/' + pdfName + '.pdf';
-    // var _localPath = dir.path + '/' + videoName;
-    final savedDir = Directory(_localPath);
-    await savedDir.create(recursive: true).then((value) async {
-      String? _taskid = await FlutterDownloader.enqueue(
-        url: pdfLink,
-        fileName: pdfName,
-        savedDir: _localPath,
-        showNotification: false,
-        openFileFromNotification: false,
-        saveInPublicStorage: false,
-      );
-      AppConstants.printLog(_taskid);
-      Navigator.push(context, MaterialPageRoute(builder: (_) =>
-          Downloads(1)
-      ));
-    });
-  }*/
-
-  /*Future<void> requestVideoDownload() async {
-  final dir = await getApplicationDocumentsDirectory();
-
-   var _localPath = dir.path + '/' + videoName;
-  final savedDir = Directory(_localPath);
-  await savedDir.create(recursive: true).then((value) async {
-    String? _taskid = await FlutterDownloader.enqueue(
-      url: videoLink,
-      fileName: videoName,
-      savedDir: _localPath,
-      showNotification: false,
-      openFileFromNotification: false,
-      saveInPublicStorage: false,
-    );
-    AppConstants.printLog(_taskid);
-    Navigator.push(context, MaterialPageRoute(builder: (_) =>
-        Downloads(0)
-    ));
-  });
-}*/
-
 }
 
 /*class Bottomsheet2 extends StatefulWidget {

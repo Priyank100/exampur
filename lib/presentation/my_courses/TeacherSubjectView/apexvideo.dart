@@ -150,20 +150,29 @@ class _MyApexVideoMaterialState extends State<MyApexVideoMaterial> {
   }
   Future<void> requestVideoDownload() async {
     final dir = await getApplicationDocumentsDirectory();
-
     var _localPath = dir.path + '/' + widget.title;
-    final savedDir = Directory(_localPath);
-    await savedDir.create(recursive: true).then((value) async {
-      String? _taskid = await FlutterDownloader.enqueue(
-        url: widget.recordingprops,
-        fileName: widget.title,
-        savedDir: _localPath,
-        showNotification: false,
-        openFileFromNotification: false,
-        saveInPublicStorage: false,
-      );
-      AppConstants.printLog(_taskid);
-      Navigator.push(context, MaterialPageRoute(builder: (_) => Downloads(0)));
+
+    await Directory(_localPath).exists().then((alreadyExist) async {
+      AppConstants.printLog(alreadyExist);
+      if (alreadyExist) {
+        AppConstants.showBottomMessage(
+            context, 'This file is already exist', AppColors.black);
+        return;
+      } else {
+        final savedDir = Directory(_localPath);
+        await savedDir.create(recursive: true).then((value) async {
+          String? _taskid = await FlutterDownloader.enqueue(
+            url: widget.recordingprops,
+            fileName: widget.title,
+            savedDir: _localPath,
+            showNotification: false,
+            openFileFromNotification: false,
+            saveInPublicStorage: false,
+          );
+          AppConstants.printLog(_taskid);
+          Navigator.push(context, MaterialPageRoute(builder: (_) => Downloads(0)));
+        });
+      }
     });
   }
 }

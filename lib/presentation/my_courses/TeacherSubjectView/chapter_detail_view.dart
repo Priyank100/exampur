@@ -138,7 +138,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
 
         String pdfTitle = materialList[index].title.toString();
 
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf(pdfPath, pdfTitle, '')));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf(pdfTitle, pdfPath, '')));
       },
       child: Container(
           height: 30,
