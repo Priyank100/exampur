@@ -73,6 +73,7 @@
   "first_name": "First Name",
   "fresher": "Fresher",
   "facing_problem_in_application": "Facing problem in Application?",
+  "feedback": "FeedBack",
 
   "hello": "Hello",
   "home": "Home",
@@ -82,12 +83,14 @@
 
   "issue_submitted_successfully": "Issue Submitted Successfully",
   "item_type": "Item Type",
+  "invoice": "Invoice",
 
   "last_name": "Last Name",
   "log_out": "Log Out",
   "landmark": "Landmark",
   "language_preferences": "Language Preferences",
   "loading": "Loading...",
+  "live": "Live",
 
 
 
@@ -197,6 +200,7 @@
 
   "user_name": "UserName",
   "updated_successfully": "Updated Successfully",
+  "upcoming": "Upcoming",
 
 
   "view_details": "View Details",

@@ -46,7 +46,7 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          Text('Invoice',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+          Text(getTranslated(context, StringConstant.inVoice)!,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
             SizedBox(height: 8,),
             mypurchaseInnvoice!.transactionId !=null ? ColumnText(text:mypurchaseInnvoice!.transactionId.toString() ,
             title: getTranslated(context, StringConstant.TranscationId,)) : SizedBox(),

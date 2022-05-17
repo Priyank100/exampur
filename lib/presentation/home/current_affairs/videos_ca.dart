@@ -30,14 +30,17 @@ class _VideosCAState extends State<VideosCA> {
 
   Future<void> getVideoList(pageNo) async {
     List<Data> list =  (await Provider.of<CaProvider>(context, listen: false).getCaSmList(context, widget.contentCatId, 'video', AppConstants.encodeCategory(),pageNo))!;
+
     if(list.length > 0) {
       isData = true;
       videoList = videoList + list;
+
     } else {
       isData = false;
     }
     isBottomLoading = false;
     isLoad++;
+
     setState(() {});
   }
 
