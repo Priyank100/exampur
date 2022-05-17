@@ -9,6 +9,7 @@ import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,14 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
 
     setState(() {});
   }
-
+  void subscription(String topic) async {
+    await FirebaseMessaging.instance.subscribeToTopic(topic);
+    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+topic);
+  }
+  void unsubscription(String topic) async {
+    await FirebaseMessaging.instance.unsubscribeFromTopic(topic);
+    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>unsubcribe'+topic);
+  }
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -123,25 +131,24 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                           return Padding(
                               padding: const EdgeInsets.all(0),
                               child: InkWell(
-                                onTap: () {
+                                onTap: ()  {
                                   // allCategoryList[index].isSelected = !allCategoryList[index].isSelected;
                                   // setState(() {});
-                                  setState(() {
+                                  setState(()  {
                                     myList[index].isSelected =
                                     !myList[index].isSelected;
-                                    if (myList[index].isSelected ==
-                                        true) {
-                                      selectedCountries.add(
-                                          myList[index]
-                                              .id
-                                              .toString());
-                                    } else if (myList[index]
-                                        .isSelected ==
-                                        false) {
-                                      selectedCountries.removeWhere(
+                                    if (myList[index].isSelected == true) {
+                                      selectedCountries.add(myList[index].id.toString());
+                                      subscription(myList[index].id.toString());
+
+
+                                    } else if (myList[index].isSelected == false) {
+                                  selectedCountries.removeWhere(
                                               (element) =>
-                                          element.toString() ==
-                                              myList[index].id);
+                                          element.toString() == myList[index].id,
+
+                                  );
+                                  unsubscription(myList[index].id.toString());
                                     }
                                   });
                                 },

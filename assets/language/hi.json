@@ -57,6 +57,7 @@
 
   "issue_submitted_successfully": "सफलतापूर्वक सबमिट किया गया",
   "item_type": "वस्तु परक",
+  "invoice": "इनवॉइस",
 
 
   "my_purchase": "मेरी खरीद",
@@ -80,6 +81,7 @@
   "free_courses": "मुफ्त पाठ्यक्रमं",
   "fresher": "नवीन",
   "facing_problem_in_application": "आवेदन में समस्या का सामना करना पड़ रहा है?",
+  "feedback": "प्रतिक्रिया",
 
 
 
@@ -88,6 +90,7 @@
   "language_preferences": "भाषा वरीयताएँ",
   "loading": "लोड हो रहा है...",
   "live_chat": "सीधी बातचीत",
+  "live": "लाइव",
 
 
 
@@ -145,6 +148,7 @@
 
   "user_name":"उपयोगकर्ता नाम",
   "updated_successfully": "सफलतापूर्वक अपडेट करें",
+  "upcoming": "आगामी",
 
 
 

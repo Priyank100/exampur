@@ -59,7 +59,7 @@ class _TimeTableViewState extends State<TimeTableView> {
                     callProvider();
                   },
                   color:activeButton=='L'? AppColors.amber:AppColors.grey400,
-                  child: Text('Live',style: TextStyle(color: AppColors.white),)),
+                  child: Text(getTranslated(context, StringConstant.live)!,style: TextStyle(color: AppColors.white),)),
 
               MaterialButton(
                   minWidth:MediaQuery.of(context).size.width/2,
@@ -71,7 +71,7 @@ class _TimeTableViewState extends State<TimeTableView> {
                     // filterList(allDataList, activeButton);
                     callProvider();
                   },
-                  child:  Text('Upcoming',style: TextStyle(color: AppColors.white))),
+                  child:  Text(getTranslated(context, StringConstant.upComing)!,style: TextStyle(color: AppColors.white))),
             ],
           ),
         ),

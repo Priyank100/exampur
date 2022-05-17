@@ -240,35 +240,40 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
     )
         : _status == DownloadTaskStatus.failed
         ? GestureDetector(
-      child: Icon(Icons.cached, size: 20, color: AppColors.green),
+      child: Icon(Icons.delete, size: 20, color: AppColors.red),
       onTap: () {
-        FlutterDownloader.retry(taskId: taskid).then((newTaskID) {
-          changeTaskID(taskid, newTaskID!);
-        });
+        // FlutterDownloader.retry(taskId: taskid).then((newTaskID) {
+        //   changeTaskID(taskid, newTaskID!);
+        // });
+      //  FlutterDownloader.cancel(taskId: taskid);
+        FlutterDownloader.cancel(taskId: taskid);
+        downloadsListMaps.removeAt(index);
+        FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: true);
+        setState(() {});
       },
     )
-        : _status == DownloadTaskStatus.paused
-        ? Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        GestureDetector(
-          child: Icon(Icons.play_arrow,
-              size: 20, color: AppColors.blue),
-          onTap: () {
-            FlutterDownloader.resume(taskId: taskid).then(
-                  (newTaskID) => changeTaskID(taskid, newTaskID!),
-            );
-          },
-        ),
-        GestureDetector(
-          child: Icon(Icons.close, size: 20, color: AppColors.red),
-          onTap: () {
-            FlutterDownloader.cancel(taskId: taskid);
-          },
-        )
-      ],
-    )
+    //     : _status == DownloadTaskStatus.paused
+    //     ? Row(
+    //   mainAxisSize: MainAxisSize.min,
+    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //   children: <Widget>[
+    //     GestureDetector(
+    //       child: Icon(Icons.play_arrow,
+    //           size: 20, color: AppColors.blue),
+    //       onTap: () {
+    //         FlutterDownloader.resume(taskId: taskid).then(
+    //               (newTaskID) => changeTaskID(taskid, newTaskID!),
+    //         );
+    //       },
+    //     ),
+    //     GestureDetector(
+    //       child: Icon(Icons.close, size: 20, color: AppColors.red),
+    //       onTap: () {
+    //         FlutterDownloader.cancel(taskId: taskid);
+    //       },
+    //     )
+    //   ],
+    // )
         : _status == DownloadTaskStatus.running
         ? Row(
       mainAxisSize: MainAxisSize.min,

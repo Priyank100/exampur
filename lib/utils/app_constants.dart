@@ -395,6 +395,7 @@ class StringConstant {
   static String firstName= 'first_name';
   static String fresher= 'fresher';
   static String facingProblemInApplication= 'facing_problem_in_application';
+  static String feedBack= 'feedback';
 
   static String hello= 'hello';
   static String home= 'home';
@@ -404,6 +405,7 @@ class StringConstant {
 
   static String issueSubmittedSuccessfully= 'issue_submitted_successfully';
   static String itemType= 'item_type';
+  static String inVoice= 'invoice';
 
   static String lastName= 'last_name';
   static String logOut= 'log_out';
@@ -411,6 +413,7 @@ class StringConstant {
   static String languagePreferences= 'language_preferences';
   static String LearningClosetPvt= 'Learning Closet Pvt. Ltd. (Exampur)';
   static String LiveChat= 'live_chat';
+  static String live= 'live';
 
   static String paidCourse= 'paid_course';
   static String pleaseChooseTheCategory= 'please_choose_the_category';
@@ -505,6 +508,7 @@ class StringConstant {
 
   static String userName= 'user_name';
   static String UpdatedSuccessfully= 'updated_successfully';
+  static String upComing= 'upcoming';
 
   static String viewDetails= 'view_details';
   static String viewAll= 'view_all';

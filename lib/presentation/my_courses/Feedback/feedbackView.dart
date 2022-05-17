@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/foundation.dart';
@@ -19,7 +20,7 @@ class FeedbackView extends StatelessWidget {
             builder: (BuildContext context) => MyWebView(
               selectedUrl: AppConstants.googleFeedbackFormUrl.replaceAll('USER_NAME', userName).replaceAll('USER_MOBILE', userMobile),
             )
-        ));},child: Center(child: Container(height: 40,width: 200,color: AppColors.amber,child: Center(child: Text('FeedBack',style: TextStyle(color: AppColors.white),)),))),
+        ));},child: Center(child: Container(height: 40,width: 200,color: AppColors.amber,child: Center(child: Text(getTranslated(context, StringConstant.feedBack)!,style: TextStyle(color: AppColors.white),)),))),
     );
   }
 }
