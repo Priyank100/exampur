@@ -58,7 +58,7 @@ class MyCoursesState extends State<MyCourses> {
       body: RefreshWidget(
         keyRefresh: keyRefresh,
         onRefresh:_refreshScreen,
-        child: SingleChildScrollView(
+        child: Padding(
           padding: EdgeInsets.all(5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +71,7 @@ class MyCoursesState extends State<MyCourses> {
                   myCourseList.length == 0 ? SizedBox() : CategoryDropDownButton()
                 ],
               ),
-              Padding(
+              myCourseList.length == 0 ? SizedBox() :     Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 5),
                 child: Container(
                   height: 30,
@@ -119,13 +119,15 @@ class MyCoursesState extends State<MyCourses> {
   }
 
   Widget DataContainer() {
-    return ListView.builder(
-        itemCount: myCourseList.length,
-        shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return ListItem(index);
-        });
+    return Expanded(
+      child: ListView.builder(
+          itemCount: myCourseList.length,
+          shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) {
+            return ListItem(index);
+          }),
+    );
   }
 
   Widget ListItem(index) {

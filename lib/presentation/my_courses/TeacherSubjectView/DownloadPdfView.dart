@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -182,7 +183,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     await Directory(_localPath).exists().then((alreadyExist) async {
       AppConstants.printLog(alreadyExist);
       if(alreadyExist) {
-        AppConstants.showBottomMessage(context, 'This file is already exist', AppColors.black);
+        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
         return;
 
       } else {

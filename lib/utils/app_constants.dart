@@ -457,6 +457,7 @@ class StringConstant {
   static String TermsandConditions= 'Terms and Conditions.';
   static String ThisitemnonRefundable= 'This item is non-refundable.';
   static String TypeYourDoubtHere= 'type_your_doubt_here';
+  static String ThisFileisAlreadyExist= 'this_file_is_already_exist';
 
   static String offlineBatches= 'offline_batches';
   static String OrderDate= 'order_date';

@@ -141,7 +141,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     await Directory(_localPath).exists().then((alreadyExist) async {
       AppConstants.printLog(alreadyExist);
       if (alreadyExist) {
-        AppConstants.showBottomMessage(context, 'This file is already exist', AppColors.black);
+        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
         return;
       } else {
         final savedDir = Directory(_localPath);

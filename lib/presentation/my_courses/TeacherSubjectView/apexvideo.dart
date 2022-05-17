@@ -156,7 +156,7 @@ class _MyApexVideoMaterialState extends State<MyApexVideoMaterial> {
       AppConstants.printLog(alreadyExist);
       if (alreadyExist) {
         AppConstants.showBottomMessage(
-            context, 'This file is already exist', AppColors.black);
+            context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
         return;
       } else {
         final savedDir = Directory(_localPath);
