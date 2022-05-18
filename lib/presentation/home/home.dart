@@ -372,8 +372,6 @@ class SquareButton extends StatelessWidget {
       onTap: () {
         onPressed();
       },
-      // onTap: () => Navigator.push(
-      //     context, MaterialPageRoute(builder: (_) => navigateTo!)),
       child: Container(
         width: width / 2,
         height: 80,
@@ -402,12 +400,4 @@ class SquareButton extends StatelessWidget {
       ),
     );
   }
-}
-
-class FrontStyleModel {
-  late String name;
-  String image;
-  final color;
-
-  FrontStyleModel(this.name, this.color, this.image);
 }
