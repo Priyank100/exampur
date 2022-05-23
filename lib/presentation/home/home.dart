@@ -258,7 +258,6 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, 'study_materials')!,
                   color: AppColors.one2one,
                   onPressed: () {
-                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.currentAffairsClick);
                     Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(
                             builder: (_) => CurrentAffairs(
@@ -289,6 +288,7 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, 'current_affairs')!,
                   color: AppColors.affairs,
                   onPressed: () {
+                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.currentAffairsClick);
                     Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(
                             builder: (_) => CurrentAffairs(
@@ -333,14 +333,14 @@ class _HomeState extends State<Home> {
                             'https://downloadexampur.appx.co.in/paid_course/0.46657945645736841649068141070.mp4')));*/
                   },
                 ),
-                /*SquareButton(
+                SquareButton(
                   image: Images.studymaterial,
                   title: getTranslated(context, StringConstant.studyMaterials)!,
                   color: AppColors.paidCourses,
                   onPressed: () {
                     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyMaterialNew()));
                   },
-                ),*/
+                ),
               ],
             ),
             SizedBox(
