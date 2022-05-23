@@ -85,15 +85,17 @@ bool isLoading =false;
             children:widget.bannerList.map(
                   (image) {
                 int index = widget.bannerList.indexOf(image);
-                return Container(
-                  width: 8.0,
-                  height: 8.0,
-                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _current == index
-                          ? Color(0xFFEDEDED)
-                          : Color(0xFF808080)),
+                return Expanded(
+                  child: Container(
+                    width: 8.0,
+                    height: 8.0,
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _current == index
+                            ? Color(0xFFEDEDED)
+                            : Color(0xFF808080)),
+                  ),
                 );
               },
             ).toList(), // this was the part the I had to add
