@@ -53,8 +53,8 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: materialList.length == 0
-          ? LoadingIndicator(context)
+      body: isLoading ? LoadingIndicator(context)
+          : materialList.length == 0 ? AppConstants.noDataFound()
           : ListView.builder(
               itemCount: materialList.length,
               padding: EdgeInsets.all(5),

@@ -45,7 +45,7 @@ class MyCourseRepo {
       Map<String, dynamic> header = {
         "appAuthToken": token,
       };
-      String url = API.myCourse_material_URL + '${subjectId}/${courseId}/${chapterName}';
+      String url = API.myCourse_material_URL + '${subjectId}/${courseId}/${chapterName.replaceAll("/","")}';
       final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {

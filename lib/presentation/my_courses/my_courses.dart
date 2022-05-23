@@ -49,6 +49,8 @@ class MyCoursesState extends State<MyCourses> {
 
   Future<void>_refreshScreen() async{
     myCourseList.clear();
+    dropdownValue = 'Select Category';
+    _controller.text = '';
     return callProvider();
   }
 
@@ -68,10 +70,10 @@ class MyCoursesState extends State<MyCourses> {
                 children: [
                   Text(getTranslated(context, StringConstant.myCourses)!,
                       style: CustomTextStyle.headingBold(context)),
-                  myCourseList.length == 0 ? SizedBox() : CategoryDropDownButton()
+                  allCourseList.length == 0 ? SizedBox() : CategoryDropDownButton()
                 ],
               ),
-              myCourseList.length == 0 ? SizedBox() : Padding(
+              allCourseList.length == 0 ? SizedBox() : Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 5),
                 child: Container(
                   height: 30,
