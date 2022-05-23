@@ -5,6 +5,7 @@ import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,7 @@ class DemoState extends State<Demo> {
    int page =0;
    var scrollController =ScrollController();
    bool isData =true;
-
+   final keyRefresh = GlobalKey<RefreshIndicatorState>();
    @override
   void initState() {
     super.initState();
@@ -35,14 +36,15 @@ class DemoState extends State<Demo> {
    // AppConstants.printLog(demoList);
     isLoading=true;
     List<Datum> list= (await Provider.of<DemoProvider>(context, listen: false).getdemosList(context,))!;
-    if(list.length > 0) {
-    isData = true;
-    demoList = demoList + list;
-  } else {
-   isData = false;
-   }
-   isLoading = false;
-    isBottomLoading=false;
+    // if(list.length > 0) {
+    // isData = true;
+    // demoList = demoList + list;
+  // } else {
+  //  isData = false;
+  //  }
+    list = demoList;
+  isLoading = false;
+  //  isBottomLoading=false;
    setState(() {});
     // return one2oneList;
 
@@ -60,43 +62,75 @@ class DemoState extends State<Demo> {
        });
      }
    }
+
+   Future<void>_refreshScreen() async{
+     demoList.clear();
+     return getDemoList();
+   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text(
-            getTranslated(context, StringConstant.demo_classes)!,
-              style: CustomTextStyle.headingBigBold(context),
-            ),
-            backgroundColor: AppColors.transparent,
-            elevation: 0),
-        body:isLoading?Center(child: LoadingIndicator(context)) :demoList.length==0?
-        AppConstants.noDataFound():
-        Padding(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+        // appBar: AppBar(
+        //     title: Text(
+        //     getTranslated(context, StringConstant.demo_classes)!,
+        //       style: CustomTextStyle.headingBigBold(context),
+        //     ),
+        //     backgroundColor: AppColors.transparent,
+        //     elevation: 0),
+        body:RefreshWidget(
+          keyRefresh: keyRefresh,
+          onRefresh:_refreshScreen,
+          child:  Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // VideoCardAT(),
-                SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 10),
-                //   child: TitleRow(title: getTranslated(context, StringConstant.recorded)!, onTap: () {  },  ),
-                // ),
-               Expanded(
-                 child: ListView.builder(
-                   shrinkWrap: true,
-                 //  controller: scrollController,
-                   itemCount: demoList.length,
-                     itemBuilder: (BuildContext context, index){
-                   return DemoContainer(demoList,index);
-                 }),
-               )
 
-              ],
-            )),
-        bottomNavigationBar: isBottomLoading?Container(height:40,width: 40,child:Center(child: CircularProgressIndicator(color: AppColors.amber,),)):SizedBox()
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+                getTranslated(context, StringConstant.demo_classes)!,
+                  style: CustomTextStyle.headingBigBold(context),
+                ),
+          ),
+          isLoading?Center(child: LoadingIndicator(context)) :demoList.length==0?
+          noData():
+          Padding(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  // VideoCardAT(),
+                  SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 10),
+                  //   child: TitleRow(title: getTranslated(context, StringConstant.recorded)!, onTap: () {  },  ),
+                  // ),
+                 Expanded(
+                   child: ListView.builder(
+                     shrinkWrap: true,
+                   //  controller: scrollController,
+                     itemCount: demoList.length,
+                       scrollDirection: Axis.vertical,
+                       itemBuilder: (BuildContext context, index){
+                     return DemoContainer(demoList,index);
+                   }),
+                 )
+
+                ],
+              ))]),
+        ),
+       // bottomNavigationBar: isBottomLoading?Container(height:40,width: 40,child:Center(child: CircularProgressIndicator(color: AppColors.amber,),)):SizedBox()
     );
   }
+   Widget noData() {
+     return Expanded(
+       child: ListView.builder(
+           itemCount: 1,
+           shrinkWrap: true,
+           scrollDirection: Axis.vertical,
+           itemBuilder: (context, index) {
+             return AppConstants.noDataFound();
+           }),
+     );
+   }
 }
