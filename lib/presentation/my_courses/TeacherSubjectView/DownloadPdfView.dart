@@ -9,7 +9,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
-import 'dart:io' as io;
 
 
 class DownloadViewPdf extends StatefulWidget {
@@ -147,7 +146,8 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
               iconSize: 50,
               color: Colors.black,
               onPressed: () async{
-                AppConstants.checkPermission(context, Permission.storage, requestDownload);
+                // AppConstants.checkPermission(context, Permission.storage, requestDownload);
+                AppConstants.checkPermission(context, Permission.storage, downloadFile);
               },
             ),
           ],
@@ -179,15 +179,19 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
   Future<void> requestDownload() async {
     final dir = await getApplicationDocumentsDirectory();
     var _localPath = dir.path + '/' + widget.pdfTitle + '.pdf';
+    // String pathDownload = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+    // var _localPath = pathDownload + '/Exampur/';
+    // print('+++' + _localPath);
+    final savedDir = Directory(_localPath);
 
-    await Directory(_localPath).exists().then((alreadyExist) async {
+    await savedDir.exists().then((alreadyExist) async {
       AppConstants.printLog(alreadyExist);
       if(alreadyExist) {
         AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
         return;
 
       } else {
-        final savedDir = Directory(_localPath);
+        savedDir.create();
         await savedDir.create(recursive: true).then((value) async {
           String? _taskid = await FlutterDownloader.enqueue(
             url: widget.pdfUrl,
@@ -205,5 +209,23 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
         });
       }
     });
+  }
+
+  Future<void> downloadFile() async {
+    AppConstants.showLoaderDialog(context, message:'Downloading...');
+    String url = widget.pdfUrl;
+    String fileName = widget.pdfTitle;
+    try {
+      var data = await http.get(Uri.parse(url));
+      var bytes = data.bodyBytes;
+      var dir = Directory(AppConstants.filePath);
+      File file = File("${dir.path}/" + fileName + ".pdf");
+      await file.writeAsBytes(bytes).then((file) {
+        Navigator.pop(context);
+        AppConstants.goTo(context, Downloads(1));
+      });
+    } catch (e) {
+      throw Exception("Error downloading url file");
+    }
   }
 }

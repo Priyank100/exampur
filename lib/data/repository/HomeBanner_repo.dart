@@ -18,7 +18,7 @@ class HomeBannerRepo {
 
   Future<ApiResponse> getHomeBanner() async {
     try {
-      final url = '${API.homeBanner_URL}';
+      final url = API.homeBanner_URL + '?category=' + AppConstants.encodeCategory();
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
@@ -28,9 +28,7 @@ class HomeBannerRepo {
   }
 
   Future<ApiResponse> getHomeBannerCourselink(String id) async {
-
     try {
-
       final url = API.homeBannerCourselink_URL+id;
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
@@ -39,10 +37,9 @@ class HomeBannerRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
   Future<ApiResponse> getHomeBannerBooklink(String id) async {
-
     try {
-
       final url = API.homeBannerbooklink_URL+id;
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
@@ -53,9 +50,7 @@ class HomeBannerRepo {
   }
 
   Future<ApiResponse> getHomeBannerCombolink(String id) async {
-
     try {
-
       final url = API.homeBannerCombolink_URL+id;
       AppConstants.printLog(url);
       final response = await dioClient.get(url);

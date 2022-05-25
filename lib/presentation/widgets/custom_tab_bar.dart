@@ -160,6 +160,10 @@ class _TabBarDemoState extends State<TabBarDemo>
                     style: CustomTextStyle.headingMediumBold(context),
                   ),
                 ),
+                // widget.title == 'Downloads' ? const Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: 10),
+                //   child: Text('Downloaded PDF are inside "Download -> Exampur" folder in your File Manager.', style: TextStyle(fontSize: 10),),
+                // ):SizedBox(),
                 Align(
                   alignment: Alignment.centerLeft,
                   child:

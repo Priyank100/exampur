@@ -17,6 +17,7 @@ import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/shared/priyank_player.dart';
+import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -260,11 +261,12 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(
-                            builder: (_) => CurrentAffairs(
-                                getTranslated(context, 'study_materials')!,
-                                AppConstants.studyMaterialsId)));
+                            // builder: (_) => CurrentAffairs(
+                            //     getTranslated(context, 'study_materials')!,
+                            //     AppConstants.studyMaterialsId)
+                          builder: (_) => StudyMaterialNew(API.studyMaterialNewUrl)
+                    ));
                   },
-                  //navigateTo: CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)
                 ),
               ],
             ),
@@ -309,17 +311,6 @@ class _HomeState extends State<Home> {
             ),
             Row(
               children: [
-                // SquareButton(ck
-                //     image: Images.current_affair,
-                //     title: getTranslated(context, 'current_affairs')!,
-                //     color: AppColors.affairs,
-                //     navigateTo: CurrentAffairs()),
-
-                // SquareButton(
-                //     image: Images.studymaterial,
-                //     title: getTranslated(context, 'study_materials')!,
-                //     color: AppColors.quiz,
-                //     navigateTo: CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)),
                 SquareButton(
                   image: Images.caBytes,
                   title: getTranslated(context, StringConstant.CaBytes)!,
@@ -335,10 +326,10 @@ class _HomeState extends State<Home> {
                 ),
                 SquareButton(
                   image: Images.studymaterial,
-                  title: getTranslated(context, StringConstant.studyMaterials)!,
+                  title: 'Previous Year PDF',
                   color: AppColors.paidCourses,
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyMaterialNew()));
+                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyMaterialNew(API.previousYearMaterialUrl)));
                   },
                 ),
               ],

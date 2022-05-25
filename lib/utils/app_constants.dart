@@ -23,6 +23,7 @@ class SharedPrefConstants {
 class AppConstants {
 
   static bool isPrint       = true;
+  static String filePath = 'storage/emulated/0/Download/Exampur';
   static String BANNER_BASE = '';
 
   static String defaultCountry = 'India';
@@ -80,7 +81,7 @@ class AppConstants {
       behavior: SnackBarBehavior.floating,
       content: Text(message),
       backgroundColor: bgColor,
-      duration: Duration(milliseconds: 700),
+      duration: Duration(milliseconds: 1000),
     ));
   }
 
@@ -146,13 +147,15 @@ class AppConstants {
     );
   }
 
-  static void showLoaderDialog(BuildContext context) {
+  static void showLoaderDialog(BuildContext context, {message}) {
+    String msg = 'Loading';
+    if(message != null) msg=message;
     AlertDialog alert = AlertDialog(
       content: new Row(
         children: [
           CircularProgressIndicator(color: AppColors.amber,),
           Container(
-              margin: EdgeInsets.only(left: 10), child: Text(getTranslated(context, StringConstant.loading)!)),
+              margin: EdgeInsets.only(left: 10), child: Text(msg)),
         ],),
     );
     showDialog(barrierDismissible: false,

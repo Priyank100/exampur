@@ -1,12 +1,15 @@
+import 'dart:io';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/download_model.dart';
-import 'package:exampur_mobile/presentation/downloads/pdf_downloads.dart';
 import 'package:exampur_mobile/presentation/downloads/video_downloads.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import 'my_download_pdf.dart';
 
 class Downloads extends StatefulWidget {
   final int selectedIndex;
@@ -27,32 +30,34 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
     String jsonString = await loadJsonFromAssets();
     final BookResponse = downloadModelFromJson(jsonString);
     tabList = BookResponse.download!;
-    // _controller = TabController(length: tabList.length, vsync: this, initialIndex: widget.selectedIndex);
-    _controller = TabController(length: tabList.length, vsync: this, initialIndex: 0);
-    /*_controller!.index = widget.selectedIndex;
+    _controller = TabController(length: tabList.length, vsync: this, initialIndex: widget.selectedIndex);
+    // _controller = TabController(length: tabList.length, vsync: this, initialIndex: 0);
+    _controller!.index = widget.selectedIndex;
       _controller!.addListener(() {
         setState(() {
           _controller!.index = widget.selectedIndex;
         });
 
         AppConstants.printLog("Selected Index: " + _controller!.index.toString());
-        switch(_controller!.index) {
+        switch(widget.selectedIndex) {
           case 0:
             DownloadedVideo();
             break;
           case 1:
-            DownloadedPdf();
+            MyDownloadPdf();
             break;
         }
       });
-    setState(() {});*/
+    setState(() {});
   }
 
   @override
   void initState() {
     getTabList();
+    AppConstants.checkPermission(context, Permission.storage, _createFolder);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -64,8 +69,9 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
                   length: tabList.length,
                   names: tabList.map((item) => item.name.toString()).toList(),
                   routes: tabList.length == 0 ? [] : [
-                    DownloadedVideo(),
-                    DownloadedPdf()
+                    _controller!.index == 0 ? DownloadedVideo() : MyDownloadPdf(),
+                    // DownloadedPdf()
+                    _controller!.index == 1 ? MyDownloadPdf() : DownloadedVideo()
                   ],
                   title: getTranslated(context, StringConstant.downloads)!)
           );
@@ -76,5 +82,13 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
   void dispose() {
     _controller?.dispose();
     super.dispose();
+  }
+
+  _createFolder() async {
+    final path= Directory(AppConstants.filePath);
+    bool exist = await path.exists();
+    if (!exist) {
+      path.create();
+    }
   }
 }

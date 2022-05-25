@@ -245,7 +245,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
         // FlutterDownloader.retry(taskId: taskid).then((newTaskID) {
         //   changeTaskID(taskid, newTaskID!);
         // });
-      //  FlutterDownloader.cancel(taskId: taskid);
+        //  FlutterDownloader.cancel(taskId: taskid);
         FlutterDownloader.cancel(taskId: taskid);
         downloadsListMaps.removeAt(index);
         FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: true);

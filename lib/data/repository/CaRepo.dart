@@ -22,9 +22,8 @@ class CaRepo {
   }
 
   //StudyMaterialNew
-  Future<ApiResponse> studyMaterialNew() async {
+  Future<ApiResponse> studyMaterialNew(String url) async {
     try {
-      String url = API.studyMaterialNewUrl;
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

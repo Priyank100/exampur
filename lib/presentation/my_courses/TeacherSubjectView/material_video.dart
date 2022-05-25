@@ -25,20 +25,27 @@ class MyMaterialVideo extends StatefulWidget {
 
 class _MyMaterialVideoState extends State<MyMaterialVideo> {
   FlickManager? flickManager;
-  late VideoPlayerController _playerController;
+  VideoPlayerController? _playerController;
 
   @override
   void initState() {
     super.initState();
     _playerController = VideoPlayerController.network(widget.url);
+    _playerController!..initialize().then((_){
+      setState(() {
+        _playerController!.seekTo(Duration(seconds: 0));
+        _playerController!.play();
+      });
+    });
     flickManager = FlickManager(
       // videoPlayerController: VideoPlayerController.network(widget.url),
-      videoPlayerController: _playerController,
+      videoPlayerController: _playerController!,
     );
   }
 
   @override
   void dispose() {
+    _playerController!.dispose();
     flickManager!.dispose();
     super.dispose();
   }
@@ -118,10 +125,19 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
           ),
           Center(
             child: InkWell(onTap: (){
-              if(widget.url.contains('mp4'))
-                AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
-              else
-                AppConstants.showAlertDialog(context, 'Url not in mp4 format');
+              if(widget.download.isEmpty) {
+                if(widget.url.contains('mp4')) {
+                  AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+                } else {
+                  AppConstants.showAlertDialog(context, 'Url not in mp4 format');
+                }
+              } else {
+                if(widget.download.contains('mp4')) {
+                  AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+                } else {
+                  AppConstants.showAlertDialog(context, 'Url not in mp4 format');
+                }
+              }
             },
               child: Container(
                   height: 45,width:MediaQuery.of(context).size.width/1.10,decoration: BoxDecoration( color:AppColors.amber,

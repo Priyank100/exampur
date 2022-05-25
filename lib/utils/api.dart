@@ -174,4 +174,7 @@ class API {
   static const String studyMaterialNewUrl       = 'https://exampur.com/api/study-material/';
   static const String studyMaterialNewSubCatUrl = 'https://exampur.com/api/download-material/';
 
+  //Previous Year PDF
+  static const String previousYearMaterialUrl   = 'https://exampur.com/api/previous-year-material/';
+
 }

@@ -43,9 +43,9 @@ class CaProvider extends ChangeNotifier {
   }
 
   //studyMaterialNew
-  Future<List<StudyMaterialNewModel>?> getStudyMaterialNew(BuildContext context) async {
+  Future<List<StudyMaterialNewModel>?> getStudyMaterialNew(BuildContext context, String url) async {
     List<StudyMaterialNewModel> myList = [];
-    ApiResponse apiResponse = await caRepo.studyMaterialNew();
+    ApiResponse apiResponse = await caRepo.studyMaterialNew(url);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       myList = List<StudyMaterialNewModel>.from(apiResponse.response!.data.map((x) => StudyMaterialNewModel.fromJson(x)));
       return myList;

@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class StudyMaterialNew extends StatefulWidget {
-  const StudyMaterialNew() : super();
+  final String url;
+  const StudyMaterialNew(this.url) : super();
 
   @override
   _StudyMaterialNewState createState() => _StudyMaterialNewState();
@@ -26,7 +27,7 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
   }
 
   Future<void> getLists() async {
-    studyMaterialDataList = (await Provider.of<CaProvider>(context, listen: false).getStudyMaterialNew(context))!;
+    studyMaterialDataList = (await Provider.of<CaProvider>(context, listen: false).getStudyMaterialNew(context, widget.url))!;
   }
 
   @override

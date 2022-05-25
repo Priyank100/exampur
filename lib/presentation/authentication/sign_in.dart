@@ -67,7 +67,7 @@ class SignInState extends State<SignIn> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
-          content: Text('Invalid Login Credentail'),
+          content: Text('Enter password'),
           backgroundColor: AppColors.black,
         ));
       } else {
