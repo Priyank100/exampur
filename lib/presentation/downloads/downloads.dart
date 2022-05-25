@@ -30,9 +30,9 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
     String jsonString = await loadJsonFromAssets();
     final BookResponse = downloadModelFromJson(jsonString);
     tabList = BookResponse.download!;
-    _controller = TabController(length: tabList.length, vsync: this, initialIndex: widget.selectedIndex);
-    // _controller = TabController(length: tabList.length, vsync: this, initialIndex: 0);
-    _controller!.index = widget.selectedIndex;
+    // _controller = TabController(length: tabList.length, vsync: this, initialIndex: widget.selectedIndex);
+    _controller = TabController(length: tabList.length, vsync: this, initialIndex: 0);
+    /*_controller!.index = widget.selectedIndex;
       _controller!.addListener(() {
         setState(() {
           _controller!.index = widget.selectedIndex;
@@ -48,7 +48,7 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
             break;
         }
       });
-    setState(() {});
+    setState(() {});*/
   }
 
   @override
@@ -69,9 +69,9 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
                   length: tabList.length,
                   names: tabList.map((item) => item.name.toString()).toList(),
                   routes: tabList.length == 0 ? [] : [
-                    _controller!.index == 0 ? DownloadedVideo() : MyDownloadPdf(),
+                    DownloadedVideo(),
                     // DownloadedPdf()
-                    _controller!.index == 1 ? MyDownloadPdf() : DownloadedVideo()
+                    MyDownloadPdf()
                   ],
                   title: getTranslated(context, StringConstant.downloads)!)
           );
