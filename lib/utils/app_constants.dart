@@ -22,7 +22,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static String filePath = 'storage/emulated/0/Download/Exampur';
   static String BANNER_BASE = '';
 

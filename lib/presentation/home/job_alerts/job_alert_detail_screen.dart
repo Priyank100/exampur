@@ -42,7 +42,7 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      // appBar: CustomAppBar(),
+      appBar: jobAlertsData == null || jobAlertsData!.pdfPath==null ? CustomAppBar() : null,
       body:
       jobAlertsData == null ?
       Center(child: LoadingIndicator(context)) : jobAlertsData!.pdfPath==null?

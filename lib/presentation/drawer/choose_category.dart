@@ -254,7 +254,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                 ),
                 // selectedCountries.length > 0
                 //     ?
-                Padding(
+            myList.isEmpty?SizedBox():    Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 25,
                     vertical: 10,
@@ -364,7 +364,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
           AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
           Navigator.pop(context);
           // setState(() {});
-
+          AppConstants.showBottomMessage(context, 'Saved successfully', AppColors.black);
         } else {
           AppConstants.showBottomMessage(
               context, jsonObject['data'].toString(), AppColors.black);

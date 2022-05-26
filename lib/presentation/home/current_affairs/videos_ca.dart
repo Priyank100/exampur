@@ -107,7 +107,15 @@ class _VideosCAState extends State<VideosCA> {
           children: [
 
             InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => YoutubeVideo(videoList[index].targetLink.toString(),
+                              videoList[index].title.toString())
+                      )
+                  );
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width/2.1,
