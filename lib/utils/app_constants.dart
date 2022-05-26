@@ -23,7 +23,8 @@ class SharedPrefConstants {
 class AppConstants {
 
   static bool isPrint       = false;
-  static String filePath = 'storage/emulated/0/Download/Exampur';
+  static String filePath    = 'storage/emulated/0/Download/Exampur';
+  static String downloadMag = 'Download has been started. View your file in the download section of your phone or on the app in the "Download" section. Touch outside to close the pop-up. Your file is getting downloaded in the background.';
   static String BANNER_BASE = '';
 
   static String defaultCountry = 'India';

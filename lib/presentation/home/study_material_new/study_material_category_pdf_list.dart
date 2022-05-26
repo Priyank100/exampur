@@ -71,7 +71,7 @@ class _StudyMaterialCategoryPdfListingState extends State<StudyMaterialCategoryP
             children: [
               InkWell(
                 onTap: (){
-                  AppConstants.goTo(context, DownloadViewPdf(widget.pdfList[index].title.toString(), widget.pdfList[index].filePath.toString(),''));
+                  AppConstants.goTo(context, DownloadViewPdf(widget.pdfList[index].title.toString(), widget.pdfList[index].filePath.toString()));
                 },
                 child: Container(
                   padding: const EdgeInsets.all(3.0),

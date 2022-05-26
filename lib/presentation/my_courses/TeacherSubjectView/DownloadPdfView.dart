@@ -1,21 +1,23 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 
 class DownloadViewPdf extends StatefulWidget {
   final String pdfTitle;
   final String pdfUrl;
-  final String pdfFilePath;
-  const DownloadViewPdf(this.pdfTitle, this.pdfUrl, this.pdfFilePath) : super();
+  const DownloadViewPdf(this.pdfTitle, this.pdfUrl) : super();
 
   @override
   _DownloadViewPdfState createState() => _DownloadViewPdfState();
@@ -67,10 +69,6 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
           })
         },
       );
-    } else {
-      urlPDFPath = widget.pdfFilePath;
-      loaded = true;
-      exists = true;
     }
 
     super.initState();
@@ -147,7 +145,8 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
               color: Colors.black,
               onPressed: () async{
                 // AppConstants.checkPermission(context, Permission.storage, requestDownload);
-                AppConstants.checkPermission(context, Permission.storage, downloadFile);
+                print('+++ ' + widget.pdfUrl);
+                AppConstants.checkPermission(context, Permission.storage, downloadPdfFile);
               },
             ),
           ],
@@ -208,7 +207,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     });
   }
 
-  Future<void> downloadFile() async {
+  /*Future<void> downloadFile() async {
     AppConstants.showLoaderDialog(context, message:'Downloading...');
     String url = widget.pdfUrl;
     String fileName = widget.pdfTitle;
@@ -224,5 +223,33 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     } catch (e) {
       throw Exception("Error downloading url file");
     }
+  }*/
+
+  void downloadPdfFile() async {
+    final Dio dio = Dio();
+    String url = widget.pdfUrl;
+    String fileName = widget.pdfTitle.replaceAll('||', '').replaceAll('/', '').replaceAll(' ', '_').trim();
+    int progress = 0;
+    ProgressDialog pd = ProgressDialog(context: context);
+
+    pd.show(
+      max: 100,
+      msg: AppConstants.downloadMag,
+      msgMaxLines: 10,
+      msgFontSize: 12,
+      msgFontWeight: FontWeight.normal,
+      progressType: ProgressType.valuable,
+      progressValueColor: AppColors.amber,
+      barrierDismissible: true,
+      completed: Completed(completedMsg: 'Downloaded complete')
+    );
+    var dir = Directory(AppConstants.filePath);
+    File file = File("${dir.path}/" + fileName + ".pdf");
+    dio.download(url, file.path, onReceiveProgress: (value1, value2) {
+      setState(() {
+        progress = ((value1/value2)*100).toInt();
+        pd.update(value: progress);
+      });
+    });
   }
 }
