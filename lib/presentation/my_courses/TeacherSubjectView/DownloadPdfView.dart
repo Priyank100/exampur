@@ -145,7 +145,6 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
               color: Colors.black,
               onPressed: () async{
                 // AppConstants.checkPermission(context, Permission.storage, requestDownload);
-                print('+++ ' + widget.pdfUrl);
                 AppConstants.checkPermission(context, Permission.storage, downloadPdfFile);
               },
             ),
