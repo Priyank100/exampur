@@ -179,9 +179,6 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
   Future<void> requestDownload() async {
     final dir = await getApplicationDocumentsDirectory();
     var _localPath = dir.path + '/' + widget.pdfTitle + '.pdf';
-    // String pathDownload = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
-    // var _localPath = pathDownload + '/Exampur/';
-    // print('+++' + _localPath);
     final savedDir = Directory(_localPath);
 
     await savedDir.exists().then((alreadyExist) async {
