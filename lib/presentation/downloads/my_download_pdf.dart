@@ -47,16 +47,23 @@ class _MyDownloadPdfState extends State<MyDownloadPdf> {
                     margin: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       border: Border.all(
-                          color: AppColors.grey, // set border color
+                          color: AppColors.grey,
                           width: 1.0),
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(10.0)), // set rounded corner radius
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                     child: Row(
                       children: [
                         Image.asset(Images.pdfIcon, scale: 4),
                         SizedBox(width: 10),
-                        Expanded(child: Text(pdfList[index].path.split('/').last))
+                        Expanded(child: Text(pdfList[index].path.split('/').last)),
+                        InkWell(
+                          onTap: (){
+                            File file = File(pdfList[index].path);
+                            file.delete();
+                            setState(() {});
+                          },
+                            child: Icon(Icons.clear, color: AppColors.red)
+                        )
                       ],
                     ),
                   ),
