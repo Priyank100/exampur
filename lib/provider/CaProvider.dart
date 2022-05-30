@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/data/model/curent_affairs_new_tab_model.dart';
+import 'package:exampur_mobile/data/model/current_affairs_new_detail_model.dart';
 import 'package:exampur_mobile/data/model/current_affairs_new_list_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/study_material_new_model.dart';
@@ -25,6 +26,9 @@ class CaProvider extends ChangeNotifier {
 
   CurrentAffairsNewListModel _currentAffairsNewListModel = CurrentAffairsNewListModel();
   CurrentAffairsNewListModel get currentAffairsNewListModel => _currentAffairsNewListModel;
+
+  CurrentAffairsNewDetailModel _currentAffairsNewDetailModel = CurrentAffairsNewDetailModel();
+  CurrentAffairsNewDetailModel get currentAffairsNewDetailModel => _currentAffairsNewDetailModel;
 
 
   Future<List<Data>?> getCaSmList(BuildContext context, String contentCatId, String type, String encodeCat,int pageNo) async {
@@ -95,6 +99,18 @@ class CaProvider extends ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _currentAffairsNewListModel = CurrentAffairsNewListModel.fromJson(json.decode(apiResponse.response.toString()));
       return _currentAffairsNewListModel;
+
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      notifyListeners();
+    }
+  }
+
+  Future<CurrentAffairsNewDetailModel?> getCurrentAffairsNewDetail(BuildContext context, String articleId) async {
+    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(API.currentAffairsNewDetailUrl, articleId);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _currentAffairsNewDetailModel = CurrentAffairsNewDetailModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _currentAffairsNewDetailModel;
 
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);

@@ -165,7 +165,6 @@ class API {
   static const String liveTestSeries_URL  = BASE_URL3 + 'live_testseries';
   static const String myTestSeries_URL    = BASE_URL2 + 'testseries/enrolled/get_my_testseries';
   // static const String testSeriesWeb_URL  = 'https://exampurtest.vercel.app/testseries/list/' + 'TEST_SERIES_ID' + '?auth_token=' + 'AUTH_TOKEN';
-  // https://testweb.exampur.xyz/TESTSERIES_ID/list?auth_token=AUTH_TOKE
   static const String testSeriesWeb_URL  = 'https://testweb.exampur.xyz/' + 'TESTSERIES_ID'+'/list' + '?auth_token=' + 'AUTH_TOKEN';
 
 
@@ -182,7 +181,8 @@ class API {
   static const String previousYearMaterialUrl   = WEB_BASE_URL + 'previous-year-material/';
 
   // Current Affairs New
-  static const String currentAffairsNewTabUrl   = WEB_BASE_URL + 'current-affairs/sub-category/';
-  static const String currentAffairsNewListUrl  = WEB_BASE_URL + 'content-module-list/';
+  static const String currentAffairsNewTabUrl     = WEB_BASE_URL + 'current-affairs/sub-category/';
+  static const String currentAffairsNewListUrl    = WEB_BASE_URL + 'content-module-list/';
+  static const String currentAffairsNewDetailUrl  = WEB_BASE_URL + 'current-affairs-article/';
 
 }

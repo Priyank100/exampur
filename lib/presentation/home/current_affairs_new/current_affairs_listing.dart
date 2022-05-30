@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/data/model/current_affairs_new_list_model.dart';
+import 'package:exampur_mobile/presentation/home/current_affairs_new/current_affairs_details.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -65,6 +66,7 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
     return InkWell(
       onTap: (){
         FocusScope.of(context).unfocus();
+        AppConstants.goTo(context, CurrentAffairsDetails(currentAffairsListModel!.articleContent![index].id.toString()));
       },
       child: Container(
         padding: const EdgeInsets.all(5),
