@@ -30,6 +30,8 @@ import '../../main.dart';
 import 'TestSeries/test_series_tab.dart';
 import 'package:provider/provider.dart';
 
+import 'current_affairs_new/current_affairs_list.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -332,10 +334,19 @@ class _HomeState extends State<Home> {
                     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyMaterialNew(API.previousYearMaterialUrl)));
                   },
                 ),
+
               ],
             ),
             SizedBox(
               height: 10,
+            ),
+            SquareButton(
+              image: Images.studymaterial,
+              title: 'New Current Affair',
+              color: AppColors.paidCourses,
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CurrentAffairsList()));
+              },
             ),
           ],
         ),
