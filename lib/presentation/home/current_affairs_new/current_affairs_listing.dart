@@ -80,32 +80,37 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
                     return ListItem(index);
                   }),
             ),
-
-          ] ),
+          ]),
         bottomNavigationBar: isBottomLoading ? Container(
           height: 40,
           width: 40,
+          padding: EdgeInsets.all(8),
           child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                 currentAffairsListModel!.previous.toString() == 'null' ? SizedBox() :
                 MaterialButton(
                   color: AppColors.amber,
                   onPressed: () {
-                    getTab(currentAffairsListModel!.previous.toString());
+                    setState(() {
+                      isLoading = true;
+                      getTab(currentAffairsListModel!.previous.toString());
+                    });
                   },
-                  child: Text('Previous',style: TextStyle(color: AppColors.white),),
+                  child: Text('<< Previous',style: TextStyle(color: AppColors.white),),
                 ),
-                SizedBox(width: 50),
                   currentAffairsListModel!.next.toString() == 'null' ? SizedBox() :
                   MaterialButton(
                     color: AppColors.amber,
                       onPressed: () {
-                      getTab(currentAffairsListModel!.next.toString());
+                      setState(() {
+                        isLoading = true;
+                        getTab(currentAffairsListModel!.next.toString());
+                      });
                       },
-                    child: Text('Next',style: TextStyle(color: AppColors.white)),
+                    child: Text('Next >>',style: TextStyle(color: AppColors.white)),
                   )
-              ],),
+              ]),
         ) : SizedBox()
       );
 
