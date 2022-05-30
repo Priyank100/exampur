@@ -1,6 +1,8 @@
 import 'package:exampur_mobile/data/model/current_affairs_new_list_model.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs_new/current_affairs_details.dart';
+import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
+import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
@@ -19,47 +21,94 @@ class CurrentAffairsListing extends StatefulWidget {
 class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
   CurrentAffairsNewListModel? currentAffairsListModel;
   bool isLoading = true;
+  bool isBottomLoading = false;
+  var scrollController = ScrollController();
 
   @override
   void initState() {
-    getTab();
+    scrollController.addListener(pagination);
+    getTab(API.currentAffairsNewListUrl);
     super.initState();
   }
 
-  Future<void> getTab() async {
+  Future<void> getTab(String url) async {
+    currentAffairsListModel = null;
     isLoading = true;
-    currentAffairsListModel = (await Provider.of<CaProvider>(context, listen: false).getCurrentAffairsNewList(context, widget.tabId))!;
+    currentAffairsListModel = (await Provider.of<CaProvider>(context, listen: false).getCurrentAffairsNewList(context, url, widget.tabId))!;
     isLoading = false;
+    isBottomLoading = false;
     setState(() {});
+  }
+
+  void pagination() {
+    if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
+      setState(() {
+        isBottomLoading = true;
+      });
+    } else {
+      setState(() {
+        isBottomLoading = false;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return isLoading ? const Center(child: CircularProgressIndicator(color: AppColors.amber)) :
     currentAffairsListModel == null ? AppConstants.noDataFound() :
-      Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(currentAffairsListModel!.subCategory.toString(),style: TextStyle(fontSize: 15),),
-                InkWell(onTap:(){
-                  FocusScope.of(context).unfocus();
-                },child: FaIcon(FontAwesomeIcons.calendarAlt,size: 20,),)
+      Scaffold(
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(currentAffairsListModel!.subCategory.toString(),style: TextStyle(fontSize: 15),),
+                  InkWell(onTap:(){
+                    FocusScope.of(context).unfocus();
+                  },child: FaIcon(FontAwesomeIcons.calendarAlt,size: 20,),)
+                ],),
+            ),
+            Expanded(
+              child: ListView.builder(
+                controller: scrollController,
+                  itemCount:currentAffairsListModel!.articleContent!.length,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    return ListItem(index);
+                  }),
+            ),
+
+          ] ),
+        bottomNavigationBar: isBottomLoading ? Container(
+          height: 40,
+          width: 40,
+          child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                currentAffairsListModel!.previous.toString() == 'null' ? SizedBox() :
+                MaterialButton(
+                  color: AppColors.amber,
+                  onPressed: () {
+                    getTab(currentAffairsListModel!.previous.toString());
+                  },
+                  child: Text('Previous',style: TextStyle(color: AppColors.white),),
+                ),
+                SizedBox(width: 50),
+                  currentAffairsListModel!.next.toString() == 'null' ? SizedBox() :
+                  MaterialButton(
+                    color: AppColors.amber,
+                      onPressed: () {
+                      getTab(currentAffairsListModel!.next.toString());
+                      },
+                    child: Text('Next',style: TextStyle(color: AppColors.white)),
+                  )
               ],),
-          ),
-          Expanded(
-            child: ListView.builder(
-                itemCount:currentAffairsListModel!.articleContent!.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return ListItem(index);
-                }),
-          ),
-        ] );
+        ) : SizedBox()
+      );
+
   }
 
   Widget ListItem(index){
