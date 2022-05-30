@@ -4,6 +4,8 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'current_affairs_details.dart';
+
 class CurrentAffairsList extends StatefulWidget {
   const CurrentAffairsList({Key? key}) : super(key: key);
 
@@ -130,6 +132,11 @@ class _CurrentAffairsListState extends State<CurrentAffairsList> {
     return InkWell(
       onTap: (){
         FocusScope.of(context).unfocus();
+        Navigator.of(context, rootNavigator: true).push(
+            MaterialPageRoute(
+                builder: (_) =>
+                CurrentAffairsDetails()));
+
       },
       child: Container(
         padding: const EdgeInsets.all(5),
