@@ -175,15 +175,15 @@ class API {
 
   //study Material New - https://exampur.com/api/
   static const String studyMaterialNewUrl       = WEB_BASE_URL + 'study-material/';
-  static const String studyMaterialNewSubCatUrl = WEB_BASE_URL + 'download-material/';
+  static const String studyMaterialNewSubCatUrl = WEB_BASE_URL + 'download-material/' + 'ID';
 
   //Previous Year PDF
   static const String previousYearMaterialUrl   = WEB_BASE_URL + 'previous-year-material/';
 
   // Current Affairs New
   static const String currentAffairsNewTabUrl     = WEB_BASE_URL + 'current-affairs/sub-category/';
-  static const String currentAffairsNewListUrl    = WEB_BASE_URL + 'content-module-list/' + 'TAB_ID';
-  static const String currentAffairsNewDetailUrl  = WEB_BASE_URL + 'current-affairs-article/';
+  static const String currentAffairsNewListUrl    = WEB_BASE_URL + 'content-module-list/' + 'ID';
+  static const String currentAffairsNewDetailUrl  = WEB_BASE_URL + 'current-affairs-article/' + 'ID';
 
   static const String currentAffairsNewListFilterUrl  = WEB_BASE_URL + 'search-news/?';
 

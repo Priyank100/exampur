@@ -31,9 +31,10 @@ class CaRepo {
     }
   }
 
-  Future<ApiResponse> studyMaterialSubCatData(String url, String catId) async {
+  Future<ApiResponse> studyMaterialSubCatData(String api, String catId, String filter) async {
     try {
-      final response = await dioClient.get(url.replaceAll('TAB_ID', catId));
+      String url = api.replaceAll('ID', catId) + filter;
+      final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

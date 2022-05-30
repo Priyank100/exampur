@@ -67,7 +67,7 @@ class CaProvider extends ChangeNotifier {
   }
 
   Future<StudyMaterialSubCatModel?> getStudyMaterialSubCatData(BuildContext context, String catId) async {
-    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(API.studyMaterialNewSubCatUrl, catId);
+    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(API.studyMaterialNewSubCatUrl, catId, '');
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _studyMaterialSubCatModel = StudyMaterialSubCatModel.fromJson(json.decode(apiResponse.response.toString()));
       return _studyMaterialSubCatModel;
@@ -95,7 +95,7 @@ class CaProvider extends ChangeNotifier {
   }
 
   Future<CurrentAffairsNewListModel?> getCurrentAffairsNewList(BuildContext context, String url, String catId) async {
-    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(url, catId);
+    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(url, catId, '');
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _currentAffairsNewListModel = CurrentAffairsNewListModel.fromJson(json.decode(apiResponse.response.toString()));
       return _currentAffairsNewListModel;
@@ -107,7 +107,7 @@ class CaProvider extends ChangeNotifier {
   }
 
   Future<CurrentAffairsNewDetailModel?> getCurrentAffairsNewDetail(BuildContext context, String articleId) async {
-    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(API.currentAffairsNewDetailUrl, articleId);
+    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(API.currentAffairsNewDetailUrl, articleId,'');
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _currentAffairsNewDetailModel = CurrentAffairsNewDetailModel.fromJson(json.decode(apiResponse.response.toString()));
       return _currentAffairsNewDetailModel;
@@ -119,7 +119,7 @@ class CaProvider extends ChangeNotifier {
   }
 
   Future<CurrentAffairsNewListModel?> getCurrentAffairsNewListFilter(BuildContext context, String filter) async {
-    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(API.currentAffairsNewListFilterUrl, filter);
+    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(API.currentAffairsNewListFilterUrl, '', filter);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _currentAffairsNewListModel = CurrentAffairsNewListModel.fromJson(json.decode(apiResponse.response.toString()));
       return _currentAffairsNewListModel;
