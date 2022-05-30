@@ -118,4 +118,16 @@ class CaProvider extends ChangeNotifier {
     }
   }
 
+  Future<CurrentAffairsNewListModel?> getCurrentAffairsNewListFilter(BuildContext context, String filter) async {
+    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(API.currentAffairsNewListFilterUrl, filter);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _currentAffairsNewListModel = CurrentAffairsNewListModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _currentAffairsNewListModel;
+
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      notifyListeners();
+    }
+  }
+
 }

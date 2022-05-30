@@ -238,7 +238,7 @@ class AppConstants {
     );
   }
 
-  static Future<String> selectDate(BuildContext context) async {
+  static Future<String> selectDate(BuildContext context, String dateFormat) async {
     DateTime selectedDate = DateTime.now();
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -246,7 +246,7 @@ class AppConstants {
         firstDate: DateTime(1900, 1),
         lastDate: selectedDate);
     if (picked != null && picked != selectedDate) {
-      return DateFormat('dd/MM/yyyy').format(picked);
+      return DateFormat(dateFormat).format(picked);
     } else {
       return '';
     }

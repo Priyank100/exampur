@@ -119,7 +119,7 @@ class SignUpState extends State<SignUp> {
 
                     InkWell(
                       onTap: () async {
-                        String date = await AppConstants.selectDate(context);
+                        String date = await AppConstants.selectDate(context, 'dd/MM/yyyy');
                         if(date.isNotEmpty) {
                           setState(() {
                             selectedDate = date;

@@ -185,4 +185,6 @@ class API {
   static const String currentAffairsNewListUrl    = WEB_BASE_URL + 'content-module-list/';
   static const String currentAffairsNewDetailUrl  = WEB_BASE_URL + 'current-affairs-article/';
 
+  static const String currentAffairsNewListFilterUrl  = WEB_BASE_URL + 'search-news/?';
+
 }
