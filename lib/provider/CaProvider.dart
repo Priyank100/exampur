@@ -94,8 +94,8 @@ class CaProvider extends ChangeNotifier {
     }
   }
 
-  Future<CurrentAffairsNewListModel?> getCurrentAffairsNewList(BuildContext context, String catId) async {
-    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(API.currentAffairsNewListUrl, catId);
+  Future<CurrentAffairsNewListModel?> getCurrentAffairsNewList(BuildContext context, String url, String catId) async {
+    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(url, catId);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _currentAffairsNewListModel = CurrentAffairsNewListModel.fromJson(json.decode(apiResponse.response.toString()));
       return _currentAffairsNewListModel;

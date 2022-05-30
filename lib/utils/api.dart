@@ -182,7 +182,7 @@ class API {
 
   // Current Affairs New
   static const String currentAffairsNewTabUrl     = WEB_BASE_URL + 'current-affairs/sub-category/';
-  static const String currentAffairsNewListUrl    = WEB_BASE_URL + 'content-module-list/';
+  static const String currentAffairsNewListUrl    = WEB_BASE_URL + 'content-module-list/' + 'TAB_ID';
   static const String currentAffairsNewDetailUrl  = WEB_BASE_URL + 'current-affairs-article/';
 
 }
