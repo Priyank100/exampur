@@ -26,6 +26,10 @@ class API {
   // call if BASE_URL2 got error-429
   static const String BASE_URL4 = 'https://qvjplseirk.execute-api.ap-northeast-1.amazonaws.com/';
 
+  // base url for new module from web
+  static const String WEB_BASE_URL = 'https://exampur.com/api/';
+
+//=========================================================================================================//
 
   //BannerBase
   static const String BANNER_BASE_URL = BASE_URL3 + 'get_cdn';
@@ -170,11 +174,15 @@ class API {
   // static const String dailyQuiz_web_URL  = 'https://test.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
   static const String dailyQuiz_web_URL  = 'https://testweb.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
 
-  //study Material New
-  static const String studyMaterialNewUrl       = 'https://exampur.com/api/study-material/';
-  static const String studyMaterialNewSubCatUrl = 'https://exampur.com/api/download-material/';
+  //study Material New - https://exampur.com/api/
+  static const String studyMaterialNewUrl       = WEB_BASE_URL + 'study-material/';
+  static const String studyMaterialNewSubCatUrl = WEB_BASE_URL + 'download-material/';
 
   //Previous Year PDF
-  static const String previousYearMaterialUrl   = 'https://exampur.com/api/previous-year-material/';
+  static const String previousYearMaterialUrl   = WEB_BASE_URL + 'previous-year-material/';
+
+  // Current Affairs New
+  static const String currentAffairsNewTabUrl   = WEB_BASE_URL + 'current-affairs/sub-category/';
+  static const String currentAffairsNewListUrl  = WEB_BASE_URL + 'content-module-list/';
 
 }

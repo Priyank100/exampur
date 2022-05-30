@@ -30,7 +30,7 @@ import '../../main.dart';
 import 'TestSeries/test_series_tab.dart';
 import 'package:provider/provider.dart';
 
-import 'current_affairs_new/current_affairs_list.dart';
+import 'current_affairs_new/current_affairs_tab.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -132,6 +132,7 @@ class _HomeState extends State<Home> {
                   ),
                   onChanged: (Language? language) {
                     _changeLanguage(language!);
+                    AppConstants.langCode = language.languageCode;
                   },
                   items: Language.languageList()
                       .map<DropdownMenuItem<Language>>(
@@ -341,11 +342,11 @@ class _HomeState extends State<Home> {
               height: 10,
             ),
             SquareButton(
-              image: Images.studymaterial,
-              title: 'New Current Affair',
+              image: Images.current_affair,
+              title: getTranslated(context, 'current_affairs')!,
               color: AppColors.paidCourses,
               onPressed: () {
-                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CurrentAffairsList()));
+                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CurrentAffairsTab()));
               },
             ),
           ],

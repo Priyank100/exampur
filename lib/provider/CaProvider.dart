@@ -2,10 +2,13 @@ import 'dart:collection';
 import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
+import 'package:exampur_mobile/data/model/curent_affairs_new_tab_model.dart';
+import 'package:exampur_mobile/data/model/current_affairs_new_list_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/study_material_new_model.dart';
 import 'package:exampur_mobile/data/model/study_material_sub_cat_model.dart';
 import 'package:exampur_mobile/data/repository/CaRepo.dart';
+import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +22,9 @@ class CaProvider extends ChangeNotifier {
 
   StudyMaterialSubCatModel _studyMaterialSubCatModel = StudyMaterialSubCatModel();
   StudyMaterialSubCatModel get studyMaterialSubCatModel => _studyMaterialSubCatModel;
+
+  CurrentAffairsNewListModel _currentAffairsNewListModel = CurrentAffairsNewListModel();
+  CurrentAffairsNewListModel get currentAffairsNewListModel => _currentAffairsNewListModel;
 
 
   Future<List<Data>?> getCaSmList(BuildContext context, String contentCatId, String type, String encodeCat,int pageNo) async {
@@ -57,7 +63,7 @@ class CaProvider extends ChangeNotifier {
   }
 
   Future<StudyMaterialSubCatModel?> getStudyMaterialSubCatData(BuildContext context, String catId) async {
-    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(catId);
+    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(API.studyMaterialNewSubCatUrl, catId);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _studyMaterialSubCatModel = StudyMaterialSubCatModel.fromJson(json.decode(apiResponse.response.toString()));
       return _studyMaterialSubCatModel;
@@ -68,5 +74,32 @@ class CaProvider extends ChangeNotifier {
     }
   }
   //studyMaterialNew
+
+
+  //CurrentAffairsNew
+  Future<List<CurentAffairsNewTabModel>?> getCurrentAffairsNewTab(BuildContext context) async {
+    List<CurentAffairsNewTabModel> myList = [];
+    ApiResponse apiResponse = await caRepo.studyMaterialNew(API.currentAffairsNewTabUrl);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      myList = List<CurentAffairsNewTabModel>.from(apiResponse.response!.data.map((x) => CurentAffairsNewTabModel.fromJson(x)));
+      return myList;
+
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      notifyListeners();
+    }
+  }
+
+  Future<CurrentAffairsNewListModel?> getCurrentAffairsNewList(BuildContext context, String catId) async {
+    ApiResponse apiResponse = await caRepo.studyMaterialSubCatData(API.currentAffairsNewListUrl, catId);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _currentAffairsNewListModel = CurrentAffairsNewListModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _currentAffairsNewListModel;
+
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      notifyListeners();
+    }
+  }
 
 }
