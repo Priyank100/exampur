@@ -13,6 +13,7 @@ import 'package:exampur_mobile/presentation/drawer/settings.dart';
 import 'package:exampur_mobile/presentation/help/help.dart';
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -82,6 +83,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
   }
 
   Future<void> callProvider() async {
+    await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context);
     allCategoriesList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getAllCategoryList(context))!;
 
     var userData = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));

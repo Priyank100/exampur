@@ -4,6 +4,7 @@ import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
 
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -48,6 +49,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
   }
 
   Future<void> callProvider() async {
+    await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context);
     chooseList =
         (await Provider.of<ChooseCategoryProvider>(context, listen: false)
             .getAllCategoryList(context))!;

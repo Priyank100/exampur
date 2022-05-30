@@ -143,11 +143,17 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
+  // Future<void> callProvider() async {
+  //   await FirebaseMessaging.instance.subscribeToTopic('ALL');
+  //   await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context).then((value) {
+  //     checkSharedPrefToken();
+  //   });
+  // }
   Future<void> callProvider() async {
     await FirebaseMessaging.instance.subscribeToTopic('ALL');
-    await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context).then((value) {
+
       checkSharedPrefToken();
-    });
+
   }
 
   Future<void> checkSharedPrefToken() async {
