@@ -21,6 +21,7 @@ import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
+import 'package:exampur_mobile/provider/PracticeQuestionProvider.dart';
 import 'package:exampur_mobile/provider/TestSeriesProvider.dart';
 import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -72,6 +73,7 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl<MyCourseProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<TestSeriesProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<DailyQuizProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<PracticeQuestionProvider>()),
   ], child: MyApp()));
 }
 

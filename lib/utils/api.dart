@@ -186,4 +186,9 @@ class API {
 
   static const String currentAffairsNewListFilterUrl  = WEB_BASE_URL + 'search-news/?';
 
+  //Parctice Question
+
+  static const String practiceQuestionCategoriesUrl  = WEB_BASE_URL + 'practice-categories/';
+  static const String practiceQuestionCategoryandSubcategoryUrl  = WEB_BASE_URL + 'practice-question-api/';
+
 }

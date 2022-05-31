@@ -27,6 +27,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 import '../../main.dart';
+import 'PracticeQuestion/practice_question_category.dart';
 import 'TestSeries/test_series_tab.dart';
 import 'package:provider/provider.dart';
 
@@ -299,7 +300,6 @@ class _HomeState extends State<Home> {
                             builder: (_) => CurrentAffairs(
                                 getTranslated(context, 'current_affairs')!,
                                 AppConstants.currentAffairesId)));
-                    // AppConstants.goTo(context, CurrentAffairsTab());      //CurrentAffairsNew
                   },
                 ),
                 // navigateTo: CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId)),
@@ -342,14 +342,14 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 10,
             ),
-            // SquareButton(
-            //   image: Images.current_affair,
-            //   title: getTranslated(context, 'current_affairs')!,
-            //   color: AppColors.paidCourses,
-            //   onPressed: () {
-            //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CurrentAffairsTab()));
-            //   },
-            // ),
+            SquareButton(
+              image: Images.current_affair,
+              title: getTranslated(context, 'current_affairs')!,
+              color: AppColors.paidCourses,
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PracticeQuestionCategory()));
+              },
+            ),
           ],
         ),
       ),

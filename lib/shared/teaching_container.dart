@@ -90,9 +90,12 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(fontSize: 18),
                                   ),
-                                  Container(
-                                      height:100,
-                                      child: Html(data:widget.courseData.description.toString())),
+                                 Html(data:widget.courseData.description.toString().replaceAll(RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true), ' '),style: {
+                                        'body': Style(
+                                            maxLines: 3,
+                                            textOverflow: TextOverflow.ellipsis,
+                                            fontSize: const FontSize(13)
+                                        )})
                                 ],
                               ),
                             ),
