@@ -342,14 +342,14 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 10,
             ),
-            // SquareButton(
-            //   image: Images.current_affair,
-            //   title: 'Practice Questions',
-            //   color: AppColors.paidCourses,
-            //   onPressed: () {
-            //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PracticeQuestionCategory()));
-            //   },
-            // ),
+            SquareButton(
+              image: Images.current_affair,
+              title: 'Practice Questions',
+              color: AppColors.paidCourses,
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PracticeQuestionCategory()));
+              },
+            ),
           ],
         ),
       ),
