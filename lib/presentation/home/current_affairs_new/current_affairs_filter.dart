@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'current_affairs_details.dart';
+import 'current_affairs_tab.dart';
 
 class CurrentAffairsFilter extends StatefulWidget {
   final String searchType;
@@ -32,64 +33,70 @@ class _CurrentAffairsFilterState extends State<CurrentAffairsFilter> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(),
-      body: Column(
-        children: [
-          widget.searchType == 'S' ?
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
-            child: Container(
-              height: 40,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: AppColors.grey200,
-                border: Border.all(color: AppColors.grey, width: 1),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: TextField(
-                autofocus: true,
-                onChanged: (s) {
-                  if(s.isNotEmpty) {
-                    getFilterDataList(s);
-                  } else {
-                    setState(() {
-                      currentAffairsListModel = null;
-                    });
-                  }
-                },
-                autocorrect: false,
-                cursorColor: AppColors.amber,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search,size: 25,color: AppColors.grey400),
-                  hintText: 'Search...',
-                  hintStyle: TextStyle(
-                    color: AppColors.grey400,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.popUntil(context, ModalRoute.withName("CAN"));
+        return true;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar(),
+        body: Column(
+          children: [
+            widget.searchType == 'S' ?
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
+              child: Container(
+                height: 40,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: AppColors.grey200,
+                  border: Border.all(color: AppColors.grey, width: 1),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: TextField(
+                  autofocus: true,
+                  onChanged: (s) {
+                    if(s.isNotEmpty) {
+                      getFilterDataList(s);
+                    } else {
+                      setState(() {
+                        currentAffairsListModel = null;
+                      });
+                    }
+                  },
+                  autocorrect: false,
+                  cursorColor: AppColors.amber,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search,size: 25,color: AppColors.grey400),
+                    hintText: 'Search...',
+                    hintStyle: TextStyle(
+                      color: AppColors.grey400,
+                    ),
+                    contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+                    isDense: true,
+                    counterText: '',
+                    errorStyle: TextStyle(height: 1.5),
+                    border: InputBorder.none,
                   ),
-                  contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
-                  isDense: true,
-                  counterText: '',
-                  errorStyle: TextStyle(height: 1.5),
-                  border: InputBorder.none,
                 ),
               ),
+            ) : SizedBox(),
+            SizedBox(height: 10),
+            isLoading ? const Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+            currentAffairsListModel == null || currentAffairsListModel!.count == 0 ?
+            AppConstants.noDataFound() :
+            Expanded(
+              child: ListView.builder(
+                  itemCount:currentAffairsListModel!.articleContent!.length,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    return ListItem(index);
+                  }),
             ),
-          ) : SizedBox(),
-          SizedBox(height: 10),
-          isLoading ? const Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-          currentAffairsListModel == null || currentAffairsListModel!.count == 0 ?
-          AppConstants.noDataFound() :
-          Expanded(
-            child: ListView.builder(
-                itemCount:currentAffairsListModel!.articleContent!.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return ListItem(index);
-                }),
-          ),
-        ],
-      )
+          ],
+        )
+      ),
     );
   }
 

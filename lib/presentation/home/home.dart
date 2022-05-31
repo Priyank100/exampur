@@ -295,12 +295,15 @@ class _HomeState extends State<Home> {
                   color: AppColors.affairs,
                   onPressed: () {
                     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.currentAffairsClick);
+                    // Navigator.of(context, rootNavigator: true).push(
+                    //     MaterialPageRoute(
+                    //         builder: (_) => CurrentAffairs(
+                    //             getTranslated(context, 'current_affairs')!,
+                    //             AppConstants.currentAffairesId)));
                     Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (_) => CurrentAffairs(
-                                getTranslated(context, 'current_affairs')!,
-                                AppConstants.currentAffairesId))
-                    );
+                            MaterialPageRoute(
+                                settings: RouteSettings(name: "CAN"),
+                                builder: (_) => CurrentAffairsTab()));
                   },
                 ),
                 // navigateTo: CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId)),

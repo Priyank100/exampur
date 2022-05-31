@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 
+import 'current_affairs_filter.dart';
+
 class CurrentAffairsDetails extends StatefulWidget {
   final String articleId;
   const CurrentAffairsDetails(this.articleId) : super();
@@ -56,8 +58,13 @@ class _CurrentAffairsDetailsState extends State<CurrentAffairsDetails> {
                       child: Wrap(
                         spacing: 2.0,
                         children: List<Widget>.generate(currentAffairsDetailModel!.caTags!.length, (int index) {
-                          return Chip(
-                              label: Text(currentAffairsDetailModel!.caTags![index].name.toString(), style: TextStyle(fontSize: 10),)
+                          return InkWell(
+                            onTap: () {
+                              AppConstants.goAndReplace(context, CurrentAffairsFilter('T', selectedTagName: currentAffairsDetailModel!.caTags![index]!.name.toString()));
+                            },
+                            child: Chip(
+                                label: Text(currentAffairsDetailModel!.caTags![index].name.toString(), style: TextStyle(fontSize: 10),)
+                            ),
                           );
                         }),
                       )
