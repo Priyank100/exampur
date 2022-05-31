@@ -295,15 +295,15 @@ class _HomeState extends State<Home> {
                   color: AppColors.affairs,
                   onPressed: () {
                     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.currentAffairsClick);
-                    // Navigator.of(context, rootNavigator: true).push(
-                    //     MaterialPageRoute(
-                    //         builder: (_) => CurrentAffairs(
-                    //             getTranslated(context, 'current_affairs')!,
-                    //             AppConstants.currentAffairesId)));
                     Navigator.of(context, rootNavigator: true).push(
-                            MaterialPageRoute(
-                                settings: RouteSettings(name: "CAN"),
-                                builder: (_) => CurrentAffairsTab()));
+                        MaterialPageRoute(
+                            builder: (_) => CurrentAffairs(
+                                getTranslated(context, 'current_affairs')!,
+                                AppConstants.currentAffairesId)));
+                    // Navigator.of(context, rootNavigator: true).push(
+                    //         MaterialPageRoute(
+                    //             settings: RouteSettings(name: "CAN"),
+                    //             builder: (_) => CurrentAffairsTab()));
                   },
                 ),
                 // navigateTo: CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId)),
@@ -345,14 +345,14 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 10,
             ),
-            SquareButton(
-              image: Images.current_affair,
-              title: 'Practice Questions',
-              color: AppColors.paidCourses,
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PracticeQuestionCategory()));
-              },
-            ),
+            // SquareButton(
+            //   image: Images.current_affair,
+            //   title: 'Practice Questions',
+            //   color: AppColors.paidCourses,
+            //   onPressed: () {
+            //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PracticeQuestionCategory()));
+            //   },
+            // ),
           ],
         ),
       ),
