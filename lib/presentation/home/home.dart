@@ -299,7 +299,8 @@ class _HomeState extends State<Home> {
                         MaterialPageRoute(
                             builder: (_) => CurrentAffairs(
                                 getTranslated(context, 'current_affairs')!,
-                                AppConstants.currentAffairesId)));
+                                AppConstants.currentAffairesId))
+                    );
                   },
                 ),
                 // navigateTo: CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId)),
@@ -336,20 +337,19 @@ class _HomeState extends State<Home> {
                     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyMaterialNew(API.previousYearMaterialUrl)));
                   },
                 ),
-
               ],
             ),
             SizedBox(
               height: 10,
             ),
-            SquareButton(
-              image: Images.current_affair,
-              title: getTranslated(context, 'current_affairs')!,
-              color: AppColors.paidCourses,
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PracticeQuestionCategory()));
-              },
-            ),
+            // SquareButton(
+            //   image: Images.current_affair,
+            //   title: 'Practice Questions',
+            //   color: AppColors.paidCourses,
+            //   onPressed: () {
+            //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PracticeQuestionCategory()));
+            //   },
+            // ),
           ],
         ),
       ),
