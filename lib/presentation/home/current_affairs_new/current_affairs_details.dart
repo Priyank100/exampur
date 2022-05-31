@@ -60,7 +60,7 @@ class _CurrentAffairsDetailsState extends State<CurrentAffairsDetails> {
                         children: List<Widget>.generate(currentAffairsDetailModel!.caTags!.length, (int index) {
                           return InkWell(
                             onTap: () {
-                              AppConstants.goAndReplace(context, CurrentAffairsFilter('T', selectedTagName: currentAffairsDetailModel!.caTags![index]!.name.toString()));
+                              AppConstants.goAndReplace(context, CurrentAffairsFilter('T', selectedTagName: currentAffairsDetailModel!.caTags![index].name.toString()));
                             },
                             child: Chip(
                                 label: Text(currentAffairsDetailModel!.caTags![index].name.toString(), style: TextStyle(fontSize: 10),)

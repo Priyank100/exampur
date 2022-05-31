@@ -30,7 +30,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   @override
   void initState() {
     scrollController.addListener(pagination);
-    getQuestionsData(API.practiceQuestionViaCatAndSubCatUrl);
+    getQuestionsData(API.practiceQuestionViaCatAndSubCatUrl + widget.catId + '/'+ widget.subCatId);
     super.initState();
   }
 
@@ -38,7 +38,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
     practiceQuestionListingModel = null;
     _radioValue.clear();
     isLoading = true;
-    practiceQuestionListingModel = (await Provider.of<PracticeQuestionProvider>(context, listen: false).getPracticeQuestionListing(context, widget.catId, widget.subCatId))!;
+    practiceQuestionListingModel = (await Provider.of<PracticeQuestionProvider>(context, listen: false).getPracticeQuestionListing(context, url))!;
     if(practiceQuestionListingModel != null && practiceQuestionListingModel!.count! > 0) {
       for (int i = 0; i < practiceQuestionListingModel!.questions!.length; i++) {
         _radioValue.add(MyRadio(false, -1));

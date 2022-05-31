@@ -33,8 +33,8 @@ class PracticeQuestionProvider extends ChangeNotifier {
   }
 
 //QuestionpaperApi
-  Future<PracticeQuestionListingModel?> getPracticeQuestionListing(BuildContext context, String categorySlug, String subCatSlug) async {
-    ApiResponse apiResponse = await practiceQuestionRepo.parcticeQuestionList(categorySlug,subCatSlug);
+  Future<PracticeQuestionListingModel?> getPracticeQuestionListing(BuildContext context, String url) async {
+    ApiResponse apiResponse = await practiceQuestionRepo.practiceQuestionList(url);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _practiceQuestionListingModel = PracticeQuestionListingModel.fromJson(json.decode(apiResponse.response.toString()));
       return _practiceQuestionListingModel;

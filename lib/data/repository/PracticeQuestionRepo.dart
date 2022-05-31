@@ -18,9 +18,8 @@ class PracticeQuestionRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-  Future<ApiResponse> parcticeQuestionList(String categorySlug,String subcatSlug) async {
+  Future<ApiResponse> practiceQuestionList(String url) async {
     try {
-      String url = API.practiceQuestionCategoryandSubcategoryUrl+categorySlug+'/'+subcatSlug;
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
