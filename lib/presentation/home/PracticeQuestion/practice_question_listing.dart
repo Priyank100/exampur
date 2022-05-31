@@ -30,12 +30,13 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   @override
   void initState() {
     scrollController.addListener(pagination);
-    getTab(API.practiceQuestionCategoryandSubcategoryUrl);
+    getQuestionsData(API.practiceQuestionViaCatAndSubCatUrl);
     super.initState();
   }
 
-  Future<void> getTab(String url) async {
+  Future<void> getQuestionsData(String url) async {
     practiceQuestionListingModel = null;
+    _radioValue.clear();
     isLoading = true;
     practiceQuestionListingModel = (await Provider.of<PracticeQuestionProvider>(context, listen: false).getPracticeQuestionListing(context, widget.catId, widget.subCatId))!;
     if(practiceQuestionListingModel != null && practiceQuestionListingModel!.count! > 0) {
@@ -88,7 +89,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
                   onPressed: () {
                     setState(() {
                       isLoading = true;
-                      getTab(practiceQuestionListingModel!.previous.toString());
+                      getQuestionsData(practiceQuestionListingModel!.previous.toString());
                     });
                   },
                   child: Text('<< Previous',style: TextStyle(color: AppColors.white),),
@@ -99,8 +100,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
                   onPressed: () {
                     setState(() {
                       isLoading = true;
-                      getTab(practiceQuestionListingModel!.next.toString());
-                      print('...................................................'+practiceQuestionListingModel!.next.toString());
+                      getQuestionsData(practiceQuestionListingModel!.next.toString());
                     });
                   },
                   child: Text('Next >>',style: TextStyle(color: AppColors.white)),

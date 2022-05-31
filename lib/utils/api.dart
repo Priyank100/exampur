@@ -188,7 +188,7 @@ class API {
 
   //Parctice Question
 
-  static const String practiceQuestionCategoriesUrl  = WEB_BASE_URL + 'practice-categories/';
-  static const String practiceQuestionCategoryandSubcategoryUrl  = WEB_BASE_URL + 'practice-question-api/';
+  static const String practiceQuestionCategoriesUrl       = WEB_BASE_URL + 'practice-categories/';
+  static const String practiceQuestionViaCatAndSubCatUrl  = WEB_BASE_URL + 'practice-question-api/';
 
 }
