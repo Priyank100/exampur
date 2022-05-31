@@ -48,11 +48,11 @@ class _PracticeQuestionCategoryState extends State<PracticeQuestionCategory> {
     return ListView.builder(
         itemCount: practiceQuestionDataList[tabPos].subCat!.length,
         itemBuilder: (context, index) {
-          return itemList(practiceQuestionDataList[tabPos].subCat.toString(), practiceQuestionDataList[tabPos].subCat![index]);
+          return itemList(practiceQuestionDataList[tabPos].name.toString(),practiceQuestionDataList[tabPos].slug.toString(), practiceQuestionDataList[tabPos].subCat![index]);
         });
   }
 
-  Widget itemList(String tabTitle, SubCat category) {
+  Widget itemList(String name,String slug, SubCat category) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -71,7 +71,7 @@ class _PracticeQuestionCategoryState extends State<PracticeQuestionCategory> {
         ),
         child: ListTile(
             onTap: () {
-              AppConstants.goTo(context, PracticeQuestionListing());
+              AppConstants.goTo(context, PracticeQuestionListing(name,category.name.toString(),slug,category.slug.toString()));
             },
             title: Text(
               category.name.toString(),
