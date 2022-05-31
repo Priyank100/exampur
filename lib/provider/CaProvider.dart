@@ -5,6 +5,7 @@ import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/data/model/curent_affairs_new_tab_model.dart';
 import 'package:exampur_mobile/data/model/current_affairs_new_detail_model.dart';
 import 'package:exampur_mobile/data/model/current_affairs_new_list_model.dart';
+import 'package:exampur_mobile/data/model/current_affairs_new_tag_list_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/study_material_new_model.dart';
 import 'package:exampur_mobile/data/model/study_material_sub_cat_model.dart';
@@ -123,6 +124,19 @@ class CaProvider extends ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _currentAffairsNewListModel = CurrentAffairsNewListModel.fromJson(json.decode(apiResponse.response.toString()));
       return _currentAffairsNewListModel;
+
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      notifyListeners();
+    }
+  }
+
+  Future<List<CurrentAffairsNewTagListModel>?> getCurrentAffairsTagList(BuildContext context) async {
+    List<CurrentAffairsNewTagListModel> myList = [];
+    ApiResponse apiResponse = await caRepo.studyMaterialNew(API.currentAffairsNewTagListUrl);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      myList = List<CurrentAffairsNewTagListModel>.from(apiResponse.response!.data.map((x) => CurrentAffairsNewTagListModel.fromJson(x)));
+      return myList;
 
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);

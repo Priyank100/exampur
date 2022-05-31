@@ -48,7 +48,8 @@ class _CurrentAffairsDetailsState extends State<CurrentAffairsDetails> {
                 currentAffairsDetailModel!.titleHindi.toString() :
                 currentAffairsDetailModel!.titleEng.toString(),
                 style: const TextStyle(fontSize: 20),),
-              Row(
+                currentAffairsDetailModel!.caTags == null || currentAffairsDetailModel!.caTags!.length < 0 ? SizedBox() :
+                Row(
                 children: [
                   const Text('Tags: ',style: TextStyle(fontSize: 15)),
                   Expanded(

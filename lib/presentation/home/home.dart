@@ -299,6 +299,7 @@ class _HomeState extends State<Home> {
                             builder: (_) => CurrentAffairs(
                                 getTranslated(context, 'current_affairs')!,
                                 AppConstants.currentAffairesId)));
+                    // AppConstants.goTo(context, CurrentAffairsTab());      //CurrentAffairsNew
                   },
                 ),
                 // navigateTo: CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId)),
@@ -341,14 +342,14 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 10,
             ),
-            SquareButton(
-              image: Images.current_affair,
-              title: getTranslated(context, 'current_affairs')!,
-              color: AppColors.paidCourses,
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CurrentAffairsTab()));
-              },
-            ),
+            // SquareButton(
+            //   image: Images.current_affair,
+            //   title: getTranslated(context, 'current_affairs')!,
+            //   color: AppColors.paidCourses,
+            //   onPressed: () {
+            //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CurrentAffairsTab()));
+            //   },
+            // ),
           ],
         ),
       ),

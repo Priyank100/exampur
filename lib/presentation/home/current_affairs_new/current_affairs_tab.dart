@@ -58,7 +58,7 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
                     autocorrect: false,
                     onTap: () {
                       FocusScope.of(context).unfocus();
-                      AppConstants.goTo(context, CurrentAffairsFilter());
+                      AppConstants.goTo(context, CurrentAffairsFilter('S'));
                     },
                     cursorColor: AppColors.amber,
                     decoration: InputDecoration(

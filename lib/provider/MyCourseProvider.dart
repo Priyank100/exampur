@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/course_timeline_live_stream_model.dart';
 import 'package:exampur_mobile/data/model/my_course_list_model.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
@@ -47,8 +48,13 @@ class MyCourseProvider extends ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if (statusCode == '200') {
-        _myCourseListModel = MyCourseListModel.fromJson(json.decode(apiResponse.response.toString()));
-        return _myCourseListModel.data??[];
+        _myCourseListModel = MyCourseListModel.fromJson(
+            json.decode(apiResponse.response.toString()));
+        return _myCourseListModel.data ?? [];
+      } else if(statusCode == '409') {
+        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
+        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);
@@ -76,6 +82,10 @@ class MyCourseProvider extends ChangeNotifier {
       if (statusCode == '200') {
         _myCourseSubjectModel = MyCourseSubjectModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseSubjectModel.data??[];
+      } else if(statusCode == '409') {
+        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
+        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);
@@ -103,6 +113,10 @@ class MyCourseProvider extends ChangeNotifier {
       if (statusCode == '200') {
         _myCourseMaterialModel = MyCourseMaterialModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseMaterialModel.data??[];
+      } else if(statusCode == '409') {
+        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
+        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);
@@ -132,6 +146,10 @@ class MyCourseProvider extends ChangeNotifier {
       if (statusCode == '200') {
         _teacherchapterModel = TeacherChapterModel.fromJson(json.decode(apiResponse.response.toString()));
         return _teacherchapterModel.data??[];
+      } else if(statusCode == '409') {
+        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
+        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);
@@ -160,6 +178,10 @@ class MyCourseProvider extends ChangeNotifier {
       if (statusCode == '200') {
         _myCourseTimelineListModel = MyCourseTimelineModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseTimelineListModel.data;
+      } else if(statusCode == '409') {
+        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
+        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);
@@ -181,6 +203,10 @@ class MyCourseProvider extends ChangeNotifier {
       if (statusCode == '200') {
         _myCourseTimelineliveStreamModel = CourseTimelineLiveStreamModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseTimelineliveStreamModel.data;
+      } else if(statusCode == '409') {
+        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
+        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);
@@ -208,6 +234,10 @@ class MyCourseProvider extends ChangeNotifier {
       if (statusCode == '200') {
         _myCourseNotificationModel = MyCourseNotificationModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseNotificationModel.data;
+      } else if(statusCode == '409') {
+        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
+        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);

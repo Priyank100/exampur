@@ -21,7 +21,7 @@ class CaRepo {
     }
   }
 
-  //StudyMaterialNew
+  //StudyMaterialNew & CurrentAffairsNew
   Future<ApiResponse> studyMaterialNew(String url) async {
     try {
       final response = await dioClient.get(url);
@@ -40,5 +40,4 @@ class CaRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-  //StudyMaterialNew
 }

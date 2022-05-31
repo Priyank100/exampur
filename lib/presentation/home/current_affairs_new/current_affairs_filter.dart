@@ -9,7 +9,10 @@ import 'package:provider/provider.dart';
 import 'current_affairs_details.dart';
 
 class CurrentAffairsFilter extends StatefulWidget {
-  const CurrentAffairsFilter({Key? key}) : super(key: key);
+  final String searchType;
+  final String? date;
+  final String? selectedTagName;
+  const CurrentAffairsFilter(this.searchType, {this.date, this.selectedTagName}) : super();
 
   @override
   State<CurrentAffairsFilter> createState() => _CurrentAffairsFilterState();
@@ -20,11 +23,20 @@ class _CurrentAffairsFilterState extends State<CurrentAffairsFilter> {
   bool isLoading = false;
 
   @override
+  void initState() {
+    if(widget.searchType == 'D' || widget.searchType == 'T') {
+      getFilterDataList('');
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
       body: Column(
         children: [
+          widget.searchType == 'S' ?
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
             child: Container(
@@ -38,7 +50,13 @@ class _CurrentAffairsFilterState extends State<CurrentAffairsFilter> {
               child: TextField(
                 autofocus: true,
                 onChanged: (s) {
-                  getSearchDataList(s);
+                  if(s.isNotEmpty) {
+                    getFilterDataList(s);
+                  } else {
+                    setState(() {
+                      currentAffairsListModel = null;
+                    });
+                  }
                 },
                 autocorrect: false,
                 cursorColor: AppColors.amber,
@@ -56,10 +74,11 @@ class _CurrentAffairsFilterState extends State<CurrentAffairsFilter> {
                 ),
               ),
             ),
-          ),
+          ) : SizedBox(),
           SizedBox(height: 10),
           isLoading ? const Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-          currentAffairsListModel == null ? SizedBox() :
+          currentAffairsListModel == null || currentAffairsListModel!.count == 0 ?
+          AppConstants.noDataFound() :
           Expanded(
             child: ListView.builder(
                 itemCount:currentAffairsListModel!.articleContent!.length,
@@ -127,8 +146,15 @@ class _CurrentAffairsFilterState extends State<CurrentAffairsFilter> {
     );
   }
 
-  Future<void> getSearchDataList(String searchText) async {
-    String query = 'q=' + searchText;
+  Future<void> getFilterDataList(String searchText) async {
+    String query = '';
+    if(widget.searchType == 'S') {
+      query = 'q=' + searchText;
+    } else if(widget.searchType == 'D') {
+      query = 'dt=' + widget.date.toString();
+    } else {
+      query = 'tag=' + widget.selectedTagName.toString();
+    }
     currentAffairsListModel = null;
     isLoading = true;
     currentAffairsListModel = (await Provider.of<CaProvider>(context, listen: false).getCurrentAffairsNewListFilter(context, query))!;

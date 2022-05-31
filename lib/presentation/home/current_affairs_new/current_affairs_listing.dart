@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/data/model/current_affairs_new_list_model.dart';
+import 'package:exampur_mobile/data/model/current_affairs_new_tag_list_model.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs_new/current_affairs_details.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+
+import 'current_affairs_filter.dart';
 
 class CurrentAffairsListing extends StatefulWidget {
   final String tabId;
@@ -23,20 +26,29 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
   bool isLoading = true;
   bool isBottomLoading = false;
   var scrollController = ScrollController();
+  List<CurrentAffairsNewTagListModel> tagList = [];
+  // CurrentAffairsNewTagListModel? _selectedValue;
 
   @override
   void initState() {
     scrollController.addListener(pagination);
-    getTab(API.currentAffairsNewListUrl);
+    getData(API.currentAffairsNewListUrl);
+    getTagList();
     super.initState();
   }
 
-  Future<void> getTab(String url) async {
+  Future<void> getData(String url) async {
     currentAffairsListModel = null;
     isLoading = true;
     currentAffairsListModel = (await Provider.of<CaProvider>(context, listen: false).getCurrentAffairsNewList(context, url, widget.tabId))!;
     isLoading = false;
     isBottomLoading = false;
+    setState(() {});
+  }
+
+  Future<void> getTagList() async {
+    tagList = (await Provider.of<CaProvider>(context, listen: false).getCurrentAffairsTagList(context))!;
+    print('+++' + tagList.length.toString() + '+++' + tagList[0].name.toString());
     setState(() {});
   }
 
@@ -55,19 +67,28 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
   @override
   Widget build(BuildContext context) {
     return isLoading ? const Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-    currentAffairsListModel == null ? AppConstants.noDataFound() :
+    currentAffairsListModel == null || currentAffairsListModel!.count == 0 ? AppConstants.noDataFound() :
       Scaffold(
         body: Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(currentAffairsListModel!.subCategory.toString(),style: TextStyle(fontSize: 15),),
-                  InkWell(onTap:(){
-                    FocusScope.of(context).unfocus();
-                  },child: FaIcon(FontAwesomeIcons.calendarAlt,size: 20,),)
+                  Expanded(
+                      child: Text(currentAffairsListModel!.subCategory.toString(),style: TextStyle(fontSize: 15))
+                  ),
+                  tagList.length == 0 ? SizedBox() : TagDropDownButton(),
+                  SizedBox(width: 5),
+                  InkWell(
+                      onTap:() async {
+                        FocusScope.of(context).unfocus();
+                        String date = await AppConstants.selectDate(context, 'yyyy-MM-dd');
+                        if(date.isNotEmpty) {
+                          AppConstants.goTo(context, CurrentAffairsFilter('D', date: date));
+                        }
+                      },
+                      child: FaIcon(FontAwesomeIcons.calendarAlt,size: 20))
                 ],),
             ),
             Expanded(
@@ -94,7 +115,7 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
                   onPressed: () {
                     setState(() {
                       isLoading = true;
-                      getTab(currentAffairsListModel!.previous.toString());
+                      getData(currentAffairsListModel!.previous.toString());
                     });
                   },
                   child: Text('<< Previous',style: TextStyle(color: AppColors.white),),
@@ -105,7 +126,7 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
                       onPressed: () {
                       setState(() {
                         isLoading = true;
-                        getTab(currentAffairsListModel!.next.toString());
+                        getData(currentAffairsListModel!.next.toString());
                       });
                       },
                     child: Text('Next >>',style: TextStyle(color: AppColors.white)),
@@ -166,6 +187,37 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget TagDropDownButton() {
+    return DropdownButton<CurrentAffairsNewTagListModel>(
+        hint: Text('Select Tag', style: TextStyle(color: AppColors.black)),
+        // value: _selectedValue,
+        icon: Icon(Icons.arrow_drop_down),
+        iconSize: 24,
+        elevation: 16,
+        style: TextStyle(color: AppColors.black, fontSize: 16),
+        underline: Container(
+          height: 0,
+          ),
+        onTap: (){
+          FocusScope.of(context).unfocus();
+          },
+        onChanged: (tagData) {
+          setState(() {
+            // _selectedValue = data!;
+            AppConstants.goTo(context, CurrentAffairsFilter('T', selectedTagName: tagData!.name.toString()));
+          });
+        },
+        items: tagList.map<DropdownMenuItem<CurrentAffairsNewTagListModel>>((CurrentAffairsNewTagListModel value) {
+          return DropdownMenuItem<CurrentAffairsNewTagListModel>(
+              value: value,
+              child: Container(
+                  width: MediaQuery.of(context).size.width/4,
+                  child: Text(value.name.toString()))
+          );
+        }).toList()
     );
   }
 }
