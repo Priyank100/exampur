@@ -1,4 +1,6 @@
 import 'package:exampur_mobile/data/model/practice_question_listing_model.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/provider/PracticeQuestionProvider.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -24,7 +26,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   bool isLoading = true;
   bool isBottomLoading = false;
   var scrollController = ScrollController();
-
+  bool showDescription = false;
   List<MyRadio> _radioValue = [];
 
   @override
@@ -99,8 +101,8 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
                   color: AppColors.amber,
                   onPressed: () {
                     setState(() {
-                      isLoading = true;
                       getQuestionsData(practiceQuestionListingModel!.next.toString());
+                      isLoading = true;
                     });
                   },
                   child: Text('Next >>',style: TextStyle(color: AppColors.white)),
@@ -235,17 +237,19 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             activeColor: AppColors.white,
           ),
         ),
-        Html(
+        Text('Correct Answer : '+practiceQuestionListingModel!.questions![index].correctAnswer.toString()),
+        SizedBox(height: 5,),
+        CustomRoundButton(onPressed: (){
+          setState(() {
+            showDescription = !showDescription ;
+          });
+        },text: showDescription ? 'Hide Description' : 'Show Description',),
+        SizedBox(height: 5,),
+        showDescription ? Html(
             data: AppConstants.langCode == 'hi' ?
             practiceQuestionListingModel!.questions![index].solutionHindi.toString().replaceAll(RegExp(r"<[^>]*>"), ' ') :
             practiceQuestionListingModel!.questions![index].solutionEng.toString().replaceAll(RegExp(r"<[^>]*>"), ' '),
-            style: {
-              'body': Style(
-                  maxLines: 3,
-                  textOverflow: TextOverflow.ellipsis,
-                  fontSize: const FontSize(14)
-              )}
-        ),
+        ) : SizedBox(),
       ],
       ),
     );
