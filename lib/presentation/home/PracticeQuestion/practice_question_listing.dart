@@ -1,6 +1,4 @@
 import 'package:exampur_mobile/data/model/practice_question_listing_model.dart';
-import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
-import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/provider/PracticeQuestionProvider.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -26,7 +24,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   bool isLoading = true;
   bool isBottomLoading = false;
   var scrollController = ScrollController();
-  bool showDescription = false;
+
   List<MyRadio> _radioValue = [];
 
   @override
@@ -237,19 +235,6 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             activeColor: AppColors.white,
           ),
         ),
-        Text('Correct Answer : '+practiceQuestionListingModel!.questions![index].correctAnswer.toString()),
-        SizedBox(height: 5,),
-        CustomRoundButton(onPressed: (){
-          setState(() {
-            showDescription = !showDescription ;
-          });
-        },text: showDescription ? 'Hide Description' : 'Show Description',),
-        SizedBox(height: 5,),
-        showDescription ? Html(
-            data: AppConstants.langCode == 'hi' ?
-            practiceQuestionListingModel!.questions![index].solutionHindi.toString().replaceAll(RegExp(r"<[^>]*>"), ' ') :
-            practiceQuestionListingModel!.questions![index].solutionEng.toString().replaceAll(RegExp(r"<[^>]*>"), ' '),
-        ) : SizedBox(),
       ],
       ),
     );
