@@ -4,6 +4,7 @@ import 'package:exampur_mobile/presentation/home/PracticeQuestion/practice_quest
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/PracticeQuestionProvider.dart';
+import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class PracticeQuestionCategory extends StatefulWidget {
 
 class _PracticeQuestionCategoryState extends State<PracticeQuestionCategory> {
   List<PracticeQuestionCategoriesModel> practiceQuestionDataList = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -24,16 +26,19 @@ class _PracticeQuestionCategoryState extends State<PracticeQuestionCategory> {
     super.initState();
   }
   Future<void> getLists() async {
+    isLoading = true;
     practiceQuestionDataList = (await Provider.of<PracticeQuestionProvider>(context, listen: false).getPracticeQuestion(context))!;
+    isLoading = false;
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
         future:  Future.delayed(Duration.zero, () => getLists()),
         builder: (context, snapshot) {
-          return Scaffold(
-              body: practiceQuestionDataList.length == 0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-              TabBarDemo(
+          return isLoading ? loader() : practiceQuestionDataList.length == 0 ? noData() :
+          Scaffold(
+              body: TabBarDemo(
                   length: practiceQuestionDataList.length,
                   names: practiceQuestionDataList.map((item) => item.name.toString()).toList(),
                   routes: practiceQuestionDataList.length == 0 ? [] :
@@ -84,6 +89,20 @@ class _PracticeQuestionCategoryState extends State<PracticeQuestionCategory> {
             )
         ),
       ),
+    );
+  }
+
+  Widget loader() {
+    return Scaffold(
+        appBar: CustomAppBar(),
+        body: Center(child: CircularProgressIndicator(color: AppColors.amber))
+    );
+  }
+
+  Widget noData() {
+    return Scaffold(
+      appBar: CustomAppBar(),
+      body: AppConstants.noDataFound()
     );
   }
 }

@@ -26,7 +26,6 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   bool isLoading = true;
   bool isBottomLoading = false;
   var scrollController = ScrollController();
-  bool showDescription = false;
   List<MyRadio> _radioValue = [];
 
   @override
@@ -43,7 +42,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
     practiceQuestionListingModel = (await Provider.of<PracticeQuestionProvider>(context, listen: false).getPracticeQuestionListing(context, url))!;
     if(practiceQuestionListingModel != null && practiceQuestionListingModel!.count! > 0) {
       for (int i = 0; i < practiceQuestionListingModel!.questions!.length; i++) {
-        _radioValue.add(MyRadio(false, -1));
+        _radioValue.add(MyRadio(false, false, -1));
       }
     }
     isLoading = false;
@@ -77,8 +76,10 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         ),
           Expanded(child: dataList()),
 
-      ],),
-        bottomNavigationBar: isBottomLoading ? Container(
+      ]),
+        bottomNavigationBar:
+        practiceQuestionListingModel == null || practiceQuestionListingModel!.count == 0 ? SizedBox() :
+        isBottomLoading ? Container(
           height: 40,
           width: 40,
           padding: EdgeInsets.all(8),
@@ -101,8 +102,8 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
                   color: AppColors.amber,
                   onPressed: () {
                     setState(() {
-                      getQuestionsData(practiceQuestionListingModel!.next.toString());
                       isLoading = true;
+                      getQuestionsData(practiceQuestionListingModel!.next.toString());
                     });
                   },
                   child: Text('Next >>',style: TextStyle(color: AppColors.white)),
@@ -247,28 +248,38 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             activeColor: AppColors.white,
           ),
         ),
-        Text('Correct Answer : '+practiceQuestionListingModel!.questions![index].correctAnswer.toString()),
-        SizedBox(height: 5,),
-        CustomRoundButton(onPressed: (){
-          setState(() {
-            showDescription = !showDescription ;
-          });
-        },text: showDescription ? 'Hide Description' : 'Show Description',),
-        SizedBox(height: 5,),
-        showDescription ? Html(
-            data: AppConstants.langCode == 'hi' ?
-            practiceQuestionListingModel!.questions![index].solutionHindi.toString().replaceAll(RegExp(r"<[^>]*>"), ' ') :
-            practiceQuestionListingModel!.questions![index].solutionEng.toString().replaceAll(RegExp(r"<[^>]*>"), ' '),
-        ) : SizedBox(),
+        correctAnswer(index, _radioValue[index].isSelected)
       ],
       ),
     );
+  }
+
+  Widget correctAnswer(int index, bool visible) {
+    return visible ? Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Correct Answer : '+practiceQuestionListingModel!.questions![index].correctAnswer.toString()),
+        SizedBox(height: 5),
+        CustomRoundButton(onPressed: (){
+          setState(() {
+            _radioValue[index].showAnswer = !_radioValue[index].showAnswer;
+          });
+          },text: _radioValue[index].showAnswer ? 'Hide Description' : 'Show Description'),
+        SizedBox(height: 5),
+        _radioValue[index].showAnswer ? Html(
+          data: AppConstants.langCode == 'hi' ?
+          practiceQuestionListingModel!.questions![index].solutionHindi.toString().replaceAll(RegExp(r"<[^>]*>"), ' ') :
+          practiceQuestionListingModel!.questions![index].solutionEng.toString().replaceAll(RegExp(r"<[^>]*>"), ' '),
+        ) : SizedBox()
+      ],
+    ) : SizedBox();
   }
 
 }
 
 class MyRadio {
   bool isSelected;
+  bool showAnswer;
   var val;
-  MyRadio(this.isSelected, this.val);
+  MyRadio(this.isSelected, this.showAnswer, this.val);
 }

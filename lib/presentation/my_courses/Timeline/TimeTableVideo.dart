@@ -37,6 +37,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
   // late VideoPlayerController videoPlayerController;
   // ChewieController? chewieController;
   FlickManager? flickManager;
+  FlickPortraitControls? c;
 
 
   Future<bool> checkIfDocExists(String docId) async {
@@ -131,6 +132,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
       videoPlayerController:
       VideoPlayerController.network(widget.url),
     );
+
     // videoPlayerController = VideoPlayerController.network(widget.url);
     // chewieController = ChewieController(
     //   cupertinoProgressColors: ChewieProgressColors(),
@@ -204,7 +206,10 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
 
               height: (MediaQuery.of(context).size.width)/16*9,
               child: FlickVideoPlayer(
-                  flickManager: flickManager!
+                flickManager: flickManager!,
+                flickVideoWithControls: const FlickVideoWithControls(
+                  controls: const FlickPortraitControls(isLive: true),
+                ),
               ),
             //  height: MediaQuery.of(context).size.height*0.4,
               //width: MediaQuery.of(context).size.width,
@@ -242,6 +247,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                   String key = map.keys.elementAt(map.length-1-index);
                   var parts = key.split('-');
                   var name = parts[0].trim();
+                  var mobile = parts[1].trim();
                   var times =parts[2].trim();
 
                   var sec = times.split(':');
@@ -261,7 +267,6 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                                   children: [
                                     new Text(name,style: TextStyle(fontSize: 12,color: AppColors.green),),
                                     new Text(second1+':'+second2,style: TextStyle(color: AppColors.grey,fontSize: 12),),
-
                                   ],
                                 ),
                                 Text("${map[key]}",style: TextStyle(fontSize: 14))
@@ -321,4 +326,5 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     super.dispose();
   }
 }
+
 

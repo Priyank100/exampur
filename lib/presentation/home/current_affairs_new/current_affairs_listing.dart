@@ -66,10 +66,10 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ? const Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-    currentAffairsListModel == null || currentAffairsListModel!.count == 0 ? AppConstants.noDataFound() :
-      Scaffold(
-        body: Column(
+    return Scaffold(
+        body: isLoading ? const Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+        currentAffairsListModel == null || currentAffairsListModel!.count == 0 ? AppConstants.noDataFound() :
+        Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -102,7 +102,9 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
                   }),
             ),
           ]),
-        bottomNavigationBar: isBottomLoading ? Container(
+        bottomNavigationBar:
+        currentAffairsListModel == null || currentAffairsListModel!.count == 0 ? SizedBox() :
+        isBottomLoading ? Container(
           height: 40,
           width: 40,
           padding: EdgeInsets.all(8),
