@@ -4,6 +4,7 @@ import 'package:exampur_mobile/presentation/home/study_material_new/study_materi
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
+import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class StudyMaterialNew extends StatefulWidget {
 
 class _StudyMaterialNewState extends State<StudyMaterialNew> {
   List<StudyMaterialNewModel> studyMaterialDataList = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -27,7 +29,9 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
   }
 
   Future<void> getLists() async {
+    isLoading = true;
     studyMaterialDataList = (await Provider.of<CaProvider>(context, listen: false).getStudyMaterialNew(context, widget.url))!;
+    isLoading = false;
   }
 
   @override
@@ -35,9 +39,9 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
     return FutureBuilder(
         future:  Future.delayed(Duration.zero, () => getLists()),
         builder: (context, snapshot) {
-          return Scaffold(
-              body: studyMaterialDataList.length == 0 ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-               TabBarDemo(
+          return isLoading ? loader() : studyMaterialDataList.length == 0 ? noData() :
+            Scaffold(
+              body: TabBarDemo(
                   length: studyMaterialDataList.length,
                   names: studyMaterialDataList.map((item) => item.superCategory.toString()).toList(),
                   routes: studyMaterialDataList.length == 0 ? [] :
@@ -87,6 +91,20 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
             )
         ),
       ),
+    );
+  }
+
+  Widget loader() {
+    return Scaffold(
+        appBar: CustomAppBar(),
+        body: Center(child: CircularProgressIndicator(color: AppColors.amber))
+    );
+  }
+
+  Widget noData() {
+    return Scaffold(
+        appBar: CustomAppBar(),
+        body: AppConstants.noDataFound()
     );
   }
 }

@@ -75,11 +75,11 @@ dependencies:
   cloud_firestore: ^1.0.7
 #  video_player: ^2.3.0
 #  chewie: ^1.3.1
+  flick_video_player: any
   firebase_analytics: ^9.1.1
   firebase_crashlytics: ^2.0.7
   new_version: ^0.3.0
   sms_autofill: ^2.2.0
-  flick_video_player: any
   sn_progress_dialog: ^1.0.8
 
 

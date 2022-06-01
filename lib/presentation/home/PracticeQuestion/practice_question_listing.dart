@@ -1,4 +1,6 @@
 import 'package:exampur_mobile/data/model/practice_question_listing_model.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/provider/PracticeQuestionProvider.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -24,7 +26,6 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   bool isLoading = true;
   bool isBottomLoading = false;
   var scrollController = ScrollController();
-
   List<MyRadio> _radioValue = [];
 
   @override
@@ -41,7 +42,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
     practiceQuestionListingModel = (await Provider.of<PracticeQuestionProvider>(context, listen: false).getPracticeQuestionListing(context, url))!;
     if(practiceQuestionListingModel != null && practiceQuestionListingModel!.count! > 0) {
       for (int i = 0; i < practiceQuestionListingModel!.questions!.length; i++) {
-        _radioValue.add(MyRadio(false, -1));
+        _radioValue.add(MyRadio(false, false, -1));
       }
     }
     isLoading = false;
@@ -75,8 +76,10 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         ),
           Expanded(child: dataList()),
 
-      ],),
-        bottomNavigationBar: isBottomLoading ? Container(
+      ]),
+        bottomNavigationBar:
+        practiceQuestionListingModel == null || practiceQuestionListingModel!.count == 0 ? SizedBox() :
+        isBottomLoading ? Container(
           height: 40,
           width: 40,
           padding: EdgeInsets.all(8),
@@ -99,8 +102,8 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
                   color: AppColors.amber,
                   onPressed: () {
                     setState(() {
-                      getQuestionsData(practiceQuestionListingModel!.next.toString());
                       isLoading = true;
+                      getQuestionsData(practiceQuestionListingModel!.next.toString());
                     });
                   },
                   child: Text('Next >>',style: TextStyle(color: AppColors.white)),
@@ -152,16 +155,18 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
 
        practiceQuestionListingModel!.questions![index].engOption1.toString().isEmpty ? SizedBox() :
         Container(
-          color: _radioValue[index].val == 0 ? AppColors.green : AppColors.transparent,
+          color: _radioValue[index].val == 0 ? practiceQuestionListingModel!.questions![index].correctAnswer == 1 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
             title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption1.toString(): practiceQuestionListingModel!.questions![index].engOption1.toString(),style: TextStyle(fontSize: 12)),
             value: 0,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
-              setState(() {
-                _radioValue[index].val = value;
-                _radioValue[index].isSelected = true;
-              });
+              if(!_radioValue[index].isSelected) {
+                setState(() {
+                  _radioValue[index].val = value;
+                  _radioValue[index].isSelected = true;
+                });
+              }
             },
             selected: _radioValue[index].val == 0,
             activeColor: AppColors.white,
@@ -169,16 +174,18 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         ),
        practiceQuestionListingModel!.questions![index].engOption2.toString().isEmpty ? SizedBox() :
         Container(
-          color: _radioValue[index].val == 1 ? AppColors.green : AppColors.transparent,
+          color: _radioValue[index].val == 1 ? practiceQuestionListingModel!.questions![index].correctAnswer == 2 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
             title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption2.toString(): practiceQuestionListingModel!.questions![index].engOption2.toString(),style: TextStyle(fontSize: 12)),
             value: 1,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
-              setState(() {
-                _radioValue[index].val = value;
-                _radioValue[index].isSelected = true;
-              });
+              if(!_radioValue[index].isSelected) {
+                setState(() {
+                  _radioValue[index].val = value;
+                  _radioValue[index].isSelected = true;
+                });
+              }
             },
             selected: _radioValue[index].val == 1,
             activeColor: AppColors.white,
@@ -186,33 +193,37 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         ),
         practiceQuestionListingModel!.questions![index].engOption3.toString().isEmpty ? SizedBox() :
         Container(
-          color: _radioValue[index].val == 2 ? AppColors.green : AppColors.transparent,
+          color: _radioValue[index].val == 2 ? practiceQuestionListingModel!.questions![index].correctAnswer == 3 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
             title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption3.toString(): practiceQuestionListingModel!.questions![index].engOption3.toString(),style: TextStyle(fontSize: 12)),
             value: 2,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
-              setState(() {
-                _radioValue[index].val = value;
-                _radioValue[index].isSelected = true;
-              });
-              },
+              if(!_radioValue[index].isSelected) {
+                setState(() {
+                  _radioValue[index].val = value;
+                  _radioValue[index].isSelected = true;
+                });
+              }
+            },
             selected: _radioValue[index].val == 2,
             activeColor: AppColors.white,
           ),
         ),
         practiceQuestionListingModel!.questions![index].engOption4.toString().isEmpty ? SizedBox() :
         Container(
-          color: _radioValue[index].val == 3 ? AppColors.green : AppColors.transparent,
+          color: _radioValue[index].val == 3 ? practiceQuestionListingModel!.questions![index].correctAnswer == 4 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
             title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption4.toString(): practiceQuestionListingModel!.questions![index].engOption4.toString(),style: TextStyle(fontSize: 12)),
             value: 3,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
-              setState(() {
-                _radioValue[index].val = value;
-                _radioValue[index].isSelected = true;
-              });
+              if(!_radioValue[index].isSelected) {
+                setState(() {
+                  _radioValue[index].val = value;
+                  _radioValue[index].isSelected = true;
+                });
+              }
             },
             selected: _radioValue[index].val == 3,
             activeColor: AppColors.white,
@@ -220,30 +231,55 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         ),
         practiceQuestionListingModel!.questions![index].engOption5.toString().isEmpty ? SizedBox() :
         Container(
-          color: _radioValue[index].val == 4 ? AppColors.green : AppColors.transparent,
+          color: _radioValue[index].val == 4 ? practiceQuestionListingModel!.questions![index].correctAnswer == 5 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
             title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption5.toString(): practiceQuestionListingModel!.questions![index].engOption5.toString(),style: TextStyle(fontSize: 12)),
             value: 4,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
-              setState(() {
-                _radioValue[index].val = value;
-                _radioValue[index].isSelected = true;
-              });
+              if(!_radioValue[index].isSelected) {
+                setState(() {
+                  _radioValue[index].val = value;
+                  _radioValue[index].isSelected = true;
+                });
+              }
             },
             selected: _radioValue[index].val == 4,
             activeColor: AppColors.white,
           ),
         ),
+        correctAnswer(index, _radioValue[index].isSelected)
       ],
       ),
     );
+  }
+
+  Widget correctAnswer(int index, bool visible) {
+    return visible ? Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Correct Answer : '+practiceQuestionListingModel!.questions![index].correctAnswer.toString()),
+        SizedBox(height: 5),
+        CustomRoundButton(onPressed: (){
+          setState(() {
+            _radioValue[index].showAnswer = !_radioValue[index].showAnswer;
+          });
+          },text: _radioValue[index].showAnswer ? 'Hide Description' : 'Show Description'),
+        SizedBox(height: 5),
+        _radioValue[index].showAnswer ? Html(
+          data: AppConstants.langCode == 'hi' ?
+          practiceQuestionListingModel!.questions![index].solutionHindi.toString().replaceAll(RegExp(r"<[^>]*>"), ' ') :
+          practiceQuestionListingModel!.questions![index].solutionEng.toString().replaceAll(RegExp(r"<[^>]*>"), ' '),
+        ) : SizedBox()
+      ],
+    ) : SizedBox();
   }
 
 }
 
 class MyRadio {
   bool isSelected;
+  bool showAnswer;
   var val;
-  MyRadio(this.isSelected, this.val);
+  MyRadio(this.isSelected, this.showAnswer, this.val);
 }
