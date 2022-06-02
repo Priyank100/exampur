@@ -11,7 +11,6 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'myCoursetabview.dart';
 
@@ -25,20 +24,20 @@ class MyCoursesState extends State<MyCourses> {
   List<CourseData> myCourseList = [];
   bool isLoading = false;
   // var groupedLists = {};
-
-  var _isVisible;
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
 
   TextEditingController _controller = TextEditingController();
   List<String> allCategoryNameList = [];
   String dropdownValue = 'Select Category';
 
+  ScrollController _scrollController = ScrollController();
+  bool isFloatingBtnVisible = false;
+
   @override
   void initState() {
     callProvider();
     super.initState();
   }
-
 
   Future<void> callProvider() async {
     isLoading = true;
@@ -48,6 +47,17 @@ class MyCoursesState extends State<MyCourses> {
     getAllCategoryNameList();
     isLoading = false;
     // grouping();
+    _scrollController.addListener(() {
+      if(_scrollController.position.pixels == 0) {
+        setState(() {
+          isFloatingBtnVisible = false;
+        });
+      } else {
+        setState(() {
+          isFloatingBtnVisible = true;
+        });
+      }
+    });
     setState(() {});
   }
 
@@ -121,13 +131,19 @@ class MyCoursesState extends State<MyCourses> {
           ),
         ),
       ),
-
+      floatingActionButton: isFloatingBtnVisible ? FloatingActionButton(
+        onPressed: () {
+          _scrollController.animateTo(0, duration: Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
+        },
+        child: Icon(Icons.arrow_upward, color: AppColors.white),
+      ) : SizedBox(),
     );
   }
 
   Widget DataContainer() {
     return Expanded(
       child: ListView.builder(
+        controller: _scrollController,
           itemCount: myCourseList.length,
           shrinkWrap: true,
         scrollDirection: Axis.vertical,
@@ -395,52 +411,4 @@ class MyCoursesState extends State<MyCourses> {
     }
   }
 
-}
-
-
-class Homes extends StatefulWidget {
-  @override
-  _HomesState createState() => _HomesState();
-}
-
-class _HomesState extends State<Homes> {
-  ScrollController? controller;
-  bool fabIsVisible = true;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = ScrollController();
-    controller!.addListener(() {
-      setState(() {
-        fabIsVisible =
-            controller!.position.userScrollDirection == ScrollDirection.forward;
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        controller: controller,
-        children: List.generate(
-            100,
-                (index) => ListTile(
-              title: Text("Text $index"),
-            )),
-      ),
-      floatingActionButton: AnimatedOpacity(
-        child: FloatingActionButton(
-          child: Icon(Icons.add),
-          tooltip: "Increment",
-          onPressed: !fabIsVisible ? null: () {
-            print("Pressed");
-          },
-        ),
-        duration: Duration(milliseconds: 100),
-        opacity: fabIsVisible ? 1 : 0,
-      ),
-    );
-  }
 }

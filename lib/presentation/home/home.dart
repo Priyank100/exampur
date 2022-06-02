@@ -256,7 +256,6 @@ class _HomeState extends State<Home> {
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(builder: (_) => DailyQuiz()));
                   },
-                  // navigateTo:DailyQuiz()
                   // navigateTo:ChatPage()
                 ),
                 SquareButton(
@@ -264,13 +263,14 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, 'study_materials')!,
                   color: AppColors.one2one,
                   onPressed: () {
+                    // Navigator.of(context, rootNavigator: true).push(
+                        // MaterialPageRoute(
+                        //     builder: (_) => CurrentAffairs(
+                        //         getTranslated(context, 'study_materials')!,
+                        //         AppConstants.studyMaterialsId)));
                     Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(
-                            // builder: (_) => CurrentAffairs(
-                            //     getTranslated(context, 'study_materials')!,
-                            //     AppConstants.studyMaterialsId)
-                          builder: (_) => StudyMaterialNew(API.studyMaterialNewUrl)
-                    ));
+                            builder: (_) => StudyMaterialNew(API.studyMaterialNewUrl)));
                   },
                 ),
               ],
@@ -318,7 +318,6 @@ class _HomeState extends State<Home> {
 
                   },
                 ),
-                // navigateTo: CurrentAffairs( getTranslated(context, 'current_affairs')!, AppConstants.currentAffairesId)),
                 // SquareButton(
                 //     image: Images.offlinebatch,
                 //     title: getTranslated(context, 'offline_batches')!,
