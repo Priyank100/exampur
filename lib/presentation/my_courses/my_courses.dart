@@ -11,6 +11,7 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'myCoursetabview.dart';
 
@@ -24,6 +25,8 @@ class MyCoursesState extends State<MyCourses> {
   List<CourseData> myCourseList = [];
   bool isLoading = false;
   // var groupedLists = {};
+
+  var _isVisible;
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
 
   TextEditingController _controller = TextEditingController();
@@ -35,6 +38,7 @@ class MyCoursesState extends State<MyCourses> {
     callProvider();
     super.initState();
   }
+
 
   Future<void> callProvider() async {
     isLoading = true;
@@ -117,6 +121,7 @@ class MyCoursesState extends State<MyCourses> {
           ),
         ),
       ),
+
     );
   }
 
@@ -390,4 +395,52 @@ class MyCoursesState extends State<MyCourses> {
     }
   }
 
+}
+
+
+class Homes extends StatefulWidget {
+  @override
+  _HomesState createState() => _HomesState();
+}
+
+class _HomesState extends State<Homes> {
+  ScrollController? controller;
+  bool fabIsVisible = true;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = ScrollController();
+    controller!.addListener(() {
+      setState(() {
+        fabIsVisible =
+            controller!.position.userScrollDirection == ScrollDirection.forward;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView(
+        controller: controller,
+        children: List.generate(
+            100,
+                (index) => ListTile(
+              title: Text("Text $index"),
+            )),
+      ),
+      floatingActionButton: AnimatedOpacity(
+        child: FloatingActionButton(
+          child: Icon(Icons.add),
+          tooltip: "Increment",
+          onPressed: !fabIsVisible ? null: () {
+            print("Pressed");
+          },
+        ),
+        duration: Duration(milliseconds: 100),
+        opacity: fabIsVisible ? 1 : 0,
+      ),
+    );
+  }
 }
