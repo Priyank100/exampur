@@ -27,6 +27,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   bool isBottomLoading = false;
   var scrollController = ScrollController();
   List<MyRadio> _radioValue = [];
+  int count = 0;
 
   @override
   void initState() {
@@ -80,7 +81,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         bottomNavigationBar:
         practiceQuestionListingModel == null || practiceQuestionListingModel!.count == 0 ? SizedBox() :
         isBottomLoading ? Container(
-          height: 40,
+          height: 50,
           width: 40,
           padding: EdgeInsets.all(8),
           child: Row(
@@ -88,25 +89,27 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
               children: [
                 practiceQuestionListingModel!.previous.toString() == 'null' ? SizedBox() :
                 MaterialButton(
-                  color: AppColors.amber,
+                 // color: AppColors.amber,
                   onPressed: () {
                     setState(() {
                       isLoading = true;
+                      count = count - practiceQuestionListingModel!.questions!.length;
                       getQuestionsData(practiceQuestionListingModel!.previous.toString());
                     });
                   },
-                  child: Text('<< Previous',style: TextStyle(color: AppColors.white),),
+                  child: Text('<< Previous',style: TextStyle(color: AppColors.black),),
                 ),
                 practiceQuestionListingModel!.next.toString() == 'null' ? SizedBox() :
                 MaterialButton(
-                  color: AppColors.amber,
+                 // color: AppColors.amber,
                   onPressed: () {
                     setState(() {
                       isLoading = true;
+                      count = count + practiceQuestionListingModel!.questions!.length;
                       getQuestionsData(practiceQuestionListingModel!.next.toString());
                     });
                   },
-                  child: Text('Next >>',style: TextStyle(color: AppColors.white)),
+                  child: Text('Next >>',style: TextStyle(color: AppColors.black)),
                 )
               ]),
         ) : SizedBox()
@@ -140,7 +143,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Question '+(index+1).toString() +':',style: TextStyle(color: AppColors.amber),),
+        Text('Question '+(count+index+1).toString() +':',style: TextStyle(color: AppColors.amber),),
         Html(
             data: AppConstants.langCode == 'hi' ?
             practiceQuestionListingModel!.questions![index].hindiQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' ') :
