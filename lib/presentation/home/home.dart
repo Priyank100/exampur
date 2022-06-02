@@ -157,23 +157,7 @@ class _HomeState extends State<Home> {
               ],
             ),
             // SizedBox(height: 5),
-            bannerList.length != 0
-                ? LargeBanner(bannerList: bannerList)
-                // : Container(
-                //     child: ClipRRect(
-                //       child: FadeInImage(
-                //         fit: BoxFit.cover,
-                //         image: NetworkImage(Images.noimage),
-                //         placeholder: AssetImage(Images.noimage),
-                //         imageErrorBuilder: (context, error, stackTrace) {
-                //           return Image.asset(
-                //             Images.noimage,
-                //           );
-                //         },
-                //       ),
-                //     ),
-                //   ),
-                : SizedBox(),
+            bannerList.length != 0 ? LargeBanner(bannerList: bannerList) : SizedBox(),
             SizedBox(height: Dimensions.FONT_SIZE_OVER_LARGE),
             Row(
               children: [
@@ -183,8 +167,6 @@ class _HomeState extends State<Home> {
                   color: AppColors.paidCourses,
                   onPressed: () {
                     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.paidCourseClick);
-                    // _sendAnalyticsEvent('PAID_COURSES_CLICK');
-                    //  Navigator.push(context, MaterialPageRoute(builder: (_) =>PaidCourses(1) ));
                     Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(builder: (_) => PaidCourses(1)));
                   },
@@ -197,12 +179,9 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.freeCourseClick);
                     Navigator.of(context, rootNavigator: true).push(
-
-                        // context, MaterialPageRoute(builder: (_) =>PaidCourses(0) ));},),
                         MaterialPageRoute(builder: (_) => PaidCourses(0)));
                   },
                 ),
-                //navigateTo:PaidCourses(0)),
               ],
             ),
             SizedBox(
@@ -214,7 +193,6 @@ class _HomeState extends State<Home> {
                   image: Images.book,
                   title: getTranslated(context, 'books')!,
                   color: AppColors.book,
-                  //navigateTo: BooksEbook()
                   onPressed: () {
                     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.booksClick);
                     Navigator.of(context, rootNavigator: true)
@@ -225,10 +203,8 @@ class _HomeState extends State<Home> {
                   image: Images.testseries,
                   title: getTranslated(context, 'test_courses')!,
                   color: AppColors.series,
-                  // navigateTo: TestSeriesTab()
                   onPressed: () {
                     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.testSeriesClick);
-                    // AppConstants._sendAnalyticsEvent('TEST_SERIES_CLICKED');
                     Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(builder: (_) => TestSeriesTab()));
                   },
@@ -256,21 +232,18 @@ class _HomeState extends State<Home> {
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(builder: (_) => DailyQuiz()));
                   },
-                  // navigateTo:ChatPage()
                 ),
                 SquareButton(
                   image: Images.studymaterial,
                   title: getTranslated(context, 'study_materials')!,
                   color: AppColors.one2one,
                   onPressed: () {
-                    // Navigator.of(context, rootNavigator: true).push(
-                        // MaterialPageRoute(
-                        //     builder: (_) => CurrentAffairs(
-                        //         getTranslated(context, 'study_materials')!,
-                        //         AppConstants.studyMaterialsId)));
                     Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(
-                            builder: (_) => StudyMaterialNew(API.studyMaterialNewUrl)));
+                            builder: (_) =>
+                                // CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)
+                                StudyMaterialNew(API.studyMaterialNewUrl)
+                        ));
                   },
                 ),
               ],
@@ -286,18 +259,12 @@ class _HomeState extends State<Home> {
                   color: AppColors.jobAlert,
                   onPressed: () {
                     Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(builder: (_) => JobAlerts()));
+                        .push(MaterialPageRoute(builder: (_) =>
+                        JobAlerts()
+                        // JobNotifications()
+                    ));
                   },
                 ),
-                // SquareButton(
-                //   image: Images.jobalert,
-                //   title: 'Job Notification',
-                //   color: AppColors.jobAlert,
-                //   onPressed: () {
-                //     Navigator.of(context, rootNavigator: true)
-                //         .push(MaterialPageRoute(builder: (_) => JobNotifications()));
-                //   },
-                // ),
                 SquareButton(
                   image: Images.current_affair,
                   title: getTranslated(context, 'current_affairs')!,

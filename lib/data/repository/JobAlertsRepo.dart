@@ -49,7 +49,7 @@ class JobAlertsRepo {
     }
   }
 
-  Future<ApiResponse> jobNotificationsFilter(String tagSlug, String courseId) async {
+  Future<ApiResponse> jobNotificationsData(String tagSlug, String courseId) async {
     try {
       String url = API.jobNotificationListingUrl.replaceAll('TAG_SLUG', tagSlug).replaceAll('COURSE_ID', courseId);
       final response = await dioClient.get(url);

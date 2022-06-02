@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/presentation/home/job_alert_new/job_notification_courses.dart';
+import 'package:exampur_mobile/presentation/home/job_alert_new/job_notification_listing.dart';
 import 'package:exampur_mobile/presentation/home/job_alert_new/job_notificaton_tag.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,9 @@ class _JobNotificationsState extends State<JobNotifications> {
               padding: const EdgeInsets.all(5),
               height: 60,
               child: const JobNotificationTag()
+          ),
+          const Expanded(
+              child: JobNotificationListing()
           )
         ],
       ),
