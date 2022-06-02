@@ -30,6 +30,9 @@ class MyCoursesState extends State<MyCourses> {
   List<String> allCategoryNameList = [];
   String dropdownValue = 'Select Category';
 
+  ScrollController _scrollController = ScrollController();
+  bool isFloatingBtnVisible = false;
+
   @override
   void initState() {
     callProvider();
@@ -44,6 +47,17 @@ class MyCoursesState extends State<MyCourses> {
     getAllCategoryNameList();
     isLoading = false;
     // grouping();
+    _scrollController.addListener(() {
+      if(_scrollController.position.pixels == 0) {
+        setState(() {
+          isFloatingBtnVisible = false;
+        });
+      } else {
+        setState(() {
+          isFloatingBtnVisible = true;
+        });
+      }
+    });
     setState(() {});
   }
 
@@ -117,12 +131,19 @@ class MyCoursesState extends State<MyCourses> {
           ),
         ),
       ),
+      floatingActionButton: isFloatingBtnVisible ? FloatingActionButton(
+        onPressed: () {
+          _scrollController.animateTo(0, duration: Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
+        },
+        child: Icon(Icons.arrow_upward, color: AppColors.white),
+      ) : SizedBox(),
     );
   }
 
   Widget DataContainer() {
     return Expanded(
       child: ListView.builder(
+        controller: _scrollController,
           itemCount: myCourseList.length,
           shrinkWrap: true,
         scrollDirection: Axis.vertical,

@@ -23,7 +23,7 @@ class SignIn extends StatefulWidget {
 }
 
 class SignInState extends State<SignIn> {
-  late TextEditingController _phoneController;
+  late TextEditingController _phoneEmailController;
   late TextEditingController _passwordController;
   late GlobalKey<FormState> _formKeyLogin;
 
@@ -32,15 +32,13 @@ class SignInState extends State<SignIn> {
     super.initState();
     _formKeyLogin = GlobalKey<FormState>();
 
-    _phoneController = TextEditingController();
+    _phoneEmailController = TextEditingController();
     _passwordController = TextEditingController();
-  //  _phoneController.text = (Provider.of<AuthProvider>(context, listen: false).getUserPhone() )!;
-  //  _passwordController.text = (Provider.of<AuthProvider>(context, listen: false).getUserPassword() )!;
 
   }
   @override
   void dispose() {
-    _phoneController.dispose();
+    _phoneEmailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -52,15 +50,15 @@ class SignInState extends State<SignIn> {
     if (_formKeyLogin.currentState!.validate()) {
       _formKeyLogin.currentState!.save();
 
-      String _phone = _phoneController.text.trim();
+      String _phoneEmail = _phoneEmailController.text.trim();
       String _password = _passwordController.text.trim();
 
-      if (_phone.isEmpty) {
+      if (_phoneEmail.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           //elevation: 6.0,
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
-          content: Text('Please enter complete PHONE No.'),
+          content: Text('Please enter Phone or Email'),
           backgroundColor: AppColors.black,
         ));
       } else if (_password.isEmpty) {
@@ -78,12 +76,18 @@ class SignInState extends State<SignIn> {
         //   Provider.of<AuthProvider>(context, listen: false).clearUserEmailAndPassword();
         // }
 
+        if(RegExp('[a-zA-Z]').hasMatch(_phoneEmail)) {
+          loginBody.phone = '';
+          loginBody.email = _phoneEmail;
+        } else {
+          loginBody.phone = _phoneEmail;
+          loginBody.email = '';
+        }
+
         loginBody.phoneExt = '91';
-        loginBody.phone = _phone;
+        // loginBody.phone = _phoneEmail;
         loginBody.password = _password;
 
-        // loginBody.phone = '9099998988';
-        // loginBody.password = '@Zakir123';
         await Provider.of<AuthProvider>(context, listen: false).login(context, loginBody, route);
       }
     }
@@ -134,15 +138,15 @@ class SignInState extends State<SignIn> {
                           style: CustomTextStyle.headingBigBold(context),
                         ),
                       SizedBox(height: 20),
-
-                      CustomTextField(hintText: "Phone No.",  focusNode: _phoneNode,
-                        textInputType: TextInputType.number,
-                        controller: _phoneController,
-                        maxLength: 10,
-                          textInputFormatter: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                        value: (value) {}),
+                      CustomTextField(hintText: "Phone No / Email Id",
+                          focusNode: _phoneNode,
+                          // textInputType: TextInputType.number,
+                          controller: _phoneEmailController,
+                          // maxLength: 10,
+                          // textInputFormatter: <TextInputFormatter>[
+                          //   FilteringTextInputFormatter.digitsOnly
+                          // ],
+                          value: (value) {}),
                       SizedBox(height: 20,),
                       CustomPasswordTextField(
                         hintTxt: 'Password',
