@@ -10,6 +10,7 @@ import 'package:exampur_mobile/presentation/home/ca_bytes/ca_bytes.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
 import 'package:exampur_mobile/presentation/home/daily_quiz/daily_quiz.dart';
 import 'package:exampur_mobile/presentation/home/home_banner.dart';
+import 'package:exampur_mobile/presentation/home/job_alert_new/job_notifications.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
 import 'package:exampur_mobile/presentation/home/study_material_new/study_material_new.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
@@ -288,7 +289,15 @@ class _HomeState extends State<Home> {
                         .push(MaterialPageRoute(builder: (_) => JobAlerts()));
                   },
                 ),
-                // navigateTo:JobAlerts()),
+                // SquareButton(
+                //   image: Images.jobalert,
+                //   title: 'Job Notification',
+                //   color: AppColors.jobAlert,
+                //   onPressed: () {
+                //     Navigator.of(context, rootNavigator: true)
+                //         .push(MaterialPageRoute(builder: (_) => JobNotifications()));
+                //   },
+                // ),
                 SquareButton(
                   image: Images.current_affair,
                   title: getTranslated(context, 'current_affairs')!,
@@ -348,13 +357,17 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 10,
             ),
-            SquareButton(
-              image: Images.current_affair,
-              title: 'Practice Questions',
-              color: AppColors.paidCourses,
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PracticeQuestionCategory()));
-              },
+            Row(
+              children: [
+                // SquareButton(
+                //   image: Images.current_affair,
+                //   title: 'Practice Questions',
+                //   color: AppColors.paidCourses,
+                //   onPressed: () {
+                //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PracticeQuestionCategory()));
+                //   },
+                // ),
+              ],
             ),
           ],
         ),

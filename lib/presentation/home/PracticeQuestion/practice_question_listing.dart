@@ -115,6 +115,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         ) : SizedBox()
     );
   }
+
   Widget dataList() {
     return ListView.builder(
       controller: scrollController,
@@ -124,6 +125,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
           return itemList(index);
         });
   }
+
   Widget itemList(index) {
     return Container(
       margin: EdgeInsets.all(5),
@@ -148,19 +150,13 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             data: AppConstants.langCode == 'hi' ?
             practiceQuestionListingModel!.questions![index].hindiQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' ') :
             practiceQuestionListingModel!.questions![index].englishQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' '),
-            style: {
-              'body': Style(
-                  maxLines: 3,
-                  textOverflow: TextOverflow.ellipsis,
-                  fontSize: const FontSize(14)
-              )}
         ),
 
        practiceQuestionListingModel!.questions![index].engOption1.toString().isEmpty ? SizedBox() :
         Container(
           color: _radioValue[index].val == 0 ? practiceQuestionListingModel!.questions![index].correctAnswer == 1 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption1.toString(): practiceQuestionListingModel!.questions![index].engOption1.toString(),style: TextStyle(fontSize: 12)),
+            title: Text(AppConstants.langCode == 'hi' ? practiceQuestionListingModel!.questions![index].hindiOption1.toString().trim() : practiceQuestionListingModel!.questions![index].engOption1.toString().trim(),style: TextStyle(fontSize: 12)),
             value: 0,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
@@ -179,7 +175,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         Container(
           color: _radioValue[index].val == 1 ? practiceQuestionListingModel!.questions![index].correctAnswer == 2 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption2.toString(): practiceQuestionListingModel!.questions![index].engOption2.toString(),style: TextStyle(fontSize: 12)),
+            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption2.toString().trim(): practiceQuestionListingModel!.questions![index].engOption2.toString().trim(),style: TextStyle(fontSize: 12)),
             value: 1,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
@@ -198,7 +194,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         Container(
           color: _radioValue[index].val == 2 ? practiceQuestionListingModel!.questions![index].correctAnswer == 3 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption3.toString(): practiceQuestionListingModel!.questions![index].engOption3.toString(),style: TextStyle(fontSize: 12)),
+            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption3.toString().trim(): practiceQuestionListingModel!.questions![index].engOption3.toString().trim(),style: TextStyle(fontSize: 12)),
             value: 2,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
@@ -217,7 +213,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         Container(
           color: _radioValue[index].val == 3 ? practiceQuestionListingModel!.questions![index].correctAnswer == 4 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption4.toString(): practiceQuestionListingModel!.questions![index].engOption4.toString(),style: TextStyle(fontSize: 12)),
+            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption4.toString().trim(): practiceQuestionListingModel!.questions![index].engOption4.toString().trim(),style: TextStyle(fontSize: 12)),
             value: 3,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
@@ -236,7 +232,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         Container(
           color: _radioValue[index].val == 4 ? practiceQuestionListingModel!.questions![index].correctAnswer == 5 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption5.toString(): practiceQuestionListingModel!.questions![index].engOption5.toString(),style: TextStyle(fontSize: 12)),
+            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption5.toString().trim(): practiceQuestionListingModel!.questions![index].engOption5.toString().trim(),style: TextStyle(fontSize: 12)),
             value: 4,
             groupValue: _radioValue[index].val,
             onChanged: (value) {

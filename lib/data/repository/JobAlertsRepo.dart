@@ -39,4 +39,34 @@ class JobAlertsRepo {
     }
   }
 
+  //Job Notification
+  Future<ApiResponse> jobNotificationsCourseAndTag(String url) async {
+    try {
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  Future<ApiResponse> jobNotificationsFilter(String tagSlug, String courseId) async {
+    try {
+      String url = API.jobNotificationListingUrl.replaceAll('TAG_SLUG', tagSlug).replaceAll('COURSE_ID', courseId);
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  Future<ApiResponse> jobNotificationsDetail(String notificationId) async {
+    try {
+      String url = API.jobNotificationDetailUrl + notificationId;
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
 }

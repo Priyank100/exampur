@@ -171,7 +171,7 @@ class API {
   // static const String dailyQuiz_web_URL  = 'https://test.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
   static const String dailyQuiz_web_URL  = 'https://testweb.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
 
-  //study Material New - https://exampur.com/api/
+  //study Material New
   static const String studyMaterialNewUrl       = WEB_BASE_URL + 'study-material/';
   static const String studyMaterialNewSubCatUrl = WEB_BASE_URL + 'download-material/' + 'ID';
 
@@ -179,16 +179,20 @@ class API {
   static const String previousYearMaterialUrl   = WEB_BASE_URL + 'previous-year-material/';
 
   // Current Affairs New
-  static const String currentAffairsNewTabUrl     = WEB_BASE_URL + 'current-affairs/sub-category/';
-  static const String currentAffairsNewListUrl    = WEB_BASE_URL + 'content-module-list/' + 'ID';
-  static const String currentAffairsNewDetailUrl  = WEB_BASE_URL + 'current-affairs-article/' + 'ID';
-  static const String currentAffairsNewTagListUrl = WEB_BASE_URL + 'current-affairs-tag-list/';
-
+  static const String currentAffairsNewTabUrl         = WEB_BASE_URL + 'current-affairs/sub-category/';
+  static const String currentAffairsNewListUrl        = WEB_BASE_URL + 'content-module-list/' + 'ID';
+  static const String currentAffairsNewDetailUrl      = WEB_BASE_URL + 'current-affairs-article/' + 'ID';
+  static const String currentAffairsNewTagListUrl     = WEB_BASE_URL + 'current-affairs-tag-list/';
   static const String currentAffairsNewListFilterUrl  = WEB_BASE_URL + 'search-news/?';
 
-  //Parctice Question
-
+  //Practice Question
   static const String practiceQuestionCategoriesUrl       = WEB_BASE_URL + 'practice-categories/';
   static const String practiceQuestionViaCatAndSubCatUrl  = WEB_BASE_URL + 'practice-question-api/';
+
+  //Job Notification - https://exampur.com/api/
+  static const String jobNotificationCoursesUrl     = WEB_BASE_URL + 'courses/';
+  static const String jobNotificationTagUrl         = WEB_BASE_URL + 'exam-job-tag/';
+  static const String jobNotificationListingUrl     = WEB_BASE_URL + 'job-notification/' + 'TAG_SLUG' + '/' + 'COURSE_ID';
+  static const String jobNotificationDetailUrl      = WEB_BASE_URL + 'job-detail/';
 
 }
