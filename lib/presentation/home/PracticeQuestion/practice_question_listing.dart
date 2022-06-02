@@ -27,6 +27,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   bool isBottomLoading = false;
   var scrollController = ScrollController();
   List<MyRadio> _radioValue = [];
+  int count = 0;
 
   @override
   void initState() {
@@ -92,6 +93,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
                   onPressed: () {
                     setState(() {
                       isLoading = true;
+                      count = count - practiceQuestionListingModel!.questions!.length;
                       getQuestionsData(practiceQuestionListingModel!.previous.toString());
                     });
                   },
@@ -103,6 +105,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
                   onPressed: () {
                     setState(() {
                       isLoading = true;
+                      count = count + practiceQuestionListingModel!.questions!.length;
                       getQuestionsData(practiceQuestionListingModel!.next.toString());
                     });
                   },
@@ -112,6 +115,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         ) : SizedBox()
     );
   }
+
   Widget dataList() {
     return ListView.builder(
       controller: scrollController,
@@ -121,6 +125,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
           return itemList(index);
         });
   }
+
   Widget itemList(index) {
     return Container(
       margin: EdgeInsets.all(5),
@@ -140,7 +145,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Question '+(index+1).toString() +':',style: TextStyle(color: AppColors.amber),),
+        Text('Question '+(count+index+1).toString() +':',style: TextStyle(color: AppColors.amber),),
         Html(
             data: AppConstants.langCode == 'hi' ?
             practiceQuestionListingModel!.questions![index].hindiQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' ') :
@@ -151,7 +156,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         Container(
           color: _radioValue[index].val == 0 ? practiceQuestionListingModel!.questions![index].correctAnswer == 1 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption1.toString().trim(): practiceQuestionListingModel!.questions![index].engOption1.toString().trim(),style: TextStyle(fontSize: 12)),
+            title: Text(AppConstants.langCode == 'hi' ? practiceQuestionListingModel!.questions![index].hindiOption1.toString().trim() : practiceQuestionListingModel!.questions![index].engOption1.toString().trim(),style: TextStyle(fontSize: 12)),
             value: 0,
             groupValue: _radioValue[index].val,
             onChanged: (value) {

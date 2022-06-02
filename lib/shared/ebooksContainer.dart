@@ -69,24 +69,25 @@ class _PDFCardCAState extends State<PDFCardCA> {
                             style: TextStyle(fontSize: 15, decoration: TextDecoration.lineThrough)),
 
                             SizedBox(width: 5),
-                            InkWell(
-                              onTap: () {
-                                if(widget.eBooks.salePrice == 0) {
-                                  //view pdf
-                                }
-                              },
-                              child: Container(
+                            // InkWell(
+                            //   onTap: () {
+                            //     if(widget.eBooks.salePrice == 0) {
+                            //       //view pdf
+                            //     }
+                            //   },
+                          //    child:
+                            widget.eBooks.salePrice != 0 ?   Container(
                                   decoration: BoxDecoration(
                                     border: Border.all(color: AppColors.black),
                                   ),
                                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                                   child: Center(child: Text(
-                                      widget.eBooks.salePrice != 0 ?
-                                      '\u{20B9} ${widget.eBooks.salePrice.toString()}' : getTranslated(context, StringConstant.viewPdf)!,
+                                   //   widget.eBooks.salePrice != 0 ?
+                                      '\u{20B9} ${widget.eBooks.salePrice.toString()}',
                                       style: TextStyle(fontSize: 12))
                                   )
-                              ),
-                            ),
+                              ):SizedBox(),
+                            //),
                             SizedBox(width: 10),
                             widget.eBooks.salePrice != 0 ?
                                 InkWell(

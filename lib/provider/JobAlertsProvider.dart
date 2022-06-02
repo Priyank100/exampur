@@ -4,8 +4,11 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/job_alert_list_model.dart';
 import 'package:exampur_mobile/data/model/job_alert_tab_model.dart';
 import 'package:exampur_mobile/data/model/job_alerts_detail_model.dart';
+import 'package:exampur_mobile/data/model/job_notification_course_model.dart';
+import 'package:exampur_mobile/data/model/job_notification_tag_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/JobAlertsRepo.dart';
+import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,4 +88,33 @@ class JobAlertsProvider extends ChangeNotifier {
       );
       notifyListeners();
     }}
+
+  //Job Notification
+  Future<List<JobNotificationCourseModel>?> getJobNotificationCourseList(BuildContext context) async {
+    ApiResponse apiResponse = await jobAlertsRepo.jobNotificationsCourseAndTag(API.jobNotificationCoursesUrl);
+
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      List<JobNotificationCourseModel> myList = List<JobNotificationCourseModel>.from(apiResponse.response!.data.map((x) => JobNotificationCourseModel.fromJson(x)));
+      return myList;
+
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.goAndReplace(context, ErrorScreen());
+    }
+    notifyListeners();
+  }
+
+  Future<List<JobNotificationTagModel>?> getJobNotificationTagList(BuildContext context) async {
+    ApiResponse apiResponse = await jobAlertsRepo.jobNotificationsCourseAndTag(API.jobNotificationTagUrl);
+
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      List<JobNotificationTagModel> myList = List<JobNotificationTagModel>.from(apiResponse.response!.data.map((x) => JobNotificationTagModel.fromJson(x)));
+      return myList;
+
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.goAndReplace(context, ErrorScreen());
+    }
+    notifyListeners();
+  }
 }

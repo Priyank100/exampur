@@ -52,6 +52,7 @@ class _SubjectViewState extends State<SubjectView> {
               child: Text(getTranslated(context, StringConstant.selectSubject)!,style: TextStyle(fontSize: 25)),
             ),
             GridView.builder(
+              padding: EdgeInsets.all(8),
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
@@ -77,7 +78,7 @@ class _SubjectViewState extends State<SubjectView> {
             AppConstants.image(subjectList[index].logoPath.toString(), width: 80.0,height: 80.0,boxfit: BoxFit.fill) :
             AppConstants.image(AppConstants.BANNER_BASE + subjectList[index].logoPath.toString(), width: 80.0,height: 80.0,boxfit: BoxFit.fill),
           ),
-          Text(subjectList[index].title.toString(), overflow: TextOverflow.ellipsis, maxLines: 1),
+          Text(subjectList[index].title.toString(), overflow: TextOverflow.ellipsis, maxLines: 2,style: TextStyle(fontSize: 10),textAlign: TextAlign.center,),
         ],
       ),
     );
