@@ -13,6 +13,7 @@ import 'package:exampur_mobile/presentation/home/home_banner.dart';
 import 'package:exampur_mobile/presentation/home/job_alert_new/job_notifications.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
 import 'package:exampur_mobile/presentation/home/study_material_new/study_material_new.dart';
+import 'package:exampur_mobile/presentation/home/test_series_new/test_series_new.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
@@ -206,7 +207,7 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.testSeriesClick);
                     Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(builder: (_) => TestSeriesTab()));
+                        MaterialPageRoute(builder: (_) => TestSeriesNew()));
                   },
                 ),
                 // SquareButton(

@@ -81,7 +81,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         bottomNavigationBar:
         practiceQuestionListingModel == null || practiceQuestionListingModel!.count == 0 ? SizedBox() :
         isBottomLoading ? Container(
-          height: 40,
+          height: 50,
           width: 40,
           padding: EdgeInsets.all(8),
           child: Row(
@@ -89,7 +89,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
               children: [
                 practiceQuestionListingModel!.previous.toString() == 'null' ? SizedBox() :
                 MaterialButton(
-                  color: AppColors.amber,
+                 // color: AppColors.amber,
                   onPressed: () {
                     setState(() {
                       isLoading = true;
@@ -97,11 +97,11 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
                       getQuestionsData(practiceQuestionListingModel!.previous.toString());
                     });
                   },
-                  child: Text('<< Previous',style: TextStyle(color: AppColors.white),),
+                  child: Text('<< Previous',style: TextStyle(color: AppColors.black),),
                 ),
                 practiceQuestionListingModel!.next.toString() == 'null' ? SizedBox() :
                 MaterialButton(
-                  color: AppColors.amber,
+                 // color: AppColors.amber,
                   onPressed: () {
                     setState(() {
                       isLoading = true;
@@ -109,7 +109,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
                       getQuestionsData(practiceQuestionListingModel!.next.toString());
                     });
                   },
-                  child: Text('Next >>',style: TextStyle(color: AppColors.white)),
+                  child: Text('Next >>',style: TextStyle(color: AppColors.black)),
                 )
               ]),
         ) : SizedBox()
