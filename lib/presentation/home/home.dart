@@ -207,7 +207,11 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.testSeriesClick);
                     Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(builder: (_) => TestSeriesNew()));
+                        MaterialPageRoute(builder: (_) =>
+                            TestSeriesTab()
+                            // TestSeriesNew()
+                        )
+                    );
                   },
                 ),
                 // SquareButton(
