@@ -272,16 +272,16 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.currentAffairsClick);
 
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (_) => CurrentAffairs(
-                                getTranslated(context, 'current_affairs')!,
-                                AppConstants.currentAffairesId)));
-
                     // Navigator.of(context, rootNavigator: true).push(
-                    //         MaterialPageRoute(
-                    //             settings: RouteSettings(name: "CAN"),
-                    //             builder: (_) => CurrentAffairsTab()));
+                    //     MaterialPageRoute(
+                    //         builder: (_) => CurrentAffairs(
+                    //             getTranslated(context, 'current_affairs')!,
+                    //             AppConstants.currentAffairesId)));
+
+                    Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                settings: RouteSettings(name: "CAN"),
+                                builder: (_) => CurrentAffairsTab()));
 
                   },
                 ),

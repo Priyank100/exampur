@@ -1,7 +1,10 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:chewie/chewie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:exampur_mobile/ChatModule/attendance_controller.dart';
+import 'package:exampur_mobile/ChatModule/live_attendance.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
@@ -37,12 +40,10 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
   // late VideoPlayerController videoPlayerController;
   // ChewieController? chewieController;
   FlickManager? flickManager;
-  FlickPortraitControls? c;
 
 
   Future<bool> checkIfDocExists(String docId) async {
     try {
-      // Get reference to Firestore collection
       var collectionRef = FirebaseFirestore.instance.collection(collectionName);
       var doc = await collectionRef.doc(docId).get();
       return doc.exists;
@@ -65,7 +66,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
             }).then((value) {
           _sendchat.text = '';
           setState(() {
-
+            map = SplayTreeMap<String,dynamic>.from(map, (a, b) => a.split('-')[2].trim().compareTo(b.split('-')[2].trim()));
           });
         });
 
@@ -80,7 +81,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
             }, SetOptions(merge : false)).then((value) {
           _sendchat.text = '';
           setState(() {
-
+            map = SplayTreeMap<String,dynamic>.from(map, (a, b) => a.split('-')[2].trim().compareTo(b.split('-')[2].trim()));
           });
         });
       }
@@ -88,6 +89,60 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
       AppConstants.showBottomMessage(context, 'Enter message', AppColors.black);
     }
   }
+
+  Future<void> markAttendance() async {
+    bool docExists = await checkIfDocExists(widget.videoId);
+
+    if(docExists) {
+      FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
+      firestoreInstance.collection(collectionName).doc(widget.videoId).update(
+          {
+            'attendance.$userName':'$userPhone'
+          }).then((value) {
+            setState(() {});
+          });
+    } else {
+      FirebaseFirestore.instance.collection(collectionName).doc(widget.videoId).set(
+          {
+            'id': widget.videoId,
+            'title': widget.title.toString(),
+            'chat': {},
+            'attendance':{
+              '$userName':'$userPhone'
+            }
+          }, SetOptions(merge : false)).then((value) {
+              setState(() {});
+            });
+    }
+  }
+
+  void markAttendance2() async {
+    String date = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    String time = DateFormat('hh:mm:ss a').format(DateTime.now());
+    LiveAttendance liveAttendance = LiveAttendance(
+        widget.videoId,
+        date,
+        time,
+        userName,
+        userPhone
+    );
+
+    try {
+      AttendanceController.submitAttendance(liveAttendance, (String response) {
+        AppConstants.printLog("Response: $response");
+        // if (response == AttendanceController.STATUS_SUCCESS) {
+        //   AppConstants.showBottomMessage(
+        //       context, "Feedback Submitted", AppColors.black);
+        // } else {
+        //   AppConstants.showBottomMessage(
+        //       context, "Error Occurred!", AppColors.black);
+        // }
+      });
+    } catch(e) {
+      AppConstants.printLog(e.toString());
+    }
+  }
+
   void getChat() {
     map.clear();
     try {
@@ -98,21 +153,19 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
           .listen((result) {
         result.docChanges.forEach((res) {
           map.addAll(res.doc.data()!['chat']);
-          AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-          AppConstants.printLog(map);
-          setState(() {
-
-          });
+          // AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+          // AppConstants.printLog(map);
+          setState(() {});
         });
       });
+
+      map = SplayTreeMap<String,dynamic>.from(map, (a, b) => a.split('-')[2].trim().compareTo(b.split('-')[2].trim()));
+      setState(() {});
+
     } catch(ex) {
       AppConstants.printLog(ex.toString());
     }
   }
-
-
-
-
 
   Future<void> getSharedPrefData() async {
     var jsonValue = jsonDecode(
@@ -120,8 +173,10 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     userPhone = jsonValue[0]['data']['phone'].toString();
+    markAttendance();
     setState(() {});
   }
+
   @override
   void initState() {
     super.initState();
@@ -147,6 +202,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     //     });
 
   }
+
   //
   // Future<void> initializePlayer() async {
   //   // videoPlayerController = VideoPlayerController.network('https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4');
