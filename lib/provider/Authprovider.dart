@@ -62,6 +62,7 @@ class AuthProvider extends ChangeNotifier {
         // callback(true, '');
 
         AppConstants.CATEGORY_LENGTH = _informationModel.data!.countCategories.toString();
+        AppConstants.isotpverify = _informationModel.data!.phoneConf!;
         if(_informationModel.data!.phoneConf == true) {
           // callback(true, '');
           checkSelectCategory(context, _informationModel.data!.countCategories);
@@ -104,6 +105,7 @@ class AuthProvider extends ChangeNotifier {
 
         await SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
+        AppConstants.isotpverify = _informationModel.data!.phoneConf!;
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
@@ -180,6 +182,7 @@ class AuthProvider extends ChangeNotifier {
         await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
 
         AppConstants.CATEGORY_LENGTH = _informationModel.data!.countCategories.toString();
+        AppConstants.isotpverify = _informationModel.data!.phoneConf!;
         if(_informationModel.data!.phoneConf == true) {
           checkSelectCategory(context, _informationModel.data!.countCategories);
         } else {

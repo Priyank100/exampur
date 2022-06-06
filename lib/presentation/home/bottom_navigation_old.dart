@@ -662,7 +662,8 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
           showUnselectedLabels: true,
           onTap: (index) {
             setState(() {
-              if(index==2 && PHONE_VERIFY=='false') {
+            //  if(index==2 && PHONE_VERIFY=='false') {
+            if( AppConstants.isotpverify ==  false){
                 AppConstants.showAlertDialogWithButton(context, getTranslated(context, StringConstant.Pleaseverifyyourphoneno)!, route);
                 return;
               }

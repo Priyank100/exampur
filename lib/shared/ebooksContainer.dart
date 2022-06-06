@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
+import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/DownloadPdfView.dart';
+import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/foundation.dart';
@@ -69,25 +71,28 @@ class _PDFCardCAState extends State<PDFCardCA> {
                             style: TextStyle(fontSize: 15, decoration: TextDecoration.lineThrough)),
 
                             SizedBox(width: 5),
-                            // InkWell(
-                            //   onTap: () {
-                            //     if(widget.eBooks.salePrice == 0) {
-                            //       //view pdf
-                            //     }
-                            //   },
-                          //    child:
-                            widget.eBooks.salePrice != 0 ?   Container(
+                            InkWell(
+                              onTap: () {
+                                if(widget.eBooks.salePrice != 0) {
+                                  null;
+                                }
+                                else {
+                                  widget.eBooks.pdf == null? AppConstants.showBottomMessage(context, 'No Pdf', AppColors.black) :     AppConstants.goTo(context, DownloadViewPdf(widget.eBooks.title.toString(),AppConstants.BANNER_BASE+ widget.eBooks.pdf.toString()));
+                                }
+                              },
+                             child:
+                             Container(
                                   decoration: BoxDecoration(
                                     border: Border.all(color: AppColors.black),
                                   ),
                                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                                   child: Center(child: Text(
-                                   //   widget.eBooks.salePrice != 0 ?
-                                      '\u{20B9} ${widget.eBooks.salePrice.toString()}',
+                                     widget.eBooks.salePrice != 0 ?
+                                      '\u{20B9} ${widget.eBooks.salePrice.toString()}':getTranslated(context, StringConstant.viewPdf)!,
                                       style: TextStyle(fontSize: 12))
                                   )
-                              ):SizedBox(),
-                            //),
+                              )
+                           ),
                             SizedBox(width: 10),
                             widget.eBooks.salePrice != 0 ?
                                 InkWell(

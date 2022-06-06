@@ -63,7 +63,8 @@ class BookEbook {
       String? id, 
       List<Category>? category, 
       String? title, 
-      String? description, 
+      String? description,
+      String? pdf,
       double? regularPrice,
       double? salePrice,
       String? flag, 
@@ -74,6 +75,7 @@ class BookEbook {
     _category = category;
     _title = title;
     _description = description;
+    _pdf = pdf! ;
     _regularPrice = regularPrice;
     _salePrice = salePrice;
     _flag = flag;
@@ -92,6 +94,7 @@ class BookEbook {
     }
     _title = json['title'];
     _description = json['description'];
+    _pdf = json['pdf_path'];
     _regularPrice = json['regular_price'].toDouble();
     _salePrice = json['sale_price'].toDouble();
     _flag = json['flag'];
@@ -108,6 +111,7 @@ class BookEbook {
   List<Category>? _category;
   String? _title;
   String? _description;
+  String? _pdf ;
   double? _regularPrice;
   double? _salePrice;
   String? _flag;
@@ -119,6 +123,7 @@ class BookEbook {
   List<Category>? get category => _category;
   String? get title => _title;
   String? get description => _description;
+  String? get pdf => _pdf ;
   double? get regularPrice => _regularPrice;
   double? get salePrice => _salePrice;
   String? get flag => _flag;
@@ -134,6 +139,7 @@ class BookEbook {
     }
     map['title'] = _title;
     map['description'] = _description;
+    map['pdf_path'] = _pdf ;
     map['regular_price'] = _regularPrice;
     map['sale_price'] = _salePrice;
     map['flag'] = _flag;
