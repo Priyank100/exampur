@@ -195,4 +195,24 @@ class API {
   static const String jobNotificationListingUrl     = WEB_BASE_URL + 'job-notification/' + 'TAG_SLUG' + '/' + 'COURSE_ID';
   static const String jobNotificationDetailUrl      = WEB_BASE_URL + 'job-detail/';
 
+  // Study_Notes
+  static const String studynotesUrl     = WEB_BASE_URL + 'study-notes-exam/';
+  static const String studynotessubjectUrl     = WEB_BASE_URL + 'study-notes-subject/'+'COURSE_ID';
+  static const String studynoteschapterUrl     = WEB_BASE_URL + 'study-notes-chapter/'+'COURSE_ID';
+  static const String studynoteschapterdescriptionUrl     = WEB_BASE_URL + 'study-notes-detail/'+'COURSE_ID';
+
+  //free Videos
+  static const String freeVideoUrl     = WEB_BASE_URL + 'free-videos-exam-category/';
+  static const String freeVideolistUrl     = WEB_BASE_URL + 'free-videos-subject/' +'Subject_Id';
+  static const String freeVideocontentUrl     = WEB_BASE_URL + 'free-videos-content/' +'Subject_Id';
+
+
+  //testSeriesWeburl
+  static const String testSeriesWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/test-series/';
+  static const String LiveTestWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/live-tests/';
+  static const String QuizzesWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/short-quiz/';
+  static const String AttemptTestWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/attempted-test/';
+  static const String AttemptQuizzeWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/attempted-quiz/';
+  static const String SavedQuestionWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/saved-question/';
+
 }

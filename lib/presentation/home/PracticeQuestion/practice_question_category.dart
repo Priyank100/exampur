@@ -44,7 +44,7 @@ class _PracticeQuestionCategoryState extends State<PracticeQuestionCategory> {
                   routes: practiceQuestionDataList.length == 0 ? [] :
                   List.generate(practiceQuestionDataList.length, (index) => dataList(index)),
                  // title: getTranslated(context, StringConstant.studyMaterials)!)
-                  title: 'PracticeQuestion')
+                  title: getTranslated(context, StringConstant.PracticeQuestion)!)
           );
         });
   }

@@ -129,13 +129,13 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
                 if(widget.url.contains('mp4')) {
                   AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
                 } else {
-                  AppConstants.showAlertDialog(context, 'Url not in mp4 format');
+                  AppConstants.showAlertDialog(context, 'No Video Found to Download this Video');
                 }
               } else {
                 if(widget.download.contains('mp4')) {
                   AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
                 } else {
-                  AppConstants.showAlertDialog(context, 'Url not in mp4 format');
+                  AppConstants.showAlertDialog(context, 'No Video Found to Download this Video');
                 }
               }
             },
@@ -153,11 +153,12 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
   Future<void> requestVideoDownload() async {
     final dir = await getApplicationDocumentsDirectory();
     var _localPath = dir.path + '/' + widget.title;
-
     await Directory(_localPath).exists().then((alreadyExist) async {
       AppConstants.printLog(alreadyExist);
       if (alreadyExist) {
-        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
+
+        dir.deleteSync(recursive: true);
+       // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
         return;
       } else {
         final savedDir = Directory(_localPath);

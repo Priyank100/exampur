@@ -1,3 +1,4 @@
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomSmallerElevatedButton extends StatefulWidget {
@@ -21,24 +22,28 @@ class _CustomSmallerElevatedButtonState
   bool isPressed = false;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor:
-            MaterialStateProperty.all<Color>(widget.color),
-      ),
-      onPressed: () {
-        widget.onPressed();
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 3),
-        child: Text(
-          widget.text,
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.white
-          ),
-        ),
-      ),
+    // return ElevatedButton(
+    //   style: ButtonStyle(
+    //     backgroundColor:
+    //         MaterialStateProperty.all<Color>(widget.color),
+    //   ),
+    //   onPressed: () {
+    //     widget.onPressed();
+    //   },
+    //   child: Padding(
+    //     padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+    //     child: Text(
+    //       widget.text,
+    //       style: TextStyle(
+    //         fontSize: 18,
+    //         color: Colors.white
+    //       ),
+    //     ),
+    //   ),
+    // );
+    return InkWell(onTap: () {widget.onPressed();},
+      child: Container(height: 30,width: 100,decoration: BoxDecoration( color: AppColors.green,
+          borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(widget.text,style: TextStyle(color: Colors.white,fontSize: 11)))),
     );
   }
 }

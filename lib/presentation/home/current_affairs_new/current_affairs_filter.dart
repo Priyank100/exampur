@@ -41,7 +41,12 @@ class _CurrentAffairsFilterState extends State<CurrentAffairsFilter> {
       child: Scaffold(
         appBar: CustomAppBar(),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            widget.searchType == 'S' ?SizedBox() :  Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(widget.selectedTagName == null ?'Selected Date : '+widget.date.toString():'Selected TagName : '+widget.selectedTagName.toString(),style: TextStyle(fontSize: 15),),
+            ),
             widget.searchType == 'S' ?
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),

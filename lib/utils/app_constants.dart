@@ -22,7 +22,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static bool isotpverify = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -337,6 +337,8 @@ class StringConstant {
   static String audioOnly= 'audio_only';
   static String attemptQuiz= 'attempt_quiz';
   static String Alert= 'alert';
+  static String attemptTest= 'attempt_test';
+  static String attemptedQuiz= 'attempted_quiz';
 
   static String books= 'books';
   static String buy= 'buy';
@@ -420,6 +422,7 @@ class StringConstant {
   static String LearningClosetPvt= 'Learning Closet Pvt. Ltd. (Exampur)';
   static String LiveChat= 'live_chat';
   static String live= 'live';
+  static String liveTest= 'live_test';
 
   static String paidCourse= 'paid_course';
   static String pleaseChooseTheCategory= 'please_choose_the_category';
@@ -445,6 +448,8 @@ class StringConstant {
   static String PleaseEnternewPassword= 'please_enter_new_password';
   static String PleasecurrentPassword= 'please_enter_current_password';
   static String Pleaseverifyyourphoneno = 'please_verify_your_phone_no.';
+  static String PreviousYearPdf = 'previous_year_pdf';
+  static String PracticeQuestion = 'practice_question';
 
   static String name= 'name';
   static String newPassword= 'new_password';
@@ -496,6 +501,7 @@ class StringConstant {
   static String selectSubject= 'select_subject';
   static String selectChapter= 'select_chapter';
   static String Send= 'send';
+  static String savedQuestion= 'saved_question';
 
   static String viewPdf= 'view_pdf';
 
@@ -524,5 +530,6 @@ class StringConstant {
   static String Validity= 'validity';
 
   static String qualification= 'qualification';
+  static String Quizz= 'quizz';
 
 }

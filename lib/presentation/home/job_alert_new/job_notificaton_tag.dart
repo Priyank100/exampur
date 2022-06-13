@@ -6,30 +6,31 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class JobNotificationTag extends StatefulWidget {
-  const JobNotificationTag({Key? key}) : super(key: key);
+  List<JobNotificationTagModel> jobNotificationTagList;
+   JobNotificationTag(this.jobNotificationTagList) : super();
 
   @override
   State<JobNotificationTag> createState() => _JobNotificationTagState();
 }
 
 class _JobNotificationTagState extends State<JobNotificationTag> {
-  List<JobNotificationTagModel> jobNotificationTagList = [];
+ // List<JobNotificationTagModel> jobNotificationTagList = [];
 
-  @override
-  void initState() {
-    getCoursesList();
-    super.initState();
-  }
-
-  Future<void> getCoursesList() async {
-    jobNotificationTagList = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationTagList(context))!;
-    setState(() {});
-  }
+  // @override
+  // void initState() {
+  //   getCoursesList();
+  //   super.initState();
+  // }
+  //
+  // Future<void> getCoursesList() async {
+  //   jobNotificationTagList = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationTagList(context))!;
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: jobNotificationTagList.length,
+        itemCount: widget.jobNotificationTagList.length,
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
@@ -43,7 +44,7 @@ class _JobNotificationTagState extends State<JobNotificationTag> {
       padding: EdgeInsets.all(5),
       child: ElevatedButton(
           child: Text(
-              jobNotificationTagList[index].name.toString(),
+             widget.jobNotificationTagList[index].name.toString(),
               style: TextStyle(fontSize: 12)
           ),
           style: ButtonStyle(
@@ -56,7 +57,9 @@ class _JobNotificationTagState extends State<JobNotificationTag> {
                   )
               )
           ),
-          onPressed: () => null
+          onPressed: (){
+
+          }
       ),
     );
   }

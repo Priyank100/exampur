@@ -81,9 +81,9 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         bottomNavigationBar:
         practiceQuestionListingModel == null || practiceQuestionListingModel!.count == 0 ? SizedBox() :
         isBottomLoading ? Container(
-          height: 50,
+          height: 40,
           width: 40,
-          padding: EdgeInsets.all(8),
+          //padding: EdgeInsets.all(8),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -119,6 +119,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   Widget dataList() {
     return ListView.builder(
       controller: scrollController,
+        physics: BouncingScrollPhysics(),
         itemCount: practiceQuestionListingModel!.questions!.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {
@@ -128,7 +129,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
 
   Widget itemList(index) {
     return Container(
-      margin: EdgeInsets.all(5),
+      margin: EdgeInsets.all(12),
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius:
@@ -152,7 +153,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             practiceQuestionListingModel!.questions![index].englishQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' '),
         ),
 
-       practiceQuestionListingModel!.questions![index].engOption1.toString().isEmpty ? SizedBox() :
+       practiceQuestionListingModel!.questions![index].engOption1.toString().isEmpty || practiceQuestionListingModel!.questions![index].engOption1 == null  ? SizedBox() :
         Container(
           color: _radioValue[index].val == 0 ? practiceQuestionListingModel!.questions![index].correctAnswer == 1 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
@@ -171,7 +172,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             activeColor: AppColors.white,
           ),
         ),
-       practiceQuestionListingModel!.questions![index].engOption2.toString().isEmpty ? SizedBox() :
+       practiceQuestionListingModel!.questions![index].engOption2.toString().isEmpty || practiceQuestionListingModel!.questions![index].engOption2 == null ? SizedBox() :
         Container(
           color: _radioValue[index].val == 1 ? practiceQuestionListingModel!.questions![index].correctAnswer == 2 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
@@ -190,7 +191,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             activeColor: AppColors.white,
           ),
         ),
-        practiceQuestionListingModel!.questions![index].engOption3.toString().isEmpty ? SizedBox() :
+        practiceQuestionListingModel!.questions![index].engOption3.toString().isEmpty || practiceQuestionListingModel!.questions![index].engOption3 == null ? SizedBox() :
         Container(
           color: _radioValue[index].val == 2 ? practiceQuestionListingModel!.questions![index].correctAnswer == 3 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
@@ -209,7 +210,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             activeColor: AppColors.white,
           ),
         ),
-        practiceQuestionListingModel!.questions![index].engOption4.toString().isEmpty ? SizedBox() :
+        practiceQuestionListingModel!.questions![index].engOption4.toString().isEmpty|| practiceQuestionListingModel!.questions![index].engOption4 == null  ? SizedBox() :
         Container(
           color: _radioValue[index].val == 3 ? practiceQuestionListingModel!.questions![index].correctAnswer == 4 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
@@ -228,11 +229,11 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             activeColor: AppColors.white,
           ),
         ),
-        practiceQuestionListingModel!.questions![index].engOption5.toString().isEmpty ? SizedBox() :
+        practiceQuestionListingModel!.questions![index].engOption5.toString().isEmpty ||   practiceQuestionListingModel!.questions![index].engOption5 == null ? SizedBox() :
         Container(
           color: _radioValue[index].val == 4 ? practiceQuestionListingModel!.questions![index].correctAnswer == 5 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption5.toString().trim(): practiceQuestionListingModel!.questions![index].engOption5.toString().trim(),style: TextStyle(fontSize: 12)),
+            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption5.toString().trim(): practiceQuestionListingModel!.questions![index].engOption5.toString().trim(),style: TextStyle(fontSize: 12,)),
             value: 4,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
@@ -247,7 +248,10 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             activeColor: AppColors.white,
           ),
         ),
-        correctAnswer(index, _radioValue[index].isSelected)
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: correctAnswer(index, _radioValue[index].isSelected),
+        )
       ],
       ),
     );
@@ -259,7 +263,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
       children: [
         Text('Correct Answer : '+practiceQuestionListingModel!.questions![index].correctAnswer.toString()),
         SizedBox(height: 5),
-        CustomRoundButton(onPressed: (){
+        practiceQuestionListingModel!.questions![index].solutionHindi == null ||  practiceQuestionListingModel!.questions![index].solutionEng == null?SizedBox():   CustomRoundButton(onPressed: (){
           setState(() {
             _radioValue[index].showAnswer = !_radioValue[index].showAnswer;
           });

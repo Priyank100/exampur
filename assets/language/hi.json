@@ -48,7 +48,8 @@
   "audio_only": "सिर्फ़ ध्वनि",
   "attempt_quiz": "प्रश्नोत्तरी का प्रयास करें",
   "alert": "चेतावनी",
-
+  "attempt_test": "अटेंपटेड टेस्ट",
+  "attempted_quiz": "अटेंपटेड क्विज",
 
 
   "watch_app_tutorial": "ऐप ट्यूटोरियल देखें",
@@ -92,6 +93,7 @@
   "loading": "लोड हो रहा है...",
   "live_chat": "सीधी बातचीत",
   "live": "लाइव",
+  "live_test": "लाइव टेस्ट",
 
 
 
@@ -139,6 +141,8 @@
   "price": "कीमत",
   "place_order": "एक आदेश दें",
   "please_verify_your_phone_no.": "कृपया अपना फ़ोन नंबर सत्यापित करें",
+  "practice_question": "अभ्यास प्रश्न",
+  "previous_year_pdf": "िछले वर्ष पीडीएफ",
 
 
 
@@ -215,6 +219,7 @@
   "select_subject": "विषय चुनें",
   "select_chapter": "अध्याय चुनें",
   "send": "भेजना",
+  "saved_question": "सेव्ड क्वेश्चन",
 
   "job_alerts": "नौकरी अलर्ट",
 
@@ -227,7 +232,8 @@
   "validity": "वैधता",
 
 
-"qualification": "योग्यता"
+"qualification": "योग्यता",
+  "quizz": "प्रश्नोत्तरी"
 
 
 }

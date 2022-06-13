@@ -37,5 +37,9 @@ class Images {
   static const String error = 'assets/images/error.png';
   static const String download_pdf = 'assets/images/download_pdf.png';
   static const String download_video = 'assets/images/download_video.jpg';
+  static const String live_test = 'assets/images/live_test.png';
+  static const String practice = 'assets/images/practice.png';
+  static const String attemptquiz = 'assets/images/attemptquiz.png';
+  static const String savequestion = 'assets/images/savequestion.png';
 
 }

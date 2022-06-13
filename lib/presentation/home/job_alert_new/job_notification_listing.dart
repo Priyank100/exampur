@@ -5,34 +5,36 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class JobNotificationListing extends StatefulWidget {
-  const JobNotificationListing({Key? key}) : super(key: key);
+  JobNotificationListModel? jobNotificationListModel;
+   JobNotificationListing(this.jobNotificationListModel) : super();
 
   @override
   State<JobNotificationListing> createState() => _JobNotificationListingState();
 }
 
 class _JobNotificationListingState extends State<JobNotificationListing> {
-  JobNotificationListModel? jobNotificationListModel;
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    getNotificationList();
-    super.initState();
-  }
-
-  Future<void> getNotificationList() async {
-    isLoading = true;
-    jobNotificationListModel = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationData(context,'latest-jobs',''))!;
-    isLoading = false;
-    setState(() {});
-  }
+  // JobNotificationListModel? jobNotificationListModel;
+  // bool isLoading = true;
+  //
+  // @override
+  // void initState() {
+  //   getNotificationList();
+  //   super.initState();
+  // }
+  //
+  // Future<void> getNotificationList() async {
+  //   isLoading = true;
+  //   jobNotificationListModel = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationData(context,'latest-jobs',''))!;
+  //   isLoading = false;
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-    jobNotificationListModel == null || jobNotificationListModel!.notification!.length == 0 ?
-    AppConstants.noDataFound() :
+    return
+    //   isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+    // jobNotificationListModel == null || jobNotificationListModel!.notification!.length == 0 ?
+    // AppConstants.noDataFound() :
     Card(
       margin: EdgeInsets.all(10),
       elevation: 10,
@@ -52,10 +54,31 @@ class _JobNotificationListingState extends State<JobNotificationListing> {
             ),
             height: MediaQuery.of(context).size.width/8,
             alignment: Alignment.center,
-            child: Text(jobNotificationListModel!.tagName.toString(), style: TextStyle(color: AppColors.white)),
+            child: Text(widget.jobNotificationListModel!.tagName.toString(), style: TextStyle(color: AppColors.white)),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: widget.jobNotificationListModel!.notification!.length,
+                itemBuilder: (context,i)
+            {
+              return datalist(i);
+            }),
           )
         ],
       ),
+    );
+  }
+  Widget datalist(i){
+    return Column(
+      children: [
+        Row(
+          children: [
+          Text(widget.jobNotificationListModel!.notification![i].name.toString()),
+            Flexible(child: Text(widget.jobNotificationListModel!.notification![i].title.toString())),
+          ],
+        ),
+        Divider()
+      ],
     );
   }
 }

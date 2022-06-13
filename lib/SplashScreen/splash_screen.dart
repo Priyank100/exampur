@@ -151,9 +151,7 @@ class _SplashScreenState extends State<SplashScreen> {
   // }
   Future<void> callProvider() async {
     await FirebaseMessaging.instance.subscribeToTopic('ALL');
-
-      checkSharedPrefToken();
-
+    checkSharedPrefToken();
   }
 
   Future<void> checkSharedPrefToken() async {

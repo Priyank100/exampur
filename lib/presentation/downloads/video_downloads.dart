@@ -259,14 +259,15 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
     }
 
     return _status == DownloadTaskStatus.canceled
-        ? GestureDetector(
-            child: Icon(Icons.cached, size: 20, color: Colors.green),
-            onTap: () {
-              FlutterDownloader.retry(taskId: taskid).then((newTaskID) {
-                changeTaskID(taskid, newTaskID!);
-              });
-            },
-          )
+        ? SizedBox()
+    // GestureDetector(
+    //         child: Icon(Icons.cached, size: 20, color: Colors.green),
+    //         onTap: () {
+    //           FlutterDownloader.retry(taskId: taskid).then((newTaskID) {
+    //             changeTaskID(taskid, newTaskID!);
+    //           });
+    //         },
+    //       )
         : _status == DownloadTaskStatus.failed
             ? Row(
                 children: [

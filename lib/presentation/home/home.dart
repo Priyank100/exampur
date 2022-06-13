@@ -5,6 +5,7 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/Pushnotification/pushnotification.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
 import 'package:exampur_mobile/data/model/response/languagemodel.dart';
+import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
 import 'package:exampur_mobile/presentation/home/ca_bytes/ca_bytes.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/current_affairs.dart';
@@ -13,6 +14,7 @@ import 'package:exampur_mobile/presentation/home/home_banner.dart';
 import 'package:exampur_mobile/presentation/home/job_alert_new/job_notifications.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
 import 'package:exampur_mobile/presentation/home/study_material_new/study_material_new.dart';
+import 'package:exampur_mobile/presentation/home/study_notes/study_notes_list.dart';
 import 'package:exampur_mobile/presentation/home/test_series_new/test_series_new.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
@@ -29,6 +31,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 import '../../main.dart';
+import 'FreeVideos/freeVideo.dart';
 import 'PracticeQuestion/practice_question_category.dart';
 import 'TestSeries/test_series_tab.dart';
 import 'package:provider/provider.dart';
@@ -56,9 +59,29 @@ class _HomeState extends State<Home> {
     ///and it opened the app from terminated state
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
-        final routeFromMessage = message.data["route"];
+        List<String> actiondata = message.data['action'].split("/");
+       // List<String> actiontype = message.data['actiontype'].split("/");
+        if(actiondata[0] == "Course"){
+          AppConstants.goTo(context,
+              DeliveryDetailScreen('Course', actiondata[1],
+                  '',''));
 
-        Navigator.of(context).pushNamed(routeFromMessage);
+        }else if(actiondata[0]=="ComboCourse"){
+          AppConstants.goTo(context,
+              DeliveryDetailScreen('ComboCourse', actiondata[1],
+                  '',''
+              ));
+        }
+        else if(actiondata[0]=="Book"){
+          AppConstants.goTo(context,   DeliveryDetailScreen('Book', actiondata[1],
+              '', ''
+          ));
+        }
+        else if (actiondata[0] == "youtube"){
+          AppConstants.makeCallEmail("https://youtu.be/${actiondata[1]}");
+        }else if(actiondata[0] == "https:"){
+          AppConstants.makeCallEmail(message.data['action']);
+        }
       }
     });
 
@@ -66,18 +89,48 @@ class _HomeState extends State<Home> {
     FirebaseMessaging.onMessage.listen((message) {
       if (message.notification != null) {
         AppConstants.printLog(message.notification!.body);
+        AppConstants.printLog(message.data['action']);
         AppConstants.printLog(message.notification!.title);
       }
-
       LocalNotificationService.display(message);
     });
 
     ///When the app is in background but opened and user taps
     ///on the notification
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      final routeFromMessage = message.data["route"];
-
-      Navigator.of(context).pushNamed(routeFromMessage);
+      if (message != null) {
+        List<String> actiondata =message.data['action'].split("/");
+       // List<String> actiontype =message.data['actiontype'].split("/");
+        if(actiondata[0] == "Course"){
+          print('>>>>>>>>>>>>>>>>>>>>>>>');
+          AppConstants.goTo(context,
+          DeliveryDetailScreen('Course', actiondata[1],
+              '',''
+          ));
+        }
+        else if(actiondata[0]=="ComboCourse"){
+          AppConstants.goTo(context,
+              DeliveryDetailScreen('ComboCourse', actiondata[1],
+                  '',''
+              ));
+        }
+        else if(actiondata[0]=="ComboCourse"){
+          AppConstants.goTo(context,
+              DeliveryDetailScreen('ComboCourse', actiondata[1],
+                  '',''
+              ));
+        }
+        else if(actiondata[0]=="Book"){
+          AppConstants.goTo(context,   DeliveryDetailScreen('Book', actiondata[1],
+              '', ''
+          ));
+        }
+        else if (actiondata[0] == "youtube"){
+          AppConstants.makeCallEmail("https://youtu.be/${actiondata[1]}");
+        }else if(actiondata[0] == "https:"){
+          AppConstants.makeCallEmail(message.data['action']);
+        }
+      }
     });
     // getSharedPrefData();
   }
@@ -122,7 +175,11 @@ class _HomeState extends State<Home> {
               children: [
                 Flexible(
                   child: Text(
-                    getTranslated(context, StringConstant.hello)! + ', ' + '${userName} !', overflow: TextOverflow.ellipsis,maxLines: 1,
+                    getTranslated(context, StringConstant.hello)! +
+                        ', ' +
+                        '${userName} !',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: CustomTextStyle.headingBold(context),
                   ),
                 ),
@@ -140,25 +197,27 @@ class _HomeState extends State<Home> {
                   items: Language.languageList()
                       .map<DropdownMenuItem<Language>>(
                         (e) => DropdownMenuItem<Language>(
-                      value: e,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Text(
-                            e.flag,
-                            style: TextStyle(fontSize: 30),
+                          value: e,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                e.flag,
+                                style: TextStyle(fontSize: 30),
+                              ),
+                              Text(e.name)
+                            ],
                           ),
-                          Text(e.name)
-                        ],
-                      ),
-                    ),
-                  )
+                        ),
+                      )
                       .toList(),
                 )
               ],
             ),
             // SizedBox(height: 5),
-            bannerList.length != 0 ? LargeBanner(bannerList: bannerList) : SizedBox(),
+            bannerList.length != 0
+                ? LargeBanner(bannerList: bannerList)
+                : SizedBox(),
             SizedBox(height: Dimensions.FONT_SIZE_OVER_LARGE),
             Row(
               children: [
@@ -167,7 +226,8 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, StringConstant.paidCourse)!,
                   color: AppColors.paidCourses,
                   onPressed: () {
-                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.paidCourseClick);
+                    AnalyticsConstants.sendAnalyticsEvent(
+                        AnalyticsConstants.paidCourseClick);
                     Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(builder: (_) => PaidCourses(1)));
                   },
@@ -178,7 +238,8 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, StringConstant.freeCourses)!,
                   color: AppColors.freeCourses,
                   onPressed: () {
-                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.freeCourseClick);
+                    AnalyticsConstants.sendAnalyticsEvent(
+                        AnalyticsConstants.freeCourseClick);
                     Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(builder: (_) => PaidCourses(0)));
                   },
@@ -195,7 +256,8 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, 'books')!,
                   color: AppColors.book,
                   onPressed: () {
-                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.booksClick);
+                    AnalyticsConstants.sendAnalyticsEvent(
+                        AnalyticsConstants.booksClick);
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(builder: (_) => BooksEbook()));
                   },
@@ -204,14 +266,16 @@ class _HomeState extends State<Home> {
                   image: Images.testseries,
                   title: getTranslated(context, 'test_courses')!,
                   color: AppColors.series,
-                  onPressed: () {
-                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.testSeriesClick);
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(builder: (_) =>
-                            TestSeriesTab()
-                            // TestSeriesNew()
-                        )
-                    );
+                  onPressed: () async {
+                    String token = await SharedPref.getSharedPref(
+                        SharedPrefConstants.TOKEN);
+                    AnalyticsConstants.sendAnalyticsEvent(
+                        AnalyticsConstants.testSeriesClick);
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(
+                            builder: (_) =>
+                                //   TestSeriesTab()
+                                TestSeriesNew(API.testSeriesWebUrl, token)));
                   },
                 ),
                 // SquareButton(
@@ -230,12 +294,15 @@ class _HomeState extends State<Home> {
               children: [
                 SquareButton(
                   image: Images.dailyquiz,
-                  title: getTranslated(context, 'daily_quiz')!,
+                  title: getTranslated(context, StringConstant.Quizz),
                   color: AppColors.quiz,
-                  onPressed: () {
-                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.dailyQuizClick);
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(builder: (_) => DailyQuiz()));
+                  onPressed: () async {
+                    String token = await SharedPref.getSharedPref(
+                        SharedPrefConstants.TOKEN);
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (_) =>
+                                TestSeriesNew(API.QuizzesWebUrl, token)));
                   },
                 ),
                 SquareButton(
@@ -243,12 +310,11 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, 'study_materials')!,
                   color: AppColors.one2one,
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(
                             builder: (_) =>
                                 // CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)
-                                StudyMaterialNew(API.studyMaterialNewUrl)
-                        ));
+                                StudyMaterialNew(API.studyMaterialNewUrl)));
                   },
                 ),
               ],
@@ -264,10 +330,9 @@ class _HomeState extends State<Home> {
                   color: AppColors.jobAlert,
                   onPressed: () {
                     Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(builder: (_) =>
-                        JobAlerts()
-                        // JobNotifications()
-                    ));
+                        .push(MaterialPageRoute(builder: (_) => JobAlerts()
+                            //   JobNotifications()
+                            ));
                   },
                 ),
                 SquareButton(
@@ -275,7 +340,8 @@ class _HomeState extends State<Home> {
                   title: getTranslated(context, 'current_affairs')!,
                   color: AppColors.affairs,
                   onPressed: () {
-                    AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.currentAffairsClick);
+                    AnalyticsConstants.sendAnalyticsEvent(
+                        AnalyticsConstants.currentAffairsClick);
 
                     // Navigator.of(context, rootNavigator: true).push(
                     //     MaterialPageRoute(
@@ -284,10 +350,9 @@ class _HomeState extends State<Home> {
                     //             AppConstants.currentAffairesId)));
 
                     Navigator.of(context, rootNavigator: true).push(
-                            MaterialPageRoute(
-                                settings: RouteSettings(name: "CAN"),
-                                builder: (_) => CurrentAffairsTab()));
-
+                        MaterialPageRoute(
+                            settings: RouteSettings(name: "CAN"),
+                            builder: (_) => CurrentAffairsTab()));
                   },
                 ),
                 // SquareButton(
@@ -302,25 +367,39 @@ class _HomeState extends State<Home> {
             ),
             Row(
               children: [
+                // SquareButton(
+                //   image: Images.caBytes,
+                //   title: getTranslated(context, StringConstant.CaBytes)!,
+                //   color: AppColors.jobAlert,
+                //   onPressed: () {
+                //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CaBytes()));
+                //
+                //     // own player testing
+                //     /*Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
+                //         PriyankPlayer('Priyank Video Player',
+                //             'https://downloadexampur.appx.co.in/paid_course/0.46657945645736841649068141070.mp4')));*/
+                //   },
+                // ),
                 SquareButton(
-                  image: Images.caBytes,
-                  title: getTranslated(context, StringConstant.CaBytes)!,
-                  color: AppColors.jobAlert,
+                  image: Images.studymaterial,
+                  title: getTranslated(context, StringConstant.PreviousYearPdf),
+                  color: AppColors.paidCourses,
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CaBytes()));
-
-                    // own player testing
-                    /*Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
-                        PriyankPlayer('Priyank Video Player',
-                            'https://downloadexampur.appx.co.in/paid_course/0.46657945645736841649068141070.mp4')));*/
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (_) =>
+                                StudyMaterialNew(API.previousYearMaterialUrl)));
                   },
                 ),
                 SquareButton(
-                  image: Images.studymaterial,
-                  title: 'Previous Year PDF',
-                  color: AppColors.paidCourses,
+                  image: Images.practice,
+                  title:
+                      getTranslated(context, StringConstant.PracticeQuestion)!,
+                  color: AppColors.brown400,
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyMaterialNew(API.previousYearMaterialUrl)));
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (_) => PracticeQuestionCategory()));
                   },
                 ),
               ],
@@ -330,16 +409,41 @@ class _HomeState extends State<Home> {
             ),
             Row(
               children: [
-                // SquareButton(
-                //   image: Images.current_affair,
-                //   title: 'Practice Questions',
-                //   color: AppColors.paidCourses,
-                //   onPressed: () {
-                //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PracticeQuestionCategory()));
-                //   },
-                // ),
+                SquareButton(
+                  image: Images.live_test,
+                  title: getTranslated(context, StringConstant.liveTest),
+                  color: AppColors.orange,
+                  onPressed: () async {
+                    String token = await SharedPref.getSharedPref(
+                        SharedPrefConstants.TOKEN);
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (_) =>
+                                TestSeriesNew(API.LiveTestWebUrl, token)));
+                  },
+                ),
               ],
-            ),
+            )
+            // Row(
+            //   children: [
+            //     SquareButton(
+            //       image: Images.current_affair,
+            //       title: 'Study Notes',
+            //       color: AppColors.paidCourses,
+            //       onPressed: () {
+            //         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
+            //       },
+            //     ),
+            //     SquareButton(
+            //       image: Images.current_affair,
+            //       title: 'Free Videos',
+            //       color: AppColors.paidCourses,
+            //       onPressed: () {
+            //         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideos(API.freeVideoUrl)));
+            //       },
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

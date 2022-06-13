@@ -42,7 +42,6 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
   Future<void> callProvider() async {
     //allCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getAllCategoryList(context))!;
     myList = widget.allCategoryList;
-
     for(int i=0; i < AppConstants.selectedCategoryList.length; i++) {
       for(int j=0; j<myList.length; j++) {
         if(AppConstants.selectedCategoryList[i] == myList[j].id) {

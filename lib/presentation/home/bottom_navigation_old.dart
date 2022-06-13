@@ -9,17 +9,22 @@ import 'package:exampur_mobile/presentation/demo/demo.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
 import 'package:exampur_mobile/presentation/drawer/Parchase_course/my_purchases.dart';
+import 'package:exampur_mobile/presentation/drawer/eligibility_calculator.dart';
 import 'package:exampur_mobile/presentation/drawer/settings.dart';
+import 'package:exampur_mobile/presentation/drawer/time_table.dart';
 import 'package:exampur_mobile/presentation/help/help.dart';
+import 'package:exampur_mobile/presentation/home/test_series_new/test_series_new.dart';
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
+import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -347,6 +352,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                        // await  FirebaseAnalytics.instance.logEvent(name: 'COURSE',parameters: {
                        //    'id':'123456'
                        //  });
+                        FirebaseMessaging.instance.subscribeToTopic('Testing');
 
                         _scaffoldKey.currentState?.openEndDrawer();
 
@@ -445,61 +451,91 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                                 builder: (context) => MyPurchases()));
                       },
                     ),
-                    // ListTile(
-                    //   dense: true,
-                    //   title: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.start,
-                    //       children: [
-                    //         Image.asset(
-                    //           Images.timetable,
-                    //           width: 30,
-                    //           height: 20,
-                    //           color: AppColors.amber,
-                    //         ),
-                    //         SizedBox(
-                    //           width: Dimensions.PADDING_SIZE_SMALL,
-                    //         ),
-                    //         RichText(
-                    //           text: TextSpan(
-                    //               style: CustomTextStyle.drawerText(context),
-                    //               text: getTranslated(context, 'my_timetable')),
-                    //         ),
-                    //       ]),
-                    //   onTap: () {
-                    //     Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => MyTimeTable()));
-                    //   },
-                    // ),
-                    // ListTile(
-                    //   dense: true,
-                    //   title: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.start,
-                    //       children: [
-                    //         Image.asset(
-                    //           Images.calculator,
-                    //           width: 30,
-                    //           height: 20,
-                    //           color: AppColors.amber,
-                    //         ),
-                    //         SizedBox(
-                    //           width: Dimensions.PADDING_SIZE_SMALL,
-                    //         ),
-                    //         RichText(
-                    //           text: TextSpan(
-                    //               style: CustomTextStyle.drawerText(context),
-                    //               text: getTranslated(context, 'eligibility_calculator')),
-                    //         ),
-                    //       ]),
-                    //   onTap: () {
-                    //     _scaffoldKey.currentState?.openEndDrawer();
-                    //     Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => EligibilityCalculator()));
-                    //   },
-                    // ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              Images.timetable,
+                              width: 30,
+                              height: 20,
+                              color: AppColors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: getTranslated(context, StringConstant.attemptTest)),
+                            ),
+                          ]),
+                      onTap: () async {
+                        String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TestSeriesNew(API.AttemptTestWebUrl,token)));
+                      },
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              Images.attemptquiz,
+                              width: 30,
+                              height: 20,
+                              color: AppColors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text: getTranslated(context, StringConstant.attemptedQuiz)),
+                            ),
+                          ]),
+                      onTap: () async {
+                        String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TestSeriesNew(API.AttemptQuizzeWebUrl,token)));
+                      },
+                    ),
+                    ListTile(
+                      dense: true,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              Images.savequestion,
+                              width: 30,
+                              height: 20,
+                              color: AppColors.amber,
+                            ),
+                            SizedBox(
+                              width: Dimensions.PADDING_SIZE_SMALL,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                  style: CustomTextStyle.drawerText(context),
+                                  text:getTranslated(context, StringConstant.savedQuestion)),
+                            ),
+                          ]),
+                      onTap: () async {
+                        _scaffoldKey.currentState?.openEndDrawer();
+                        String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TestSeriesNew(API.SavedQuestionWebUrl,token)));
+                      },
+                    ),
                     ListTile(
                       dense: true,
                       title: Row(

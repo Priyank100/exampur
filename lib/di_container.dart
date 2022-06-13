@@ -9,6 +9,7 @@ import 'package:exampur_mobile/provider/CABytesProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/DailyQuizProvider.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
+import 'package:exampur_mobile/provider/FreeVideoProvider.dart';
 import 'package:exampur_mobile/provider/Helpandfeedback.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
@@ -17,6 +18,7 @@ import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/provider/PracticeQuestionProvider.dart';
+import 'package:exampur_mobile/provider/StudyNotesProvider.dart';
 import 'package:exampur_mobile/provider/TestSeriesProvider.dart';
 import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
 import 'package:exampur_mobile/utils/api.dart';
@@ -32,6 +34,7 @@ import 'data/repository/CA_Bytes.dart';
 import 'data/repository/ChooseCategory_repo.dart';
 import 'data/repository/DailyQuiz_repo.dart';
 import 'data/repository/Demorepo.dart';
+import 'data/repository/FreeVideosRepo.dart';
 import 'data/repository/HelpandFeedback.dart';
 import 'data/repository/HomeBanner_repo.dart';
 import 'data/repository/MyCourseRepo.dart';
@@ -40,6 +43,7 @@ import 'data/repository/OfflineBatches_repo.dart';
 import 'data/repository/One2One_repo.dart';
 import 'data/repository/JobAlertsRepo.dart';
 import 'data/repository/PracticeQuestionRepo.dart';
+import 'data/repository/StudyNotesRepo.dart';
 import 'data/repository/test_series_repo.dart';
 import 'data/repository/paid_course_repo.dart';
 
@@ -70,6 +74,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => TestSeriesRepo(dioClient: sl()));
   sl.registerLazySingleton(() => DailyQuizRepo(dioClient: sl()));
   sl.registerLazySingleton(() => PracticeQuestionRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => StudyNotesRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => FreeVideosRepo(dioClient: sl()));
 
 
   // Provider
@@ -91,6 +97,8 @@ Future<void> init() async {
   sl.registerFactory(() =>  TestSeriesProvider(testseriesRepo: sl()));
   sl.registerFactory(() =>  DailyQuizProvider(dailyQuizRepo: sl()));
   sl.registerFactory(() =>  PracticeQuestionProvider(practiceQuestionRepo: sl()));
+  sl.registerFactory(() =>  StudyNotesProvider(studyNotesRepo: sl()));
+  sl.registerFactory(() =>  FreeVideoProvider(freeVideosRepo: sl()));
 
   //External
   final sharedPreferences = await SharedPreferences.getInstance();
