@@ -12,6 +12,7 @@ import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -28,7 +29,10 @@ class TeachingContainer extends StatefulWidget {
 }
 
 class _TeachingContainerState extends State<TeachingContainer> {
-
+  void subscription(String topic) async {
+    await FirebaseMessaging.instance.subscribeToTopic(topic);
+    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+topic);
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -134,7 +138,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             }else{
                               courseTabType = 'Course';
                             }
-
+                            widget.courseType==1?subscription(widget.courseData.id.toString().replaceAll(' ', '_')):'';
                             widget.courseType==1?  Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
                             )): Navigator.push(context, MaterialPageRoute(builder: (_) =>

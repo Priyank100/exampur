@@ -43,7 +43,6 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
       var bytes = data.bodyBytes;
       var dir = await getApplicationDocumentsDirectory();
       File file = File("${dir.path}/" + fileName + ".pdf");
-      // print(dir.path);
       File urlFile = await file.writeAsBytes(bytes);
       return urlFile;
     } catch (e) {
@@ -227,7 +226,8 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
   void downloadPdfFile() async {
     final Dio dio = Dio();
     String url = widget.pdfUrl;
-    String fileName = widget.pdfTitle.replaceAll('||', '').replaceAll('/', '').replaceAll(' ', '_').trim();
+    String fileName =widget.pdfTitle.replaceAll(' ', '-').replaceAll('|', '').replaceAll('||', '').replaceAll('/', '').replaceAll('|', '_').replaceAll(':', '_');
+   // String fileName = widget.pdfTitle.replaceAll('|', '').replaceAll('||', '').replaceAll('/', '').replaceAll('|', '_').replaceAll(' ', '_').replaceAll(':', '_').trim();
     int progress = 0;
     ProgressDialog pd = ProgressDialog(context: context);
 
@@ -244,6 +244,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     );
     var dir = Directory(AppConstants.filePath);
     File file = File("${dir.path}/" + fileName + ".pdf");
+    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+file.toString());
     dio.download(url, file.path, onReceiveProgress: (value1, value2) {
       setState(() {
         progress = ((value1/value2)*100).toInt();

@@ -99,7 +99,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(materialList[index].title.toString(), style: TextStyle(fontSize: 12)),
+          Text(materialList[index].title.toString().replaceAll('--', ''), style: TextStyle(fontSize: 12)),
           // Text(materialList[index].subjectId!.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
           SizedBox(height: 5),
           Row(

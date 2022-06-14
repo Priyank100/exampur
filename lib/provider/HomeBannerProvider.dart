@@ -34,8 +34,8 @@ class HomeBannerProvider extends ChangeNotifier {
   BookModels get bookdetailModel => _bookdetailModel;
 
   //homeBanner request
-  Future<List<BannerData>?> getHomeBannner(BuildContext context) async {
-    ApiResponse apiResponse = await homeBannerRepo.getHomeBanner();
+  Future<List<BannerData>?> getHomeBannner(BuildContext context,String encodecategory) async {
+    ApiResponse apiResponse = await homeBannerRepo.getHomeBanner(encodecategory);
 
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {

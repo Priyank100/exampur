@@ -79,6 +79,7 @@ class API {
   //one2one
   static const String One2One_URL         = BASE_URL2 + 'courses/onetoone/10/';
   static const String TermsConditions_URL = 'https://exampur.com/';
+  static const String PrivacyPolicy_URL = 'buy.exampur.xyz/disclaimer';
 
   //offlineBatches
   static const String offline_batches         = BASE_URL2 + 'offline_centers/findall/10/';

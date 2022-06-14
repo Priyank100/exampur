@@ -113,12 +113,13 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             height: (MediaQuery.of(context).size.width) / 16 * 9,
             width: MediaQuery.of(context).size.width,
             child: FlickVideoPlayer(
+
                 flickManager: flickManager!
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(widget.title, style: TextStyle(fontSize: 20)),
+            child: Text(widget.title.replaceAll('--', ''), style: TextStyle(fontSize: 20)),
           ),
           SizedBox(
             height: 60,

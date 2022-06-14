@@ -75,14 +75,14 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
     myList = chooseList;
     setState(() {});
   }
-  void subscription(String topic) async {
-    await FirebaseMessaging.instance.subscribeToTopic(topic);
-    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+topic);
-  }
-  void unsubscription(String topic) async {
-    await FirebaseMessaging.instance.unsubscribeFromTopic(topic);
-    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>unsubcribe'+topic);
-  }
+  // void subscription(String topic) async {
+  //   await FirebaseMessaging.instance.subscribeToTopic(topic);
+  //   AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+topic);
+  // }
+  // void unsubscription(String topic) async {
+  //   await FirebaseMessaging.instance.unsubscribeFromTopic(topic);
+  //   AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>unsubcribe'+topic);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -161,11 +161,11 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
 
                                           if (myList[index].isSelected == true) {
                                             selectedCountries.add(myList[index].id.toString());
-                                            subscription(myList[index].id.toString());
+                                            //subscription(myList[index].id.toString());
 
                                           } else if (myList[index].isSelected == false) {
                                             selectedCountries.removeWhere((element) => element.toString() == myList[index].id);
-                                            unsubscription(myList[index].id.toString());
+                                           // unsubscription(myList[index].id.toString());
                                           }
                                         });
                                       },

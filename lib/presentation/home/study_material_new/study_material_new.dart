@@ -11,8 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class StudyMaterialNew extends StatefulWidget {
+  final int pagetype;
   final String url;
-  const StudyMaterialNew(this.url) : super();
+  const StudyMaterialNew(this.pagetype,this.url) : super();
 
   @override
   _StudyMaterialNewState createState() => _StudyMaterialNewState();
@@ -46,7 +47,7 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
                   names: studyMaterialDataList.map((item) => item.superCategory.toString()).toList(),
                   routes: studyMaterialDataList.length == 0 ? [] :
                   List.generate(studyMaterialDataList.length, (index) => dataList(index)),
-                  title: getTranslated(context, StringConstant.studyMaterials)!)
+                  title:widget.pagetype==1? getTranslated(context, StringConstant.PreviousYearPdf)!:getTranslated(context, StringConstant.studyMaterials)!)
           );
         });
   }
@@ -78,7 +79,7 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
         ),
         child: ListTile(
             onTap: () {
-              AppConstants.goTo(context, StudyMaterialSubCategory(tabTitle, category.id.toString()));
+              AppConstants.goTo(context, StudyMaterialSubCategory(widget.pagetype,tabTitle, category.id.toString()));
             },
             title: Text(
               category.name.toString(),

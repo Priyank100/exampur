@@ -10,10 +10,11 @@ import 'package:exampur_mobile/data/model/study_material_sub_cat_model.dart';
 import 'package:flutter/material.dart';
 
 class StudyMaterialCategoryPdfListing extends StatefulWidget {
+  final int pagetype;
   final String subTitle;
   final List<Category> pdfList;
 
-  const StudyMaterialCategoryPdfListing(this.subTitle, this.pdfList) : super();
+  const StudyMaterialCategoryPdfListing(this.pagetype,this.subTitle, this.pdfList) : super();
 
   @override
   State<StudyMaterialCategoryPdfListing> createState() => _StudyMaterialCategoryPdfListingState();
@@ -30,7 +31,7 @@ class _StudyMaterialCategoryPdfListingState extends State<StudyMaterialCategoryP
           children: [
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(getTranslated(context, StringConstant.studyMaterials)!, style: CustomTextStyle.headingMediumBold(context)),
+              child: Text(widget.pagetype==1?getTranslated(context, StringConstant.PreviousYearPdf)!:getTranslated(context, StringConstant.studyMaterials)!, style: CustomTextStyle.headingMediumBold(context)),
             ),
             subTitle(),
             SizedBox(height: 10),

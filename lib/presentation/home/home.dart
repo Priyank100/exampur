@@ -25,6 +25,7 @@ import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,7 +49,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String userName = '';
   List<BannerData> bannerList = [];
-
+  final keyRefresh = GlobalKey<RefreshIndicatorState>();
   @override
   void initState() {
     super.initState();
@@ -64,21 +65,21 @@ class _HomeState extends State<Home> {
         if(actiondata[0] == "Course"){
           AppConstants.goTo(context,
               DeliveryDetailScreen('Course', actiondata[1],
-                  '',''));
+                  actiondata[2],actiondata[3]));
 
         }else if(actiondata[0]=="ComboCourse"){
           AppConstants.goTo(context,
               DeliveryDetailScreen('ComboCourse', actiondata[1],
-                  '',''
+                  actiondata[2],actiondata[3]
               ));
         }
         else if(actiondata[0]=="Book"){
           AppConstants.goTo(context,   DeliveryDetailScreen('Book', actiondata[1],
-              '', ''
+              actiondata[2],actiondata[3]
           ));
         }
         else if (actiondata[0] == "youtube"){
-          AppConstants.makeCallEmail("https://youtu.be/${actiondata[1]}");
+          AppConstants.makeCallEmail("${actiondata[1]}");
         }else if(actiondata[0] == "https:"){
           AppConstants.makeCallEmail(message.data['action']);
         }
@@ -102,31 +103,25 @@ class _HomeState extends State<Home> {
         List<String> actiondata =message.data['action'].split("/");
        // List<String> actiontype =message.data['actiontype'].split("/");
         if(actiondata[0] == "Course"){
-          print('>>>>>>>>>>>>>>>>>>>>>>>');
           AppConstants.goTo(context,
           DeliveryDetailScreen('Course', actiondata[1],
-              '',''
+              actiondata[2],actiondata[3]
           ));
         }
         else if(actiondata[0]=="ComboCourse"){
           AppConstants.goTo(context,
               DeliveryDetailScreen('ComboCourse', actiondata[1],
-                  '',''
-              ));
-        }
-        else if(actiondata[0]=="ComboCourse"){
-          AppConstants.goTo(context,
-              DeliveryDetailScreen('ComboCourse', actiondata[1],
-                  '',''
+                  actiondata[2],actiondata[3]
               ));
         }
         else if(actiondata[0]=="Book"){
           AppConstants.goTo(context,   DeliveryDetailScreen('Book', actiondata[1],
-              '', ''
+              actiondata[2], actiondata[3]
           ));
+          print(actiondata[1]);
         }
         else if (actiondata[0] == "youtube"){
-          AppConstants.makeCallEmail("https://youtu.be/${actiondata[1]}");
+          AppConstants.makeCallEmail("${actiondata[1]}");
         }else if(actiondata[0] == "https:"){
           AppConstants.makeCallEmail(message.data['action']);
         }
@@ -142,8 +137,14 @@ class _HomeState extends State<Home> {
         .firstName
         .toString();
     // String token = await Provider.of<AuthProvider>(context, listen: false).informationModel.data!.authToken.toString();
+    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN)
+        .then((token) async {
+    AppConstants.selectedCategoryList =
+    (await Provider.of<ChooseCategoryProvider>(context, listen: false)
+        .getSelectchooseCategoryList(context, token))!;
+    AppConstants.printLog(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+ AppConstants.encodeCategory());
     bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false)
-        .getHomeBannner(context))!;
+        .getHomeBannner(context, AppConstants.encodeCategory()))!;});
     // AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
     // AppConstants.selectedCategoryList = selectCategorylist;
     setState(() {});
@@ -161,290 +162,298 @@ class _HomeState extends State<Home> {
     Locale _locale = await setLocale(language.languageCode);
     MyApp.setLocale(context, _locale);
   }
+  Future<void>_refreshScreen() async{
+    bannerList.clear();
+    return callProvider();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Text(
-                    getTranslated(context, StringConstant.hello)! +
-                        ', ' +
-                        '${userName} !',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: CustomTextStyle.headingBold(context),
+    return RefreshWidget(
+      keyRefresh: keyRefresh,
+      onRefresh:_refreshScreen,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Text(
+                      getTranslated(context, StringConstant.hello)! +
+                          ', ' +
+                          '${userName} !',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: CustomTextStyle.headingBold(context),
+                    ),
                   ),
-                ),
-                DropdownButton<Language>(
-                  underline: SizedBox(),
-                  icon: Image.asset(
-                    Images.language,
-                    height: 35,
-                    width: 30,
-                  ),
-                  onChanged: (Language? language) {
-                    _changeLanguage(language!);
-                    AppConstants.langCode = language.languageCode;
-                  },
-                  items: Language.languageList()
-                      .map<DropdownMenuItem<Language>>(
-                        (e) => DropdownMenuItem<Language>(
-                          value: e,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Text(
-                                e.flag,
-                                style: TextStyle(fontSize: 30),
-                              ),
-                              Text(e.name)
-                            ],
+                  DropdownButton<Language>(
+                    underline: SizedBox(),
+                    icon: Image.asset(
+                      Images.language,
+                      height: 35,
+                      width: 30,
+                    ),
+                    onChanged: (Language? language) {
+                      _changeLanguage(language!);
+                      AppConstants.langCode = language.languageCode;
+                    },
+                    items: Language.languageList()
+                        .map<DropdownMenuItem<Language>>(
+                          (e) => DropdownMenuItem<Language>(
+                            value: e,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Text(
+                                  e.flag,
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                                Text(e.name)
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                      .toList(),
-                )
-              ],
-            ),
-            // SizedBox(height: 5),
-            bannerList.length != 0
-                ? LargeBanner(bannerList: bannerList)
-                : SizedBox(),
-            SizedBox(height: Dimensions.FONT_SIZE_OVER_LARGE),
-            Row(
-              children: [
-                SquareButton(
-                  image: Images.paidcourse,
-                  title: getTranslated(context, StringConstant.paidCourse)!,
-                  color: AppColors.paidCourses,
-                  onPressed: () {
-                    AnalyticsConstants.sendAnalyticsEvent(
-                        AnalyticsConstants.paidCourseClick);
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(builder: (_) => PaidCourses(1)));
-                  },
-                  // navigateTo: PaidCourses(1)
-                ),
-                SquareButton(
-                  image: Images.free_course,
-                  title: getTranslated(context, StringConstant.freeCourses)!,
-                  color: AppColors.freeCourses,
-                  onPressed: () {
-                    AnalyticsConstants.sendAnalyticsEvent(
-                        AnalyticsConstants.freeCourseClick);
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(builder: (_) => PaidCourses(0)));
-                  },
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                SquareButton(
-                  image: Images.book,
-                  title: getTranslated(context, 'books')!,
-                  color: AppColors.book,
-                  onPressed: () {
-                    AnalyticsConstants.sendAnalyticsEvent(
-                        AnalyticsConstants.booksClick);
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(builder: (_) => BooksEbook()));
-                  },
-                ),
-                SquareButton(
-                  image: Images.testseries,
-                  title: getTranslated(context, 'test_courses')!,
-                  color: AppColors.series,
-                  onPressed: () async {
-                    String token = await SharedPref.getSharedPref(
-                        SharedPrefConstants.TOKEN);
-                    AnalyticsConstants.sendAnalyticsEvent(
-                        AnalyticsConstants.testSeriesClick);
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(
-                            builder: (_) =>
-                                //   TestSeriesTab()
-                                TestSeriesNew(API.testSeriesWebUrl, token)));
-                  },
-                ),
-                // SquareButton(
-                //     image: Images.one2one,
-                //     title: getTranslated(context, 'exampur_one2one')!,
-                //     color: AppColors.one2one,
-                //     navigateTo:
-                //     Exampuron2oneView()
-                // ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                SquareButton(
-                  image: Images.dailyquiz,
-                  title: getTranslated(context, StringConstant.Quizz),
-                  color: AppColors.quiz,
-                  onPressed: () async {
-                    String token = await SharedPref.getSharedPref(
-                        SharedPrefConstants.TOKEN);
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (_) =>
-                                TestSeriesNew(API.QuizzesWebUrl, token)));
-                  },
-                ),
-                SquareButton(
-                  image: Images.studymaterial,
-                  title: getTranslated(context, 'study_materials')!,
-                  color: AppColors.one2one,
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(
-                            builder: (_) =>
-                                // CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)
-                                StudyMaterialNew(API.studyMaterialNewUrl)));
-                  },
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                SquareButton(
-                  image: Images.jobalert,
-                  title: getTranslated(context, 'job_alerts')!,
-                  color: AppColors.jobAlert,
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(builder: (_) => JobAlerts()
-                            //   JobNotifications()
-                            ));
-                  },
-                ),
-                SquareButton(
-                  image: Images.current_affair,
-                  title: getTranslated(context, 'current_affairs')!,
-                  color: AppColors.affairs,
-                  onPressed: () {
-                    AnalyticsConstants.sendAnalyticsEvent(
-                        AnalyticsConstants.currentAffairsClick);
+                        )
+                        .toList(),
+                  )
+                ],
+              ),
+              // SizedBox(height: 5),
+              bannerList.length != 0
+                  ? LargeBanner(bannerList: bannerList)
+                  : SizedBox(),
+              SizedBox(height: Dimensions.FONT_SIZE_OVER_LARGE),
+              Row(
+                children: [
+                  SquareButton(
+                    image: Images.paidcourse,
+                    title: getTranslated(context, StringConstant.paidCourse)!,
+                    color: AppColors.paidCourses,
+                    onPressed: () {
+                      AnalyticsConstants.sendAnalyticsEvent(
+                          AnalyticsConstants.paidCourseClick);
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(builder: (_) => PaidCourses(1)));
+                    },
+                    // navigateTo: PaidCourses(1)
+                  ),
+                  SquareButton(
+                    image: Images.free_course,
+                    title: getTranslated(context, StringConstant.freeCourses)!,
+                    color: AppColors.freeCourses,
+                    onPressed: () {
+                      AnalyticsConstants.sendAnalyticsEvent(
+                          AnalyticsConstants.freeCourseClick);
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(builder: (_) => PaidCourses(0)));
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  SquareButton(
+                    image: Images.book,
+                    title: getTranslated(context, 'books')!,
+                    color: AppColors.book,
+                    onPressed: () {
+                      AnalyticsConstants.sendAnalyticsEvent(
+                          AnalyticsConstants.booksClick);
+                      Navigator.of(context, rootNavigator: true)
+                          .push(MaterialPageRoute(builder: (_) => BooksEbook()));
+                    },
+                  ),
+                  SquareButton(
+                    image: Images.testseries,
+                    title: getTranslated(context, 'test_courses')!,
+                    color: AppColors.series,
+                    onPressed: () async {
+                      String token = await SharedPref.getSharedPref(
+                          SharedPrefConstants.TOKEN);
+                      AnalyticsConstants.sendAnalyticsEvent(
+                          AnalyticsConstants.testSeriesClick);
+                      Navigator.of(context, rootNavigator: true)
+                          .push(MaterialPageRoute(
+                              builder: (_) =>
+                                  //   TestSeriesTab()
+                                  TestSeriesNew(API.testSeriesWebUrl, token)));
+                    },
+                  ),
+                  // SquareButton(
+                  //     image: Images.one2one,
+                  //     title: getTranslated(context, 'exampur_one2one')!,
+                  //     color: AppColors.one2one,
+                  //     navigateTo:
+                  //     Exampuron2oneView()
+                  // ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  SquareButton(
+                    image: Images.dailyquiz,
+                    title: getTranslated(context, StringConstant.Quizz),
+                    color: AppColors.quiz,
+                    onPressed: () async {
+                      String token = await SharedPref.getSharedPref(
+                          SharedPrefConstants.TOKEN);
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  TestSeriesNew(API.QuizzesWebUrl, token)));
+                    },
+                  ),
+                  SquareButton(
+                    image: Images.studymaterial,
+                    title: getTranslated(context, 'study_materials')!,
+                    color: AppColors.one2one,
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .push(MaterialPageRoute(
+                              builder: (_) =>
+                                  // CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)
+                                  StudyMaterialNew(0,API.studyMaterialNewUrl)));
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  SquareButton(
+                    image: Images.jobalert,
+                    title: getTranslated(context, 'job_alerts')!,
+                    color: AppColors.jobAlert,
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .push(MaterialPageRoute(builder: (_) => JobAlerts()
+                              //   JobNotifications()
+                              ));
+                    },
+                  ),
+                  SquareButton(
+                    image: Images.current_affair,
+                    title: getTranslated(context, 'current_affairs')!,
+                    color: AppColors.affairs,
+                    onPressed: () {
+                      AnalyticsConstants.sendAnalyticsEvent(
+                          AnalyticsConstants.currentAffairsClick);
 
-                    // Navigator.of(context, rootNavigator: true).push(
-                    //     MaterialPageRoute(
-                    //         builder: (_) => CurrentAffairs(
-                    //             getTranslated(context, 'current_affairs')!,
-                    //             AppConstants.currentAffairesId)));
+                      // Navigator.of(context, rootNavigator: true).push(
+                      //     MaterialPageRoute(
+                      //         builder: (_) => CurrentAffairs(
+                      //             getTranslated(context, 'current_affairs')!,
+                      //             AppConstants.currentAffairesId)));
 
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            settings: RouteSettings(name: "CAN"),
-                            builder: (_) => CurrentAffairsTab()));
-                  },
-                ),
-                // SquareButton(
-                //     image: Images.offlinebatch,
-                //     title: getTranslated(context, 'offline_batches')!,
-                //     color: AppColors.brown400,
-                //     navigateTo: OfflineCourse()),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                // SquareButton(
-                //   image: Images.caBytes,
-                //   title: getTranslated(context, StringConstant.CaBytes)!,
-                //   color: AppColors.jobAlert,
-                //   onPressed: () {
-                //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CaBytes()));
-                //
-                //     // own player testing
-                //     /*Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
-                //         PriyankPlayer('Priyank Video Player',
-                //             'https://downloadexampur.appx.co.in/paid_course/0.46657945645736841649068141070.mp4')));*/
-                //   },
-                // ),
-                SquareButton(
-                  image: Images.studymaterial,
-                  title: getTranslated(context, StringConstant.PreviousYearPdf),
-                  color: AppColors.paidCourses,
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (_) =>
-                                StudyMaterialNew(API.previousYearMaterialUrl)));
-                  },
-                ),
-                SquareButton(
-                  image: Images.practice,
-                  title:
-                      getTranslated(context, StringConstant.PracticeQuestion)!,
-                  color: AppColors.brown400,
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (_) => PracticeQuestionCategory()));
-                  },
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                SquareButton(
-                  image: Images.live_test,
-                  title: getTranslated(context, StringConstant.liveTest),
-                  color: AppColors.orange,
-                  onPressed: () async {
-                    String token = await SharedPref.getSharedPref(
-                        SharedPrefConstants.TOKEN);
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (_) =>
-                                TestSeriesNew(API.LiveTestWebUrl, token)));
-                  },
-                ),
-              ],
-            )
-            // Row(
-            //   children: [
-            //     SquareButton(
-            //       image: Images.current_affair,
-            //       title: 'Study Notes',
-            //       color: AppColors.paidCourses,
-            //       onPressed: () {
-            //         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
-            //       },
-            //     ),
-            //     SquareButton(
-            //       image: Images.current_affair,
-            //       title: 'Free Videos',
-            //       color: AppColors.paidCourses,
-            //       onPressed: () {
-            //         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideos(API.freeVideoUrl)));
-            //       },
-            //     ),
-            //   ],
-            // ),
-          ],
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              settings: RouteSettings(name: "CAN"),
+                              builder: (_) => CurrentAffairsTab()));
+                    },
+                  ),
+                  // SquareButton(
+                  //     image: Images.offlinebatch,
+                  //     title: getTranslated(context, 'offline_batches')!,
+                  //     color: AppColors.brown400,
+                  //     navigateTo: OfflineCourse()),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  // SquareButton(
+                  //   image: Images.caBytes,
+                  //   title: getTranslated(context, StringConstant.CaBytes)!,
+                  //   color: AppColors.jobAlert,
+                  //   onPressed: () {
+                  //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CaBytes()));
+                  //
+                  //     // own player testing
+                  //     /*Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
+                  //         PriyankPlayer('Priyank Video Player',
+                  //             'https://downloadexampur.appx.co.in/paid_course/0.46657945645736841649068141070.mp4')));*/
+                  //   },
+                  // ),
+                  SquareButton(
+                    image: Images.studymaterial,
+                    title: getTranslated(context, StringConstant.PreviousYearPdf),
+                    color: AppColors.paidCourses,
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  StudyMaterialNew(1,API.previousYearMaterialUrl)));
+                    },
+                  ),
+                  SquareButton(
+                    image: Images.practice,
+                    title:
+                        getTranslated(context, StringConstant.PracticeQuestion)!,
+                    color: AppColors.brown400,
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              builder: (_) => PracticeQuestionCategory()));
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  SquareButton(
+                    image: Images.live_test,
+                    title: getTranslated(context, StringConstant.liveTest),
+                    color: AppColors.orange,
+                    onPressed: () async {
+                      String token = await SharedPref.getSharedPref(
+                          SharedPrefConstants.TOKEN);
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  TestSeriesNew(API.LiveTestWebUrl, token)));
+                    },
+                  ),
+                ],
+              )
+              // Row(
+              //   children: [
+              //     SquareButton(
+              //       image: Images.current_affair,
+              //       title: 'Study Notes',
+              //       color: AppColors.paidCourses,
+              //       onPressed: () {
+              //         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
+              //       },
+              //     ),
+              //     SquareButton(
+              //       image: Images.current_affair,
+              //       title: 'Free Videos',
+              //       color: AppColors.paidCourses,
+              //       onPressed: () {
+              //         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideos(API.freeVideoUrl)));
+              //       },
+              //     ),
+              //   ],
+              // ),
+            ],
+          ),
         ),
       ),
     );

@@ -16,9 +16,9 @@ class HomeBannerRepo {
 
   HomeBannerRepo({required this.dioClient});
 
-  Future<ApiResponse> getHomeBanner() async {
+  Future<ApiResponse> getHomeBanner(String encodecategory) async {
     try {
-      final url = API.homeBanner_URL + '?category=' + AppConstants.encodeCategory();
+      final url = API.homeBanner_URL + '?category=' + encodecategory;
       AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

@@ -80,7 +80,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
         var statusCode = body['statusCode'].toString();
         if (statusCode == '200') {
           model = FinalOrderPayModel.fromJson(body);
-          subscription(model.data!.product!.id.toString().replaceAll(' ', '_'));
+        //  subscription(model.data!.product!.id.toString().replaceAll(' ', '_'));
         } else {
           error = body['data'].toString();
           AppConstants.showBottomMessage(context, error, AppColors.black);

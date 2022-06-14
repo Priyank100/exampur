@@ -10,10 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class StudyMaterialSubCategory extends StatefulWidget {
+  final int pagetype;
   final String tabTitle;
   final String categoryId;
 
-  const StudyMaterialSubCategory(this.tabTitle, this.categoryId) : super();
+  const StudyMaterialSubCategory(this.pagetype,this.tabTitle, this.categoryId) : super();
 
   @override
   State<StudyMaterialSubCategory> createState() => _StudyMaterialSubCategoryState();
@@ -45,7 +46,7 @@ class _StudyMaterialSubCategoryState extends State<StudyMaterialSubCategory> {
           children: [
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(getTranslated(context, StringConstant.studyMaterials)!, style: CustomTextStyle.headingMediumBold(context)),
+              child: Text(widget.pagetype==1?getTranslated(context, StringConstant.PreviousYearPdf)!:getTranslated(context, StringConstant.studyMaterials)!, style: CustomTextStyle.headingMediumBold(context)),
             ),
             isLoading || studyMaterialSubCatModel == null ? SizedBox() : categoryTitle(),
             SizedBox(height: 10),
@@ -94,7 +95,7 @@ class _StudyMaterialSubCategoryState extends State<StudyMaterialSubCategory> {
         child: ListTile(
             onTap: () {
               String subTitle = widget.tabTitle + ' -> ' + studyMaterialSubCatModel!.categoryName.toString() + ' -> ' + subCategory.name.toString();
-              AppConstants.goTo(context, StudyMaterialCategoryPdfListing(subTitle, subCategory.category!));
+              AppConstants.goTo(context, StudyMaterialCategoryPdfListing(widget.pagetype,subTitle, subCategory.category!));
             },
             title: Text(
               subCategory.name.toString(),

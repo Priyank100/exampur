@@ -9,6 +9,8 @@ import 'package:webview_flutter/platform_interface.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class TermsAndConditions extends StatefulWidget {
+  String url ;
+  TermsAndConditions(this.url);
   @override
   State<TermsAndConditions> createState() => _TermsAndConditionsState();
 }
@@ -33,7 +35,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
             ),
             body:   WebView(
               javascriptMode: JavascriptMode.unrestricted,
-              initialUrl:API.TermsConditions_URL,
+              initialUrl:widget.url,
               gestureNavigationEnabled: true,
               onWebViewCreated: (WebViewController webViewController) {
                 _controller.future.then((value) => controllerGlobal = value);
