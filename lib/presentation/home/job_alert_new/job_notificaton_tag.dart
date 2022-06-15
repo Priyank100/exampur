@@ -6,31 +6,43 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class JobNotificationTag extends StatefulWidget {
-  List<JobNotificationTagModel> jobNotificationTagList;
-   JobNotificationTag(this.jobNotificationTagList) : super();
+  Function callback2;
+   JobNotificationTag(this.callback2) : super();
 
   @override
   State<JobNotificationTag> createState() => _JobNotificationTagState();
 }
 
 class _JobNotificationTagState extends State<JobNotificationTag> {
- // List<JobNotificationTagModel> jobNotificationTagList = [];
+ List<JobNotificationTagModel> jobNotificationTagList = [];
+ List<FgBgColor> selectedColorList = [];
+ String selectedTagSlug = '';
 
-  // @override
-  // void initState() {
-  //   getCoursesList();
-  //   super.initState();
-  // }
-  //
-  // Future<void> getCoursesList() async {
-  //   jobNotificationTagList = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationTagList(context))!;
-  //   setState(() {});
-  // }
+  @override
+  void initState() {
+    getCoursesList();
+    super.initState();
+  }
+
+  Future<void> getCoursesList() async {
+    jobNotificationTagList = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationTagList(context))!;
+
+    if(jobNotificationTagList.length != null && jobNotificationTagList.length > 0) {
+      for (int i = 0; i < jobNotificationTagList.length; i++) {
+        selectedColorList.add(FgBgColor(MaterialStateProperty.all<Color>(AppColors.black), MaterialStateProperty.all<Color>(AppColors.white)));
+      }
+    }
+    selectedColorList[0].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+    selectedColorList[0].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+    selectedTagSlug = jobNotificationTagList[0].slug.toString();
+    this.widget.callback2(selectedTagSlug);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: widget.jobNotificationTagList.length,
+        itemCount: jobNotificationTagList.length,
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
@@ -44,12 +56,12 @@ class _JobNotificationTagState extends State<JobNotificationTag> {
       padding: EdgeInsets.all(5),
       child: ElevatedButton(
           child: Text(
-             widget.jobNotificationTagList[index].name.toString(),
+             jobNotificationTagList[index].name.toString(),
               style: TextStyle(fontSize: 12)
           ),
           style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(AppColors.black),
-              backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
+              foregroundColor: selectedColorList[index].fgColor,
+              backgroundColor: selectedColorList[index].bgColor,
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
@@ -58,9 +70,23 @@ class _JobNotificationTagState extends State<JobNotificationTag> {
               )
           ),
           onPressed: (){
-
+            for(int i=0; i<selectedColorList.length; i++) {
+              selectedColorList[i].fgColor = MaterialStateProperty.all<Color>(AppColors.black);
+              selectedColorList[i].bgColor = MaterialStateProperty.all<Color>(AppColors.white);
+            }
+            selectedColorList[index].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+            selectedColorList[index].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+            selectedTagSlug = jobNotificationTagList[index].slug.toString();
+            this.widget.callback2(selectedTagSlug);
+            setState(() {});
           }
       ),
     );
   }
+}
+
+class FgBgColor {
+  MaterialStateProperty<Color> fgColor;
+  MaterialStateProperty<Color> bgColor;
+  FgBgColor(this.fgColor, this.bgColor);
 }

@@ -18,52 +18,55 @@ class JobNotifications extends StatefulWidget {
 }
 
 class _JobNotificationsState extends State<JobNotifications> {
-  List<JobNotificationCourseModel> jobNotificationCourseList = [];
-  List<JobNotificationTagModel> jobNotificationTagList = [];
+  String courseId = '';
+  String tagSlug = '';
   JobNotificationListModel? jobNotificationListModel;
-  bool isLoading = false;
-
-  @override
-  void initState() {
-    getCoursesList();
-    super.initState();
-  }
-
-  Future<void> getCoursesList() async {
-    isLoading = true ;
-    jobNotificationCourseList = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationCourseList(context))!;
-    jobNotificationCourseList.insert(0, JobNotificationCourseModel(id: 0, name: 'ALL EXAM', description: '', order: 0, isActive: true));
-    jobNotificationTagList = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationTagList(context))!;
-    jobNotificationListModel = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationData(context,'latest-jobs',''))!;
-    isLoading = false;
-    setState(() {});
-  }
+  bool isLoading = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body:  isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-      jobNotificationCourseList == null || jobNotificationCourseList.length == 0 ||jobNotificationTagList == null || jobNotificationTagList.length == 0 || jobNotificationListModel == null || jobNotificationListModel!.notification!.length == 0  ?
-      AppConstants.noDataFound() :
-      Column(
+      body:  Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
               padding: const EdgeInsets.all(5),
               height: 60,
-              child:  JobNotificationCourses(jobNotificationCourseList)
+              child:  JobNotificationCourses(this.callback)
           ),
           Container(
               padding: const EdgeInsets.all(5),
               height: 60,
-              child:  JobNotificationTag(jobNotificationTagList)
+              child:  JobNotificationTag(this.callback2)
           ),
+           tagSlug.isEmpty ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
            Expanded(
-              child: JobNotificationListing(jobNotificationListModel)
+              child: isLoading ?
+              Center(child: CircularProgressIndicator(color: AppColors.amber)) :
+              JobNotificationListing(jobNotificationListModel!)
           )
         ],
       ),
     );
+  }
+
+  void callback(String courseId) {
+    this.courseId = courseId;
+    getJobNotificationListing();
+    setState(() {});
+  }
+
+  void callback2(String tagSlug) {
+    this.tagSlug = tagSlug;
+    getJobNotificationListing();
+    setState(() {});
+  }
+
+  Future<void> getJobNotificationListing() async {
+    isLoading = true;
+    jobNotificationListModel = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationData(context, tagSlug, courseId))!;
+    isLoading = false;
+    setState(() {});
   }
 }

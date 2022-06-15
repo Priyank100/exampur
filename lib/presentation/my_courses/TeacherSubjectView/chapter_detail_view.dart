@@ -104,9 +104,11 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
           SizedBox(height: 5),
           Row(
             children: [
-              VideoDownloadButton(index),
+              materialList[index].videoLink == null || materialList[index].videoLink.toString().isEmpty ?
+              SizedBox() : VideoDownloadButton(index),
               SizedBox(width: 5),
-              PdfButton(index)
+              materialList[index].pdfPath == null || materialList[index].pdfPath.toString().isEmpty ?
+              SizedBox() : PdfButton(index)
             ],
           ),
         ],

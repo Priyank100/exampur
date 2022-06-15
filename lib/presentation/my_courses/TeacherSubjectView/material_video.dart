@@ -113,7 +113,6 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             height: (MediaQuery.of(context).size.width) / 16 * 9,
             width: MediaQuery.of(context).size.width,
             child: FlickVideoPlayer(
-
                 flickManager: flickManager!
             ),
           ),
@@ -126,6 +125,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
           ),
           Center(
             child: InkWell(onTap: (){
+              _playerController!.pause();
               if(widget.download.isEmpty) {
                 if(widget.url.contains('mp4')) {
                   AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
@@ -160,7 +160,9 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
 
         dir.deleteSync(recursive: true);
        // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
-        return;
+       //  return;
+        requestVideoDownload();
+
       } else {
         final savedDir = Directory(_localPath);
         await savedDir.create(recursive: true).then((value) async {

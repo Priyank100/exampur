@@ -5,6 +5,7 @@ import 'package:exampur_mobile/data/model/job_alert_list_model.dart';
 import 'package:exampur_mobile/data/model/job_alert_tab_model.dart';
 import 'package:exampur_mobile/data/model/job_alerts_detail_model.dart';
 import 'package:exampur_mobile/data/model/job_notification_course_model.dart';
+import 'package:exampur_mobile/data/model/job_notification_detail_model.dart';
 import 'package:exampur_mobile/data/model/job_notification_list_model.dart';
 import 'package:exampur_mobile/data/model/job_notification_tag_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
@@ -25,6 +26,9 @@ class JobAlertsProvider extends ChangeNotifier {
 
   JobNotificationListModel _jobNotificationListModel = JobNotificationListModel();
   JobNotificationListModel get jobNotificationListModel => _jobNotificationListModel;
+
+  JobNotificationDetailModel _jobNotificationDetailModel = JobNotificationDetailModel();
+  JobNotificationDetailModel get jobNotificationDetailModel => _jobNotificationDetailModel;
 
 
   Future<List<TabData>?> getJobAlertsTabList(BuildContext context) async {
@@ -128,6 +132,20 @@ class JobAlertsProvider extends ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _jobNotificationListModel = JobNotificationListModel.fromJson(json.decode(apiResponse.response.toString()));
       return _jobNotificationListModel;
+
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.goAndReplace(context, ErrorScreen());
+    }
+    notifyListeners();
+  }
+
+  Future<JobNotificationDetailModel?> getJobNotificationDetail(BuildContext context, String articleId) async {
+    ApiResponse apiResponse = await jobAlertsRepo.jobNotificationsDetail(articleId);
+
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _jobNotificationDetailModel = JobNotificationDetailModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _jobNotificationDetailModel;
 
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
