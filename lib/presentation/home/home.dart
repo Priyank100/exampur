@@ -32,13 +32,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 import '../../main.dart';
-import 'BannerBookDetailPage.dart';
 import 'FreeVideos/freeVideo.dart';
 import 'PracticeQuestion/practice_question_category.dart';
 import 'TestSeries/test_series_tab.dart';
 import 'package:provider/provider.dart';
 
-import 'banner_link_detail_page.dart';
 import 'current_affairs_new/current_affairs_tab.dart';
 
 class Home extends StatefulWidget {
@@ -52,6 +50,8 @@ class _HomeState extends State<Home> {
   String userName = '';
   List<BannerData> bannerList = [];
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
+  String TOKEN = '';
+
   @override
   void initState() {
     super.initState();
@@ -66,17 +66,18 @@ class _HomeState extends State<Home> {
        // List<String> actiontype = message.data['actiontype'].split("/");
         if(actiondata[0] == "Course"){
           AppConstants.goTo(context,
-              BannerLinkDetailPage('Course', actiondata[1],
-                 ));
+              DeliveryDetailScreen('Course', actiondata[1],
+                  actiondata[2],actiondata[3]));
 
-        }else if(actiondata[0] == "Combo Course"){
+        }else if(actiondata[0]=="ComboCourse"){
           AppConstants.goTo(context,
-              BannerLinkDetailPage('Combo Course',actiondata[1],
+              DeliveryDetailScreen('ComboCourse', actiondata[1],
+                  actiondata[2],actiondata[3]
               ));
         }
-        else if(actiondata[0] == "Book"){
-          AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
-
+        else if(actiondata[0]=="Book"){
+          AppConstants.goTo(context,   DeliveryDetailScreen('Book', actiondata[1],
+              actiondata[2],actiondata[3]
           ));
         }
         else if (actiondata[0] == "youtube"){
@@ -105,19 +106,19 @@ class _HomeState extends State<Home> {
        // List<String> actiontype =message.data['actiontype'].split("/");
         if(actiondata[0] == "Course"){
           AppConstants.goTo(context,
-              BannerLinkDetailPage('Course', actiondata[1],
-
+          DeliveryDetailScreen('Course', actiondata[1],
+              actiondata[2],actiondata[3]
           ));
         }
-        else if(actiondata[0] == "Combo Course"){
+        else if(actiondata[0]=="ComboCourse"){
           AppConstants.goTo(context,
-              BannerLinkDetailPage('Combo Course', actiondata[1],
-
+              DeliveryDetailScreen('ComboCourse', actiondata[1],
+                  actiondata[2],actiondata[3]
               ));
         }
-        else if(actiondata[0] == "Book"){
-          AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
-
+        else if(actiondata[0]=="Book"){
+          AppConstants.goTo(context,   DeliveryDetailScreen('Book', actiondata[1],
+              actiondata[2], actiondata[3]
           ));
           print(actiondata[1]);
         }
@@ -138,31 +139,27 @@ class _HomeState extends State<Home> {
         .firstName
         .toString();
     // String token = await Provider.of<AuthProvider>(context, listen: false).informationModel.data!.authToken.toString();
-    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN)
-        .then((token) async {
-    AppConstants.selectedCategoryList =
-    (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-        .getSelectchooseCategoryList(context, token))!;
-    AppConstants.printLog(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+ AppConstants.encodeCategory());
-    bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false)
-        .getHomeBannner(context, AppConstants.encodeCategory()))!;});
-    // AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
-    // AppConstants.selectedCategoryList = selectCategorylist;
-    setState(() {});
+    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((token) async {
+      TOKEN = token;
+      AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
+      AppConstants.printLog(">>>>>>>>>>>"+ AppConstants.encodeCategory());
+      bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context, AppConstants.encodeCategory()))!;});
+      // AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
+      // AppConstants.selectedCategoryList = selectCategorylist;
+      setState(() {});
   }
 
-  Future<void> getSharedPrefData() async {
-    var jsonValue = jsonDecode(
-        await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
-    // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
+  /*Future<void> getSharedPrefData() async {
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     setState(() {});
-  }
+  }*/
 
   void _changeLanguage(Language language) async {
     Locale _locale = await setLocale(language.languageCode);
     MyApp.setLocale(context, _locale);
   }
+
   Future<void>_refreshScreen() async{
     bannerList.clear();
     return callProvider();
@@ -276,15 +273,13 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'test_courses')!,
                     color: AppColors.series,
                     onPressed: () async {
-                      String token = await SharedPref.getSharedPref(
-                          SharedPrefConstants.TOKEN);
                       AnalyticsConstants.sendAnalyticsEvent(
                           AnalyticsConstants.testSeriesClick);
                       Navigator.of(context, rootNavigator: true)
                           .push(MaterialPageRoute(
                               builder: (_) =>
                                   //   TestSeriesTab()
-                                  TestSeriesNew(API.testSeriesWebUrl, token)));
+                                  TestSeriesNew(API.testSeriesWebUrl, TOKEN)));
                     },
                   ),
                   // SquareButton(
@@ -306,12 +301,10 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, StringConstant.Quizz),
                     color: AppColors.quiz,
                     onPressed: () async {
-                      String token = await SharedPref.getSharedPref(
-                          SharedPrefConstants.TOKEN);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
-                                  TestSeriesNew(API.QuizzesWebUrl, token)));
+                                  TestSeriesNew(API.quizzesWebUrl, TOKEN)));
                     },
                   ),
                   SquareButton(
@@ -340,8 +333,8 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true)
                           .push(MaterialPageRoute(builder: (_) =>
-                          JobAlerts()
-                               // JobNotifications()
+                          // JobAlerts()
+                                JobNotifications()
                               ));
                     },
                   ),
@@ -424,27 +417,24 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, StringConstant.liveTest),
                     color: AppColors.orange,
                     onPressed: () async {
-                      String token = await SharedPref.getSharedPref(
-                          SharedPrefConstants.TOKEN);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
-                                  TestSeriesNew(API.LiveTestWebUrl, token)));
+                                  TestSeriesNew(API.liveTestWebUrl, TOKEN)));
                     },
                   ),
                 ],
-              ),
-              // SizedBox(height: 10,),
+              )
               // Row(
               //   children: [
-              //     // SquareButton(
-              //     //   image: Images.current_affair,
-              //     //   title: 'Study Notes',
-              //     //   color: AppColors.paidCourses,
-              //     //   onPressed: () {
-              //     //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
-              //     //   },
-              //     // ),
+              //     SquareButton(
+              //       image: Images.current_affair,
+              //       title: 'Study Notes',
+              //       color: AppColors.paidCourses,
+              //       onPressed: () {
+              //         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
+              //       },
+              //     ),
               //     SquareButton(
               //       image: Images.current_affair,
               //       title: 'Free Videos',

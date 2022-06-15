@@ -30,7 +30,7 @@ class StudyNotesProvider extends ChangeNotifier {
   StudyNotesDescriptionModel get studyNotesChapterDescriptionModel => _studyNotesChapterDescriptionModel;
 
   Future<List<StudyNotesModel>?> getStudyNotesList(BuildContext context,String url) async {
-    ApiResponse apiResponse = await studyNotesRepo.studynotes(url);
+    ApiResponse apiResponse = await studyNotesRepo.studyNotes(url);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       List<StudyNotesModel> myList = List<StudyNotesModel>.from(apiResponse.response!.data.map((x) => StudyNotesModel.fromJson(x)));
       return myList;
@@ -43,7 +43,7 @@ class StudyNotesProvider extends ChangeNotifier {
   }
 
   Future<StudyNotesSubjectModel?> getStudyNotesSubjectList(BuildContext context,String courseId) async {
-    ApiResponse apiResponse = await studyNotesRepo.studyNotesSubject(API.studynotessubjectUrl,courseId);
+    ApiResponse apiResponse = await studyNotesRepo.studyNotesSubject(API.studyNotesSubjectUrl,courseId);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _studyNotesSubjectModel = StudyNotesSubjectModel.fromJson(json.decode(apiResponse.response.toString()));
       return _studyNotesSubjectModel;
@@ -54,7 +54,7 @@ class StudyNotesProvider extends ChangeNotifier {
     notifyListeners();
   }
   Future<StudyNotesChaperModel?> getStudyNotesChapterList(BuildContext context,String subjectId) async {
-    ApiResponse apiResponse = await studyNotesRepo.studyNotesSubject(API.studynoteschapterUrl,subjectId);
+    ApiResponse apiResponse = await studyNotesRepo.studyNotesSubject(API.studyNotesChapterUrl,subjectId);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _studyNotesChapterModel = StudyNotesChaperModel.fromJson(json.decode(apiResponse.response.toString()));
       return _studyNotesChapterModel;
@@ -65,7 +65,7 @@ class StudyNotesProvider extends ChangeNotifier {
     notifyListeners();
   }
 Future<StudyNotesDescriptionModel?> getStudyNotesChapterDescriptionList(BuildContext context,String contentId) async {
-    ApiResponse apiResponse = await studyNotesRepo.studyNotesSubject(API.studynoteschapterdescriptionUrl,contentId);
+    ApiResponse apiResponse = await studyNotesRepo.studyNotesSubject(API.studyNotesChapterDescriptionUrl,contentId);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _studyNotesChapterDescriptionModel = StudyNotesDescriptionModel.fromJson(json.decode(apiResponse.response.toString()));
       return _studyNotesChapterDescriptionModel;

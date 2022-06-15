@@ -50,8 +50,7 @@ class BottomNavigationOld extends StatefulWidget {
   _BottomNavigationOldState createState() => _BottomNavigationOldState();
 }
 
-class _BottomNavigationOldState extends State<BottomNavigationOld>
-    with TickerProviderStateMixin {
+class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerProviderStateMixin {
   int _currIndex = 0;
   late AnimationController _hide;
   late List<AnimationController> _faders;
@@ -60,7 +59,8 @@ class _BottomNavigationOldState extends State<BottomNavigationOld>
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<Data> allCategoriesList = [];
   List<String> selectedCategoryName = [];
-  String PHONE_VERIFY = '';
+  // String PHONE_VERIFY = '';
+  String TOKEN = '';
 
   final List<Widget> widgetList = [
     Home(),
@@ -91,23 +91,16 @@ class _BottomNavigationOldState extends State<BottomNavigationOld>
   }
 
   Future<void> callProvider() async {
-    await Provider.of<AuthProvider>(context, listen: false)
-        .getBannerBaseUrl(context);
+    await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context);
 
+    // var userData = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    // PHONE_VERIFY = userData[0]['data']['phone_conf'].toString();
 
-    var userData = jsonDecode(
-        await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
-    PHONE_VERIFY = userData[0]['data']['phone_conf'].toString();
-
-    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN)
-        .then((token) async {
+    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((token) async {
       AppConstants.printLog('TOKEN>> $token');
-      allCategoriesList =
-      (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-          .getAllCategoryList(context))!;
-      AppConstants.selectedCategoryList =
-          (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-              .getSelectchooseCategoryList(context, token))!;
+      TOKEN = token;
+      allCategoriesList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getAllCategoryList(context))!;
+      AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
 
       for (int i = 0; i < AppConstants.selectedCategoryList.length; i++) {
         for (int j = 0; j < allCategoriesList.length; j++) {
@@ -532,13 +525,11 @@ class _BottomNavigationOldState extends State<BottomNavigationOld>
                             ),
                           ]),
                       onTap: () async {
-                        String token = await SharedPref.getSharedPref(
-                            SharedPrefConstants.TOKEN);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => TestSeriesNew(
-                                    API.AttemptTestWebUrl, token)));
+                                    API.attemptTestWebUrl, TOKEN)));
                       },
                     ),
                     ListTile(
@@ -563,13 +554,11 @@ class _BottomNavigationOldState extends State<BottomNavigationOld>
                             ),
                           ]),
                       onTap: () async {
-                        String token = await SharedPref.getSharedPref(
-                            SharedPrefConstants.TOKEN);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => TestSeriesNew(
-                                    API.AttemptQuizzeWebUrl, token)));
+                                    API.attemptQuizzesWebUrl, TOKEN)));
                       },
                     ),
                     ListTile(
@@ -595,13 +584,12 @@ class _BottomNavigationOldState extends State<BottomNavigationOld>
                           ]),
                       onTap: () async {
                         _scaffoldKey.currentState?.openEndDrawer();
-                        String token = await SharedPref.getSharedPref(
-                            SharedPrefConstants.TOKEN);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TestSeriesNew(
-                                    API.SavedQuestionWebUrl, token)));
+                                builder: (context) => TestSeriesNew(API.savedQuestionWebUrl, TOKEN)
+                            )
+                        );
                       },
                     ),
                     ListTile(

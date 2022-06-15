@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class TestSeriesNew extends StatefulWidget {
-  final String Url;
+  final String url;
    final String token;
-  const TestSeriesNew(this.Url,this.token) : super();
+  const TestSeriesNew(this.url,this.token) : super();
 
   @override
   State<TestSeriesNew> createState() => _TestSeriesNewState();
@@ -23,6 +23,7 @@ class _TestSeriesNewState extends State<TestSeriesNew> {
 
   final Completer<WebViewController> _controllerCompleter =
   Completer<WebViewController>();
+
   //Make sure this function return Future<bool> otherwise you will get an error
   Future<bool> _onWillPop(BuildContext context) async {
     if (await _controller!.canGoBack()) {
@@ -44,12 +45,12 @@ class _TestSeriesNewState extends State<TestSeriesNew> {
           children: <Widget>[
             WebView(
               key: _key,
-              initialUrl: widget.Url.replaceAll('Token', widget.token),
+              initialUrl: widget.url.replaceAll('TOKEN', widget.token),
               javascriptMode: JavascriptMode.unrestricted,
-    onWebViewCreated: (WebViewController webViewController) {
-            _controllerCompleter.future.then((value) => _controller = value);
-            _controllerCompleter.complete(webViewController);
-          },
+              onWebViewCreated: (WebViewController webViewController) {
+                _controllerCompleter.future.then((value) => _controller = value);
+                _controllerCompleter.complete(webViewController);
+                },
               onPageFinished: (finish) {
                 setState(() {
                   isLoading = false;
@@ -60,16 +61,6 @@ class _TestSeriesNewState extends State<TestSeriesNew> {
                 : Stack(),
           ],
         ),
-        // body: SafeArea(
-        //     child: WebView(
-        //       key: UniqueKey(),
-        //       onWebViewCreated: (WebViewController webViewController) {
-        //         _controllerCompleter.future.then((value) => _controller = value);
-        //         _controllerCompleter.complete(webViewController);
-        //       },
-        //       javascriptMode: JavascriptMode.unrestricted,
-        //       initialUrl: widget.Url.replaceAll('Token', widget.token),
-        //     )),
       ),
     );
   }
