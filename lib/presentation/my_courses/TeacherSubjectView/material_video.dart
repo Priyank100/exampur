@@ -43,8 +43,11 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     );
   }
 
+
+
   @override
   void dispose() {
+    _playerController!.pause();
     _playerController!.dispose();
     flickManager!.dispose();
     super.dispose();
@@ -113,7 +116,6 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             height: (MediaQuery.of(context).size.width) / 16 * 9,
             width: MediaQuery.of(context).size.width,
             child: FlickVideoPlayer(
-
                 flickManager: flickManager!
             ),
           ),
@@ -126,6 +128,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
           ),
           Center(
             child: InkWell(onTap: (){
+              _playerController!.pause();
               if(widget.download.isEmpty) {
                 if(widget.url.contains('mp4')) {
                   AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
@@ -154,13 +157,15 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
   Future<void> requestVideoDownload() async {
     final dir = await getApplicationDocumentsDirectory();
     var _localPath = dir.path + '/' + widget.title;
+    await File(_localPath).exists().then((value) {});
     await Directory(_localPath).exists().then((alreadyExist) async {
       AppConstants.printLog(alreadyExist);
       if (alreadyExist) {
-
         dir.deleteSync(recursive: true);
        // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
-        return;
+       //  return;
+        requestVideoDownload();
+
       } else {
         final savedDir = Directory(_localPath);
         await savedDir.create(recursive: true).then((value) async {
@@ -173,7 +178,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             saveInPublicStorage: false,
           );
           AppConstants.printLog(_taskid);
-          Navigator.push(context, MaterialPageRoute(builder: (_) => Downloads(0)));
+          Navigator.push(context, MaterialPageRoute(builder: (_) => Downloads(0,)));
         });
       }
     });

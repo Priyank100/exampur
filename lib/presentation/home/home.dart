@@ -32,11 +32,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 import '../../main.dart';
+import 'BannerBookDetailPage.dart';
 import 'FreeVideos/freeVideo.dart';
 import 'PracticeQuestion/practice_question_category.dart';
 import 'TestSeries/test_series_tab.dart';
 import 'package:provider/provider.dart';
 
+import 'banner_link_detail_page.dart';
 import 'current_affairs_new/current_affairs_tab.dart';
 
 class Home extends StatefulWidget {
@@ -64,18 +66,17 @@ class _HomeState extends State<Home> {
        // List<String> actiontype = message.data['actiontype'].split("/");
         if(actiondata[0] == "Course"){
           AppConstants.goTo(context,
-              DeliveryDetailScreen('Course', actiondata[1],
-                  actiondata[2],actiondata[3]));
+              BannerLinkDetailPage('Course', actiondata[1],
+                 ));
 
-        }else if(actiondata[0]=="ComboCourse"){
+        }else if(actiondata[0] == "Combo Course"){
           AppConstants.goTo(context,
-              DeliveryDetailScreen('ComboCourse', actiondata[1],
-                  actiondata[2],actiondata[3]
+              BannerLinkDetailPage('Combo Course',actiondata[1],
               ));
         }
-        else if(actiondata[0]=="Book"){
-          AppConstants.goTo(context,   DeliveryDetailScreen('Book', actiondata[1],
-              actiondata[2],actiondata[3]
+        else if(actiondata[0] == "Book"){
+          AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
+
           ));
         }
         else if (actiondata[0] == "youtube"){
@@ -104,19 +105,19 @@ class _HomeState extends State<Home> {
        // List<String> actiontype =message.data['actiontype'].split("/");
         if(actiondata[0] == "Course"){
           AppConstants.goTo(context,
-          DeliveryDetailScreen('Course', actiondata[1],
-              actiondata[2],actiondata[3]
+              BannerLinkDetailPage('Course', actiondata[1],
+
           ));
         }
-        else if(actiondata[0]=="ComboCourse"){
+        else if(actiondata[0] == "Combo Course"){
           AppConstants.goTo(context,
-              DeliveryDetailScreen('ComboCourse', actiondata[1],
-                  actiondata[2],actiondata[3]
+              BannerLinkDetailPage('Combo Course', actiondata[1],
+
               ));
         }
-        else if(actiondata[0]=="Book"){
-          AppConstants.goTo(context,   DeliveryDetailScreen('Book', actiondata[1],
-              actiondata[2], actiondata[3]
+        else if(actiondata[0] == "Book"){
+          AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
+
           ));
           print(actiondata[1]);
         }
@@ -338,8 +339,9 @@ class _HomeState extends State<Home> {
                     color: AppColors.jobAlert,
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true)
-                          .push(MaterialPageRoute(builder: (_) => JobAlerts()
-                              //   JobNotifications()
+                          .push(MaterialPageRoute(builder: (_) =>
+                          JobAlerts()
+                               // JobNotifications()
                               ));
                     },
                   ),
@@ -431,17 +433,18 @@ class _HomeState extends State<Home> {
                     },
                   ),
                 ],
-              )
+              ),
+              // SizedBox(height: 10,),
               // Row(
               //   children: [
-              //     SquareButton(
-              //       image: Images.current_affair,
-              //       title: 'Study Notes',
-              //       color: AppColors.paidCourses,
-              //       onPressed: () {
-              //         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
-              //       },
-              //     ),
+              //     // SquareButton(
+              //     //   image: Images.current_affair,
+              //     //   title: 'Study Notes',
+              //     //   color: AppColors.paidCourses,
+              //     //   onPressed: () {
+              //     //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
+              //     //   },
+              //     // ),
               //     SquareButton(
               //       image: Images.current_affair,
               //       title: 'Free Videos',
