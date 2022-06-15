@@ -8,7 +8,7 @@ class StudyNotesRepo {
 
   StudyNotesRepo({required this.dioClient});
 
-  Future<ApiResponse> studynotes(String url) async {
+  Future<ApiResponse> studyNotes(String url) async {
     try {
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

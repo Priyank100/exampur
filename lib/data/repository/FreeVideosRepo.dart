@@ -18,7 +18,7 @@ class FreeVideosRepo {
   }
   Future<ApiResponse> freeVideosList(String url,String subjectId) async {
     try {
-      String urls = url.replaceAll('Subject_Id', subjectId);
+      String urls = url.replaceAll('SUBJECT_ID', subjectId);
       final response = await dioClient.get(urls);
       return ApiResponse.withSuccess(response);
     } catch (e) {

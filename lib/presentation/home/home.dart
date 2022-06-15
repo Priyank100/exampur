@@ -50,6 +50,8 @@ class _HomeState extends State<Home> {
   String userName = '';
   List<BannerData> bannerList = [];
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
+  String TOKEN = '';
+
   @override
   void initState() {
     super.initState();
@@ -137,31 +139,27 @@ class _HomeState extends State<Home> {
         .firstName
         .toString();
     // String token = await Provider.of<AuthProvider>(context, listen: false).informationModel.data!.authToken.toString();
-    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN)
-        .then((token) async {
-    AppConstants.selectedCategoryList =
-    (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-        .getSelectchooseCategoryList(context, token))!;
-    AppConstants.printLog(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+ AppConstants.encodeCategory());
-    bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false)
-        .getHomeBannner(context, AppConstants.encodeCategory()))!;});
-    // AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
-    // AppConstants.selectedCategoryList = selectCategorylist;
-    setState(() {});
+    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((token) async {
+      TOKEN = token;
+      AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
+      AppConstants.printLog(">>>>>>>>>>>"+ AppConstants.encodeCategory());
+      bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context, AppConstants.encodeCategory()))!;});
+      // AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
+      // AppConstants.selectedCategoryList = selectCategorylist;
+      setState(() {});
   }
 
-  Future<void> getSharedPrefData() async {
-    var jsonValue = jsonDecode(
-        await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
-    // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
+  /*Future<void> getSharedPrefData() async {
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     setState(() {});
-  }
+  }*/
 
   void _changeLanguage(Language language) async {
     Locale _locale = await setLocale(language.languageCode);
     MyApp.setLocale(context, _locale);
   }
+
   Future<void>_refreshScreen() async{
     bannerList.clear();
     return callProvider();
@@ -275,15 +273,13 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'test_courses')!,
                     color: AppColors.series,
                     onPressed: () async {
-                      String token = await SharedPref.getSharedPref(
-                          SharedPrefConstants.TOKEN);
                       AnalyticsConstants.sendAnalyticsEvent(
                           AnalyticsConstants.testSeriesClick);
                       Navigator.of(context, rootNavigator: true)
                           .push(MaterialPageRoute(
                               builder: (_) =>
                                   //   TestSeriesTab()
-                                  TestSeriesNew(API.testSeriesWebUrl, token)));
+                                  TestSeriesNew(API.testSeriesWebUrl, TOKEN)));
                     },
                   ),
                   // SquareButton(
@@ -305,12 +301,10 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, StringConstant.Quizz),
                     color: AppColors.quiz,
                     onPressed: () async {
-                      String token = await SharedPref.getSharedPref(
-                          SharedPrefConstants.TOKEN);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
-                                  TestSeriesNew(API.QuizzesWebUrl, token)));
+                                  TestSeriesNew(API.quizzesWebUrl, TOKEN)));
                     },
                   ),
                   SquareButton(
@@ -338,7 +332,8 @@ class _HomeState extends State<Home> {
                     color: AppColors.jobAlert,
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true)
-                          .push(MaterialPageRoute(builder: (_) => JobAlerts()
+                          .push(MaterialPageRoute(builder: (_) =>
+                          JobAlerts()
                               //   JobNotifications()
                               ));
                     },
@@ -422,12 +417,10 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, StringConstant.liveTest),
                     color: AppColors.orange,
                     onPressed: () async {
-                      String token = await SharedPref.getSharedPref(
-                          SharedPrefConstants.TOKEN);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
-                                  TestSeriesNew(API.LiveTestWebUrl, token)));
+                                  TestSeriesNew(API.liveTestWebUrl, TOKEN)));
                     },
                   ),
                 ],

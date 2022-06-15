@@ -27,6 +27,9 @@ class API {
   // base url for new module from web
   static const String WEB_BASE_URL = 'https://exampur.com/api/';
 
+  // base url for webview
+  static const String WEBVIEW_URL = 'https://exampur.com/e-app/login?token=TOKEN&path=/e-app/';
+
 //=========================================================================================================//
 
   //BannerBase
@@ -44,7 +47,7 @@ class API {
 
   static const String Login_URL_2           = BASE_URL1_U + 'auth/login';
   static const String Valid_Token_URL_2     = BASE_URL1_U + 'user';
-  static const String Update_User_URL_2    = BASE_URL1_U + 'user';
+  static const String Update_User_URL_2     = BASE_URL1_U + 'user';
   static const String Change_Password_URL_2 = BASE_URL1_U + 'auth/changePassword';
   static const String Send_OTP_URL_2        = BASE_URL1_U + 'otp';
   static const String Reset_Password_URL_2  = BASE_URL1_U + 'auth/resetPassword';
@@ -57,7 +60,7 @@ class API {
   static const String homeBannerCombolink_URL   = BASE_URL2 + 'combo/findone/';
 
   //Category
-  static const String All_category_URL         = BASE_URL2 + 'category/all';
+  static const String All_category_URL            = BASE_URL2 + 'category/all';
   static const String Update_Choose_category_URL  = BASE_URL1 + 'user/updateCategory';
   static const String Select_Choose_category_URL  = BASE_URL1 + 'user/getCategory';
 
@@ -79,7 +82,7 @@ class API {
   //one2one
   static const String One2One_URL         = BASE_URL2 + 'courses/onetoone/10/';
   static const String TermsConditions_URL = 'https://exampur.com/';
-  static const String PrivacyPolicy_URL = 'buy.exampur.xyz/disclaimer';
+  static const String PrivacyPolicy_URL   = 'buy.exampur.xyz/disclaimer';
 
   //offlineBatches
   static const String offline_batches         = BASE_URL2 + 'offline_centers/findall/10/';
@@ -90,9 +93,9 @@ class API {
   static const String AppTutorial_URL = BASE_URL2 + 'tutorials/app';
 
   //helpandfeedback
-  static const String HelpFeedback_URL = BASE_URL1 + 'ticket/create';
+  static const String HelpFeedback_URL    = BASE_URL1 + 'ticket/create';
 
-  static const String HelpFeedback_URL_2 = BASE_URL1_U + 'ticket/create';
+  static const String HelpFeedback_URL_2  = BASE_URL1_U + 'ticket/create';
 
   //order_course
   static const String order_course          = BASE_URL1 + 'order_course/create';
@@ -123,23 +126,23 @@ class API {
   static const String finalize_order_test_series_2 = BASE_URL1_U + 'order_testseries/finalize';
 
   //coupon
-  static const String CouponCode_URL = BASE_URL1 +'promo_code/';
+  static const String CouponCode_URL    = BASE_URL1 + 'promo_code/';
 
-  static const String CouponCode_URL_2 = BASE_URL1_U +'promo_code/';
+  static const String CouponCode_URL_2  = BASE_URL1_U + 'promo_code/';
 
   //demo
-  static const String Demo_URL = BASE_URL2 +'course_timeline_demo';
+  static const String Demo_URL = BASE_URL2 + 'course_timeline_demo';
 
   //jobAlerts
-  static const String job_alerts_tab_URL      = BASE_URL2 +'alert/categories';
-  static const String job_alerts_list_URL     = BASE_URL2 +'alert/findall/' + 'ALERT_CATEGORY_ID' + '/' + 'ENCODE_CATEGORY' + '/10/';
-  static const String job_alerts_details_URL  = BASE_URL2 +'alert/findone/' + 'ALERT_ID';
+  static const String job_alerts_tab_URL      = BASE_URL2 + 'alert/categories';
+  static const String job_alerts_list_URL     = BASE_URL2 + 'alert/findall/' + 'ALERT_CATEGORY_ID' + '/' + 'ENCODE_CATEGORY' + '/10/';
+  static const String job_alerts_details_URL  = BASE_URL2 + 'alert/findone/' + 'ALERT_ID';
 
   //current_affairs
   static const String ca_sm_url = BASE_URL2 + 'content/findall/' + 'CONTENT_CATEGORY_ID' + '/' + 'TYPE' + '/' + 'ENCODE_CATEGORY' + '/10/';
 
   //CaBytes
-  static const String ca_bytes_url   = BASE_URL2+ 'ca_byte/' + 'ENCODE_CATEGORY' + '/10/';
+  static const String ca_bytes_url   = BASE_URL2 + 'ca_byte/' + 'ENCODE_CATEGORY' + '/10/';
 
   //my_purchase
   static const String mypurchase  = BASE_URL1 + 'mypurchase/findall';
@@ -149,28 +152,28 @@ class API {
   static const String myinvoice_2   = BASE_URL1_U + 'mypurchase/findone/';
 
   //my_course
-  static const String myCourse_URL              = BASE_URL1 + 'mycourses';
-  static const String myCourse_subject_URL      = BASE_URL1 + 'course_subject/';
-  static const String myCourse_material_URL     = BASE_URL1 + 'course_material/material/';
-  static const String myCourse_chapter_URL     = BASE_URL1 + 'course_material/chapter/';
+  static const String myCourse_URL                      = BASE_URL1 + 'mycourses';
+  static const String myCourse_subject_URL              = BASE_URL1 + 'course_subject/';
+  static const String myCourse_material_URL             = BASE_URL1 + 'course_material/material/';
+  static const String myCourse_chapter_URL              = BASE_URL1 + 'course_material/chapter/';
   // static const String myCourse_timeline_URL     = BASE_URL1 + 'course_timeline';
-  static const String myCourse_timelineshareStream_URL   = BASE_URL1 + 'course_timeline/shareStreamToMobile';
-  static const String myCourse_notification_URL = BASE_URL1 + 'course_notification';
-  static const String myCourse_timeline_live_URL     = BASE_URL1 + 'course_timeline/live';
-  static const String myCourse_timeline_upcoming_URL     = BASE_URL1 + 'course_timeline/upcoming';
+  static const String myCourse_timelineshareStream_URL  = BASE_URL1 + 'course_timeline/shareStreamToMobile';
+  static const String myCourse_notification_URL         = BASE_URL1 + 'course_notification';
+  static const String myCourse_timeline_live_URL        = BASE_URL1 + 'course_timeline/live';
+  static const String myCourse_timeline_upcoming_URL    = BASE_URL1 + 'course_timeline/upcoming';
 
   //testSeries
   static const String allTestSeries_URL   = BASE_URL2 + 'test_series';
   static const String liveTestSeries_URL  = BASE_URL2 + 'live_testseries';
   static const String myTestSeries_URL    = BASE_URL1 + 'testseries/enrolled/get_my_testseries';
   // static const String testSeriesWeb_URL  = 'https://exampurtest.vercel.app/testseries/list/' + 'TEST_SERIES_ID' + '?auth_token=' + 'AUTH_TOKEN';
-  static const String testSeriesWeb_URL  = 'https://testweb.exampur.xyz/' + 'TESTSERIES_ID'+'/list' + '?auth_token=' + 'AUTH_TOKEN';
+  static const String testSeriesWeb_URL   = 'https://testweb.exampur.xyz/' + 'TESTSERIES_ID'+'/list' + '?auth_token=' + 'AUTH_TOKEN';
 
 
   //dailyQuiz
-  static const String dailyQuiz_URL  = BASE_URL2 + 'quiz/find_all_quiz?page_id=';
+  static const String dailyQuiz_URL         = BASE_URL2 + 'quiz/find_all_quiz?page_id=';
   // static const String dailyQuiz_web_URL  = 'https://test.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
-  static const String dailyQuiz_web_URL  = 'https://testweb.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
+  static const String dailyQuiz_web_URL     = 'https://testweb.exampur.xyz/quiz/' + 'QUIZ_ID' + '?auth_token=' + 'AUTH_TOKEN';
 
   //study Material New
   static const String studyMaterialNewUrl       = WEB_BASE_URL + 'study-material/';
@@ -197,23 +200,23 @@ class API {
   static const String jobNotificationDetailUrl      = WEB_BASE_URL + 'job-detail/';
 
   // Study_Notes
-  static const String studynotesUrl     = WEB_BASE_URL + 'study-notes-exam/';
-  static const String studynotessubjectUrl     = WEB_BASE_URL + 'study-notes-subject/'+'COURSE_ID';
-  static const String studynoteschapterUrl     = WEB_BASE_URL + 'study-notes-chapter/'+'COURSE_ID';
-  static const String studynoteschapterdescriptionUrl     = WEB_BASE_URL + 'study-notes-detail/'+'COURSE_ID';
+  static const String studyNotesUrl                   = WEB_BASE_URL + 'study-notes-exam/';
+  static const String studyNotesSubjectUrl            = WEB_BASE_URL + 'study-notes-subject/' + 'COURSE_ID';
+  static const String studyNotesChapterUrl            = WEB_BASE_URL + 'study-notes-chapter/' + 'COURSE_ID';
+  static const String studyNotesChapterDescriptionUrl = WEB_BASE_URL + 'study-notes-detail/' + 'COURSE_ID';
 
   //free Videos
-  static const String freeVideoUrl     = WEB_BASE_URL + 'free-videos-exam-category/';
-  static const String freeVideolistUrl     = WEB_BASE_URL + 'free-videos-subject/' +'Subject_Id';
-  static const String freeVideocontentUrl     = WEB_BASE_URL + 'free-videos-content/' +'Subject_Id';
+  static const String freeVideoUrl        = WEB_BASE_URL + 'free-videos-exam-category/';
+  static const String freeVideoListUrl    = WEB_BASE_URL + 'free-videos-subject/' + 'SUBJECT_ID';
+  static const String freeVideoContentUrl = WEB_BASE_URL + 'free-videos-content/' + 'SUBJECT_ID';
 
 
-  //testSeriesWeburl
-  static const String testSeriesWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/test-series/';
-  static const String LiveTestWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/live-tests/';
-  static const String QuizzesWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/short-quiz/';
-  static const String AttemptTestWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/attempted-test/';
-  static const String AttemptQuizzeWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/attempted-quiz/';
-  static const String SavedQuestionWebUrl     = 'https://exampur.com/e-app/login?token=Token&path=/e-app/saved-question/';
+  //testSeriesWebUrl
+  static const String testSeriesWebUrl        = WEBVIEW_URL + 'test-series/';
+  static const String liveTestWebUrl          = WEBVIEW_URL + 'live-tests/';
+  static const String quizzesWebUrl           = WEBVIEW_URL + 'short-quiz/';
+  static const String attemptTestWebUrl       = WEBVIEW_URL + 'attempted-test/';
+  static const String attemptQuizzesWebUrl    = WEBVIEW_URL + 'attempted-quiz/';
+  static const String savedQuestionWebUrl     = WEBVIEW_URL + 'saved-question/';
 
 }

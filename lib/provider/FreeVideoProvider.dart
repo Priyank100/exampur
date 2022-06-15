@@ -39,7 +39,7 @@ class FreeVideoProvider extends ChangeNotifier {
 
 
   Future<FreeVideoListModel?> getfreeVideoList(BuildContext context,String subjectId) async {
-    ApiResponse apiResponse = await freeVideosRepo.freeVideosList(API.freeVideolistUrl,subjectId);
+    ApiResponse apiResponse = await freeVideosRepo.freeVideosList(API.freeVideoListUrl,subjectId);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _freeVideoListModel = FreeVideoListModel.fromJson(json.decode(apiResponse.response.toString()));
       return _freeVideoListModel;
@@ -50,7 +50,7 @@ class FreeVideoProvider extends ChangeNotifier {
     notifyListeners();
   }
   Future<FreeVideoContentModel?> getfreeVideoContentList(BuildContext context,String subjectId) async {
-    ApiResponse apiResponse = await freeVideosRepo.freeVideosList(API.freeVideocontentUrl,subjectId);
+    ApiResponse apiResponse = await freeVideosRepo.freeVideosList(API.freeVideoContentUrl,subjectId);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _freeVideoContentListModel = FreeVideoContentModel.fromJson(json.decode(apiResponse.response.toString()));
       return _freeVideoContentListModel;
