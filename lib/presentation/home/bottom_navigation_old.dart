@@ -404,7 +404,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                         // await  FirebaseAnalytics.instance.logEvent(name: 'COURSE',parameters: {
                         //    'id':'123456'
                         //  });
-                        //  FirebaseMessaging.instance.subscribeToTopic('Testing');
+                        FirebaseMessaging.instance.subscribeToTopic('Testing');
 
                         _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
