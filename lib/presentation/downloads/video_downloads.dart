@@ -101,7 +101,9 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
                   ? ListView.builder(
                       itemCount: 1,
                       itemBuilder: (BuildContext context, int i) {
-                        return AppConstants.noDataFound();
+                        return Center(
+                            child: Image.asset('assets/images/no_data.png')
+                        );
                       })
                   : ListView.builder(
                       itemCount: downloadsListMaps.length,
@@ -351,6 +353,17 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
                               setState(() {});
                             },
                           )
-                        : Container();
+                        :
+    GestureDetector(
+      child:
+      Icon(Icons.close, size: 20, color: Colors.red),
+      onTap: () {
+        FlutterDownloader.cancel(taskId: taskid);
+        downloadsListMaps.removeAt(index);
+        FlutterDownloader.remove(
+            taskId: taskid, shouldDeleteContent: true);
+        setState(() {});
+      },
+    );
   }
 }

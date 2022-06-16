@@ -148,7 +148,6 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Question '+(count+index+1).toString() +':',style: TextStyle(color: AppColors.amber),),
-        TeXView(child: TeXViewDocument(practiceQuestionListingModel!.questions![index].englishQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' '))),
         Html(
             data: AppConstants.langCode == 'hi' ?
             practiceQuestionListingModel!.questions![index].hindiQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' ') :
@@ -278,7 +277,6 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
       ],
     ) : SizedBox();
   }
-
 }
 
 class MyRadio {

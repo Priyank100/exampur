@@ -1,9 +1,11 @@
 import 'package:exampur_mobile/data/model/curent_affairs_new_tab_model.dart';
+import 'package:exampur_mobile/data/model/response/languagemodel.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs_new/current_affairs_filter.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs_new/current_affairs_listing.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,36 +47,76 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
-                child: Container(
-                  height: 40,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: AppColors.grey200,
-                    border: Border.all(color: AppColors.grey, width: 1),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: TextField(
-                    readOnly: true,
-                    autocorrect: false,
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                      AppConstants.goTo(context, CurrentAffairsFilter('S'));
-                    },
-                    cursorColor: AppColors.amber,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search,size: 25,color: AppColors.grey400),
-                      hintText: 'Search...',
-                      hintStyle: TextStyle(
-                        color: AppColors.grey400,
-                      ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
-                      isDense: true,
-                      counterText: '',
-                      errorStyle: TextStyle(height: 1.5),
-                      border: InputBorder.none,
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: AppColors.grey200,
+                            border: Border.all(color: AppColors.grey, width: 1),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: TextField(
+                            readOnly: true,
+                            autocorrect: false,
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              AppConstants.goTo(context, CurrentAffairsFilter('S'));
+                            },
+                            cursorColor: AppColors.amber,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.search,size: 25,color: AppColors.grey400),
+                              hintText: 'Search...',
+                              hintStyle: TextStyle(
+                                color: AppColors.grey400,
+                              ),
+                              contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+                              isDense: true,
+                              counterText: '',
+                              errorStyle: TextStyle(height: 1.5),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
                     ),
-                  ),
-                ),
+                    Container(
+                      width: MediaQuery.of(context).size.width/8,
+                      child: DropdownButton<Language>(
+                        isExpanded: true,
+                        underline: SizedBox(),
+                        icon: Image.asset(
+                          Images.language,
+                          height: 35,
+                          width: 30,
+                        ),
+                        onChanged: (Language? language) {
+                          AppConstants.langCode = language!.languageCode;
+                          setState(() {});
+                        },
+                        items: Language.languageList()
+                            .map<DropdownMenuItem<Language>>(
+                              (e) => DropdownMenuItem<Language>(
+                            value: e,
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    e.flag,
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                  Text(e.name,style: TextStyle(fontSize: 10),)
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                            .toList(),
+                      ),
+                    )
+                  ],
+                )
               ),
               Expanded(
                   child:DefaultTabController(
