@@ -81,6 +81,7 @@ dependencies:
   new_version: ^0.3.0
   sms_autofill: ^2.2.0
   sn_progress_dialog: ^1.0.8
+  flutter_tex: 4.0.3+1
 
 
 

@@ -492,6 +492,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_tex:
+    dependency: "direct main"
+    description:
+      name: flutter_tex
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.3+1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -588,6 +595,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.2"
+  markdown:
+    dependency: transitive
+    description:
+      name: markdown
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.1"
   marquee:
     dependency: "direct main"
     description:
@@ -1188,6 +1202,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
+  webview_flutter_plus:
+    dependency: transitive
+    description:
+      name: webview_flutter_plus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.4"
   webview_flutter_wkwebview:
     dependency: transitive
     description:

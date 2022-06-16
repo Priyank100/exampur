@@ -229,6 +229,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
         bottomNavigationBar: Container(
           child: widget.courseType==1 ? InkWell(
             onTap: () {
+              _controller.pause();
               FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
                 'Couse_Id':widget.courseData.id.toString(),
                 'Couse_Name':widget.courseData.title.toString()

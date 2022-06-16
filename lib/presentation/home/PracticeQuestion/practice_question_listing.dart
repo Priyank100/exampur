@@ -8,6 +8,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_tex/flutter_tex.dart';
 import 'package:provider/provider.dart';
 
 class PracticeQuestionListing extends StatefulWidget {
@@ -146,6 +147,13 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+      //   TeXView(
+      //   child: TeXViewDocument(
+      //     practiceQuestionListingModel!.questions![index].englishQuestion.toString(),
+      // ),
+
+          // Katex for fast render and MathJax for quality render.
+        //),
         Text('Question '+(count+index+1).toString() +':',style: TextStyle(color: AppColors.amber),),
         Html(
             data: AppConstants.langCode == 'hi' ?

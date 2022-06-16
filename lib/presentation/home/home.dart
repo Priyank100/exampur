@@ -423,26 +423,26 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  // SquareButton(
-                  //   image: Images.current_affair,
-                  //   title: 'Study Notes',
-                  //   color: AppColors.paidCourses,
-                  //   onPressed: () {
-                  //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
-                  //   },
-                  // ),
-                  SquareButton(
-                    image: Images.current_affair,
-                    title: 'Free Videos',
-                    color: AppColors.paidCourses,
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideos(API.freeVideoUrl)));
-                    },
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     // SquareButton(
+              //     //   image: Images.current_affair,
+              //     //   title: 'Study Notes',
+              //     //   color: AppColors.paidCourses,
+              //     //   onPressed: () {
+              //     //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
+              //     //   },
+              //     // ),
+              //     SquareButton(
+              //       image: Images.current_affair,
+              //       title: 'Free Videos',
+              //       color: AppColors.paidCourses,
+              //       onPressed: () {
+              //         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideos(API.freeVideoUrl)));
+              //       },
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),

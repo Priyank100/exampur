@@ -84,7 +84,9 @@ class MyCoursesState extends State<MyCourses> {
                 children: [
                   Text(getTranslated(context, StringConstant.myCourses)!,
                       style: CustomTextStyle.headingBold(context)),
-                  allCourseList.length == 0 ? SizedBox() : CategoryDropDownButton()
+                  allCourseList.length == 0 ? SizedBox() : Container(
+                    width: MediaQuery.of(context).size.width/2,
+                      child: CategoryDropDownButton())
                 ],
               ),
               allCourseList.length == 0 ? SizedBox() : Padding(
@@ -354,10 +356,11 @@ class MyCoursesState extends State<MyCourses> {
   Widget CategoryDropDownButton() {
     return DropdownButton<String>(
       value: dropdownValue,
+      isExpanded: true,
       icon: Icon(Icons.arrow_drop_down),
       iconSize: 24,
       elevation: 16,
-      style: TextStyle(color: AppColors.black, fontSize: 16),
+      style: TextStyle(color: AppColors.black, fontSize: 16, ),
       underline: Container(
         height: 1,
         color: AppColors.amber,
@@ -384,7 +387,7 @@ class MyCoursesState extends State<MyCourses> {
       items: allCategoryNameList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value),
+          child: Text(value,overflow: TextOverflow.ellipsis,),
         );
       }).toList(),
     );
