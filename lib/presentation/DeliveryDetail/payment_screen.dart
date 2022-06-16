@@ -36,58 +36,60 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(),
-        body: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              textUse(getTranslated(context, StringConstant.billingaddress)!+' : ', 25),
-              SizedBox(height: 10),
-              Divider(),
-              SizedBox(height: 10),
-              textUse(getTranslated(context, StringConstant.name)!+' : ' + widget.billingModel.name.toString(), 15),
-              SizedBox(height: 10),
-              textUse(getTranslated(context, StringConstant.phoneNumber)!+' : ' + widget.billingModel.mobile.toString(), 15),
-              SizedBox(height: 10),
-              textUse(getTranslated(context, StringConstant.email)!+' : ' + widget.billingModel.eMail.toString(), 15),
-              widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox(): SizedBox(height: 10),
-              widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox():  textUse(getTranslated(context, StringConstant.address)!+' : ' + widget.billingModel.address.toString(), 15),
-              SizedBox(height: 10),
-              textUse(getTranslated(context, StringConstant.city)!+' : ' + widget.billingModel.city.toString(), 15),
-              SizedBox(height: 10),
-              textUse(getTranslated(context, StringConstant.state)!+' : ' + widget.billingModel.state.toString(), 15),
-              SizedBox(height: 10),
-              textUse(getTranslated(context, StringConstant.country)!+' : ' + widget.billingModel.country.toString(), 15),
-              SizedBox(height: 10),
-              widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox(): textUse(getTranslated(context, StringConstant.pinCode)!+' : ' + widget.billingModel.pincode.toString(), 15),
-              SizedBox(height: 10),
-              widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox(): textUse(getTranslated(context, StringConstant.landmarkTehsil)!+' : ' + widget.billingModel.landmark.toString(), 15),
-              SizedBox(height: 10),
-              Divider(),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                textUse(getTranslated(context, StringConstant.billingaddress)!+' : ', 25),
+                SizedBox(height: 10),
+                Divider(),
+                SizedBox(height: 10),
+                textUse(getTranslated(context, StringConstant.name)!+' : ' + widget.billingModel.name.toString(), 15),
+                SizedBox(height: 10),
+                textUse(getTranslated(context, StringConstant.phoneNumber)!+' : ' + widget.billingModel.mobile.toString(), 15),
+                SizedBox(height: 10),
+                textUse(getTranslated(context, StringConstant.email)!+' : ' + widget.billingModel.eMail.toString(), 15),
+                widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox(): SizedBox(height: 10),
+                widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox():  textUse(getTranslated(context, StringConstant.address)!+' : ' + widget.billingModel.address.toString(), 15),
+                SizedBox(height: 10),
+                textUse(getTranslated(context, StringConstant.city)!+' : ' + widget.billingModel.city.toString(), 15),
+                SizedBox(height: 10),
+                textUse(getTranslated(context, StringConstant.state)!+' : ' + widget.billingModel.state.toString(), 15),
+                SizedBox(height: 10),
+                textUse(getTranslated(context, StringConstant.country)!+' : ' + widget.billingModel.country.toString(), 15),
+                SizedBox(height: 10),
+                widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox(): textUse(getTranslated(context, StringConstant.pinCode)!+' : ' + widget.billingModel.pincode.toString(), 15),
+                SizedBox(height: 10),
+                widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox(): textUse(getTranslated(context, StringConstant.landmarkTehsil)!+' : ' + widget.billingModel.landmark.toString(), 15),
+                SizedBox(height: 10),
+                Divider(),
 
-              SizedBox(height: 10),
-              widget.type == 'Course' || widget.type == 'Combo' ?
-              textUse(getTranslated(context, StringConstant.coursename)!+' : ' + widget.billingModel.itemName.toString(), 15) :
-              widget.type == 'TestSeries' ?
-              textUse('TestSeries Name'+' : ' + widget.billingModel.itemName.toString(), 15) :
-              textUse(getTranslated(context, StringConstant.book_name)! + ' : ' + widget.billingModel.itemName.toString(), 15),
-              SizedBox(height: 10),
-              textUse(getTranslated(context, StringConstant.TotalAmount)!+' : ' + widget.deliveryModel.data!.amount.toString(), 15),
-              SizedBox(height: 10),
-              Divider(),
-              SizedBox(height: 20),
-              MaterialButton(
-                onPressed: () {
-                  openCheckout();
-                },
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  width: double.maxFinite,
-                  color: Colors.amber,
-                  child: Text(getTranslated(context, StringConstant.paynow)!, textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
+                SizedBox(height: 10),
+                widget.type == 'Course' || widget.type == 'Combo' ?
+                textUse(getTranslated(context, StringConstant.coursename)!+' : ' + widget.billingModel.itemName.toString(), 15) :
+                widget.type == 'TestSeries' ?
+                textUse('TestSeries Name'+' : ' + widget.billingModel.itemName.toString(), 15) :
+                textUse(getTranslated(context, StringConstant.book_name)! + ' : ' + widget.billingModel.itemName.toString(), 15),
+                SizedBox(height: 10),
+                textUse(getTranslated(context, StringConstant.TotalAmount)!+' : ' + widget.deliveryModel.data!.amount.toString(), 15),
+                SizedBox(height: 10),
+                Divider(),
+                SizedBox(height: 20),
+                MaterialButton(
+                  onPressed: () {
+                    openCheckout();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    width: double.maxFinite,
+                    color: Colors.amber,
+                    child: Text(getTranslated(context, StringConstant.paynow)!, textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
+                  )
                 )
-              )
-            ],
+              ],
+            ),
           ),
         )
     );

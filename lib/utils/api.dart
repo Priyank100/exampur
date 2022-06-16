@@ -219,4 +219,7 @@ class API {
   static const String attemptQuizzesWebUrl    = WEBVIEW_URL + 'attempted-quiz/';
   static const String savedQuestionWebUrl     = WEBVIEW_URL + 'saved-question/';
 
+//
+  static const String zoomlink     = 'https://us02web.zoom.us/j/83323674101?pwd=SWtCK3h1WTBEMzN1SVh3V3Q2TS9aUT09';
+
 }

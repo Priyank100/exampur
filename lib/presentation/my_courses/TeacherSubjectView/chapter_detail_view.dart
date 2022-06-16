@@ -1,6 +1,7 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
+import 'package:exampur_mobile/presentation/authentication/terms_condition.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/material_video.dart';
 import 'package:exampur_mobile/presentation/my_courses/Timeline/TimetableView.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button_amber_color_watch.dart';
@@ -9,10 +10,12 @@ import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
+import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,11 +36,16 @@ class ChapterDetailView extends StatefulWidget {
 class _ChapterDetailViewState extends State<ChapterDetailView> {
   List<MaterialData> materialList = [];
   bool isLoading = false;
-
+  final keyRefresh = GlobalKey<RefreshIndicatorState>();
   @override
   void initState() {
     callProvider();
     super.initState();
+  }
+
+  Future<void>_refreshScreen() async{
+    materialList.clear();
+    return callProvider();
   }
 
   Future<void> callProvider() async {
@@ -53,7 +61,10 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: isLoading ? LoadingIndicator(context)
+      body:RefreshWidget(
+      keyRefresh: keyRefresh,
+      onRefresh:_refreshScreen,
+    child: isLoading ? LoadingIndicator(context)
           : materialList.length == 0 ? AppConstants.noDataFound()
           : ListView.builder(
               itemCount: materialList.length,
@@ -74,15 +85,19 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                   ),
                 );
               }),
-    );
+      ));
   }
 
   Widget chapterImage(index) {
     return Container(
       width: Dimensions.WatchButtonWidth,
       height: Dimensions.AppTutorialImageHeight,
-      child: AppConstants.image(
+      child: materialList[index].videoLink == null || materialList[index].videoLink.toString().isEmpty ?
+      materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
 
+          Image.asset(Images.pdfIcon):
+
+      AppConstants.image(
           materialList[index].timeline != null &&
               materialList[index].timeline!.logoPath != null &&
               materialList[index].timeline!.logoPath.toString().isNotEmpty ?
@@ -90,7 +105,16 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
           materialList[index].timeline!.logoPath.toString().contains('http') ?
           materialList[index].timeline!.logoPath.toString() : AppConstants.BANNER_BASE + materialList[index].timeline!.logoPath.toString()
 
-              : 'error', boxfit: BoxFit.fill),
+              : 'error', boxfit: BoxFit.fill) : AppConstants.image(
+          materialList[index].timeline != null &&
+              materialList[index].timeline!.logoPath != null &&
+              materialList[index].timeline!.logoPath.toString().isNotEmpty ?
+
+          materialList[index].timeline!.logoPath.toString().contains('http') ?
+          materialList[index].timeline!.logoPath.toString() : AppConstants.BANNER_BASE + materialList[index].timeline!.logoPath.toString()
+
+              : 'error', boxfit: BoxFit.fill)
+      ,
     );
   }
 
@@ -102,13 +126,26 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
           Text(materialList[index].title.toString().replaceAll('--', ''), style: TextStyle(fontSize: 12)),
           // Text(materialList[index].subjectId!.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
           SizedBox(height: 5),
+
           Row(
+             // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               materialList[index].videoLink == null || materialList[index].videoLink.toString().isEmpty ?
-              SizedBox() : VideoDownloadButton(index),
+                  materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
+              SizedBox() : VideoDownloadButton(index) : VideoDownloadButton(index),
               SizedBox(width: 5),
               materialList[index].pdfPath == null || materialList[index].pdfPath.toString().isEmpty ?
-              SizedBox() : PdfButton(index)
+              SizedBox() : PdfButton(index),
+              SizedBox(width: 5),
+              materialList[index].docpath == null || materialList[index].docpath.toString().isEmpty ?
+              SizedBox() :   InkWell(onTap: () {
+              String pdfPath = AppConstants.BANNER_BASE +  materialList[index].docpath.toString();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf('', pdfPath)));
+
+              },
+                child: Container(height: 30,width: MediaQuery.of(context).size.width / 6,decoration: BoxDecoration( color: AppColors.dark,
+                    borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, StringConstant.pdf)!,style: TextStyle(color: Colors.white,fontSize: 11)))),
+              )
             ],
           ),
         ],
@@ -117,15 +154,36 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   }
 
   Widget VideoDownloadButton(index) {
-    return CustomAmberButton(
-        text: getTranslated(context, StringConstant.watch)!,
-        onPressed: () {
-          materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), ''))
-          ) :
-          showVideoQualityDialog(index);
-        });
+ return   InkWell(
+      onTap: () {
+        materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                  MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), ''))
+              ) :
+              showVideoQualityDialog(index);
+
+      },
+      child: Container(
+          height: 30,
+          width: MediaQuery.of(context).size.width / 6,
+          decoration: BoxDecoration(color: AppColors.amber, borderRadius: BorderRadius.all(Radius.circular(8))),
+          child: Center(
+              child: Text(
+                  getTranslated(context, StringConstant.watch)!,
+                  style: TextStyle(color: Colors.white, fontSize: 11)
+              )
+          )
+      ),
+    );
+    // return CustomAmberButton(
+    //     text: getTranslated(context, StringConstant.watch)!,
+    //     onPressed: () {
+    //       materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
+    //       Navigator.push(context, MaterialPageRoute(builder: (context) =>
+    //           MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), ''))
+    //       ) :
+    //       showVideoQualityDialog(index);
+    //     });
   }
 
   Widget PdfButton(index) {
@@ -144,11 +202,11 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       },
       child: Container(
           height: 30,
-          width: MediaQuery.of(context).size.width / 4.10,
+          width: MediaQuery.of(context).size.width / 6,
           decoration: BoxDecoration(color: Color(0xFF060929), borderRadius: BorderRadius.all(Radius.circular(8))),
           child: Center(
               child: Text(
-                  getTranslated(context, StringConstant.viewPdf)!,
+                  getTranslated(context, StringConstant.pdf)!,
                   style: TextStyle(color: Colors.white, fontSize: 11)
               )
           )

@@ -37,6 +37,7 @@ class MaterialData {
     this.timeline,
     this.pdfPath,
     this.videoLink,
+    this.docpath
   });
 
   String? id;
@@ -46,6 +47,7 @@ class MaterialData {
   Timeline? timeline;
   String? pdfPath;
   String? videoLink;
+  String? docpath;
 
   factory MaterialData.fromJson(Map<String, dynamic> json) => MaterialData(
     id: json["_id"],
@@ -55,6 +57,7 @@ class MaterialData {
     timeline: json["timeline"] == null ? null : Timeline.fromJson(json["timeline"]),
     pdfPath: json["pdf_path"],
     videoLink: json["video_link"] == null ? null : json["video_link"],
+    docpath: json["doc_path"] == null ? null : json["doc_path"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -65,6 +68,7 @@ class MaterialData {
     "timeline": timeline == null ? null : timeline!.toJson(),
     "pdf_path": pdfPath,
     "video_link": videoLink == null ? null : videoLink,
+    "doc_path": docpath == null ? null : docpath,
   };
 }
 

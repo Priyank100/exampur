@@ -451,6 +451,7 @@ class StringConstant {
   static String PreviousYearPdf = 'previous_year_pdf';
   static String PracticeQuestion = 'practice_question';
   static String PrivacyPolicy = 'privacy_policy';
+  static String pdf = 'pdf';
 
   static String name= 'name';
   static String newPassword= 'new_password';
