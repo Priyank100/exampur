@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 class FreeVideoCourse extends StatefulWidget {
   final String url ;
+
   FreeVideoCourse(this.url) : super();
 
   @override
@@ -16,6 +17,8 @@ class FreeVideoCourse extends StatefulWidget {
 
 class _FreeVideoCourseState extends State<FreeVideoCourse> {
   List<FreeVideoModel> freeVideo = [];
+  List<FgBgColor> selectedColorList = [];
+  String selectedCourseId = '';
 
   @override
   void initState() {
@@ -25,6 +28,15 @@ class _FreeVideoCourseState extends State<FreeVideoCourse> {
 
   Future<void> getCoursesList() async {
     freeVideo = (await Provider.of<FreeVideoProvider>(context, listen: false).getfreeVideo(context,widget.url))!;
+    if(freeVideo.length != null && freeVideo.length > 0) {
+      for (int i = 0; i < freeVideo.length; i++) {
+        selectedColorList.add(FgBgColor(MaterialStateProperty.all<Color>(AppColors.black), MaterialStateProperty.all<Color>(AppColors.white)));
+      }
+    }
+    selectedColorList[0].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+    selectedColorList[0].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+    selectedCourseId = '';
+   // this.widget.callback(selectedCourseId);
     setState(() {});
   }
 
@@ -58,8 +70,8 @@ class _FreeVideoCourseState extends State<FreeVideoCourse> {
                   style: TextStyle(fontSize: 12)
               ),
               style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all<Color>(AppColors.black),
-                  backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
+                  foregroundColor: selectedColorList[index].fgColor,
+                  backgroundColor: selectedColorList[index].bgColor,
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
@@ -68,13 +80,24 @@ class _FreeVideoCourseState extends State<FreeVideoCourse> {
                   )
               ),
               onPressed: () {
-                if(index == 0){
-
+                for(int i=0; i<selectedColorList.length; i++) {
+                  selectedColorList[i].fgColor = MaterialStateProperty.all<Color>(AppColors.black);
+                  selectedColorList[i].bgColor = MaterialStateProperty.all<Color>(AppColors.white);
                 }
+                selectedColorList[index].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+                selectedColorList[index].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+                selectedCourseId = freeVideo[index].slug.toString();
+              //  this.widget.callback(selectedCourseId);
+                setState(() {});
               }
           ),
         ),
       ],
     );
   }
+}
+class FgBgColor {
+  MaterialStateProperty<Color> fgColor;
+  MaterialStateProperty<Color> bgColor;
+  FgBgColor(this.fgColor, this.bgColor);
 }
