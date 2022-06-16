@@ -17,6 +17,8 @@ class FreeVideoTag extends StatefulWidget {
 
 class _FreeVideoTagState extends State<FreeVideoTag> {
   FreeVideoListModel? freeVideoListModel;
+  List<FgBgColor> selectedColorList = [];
+  String selectedTagSlug = '';
 
   @override
   void initState() {
@@ -26,6 +28,16 @@ class _FreeVideoTagState extends State<FreeVideoTag> {
 
   Future<void> getCoursesList() async {
     freeVideoListModel = (await Provider.of<FreeVideoProvider>(context, listen: false).getfreeVideoList(context,'3'))!;
+    if(freeVideoListModel != null && freeVideoListModel!.subject!.length > 0) {
+      for (int i = 0; i < freeVideoListModel!.subject!.length; i++) {
+        selectedColorList.add(FgBgColor(MaterialStateProperty.all<Color>(AppColors.black), MaterialStateProperty.all<Color>(AppColors.white)));
+      }
+    }
+    selectedColorList[0].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+    selectedColorList[0].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+    selectedTagSlug =freeVideoListModel!.subject![0].id.toString();
+
+   // this.widget.callback2(selectedTagSlug);
     setState(() {});
   }
 
@@ -69,9 +81,22 @@ class _FreeVideoTagState extends State<FreeVideoTag> {
               )
           ),
           onPressed: (){
-
+            for(int i=0; i<selectedColorList.length; i++) {
+              selectedColorList[i].fgColor = MaterialStateProperty.all<Color>(AppColors.black);
+              selectedColorList[i].bgColor = MaterialStateProperty.all<Color>(AppColors.white);
+            }
+            selectedColorList[index].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+            selectedColorList[index].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+            selectedTagSlug = freeVideoListModel!.subject![0].id.toString();
+           // this.widget.callback2(selectedTagSlug);
+            setState(() {});
           }
       ),
     );
   }
+}
+class FgBgColor {
+  MaterialStateProperty<Color> fgColor;
+  MaterialStateProperty<Color> bgColor;
+  FgBgColor(this.fgColor, this.bgColor);
 }
