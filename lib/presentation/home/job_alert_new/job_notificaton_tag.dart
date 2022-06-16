@@ -27,7 +27,7 @@ class _JobNotificationTagState extends State<JobNotificationTag> {
   Future<void> getCoursesList() async {
     jobNotificationTagList = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationTagList(context))!;
 
-    if(jobNotificationTagList.length != null && jobNotificationTagList.length > 0) {
+    if(jobNotificationTagList != null && jobNotificationTagList.length > 0) {
       for (int i = 0; i < jobNotificationTagList.length; i++) {
         selectedColorList.add(FgBgColor(MaterialStateProperty.all<Color>(AppColors.black), MaterialStateProperty.all<Color>(AppColors.white)));
       }

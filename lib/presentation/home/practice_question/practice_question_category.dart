@@ -1,6 +1,6 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/practice_question_categories_model.dart';
-import 'package:exampur_mobile/presentation/home/PracticeQuestion/practice_question_listing.dart';
+import 'package:exampur_mobile/presentation/home/practice_question/practice_question_listing.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/PracticeQuestionProvider.dart';

@@ -13,6 +13,7 @@ import 'package:exampur_mobile/presentation/home/daily_quiz/daily_quiz.dart';
 import 'package:exampur_mobile/presentation/home/home_banner.dart';
 import 'package:exampur_mobile/presentation/home/job_alert_new/job_notifications.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
+import 'package:exampur_mobile/presentation/home/practice_question/practice_question_category.dart';
 import 'package:exampur_mobile/presentation/home/study_material_new/study_material_new.dart';
 import 'package:exampur_mobile/presentation/home/study_notes/study_notes_list.dart';
 import 'package:exampur_mobile/presentation/home/test_series_new/test_series_new.dart';
@@ -34,7 +35,6 @@ import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart'
 import '../../main.dart';
 import 'BannerBookDetailPage.dart';
 import 'FreeVideos/freeVideo.dart';
-import 'PracticeQuestion/practice_question_category.dart';
 import 'TestSeries/test_series_tab.dart';
 import 'package:provider/provider.dart';
 

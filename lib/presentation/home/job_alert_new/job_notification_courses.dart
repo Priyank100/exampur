@@ -28,7 +28,7 @@ class _JobNotificationCoursesState extends State<JobNotificationCourses> {
     jobNotificationCourseList = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationCourseList(context))!;
     jobNotificationCourseList.insert(0, JobNotificationCourseModel(id: 0, name: 'ALL EXAM', description: '', order: 0, isActive: true));
 
-    if(jobNotificationCourseList.length != null && jobNotificationCourseList.length > 0) {
+    if(jobNotificationCourseList != null && jobNotificationCourseList.length > 0) {
       for (int i = 0; i < jobNotificationCourseList.length; i++) {
         selectedColorList.add(FgBgColor(MaterialStateProperty.all<Color>(AppColors.black), MaterialStateProperty.all<Color>(AppColors.white)));
       }

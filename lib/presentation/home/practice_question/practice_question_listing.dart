@@ -8,6 +8,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_tex/flutter_tex.dart';
 import 'package:provider/provider.dart';
 
 class PracticeQuestionListing extends StatefulWidget {
@@ -147,13 +148,13 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Question '+(count+index+1).toString() +':',style: TextStyle(color: AppColors.amber),),
+        TeXView(child: TeXViewDocument(practiceQuestionListingModel!.questions![index].englishQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' '))),
         Html(
             data: AppConstants.langCode == 'hi' ?
             practiceQuestionListingModel!.questions![index].hindiQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' ') :
             practiceQuestionListingModel!.questions![index].englishQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' '),
         ),
-
-       practiceQuestionListingModel!.questions![index].engOption1.toString().isEmpty || practiceQuestionListingModel!.questions![index].engOption1 == null  ? SizedBox() :
+        practiceQuestionListingModel!.questions![index].engOption1.toString().isEmpty || practiceQuestionListingModel!.questions![index].engOption1 == null  ? SizedBox() :
         Container(
           color: _radioValue[index].val == 0 ? practiceQuestionListingModel!.questions![index].correctAnswer == 1 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
@@ -172,7 +173,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             activeColor: AppColors.white,
           ),
         ),
-       practiceQuestionListingModel!.questions![index].engOption2.toString().isEmpty || practiceQuestionListingModel!.questions![index].engOption2 == null ? SizedBox() :
+        practiceQuestionListingModel!.questions![index].engOption2.toString().isEmpty || practiceQuestionListingModel!.questions![index].engOption2 == null ? SizedBox() :
         Container(
           color: _radioValue[index].val == 1 ? practiceQuestionListingModel!.questions![index].correctAnswer == 2 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
@@ -210,7 +211,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             activeColor: AppColors.white,
           ),
         ),
-        practiceQuestionListingModel!.questions![index].engOption4.toString().isEmpty|| practiceQuestionListingModel!.questions![index].engOption4 == null  ? SizedBox() :
+        practiceQuestionListingModel!.questions![index].engOption4.toString().isEmpty || practiceQuestionListingModel!.questions![index].engOption4 == null  ? SizedBox() :
         Container(
           color: _radioValue[index].val == 3 ? practiceQuestionListingModel!.questions![index].correctAnswer == 4 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
@@ -229,7 +230,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
             activeColor: AppColors.white,
           ),
         ),
-        practiceQuestionListingModel!.questions![index].engOption5.toString().isEmpty ||   practiceQuestionListingModel!.questions![index].engOption5 == null ? SizedBox() :
+        practiceQuestionListingModel!.questions![index].engOption5.toString().isEmpty || practiceQuestionListingModel!.questions![index].engOption5 == null ? SizedBox() :
         Container(
           color: _radioValue[index].val == 4 ? practiceQuestionListingModel!.questions![index].correctAnswer == 5 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
