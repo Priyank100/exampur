@@ -327,9 +327,9 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
 
           for(int i=0; i<myList.length; i++) {
             if(myList[0].isSelected == true) {
-              AppConstants.subscription(myList[i].name.toString());
+              AppConstants.subscription(myList[i].id.toString());
             } else {
-              AppConstants.unSubscription(myList[i].name.toString());
+              AppConstants.unSubscription(myList[i].id.toString());
             }
           }
 
