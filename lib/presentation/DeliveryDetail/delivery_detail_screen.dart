@@ -216,7 +216,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                         isCouponValid = false;
                         if (_cuponCodeController.text != value.toUpperCase())
                           _cuponCodeController.value = _cuponCodeController.value.copyWith(text: value.toUpperCase());
-                      },
+                        setState(() {});
+                        },
                      
                       decoration: new InputDecoration(
                           hintText: getTranslated(context, StringConstant.applyCoupon),
@@ -232,22 +233,19 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               ),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
               Expanded(
-
                 child: InkWell(
                   onTap: (){
-
                     FocusScope.of(context).unfocus();
                     String cuponCode = _cuponCodeController.text.toUpperCase();
                     // String id = widget.paidcourseList.id.toString();
                     String id = widget.id.toString();
 
-                   if(chechCoupon(cuponCode)){
+                   if(checkCoupon(cuponCode)){
                      FirebaseAnalytics.instance.logEvent(name:'PROMOCODE_APPLIED_',parameters: {
                        'promocode':_cuponCodeController.text.toString().replaceAll(' ', '_'),
                      });
                      couponApi(API.CouponCode_URL, cuponCode,id);
                    }
-
                   },
                   child: Container(
                     decoration: BoxDecoration(color: AppColors.amber,
@@ -258,6 +256,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 ),
               )
             ]),
+            isCouponValid ? Text('Coupon applied successfully', style: TextStyle(color: AppColors.green, fontSize: 10),) : SizedBox(),
             SizedBox(
               height: 30,
             ),
@@ -323,10 +322,12 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           AppConstants.printLog('anchal' + jsonObject['data']['promo_code']);
           AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.apply), AppColors.black);
           isCouponValid = true;
+          setState(() {});
         } else {
           AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
           isCouponValid = false;
           _cuponCodeController.text = '';
+          setState(() {});
         }
       }else if(response.statusCode==429) {
         couponApi(API.CouponCode_URL_2, promoCode, id);
@@ -378,8 +379,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         "billing_country": AppConstants.defaultCountry,
         "billing_pincode": _pincode
       };
-    }
-    else {
+    } else {
       param = {
         "book_id": widget.id.toString(),
         "promo_code": _promocode,
@@ -454,7 +454,11 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        PaymentScreen(widget.type, billingModel, deliveryModel)
+                        PaymentScreen(
+                            widget.type,
+                            billingModel,
+                            deliveryModel,
+                            isCouponValid ? _cuponCodeController.text.toUpperCase() : '')
                 )
             );
           } else {
@@ -509,7 +513,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     }
   }
 
-  bool chechCoupon(_promocode){
+  bool checkCoupon(_promocode){
     if (_promocode.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.PromoCode_REQUIRED)!), backgroundColor:AppColors.black));
       return false;

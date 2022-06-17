@@ -94,7 +94,10 @@ class _TimeTableViewState extends State<TimeTableView> {
                                     return
                                         InkWell(
                                           onTap: () {
-                                            activeButton=='L' ? callLiveStream(index) : null;
+                                            activeButton=='L' ?
+                                                myCourseTimeLineList[index].type.toString().toUpperCase() == 'ZOOM' ?
+                                                    AppConstants.makeCallEmail(myCourseTimeLineList[index].targetLink.toString()) :
+                                            callLiveStream(index) : null;
                                             },
                                           child: Container(
                                           padding: EdgeInsets.all(8),

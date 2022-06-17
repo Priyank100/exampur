@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -251,6 +252,16 @@ class AppConstants {
     } else {
       return '';
     }
+  }
+
+  static Future<void> subscription(String topic) async {
+    AppConstants.printLog('>>>Subscription>>' + topic);
+    await FirebaseMessaging.instance.subscribeToTopic(topic.replaceAll(' ', '_'));
+  }
+
+  static Future<void> unSubscription(String topic) async {
+    AppConstants.printLog('>>>UnSubscription>>' + topic);
+    await FirebaseMessaging.instance.unsubscribeFromTopic(topic.replaceAll(' ', '_'));
   }
 
 }

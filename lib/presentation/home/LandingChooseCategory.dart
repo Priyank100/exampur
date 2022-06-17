@@ -31,8 +31,7 @@ class LandingChooseCategory extends StatefulWidget {
 class _LandingChooseCategoryState extends State<LandingChooseCategory> {
 
   List<Data> chooseList = [];
-  List<String> getSelectList = [];
-  List<String> selectedCountries = [];
+  List<String> selectedCategoryIdList = [];
 
   // late final List<Category> selectedList;
   // late final bool isSelected;
@@ -53,40 +52,13 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
     chooseList =
         (await Provider.of<ChooseCategoryProvider>(context, listen: false)
             .getAllCategoryList(context))!;
-    // getSelectList =
-    // (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-    //     .getSelectchooseCategoryList(context))!;
-
-    // if (getSelectList.every((item) => chooseList.contains(item))) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
-
-    // for(int i=0; i < getSelectList.length; i++) {
-    //   for(int j=0; j<chooseList.length; j++) {
-    //     if(getSelectList[i] == chooseList[j].id) {
-    //       chooseList[j].isSelected = true;
-    //       selectedCountries.add(chooseList[j].id.toString());
-    //     }
-    //   }
-   // }
 
     myList = chooseList;
     setState(() {});
   }
-  // void subscription(String topic) async {
-  //   await FirebaseMessaging.instance.subscribeToTopic(topic);
-  //   AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+topic);
-  // }
-  // void unsubscription(String topic) async {
-  //   await FirebaseMessaging.instance.unsubscribeFromTopic(topic);
-  //   AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>unsubcribe'+topic);
-  // }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: CustomAppBar(),
         body: myList.length != 0
@@ -154,18 +126,14 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                     padding: const EdgeInsets.all(0),
                                     child: InkWell(
                                       onTap: () {
-                                        // chooseList[index].isSelected = !chooseList[index].isSelected;
-                                        // setState(() {});
                                         setState(()  {
                                           myList[index].isSelected = !myList[index].isSelected;
 
                                           if (myList[index].isSelected == true) {
-                                            selectedCountries.add(myList[index].id.toString());
-                                            //subscription(myList[index].id.toString());
+                                            selectedCategoryIdList.add(myList[index].id.toString());
 
                                           } else if (myList[index].isSelected == false) {
-                                            selectedCountries.removeWhere((element) => element.toString() == myList[index].id);
-                                           // unsubscription(myList[index].id.toString());
+                                            selectedCategoryIdList.removeWhere((element) => element.toString() == myList[index].id);
                                           }
                                         });
                                       },
@@ -203,16 +171,6 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                                       new NetworkImage(AppConstants.BANNER_BASE + myList[index].logoPath.toString()),
                                                   radius: 20.0,
                                                 ),
-                                                // ClipOval(
-                                                //   clipper: MyClip(),
-                                                //   child: FadeInImage.assetNetwork(
-                                                //     placeholder: Images.noimage,
-                                                //     image: chooseList[index]
-                                                //         .logoPath
-                                                //         .toString(),
-                                                //     fit: BoxFit.fill,
-                                                //   ),
-                                                // ),
                                               ],
                                             ),
                                             Flexible(
@@ -282,18 +240,17 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                               child: InkWell(
                                 onTap: () async{
                                   await FirebaseAnalytics.instance.logEvent(name: 'EXAM_SELECTED',parameters: {
-                                    'exam_categories': selectedCountries.toString()
+                                    'exam_categories': selectedCategoryIdList.toString()
                                   });
 
                                   // SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, selectedCountries.length.toString());
 
-                                  AppConstants.printLog(selectedCountries.length.toString());
-                                  if(selectedCountries.length > 0){
-                                    UpdateChoosecategory(selectedCountries);
+                                  AppConstants.printLog(selectedCategoryIdList.length.toString());
+                                  if(selectedCategoryIdList.length > 0){
+                                    UpdateChoosecategory(selectedCategoryIdList);
 
-                                  }
-                                  else {
-                                    AppConstants.printLog('test');
+                                  } else {
+                                    // AppConstants.printLog('test');
                                     var snackBar = SnackBar(content: Text('Please Choose the Category'),backgroundColor: AppColors.grey,);
                                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                   }
@@ -369,14 +326,20 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
           behavior: SnackBarBehavior.floating,
           content: Text('Server Error'),backgroundColor: Colors.red,);
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
             } else if (response.statusCode == 200) {
         AppConstants.printLog(response.body.toString());
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder:
-                (context) =>
-                BottomNavigationOld()
-            )
-        );
+
+        for(int i=0; i<myList.length; i++) {
+          if(myList[i].isSelected == true) {
+            AppConstants.subscription(myList[i].id.toString());
+          } else {
+            AppConstants.unSubscription(myList[i].id.toString());
+          }
+        }
+
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigationOld()));
+
       } else if(response.statusCode == 429) {
         await Service.post(
           API.Update_Choose_category_URL_2,

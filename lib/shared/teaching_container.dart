@@ -29,10 +29,7 @@ class TeachingContainer extends StatefulWidget {
 }
 
 class _TeachingContainerState extends State<TeachingContainer> {
-  void subscription(String topic) async {
-    await FirebaseMessaging.instance.subscribeToTopic(topic);
-    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+topic);
-  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -138,7 +135,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             }else{
                               courseTabType = 'Course';
                             }
-                            widget.courseType==1?subscription(widget.courseData.id.toString().replaceAll(' ', '_')):'';
+                            widget.courseType==1?AppConstants.subscription(widget.courseData.id.toString().replaceAll(' ', '_')):'';
                             widget.courseType==1?  Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
                             )): Navigator.push(context, MaterialPageRoute(builder: (_) =>

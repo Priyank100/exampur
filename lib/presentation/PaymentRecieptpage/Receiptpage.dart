@@ -38,11 +38,6 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
     getReceipt(true);
   }
 
-  void subscription(String topic) async {
-    await FirebaseMessaging.instance.subscribeToTopic(topic);
-    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+topic);
-  }
-
   void getReceipt(flag) async {
     String url = '';
     final param = {

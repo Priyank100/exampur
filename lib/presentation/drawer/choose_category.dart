@@ -22,21 +22,13 @@ class ChooseCategoryScreen extends StatefulWidget {
 }
 
 class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
-  // List<Data> allCategoryList = [];
-  //List<String> getSelectList = [];
-  List<String> selectedCountries = [];
-
-  // late final List<Category> selectedList;
-  // late final bool isSelected;
-//  List<String> selectedList = [];
-
+  List<String> selectedCategoryIdList = [];
   List<Data> myList = [];
 
   @override
   initState() {
     callProvider();
     super.initState();
-    //selectedCountries = allCategoryList;
   }
 
   Future<void> callProvider() async {
@@ -46,21 +38,14 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
       for(int j=0; j<myList.length; j++) {
         if(AppConstants.selectedCategoryList[i] == myList[j].id) {
           myList[j].isSelected = true;
-          selectedCountries.add(myList[j].id.toString());
+          selectedCategoryIdList.add(myList[j].id.toString());
         }
       }
     }
 
     setState(() {});
   }
-  // void subscription(String topic) async {
-  //   await FirebaseMessaging.instance.subscribeToTopic(topic);
-  //   AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+topic);
-  // }
-  // void unsubscription(String topic) async {
-  //   await FirebaseMessaging.instance.unsubscribeFromTopic(topic);
-  //   AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>unsubcribe'+topic);
-  // }
+
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -137,17 +122,14 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                                     myList[index].isSelected =
                                     !myList[index].isSelected;
                                     if (myList[index].isSelected == true) {
-                                      selectedCountries.add(myList[index].id.toString());
-                                    //  subscription(myList[index].id.toString());
-
+                                      selectedCategoryIdList.add(myList[index].id.toString());
 
                                     } else if (myList[index].isSelected == false) {
-                                  selectedCountries.removeWhere(
+                                      selectedCategoryIdList.removeWhere(
                                               (element) =>
                                           element.toString() == myList[index].id,
 
                                   );
-                                 // unsubscription(myList[index].id.toString());
                                     }
                                   });
                                 },
@@ -184,16 +166,6 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                                             new NetworkImage(AppConstants.BANNER_BASE + myList[index].logoPath.toString()),
                                             radius: 20.0,
                                           ),
-                                          // ClipOval(
-                                          //   clipper: MyClip(),
-                                          //   child: FadeInImage.assetNetwork(
-                                          //     placeholder: Images.noimage,
-                                          //     image: allCategoryList[index]
-                                          //         .logoPath
-                                          //         .toString(),
-                                          //     fit: BoxFit.fill,
-                                          //   ),
-                                          // ),
                                         ],
                                       ),
                                       Flexible(
@@ -266,12 +238,12 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
 
                       // SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, selectedCountries.length.toString());
 
-                      AppConstants.printLog(selectedCountries.length.toString());
-                      if(selectedCountries.length >0){
+                      AppConstants.printLog(selectedCategoryIdList.length.toString());
+                      if(selectedCategoryIdList.length >0){
                         setState(() {
                           isLoading = true;
                         });
-                        UpdateChoosecategory(selectedCountries);
+                        UpdateChoosecategory(selectedCategoryIdList);
 
                       }
                       else {
@@ -282,14 +254,6 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                         var snackBar = SnackBar(content: Text(getTranslated(context, StringConstant.pleaseChooseTheCategory)!),backgroundColor: AppColors.grey);
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
-
-                      // UpdateChoosecategory(selectedCountries.length);
-                      // Navigator.pushReplacement(context,
-                      //     MaterialPageRoute(builder:
-                      //         (context) =>
-                      //             BottomNavigation()
-                      //     )
-                      // );
                     },
                     child: Container(
                       height: 50,
@@ -357,13 +321,23 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
       } else if (response.statusCode == 200) {
         AppConstants.printLog(response.body.toString());
         var jsonObject = jsonDecode(response.body);
-        AppConstants.printLog(
-            'priyank>> ' + jsonObject['statusCode'].toString());
+        AppConstants.printLog('priyank>> ' + jsonObject['statusCode'].toString());
+
         if (jsonObject['statusCode'].toString() == '200') {
+
+          for(int i=0; i<myList.length; i++) {
+            if(myList[0].isSelected == true) {
+              AppConstants.subscription(myList[i].name.toString());
+            } else {
+              AppConstants.unSubscription(myList[i].name.toString());
+            }
+          }
+
           AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
           Navigator.pop(context);
           // setState(() {});
           AppConstants.showBottomMessage(context, 'Saved successfully', AppColors.black);
+
         } else {
           AppConstants.showBottomMessage(
               context, jsonObject['data'].toString(), AppColors.black);
