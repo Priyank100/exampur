@@ -20,10 +20,10 @@ class AppRouter {
           builder: (_) => BottomNavigationOld(),
         );
 
-      case '/home':
-        return MaterialPageRoute(
-          builder: (_) => Home(),
-        );
+      // case '/home':
+      //   return MaterialPageRoute(
+      //     builder: (_) => Home(),
+      //   );
       case '/demo':
         return MaterialPageRoute(
           builder: (_) => Demo(),

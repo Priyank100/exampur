@@ -182,7 +182,7 @@ class AuthProvider extends ChangeNotifier {
         await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
 
         AppConstants.CATEGORY_LENGTH = _informationModel.data!.countCategories.toString();
-        AppConstants.isotpverify = _informationModel.data!.phoneConf!;
+        AppConstants.isotpverify = _informationModel.data!.phoneConf??false;
         if(_informationModel.data!.phoneConf == true) {
           checkSelectCategory(context, _informationModel.data!.countCategories);
         } else {

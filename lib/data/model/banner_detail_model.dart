@@ -1,4 +1,6 @@
 import 'dart:convert';
+
+import 'package:exampur_mobile/data/model/upsell_book.dart';
 /// statusCode : 200
 /// data : {"_id":"61c98f8c3a7d50ce67803ef0","title":"Course 10","banner_path":"course/Sg0lFoGd-banner_course_2.jpeg","logo_path":"course/CnFUqrw1-logo_course_2.png","description":"Description for Course 10","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","flag":"New","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"category":[{"_id":"61d2cc701cea2fdab6e9cb06","name":"ALL EXAMS"},{"_id":"61d2cc8c1cea2fdab6e9cb07","name":"RAJASTHAN SPECIAL"}],"regular_price":2999,"sale_price":999}
 
@@ -50,14 +52,15 @@ Data dataFromJson(String str) => Data.fromJson(json.decode(str));
 String dataToJson(Data data) => json.encode(data.toJson());
 class Data {
   Data({
-      String? id, 
+      String? id,
       String? title, 
       String? bannerPath, 
       String? logoPath, 
       String? description, 
       String? videoPath, 
-      String? flag, 
-      List<Macro>? macro, 
+      String? flag,
+    List<UpsellBook>? upsellBook,
+    List<Macro>? macro,
       List<Category>? category, 
       int? regularPrice, 
       int? salePrice,}){
@@ -68,6 +71,7 @@ class Data {
     _description = description;
     _videoPath = videoPath;
     _flag = flag;
+    _upsellBook = upsellBook;
     _macro = macro;
     _category = category;
     _regularPrice = regularPrice;
@@ -82,6 +86,12 @@ class Data {
     _description = json['description'];
     _videoPath = json['video_path'];
     _flag = json['flag'];
+    if (json['upsell_book'] != null) {
+      _upsellBook = [];
+      json['upsell_book'].forEach((v) {
+        _upsellBook?.add(UpsellBook.fromJson(v));
+      });
+    }
     if (json['macro'] != null) {
       _macro = [];
       json['macro'].forEach((v) {
@@ -104,6 +114,7 @@ class Data {
   String? _description;
   String? _videoPath;
   String? _flag;
+  List<UpsellBook>? _upsellBook;
   List<Macro>? _macro;
   List<Category>? _category;
   int? _regularPrice;
@@ -116,6 +127,7 @@ class Data {
   String? get description => _description;
   String? get videoPath => _videoPath;
   String? get flag => _flag;
+  List<UpsellBook>? get upsellBook => _upsellBook;
   List<Macro>? get macro => _macro;
   List<Category>? get category => _category;
   int? get regularPrice => _regularPrice;
@@ -130,6 +142,9 @@ class Data {
     map['description'] = _description;
     map['video_path'] = _videoPath;
     map['flag'] = _flag;
+    if (_upsellBook != null) {
+      map['upsell_book'] = _upsellBook?.map((v) => v.toJson()).toList();
+    }
     if (_macro != null) {
       map['macro'] = _macro?.map((v) => v.toJson()).toList();
     }

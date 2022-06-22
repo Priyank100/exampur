@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/dummy_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
+import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
@@ -19,7 +20,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:share/share.dart';
 
 class TeachingContainer extends StatefulWidget {
-  Courses courseData;
+  PaidCourseData courseData;
   int courseType;
   String tabId;
     TeachingContainer (this.courseData,this.courseType,this.tabId) : super();
@@ -161,6 +162,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               MaterialPageRoute(builder: (context) =>
                                   DeliveryDetailScreen(courseTabType, widget.courseData.id.toString(),
                                     widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
+                                      upsellBookList: widget.courseData.upsellBook??[]
                                   )
                               ),
                             );

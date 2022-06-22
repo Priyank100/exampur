@@ -13,6 +13,7 @@ import 'images.dart';
 
 class Keys {
   // static const String Rozar_pay_key = 'rzp_test_tnxy74fGchHvRY';
+  // static const String Rozar_pay_key = 'rzp_test_0ltpDbPIMUqirI';
   static const String Rozar_pay_key = 'rzp_live_2OGpV3khEWcs8M';
 }
 
@@ -23,7 +24,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static bool isotpverify = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';

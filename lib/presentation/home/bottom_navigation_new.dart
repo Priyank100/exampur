@@ -72,7 +72,7 @@ class _BottomNavigationNewState extends State<BottomNavigationNew> {
   }
 
   final List<Widget> widgetList = [
-    Home(),
+    Home([]),
     Demo(),
     MyCourses(),
     Downloads(0),
@@ -89,7 +89,7 @@ class _BottomNavigationNewState extends State<BottomNavigationNew> {
           } else {
             setState(() {
               _currentTabIndex = 0;
-              _navigatorKey.currentState!.pushReplacement(MaterialPageRoute(builder: (_) => Home()));
+              _navigatorKey.currentState!.pushReplacement(MaterialPageRoute(builder: (_) => Home([])));
             });
             return false;
           }
@@ -407,7 +407,7 @@ class _BottomNavigationNewState extends State<BottomNavigationNew> {
   _onTap(int tabIndex) {
     switch (tabIndex) {
       case 0:
-        _navigatorKey.currentState!.pushReplacement(MaterialPageRoute(builder: (_) => Home()));
+        _navigatorKey.currentState!.pushReplacement(MaterialPageRoute(builder: (_) => Home([])));
         break;
       case 1:
         AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.demoClick);
@@ -446,7 +446,7 @@ class _BottomNavigationNewState extends State<BottomNavigationNew> {
       case "Help":
         return MaterialPageRoute(builder: (context) => Help());
       default:
-        return MaterialPageRoute(builder: (context) => Home());
+        return MaterialPageRoute(builder: (context) => Home([]));
     }
   }
 

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
+import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
@@ -21,7 +22,7 @@ typedef YoutubeQualityChangeCallback(String quality, Duration position);
 
 class PaidCourseDetails extends StatefulWidget {
   String courseTabType;
-  final Courses courseData;
+  final PaidCourseData courseData;
   int courseType;
   PaidCourseDetails(this.courseTabType,this.courseData,this.courseType) : super();
 
@@ -159,10 +160,10 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        widget.courseData.validtime == null || widget.courseData.validtime == 'null' ? SizedBox() :
+                        widget.courseData.validTime == null || widget.courseData.validTime == 'null' ? SizedBox() :
                         Padding(
                           padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
-                          child: Text(getTranslated(context, StringConstant.Validity)!+' :  '+widget.courseData.validtime.toString(),
+                          child: Text(getTranslated(context, StringConstant.Validity)!+' :  '+widget.courseData.validTime.toString(),
                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                         ),
                         widget.courseData.pdfPath==null || widget.courseData.pdfPath=='null' || widget.courseData.pdfPath!.isEmpty ? SizedBox():
@@ -237,10 +238,10 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
               Navigator.push(
                 context, MaterialPageRoute(builder: (context) =>
                   DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
-                      widget.courseData.title.toString(), widget.courseData.salePrice.toString()
+                      widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
+                      upsellBookList: widget.courseData.upsellBook??[]
                   )
-              ),
-              );
+              ));
             },
             child: Container(
               width: double.infinity,

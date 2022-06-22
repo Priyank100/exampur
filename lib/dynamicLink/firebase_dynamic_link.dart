@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
+import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/presentation/home/exampurone2one/one2oneViedo.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
 import 'package:exampur_mobile/shared/place_order_screen.dart';
@@ -80,7 +81,7 @@ class FirebaseDynamicLinkService {
         switch(condition) {
           case 1:
             String type = deepLink.queryParameters['type'].toString();
-            Courses courseData = Courses.fromJson(json.decode(data));
+            PaidCourseData courseData = PaidCourseData.fromJson(json.decode(data));
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>
                 PaidCourseDetails('Course',courseData, int.parse(type.toString()))));
           case 2:
@@ -93,7 +94,7 @@ class FirebaseDynamicLinkService {
                 One2OneVideo(one2OneData)));
           case 4:
             String type = deepLink.queryParameters['type'].toString();
-            Courses courseData = Courses.fromJson(json.decode(data));
+            PaidCourseData courseData = PaidCourseData.fromJson(json.decode(data));
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>
                 PaidCourseDetails('Combo',courseData, int.parse(type.toString()))));
         }

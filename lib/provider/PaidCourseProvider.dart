@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:exampur_mobile/Helper/api_checker.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/my_course_list_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
+import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/data/model/paid_course_tab.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/paid_course_repo.dart';
@@ -14,8 +16,8 @@ class PaidCoursesProvider extends ChangeNotifier {
   final PaidCoursesRepo paidcoursesRepo;
   PaidCoursesProvider({required this.paidcoursesRepo});
 
-  PaidCourseModel _paidcourseModel = PaidCourseModel();
-  PaidCourseModel get paidcourseModel => _paidcourseModel;
+  PaidCourseModelNew _paidcourseModel = PaidCourseModelNew();
+  PaidCourseModelNew get paidcourseModel => _paidcourseModel;
 
   PaidCourseTab _paidcoursetabModel = PaidCourseTab();
   PaidCourseTab get paidcoursetabModel => _paidcoursetabModel;
@@ -50,13 +52,13 @@ class PaidCoursesProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<Courses>?> getPaidCourseList(BuildContext context, String id, int pageNo) async {
+  Future<List<PaidCourseData>?> getPaidCourseList(BuildContext context, String id, int pageNo) async {
     ApiResponse apiResponse = await paidcoursesRepo.paid_coursesRepo(id, pageNo);
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if (statusCode == '200') {
-        _paidcourseModel = PaidCourseModel.fromJson(
+        _paidcourseModel = PaidCourseModelNew.fromJson(
             json.decode(apiResponse.response.toString()));
         return _paidcourseModel.data;
       } else {
@@ -107,13 +109,13 @@ class PaidCoursesProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<Courses>?> getFreeCourseList(BuildContext context, String id, int pageNo) async {
+  Future<List<PaidCourseData>?> getFreeCourseList(BuildContext context, String id, int pageNo) async {
     ApiResponse apiResponse = await paidcoursesRepo.free_coursesRepo(id, pageNo);
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if (statusCode == '200') {
-        _paidcourseModel = PaidCourseModel.fromJson(
+        _paidcourseModel = PaidCourseModelNew.fromJson(
             json.decode(apiResponse.response.toString()));
         return _paidcourseModel.data;
       } else {
