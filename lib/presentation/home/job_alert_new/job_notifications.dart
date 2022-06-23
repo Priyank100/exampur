@@ -5,6 +5,7 @@ import 'package:exampur_mobile/presentation/home/job_alert_new/job_notification_
 import 'package:exampur_mobile/presentation/home/job_alert_new/job_notification_listing.dart';
 import 'package:exampur_mobile/presentation/home/job_alert_new/job_notificaton_tag.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
+import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';

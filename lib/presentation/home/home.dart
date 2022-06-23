@@ -331,8 +331,8 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true)
                           .push(MaterialPageRoute(builder: (_) =>
-                           JobAlerts()
-                              //  JobNotifications()
+                          // JobAlerts()
+                               JobNotifications()
                               ));
                     },
                   ),
