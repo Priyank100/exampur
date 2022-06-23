@@ -25,9 +25,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    super.initState();
     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.splashScreen);
     checkInternet();
+    super.initState();
   }
 
   Future<void> checkInternet() async {
@@ -54,6 +54,9 @@ class _SplashScreenState extends State<SplashScreen> {
        androidId: "com.edudrive.exampur",
     );
     try {
+    final status = await newVersion.getVersionStatus();
+    print(status!.storeVersion.toString());
+
       await newVersion.getVersionStatus().then((status) {
         if (status == null
             || status.localVersion == status.storeVersion
