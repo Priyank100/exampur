@@ -50,9 +50,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
 
   Future<void> callProvider() async {
     isLoading = true;
-    materialList = (await Provider.of<MyCourseProvider>(context, listen: false)
-        .getMaterialList(
-            context, widget.subjectId, widget.courseId, widget.chaptername))!;
+    materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getMaterialList(context, widget.subjectId, widget.courseId, widget.chaptername))!;
     isLoading = false;
     setState(() {});
   }
@@ -64,7 +62,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       body:RefreshWidget(
       keyRefresh: keyRefresh,
       onRefresh:_refreshScreen,
-    child: isLoading ? LoadingIndicator(context)
+        child: isLoading ? LoadingIndicator(context)
           : materialList.length == 0 ? AppConstants.noDataFound()
           : ListView.builder(
               itemCount: materialList.length,
