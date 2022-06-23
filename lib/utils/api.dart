@@ -226,4 +226,14 @@ class API {
   // order upsell book after finalize
   static const String order_create_upsell = BASE_URL1 + 'order_course/store_upsell_order';
 
+  // emi
+  static const String emi_create = BASE_URL1 + 'order_course/emi_create';
+  // {
+  // "course_id":"6232b9caba12feaa99efbbf9",
+  // "emi_title":"pay in 6 months easy emi",
+  // "promo_code":optional,
+  // "userMobile":optional
+  // }
+// emi_model
+
 }

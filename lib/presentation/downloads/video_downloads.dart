@@ -152,7 +152,7 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
                                 ListTile(
                                   isThreeLine: false,
                                   leading: Image.asset(Images.download_video),
-                                  title: Text(_filename.replaceAll('--', '')),
+                                  title: Text(_filename.replaceAll('--', '').split('~')[0]),
                                   // subtitle: downloadStatus(_status),
                                   trailing: SizedBox(
                                     child: buttons(_status, _id, i),
