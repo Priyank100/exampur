@@ -121,7 +121,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void openCheckout() {
 
     var options = {
-      "key": Keys.Rozar_pay_key,
+      "key": Keys.Razar_pay_key,
       "amount": num.parse(widget.billingModel.itemAmount.toString()) * 100,
       "name": "Exampur",
       "description": widget.deliveryUpsellModel.data!.description.toString(),
