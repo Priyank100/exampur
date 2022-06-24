@@ -36,6 +36,7 @@ class MaterialData {
     this.title,
     this.timeline,
     this.pdfPath,
+    this.unit,
     this.videoLink,
     this.docpath
   });
@@ -46,6 +47,7 @@ class MaterialData {
   String? title;
   Timeline? timeline;
   String? pdfPath;
+  String? unit;
   String? videoLink;
   String? docpath;
 
@@ -56,6 +58,7 @@ class MaterialData {
     title: json["title"],
     timeline: json["timeline"] == null ? null : Timeline.fromJson(json["timeline"]),
     pdfPath: json["pdf_path"],
+    unit:json["unit"],
     videoLink: json["video_link"] == null ? null : json["video_link"],
     docpath: json["doc_path"] == null ? null : json["doc_path"],
   );
@@ -67,6 +70,7 @@ class MaterialData {
     "title": title,
     "timeline": timeline == null ? null : timeline!.toJson(),
     "pdf_path": pdfPath,
+    "unit":unit,
     "video_link": videoLink == null ? null : videoLink,
     "doc_path": docpath == null ? null : docpath,
   };

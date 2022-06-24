@@ -152,7 +152,7 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
                                 ListTile(
                                   isThreeLine: false,
                                   leading: Image.asset(Images.download_video),
-                                  title: Text(_filename),
+                                  title: Text(_filename.split('~')[0]),
                                   // subtitle: downloadStatus(_status),
                                   trailing: SizedBox(
                                     child: buttons(_status, _id, i),
@@ -337,6 +337,7 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
                               downloadsListMaps.removeAt(index);
                               FlutterDownloader.remove(
                                   taskId: taskid, shouldDeleteContent: true);
+
                               setState(() {});
                             },
                           )
@@ -360,8 +361,7 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
       onTap: () {
         FlutterDownloader.cancel(taskId: taskid);
         downloadsListMaps.removeAt(index);
-        FlutterDownloader.remove(
-            taskId: taskid, shouldDeleteContent: true);
+        FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: true);
         setState(() {});
       },
     );

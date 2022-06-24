@@ -155,18 +155,19 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
   }
 
   Future<void> requestVideoDownload() async {
+    var now = DateTime.now();
     final dir = await getApplicationDocumentsDirectory();
-    var _localPath = dir.path + '/' + widget.title;
+    var _localPath = dir.path + '/' + widget.title + '~' + now.toString();
     await File(_localPath).exists().then((value) {});
     await Directory(_localPath).exists().then((alreadyExist) async {
       AppConstants.printLog(alreadyExist);
-      if (alreadyExist) {
-        dir.deleteSync(recursive: true);
-       // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
-       //  return;
-        requestVideoDownload();
-
-      } else {
+      // if (alreadyExist) {
+      //  // dir.deleteSync(recursive: true);
+      //  // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
+      //  //  return;
+      //   requestVideoDownload();
+      //
+      // } else {
         final savedDir = Directory(_localPath);
         await savedDir.create(recursive: true).then((value) async {
           String? _taskid = await FlutterDownloader.enqueue(
@@ -180,7 +181,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
           AppConstants.printLog(_taskid);
           Navigator.push(context, MaterialPageRoute(builder: (_) => Downloads(0,)));
         });
-      }
+      // }
     });
   }
 }

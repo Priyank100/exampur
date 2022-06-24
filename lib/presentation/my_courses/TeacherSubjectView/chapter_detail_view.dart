@@ -37,6 +37,8 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   List<MaterialData> materialList = [];
   bool isLoading = false;
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
+  var groupedLists = {};
+  // var myFilterList = {};
   @override
   void initState() {
     callProvider();
@@ -53,6 +55,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     materialList = (await Provider.of<MyCourseProvider>(context, listen: false)
         .getMaterialList(
             context, widget.subjectId, widget.courseId, widget.chaptername))!;
+    grouping();
     isLoading = false;
     setState(() {});
   }
@@ -328,5 +331,17 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         SizedBox(height: 10),
       ],
     );
+  }
+void grouping() {
+  materialList.forEach((course) {
+
+        if (groupedLists['${course.unit}'] == null) {
+          groupedLists['${course.unit}'] = <MaterialData>[];
+        }
+        (groupedLists['${course.unit}'] as List<MaterialData>).add(course);
+      });
+
+    // myFilterList = groupedLists;
+    AppConstants.printLog(groupedLists.values.first.toString());
   }
 }
