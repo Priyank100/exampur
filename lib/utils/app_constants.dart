@@ -59,6 +59,7 @@ class AppConstants {
 
   static void printLog(message) {
     if (isPrint) {
+      print('Priyank>>');
       print(message);
     }
   }

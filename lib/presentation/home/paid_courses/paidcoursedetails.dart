@@ -47,6 +47,9 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   // String videoLink= 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4';
   // String videoName = 'my_first_video2';
 
+  List<bool> radioSelectList = [];
+  String selectedEmiPlans = '';
+
   @override
   void initState() {
     String videoId = (YoutubePlayer.convertUrlToId(widget.courseData.videoPath.toString()) == null)
@@ -78,6 +81,11 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
     // } else {
     //   _selectedQuality =defaultQuality!.toUpperCase();
     // }
+
+    for(int i=0; i<widget.courseData.emiPLans!.length; i++) {
+      radioSelectList.add(false);
+    }
+
     super.initState();
   }
 
@@ -228,36 +236,95 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
           ],
         ),
         bottomNavigationBar: Container(
-          child: widget.courseType==1 ? InkWell(
-            onTap: () {
-              _controller.pause();
-              FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
-                'Couse_Id':widget.courseData.id.toString(),
-                'Couse_Name':widget.courseData.title.toString()
-              });
-              Navigator.push(
-                context, MaterialPageRoute(builder: (context) =>
-                  DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
-                      widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
-                      upsellBookList: widget.courseData.upsellBook??[]
+          child: widget.courseType==1 ?
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  widget.courseData.emiPLans == null || widget.courseData.emiPLans!.length == 0 ?
+                  SizedBox() :
+                  InkWell(
+                    onTap: () {
+                      showBottomSheetEmiPlans();
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: AppColors.green,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      height: 40,
+                      margin: EdgeInsets.fromLTRB(10,10,10,0),
+                      child: Center(
+                          child: Text(
+                            'Check EMI Option',
+                            style: TextStyle(color: AppColors.white, fontSize: 18),
+                          )),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      _controller.pause();
+                      FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
+                        'Couse_Id':widget.courseData.id.toString(),
+                        'Couse_Name':widget.courseData.title.toString()
+                      });
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) =>
+                          DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
+                              widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
+                              upsellBookList: widget.courseData.upsellBook??[]
+                          )
+                      ));
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: AppColors.amber,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      height: 40,
+                      margin: EdgeInsets.all(10),
+                      child: Center(
+                          child: Text(
+                            getTranslated(context, StringConstant.buyCourse)!,
+                            style: TextStyle(color: AppColors.white, fontSize: 18),
+                          )),
+                    ),
                   )
-              ));
-            },
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: AppColors.amber,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              height: 40,
-              margin: EdgeInsets.all(10),
-              child: Center(
-                  child: Text(
-                    getTranslated(context, StringConstant.buyCourse)!,
-                    style: TextStyle(color: AppColors.white, fontSize: 18),
-                  )),
-            ),
-          ):SizedBox() ,),
+                ],
+              ) : SizedBox()
+        ),
       ),
+    );
+  }
+
+  void showBottomSheetEmiPlans() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          child: ListView.builder(
+            shrinkWrap: true,
+            // itemCount: widget.courseData.emiPLans!.length,
+            itemCount: 3,
+              itemBuilder: (context, index) {
+              return Padding(
+                  padding: EdgeInsets.all(5),
+                child: RadioListTile(
+                  groupValue: selectedEmiPlans,
+                  value: 'dvsd',
+                  // title: Text(widget.courseData.emiPLans![index].title.toString()),
+                  title: Text('frgerh dfb'),
+                  onChanged: (value){
+                    setState(() {
+                      selectedEmiPlans = '';
+                    });
+                  },
+                ),
+              );
+            }
+          ),
+        );
+      }
     );
   }
 
