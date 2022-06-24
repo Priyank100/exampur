@@ -154,8 +154,7 @@ class API {
   //my_course
   static const String myCourse_URL                      = BASE_URL1 + 'mycourses';
   static const String myCourse_subject_URL              = BASE_URL1 + 'course_subject/';
-  // static const String myCourse_material_URL             = BASE_URL1 + 'course_material/material/';
-  static const String myCourse_material_URL             = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/course_material/material/';
+  static const String myCourse_material_URL             = BASE_URL1 + 'course_material/material/';
   static const String myCourse_chapter_URL              = BASE_URL1 + 'course_material/chapter/';
   // static const String myCourse_timeline_URL     = BASE_URL1 + 'course_timeline';
   static const String myCourse_timelineshareStream_URL  = BASE_URL1 + 'course_timeline/shareStreamToMobile';

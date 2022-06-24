@@ -82,8 +82,10 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
     //   _selectedQuality =defaultQuality!.toUpperCase();
     // }
 
-    for(int i=0; i<widget.courseData.emiPLans!.length; i++) {
-      radioSelectList.add(false);
+    if(widget.courseData.emiPLans != null && widget.courseData.emiPLans!.length > 0) {
+      for (int i = 0; i < widget.courseData.emiPLans!.length; i++) {
+        radioSelectList.add(false);
+      }
     }
 
     super.initState();
@@ -241,7 +243,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  widget.courseData.emiPLans == null || widget.courseData.emiPLans!.length == 0 ?
+                  radioSelectList.length == 0 ?
                   SizedBox() :
                   InkWell(
                     onTap: () {
