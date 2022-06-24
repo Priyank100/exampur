@@ -311,9 +311,9 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                   padding: EdgeInsets.all(5),
                 child: RadioListTile(
                   groupValue: selectedEmiPlans,
-                  value: 'dvsd',
+                  value: 'Test',
                   // title: Text(widget.courseData.emiPLans![index].title.toString()),
-                  title: Text('frgerh dfb'),
+                  title: Text('Test'),
                   onChanged: (value){
                     setState(() {
                       selectedEmiPlans = '';
