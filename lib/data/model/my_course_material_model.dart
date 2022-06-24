@@ -58,7 +58,7 @@ class MaterialData {
     title: json["title"],
     timeline: json["timeline"] == null ? null : Timeline.fromJson(json["timeline"]),
     pdfPath: json["pdf_path"],
-    unit:json["unit"],
+    unit:json["unit"]??'Others',
     videoLink: json["video_link"] == null ? null : json["video_link"],
     docpath: json["doc_path"] == null ? null : json["doc_path"],
   );
