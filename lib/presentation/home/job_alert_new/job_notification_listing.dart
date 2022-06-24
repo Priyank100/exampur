@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 class JobNotificationListing extends StatefulWidget {
   final JobNotificationListModel jobNotificationListModel;
+
   JobNotificationListing(this.jobNotificationListModel) : super();
 
   @override
@@ -15,10 +16,41 @@ class JobNotificationListing extends StatefulWidget {
 }
 
 class _JobNotificationListingState extends State<JobNotificationListing> {
+  List<NotificationData> dataList = [];
+  String nextUrl = '';
+  var scrollController = ScrollController();
+  bool isBottomLoading = false;
+
+  @override
+  void initState() {
+    dataList = widget.jobNotificationListModel.notification??[];
+    nextUrl = widget.jobNotificationListModel.next.toString();
+    scrollController.addListener(pagination);
+    super.initState();
+  }
+
+  void pagination() {
+    if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
+      setState(() {
+        nextPage();
+      });
+    }
+  }
+
+  Future<void> nextPage() async {
+    if(widget.jobNotificationListModel.count! > 10 && nextUrl != 'null' && nextUrl != '') {
+      isBottomLoading = true;
+      JobNotificationListModel model = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationNext(context, nextUrl))!;
+      dataList.insertAll(dataList.length, model.notification!);
+      nextUrl = model.next.toString();
+      isBottomLoading = false;
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return widget.jobNotificationListModel == null || widget.jobNotificationListModel.notification!.length == 0 ?
+    return widget.jobNotificationListModel == null || dataList.length == 0 ?
     AppConstants.noDataFound() :
     Card(
       margin: EdgeInsets.all(10),
@@ -44,24 +76,26 @@ class _JobNotificationListingState extends State<JobNotificationListing> {
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.all(8),
-              itemCount: widget.jobNotificationListModel.notification!.length,
+              controller: scrollController,
+              itemCount: dataList.length,
                 itemBuilder: (context,i) {
-                  return dataList(i);
+                  return dataListItem(i);
             }),
-          )
+          ),
+          isBottomLoading ? CircularProgressIndicator(color: AppColors.amber,) : SizedBox()
         ],
       ),
     );
   }
 
-  Widget dataList(i){
-    DateTime parseDate = new DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(widget.jobNotificationListModel.notification![i].updated.toString());
+  Widget dataListItem(i){
+    DateTime parseDate = new DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dataList[i].updated.toString());
     var inputDate = DateTime.parse(parseDate.toString());
     var outputFormat = DateFormat('MMM dd\nyyyy');
     var outputDate = outputFormat.format(inputDate);
     return InkWell(
       onTap: () {
-        AppConstants.goTo(context, JobNotificationDetails(widget.jobNotificationListModel.notification![i].id.toString()));
+        AppConstants.goTo(context, JobNotificationDetails(dataList[i].id.toString()));
       },
       child: Column(
         children: [
@@ -69,10 +103,11 @@ class _JobNotificationListingState extends State<JobNotificationListing> {
             children: [
               Text(outputDate, textAlign: TextAlign.center),
               SizedBox(width: 10),
-              Flexible(child: Text(widget.jobNotificationListModel.notification![i].title.toString())),
+              Flexible(child: Text(dataList[i].title.toString())),
             ],
           ),
-          Divider(color: AppColors.grey500)
+          Divider(color: AppColors.grey500),
+
         ],
       ),
     );

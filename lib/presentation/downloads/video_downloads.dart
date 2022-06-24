@@ -360,8 +360,7 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
       onTap: () {
         FlutterDownloader.cancel(taskId: taskid);
         downloadsListMaps.removeAt(index);
-        FlutterDownloader.remove(
-            taskId: taskid, shouldDeleteContent: true);
+        FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: true);
         setState(() {});
       },
     );

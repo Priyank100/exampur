@@ -153,4 +153,18 @@ class JobAlertsProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  Future<JobNotificationListModel?> getJobNotificationNext(BuildContext context, String url) async {
+    ApiResponse apiResponse = await jobAlertsRepo.jobNotificationsCourseAndTag(url);
+
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _jobNotificationListModel = JobNotificationListModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _jobNotificationListModel;
+
+    } else {
+      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.goAndReplace(context, ErrorScreen());
+    }
+    notifyListeners();
+  }
 }

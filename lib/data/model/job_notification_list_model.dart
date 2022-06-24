@@ -20,7 +20,7 @@ class JobNotificationListModel {
       int? tagId, 
       String? tagSlug, 
       List<Course>? course, 
-      List<Notification>? notification,}){
+      List<NotificationData>? notification,}){
     _count = count;
     _next = next;
     _previous = previous;
@@ -47,7 +47,7 @@ class JobNotificationListModel {
     if (json['notification'] != null) {
       _notification = [];
       json['notification'].forEach((v) {
-        _notification?.add(Notification.fromJson(v));
+        _notification?.add(NotificationData.fromJson(v));
       });
     }
   }
@@ -58,7 +58,7 @@ class JobNotificationListModel {
   int? _tagId;
   String? _tagSlug;
   List<Course>? _course;
-  List<Notification>? _notification;
+  List<NotificationData>? _notification;
 
   int? get count => _count;
   String? get next => _next;
@@ -67,7 +67,7 @@ class JobNotificationListModel {
   int? get tagId => _tagId;
   String? get tagSlug => _tagSlug;
   List<Course>? get course => _course;
-  List<Notification>? get notification => _notification;
+  List<NotificationData>? get notification => _notification;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -94,10 +94,10 @@ class JobNotificationListModel {
 /// slug : "rrb-ntpc-2021"
 /// updated : "2022-03-11T14:56:18.067"
 
-Notification notificationFromJson(String str) => Notification.fromJson(json.decode(str));
-String notificationToJson(Notification data) => json.encode(data.toJson());
-class Notification {
-  Notification({
+NotificationData notificationFromJson(String str) => NotificationData.fromJson(json.decode(str));
+String notificationToJson(NotificationData data) => json.encode(data.toJson());
+class NotificationData {
+  NotificationData({
       int? id, 
       String? title, 
       String? name, 
@@ -110,7 +110,7 @@ class Notification {
     _updated = updated;
 }
 
-  Notification.fromJson(dynamic json) {
+  NotificationData.fromJson(dynamic json) {
     _id = json['id'];
     _title = json['title'];
     _name = json['name'];
