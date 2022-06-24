@@ -243,7 +243,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                         setState(() {
                           isLoading = true;
                         });
-                        UpdateChoosecategory(selectedCategoryIdList);
+                        UpdateChoosecategory(selectedCategoryIdList, API.Update_Choose_category_URL);
 
                       }
                       else {
@@ -301,14 +301,14 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
         ));
   }
 
-  UpdateChoosecategory(List? categories) async {
+  UpdateChoosecategory(List? categories, String api) async {
     // Map<String, dynamic> args = {"categories": categories};
     // var body = {"categories": [
     //   "61cad845da1d8532b6f33fd1", "61d2cc701cea2fdab6e9cb06"
     // ]};
     var body = {"categories": categories};
     await Service.post(
-      API.Update_Choose_category_URL,
+      api,
       body: body,
     ).then((response) async {
       isLoading = false;
@@ -334,7 +334,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
           }
 
           AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
-          Navigator.pop(context);
+          Navigator.pop(context, 'updated');
           // setState(() {});
           AppConstants.showBottomMessage(context, 'Saved successfully', AppColors.black);
 
@@ -343,40 +343,41 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
               context, jsonObject['data'].toString(), AppColors.black);
         }
       } else if(response.statusCode==429) {
-        await Service.post(
-          API.Update_Choose_category_URL_2,
-          body: body,
-        ).then((response) async {
-          isLoading = false;
-          AppConstants.printLog(response.body.toString());
-          if (response == null) {
-            var snackBar = SnackBar( margin: EdgeInsets.all(20),
-                behavior: SnackBarBehavior.floating,
-                content: Text('Server Error'),backgroundColor: AppColors.red);
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          } else if (response.statusCode == 200) {
-            AppConstants.printLog(response.body.toString());
-            var jsonObject =  jsonDecode(response.body);
-            AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
-            if(jsonObject['statusCode'].toString() == '200'){
-              AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
-              Navigator.pop(context);
-              // setState(() {});
-
-            }  else {
-              AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
-            }
-
-          } else {
-
-            AppConstants.printLog("init address fail");
-            final body = json.decode(response.body);
-            var snackBar = SnackBar( margin: EdgeInsets.all(20),
-                behavior: SnackBarBehavior.floating,
-                content: Text(body['data'].toString()),backgroundColor: AppColors.red);
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
-        });
+        UpdateChoosecategory(selectedCategoryIdList, API.Update_Choose_category_URL_2);
+        // await Service.post(
+        //   API.Update_Choose_category_URL_2,
+        //   body: body,
+        // ).then((response) async {
+        //   isLoading = false;
+        //   AppConstants.printLog(response.body.toString());
+        //   if (response == null) {
+        //     var snackBar = SnackBar( margin: EdgeInsets.all(20),
+        //         behavior: SnackBarBehavior.floating,
+        //         content: Text('Server Error'),backgroundColor: AppColors.red);
+        //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        //   } else if (response.statusCode == 200) {
+        //     AppConstants.printLog(response.body.toString());
+        //     var jsonObject =  jsonDecode(response.body);
+        //     AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
+        //     if(jsonObject['statusCode'].toString() == '200'){
+        //       AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
+        //       Navigator.pop(context);
+        //       // setState(() {});
+        //
+        //     }  else {
+        //       AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
+        //     }
+        //
+        //   } else {
+        //
+        //     AppConstants.printLog("init address fail");
+        //     final body = json.decode(response.body);
+        //     var snackBar = SnackBar( margin: EdgeInsets.all(20),
+        //         behavior: SnackBarBehavior.floating,
+        //         content: Text(body['data'].toString()),backgroundColor: AppColors.red);
+        //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        //   }
+        // });
       } else {
         AppConstants.printLog("init address fail");
         final body = json.decode(response.body);

@@ -1,4 +1,6 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
+import 'package:exampur_mobile/data/model/upsell_book.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
@@ -56,7 +58,10 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
                 bannerDetailData!.title.toString(),
                 bannerDetailData!.id.toString(),
                 bannerDetailData!.salePrice.toString(),
-                bannerDetailData!.regularPrice.toString()));
+                bannerDetailData!.regularPrice.toString(),
+                bannerDetailData!.upsellBook??[]
+        )
+    );
   }
 }
 
@@ -67,9 +72,10 @@ class Viedobanner extends StatefulWidget {
   final String id;
   final String salePrice;
   final String regularPrice;
+  final List<UpsellBook> upsellBookList;
 
   const Viedobanner(this.type, this.videoUrl, this.title, this.id,
-      this.salePrice, this.regularPrice)
+      this.salePrice, this.regularPrice, this.upsellBookList)
       : super();
 
   @override
@@ -222,7 +228,8 @@ class _ViedobannerState extends State<Viedobanner> {
                             'Combo',
                             widget.id.toString(),
                             widget.title.toString(),
-                            widget.salePrice.toString())),
+                            widget.salePrice.toString(),
+                            upsellBookList: widget.upsellBookList)),
                   );
                 } else {
                   Navigator.push(
@@ -233,7 +240,8 @@ class _ViedobannerState extends State<Viedobanner> {
                             'Course',
                             widget.id.toString(),
                             widget.title.toString(),
-                            widget.salePrice.toString())),
+                            widget.salePrice.toString(),
+                            upsellBookList: widget.upsellBookList)),
                   );
                 }
               },

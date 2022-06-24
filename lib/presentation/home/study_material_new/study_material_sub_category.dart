@@ -68,7 +68,8 @@ class _StudyMaterialSubCategoryState extends State<StudyMaterialSubCategory> {
   }
 
   Widget dataList() {
-    return ListView.builder(
+    return studyMaterialSubCatModel!.subCategory!.length == 0 ? Center(child: AppConstants.noDataFound()) :
+      ListView.builder(
         itemCount: studyMaterialSubCatModel!.subCategory!.length,
         itemBuilder: (context, index) {
           return itemList(studyMaterialSubCatModel!.subCategory![index]);

@@ -1,4 +1,6 @@
+import 'package:exampur_mobile/data/model/my_course_list_model.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
+import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/shared/teaching_container.dart';
@@ -16,8 +18,8 @@ class TeachingList extends StatefulWidget {
 }
 
 class _TeachingListState extends State<TeachingList> {
-  List<Courses> paidCourseList = [];
-  List<Courses> freeCourseList = [];
+  List<PaidCourseData> paidCourseList = [];
+  List<PaidCourseData> freeCourseList = [];
   var scrollController = ScrollController();
   bool isLoading = false;
   int isLoad = 0;
@@ -35,7 +37,7 @@ class _TeachingListState extends State<TeachingList> {
 
   Future<void> getLists(pageNo) async {
     if(widget.courseType == 1) {
-      List<Courses> list = (await Provider.of<PaidCoursesProvider>(context, listen: false).getPaidCourseList(context, widget.tabId, pageNo))!;
+      List<PaidCourseData> list = (await Provider.of<PaidCoursesProvider>(context, listen: false).getPaidCourseList(context, widget.tabId, pageNo))!;
       if(list.length > 0) {
         isData = true;
         paidCourseList = paidCourseList + list;
@@ -44,7 +46,7 @@ class _TeachingListState extends State<TeachingList> {
       }
       isLoading = false;
     } else {
-      List<Courses> list = (await Provider.of<PaidCoursesProvider>(context, listen: false).getFreeCourseList(context, widget.tabId, pageNo))!;
+      List<PaidCourseData> list = (await Provider.of<PaidCoursesProvider>(context, listen: false).getFreeCourseList(context, widget.tabId, pageNo))!;
       if(list.length > 0) {
         isData = true;
         freeCourseList = freeCourseList + list;

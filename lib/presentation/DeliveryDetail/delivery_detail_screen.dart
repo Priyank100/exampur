@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:exampur_mobile/data/model/billing_model.dart';
 import 'package:exampur_mobile/data/model/delivery_model.dart';
+import 'package:exampur_mobile/data/model/delivery_upsell_model.dart';
+import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
+import 'package:exampur_mobile/data/model/upsell_book.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/payment_screen.dart';
 import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
 import 'package:exampur_mobile/utils/api.dart';
@@ -20,8 +23,9 @@ class DeliveryDetailScreen extends StatefulWidget {
   final String id;
   final String title;
   final String salePrice;
+  final List<UpsellBook>? upsellBookList;
 
-  const DeliveryDetailScreen(this.type, this.id, this.title, this.salePrice) ;
+  const DeliveryDetailScreen(this.type, this.id, this.title, this.salePrice, {this.upsellBookList}) ;
 
   @override
   _DeliveryDetailScreenState createState() => _DeliveryDetailScreenState();
@@ -38,6 +42,9 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   String State='';
   String LandMark='';
   bool isCouponValid = false;
+
+  bool isBookSelected = false;
+  List<String> selectedBookIdList = [];
 
   final TextEditingController _billingAddressController = TextEditingController();
   final TextEditingController _billingCityController = TextEditingController();
@@ -69,14 +76,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     getSharedPrefData();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-       // resizeToAvoidBottomInset: false,
-       // resizeToAvoidBottomPadding: false,
       appBar: CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -89,106 +92,115 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               maxLines: 2, softWrap: true,
               style: TextStyle(fontSize: 25),
             ) : widget.type == 'TestSeries' ? Text('Test Series', style: TextStyle(fontSize: 25)) :
-        Text(
-          getTranslated(context, StringConstant.provideFurtherDetailsForDeliveryOfBooks)! ,
-    maxLines: 2,softWrap: true,
-    style: TextStyle(fontSize: 25),
-    ),
-
-            SizedBox(
-              height: 20,
+            Text(
+              getTranslated(context, StringConstant.provideFurtherDetailsForDeliveryOfBooks)!,
+              maxLines: 2,softWrap: true, style: TextStyle(fontSize: 25),
             ),
 
             widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox():
-            TextUse(
-              image: Icons.location_city,
-              title: getTranslated(context, StringConstant.address),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: TextUse(
+                image: Icons.location_city,
+                title: getTranslated(context, StringConstant.address),
+              ),
             ),
-            SizedBox(height: 15),
 
             widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox():
-            CustomTextField(
-              hintText: getTranslated(context, StringConstant.enterAddress)!,
-              textInputType: TextInputType.text,
-              controller: _billingAddressController,
-              value: (value) {},
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: CustomTextField(
+                hintText: getTranslated(context, StringConstant.enterAddress)!,
+                textInputType: TextInputType.text,
+                controller: _billingAddressController,
+                value: (value) {},
+              ),
             ),
-            SizedBox(height: 15),
-            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox():
-            TextUse(
-              image: Icons.location_city,
-              title: getTranslated(context, StringConstant.landmarkTehsil),
-            ),
-            SizedBox(height: 15),
 
             widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox():
-            CustomTextField(
-              hintText: getTranslated(context, StringConstant.landmarkTehsil)!,
-              textInputType: TextInputType.text,
-              controller: _billinglandMarkController,
-              value: (value) {},
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: TextUse(
+                image: Icons.location_city,
+                title: getTranslated(context, StringConstant.landmarkTehsil),
+              ),
             ),
-            SizedBox(
-              height: 15,
+
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox():
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: CustomTextField(
+                hintText: getTranslated(context, StringConstant.landmarkTehsil)!,
+                textInputType: TextInputType.text,
+                controller: _billinglandMarkController,
+                value: (value) {},
+              ),
             ),
-            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
-            ):    TextUse(
-              image: Icons.location_city,
-              title: getTranslated(context, StringConstant.city),
+
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox() :
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: TextUse(
+                image: Icons.location_city,
+                title: getTranslated(context, StringConstant.city),
+              ),
             ),
-            SizedBox(
-              height: 15,
+
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox() :
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: CustomTextField(
+                hintText: getTranslated(context, StringConstant.enterCity)!,
+                //focusNode: _phoneNode,
+                textInputType: TextInputType.text,
+                controller: _billingCityController,
+                value: (value) {},
+              ),
             ),
-            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
-            ):   CustomTextField(
-              hintText: getTranslated(context, StringConstant.enterCity)!,
-              //focusNode: _phoneNode,
-              textInputType: TextInputType.text,
-              controller: _billingCityController,
-              value: (value) {},
+
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox() :
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: TextUse(
+                image: Icons.location_city,
+                title: getTranslated(context, StringConstant.state),
+              ),
             ),
-            SizedBox(
-              height: 15,
+
+            widget.type == 'Course'|| widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox() :
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: CustomTextField(
+                hintText: getTranslated(context, StringConstant.enterState)!,
+                //focusNode: _phoneNode,
+                textInputType: TextInputType.text,
+                controller: _billingStateController,
+                value: (value) {},
+              ),
             ),
-            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
-            ):  TextUse(
-              image: Icons.location_city,
-              title: getTranslated(context, StringConstant.state),
+
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox() :
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: TextUse(
+                image: Icons.location_city,
+                title: getTranslated(context, StringConstant.pinCode),
+              ),
             ),
-            widget.type == 'Course' || widget.type == 'TestSeries' ? SizedBox(
-            ):  SizedBox(
-              height: 15,
+
+            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox() :
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: CustomTextField(
+                hintText: getTranslated(context, StringConstant.enterPinCode)!,
+                //focusNode: _phoneNode,
+                textInputType: TextInputType.number,
+                  controller:_billingPincodeController,
+                value: (value) {},
+              ),
             ),
-            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
-            ):   CustomTextField(
-              hintText: getTranslated(context, StringConstant.enterState)!,
-              //focusNode: _phoneNode,
-              textInputType: TextInputType.text,
-              controller: _billingStateController,
-              value: (value) {},
-            ),
-            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
-            ):   SizedBox(
-              height: 15,
-            ),
-            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
-            ):  TextUse(
-              image: Icons.location_city,
-              title: getTranslated(context, StringConstant.pinCode),
-            ),
-            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
-            ):    SizedBox(
-              height: 15,
-            ),
-            widget.type == 'Course'||widget.type=='Combo' || widget.type == 'TestSeries' ? SizedBox(
-            ):   CustomTextField(
-              hintText: getTranslated(context, StringConstant.enterPinCode)!,
-              //focusNode: _phoneNode,
-              textInputType: TextInputType.number,
-                controller:_billingPincodeController,
-              value: (value) {},
-            ),
-            SizedBox(height: 25,),
+
+            SizedBox(height: 20),
 
             Row(children: [
               Expanded(
@@ -257,9 +269,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               )
             ]),
             isCouponValid ? Text('Coupon applied successfully', style: TextStyle(color: AppColors.green, fontSize: 10),) : SizedBox(),
-            SizedBox(
-              height: 30,
-            ),
+            widget.upsellBookList == null ? SizedBox() : widget.upsellBookList!.length > 0 ? showUpsellBookList() : SizedBox(),
+            SizedBox(height: 30),
             InkWell(
               onTap: (){
                 FocusScope.of(context).unfocus();
@@ -340,7 +351,58 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     });
   }
 
+  Widget showUpsellBookList() {
+    return Column(
+      children: [
+        SizedBox(height: 20),
+        Text('Recommend book with this course', style: TextStyle(fontSize: 18)),
+        Text('Click on the check box to add this book', style: TextStyle(fontSize: 12)),
+        SizedBox(height: 10),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: widget.upsellBookList!.length,
+            itemBuilder: (context, index) {
+            return upsellBookContainer(index);
+          })
+      ],
+    );
+  }
 
+  Widget upsellBookContainer(i) {
+    return Row(
+      children: [
+        AppConstants.image(
+            widget.upsellBookList![0].bannerPath.toString().contains('https') ?
+            widget.upsellBookList![0].bannerPath.toString() :
+            AppConstants.BANNER_BASE + widget.upsellBookList![0].bannerPath.toString(),
+            height: 80.0, width: 100.0),
+        SizedBox(width: 10),
+        Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.upsellBookList![0].title.toString()),
+                Text('Regular: ₹${widget.upsellBookList![0].regularPrice}, Sale : ₹${widget.upsellBookList![0].salePrice}',
+                style: TextStyle(fontSize: 10))
+              ],
+            )
+        ),
+        Checkbox(
+          value: isBookSelected,
+          onChanged: (bool? value) {
+            isBookSelected = !isBookSelected;
+            if(isBookSelected) {
+              selectedBookIdList.add(widget.upsellBookList![0].id.toString());
+            } else {
+              selectedBookIdList.remove(widget.upsellBookList![0].id.toString());
+              // selectedBookIdList.clear();
+            }
+            setState(() {});
+          })
+      ],
+    );
+  }
 
   saveDeliveryAddress(bool flag, _address, _pincode, _city, _state,_landmark, _promocode) async {
     FocusScope.of(context).unfocus();
@@ -348,25 +410,37 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     final param;
     String url = '';
     if(widget.type == 'Course') {
+      // param = {
+      //   "course_id": widget.id.toString(),
+      //   "promo_code": _promocode,
+      //   "billing_address": _address,
+      //   "billing_city": _city,
+      //   "billing_state": _state,
+      //   "billing_country": AppConstants.defaultCountry,
+      //   "billing_pincode": _pincode
+      // };
       param = {
         "course_id": widget.id.toString(),
         "promo_code": _promocode,
-        "billing_address": _address,
-        "billing_city": _city,
-        "billing_state": _state,
-        "billing_country": AppConstants.defaultCountry,
-        "billing_pincode": _pincode
+        "book_selected":isBookSelected,
+        "upsell_book": selectedBookIdList
       };
     }
     else if(widget.type=='Combo') {
+      // param = {
+      //   "course_id": widget.id.toString(),
+      //   "promo_code": _promocode,
+      //   "billing_address": _address,
+      //   "billing_city": _city,
+      //   "billing_state": _state,
+      //   "billing_country": AppConstants.defaultCountry,
+      //   "billing_pincode": _pincode
+      // };
       param = {
         "course_id": widget.id.toString(),
         "promo_code": _promocode,
-        "billing_address": _address,
-        "billing_city": _city,
-        "billing_state": _state,
-        "billing_country": AppConstants.defaultCountry,
-        "billing_pincode": _pincode
+        "book_selected":isBookSelected,
+        "upsell_book": selectedBookIdList
       };
     }
     else if(widget.type == 'TestSeries') {
@@ -394,10 +468,12 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
     if(flag) {
       if(widget.type == 'Course') {
-        url = API.order_course;
+        // url = API.order_course;
+        url = API.order_course_with_upsell;
       }
       else if(widget.type=='Combo') {
-        url = API.order_combo_course;
+        // url = API.order_combo_course;
+        url = API.order_course_with_upsell;
       }
       else if(widget.type == 'TestSeries') {
         url = API.order_test_series;
@@ -428,12 +504,9 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         var jsonObject = jsonDecode(response.body);
 
         if (jsonObject['statusCode'].toString() == '200') {
-          AppConstants.printLog('anchal');
-          AppConstants.printLog(response.body.toString());
-          Delivery_model deliveryModel = Delivery_model.fromJson(jsonObject);
-          AppConstants.printLog(
-              'status>> ' + deliveryModel.data!.status.toString());
-          String status = deliveryModel.data!.status.toString();
+          // Delivery_model deliveryModel = Delivery_model.fromJson(jsonObject);
+          DeliveryUpsellModel deliveryUpsellModel = DeliveryUpsellModel.fromJson(jsonObject);
+          String status = deliveryUpsellModel.data!.status.toString();
 
           if (status == "Pending") {
             BillingModel billingModel = BillingModel(
@@ -450,25 +523,24 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 widget.title.toString(),
                 widget.salePrice.toString()
             );
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
+            Navigator.push(context, MaterialPageRoute(builder: (context) =>
                         PaymentScreen(
                             widget.type,
                             billingModel,
-                            deliveryModel,
+                            deliveryUpsellModel,
                             isCouponValid ? _cuponCodeController.text.toUpperCase() : '')
                 )
             );
           } else {
             AppConstants.printLog('yes');
-            Navigator.push(context, MaterialPageRoute(builder:
-                (context) =>
+            Navigator.push(context, MaterialPageRoute(builder: (context) =>
                 PaymentReceiptPage(
-                    widget.type, deliveryModel.data!.orderId.toString(),
-                    deliveryModel.data!.paymentOrderId.toString(),
-                    'signature')
+                    widget.type,
+                    deliveryUpsellModel.data!.orderId.toString(),
+                    deliveryUpsellModel.data!.paymentOrderId.toString(),
+                    'signature',
+                    deliveryUpsellModel.data!.orderNo.toString(),
+                    deliveryUpsellModel.data!.bookSelected??false)
             ));
           }
         } else {

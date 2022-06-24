@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
+import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
 import 'package:exampur_mobile/presentation/authentication/otp_screen.dart';
@@ -19,6 +20,7 @@ import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
+import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -55,15 +57,15 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
   late AnimationController _hide;
   late List<AnimationController> _faders;
   late List<Key> _destinationKeys;
-  int _counter = 0;
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<Data> allCategoriesList = [];
   List<String> selectedCategoryName = [];
-  // String PHONE_VERIFY = '';
   String TOKEN = '';
 
+  List<BannerData> bannerList = [];
+
   final List<Widget> widgetList = [
-    Home(),
+    Home([]),
     Demo(),
     MyCourses(),
     Downloads(0),
@@ -93,9 +95,6 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
   Future<void> callProvider() async {
     await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context);
 
-    // var userData = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
-    // PHONE_VERIFY = userData[0]['data']['phone_conf'].toString();
-
     await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((token) async {
       AppConstants.printLog('TOKEN>> $token');
       TOKEN = token;
@@ -110,7 +109,8 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
           }
         }
       }
-
+      bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context, AppConstants.encodeCategory()))!;
+      widgetList[0] = Home(bannerList);
       setState(() {});
     });
   }
@@ -122,23 +122,11 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
     super.dispose();
   }
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // return NotificationListener<ScrollNotification>(
-    // onNotification: _handleScrollNotification,
-    // child: Scaffold(
-    //Provider.of<AuthProvider>(context, listen: false).initUserList(context);
     List<ItemClass> allItems = <ItemClass>[
       ItemClass(
           0,
-          //'Home',
-
           getTranslated(context, 'home')!,
           _currIndex == 0
               ? Image.asset(Images.home,
@@ -150,7 +138,6 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                 )),
       ItemClass(
         1,
-        //'Courses',
         getTranslated(context, 'demo')!,
         FaIcon(
           FontAwesomeIcons.graduationCap,
@@ -159,7 +146,6 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
       ),
       ItemClass(
           2,
-          //'Resources',
           getTranslated(context, 'my_courses')!,
           // FaIcon(FontAwesomeIcons.camera),
           _currIndex == 2
@@ -266,95 +252,6 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
               ),
             ),
           ),
-//           actions: [
-//             // IconButton(
-//             //     onPressed: () {
-//             //       Navigator.push(context,
-//             //           MaterialPageRoute(builder: (context) => SearchView()));
-//             //     },
-//             //     icon: const Icon(
-//             //       Icons.search_outlined,
-//             //       color: AppColors.black,
-//             //       size: 30.0,
-//             //     )),
-//             // const SizedBox(
-//             //   width: 20.0,
-//             // ),
-// // InkWell(
-// //   onTap: (){
-// //     Navigator.push(context,
-// //                   MaterialPageRoute(builder: (context) => SearchView()));
-// //   },
-// //   child:   Icon( Icons.search_outlined,
-// //
-// //                   color: AppColors.black,
-// //
-// //                   size: 30.0,),
-// // ),
-// //             InkWell(
-// //               onTap:() {
-// //             Navigator.push(
-// //                         context,
-// //                         MaterialPageRoute(
-// //                             builder: (context) => const Notifications()));
-// //               },
-// //               child: Container(
-// //                // padding: EdgeInsets.all(8),
-// //                 margin:EdgeInsets.all(8) ,
-// //                 width: 30,
-// //                 height: 30,
-// //                 //color: Colors.amber,
-// //                 child: Stack(
-// //                   children: [
-// //                     Icon(
-// //                       Icons.notifications,
-// //                       color: Colors.black,
-// //                       size: 30,
-// //                     ),
-// //                     Container(
-// //                       width: 30,
-// //                       height: 30,
-// //                       alignment: Alignment.topRight,
-// //                       margin: EdgeInsets.only(top: 5),
-// //                       child: Container(
-// //                         width: 15,
-// //                         height: 15,
-// //                         decoration: BoxDecoration(
-// //                             shape: BoxShape.circle,
-// //                             color: Color(0xffc32c37),
-// //                             border: Border.all(color: Colors.white, width: 1)),
-// //                         child: Padding(
-// //                           padding: const EdgeInsets.all(0.0),
-// //                           child: Center(
-// //                             child: Text(
-// //                               _counter.toString(),
-// //                               style: TextStyle(fontSize: 10),
-// //                             ),
-// //                           ),
-// //                         ),
-// //                       ),
-// //                     ),
-// //                   ],
-// //                 ),
-// //               ),
-// //             )
-//
-//             // Padding(
-//             //   padding: const EdgeInsets.only(right: 10.0),
-//             //   child: IconButton(
-//             //       onPressed: () {
-//             //         Navigator.push(
-//             //             context,
-//             //             MaterialPageRoute(
-//             //                 builder: (context) => const Notifications()));
-//             //       },
-//             //       icon: const Icon(
-//             //         Icons.notifications,
-//             //         color: AppColors.black,
-//             //         size: 30.0,
-//             //       )),
-//             // ),
-//           ],
         ),
         drawer: Drawer(
           elevation: 0,
@@ -363,14 +260,6 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    // Container(
-                    //  // height: 200,
-                    //   child: DrawerHeader(
-                    //     child:  Image.asset(Images.exampur_logo,
-                    //       width: Dimensions.ICON_SIZE_Logo,
-                    //       height: Dimensions.ICON_SIZE_Logo,
-                    //     ),),
-                    // ),
                     Container(
                         margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
                         child: Image.asset(
@@ -401,10 +290,6 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                             ),
                           ]),
                       onTap: () async {
-                        // await  FirebaseAnalytics.instance.logEvent(name: 'COURSE',parameters: {
-                        //    'id':'123456'
-                        //  });
-
                         _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
@@ -439,7 +324,6 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    //LandingChooseCategory()
                                     ChooseCategoryScreen(
                                         allCategoriesList))).then((value) {
                           callProvider();

@@ -42,7 +42,8 @@ import 'banner_link_detail_page.dart';
 import 'current_affairs_new/current_affairs_tab.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final List<BannerData> bannerList;
+  const Home(this.bannerList, {Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -50,7 +51,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String userName = '';
-  List<BannerData> bannerList = [];
+  // List<BannerData> bannerList = [];
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
   String TOKEN = '';
 
@@ -141,34 +142,28 @@ class _HomeState extends State<Home> {
       TOKEN = token;
       AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
       AppConstants.printLog(">>>>>>>>>>>"+ AppConstants.encodeCategory());
-      bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context, AppConstants.encodeCategory()))!;});
-      // AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
-      // AppConstants.selectedCategoryList = selectCategorylist;
-      setState(() {});
-  }
-
-  /*Future<void> getSharedPrefData() async {
-    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
-    userName = jsonValue[0]['data']['first_name'].toString();
+      // bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context, AppConstants.encodeCategory()))!;
+    });
     setState(() {});
-  }*/
+  }
 
   void _changeLanguage(Language language) async {
     Locale _locale = await setLocale(language.languageCode);
     MyApp.setLocale(context, _locale);
   }
 
-  Future<void>_refreshScreen() async{
+  /*Future<void>_refreshScreen() async{
     bannerList.clear();
     return callProvider();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    return RefreshWidget(
-      keyRefresh: keyRefresh,
-      onRefresh:_refreshScreen,
-      child: SingleChildScrollView(
+    // return RefreshWidget(
+    //   keyRefresh: keyRefresh,
+      // onRefresh:_refreshScreen,
+      // child:
+      return SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(10),
           child: Column(
@@ -219,8 +214,8 @@ class _HomeState extends State<Home> {
                 ],
               ),
               // SizedBox(height: 5),
-              bannerList.length != 0
-                  ? LargeBanner(bannerList: bannerList)
+              widget.bannerList.length != 0
+                  ? LargeBanner(bannerList: widget.bannerList)
                   : SizedBox(),
               SizedBox(height: Dimensions.FONT_SIZE_OVER_LARGE),
               Row(
@@ -445,7 +440,7 @@ class _HomeState extends State<Home> {
               // ),
             ],
           ),
-        ),
+        // ),
       ),
     );
   }

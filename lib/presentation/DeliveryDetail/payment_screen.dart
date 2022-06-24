@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/billing_model.dart';
 import 'package:exampur_mobile/data/model/delivery_model.dart';
+import 'package:exampur_mobile/data/model/delivery_upsell_model.dart';
 import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -13,9 +14,10 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 class PaymentScreen extends StatefulWidget {
   final String type;
   final BillingModel billingModel;
-  final Delivery_model deliveryModel;
+  // final Delivery_model deliveryModel;
+  final DeliveryUpsellModel deliveryUpsellModel;
   final String couponCode;
-  const PaymentScreen(this.type, this.billingModel, this.deliveryModel, this.couponCode) : super();
+  const PaymentScreen(this.type, this.billingModel, this.deliveryUpsellModel, this.couponCode) : super();
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
@@ -66,12 +68,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 widget.type == 'TestSeries' ?
                 textUse('TestSeries Name', widget.billingModel.itemName.toString()) :
                 textUse(getTranslated(context, StringConstant.book_name)!, widget.billingModel.itemName.toString()),
-                textUse(getTranslated(context, StringConstant.TotalAmount)!, widget.deliveryModel.data!.amount.toString()),
+                textUse(getTranslated(context, StringConstant.TotalAmount)!, widget.deliveryUpsellModel.data!.amount.toString()),
+
+                widget.couponCode.isEmpty ? SizedBox() :Divider(),
+                widget.couponCode.isEmpty ? SizedBox() : textUse('Coupon code apply', widget.couponCode),
+
+                widget.deliveryUpsellModel.data!.bookSelected! ? Divider() : SizedBox(),
+                widget.deliveryUpsellModel.data!.bookSelected! ? textUse('Upsell Book', widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString()) : SizedBox(),
+                widget.deliveryUpsellModel.data!.bookSelected! ? textUse('Amount', widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice.toString()) : SizedBox(),
 
                 Divider(),
-
-                widget.couponCode.isEmpty ? SizedBox() : textUse('Coupon code apply', widget.couponCode),
-                widget.couponCode.isEmpty ? SizedBox() :Divider(),
 
                 SizedBox(height: 20),
                 MaterialButton(
@@ -115,11 +121,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void openCheckout() {
 
     var options = {
-      "key": Keys.Rozar_pay_key,
+      "key": Keys.Razar_pay_key,
       "amount": num.parse(widget.billingModel.itemAmount.toString()) * 100,
       "name": "Exampur",
-      "description": widget.deliveryModel.data!.description.toString(),
-      "order_id":  widget.deliveryModel.data!.paymentOrderId.toString(),
+      "description": widget.deliveryUpsellModel.data!.description.toString(),
+      "order_id":  widget.deliveryUpsellModel.data!.paymentOrderId.toString(),
       "timeout": "180",
       "theme.color": "#d19d0f",
       "currency": "INR",
@@ -142,9 +148,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => PaymentReceiptPage(widget.type, widget.deliveryModel.data!.orderId.toString(),
+            builder: (context) => PaymentReceiptPage(
+                widget.type,
+                widget.deliveryUpsellModel.data!.orderId.toString(),
                 response.paymentId.toString(),
-                response.signature.toString())
+                response.signature.toString(),
+                widget.deliveryUpsellModel.data!.orderNo.toString(),
+                widget.deliveryUpsellModel.data!.bookSelected??false
+            )
         )
     );
   }

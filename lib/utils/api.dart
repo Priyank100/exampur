@@ -5,8 +5,8 @@ class API {
   // static const String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
   // static const String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
-  // static const String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
-  // static const String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
+  // static const String BASE_URL1 = 'https://7qclk4stsa.execute-api.ap-south-1.amazonaws.com/';
+  // static const String BASE_URL2 = 'https://seysl9nl99.execute-api.ap-south-1.amazonaws.com/';
 
   //Stage
   // static const String BASE_URL1 = 'https://auth-stage.exampur.xyz/';
@@ -98,14 +98,14 @@ class API {
   static const String HelpFeedback_URL_2  = BASE_URL1_U + 'ticket/create';
 
   //order_course
-  static const String order_course          = BASE_URL1 + 'order_course/create';
+  // static const String order_course          = BASE_URL1 + 'order_course/create';
   static const String finalize_order_course = BASE_URL1 + 'order_course/finalize';
 
   static const String order_course_2          = BASE_URL1_U + 'order_course/create';
   static const String finalize_order_course_2 = BASE_URL1_U + 'order_course/finalize';
 
   //order_combo_course
-  static const String order_combo_course          = BASE_URL1 + 'order_combo_course/create';
+  // static const String order_combo_course          = BASE_URL1 + 'order_combo_course/create';
   static const String finalize_order_combo_course = BASE_URL1 + 'order_combo_course/finalize';
 
   static const String order_combo_course_2          = BASE_URL1_U + 'order_combo_course/create';
@@ -219,7 +219,21 @@ class API {
   static const String attemptQuizzesWebUrl    = WEBVIEW_URL + 'attempted-quiz/';
   static const String savedQuestionWebUrl     = WEBVIEW_URL + 'saved-question/';
 
-//
-  static const String zoomlink     = 'https://us02web.zoom.us/j/83323674101?pwd=SWtCK3h1WTBEMzN1SVh3V3Q2TS9aUT09';
+
+  //order course and combo course with upsell book
+  static const String order_course_with_upsell = BASE_URL1 + 'order_course/upsell_create';
+
+  // order upsell book after finalize
+  static const String order_create_upsell = BASE_URL1 + 'order_course/store_upsell_order';
+
+  // emi
+  static const String emi_create = BASE_URL1 + 'order_course/emi_create';
+  // {
+  // "course_id":"6232b9caba12feaa99efbbf9",
+  // "emi_title":"pay in 6 months easy emi",
+  // "promo_code":optional,
+  // "userMobile":optional
+  // }
+// emi_model
 
 }

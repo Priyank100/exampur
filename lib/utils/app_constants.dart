@@ -13,7 +13,8 @@ import 'images.dart';
 
 class Keys {
   // static const String Rozar_pay_key = 'rzp_test_tnxy74fGchHvRY';
-  static const String Rozar_pay_key = 'rzp_live_2OGpV3khEWcs8M';
+  // static const String Rozar_pay_key = 'rzp_test_0ltpDbPIMUqirI';
+  static const String Razar_pay_key = 'rzp_live_2OGpV3khEWcs8M';
 }
 
 class SharedPrefConstants {

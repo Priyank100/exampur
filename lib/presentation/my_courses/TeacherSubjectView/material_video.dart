@@ -162,7 +162,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     await Directory(_localPath).exists().then((alreadyExist) async {
       AppConstants.printLog(alreadyExist);
       // if (alreadyExist) {
-      //  // dir.deleteSync(recursive: true);
+      //   dir.deleteSync(recursive: true);
       //  // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
       //  //  return;
       //   requestVideoDownload();
