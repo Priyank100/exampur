@@ -178,7 +178,7 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
                                                             builder: (context) =>
                                                                 LocalVideoScreen(
                                                                     _file!,
-                                                                    _filename)));
+                                                                    _filename.split('~')[0])));
                                                   }
                                                 },
                                               ),
