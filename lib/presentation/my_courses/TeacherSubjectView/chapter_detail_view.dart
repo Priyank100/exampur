@@ -1,3 +1,6 @@
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/material_video.dart';
@@ -26,11 +29,12 @@ class ChapterDetailView extends StatefulWidget {
 }
 
 class _ChapterDetailViewState extends State<ChapterDetailView> {
-  List<MaterialData> materialList = [];
+  List<MaterialData> mainList = [];
   bool isLoading = false;
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
-  var groupedLists = {};
-  // var myFilterList = {};
+  List<GroupClass> groupingList = [];
+
+
   @override
   void initState() {
     callProvider();
@@ -38,13 +42,14 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   }
 
   Future<void>_refreshScreen() async{
-    materialList.clear();
+    mainList.clear();
+    groupingList.clear();
     return callProvider();
   }
 
   Future<void> callProvider() async {
     isLoading = true;
-    materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getMaterialList(context, widget.subjectId, widget.courseId, widget.chaptername))!;
+    mainList = (await Provider.of<MyCourseProvider>(context, listen: false).getMaterialList(context, widget.subjectId, widget.courseId, widget.chaptername))!;
     grouping();
     isLoading = false;
     setState(() {});
@@ -58,30 +63,104 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       keyRefresh: keyRefresh,
       onRefresh:_refreshScreen,
     child: isLoading ? LoadingIndicator(context)
-          : materialList.length == 0 ? AppConstants.noDataFound()
-          : ListView.builder(
-              itemCount: materialList.length,
-              padding: EdgeInsets.all(5),
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  margin: EdgeInsets.all(5),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-                    child: Row(
-                      children: [
-                        chapterImage(index),
-                        SizedBox(width: 10),
-                        chapterData(index)
-                      ],
-                    ),
-                  ),
-                );
-              }),
+          : mainList.length == 0 ? AppConstants.noDataFound()
+          : unitGrouping()
+    // ListView.builder(
+    //           itemCount: materialList.length,
+    //           padding: EdgeInsets.all(5),
+    //           shrinkWrap: true,
+    //           itemBuilder: (BuildContext context, int index) {
+    //             return Container(
+    //               margin: EdgeInsets.all(5),
+    //               child: Padding(
+    //                 padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+    //                 child: Row(
+    //                   children: [
+    //                     chapterImage(index),
+    //                     SizedBox(width: 10),
+    //                     chapterData(index)
+    //                   ],
+    //                 ),
+    //               ),
+    //             );
+    //           }),
       ));
   }
 
-  Widget chapterImage(index) {
+  Widget unitGrouping(){
+    return ListView.builder(
+      padding: EdgeInsets.all(10),
+      itemCount: groupingList.length,
+        itemBuilder: (context, i) {
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              InkWell(
+               onTap: (){
+                 setState(() {
+                   if(groupingList[i].unitTitle == 'Others'){
+                     groupingList[i].showVideo == true;
+                   }else{
+                  groupingList[i].showVideo = !groupingList[i].showVideo;}
+                 });
+               },
+               child: Container(
+                 padding: EdgeInsets.all(13),
+                  margin: EdgeInsets.only(bottom: 10),
+                  decoration: BoxDecoration(
+                    border:groupingList[i].unitTitle!='Others'? Border.all(width: 0):null,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child:Column(
+                    children: [
+                      groupingList[i].unitTitle!='Others'?  Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(groupingList[i].unitTitle, style: TextStyle(fontSize: 18)),
+                          Icon(Icons.arrow_drop_down_sharp)
+                        ],
+                      ):SizedBox(),
+
+                      ListView.builder(
+                          itemCount: groupingList[i].list.length,
+                          padding: EdgeInsets.all(5),
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return groupingList[i].showVideo ?Container(
+                              margin: EdgeInsets.all(5),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                                child: Row(
+                                  children: [
+                                    chapterImage(groupingList[i].list, index),
+                                    SizedBox(width: 10),
+                                    chapterData(groupingList[i].list, index)
+                                  ],
+                                ),
+                              ),
+                            ):SizedBox();
+                          })
+                    ],
+                  )
+
+                ),
+             ),
+
+           //   groupingList[i].unitTitle!='Others'?Text(groupingList[i].unitTitle, style: TextStyle(fontSize: 18)):SizedBox(),
+
+
+             // groupingList[i].unitTitle!='Others'?Divider():SizedBox()
+            ],
+          ),
+        );
+        }
+    );
+  }
+
+  Widget chapterImage(List<MaterialData> materialList, index) {
     return Container(
       width: Dimensions.WatchButtonWidth,
       height: Dimensions.AppTutorialImageHeight,
@@ -111,7 +190,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     );
   }
 
-  Widget chapterData(index) {
+  Widget chapterData(List<MaterialData> materialList, index) {
     return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,10 +204,10 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
             children: [
               materialList[index].videoLink == null || materialList[index].videoLink.toString().isEmpty ?
                   materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
-              SizedBox() : VideoDownloadButton(index) : VideoDownloadButton(index),
+              SizedBox() : VideoDownloadButton(materialList, index) : VideoDownloadButton(materialList, index),
               SizedBox(width: 5),
               materialList[index].pdfPath == null || materialList[index].pdfPath.toString().isEmpty ?
-              SizedBox() : PdfButton(index),
+              SizedBox() : PdfButton(materialList, index),
               SizedBox(width: 5),
               materialList[index].docpath == null || materialList[index].docpath.toString().isEmpty ?
               SizedBox() :   InkWell(onTap: () {
@@ -146,14 +225,15 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     );
   }
 
-  Widget VideoDownloadButton(index) {
+  Widget VideoDownloadButton(List<MaterialData> materialList, index) {
  return   InkWell(
       onTap: () {
+        print(materialList[index].title);
         materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
                   MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), ''))
               ) :
-              showVideoQualityDialog(index);
+              showVideoQualityDialog(materialList, index);
 
       },
       child: Container(
@@ -179,7 +259,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     //     });
   }
 
-  Widget PdfButton(index) {
+  Widget PdfButton(List<MaterialData> materialList, index) {
     return materialList[index].pdfPath == null || materialList[index].pdfPath!.isEmpty
         ? SizedBox()
         : InkWell(
@@ -207,13 +287,13 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     );
   }
 
-  void showVideoQualityDialog(index) {
+  void showVideoQualityDialog(List<MaterialData> materialList, index) {
     AlertDialog alert = AlertDialog(
       titlePadding: EdgeInsets.only(top: 0),
       contentPadding: EdgeInsets.only(top: 0),
       content: materialList[index].timeline!.recordingProps == null ?
-      QualityListWithoutProps(index) :
-      QualityListWithProps(index),
+      QualityListWithoutProps(materialList, index) :
+      QualityListWithProps(materialList, index),
     );
     showDialog(
       barrierDismissible: true,
@@ -224,7 +304,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     );
   }
 
-  Widget QualityListWithoutProps(index) {
+  Widget QualityListWithoutProps(List<MaterialData> materialList, index) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -270,7 +350,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     );
   }
 
-  Widget QualityListWithProps(index) {
+  Widget QualityListWithProps(List<MaterialData> materialList, index) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       //crossAxisAlignment: CrossAxisAlignment.start,
@@ -322,16 +402,32 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       ],
     );
   }
+
   void grouping() {
-    materialList.forEach((course) {
-
-      if (groupedLists['${course.unit}'] == null) {
-        groupedLists['${course.unit}'] = <MaterialData>[];
-      }
-      (groupedLists['${course.unit}'] as List<MaterialData>).add(course);
+    var groupedLists = {};
+    mainList.forEach((data) {
+        if (groupedLists['${data.unit}'] == null) {
+          groupedLists['${data.unit}'] = <MaterialData>[];
+        }
+        (groupedLists['${data.unit}'] as List<MaterialData>).add(data);
     });
-
-    // myFilterList = groupedLists;
-    AppConstants.printLog(groupedLists.values.first.toString());
+    for(int i=0; i<groupedLists.length; i++) {
+      String key = groupedLists.keys.elementAt(i);
+      var value = groupedLists.values.elementAt(i);
+      if(key == 'Others'){
+        groupingList.add(GroupClass(key, value,true));
+      }
+     else{
+      groupingList.add(GroupClass(key, value,false));
+    }
   }
+  }
+}
+
+class GroupClass {
+  String unitTitle;
+  List<MaterialData> list;
+  bool showVideo ;
+  GroupClass(this.unitTitle, this.list,this.showVideo);
+
 }
