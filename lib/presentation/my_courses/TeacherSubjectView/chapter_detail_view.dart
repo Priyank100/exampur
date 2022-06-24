@@ -1,16 +1,9 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
-import 'package:exampur_mobile/presentation/authentication/terms_condition.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/material_video.dart';
 import 'package:exampur_mobile/presentation/my_courses/Timeline/TimetableView.dart';
-import 'package:exampur_mobile/presentation/widgets/custom_button_amber_color_watch.dart';
-import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
-import 'package:exampur_mobile/shared/view_pdf.dart';
-import 'package:exampur_mobile/shared/youtube_video.dart';
-import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -18,7 +11,6 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'DownloadPdfView.dart';
 import 'apexvideo.dart';
 
@@ -53,9 +45,6 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   Future<void> callProvider() async {
     isLoading = true;
     materialList = (await Provider.of<MyCourseProvider>(context, listen: false).getMaterialList(context, widget.subjectId, widget.courseId, widget.chaptername))!;
-    materialList = (await Provider.of<MyCourseProvider>(context, listen: false)
-        .getMaterialList(
-            context, widget.subjectId, widget.courseId, widget.chaptername))!;
     grouping();
     isLoading = false;
     setState(() {});
@@ -68,7 +57,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       body:RefreshWidget(
       keyRefresh: keyRefresh,
       onRefresh:_refreshScreen,
-        child: isLoading ? LoadingIndicator(context)
+    child: isLoading ? LoadingIndicator(context)
           : materialList.length == 0 ? AppConstants.noDataFound()
           : ListView.builder(
               itemCount: materialList.length,
@@ -333,14 +322,14 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       ],
     );
   }
-void grouping() {
-  materialList.forEach((course) {
+  void grouping() {
+    materialList.forEach((course) {
 
-        if (groupedLists['${course.unit}'] == null) {
-          groupedLists['${course.unit}'] = <MaterialData>[];
-        }
-        (groupedLists['${course.unit}'] as List<MaterialData>).add(course);
-      });
+      if (groupedLists['${course.unit}'] == null) {
+        groupedLists['${course.unit}'] = <MaterialData>[];
+      }
+      (groupedLists['${course.unit}'] as List<MaterialData>).add(course);
+    });
 
     // myFilterList = groupedLists;
     AppConstants.printLog(groupedLists.values.first.toString());
