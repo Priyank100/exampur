@@ -141,10 +141,11 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                 PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
                             )): Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 MyCourseTabView(widget.courseData.id.toString())
-                            ))
-                            ;
+                            ));
                           },text: getTranslated(context, StringConstant.viewDetails)!,),
+
                           SizedBox(height: 10,),
+
                           widget.courseType==1? CustomRoundButton(onPressed: ()async{
                             await   FirebaseAnalytics.instance.logEvent(name:'Paid_Courdse_Details',parameters: {
                               'Course_id':widget.courseData.id.toString().replaceAll(' ', '_'),
@@ -156,7 +157,12 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             }else{
                               courseTabType = 'Course';
                             }
-
+                            widget.courseData.onEmi??false ?
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>
+                                  PaidCourseDetails(courseTabType, widget.courseData,widget.courseType))
+                            ) :
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>
@@ -166,10 +172,10 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                   )
                               ),
                             );
+                          },text: getTranslated(context, StringConstant.buyCourse)!):SizedBox(),
 
-
-                          },text: getTranslated(context, StringConstant.buyCourse)!,):SizedBox(),
                           SizedBox(height: 10,),
+
                           Row(
                             children: [
                               Image.asset(Images.share,height: 18,width: 18,),
@@ -197,6 +203,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               )
                             ],
                           ),
+
                           SizedBox(height: 15,),
                         ],
                       ),

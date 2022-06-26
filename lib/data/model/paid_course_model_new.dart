@@ -72,11 +72,14 @@ class PaidCourseData {
       int? salePrice, 
       String? flag, 
       List<UpsellBook>? upsellBook, 
-      List<dynamic>? macro, 
+      List<Macro>? macro,
       String? logoPath, 
       String? bannerPath, 
-      int? validTime,
-    String? pdfPath}){
+    int? validTime,
+    String? pdfPath,
+    bool? onEmi,
+    List<EmiPlans>? emiPlans
+  }){
     _id = id;
     _title = title;
     _description = description;
@@ -90,6 +93,8 @@ class PaidCourseData {
     _bannerPath = bannerPath;
     _validTime = validTime;
     _pdfPath = pdfPath;
+    _onEmi = onEmi??false;
+    _emiPlans = emiPlans??[];
 }
 
   PaidCourseData.fromJson(dynamic json) {
@@ -116,6 +121,13 @@ class PaidCourseData {
     _logoPath = json['logo_path'];
     _bannerPath = json['banner_path'];
     _validTime = json['validTime'];
+    _onEmi = json['on_emi']??false;
+    if (json['emi_plans'] != null) {
+      _emiPlans = [];
+      json['emi_plans'].forEach((v) {
+        _emiPlans?.add(EmiPlans.fromJson(v));
+      });
+    }
   }
   String? _id;
   String? _title;
@@ -125,11 +137,13 @@ class PaidCourseData {
   int? _salePrice;
   String? _flag;
   List<UpsellBook>? _upsellBook;
-  List<dynamic>? _macro;
+  List<Macro>? _macro;
   String? _logoPath;
   String? _bannerPath;
   int? _validTime;
   String? _pdfPath;
+  bool? _onEmi;
+  List<EmiPlans>? _emiPlans;
 
   String? get id => _id;
   String? get title => _title;
@@ -139,11 +153,13 @@ class PaidCourseData {
   int? get salePrice => _salePrice;
   String? get flag => _flag;
   List<UpsellBook>? get upsellBook => _upsellBook;
-  List<dynamic>? get macro => _macro;
+  List<Macro>? get macro => _macro;
   String? get logoPath => _logoPath;
   String? get bannerPath => _bannerPath;
   int? get validTime => _validTime;
   String? get pdfPath => _pdfPath;
+  bool? get onEmi => _onEmi;
+  List<EmiPlans>? get emiPLans => _emiPlans;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -164,6 +180,10 @@ class PaidCourseData {
     map['logo_path'] = _logoPath;
     map['banner_path'] = _bannerPath;
     map['validTime'] = _validTime;
+    map['on_emi'] = _onEmi;
+    if (_emiPlans != null) {
+      map['emi_plans'] = _emiPlans?.map((v) => v.toJson()).toList();
+    }
     return map;
   }
 
@@ -195,5 +215,46 @@ class Macro {
     map['title'] = _title;
     return map;
   }
+}
 
+EmiPlans emiPlansFromJson(String str) => EmiPlans.fromJson(json.decode(str));
+String emiPlansToJson(EmiPlans data) => json.encode(data.toJson());
+class EmiPlans {
+  EmiPlans({
+    String? title,
+    String? emiPaidEvery,
+    String? totalMonths,
+    String? costPerEmi,
+  }){
+    _title = title;
+    _emiPaidEvery = emiPaidEvery;
+    _totalMonths = totalMonths;
+    _costPerEmi = costPerEmi;
+  }
+
+  EmiPlans.fromJson(dynamic json) {
+    _title = json['title'];
+    _emiPaidEvery = json['emi_paid_every'].toString();
+    _totalMonths = json['total_months'].toString();
+    _costPerEmi = json['cost_per_emi'].toString();
+  }
+
+  String? _title;
+  String? _emiPaidEvery;
+  String? _totalMonths;
+  String? _costPerEmi;
+
+  String? get title => _title;
+  String? get emiPaidEvery => _emiPaidEvery;
+  String? get totalMonths => _totalMonths;
+  String? get costPerEmi => _costPerEmi;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['title'] = _title;
+    map['emi_paid_every'] = _emiPaidEvery;
+    map['total_months'] = _totalMonths;
+    map['cost_per_emi'] = _costPerEmi;
+    return map;
+  }
 }

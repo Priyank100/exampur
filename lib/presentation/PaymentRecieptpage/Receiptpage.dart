@@ -51,7 +51,8 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
   void getReceipt(flag) async {
     String url = '';
     final param = {
-      "order_id": widget.orderId,
+      // "order_id": widget.orderId,
+      "order_no ": widget.orderNo,
       "transaction_id": widget.paymentId,
       "payment_signature": widget.signature,
     };

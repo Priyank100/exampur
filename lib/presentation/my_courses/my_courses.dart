@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_list_model.dart';
+import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
@@ -11,6 +12,7 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'myCoursetabview.dart';
 
@@ -165,10 +167,29 @@ class MyCoursesState extends State<MyCourses> {
       child: InkWell(
         onTap: () {
           FocusScope.of(context).unfocus();
-          Navigator.of(context, rootNavigator: true).push(
-              MaterialPageRoute(
-                  builder: (_) =>
-                      MyCourseTabView(myCourseList[index].id.toString())));
+           if(myCourseList[index].status == 'EMI') {
+             if(myCourseList[index].validityTill!.isEmpty) {
+               openNext(index);
+             } else {
+               final fIn = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
+               final fOut = DateFormat("dd-MM-yyyy HH:mm:ss");
+               var expiryDate = fOut.parse(fOut.format(fIn.parse(myCourseList[index].validityTill.toString())));
+               var nowDateTime = fOut.parse(fOut.format(DateTime.now()));
+               bool isExpire = expiryDate.isBefore(nowDateTime);
+               if(isExpire) {
+                 AppConstants.showAlertDialog(context, 'Course validity is expired.\nPlease repay to continue');
+                 // AppConstants.showAlertDialogWithButton(
+                 //     context,
+                 //     'Course validity is expired.\nClick Continue to repay.',
+                 //     (){toRePay(myCourseList[index].id, myCourseList[index].title);}
+                 // );
+               } else {
+                 openNext(index);
+               }
+             }
+          } else {
+            openNext(index);
+          }
         },
         child: Row(
           children: [
@@ -412,6 +433,27 @@ class MyCoursesState extends State<MyCourses> {
       allCategoryNameList = LinkedHashSet<String>.from(allCategoryNameList).toList();
       AppConstants.printLog(allCategoryNameList.toString());
     }
+  }
+
+  void openNext(i) {
+    Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(
+            builder: (_) =>
+                MyCourseTabView(myCourseList[i].id.toString())));
+  }
+
+  void toRePay(courseId, courseTitle){
+    // Navigator.push(
+    //     context, MaterialPageRoute(builder: (context) =>
+    //     DeliveryDetailScreen(
+    //       'Course',
+    //       courseId,
+    //       courseTitle,
+    //       widget.courseData.salePrice.toString(),
+    //       upsellBookList: [],
+    //       emiPlan: selectedEmiPlans,
+    //     )
+    // ));
   }
 
 }

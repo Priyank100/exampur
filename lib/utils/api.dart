@@ -154,8 +154,7 @@ class API {
   //my_course
   static const String myCourse_URL                      = BASE_URL1 + 'mycourses';
   static const String myCourse_subject_URL              = BASE_URL1 + 'course_subject/';
-  // static const String myCourse_material_URL             = BASE_URL1 + 'course_material/material/';
-  static const String myCourse_material_URL             = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/course_material/material/';
+  static const String myCourse_material_URL             = BASE_URL1 + 'course_material/material/';
   static const String myCourse_chapter_URL              = BASE_URL1 + 'course_material/chapter/';
   // static const String myCourse_timeline_URL     = BASE_URL1 + 'course_timeline';
   static const String myCourse_timelineshareStream_URL  = BASE_URL1 + 'course_timeline/shareStreamToMobile';
@@ -228,13 +227,6 @@ class API {
   static const String order_create_upsell = BASE_URL1 + 'order_course/store_upsell_order';
 
   // emi
-  static const String emi_create = BASE_URL1 + 'order_course/emi_create';
-  // {
-  // "course_id":"6232b9caba12feaa99efbbf9",
-  // "emi_title":"pay in 6 months easy emi",
-  // "promo_code":optional,
-  // "userMobile":optional
-  // }
-// emi_model
+  static const String order_course_with_emi = BASE_URL1 + 'order_course/emi_create';
 
 }

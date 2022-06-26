@@ -24,8 +24,9 @@ class DeliveryDetailScreen extends StatefulWidget {
   final String title;
   final String salePrice;
   final List<UpsellBook>? upsellBookList;
+  final String? emiPlan;
 
-  const DeliveryDetailScreen(this.type, this.id, this.title, this.salePrice, {this.upsellBookList}) ;
+  const DeliveryDetailScreen(this.type, this.id, this.title, this.salePrice, {this.upsellBookList, this.emiPlan}) ;
 
   @override
   _DeliveryDetailScreenState createState() => _DeliveryDetailScreenState();
@@ -409,7 +410,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     AppConstants.showLoaderDialog(context);
     final param;
     String url = '';
-    if(widget.type == 'Course') {
+    if(widget.type == 'Course' || widget.type=='Combo') {
       // param = {
       //   "course_id": widget.id.toString(),
       //   "promo_code": _promocode,
@@ -419,29 +420,21 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       //   "billing_country": AppConstants.defaultCountry,
       //   "billing_pincode": _pincode
       // };
-      param = {
-        "course_id": widget.id.toString(),
-        "promo_code": _promocode,
-        "book_selected":isBookSelected,
-        "upsell_book": selectedBookIdList
-      };
-    }
-    else if(widget.type=='Combo') {
-      // param = {
-      //   "course_id": widget.id.toString(),
-      //   "promo_code": _promocode,
-      //   "billing_address": _address,
-      //   "billing_city": _city,
-      //   "billing_state": _state,
-      //   "billing_country": AppConstants.defaultCountry,
-      //   "billing_pincode": _pincode
-      // };
-      param = {
-        "course_id": widget.id.toString(),
-        "promo_code": _promocode,
-        "book_selected":isBookSelected,
-        "upsell_book": selectedBookIdList
-      };
+
+      if(widget.emiPlan != null && widget.emiPlan!.isNotEmpty) {
+        param = {
+          "course_id": widget.id.toString(),
+          "emi_title":widget.emiPlan.toString(),
+          "promo_code": _promocode
+        };
+      } else {
+        param = {
+          "course_id": widget.id.toString(),
+          "promo_code": _promocode,
+          "book_selected":isBookSelected,
+          "upsell_book": selectedBookIdList
+        };
+      }
     }
     else if(widget.type == 'TestSeries') {
       param = {
@@ -467,14 +460,15 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     }
 
     if(flag) {
-      if(widget.type == 'Course') {
+      if(widget.type == 'Course' || widget.type=='Combo') {
         // url = API.order_course;
-        url = API.order_course_with_upsell;
+        url = widget.emiPlan != null && widget.emiPlan!.isNotEmpty ?
+        API.order_course_with_emi :
+        API.order_course_with_upsell;
       }
-      else if(widget.type=='Combo') {
-        // url = API.order_combo_course;
-        url = API.order_course_with_upsell;
-      }
+      // else if(widget.type=='Combo') {
+      //   url = API.order_combo_course;
+      // }
       else if(widget.type == 'TestSeries') {
         url = API.order_test_series;
       }
@@ -508,7 +502,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           DeliveryUpsellModel deliveryUpsellModel = DeliveryUpsellModel.fromJson(jsonObject);
           String status = deliveryUpsellModel.data!.status.toString();
 
-          if (status == "Pending") {
+          if (status == "Pending" || status == 'EMI') {
             BillingModel billingModel = BillingModel(
                 Name,
                 Email,
@@ -528,7 +522,9 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                             widget.type,
                             billingModel,
                             deliveryUpsellModel,
-                            isCouponValid ? _cuponCodeController.text.toUpperCase() : '')
+                            isCouponValid ? _cuponCodeController.text.toUpperCase() : '',
+                            widget.emiPlan??''
+                        )
                 )
             );
           } else {
