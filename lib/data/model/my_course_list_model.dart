@@ -51,12 +51,17 @@ class CourseData {
       String? title,
       String? logoPath,
       String? bannerPath,
-      List<Category>? category}){
+      List<Category>? category,
+    String? status,
+    String? validityTill
+  }){
     _id = id;
     _title = title;
     _logoPath = logoPath;
     _bannerPath = bannerPath;
     _category = category;
+    _status = status;
+    _validityTill = validityTill;
 }
 
   CourseData.fromJson(dynamic json) {
@@ -70,18 +75,24 @@ class CourseData {
         _category!.add(Category.fromJson(v));
       });
     }
+    _status = json['status']??'';
+    _validityTill = json['validity_till']??'';
   }
   String? _id;
   String? _title;
   String? _logoPath;
   String? _bannerPath;
   List<Category>? _category;
+  String? _status;
+  String? _validityTill;
 
   String? get id => _id;
   String? get title => _title;
   String? get logoPath => _logoPath;
   String? get bannerPath => _bannerPath;
   List<Category>? get category => _category;
+  String? get status => _status;
+  String? get validityTill => _validityTill;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -92,6 +103,8 @@ class CourseData {
     if (_category != null) {
       map['category'] = _category!.map((v) => v.toJson()).toList();
     }
+    map['status'] = _status;
+    map['validity_till'] = _validityTill;
     return map;
   }
 

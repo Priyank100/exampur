@@ -47,7 +47,6 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   // String videoLink= 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4';
   // String videoName = 'my_first_video2';
 
-  List<bool> radioSelectList = [];
   String selectedEmiPlans = '';
 
   @override
@@ -81,12 +80,6 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
     // } else {
     //   _selectedQuality =defaultQuality!.toUpperCase();
     // }
-
-    if(widget.courseData.emiPLans != null && widget.courseData.emiPLans!.length > 0) {
-      for (int i = 0; i < widget.courseData.emiPLans!.length; i++) {
-        radioSelectList.add(false);
-      }
-    }
 
     super.initState();
   }
@@ -243,14 +236,33 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  radioSelectList.length == 0 ?
-                  SizedBox() :
+                  selectedEmiPlans.isEmpty?
+                  SizedBox():
+                  Row(
+                    children: [
+                          Expanded(
+                              child: Padding(
+                                  padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                                  child: Text('Emi Plan : ' + selectedEmiPlans)
+                              ),
+                          ),
+                      IconButton(
+                          onPressed: (){
+                            setState(() {
+                              selectedEmiPlans = '';
+                            });
+                          },
+                          icon: Icon(Icons.cancel_outlined)
+                      )
+                    ],
+                  ),
+                  widget.courseData.emiPLans!=null && widget.courseData.emiPLans!.length > 0 ?
                   InkWell(
                     onTap: () {
+                      _controller.pause();
                       showBottomSheetEmiPlans();
                     },
                     child: Container(
-                      width: double.infinity,
                       decoration: BoxDecoration(
                           color: AppColors.green,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -262,19 +274,19 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                             style: TextStyle(color: AppColors.white, fontSize: 18),
                           )),
                     ),
-                  ),
+                  ):SizedBox(),
                   InkWell(
                     onTap: () {
                       _controller.pause();
                       FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
-                        'Couse_Id':widget.courseData.id.toString(),
-                        'Couse_Name':widget.courseData.title.toString()
+                        'Course_Id':widget.courseData.id.toString(),
+                        'Course_Name':widget.courseData.title.toString()
                       });
                       Navigator.push(
                           context, MaterialPageRoute(builder: (context) =>
                           DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
                               widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
-                              upsellBookList: widget.courseData.upsellBook??[]
+                              upsellBookList: widget.courseData.upsellBook??[], emiPlan: selectedEmiPlans,
                           )
                       ));
                     },
@@ -302,32 +314,58 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   void showBottomSheetEmiPlans() {
     showModalBottomSheet(
       context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
+      ),
       builder: (context) {
-        return Container(
-          child: ListView.builder(
-            shrinkWrap: true,
-            // itemCount: widget.courseData.emiPLans!.length,
-            itemCount: 3,
-              itemBuilder: (context, index) {
-              return Padding(
-                  padding: EdgeInsets.all(5),
-                child: RadioListTile(
-                  groupValue: selectedEmiPlans,
-                  value: 'Test',
-                  // title: Text(widget.courseData.emiPLans![index].title.toString()),
-                  title: Text('Test'),
-                  onChanged: (value){
-                    setState(() {
-                      selectedEmiPlans = '';
-                    });
-                  },
-                ),
-              );
-            }
-          ),
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text('Choose your plan'),
+            ),
+            Divider(),
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: widget.courseData.emiPLans!.length,
+                itemBuilder: (context, index) {
+                  return StatefulBuilder(builder: (BuildContext context, StateSetter state){
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: (){
+                            state((){
+                              onChanged(index);
+                            });
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                  (index+1).toString() + '. ' +
+                                  widget.courseData.emiPLans![index].title.toString() +
+                                  ' (₹' + widget.courseData.emiPLans![index].costPerEmi.toString() + ' per EMI)'
+                              )
+                          ),
+                        )
+                      ],
+                    );
+                  });
+                }
+            ),
+          ],
         );
       }
     );
+  }
+
+  void onChanged(val) {
+    selectedEmiPlans = widget.courseData.emiPLans![val].title.toString();
+    setState(() {
+    });
   }
 
   // void _resolutionBottomSheet() {

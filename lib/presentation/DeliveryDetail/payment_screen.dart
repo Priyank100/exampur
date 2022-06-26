@@ -17,7 +17,8 @@ class PaymentScreen extends StatefulWidget {
   // final Delivery_model deliveryModel;
   final DeliveryUpsellModel deliveryUpsellModel;
   final String couponCode;
-  const PaymentScreen(this.type, this.billingModel, this.deliveryUpsellModel, this.couponCode) : super();
+  final String emiPlan;
+  const PaymentScreen(this.type, this.billingModel, this.deliveryUpsellModel, this.couponCode, this.emiPlan) : super();
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
@@ -73,9 +74,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 widget.couponCode.isEmpty ? SizedBox() :Divider(),
                 widget.couponCode.isEmpty ? SizedBox() : textUse('Coupon code apply', widget.couponCode),
 
-                widget.deliveryUpsellModel.data!.bookSelected! ? Divider() : SizedBox(),
-                widget.deliveryUpsellModel.data!.bookSelected! ? textUse('Upsell Book', widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString()) : SizedBox(),
-                widget.deliveryUpsellModel.data!.bookSelected! ? textUse('Amount', widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice.toString()) : SizedBox(),
+                widget.emiPlan.isEmpty ? SizedBox() :Divider(),
+                widget.emiPlan.isEmpty ? SizedBox() : textUse('Emi Plan', widget.emiPlan),
+
+                widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected! ? Divider() : SizedBox(),
+                widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected! ? textUse('Upsell Book', widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString()) : SizedBox(),
+                widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected! ? textUse('Amount', widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice.toString()) : SizedBox(),
 
                 Divider(),
 

@@ -24,7 +24,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = true;
+  static bool isPrint       = false;
   static bool isotpverify = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -59,7 +59,6 @@ class AppConstants {
 
   static void printLog(message) {
     if (isPrint) {
-      print('Priyank>>');
       print(message);
     }
   }
