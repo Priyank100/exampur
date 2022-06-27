@@ -168,21 +168,17 @@ class MyCoursesState extends State<MyCourses> {
         onTap: () {
           FocusScope.of(context).unfocus();
            if(myCourseList[index].status == 'EMI') {
-             if(myCourseList[index].validityTill!.isEmpty) {
+             if(myCourseList[index].validityTill==null || myCourseList[index].validityTill!.isEmpty) {
                openNext(index);
              } else {
                final fIn = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
                final fOut = DateFormat("dd-MM-yyyy HH:mm:ss");
                var expiryDate = fOut.parse(fOut.format(fIn.parse(myCourseList[index].validityTill.toString())));
                var nowDateTime = fOut.parse(fOut.format(DateTime.now()));
-               bool isExpire = expiryDate.isBefore(nowDateTime);
-               if(isExpire) {
-                 AppConstants.showAlertDialog(context, 'Course validity is expired.\nPlease repay to continue');
-                 // AppConstants.showAlertDialogWithButton(
-                 //     context,
-                 //     'Course validity is expired.\nClick Continue to repay.',
-                 //     (){toRePay(myCourseList[index].id, myCourseList[index].title);}
-                 // );
+               final difference = expiryDate.difference(nowDateTime).inDays;
+               // bool isExpire = expiryDate.isBefore(nowDateTime);
+               if(difference < 8) {
+                 showAlertDialogWithButton(context, index, difference);
                } else {
                  openNext(index);
                }
@@ -435,6 +431,40 @@ class MyCoursesState extends State<MyCourses> {
     }
   }
 
+  void showAlertDialogWithButton(BuildContext context, int index, int diff) {
+    Widget skipButton = TextButton(
+      child: Text(getTranslated(context, StringConstant.skip)!,style: TextStyle(color: AppColors.amber)),
+      onPressed:  () {
+        Navigator.pop(context);
+        openNext(index);
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text('Pay Installment',style: TextStyle(color: AppColors.amber),),
+      onPressed:  () {
+        Navigator.pop(context);
+        toRePay(index);
+      },
+    );
+    AlertDialog alert = AlertDialog(
+      title: Text(getTranslated(context, StringConstant.Alert)!),
+      content: Text(
+          diff > 0 ? 'Course validity is about to expire in $diff days.\nPay the next installment.' :
+          'Course validity is expired.\nPay the next installment.'
+      ),
+      actions: [
+        diff > 0 ? skipButton : SizedBox(),
+        continueButton,
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   void openNext(i) {
     Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
@@ -442,18 +472,17 @@ class MyCoursesState extends State<MyCourses> {
                 MyCourseTabView(myCourseList[i].id.toString())));
   }
 
-  void toRePay(courseId, courseTitle){
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) =>
-    //     DeliveryDetailScreen(
-    //       'Course',
-    //       courseId,
-    //       courseTitle,
-    //       widget.courseData.salePrice.toString(),
-    //       upsellBookList: [],
-    //       emiPlan: selectedEmiPlans,
-    //     )
-    // ));
+  void toRePay(index){
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) =>
+        DeliveryDetailScreen(
+          'Course',
+          myCourseList[index].id.toString(),
+          myCourseList[index].title.toString(),
+          myCourseList[index].finalAmount.toString(),
+          emiPlan: myCourseList[index].emiPlans!.title.toString(),
+        )
+    ));
   }
 
 }
