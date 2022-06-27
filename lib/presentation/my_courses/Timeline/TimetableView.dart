@@ -138,12 +138,12 @@ class _TimeTableViewState extends State<TimeTableView> {
                                                     Text(
                                                       myCourseTimeLineList[index]
                                                               .title
-                                                              .toString() +
-                                                          ' || ' +
-                                                          myCourseTimeLineList[index]
-                                                              .subjectId!
-                                                              .title
                                                               .toString(),
+                                                          // + ' || ' +
+                                                          // myCourseTimeLineList[index]
+                                                          //     .subjectId!
+                                                          //     .title
+                                                          //     .toString(),
                                                       style: TextStyle(fontSize: 15),
                                                     ),
                                                     SizedBox(

@@ -548,7 +548,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
       } else {
         AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
-        isCouponValid = false;
+        //isCouponValid = false;
       }
     });
   }
