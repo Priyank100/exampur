@@ -56,6 +56,13 @@ class _TestSeriesNewState extends State<TestSeriesNew> {
                   isLoading = false;
                 });
               },
+                // navigationDelegate: (NavigationRequest request) {
+                //   if (request.url == 'https://exampur.com/e-app/test-series/') {
+                //     Navigator.pop(context);
+                //     return NavigationDecision.prevent;
+                //   }
+                //   return NavigationDecision.navigate;
+                // }
             ),
             isLoading ? Center( child: CircularProgressIndicator(color: AppColors.amber,),)
                 : Stack(),
