@@ -42,6 +42,9 @@ class MyCourseListModel {
 /// title : "Course 1"
 /// logo_path : "course/DGUKTpZX-logo_exampur.png"
 /// banner_path : "course/12JNP4Uo-banner_course_2.jpeg"
+/// "status": "EMI",
+//  "validity_till": "2022-06-25T08:07:08.133Z",
+//  "final_amount": 1,
 
 CourseData dataFromJson(String str) => CourseData.fromJson(json.decode(str));
 String dataToJson(CourseData data) => json.encode(data.toJson());
@@ -53,7 +56,9 @@ class CourseData {
       String? bannerPath,
       List<Category>? category,
     String? status,
-    String? validityTill
+    String? validityTill,
+    String? finalAmount,
+    EmiPlans? emiPlans
   }){
     _id = id;
     _title = title;
@@ -62,6 +67,8 @@ class CourseData {
     _category = category;
     _status = status;
     _validityTill = validityTill;
+    _finalAmount = finalAmount;
+    _emiPlans = emiPlans;
 }
 
   CourseData.fromJson(dynamic json) {
@@ -77,6 +84,8 @@ class CourseData {
     }
     _status = json['status']??'';
     _validityTill = json['validity_till']??'';
+    _finalAmount = json['final_amount']==null?'':json['final_amount'].toString();
+    _emiPlans = json['emi_plans'] != null ? EmiPlans.fromJson(json['emi_plans']) : null;
   }
   String? _id;
   String? _title;
@@ -85,6 +94,8 @@ class CourseData {
   List<Category>? _category;
   String? _status;
   String? _validityTill;
+  String? _finalAmount;
+  EmiPlans? _emiPlans;
 
   String? get id => _id;
   String? get title => _title;
@@ -93,6 +104,8 @@ class CourseData {
   List<Category>? get category => _category;
   String? get status => _status;
   String? get validityTill => _validityTill;
+  String? get finalAmount => _finalAmount;
+  EmiPlans? get emiPlans => _emiPlans;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -105,6 +118,10 @@ class CourseData {
     }
     map['status'] = _status;
     map['validity_till'] = _validityTill;
+    map['final_amount'] = _finalAmount;
+    if (_emiPlans != null) {
+      map['emi_plans'] = _emiPlans?.toJson();
+    }
     return map;
   }
 
@@ -135,6 +152,53 @@ class Category {
     final map = <String, dynamic>{};
     map['_id'] = _id;
     map['name'] = _name;
+    return map;
+  }
+
+}
+
+
+// "title": "pay in 6 months easy emi",
+// "emi_paid_every": 1,
+// "cost_per_emi": 1,
+// "_id": "62b6c22ce657080aeeea9009"
+EmiPlans emiPlansFromJson(String str) => EmiPlans.fromJson(json.decode(str));
+String emiPlansToJson(EmiPlans data) => json.encode(data.toJson());
+class EmiPlans {
+  EmiPlans({
+    String? title,
+    String? emiPaidEvery,
+    String? costPerEmi,
+    String? id,
+  }){
+    _title = title;
+    _emiPaidEvery = emiPaidEvery;
+    _costPerEmi = costPerEmi;
+    _id = id;
+  }
+
+  EmiPlans.fromJson(dynamic json) {
+    _title = json['title']==null?'':json['title'].toString();
+    _emiPaidEvery = json['emi_paid_every']==null?'':json['emi_paid_every'].toString();
+    _costPerEmi = json['cost_per_emi']==null?'':json['cost_per_emi'].toString();
+    _id = json['_id']==null?'':json['_id'].toString();
+  }
+  String? _title;
+  String? _emiPaidEvery;
+  String? _costPerEmi;
+  String? _id;
+
+  String? get title => _title;
+  String? get emiPaidEvery => _emiPaidEvery;
+  String? get costPerEmi => _costPerEmi;
+  String? get id => _id;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['title'] = _title;
+    map['emi_paid_every'] = _emiPaidEvery;
+    map['cost_per_emi'] = _costPerEmi;
+    map['_id'] = _id;
     return map;
   }
 

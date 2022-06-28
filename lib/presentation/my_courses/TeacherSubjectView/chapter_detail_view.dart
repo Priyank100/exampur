@@ -1,8 +1,6 @@
-import 'dart:collection';
-import 'dart:convert';
-
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
+import 'package:exampur_mobile/presentation/authentication/terms_condition.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/material_video.dart';
 import 'package:exampur_mobile/presentation/my_courses/Timeline/TimetableView.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
@@ -15,7 +13,6 @@ import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'DownloadPdfView.dart';
-import 'apexvideo.dart';
 
 class ChapterDetailView extends StatefulWidget {
   String subjectId;
@@ -33,6 +30,8 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   bool isLoading = false;
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
   List<GroupClass> groupingList = [];
+
+  String noVideoLink = 'https://cdn.exampur.xyz/No+video+available+here.+This+is+a+Special+PDF.+Please+clink+on+View+PDF+to+access+the+material.mp4';
 
 
   @override
@@ -202,9 +201,10 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
           Row(
              // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              materialList[index].videoLink == null || materialList[index].videoLink.toString().isEmpty ?
-                  materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
+              materialList[index].videoLink == null || materialList[index].videoLink.toString().isEmpty || materialList[index].videoLink == noVideoLink ?
+              materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
               SizedBox() : VideoDownloadButton(materialList, index) : VideoDownloadButton(materialList, index),
+
               SizedBox(width: 5),
               materialList[index].pdfPath == null || materialList[index].pdfPath.toString().isEmpty ?
               SizedBox() : PdfButton(materialList, index),
@@ -268,10 +268,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         materialList[index].pdfPath.toString().contains('http') ?
         pdfPath = materialList[index].pdfPath.toString() :
         pdfPath = AppConstants.BANNER_BASE + materialList[index].pdfPath.toString();
-
-        String pdfTitle = materialList[index].title.toString();
-
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf(pdfTitle, pdfPath)));
+        showPdfDialog(pdfPath, materialList[index].title.toString());
       },
       child: Container(
           height: 30,
@@ -421,6 +418,50 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       groupingList.add(GroupClass(key, value,false));
     }
   }
+  }
+
+  void showPdfDialog(pdfPath, title) {
+    AlertDialog alert = AlertDialog(
+      content: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Please choose to open PDF'),
+                SizedBox(height: 10),
+                Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  child: MaterialButton(
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf(title, pdfPath)));
+                    },
+                    color: AppColors.amber,
+                    child: Text('PDF Viewer', style: TextStyle(color: AppColors.white)),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  child: MaterialButton(
+                    onPressed: () async {
+                      AppConstants.makeCallEmail(pdfPath);
+                    },
+                    color: AppColors.green,
+                    child: Text('Browser', style: TextStyle(color: AppColors.white)),
+                  ),
+                ),
+              ],
+            )
+          ]),
+    );
+    showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
 
