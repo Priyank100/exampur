@@ -2,7 +2,6 @@ import 'package:exampur_mobile/data/model/loginmodel.dart';
 import 'package:exampur_mobile/presentation/authentication/otp_screen.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation_old.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation_new.dart';
-
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
@@ -21,12 +20,10 @@ class SignIn extends StatefulWidget {
   @override
   SignInState createState() => SignInState();
 }
-
 class SignInState extends State<SignIn> {
   late TextEditingController _phoneEmailController;
   late TextEditingController _passwordController;
   late GlobalKey<FormState> _formKeyLogin;
-
   @override
   void initState() {
     super.initState();

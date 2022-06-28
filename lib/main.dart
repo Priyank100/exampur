@@ -165,10 +165,6 @@ class _MyAppState extends State<MyApp> {
         return supportedLocales.first;
       },
      // onGenerateRoute: _appRouter.onGenerateRoute,
-      routes: {
-        "red": (_) => Notifications(),
-        "/landingPage": (_) => LandingPage(),
-      },
       home: SplashScreen(),
     );
     }
