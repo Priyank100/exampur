@@ -24,7 +24,7 @@
     </queries>
 
     <application
-        android:label="ExampurOffical"
+        android:label="ExampurOfficial"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
