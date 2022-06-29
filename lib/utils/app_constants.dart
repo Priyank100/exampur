@@ -359,6 +359,7 @@ class StringConstant {
   static String book_name= 'book_name';
   static String BackToHomePage= 'back_to_home_page';
   static String BillNumber= 'bill_number';
+  static String browser= 'browser';
 
   static String currentAffairs= 'current_affairs';
   static String chooseCategory= 'choose_category';
@@ -464,6 +465,8 @@ class StringConstant {
   static String PracticeQuestion = 'practice_question';
   static String PrivacyPolicy = 'privacy_policy';
   static String pdf = 'pdf';
+  static String pleaseChoosetoOpenpdf= 'please_choose_to_open_pdf';
+  static String pdfViewer = 'pdf_viewer';
 
   static String name= 'name';
   static String newPassword= 'new_password';

@@ -429,7 +429,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Please choose to open PDF'),
+                Text(getTranslated(context, StringConstant.pleaseChoosetoOpenpdf)!),
                 SizedBox(height: 10),
                 Container(
                   width: MediaQuery.of(context).size.width/2,
@@ -438,7 +438,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf(title, pdfPath)));
                     },
                     color: AppColors.amber,
-                    child: Text('PDF Viewer', style: TextStyle(color: AppColors.white)),
+                    child: Text(getTranslated(context, StringConstant.pdfViewer)!, style: TextStyle(color: AppColors.white)),
                   ),
                 ),
                 Container(
@@ -448,7 +448,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                       AppConstants.makeCallEmail(pdfPath);
                     },
                     color: AppColors.green,
-                    child: Text('Browser', style: TextStyle(color: AppColors.white)),
+                    child: Text(getTranslated(context, StringConstant.browser)!, style: TextStyle(color: AppColors.white)),
                   ),
                 ),
               ],

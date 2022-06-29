@@ -2,6 +2,7 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatefulWidget {
@@ -88,6 +89,8 @@ class TabBarDemo extends StatefulWidget {
   final List<String> names;
   final List<Widget> routes;
   final TabController? controller;
+  final bool? isVideo;
+  final VoidCallback? onPressed;
 
   const TabBarDemo({
     Key? key,
@@ -95,7 +98,9 @@ class TabBarDemo extends StatefulWidget {
     required this.names,
     required this.routes,
     required this.title,
-    this.controller
+    this.controller,
+    this.isVideo,
+    this.onPressed
   });
   @override
   _TabBarDemoState createState() => _TabBarDemoState();
@@ -153,13 +158,24 @@ class _TabBarDemoState extends State<TabBarDemo>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
-                    widget.title,
-                    style: CustomTextStyle.headingMediumBold(context),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        widget.title,
+                        style: CustomTextStyle.headingMediumBold(context),
+                      ),
+                    ),
+                    widget.isVideo !=null && widget.isVideo== true ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(onTap:() {widget.onPressed!();},child: Icon(Icons.cached)),
+                    ):
+                    SizedBox(),
+                  ],
                 ),
+
                 // widget.title == 'Downloads' ? const Padding(
                 //   padding: EdgeInsets.symmetric(horizontal: 10),
                 //   child: Text('Downloaded PDF are inside "Download -> Exampur" folder in your File Manager.', style: TextStyle(fontSize: 10),),

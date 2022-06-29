@@ -41,32 +41,54 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body:isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)): Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-          Text(getTranslated(context, StringConstant.inVoice)!,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
-            SizedBox(height: 8,),
-            mypurchaseInnvoice!.transactionId !=null ? ColumnText(text:mypurchaseInnvoice!.transactionId.toString() ,
-            title: getTranslated(context, StringConstant.TranscationId,)) : SizedBox(),
-            SizedBox(height: 8,),
-            ColumnText(text: mypurchaseInnvoice!.orderNo.toString(),
-                title: getTranslated(context, StringConstant.BillNumber,)),
-            SizedBox(height: 8,),
-            ColumnText(text: userName.toString(),
-                title: getTranslated(context, StringConstant.StudentName,)),
-            SizedBox(height: 8,),
-            mypurchaseInnvoice!.product!.title != null ?   ColumnText(text: mypurchaseInnvoice!.product!.title.toString(),
-                title: getTranslated(context, StringConstant.itemType,)):SizedBox(),
-            SizedBox(height: 8,),
-            ColumnText(text: mypurchaseInnvoice!.product!.type.toString(),
-                title: getTranslated(context, StringConstant.Course,)),
-            SizedBox(height: 8,),
-            ColumnText(text:'₹ '+ mypurchaseInnvoice!.finalAmount.toString(),
-                title: getTranslated(context, StringConstant.Pricegst,)),
-
-        ],),
+      body:isLoading?Center(child: CircularProgressIndicator(color: AppColors.amber,)): SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Text(getTranslated(context, StringConstant.inVoice)!,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+              SizedBox(height: 8,),
+              mypurchaseInnvoice!.transactionId !=null ? ColumnText(text:mypurchaseInnvoice!.transactionId.toString() ,
+              title: getTranslated(context, StringConstant.TranscationId,)) : SizedBox(),
+              SizedBox(height: 10,),
+              ColumnText(text: mypurchaseInnvoice!.orderNo.toString(),
+                  title: getTranslated(context, StringConstant.BillNumber,)),
+              SizedBox(height: 10,),
+              ColumnText(text: userName.toString(),
+                  title: getTranslated(context, StringConstant.StudentName,)),
+              SizedBox(height: 10,),
+              mypurchaseInnvoice!.product!.title != null ?   ColumnText(text: mypurchaseInnvoice!.product!.title.toString(),
+                  title: getTranslated(context, StringConstant.itemType,)):SizedBox(),
+              SizedBox(height: 10,),
+              ColumnText(text: mypurchaseInnvoice!.product!.type.toString(),
+                  title: getTranslated(context, StringConstant.Course,)),
+              SizedBox(height: 10,),
+              ColumnText(text:'₹ '+ mypurchaseInnvoice!.finalAmount.toString(),
+                  title: getTranslated(context, StringConstant.Pricegst,)),
+              SizedBox(height: 10,),
+              mypurchaseInnvoice!.emiPlans == null ? SizedBox():
+              ColumnText(text: mypurchaseInnvoice!.emiPlans!.title.toString(),
+                title: 'Emi Plan',),
+              SizedBox(height: 10,),
+              mypurchaseInnvoice!.emiPaidTill == null ? SizedBox():
+              ColumnText(text: mypurchaseInnvoice!.emiPaidTill.toString(),
+                title: 'Emi Paid Till',),
+              SizedBox(height: 10,),
+              mypurchaseInnvoice!.emiTotalAmount == null ? SizedBox():
+              ColumnText(text:'₹ '+ mypurchaseInnvoice!.emiTotalAmount.toString(),
+                title: 'Emi Total Amount',),
+              SizedBox(height: 10,),
+              mypurchaseInnvoice!.pendingEmiAmount == null ? SizedBox():
+              ColumnText(text:'₹ '+ mypurchaseInnvoice!.pendingEmiAmount.toString(),
+                title: 'Pending Emi Amount',),
+              SizedBox(height: 10,),
+              mypurchaseInnvoice!.totalInstallmentPending == null ? SizedBox():
+              ColumnText(text: mypurchaseInnvoice!.totalInstallmentPending.toString(),
+                title: 'Total Installment Pending',),
+            ],),
+        ),
       ),
 bottomSheet: Container(
   height: 70,

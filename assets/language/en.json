@@ -14,6 +14,7 @@
   "attempt_test": "Attempted Test",
   "attempted_quiz": "Attempted Quiz",
 
+
   "books": "Books",
   "buy": "Buy",
   "buy_course": "Buy course",
@@ -21,6 +22,7 @@
   "book_name":"Book Name",
   "back_to_home_page": "Back to home page",
   "bill_number": "Bill Number",
+  "browser":"Browser",
 
   "current_affairs": "Current Affairs",
   "choose_category": "Choose Category",
@@ -45,6 +47,7 @@
   "call_us": "Call Us",
   "cancel": "Cancel",
   "continue": "Continue",
+
 
   "downloads": "Downloads",
   "daily_quiz": "Daily Quiz",
@@ -124,6 +127,8 @@
   "previous_year_pdf": "Previous Year PDF",
   "privacy_policy": "Privacy Policy",
   "pdf": "Pdf",
+  "pdf_viewer": "PDF Viewer",
+  "please_choose_to_open_pdf": "Please choose to open PDF",
 
 
 
