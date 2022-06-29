@@ -167,9 +167,9 @@ class _MyAppState extends State<MyApp> {
      // onGenerateRoute: _appRouter.onGenerateRoute,
       routes: {
         "red": (_) => Notifications(),
-        "/landingPage": (_) => LandingPage(),
+        "/landingPage": (_) => LandingPage()
       },
-      home: SplashScreen(),
+        home: SplashScreen(),
     );
     }
   }

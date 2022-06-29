@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:chewie/chewie.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
@@ -157,6 +158,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
   Future<void> requestVideoDownload() async {
     var now = DateTime.now();
     final dir = await getApplicationDocumentsDirectory();
+    // log(dir.toString());
     var _localPath = dir.path + '/' + widget.title + '~' + now.toString();
     await File(_localPath).exists().then((value) {});
     await Directory(_localPath).exists().then((alreadyExist) async {

@@ -14,10 +14,10 @@ class DownloadedVideo extends StatefulWidget {
   const DownloadedVideo() : super();
 
   @override
-  _DownloadedVideoState createState() => _DownloadedVideoState();
+  DownloadedVideoState createState() => DownloadedVideoState();
 }
 
-class _DownloadedVideoState extends State<DownloadedVideo> {
+class DownloadedVideoState extends State<DownloadedVideo> {
   ReceivePort _port = ReceivePort();
   List<Map<dynamic, dynamic>> downloadsListMaps = [];
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
@@ -31,7 +31,7 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
     setState(() {});
   }
 
-  Future<void> _refreshScreen() async {
+  Future<void> refreshScreen() async {
     downloadsListMaps.clear();
     task();
     _bindBackgroundIsolate();
@@ -95,7 +95,7 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
     return Scaffold(
         body: RefreshWidget(
             keyRefresh: keyRefresh,
-            onRefresh: _refreshScreen,
+            onRefresh: refreshScreen,
             child: Container(
               child: downloadsListMaps.length == 0
                   ? ListView.builder(
@@ -114,23 +114,19 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
                         DownloadTaskStatus _status = _map['status'];
                         String _id = _map['id'];
                         String _savedDirectory = _map['savedDirectory'];
-                        List<FileSystemEntity> _directories =
-                            Directory(_savedDirectory)
-                                .listSync(followLinks: true);
+
+                        // List<FileSystemEntity> _directories = [];
+                        // Directory(_savedDirectory).exists().then((value) {
+                        //   if(value) {
+                        //     _directories = Directory(_savedDirectory).listSync(followLinks: true);
+                        //   }
+                        // });
+
+                        List<FileSystemEntity> _directories = Directory(_savedDirectory).listSync(followLinks: true);
                         File? _file = (_directories.isNotEmpty
                             ? _directories.first
                             : null) as File?;
                         return GestureDetector(
-                          onTap: () {
-                            // if (_status == DownloadTaskStatus.complete) {
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) => LocalVideoScreen(_file!, _filename)
-                            //       )
-                            //   );
-                            // }
-                          },
                           child: Card(
                             elevation: 10,
                             shape: RoundedRectangleBorder(
@@ -335,8 +331,7 @@ class _DownloadedVideoState extends State<DownloadedVideo> {
                             onTap: () {
                               FlutterDownloader.cancel(taskId: taskid);
                               downloadsListMaps.removeAt(index);
-                              FlutterDownloader.remove(
-                                  taskId: taskid, shouldDeleteContent: true);
+                              FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: false);
                               setState(() {});
                             },
                           )

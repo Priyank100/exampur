@@ -70,7 +70,8 @@ class _SplashScreenState extends State<SplashScreen> {
     );
     try {
     final status = await newVersion.getVersionStatus();
-    print(status!.storeVersion.toString());
+    AppConstants.printLog(status!.storeVersion.toString());
+    AppConstants.printLog(status.storeVersion.toString());
 
       await newVersion.getVersionStatus().then((status) {
         if (status == null

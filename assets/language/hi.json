@@ -12,6 +12,7 @@
   "book_name": "किताब का नाम",
   "back_to_home_page": "मुखपृष्ठ पर वापस",
   "bill_number": "बिलिंग नंबर",
+  "browser": "ब्राउज़र",
 
 
   "test_courses": "परीक्षण पाठ्यक्रम",
@@ -50,6 +51,7 @@
   "alert": "चेतावनी",
   "attempt_test": "अटेंपटेड टेस्ट",
   "attempted_quiz": "अटेंपटेड क्विज",
+
 
 
   "watch_app_tutorial": "ऐप ट्यूटोरियल देखें",
@@ -145,6 +147,8 @@
   "previous_year_pdf": "िछले वर्ष पीडीएफ",
   "privacy_policy": "गोपनीयता नीति",
   "pdf": "पीडीएफ",
+  "pdf_viewer": "पीडीएफ व्यूअर",
+  "please_choose_to_open_pdf": "कृपया पीडीएफ खोलना चुनें",
 
 
 

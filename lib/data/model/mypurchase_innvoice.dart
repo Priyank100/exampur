@@ -55,7 +55,13 @@ class InvoiceData {
       double? amount,
       dynamic promoCode, 
       double? finalAmount,
-      Product? product,}){
+      Product? product,
+      EmiPlans? emiPlans,
+      int? emiPaidTill,
+      double? emiTotalAmount,
+      double? pendingEmiAmount,
+      int? totalInstallmentPending
+  }){
     _id = id;
     _orderNo = orderNo;
     _date = date;
@@ -65,6 +71,11 @@ class InvoiceData {
     _promoCode = promoCode;
     _finalAmount = finalAmount;
     _product = product;
+    _emiPlans = emiPlans;
+    _emiPaidTill = emiPaidTill;
+    _emiTotalAmount = emiTotalAmount;
+    _pendingEmiAmount = pendingEmiAmount;
+    _totalInstallmentPending = totalInstallmentPending;
 }
 
   InvoiceData.fromJson(dynamic json) {
@@ -77,6 +88,11 @@ class InvoiceData {
     _promoCode = json['promo_code'];
     _finalAmount = json['final_amount'].toDouble();
     _product = json['product'] != null ? Product.fromJson(json['product']) : null;
+    _emiPlans = json['emi_plans'] != null ? EmiPlans.fromJson(json['emi_plans']) : null;
+    _emiPaidTill = json['emi_paid_till']??null;
+    _emiTotalAmount = json['emi_totol_amount'] != null ? json['emi_totol_amount'].toDouble() : null;
+    _pendingEmiAmount = json['pending_emi_amount'] != null ? json['pending_emi_amount'].toDouble() : null;
+    _totalInstallmentPending = json['total_installment_pending']??null;
   }
   String? _id;
   String? _orderNo;
@@ -87,6 +103,12 @@ class InvoiceData {
   dynamic _promoCode;
   double? _finalAmount;
   Product? _product;
+  EmiPlans? _emiPlans;
+  int? _emiPaidTill;
+  double? _emiTotalAmount;
+  double? _pendingEmiAmount;
+  int? _totalInstallmentPending;
+
 
   String? get id => _id;
   String? get orderNo => _orderNo;
@@ -97,6 +119,11 @@ class InvoiceData {
   dynamic get promoCode => _promoCode;
   double? get finalAmount => _finalAmount;
   Product? get product => _product;
+  EmiPlans? get emiPlans => _emiPlans;
+  int? get emiPaidTill => _emiPaidTill;
+  double? get emiTotalAmount => _emiTotalAmount;
+  double? get pendingEmiAmount => _pendingEmiAmount;
+  int? get totalInstallmentPending => _totalInstallmentPending;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -111,6 +138,13 @@ class InvoiceData {
     if (_product != null) {
       map['product'] = _product?.toJson();
     }
+    if (_emiPlans != null) {
+      map['emi_plans'] = _emiPlans?.toJson();
+    }
+    map['emi_paid_till'] = _emiPaidTill;
+    map['emi_totol_amount'] = _emiTotalAmount;
+    map['pending_emi_amount'] = _pendingEmiAmount;
+    map['total_installment_pending'] = _totalInstallmentPending;
     return map;
   }
 
@@ -164,6 +198,54 @@ class Product {
     map['title'] = _title;
     map['logo_path'] = _logoPath;
     map['banner_path'] = _bannerPath;
+    return map;
+  }
+
+}
+
+EmiPlans emiPlansFromJson(String str) => EmiPlans.fromJson(json.decode(str));
+String emiPlansToJson(EmiPlans data) => json.encode(data.toJson());
+class EmiPlans {
+  EmiPlans({
+    String? title,
+    String? emiPaidEvery,
+    String? costPerEmi,
+    String? totalMonths,
+    String? id,
+  }){
+    _title = title;
+    _emiPaidEvery = emiPaidEvery;
+    _costPerEmi = costPerEmi;
+    _totalMonths = totalMonths;
+    _id = id;
+  }
+
+  EmiPlans.fromJson(dynamic json) {
+    _title = json['title']==null?'':json['title'].toString();
+    _emiPaidEvery = json['emi_paid_every']==null?'':json['emi_paid_every'].toString();
+    _costPerEmi = json['cost_per_emi']==null?'':json['cost_per_emi'].toString();
+    _totalMonths = json['total_months']==null?'':json['total_months'].toString();
+    _id = json['_id']==null?'':json['_id'].toString();
+  }
+  String? _title;
+  String? _emiPaidEvery;
+  String? _costPerEmi;
+  String? _totalMonths;
+  String? _id;
+
+  String? get title => _title;
+  String? get emiPaidEvery => _emiPaidEvery;
+  String? get costPerEmi => _costPerEmi;
+  String? get totalMonths => _totalMonths;
+  String? get id => _id;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['title'] = _title;
+    map['emi_paid_every'] = _emiPaidEvery;
+    map['cost_per_emi'] = _costPerEmi;
+    map['total_months'] = _totalMonths;
+    map['_id'] = _id;
     return map;
   }
 

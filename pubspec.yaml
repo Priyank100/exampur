@@ -60,7 +60,7 @@ dependencies:
   cached_network_image: ^3.2.0
   share: ^2.0.4
   flutter_windowmanager: ^0.2.0
-  flutter_pdfview:
+  flutter_pdfview: ^1.2.2
   fluttertoast: ^8.0.8
   firebase_messaging: ^11.2.7
   flutter_local_notifications: ^9.2.0
