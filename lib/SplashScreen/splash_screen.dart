@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
@@ -23,9 +24,23 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+  // late AppsFlyerOptions appsFlyerOptions;
+  // late AppsflyerSdk appsflyerSdk;
+
   @override
   void initState() {
     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.splashScreen);
+    // appsFlyerOptions = AppsFlyerOptions(
+    //   afDevKey: 'fTnrQRnV94zciX3oyNoNu',
+    //   appId: 'com.edudrive.exampur',
+    //   showDebug: true,
+    // );
+    // appsflyerSdk = AppsflyerSdk(appsFlyerOptions);
+    // appsflyerSdk.initSdk(
+    //     registerConversionDataCallback: true,
+    //     registerOnAppOpenAttributionCallback: true,
+    //     registerOnDeepLinkingCallback: true,
+    // );
     checkInternet();
     super.initState();
   }
