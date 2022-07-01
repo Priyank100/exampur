@@ -46,7 +46,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
       File urlFile = await file.writeAsBytes(bytes);
       return urlFile;
     } catch (e) {
-      throw Exception("Error opening url file");
+      throw Exception("Error opening url file> " + e.toString());
     }
   }
 

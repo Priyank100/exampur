@@ -424,6 +424,11 @@ class SignUpState extends State<SignUp> {
         // 'Phone':_phoneController.text.toString(),
 
       });
+      Map<String, Object> stuff = {
+        'Name':_nameController.text.toString(),
+        'Email':_emailController.text.toString(),
+      };
+      AnalyticsConstants.logEvent('USER_SIGNUP',stuff);
       // SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, '0');
       Navigator.pushReplacement(
           context,

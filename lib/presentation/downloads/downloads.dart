@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/download_model.dart';
 import 'package:exampur_mobile/presentation/downloads/video_downloads.dart';
@@ -27,6 +28,7 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
     return await rootBundle.loadString('assets/LocalJson/downloadlist.json');
   }
  TabController? _controller;
+  GlobalKey<DownloadedVideoState> _key = GlobalKey();
 
   void getTabList() async {
     String jsonString = await loadJsonFromAssets();
@@ -71,7 +73,7 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
                   length: tabList.length,
                   names: tabList.map((item) => item.name.toString()).toList(),
                   routes: tabList.length == 0 ? [] : [
-                    DownloadedVideo(),
+                    DownloadedVideo(_key),
                     // DownloadedPdf()
                     MyDownloadPdf()
                   ],
@@ -80,7 +82,7 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
                     AppConstants.showAlertDialogWithButton(context, 'Are you sure to want to delete all the files?',
                         (){
                           Navigator.pop(context);
-                          deleteDir();
+                          _key.currentState!.deleteDir();
                         }
                     );
                   },
@@ -103,24 +105,19 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
     }
   }
 
-  Future<void> deleteDir() async {
-    List<DownloadTask>? getTasks = await FlutterDownloader.loadTasks();
-    getTasks!.forEach((_task) {
-      Map _map = Map();
-      _map['status'] = _task.status;
-      _map['progress'] = _task.progress;
-      _map['id'] = _task.taskId;
-      _map['filename'] = _task.filename;
-      _map['savedDirectory'] = _task.savedDir;
-      if (!_task.savedDir.contains('.pdf')) {
-        Directory(_task.savedDir).exists().then((value) {
-          if(value) {
-            FlutterDownloader.remove(taskId: _task.taskId, shouldDeleteContent: true);
-            Directory(_task.savedDir).delete(recursive: true);
-          }
-        });
-      };
+  /*Future<void> deleteDir() async {
+    final dir = await getApplicationDocumentsDirectory();
+    Directory(dir.path).delete(recursive: true);
+    // Directory('/data/user/0/com.edudrive.exampur/app_flutter/').delete(recursive: true);
+    await FlutterDownloader.loadTasks().then((list) {
+      if(list != null && list.length > 0) {
+        for(int i=0; i<list.length; i++) {
+          FlutterDownloader.remove(taskId: list[i].taskId, shouldDeleteContent: true);
+        }
+      }
     });
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    Navigator.pop(context);
     setState(() {});
-  }
+  }*/
 }

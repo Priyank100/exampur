@@ -116,33 +116,6 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     }
   }
 
-  void markAttendance2() async {
-    String date = DateFormat('dd-MM-yyyy').format(DateTime.now());
-    String time = DateFormat('hh:mm:ss a').format(DateTime.now());
-    LiveAttendance liveAttendance = LiveAttendance(
-        widget.videoId,
-        date,
-        time,
-        userName,
-        userPhone
-    );
-
-    try {
-      AttendanceController.submitAttendance(liveAttendance, (String response) {
-        AppConstants.printLog("Response: $response");
-        // if (response == AttendanceController.STATUS_SUCCESS) {
-        //   AppConstants.showBottomMessage(
-        //       context, "Feedback Submitted", AppColors.black);
-        // } else {
-        //   AppConstants.showBottomMessage(
-        //       context, "Error Occurred!", AppColors.black);
-        // }
-      });
-    } catch(e) {
-      AppConstants.printLog(e.toString());
-    }
-  }
-
   void getChat() {
     map.clear();
     try {
@@ -152,13 +125,11 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
           .snapshots()
           .listen((result) {
         result.docChanges.forEach((res) {
+          // AppConstants.printLog('11111111111');
           map.addAll(res.doc.data()!['chat']);
-          // AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-          // AppConstants.printLog(map);
-          setState(() {});
+          // setState(() {});
         });
       });
-
       map = SplayTreeMap<String,dynamic>.from(map, (a, b) => a.split('-')[2].trim().compareTo(b.split('-')[2].trim()));
       setState(() {});
 

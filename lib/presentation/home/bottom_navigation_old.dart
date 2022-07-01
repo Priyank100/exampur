@@ -218,6 +218,8 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                   FocusScope.of(context).unfocus();
                   AnalyticsConstants.sendAnalyticsEvent(
                       AnalyticsConstants.sideBarClick);
+                  Map<String, Object> stuff = {};
+                  AnalyticsConstants.logEvent(AnalyticsConstants.sideBarClick,stuff);
                   Scaffold.of(context).openDrawer();
                 });
           }),
@@ -622,6 +624,8 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                       onTap: () {
                         AnalyticsConstants.sendAnalyticsEvent(
                             AnalyticsConstants.logoutClick);
+                        Map<String, Object> stuff = {};
+                        AnalyticsConstants.logEvent(AnalyticsConstants.logoutClick,stuff);
                         SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
                         SharedPref.clearSharedPref(
                             SharedPrefConstants.USER_DATA);
@@ -690,6 +694,10 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                   : _currIndex == 2
                       ? AnalyticsConstants.myCoursesClick
                       : AnalyticsConstants.downloadsClick);
+              Map<String, Object> stuff = {};
+              AnalyticsConstants.logEvent(_currIndex == 1?AnalyticsConstants.demoClick:_currIndex == 2
+                  ?AnalyticsConstants.myCoursesClick:AnalyticsConstants.downloadsClick,stuff
+              );
             }
           },
           iconSize: 20,

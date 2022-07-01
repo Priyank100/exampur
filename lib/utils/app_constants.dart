@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -292,6 +293,31 @@ class AnalyticsConstants {
     await analytics.logEvent(
       name: clickName,
     );
+  }
+
+  static AppsflyerSdk? appsflyerSdk;
+  static void initAppFlyer() {
+    AppsFlyerOptions appsFlyerOptions = AppsFlyerOptions(
+      afDevKey: 'fTnrQRnV94zciX3oyNoNu',
+      appId: 'com.edudrive.exampur',
+      showDebug: true,
+    );
+    appsflyerSdk = AppsflyerSdk(appsFlyerOptions);
+    appsflyerSdk!.initSdk(
+      registerConversionDataCallback: true,
+      registerOnAppOpenAttributionCallback: true,
+      registerOnDeepLinkingCallback: true,
+    );
+  }
+
+  static void logEvent(String eventName, Map? eventValues) async {
+    bool? result;
+    try {
+      result = await appsflyerSdk!.logEvent(eventName, eventValues);
+      AppConstants.printLog("anchal+$result");
+      AppConstants.printLog(eventName);
+    } on Exception catch (e) {}
+    print("Result logEvent: $result");
   }
 }
 

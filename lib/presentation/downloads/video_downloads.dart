@@ -9,9 +9,10 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:path_provider/path_provider.dart';
 
 class DownloadedVideo extends StatefulWidget {
-  const DownloadedVideo() : super();
+  const DownloadedVideo(Key key) : super(key: key);
 
   @override
   DownloadedVideoState createState() => DownloadedVideoState();
@@ -114,13 +115,6 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                         DownloadTaskStatus _status = _map['status'];
                         String _id = _map['id'];
                         String _savedDirectory = _map['savedDirectory'];
-
-                        // List<FileSystemEntity> _directories = [];
-                        // Directory(_savedDirectory).exists().then((value) {
-                        //   if(value) {
-                        //     _directories = Directory(_savedDirectory).listSync(followLinks: true);
-                        //   }
-                        // });
 
                         List<FileSystemEntity> _directories = Directory(_savedDirectory).listSync(followLinks: true);
                         File? _file = (_directories.isNotEmpty
@@ -359,5 +353,21 @@ class DownloadedVideoState extends State<DownloadedVideo> {
         setState(() {});
       },
     );
+  }
+
+  Future<void> deleteDir() async {
+    final dir = await getApplicationDocumentsDirectory();
+    Directory(dir.path).delete(recursive: true);
+    await FlutterDownloader.loadTasks().then((list) {
+      if(list != null && list.length > 0) {
+        for(int i=0; i<list.length; i++) {
+          FlutterDownloader.remove(taskId: list[i].taskId, shouldDeleteContent: true);
+        }
+      }
+    });
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    downloadsListMaps.clear();
+    refreshScreen();
+    setState(() {});
   }
 }

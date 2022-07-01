@@ -1,9 +1,7 @@
- import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
-import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
+import 'dart:io';
+
+import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
-import 'package:exampur_mobile/presentation/drawer/eligibility_calculator.dart';
-import 'package:exampur_mobile/presentation/home/books/books_ebooks.dart';
-import 'package:exampur_mobile/presentation/home/books/books_screen.dart';
 import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
 import 'package:exampur_mobile/presentation/theme/themes.dart';
 import 'package:exampur_mobile/provider/AppToutorial_provider.dart';
@@ -27,19 +25,14 @@ import 'package:exampur_mobile/provider/StudyNotesProvider.dart';
 import 'package:exampur_mobile/provider/TestSeriesProvider.dart';
 import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-
 import 'package:firebase_core/firebase_core.dart';
-
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Localization/app_localization.dart';
 import 'Localization/language_constrants.dart';
 import 'di_container.dart' as di;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:provider/provider.dart';
 
@@ -53,8 +46,9 @@ void main() async {
   await di.init();
   await FlutterDownloader.initialize(debug: true);
   await Firebase.initializeApp();
-
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  HttpOverrides.global = MyHttpOverrides();
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
    // ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
@@ -172,5 +166,13 @@ class _MyAppState extends State<MyApp> {
         home: SplashScreen(),
     );
     }
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

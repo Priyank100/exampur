@@ -63,6 +63,11 @@ bool isLoading =false;
                           item.type=='Course' || item.type=='Combo Course' ? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerCourseClick):
                           item.type=='Book'? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerBookClick):
                           AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerExternalLinksClick);
+//for sendAnalyticsEventfor Appflyer
+                          Map<String, Object> stuff = {};
+                          item.type=='Course' || item.type=='Combo Course' ? AnalyticsConstants.logEvent(AnalyticsConstants.bannerCourseClick,stuff):
+                          item.type=='Book'? AnalyticsConstants.logEvent(AnalyticsConstants.bannerBookClick,stuff):
+                          AnalyticsConstants.logEvent(AnalyticsConstants.bannerExternalLinksClick,stuff);
 
                           item.type=='Course' || item.type=='Combo Course'?
                           Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => BannerLinkDetailPage(item.type.toString(),item.link.toString()))):

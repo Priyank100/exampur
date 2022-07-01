@@ -24,23 +24,12 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  // late AppsFlyerOptions appsFlyerOptions;
-  // late AppsflyerSdk appsflyerSdk;
-
   @override
   void initState() {
     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.splashScreen);
-    // appsFlyerOptions = AppsFlyerOptions(
-    //   afDevKey: 'fTnrQRnV94zciX3oyNoNu',
-    //   appId: 'com.edudrive.exampur',
-    //   showDebug: true,
-    // );
-    // appsflyerSdk = AppsflyerSdk(appsFlyerOptions);
-    // appsflyerSdk.initSdk(
-    //     registerConversionDataCallback: true,
-    //     registerOnAppOpenAttributionCallback: true,
-    //     registerOnDeepLinkingCallback: true,
-    // );
+    Map<String, Object> stuff = {};
+    AnalyticsConstants.logEvent(AnalyticsConstants.splashScreen,stuff);
+    AnalyticsConstants.initAppFlyer();
     checkInternet();
     super.initState();
   }

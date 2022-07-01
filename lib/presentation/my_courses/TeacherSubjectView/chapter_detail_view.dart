@@ -435,6 +435,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                   width: MediaQuery.of(context).size.width/2,
                   child: MaterialButton(
                     onPressed: (){
+                      Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf(title, pdfPath)));
                     },
                     color: AppColors.amber,
@@ -445,6 +446,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                   width: MediaQuery.of(context).size.width/2,
                   child: MaterialButton(
                     onPressed: () async {
+                      Navigator.pop(context);
                       AppConstants.makeCallEmail(pdfPath);
                     },
                     color: AppColors.green,

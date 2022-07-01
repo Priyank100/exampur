@@ -227,6 +227,8 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       AnalyticsConstants.sendAnalyticsEvent(
                           AnalyticsConstants.paidCourseClick);
+                      Map<String, Object> stuff = {};
+                      AnalyticsConstants.logEvent(AnalyticsConstants.paidCourseClick,stuff);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(builder: (_) => PaidCourses(1)));
                     },
@@ -239,6 +241,8 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       AnalyticsConstants.sendAnalyticsEvent(
                           AnalyticsConstants.freeCourseClick);
+                      Map<String, Object> stuff = {};
+                      AnalyticsConstants.logEvent(AnalyticsConstants.freeCourseClick,stuff);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(builder: (_) => PaidCourses(0)));
                     },
@@ -257,6 +261,8 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       AnalyticsConstants.sendAnalyticsEvent(
                           AnalyticsConstants.booksClick);
+                      Map<String, Object> stuff = {};
+                      AnalyticsConstants.logEvent(AnalyticsConstants.booksClick,stuff);
                       Navigator.of(context, rootNavigator: true)
                           .push(MaterialPageRoute(builder: (_) => BooksEbook()));
                     },
@@ -338,6 +344,8 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       AnalyticsConstants.sendAnalyticsEvent(
                           AnalyticsConstants.currentAffairsClick);
+                      Map<String, Object> stuff = {};
+                      AnalyticsConstants.logEvent(AnalyticsConstants.currentAffairsClick,stuff);
 
                       // Navigator.of(context, rootNavigator: true).push(
                       //     MaterialPageRoute(
