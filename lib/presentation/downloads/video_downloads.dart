@@ -40,6 +40,7 @@ class DownloadedVideoState extends State<DownloadedVideo> {
 
   @override
   void dispose() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
     _unbindBackgroundIsolate();
     super.dispose();
   }

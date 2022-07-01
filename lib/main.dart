@@ -44,8 +44,8 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:provider/provider.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async{
-  AppConstants.printLog(message.data.toString());
-  AppConstants.printLog(message.notification!.title);
+  // AppConstants.printLog(message.data.toString());
+  // AppConstants.printLog(message.notification!.title);
 }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,7 +53,6 @@ void main() async {
   await di.init();
   await FlutterDownloader.initialize(debug: true);
   await Firebase.initializeApp();
-
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
