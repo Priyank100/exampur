@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';

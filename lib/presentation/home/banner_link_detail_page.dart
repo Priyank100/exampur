@@ -8,6 +8,7 @@ import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/banner_detail_model.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -59,6 +60,7 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
                 bannerDetailData!.id.toString(),
                 bannerDetailData!.salePrice.toString(),
                 bannerDetailData!.regularPrice.toString(),
+                bannerDetailData!.description.toString(),
                 bannerDetailData!.upsellBook??[]
         )
     );
@@ -72,10 +74,11 @@ class Viedobanner extends StatefulWidget {
   final String id;
   final String salePrice;
   final String regularPrice;
+  final String description;
   final List<UpsellBook> upsellBookList;
 
   const Viedobanner(this.type, this.videoUrl, this.title, this.id,
-      this.salePrice, this.regularPrice, this.upsellBookList)
+      this.salePrice, this.regularPrice,this.description, this.upsellBookList)
       : super();
 
   @override
@@ -170,115 +173,217 @@ class _ViedobannerState extends State<Viedobanner> {
       ),
       builder: (context, player) => Scaffold(
         appBar: CustomAppBar(),
+        // body:  Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       player,
+        //       SizedBox(height: 20),
+        //       Flexible(
+        //           child: Padding(
+        //         padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+        //         child: Text(widget.title.toString(),
+        //             textAlign: TextAlign.center,
+        //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+        //       )),
+        //
+        //       Padding(
+        //         padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
+        //         child: Row(
+        //           children: [
+        //             Text(
+        //               '\u{20B9}',
+        //               style: TextStyle(color: AppColors.black, fontSize: 25),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             Text(
+        //               widget.regularPrice.toString(),
+        //               style: TextStyle(
+        //                   color: AppColors.grey,
+        //                   fontSize: 18,
+        //                   decoration: TextDecoration.lineThrough),
+        //             ),
+        //             SizedBox(
+        //               width: 5,
+        //             ),
+        //             Text(
+        //               widget.salePrice.toString(),
+        //               style: TextStyle(
+        //                 fontSize: 18,
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //       Html(data:widget.description.toString(), style: {
+        //         "body": Style(
+        //           fontSize: FontSize(12.0),
+        //           fontWeight: FontWeight.bold,
+        //         ),
+        //       },),
+        //       InkWell(
+        //         onTap: () {
+        //           // showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
+        //           // _BuyCourseBottomSheet(
+        //           //   context,
+        //           // );
+        //           // AppConstants.printLog(widget.type);
+        //           if (widget.type == 'Combo Course') {
+        //             Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                   builder: (context) => DeliveryDetailScreen(
+        //                       'Combo',
+        //                       widget.id.toString(),
+        //                       widget.title.toString(),
+        //                       widget.salePrice.toString(),
+        //                       upsellBookList: widget.upsellBookList)),
+        //             );
+        //           } else {
+        //             Navigator.push(
+        //               context,
+        //               // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
+        //               MaterialPageRoute(
+        //                   builder: (context) => DeliveryDetailScreen(
+        //                       'Course',
+        //                       widget.id.toString(),
+        //                       widget.title.toString(),
+        //                       widget.salePrice.toString(),
+        //                       upsellBookList: widget.upsellBookList)),
+        //             );
+        //           }
+        //         },
+        //         child: Container(
+        //           width: double.infinity,
+        //           decoration: BoxDecoration(
+        //               color: AppColors.amber,
+        //               borderRadius: BorderRadius.all(Radius.circular(10))),
+        //           height: 50,
+        //           margin: EdgeInsets.all(28),
+        //           child: Center(
+        //               child: Text(
+        //             getTranslated(context, StringConstant.buyCourse)!,
+        //             style: TextStyle(color: AppColors.white, fontSize: 18),
+        //           )),
+        //         ),
+        //       )
+        //       // Padding(
+        //       //   padding: EdgeInsets.all(15),
+        //       //   child: RichText(
+        //       //     text: TextSpan(
+        //       //        // style: CustomTextStyle.headingSemiBold(context),
+        //       //         text: widget.paidcourseList.title.toString()),
+        //       //   ),
+        //       // ),
+        //       // SizedBox(height: 5),
+        //       // Padding(
+        //       //   padding: EdgeInsets.only(bottom: 10, left: 15, right: 15),
+        //       //   child: RichText(
+        //       //     text: TextSpan(
+        //       //         //style: CustomTextStyle.subHeading2(context),
+        //       //         ),
+        //       //   ),
+        //       // ),
+        //     ],
+        //   ),
         body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             player,
-            SizedBox(height: 20),
-            Flexible(
-                child: Padding(
-              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: Text(widget.title.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-            )),
-
-            Padding(
-              padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
-              child: Row(
-                children: [
-                  Text(
-                    '\u{20B9}',
-                    style: TextStyle(color: AppColors.black, fontSize: 25),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    widget.regularPrice.toString(),
-                    style: TextStyle(
-                        color: AppColors.grey,
-                        fontSize: 18,
-                        decoration: TextDecoration.lineThrough),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    widget.salePrice.toString(),
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                // showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
-                // _BuyCourseBottomSheet(
-                //   context,
-                // );
-                // AppConstants.printLog(widget.type);
-                if (widget.type == 'Combo Course') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DeliveryDetailScreen(
-                            'Combo',
-                            widget.id.toString(),
-                            widget.title.toString(),
-                            widget.salePrice.toString(),
-                            upsellBookList: widget.upsellBookList)),
-                  );
-                } else {
-                  Navigator.push(
-                    context,
-                    // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
-                    MaterialPageRoute(
-                        builder: (context) => DeliveryDetailScreen(
-                            'Course',
-                            widget.id.toString(),
-                            widget.title.toString(),
-                            widget.salePrice.toString(),
-                            upsellBookList: widget.upsellBookList)),
-                  );
-                }
-              },
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: AppColors.amber,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                height: 50,
-                margin: EdgeInsets.all(28),
-                child: Center(
-                    child: Text(
-                  getTranslated(context, StringConstant.buyCourse)!,
-                  style: TextStyle(color: AppColors.white, fontSize: 18),
-                )),
+            Expanded(
+              child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                        child: Text(widget.title.toString(),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      ),
+                     Padding(
+                        padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
+                        child: Row(
+                          children: [
+                            Text(
+                              '\u{20B9}',
+                              style: TextStyle(color: AppColors.black, fontSize: 15),
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              widget.regularPrice.toString(),
+                              style: TextStyle(color: AppColors.grey, fontSize: 15,decoration: TextDecoration.lineThrough),
+                            ),
+                            SizedBox(width: 5,),
+                            Text(
+                              widget.salePrice.toString(),
+                              style: TextStyle(color: AppColors.black, fontSize: 15),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Html(data:widget.description.toString(), style: {
+                        "body": Style(
+                          fontSize: FontSize(12.0),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      },)
+                    ],
+                  )
               ),
             )
-            // Padding(
-            //   padding: EdgeInsets.all(15),
-            //   child: RichText(
-            //     text: TextSpan(
-            //        // style: CustomTextStyle.headingSemiBold(context),
-            //         text: widget.paidcourseList.title.toString()),
-            //   ),
-            // ),
-            // SizedBox(height: 5),
-            // Padding(
-            //   padding: EdgeInsets.only(bottom: 10, left: 15, right: 15),
-            //   child: RichText(
-            //     text: TextSpan(
-            //         //style: CustomTextStyle.subHeading2(context),
-            //         ),
-            //   ),
-            // ),
           ],
         ),
-      ),
+        bottomNavigationBar:  InkWell(
+                onTap: () {
+                  _controller.pause();
+                  // showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
+                  // _BuyCourseBottomSheet(
+                  //   context,
+                  // );
+                  // AppConstants.printLog(widget.type);
+                  if (widget.type == 'Combo Course') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DeliveryDetailScreen(
+                              'Combo',
+                              widget.id.toString(),
+                              widget.title.toString(),
+                              widget.salePrice.toString(),
+                              upsellBookList: widget.upsellBookList)),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
+                      MaterialPageRoute(
+                          builder: (context) => DeliveryDetailScreen(
+                              'Course',
+                              widget.id.toString(),
+                              widget.title.toString(),
+                              widget.salePrice.toString(),
+                              upsellBookList: widget.upsellBookList)),
+                    );
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: AppColors.amber,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  height: 50,
+                  margin: EdgeInsets.all(28),
+                  child: Center(
+                      child: Text(
+                    getTranslated(context, StringConstant.buyCourse)!,
+                    style: TextStyle(color: AppColors.white, fontSize: 18),
+                  )),
+                ),
+              ) ,
+        ),
+
     );
   }
 }
