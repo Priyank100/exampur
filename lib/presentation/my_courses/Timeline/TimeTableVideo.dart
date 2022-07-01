@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:exampur_mobile/FirestoreDB/firestore_db.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
@@ -212,7 +213,6 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(),
@@ -257,52 +257,90 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
               height: MediaQuery.of(context).size.height*0.43,
               //height: 400,
               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child:
-              ListView.builder(
-                itemCount: map.length,
-                //controller: _scrollController,
-                reverse: true,
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  String key = map.keys.elementAt(map.length-1-index);
-                  var parts = key.split('-');
-                  var name = parts[0].trim();
-                  var mobile = parts[1].trim();
-                  var times =parts[2].trim();
-
-                  var sec = times.split(':');
-                  var second1 = sec[0].trim();
-                  var second2 = sec[1].trim();
-                  return new Column(
-                    children: <Widget>[
-                      Container(
-                        //height: 40,
-                          child:Padding(
-                            padding: const EdgeInsets.only(left: 12,top: 5,right: 8),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: StreamBuilder(
+                stream: FirestoreDB.getChat(widget.videoId),
+                builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    reverse: true,
+                    itemCount: streamSnapshot.data == null ? 0 : streamSnapshot.data!.docs.length,
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder: (ctx, index) {
+                      // Text(streamSnapshot.data!.docs[index]['text']),
+                      DateTime dt = (streamSnapshot.data!.docs[index]['createdAt']).toDate();
+                      return Column(
+                        children: <Widget>[
+                          Container(
+                              child:Padding(
+                                padding: const EdgeInsets.only(left: 12,top: 5,right: 8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    new Text(name,style: TextStyle(fontSize: 12,color: AppColors.green),),
-                                    new Text(second1+':'+second2,style: TextStyle(color: AppColors.grey,fontSize: 12),),
-                                  ],
-                                ),
-                                Text("${map[key]}",style: TextStyle(fontSize: 14))
-                              ],),
-                          )
-                      ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        new Text(streamSnapshot.data!.docs[index]['user'],style: TextStyle(fontSize: 12,color: AppColors.green),),
+                                        new Text(DateFormat('hh:mm a').format(dt),style: TextStyle(color: AppColors.grey,fontSize: 12),),
+                                      ],
+                                    ),
+                                    Text(streamSnapshot.data!.docs[index]['message'],style: TextStyle(fontSize: 14))
+                                  ],),
+                              )
+                          ),
 
-                      new Divider(
-                      ),
-                    ],
+                          new Divider(
+                          ),
+                        ],
+                      );
+                    }
                   );
                 },
-              ),
-            )
+              )
+              // ListView.builder(
+              //   itemCount: map.length,
+              //   //controller: _scrollController,
+              //   reverse: true,
+              //   physics: BouncingScrollPhysics(),
+              //   shrinkWrap: true,
+              //   itemBuilder: (BuildContext context, int index) {
+              //     String key = map.keys.elementAt(map.length-1-index);
+              //     var parts = key.split('-');
+              //     var name = parts[0].trim();
+              //     var mobile = parts[1].trim();
+              //     var times =parts[2].trim();
+              //
+              //     var sec = times.split(':');
+              //     var second1 = sec[0].trim();
+              //     var second2 = sec[1].trim();
+              //     return new Column(
+              //       children: <Widget>[
+              //         Container(
+              //           //height: 40,
+              //             child:Padding(
+              //               padding: const EdgeInsets.only(left: 12,top: 5,right: 8),
+              //               child: Column(
+              //                 crossAxisAlignment: CrossAxisAlignment.start,
+              //                 children: [
+              //                   Row(
+              //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //                     children: [
+              //                       new Text(name,style: TextStyle(fontSize: 12,color: AppColors.green),),
+              //                       new Text(second1+':'+second2,style: TextStyle(color: AppColors.grey,fontSize: 12),),
+              //                     ],
+              //                   ),
+              //                   Text("${map[key]}",style: TextStyle(fontSize: 14))
+              //                 ],),
+              //             )
+              //         ),
+              //
+              //         new Divider(
+              //         ),
+              //       ],
+              //     );
+              //   },
+              // ),
 
+            )
           ],
         ),
       ),
@@ -312,7 +350,6 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
           child:  Row(
             children: [
               Expanded(child: CustomTextField(
-
                   hintText: getTranslated(context, StringConstant.TypeYourDoubtHere)!,
                   controller: _sendchat,
                   value: (value) {}),
@@ -323,7 +360,15 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                   FocusScope.of(context).unfocus();
 
                   //_animateToIndex(height) => _scrollController.animateTo(height, duration: Duration(seconds: 2), curve: Curves.fastOutSlowIn);
-                  addVideoTitle(_sendchat.text.toString());
+                  // addVideoTitle(_sendchat.text.toString());
+                  if(_sendchat.text.trim().toString().isNotEmpty) {
+                    FirestoreDB.sendMessage(widget.videoId, userName, userPhone,
+                        _sendchat.text.trim().toString());
+                    _sendchat.text = '';
+                    setState(() {});
+                  } else {
+                    AppConstants.showBottomMessage(context, 'Enter message', AppColors.black);
+                  }
                 },
                 child: Container(
                   // padding: EdgeInsets.all(8),
