@@ -1,8 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:exampur_mobile/ChatModule/attendance_controller.dart';
-import 'package:exampur_mobile/ChatModule/live_attendance.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
@@ -109,33 +107,6 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
           }, SetOptions(merge : false)).then((value) {
               setState(() {});
             });
-    }
-  }
-
-  void markAttendance2() async {
-    String date = DateFormat('dd-MM-yyyy').format(DateTime.now());
-    String time = DateFormat('hh:mm:ss a').format(DateTime.now());
-    LiveAttendance liveAttendance = LiveAttendance(
-        widget.videoId,
-        date,
-        time,
-        userName,
-        userPhone
-    );
-
-    try {
-      AttendanceController.submitAttendance(liveAttendance, (String response) {
-        AppConstants.printLog("Response: $response");
-        // if (response == AttendanceController.STATUS_SUCCESS) {
-        //   AppConstants.showBottomMessage(
-        //       context, "Feedback Submitted", AppColors.black);
-        // } else {
-        //   AppConstants.showBottomMessage(
-        //       context, "Error Occurred!", AppColors.black);
-        // }
-      });
-    } catch(e) {
-      AppConstants.printLog(e.toString());
     }
   }
 
