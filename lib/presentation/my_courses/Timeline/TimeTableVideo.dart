@@ -24,7 +24,7 @@ String videoId;
 }
 
 class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
-  String collectionName = 'live_chat';
+  // String collectionName = 'live_chat';
   String userName = '';
   String userPhone = '';
  // String videoId = '';
@@ -37,7 +37,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
   FlickManager? flickManager;
 
 
-  Future<bool> checkIfDocExists(String docId) async {
+  /*Future<bool> checkIfDocExists(String docId) async {
     try {
       var collectionRef = FirebaseFirestore.instance.collection(collectionName);
       var doc = await collectionRef.doc(docId).get();
@@ -45,9 +45,9 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     } catch (e) {
       throw e;
     }
-  }
+  }*/
 
-  Future<void> addVideoTitle(String text) async {
+  /*Future<void> addVideoTitle(String text) async {
     String time = DateFormat('hh:mm:ss a').format(DateTime.now());
     if(text.isNotEmpty) {
 
@@ -83,9 +83,9 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     } else {
       AppConstants.showBottomMessage(context, 'Enter message', AppColors.black);
     }
-  }
+  }*/
 
-  Future<void> markAttendance() async {
+  /*Future<void> markAttendance() async {
     bool docExists = await checkIfDocExists(widget.videoId);
 
     if(docExists) {
@@ -109,9 +109,9 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
               setState(() {});
             });
     }
-  }
+  }*/
 
-  void getChat() {
+  /*void getChat() {
     map.clear();
     try {
       FirebaseFirestore.instance
@@ -131,7 +131,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     } catch(ex) {
       AppConstants.printLog(ex.toString());
     }
-  }
+  }*/
 
   Future<void> getSharedPrefData() async {
     var jsonValue = jsonDecode(
@@ -139,7 +139,8 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     userPhone = jsonValue[0]['data']['phone'].toString();
-    markAttendance();
+    // markAttendance();
+    FirestoreDB.markAttendance(widget.videoId, userName, userPhone);
     setState(() {});
   }
 
@@ -147,7 +148,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
   void initState() {
     super.initState();
     // initializePlayer();
-    getChat();
+    // getChat();
     getSharedPrefData();
     flickManager = FlickManager(
       videoPlayerController:
@@ -221,10 +222,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           // SizedBox(height: 8,),
             Container(
-             //padding: EdgeInsets.only(top: 8),
-
               height: (MediaQuery.of(context).size.width)/16*9,
               child: FlickVideoPlayer(
                 flickManager: flickManager!,
@@ -244,18 +242,16 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
             ),
             Padding(
               padding: const EdgeInsets.all(8),
-              child:   Text(widget.title,style: TextStyle(fontSize: 15),),
+              child: Text(widget.title,style: TextStyle(fontSize: 15),),
             ),
-            Divider(thickness: 1,),
+            Divider(thickness: 1),
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Text(getTranslated(context, StringConstant.LiveChat)!,style: TextStyle(fontSize: 18)),
             ),
-            Divider(thickness: 1,),
+            Divider(thickness: 1),
             Container(
-              //height: MediaQuery.of(context).size.height*0.35,
               height: MediaQuery.of(context).size.height*0.43,
-              //height: 400,
               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
               child: StreamBuilder(
                 stream: FirestoreDB.getChat(widget.videoId),
@@ -266,7 +262,6 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                     itemCount: streamSnapshot.data == null ? 0 : streamSnapshot.data!.docs.length,
                     physics: BouncingScrollPhysics(),
                     itemBuilder: (ctx, index) {
-                      // Text(streamSnapshot.data!.docs[index]['text']),
                       DateTime dt = (streamSnapshot.data!.docs[index]['createdAt']).toDate();
                       return Column(
                         children: <Widget>[
@@ -287,9 +282,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                                   ],),
                               )
                           ),
-
-                          new Divider(
-                          ),
+                          new Divider(),
                         ],
                       );
                     }
@@ -339,7 +332,6 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
               //     );
               //   },
               // ),
-
             )
           ],
         ),
