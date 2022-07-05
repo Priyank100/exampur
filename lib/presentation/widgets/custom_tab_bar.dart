@@ -170,7 +170,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                     ),
                     widget.isVideo !=null && widget.isVideo== true ? Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: InkWell(onTap:() {widget.onPressed!();},child: Icon(Icons.cached)),
+                      child: InkWell(onTap:() {widget.onPressed!();},child: Icon(Icons.delete_forever, color: AppColors.red,)),
                     ):
                     SizedBox(),
                   ],

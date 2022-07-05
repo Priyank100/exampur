@@ -79,7 +79,7 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
                   ],
                   isVideo: true,
                   onPressed: (){
-                    AppConstants.showAlertDialogWithButton(context, 'Are you sure to want to delete all the files?',
+                    AppConstants.showAlertDialogWithButton(context, 'Are you sure to want to delete all the video files?',
                         (){
                           Navigator.pop(context);
                           _key.currentState!.deleteDir();
