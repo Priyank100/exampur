@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
@@ -27,7 +28,6 @@ class DownloadedVideoState extends State<DownloadedVideo> {
     super.initState();
     task();
     _bindBackgroundIsolate();
-    FlutterDownloader.registerCallback(downloadCallback);
     setState(() {});
   }
 
@@ -35,7 +35,6 @@ class DownloadedVideoState extends State<DownloadedVideo> {
     downloadsListMaps.clear();
     task();
     _bindBackgroundIsolate();
-    FlutterDownloader.registerCallback(downloadCallback);
   }
 
   @override
@@ -53,21 +52,22 @@ class DownloadedVideoState extends State<DownloadedVideo> {
       _bindBackgroundIsolate();
       return;
     }
-    _port.listen((dynamic data) {
-      String id = data[0];
-      DownloadTaskStatus status = data[1];
-      int progress = data[2];
-      var task = downloadsListMaps.where((element) => element['id'] == id);
-      task.forEach((element) {
-        element['progress'] = progress;
-        element['status'] = status;
-        setState(() {});
+
+      _port.listen((dynamic data) {
+        String id = data[0];
+        DownloadTaskStatus status = data[1];
+        int progress = data[2];
+        var task = downloadsListMaps.where((element) => element['id'] == id);
+        task.forEach((element) {
+          element['progress'] = progress;
+          element['status'] = status;
+          setState(() {});
+        });
       });
-    });
+      FlutterDownloader.registerCallback(downloadCallback);
   }
 
-  static void downloadCallback(
-      String id, DownloadTaskStatus status, int progress) {
+  static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
     final SendPort? send =
         IsolateNameServer.lookupPortByName('downloader_send_port');
     send!.send([id, status, progress]);
@@ -108,7 +108,9 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                       })
                   : ListView.builder(
                       itemCount: downloadsListMaps.length,
-                      itemBuilder: (BuildContext context, int i) {
+                      itemBuilder: (BuildContext context, int index) {
+                        int itemCount = downloadsListMaps.length ?? 0;
+                        int i = itemCount - 1 - index;
                         Map _map = downloadsListMaps[i];
                         String _filename = _map['filename'];
                         int _progress = _map['progress'];
@@ -149,7 +151,7 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                                 ListTile(
                                   isThreeLine: false,
                                   leading: Image.asset(Images.download_video),
-                                  title: Text(_filename.replaceAll('--', '').split('~')[0]),
+                                  title: Text(_filename.replaceAll('--', '').split('~')[0],maxLines: 2,overflow: TextOverflow.ellipsis,),
                                   // subtitle: downloadStatus(_status),
                                   trailing: SizedBox(
                                     child: buttons(_status, _id, i),
@@ -157,11 +159,12 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                                   ),
                                   subtitle: Row(
                                     children: [
-                                      _status == DownloadTaskStatus.failed
-                                          ? Text('Failed')
-                                          : Padding(
+                                      _status == DownloadTaskStatus.failed ? Text('Failed')
+                                      : _status == DownloadTaskStatus.canceled ? Text('Cancelled')
+                                          : _status == DownloadTaskStatus.complete ?
+                                      Padding(
                                               padding: const EdgeInsets.only(
-                                                  top: 10),
+                                                  top: 0),
                                               child: CustomRoundButton(
                                                 text: getTranslated(context,
                                                     StringConstant.watch)!,
@@ -179,7 +182,7 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                                                   }
                                                 },
                                               ),
-                                            )
+                                            ) : SizedBox()
 
                                       // InkWell(
                                       //   onTap: (){
@@ -192,12 +195,15 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                                     ],
                                   ),
                                 ),
+
                                 _status == DownloadTaskStatus.complete
-                                    ? Container()
+                                    ? SizedBox()
                                     : SizedBox(height: 5),
+
                                 _status == DownloadTaskStatus.complete ||
-                                        _status == DownloadTaskStatus.failed
-                                    ? Container()
+                                        _status == DownloadTaskStatus.failed ||
+                                    _status == DownloadTaskStatus.canceled
+                                    ? SizedBox()
                                     : Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Column(
@@ -247,18 +253,21 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                         : Text('Download waiting');
   }
 
-  Widget buttons(DownloadTaskStatus _status, String taskid, int index) {
-    void changeTaskID(String taskid, String newTaskID) {
-      Map? task = downloadsListMaps.firstWhere(
-        (element) => element['taskId'] == taskid,
-        orElse: () => {},
-      );
-      task['taskId'] = newTaskID;
-      setState(() {});
-    }
+  void changeTaskID(String taskid, String newTaskID) {
+    Map? task = downloadsListMaps.firstWhere(
+          (element) => element['taskId'] == taskid,
+      orElse: () => {},
+    );
+    task['taskId'] = newTaskID;
+    refreshScreen();
+    setState(() {});
+  }
 
-    return _status == DownloadTaskStatus.canceled
-        ? SizedBox()
+  Widget buttons(DownloadTaskStatus _status, String taskid, int index) {
+
+
+    return _status == DownloadTaskStatus.canceled ?
+        // SizedBox()
     // GestureDetector(
     //         child: Icon(Icons.cached, size: 20, color: Colors.green),
     //         onTap: () {
@@ -267,9 +276,19 @@ class DownloadedVideoState extends State<DownloadedVideo> {
     //           });
     //         },
     //       )
+    GestureDetector(
+      child:
+      Icon(Icons.close, size: 20, color: Colors.red),
+      onTap: () {
+        FlutterDownloader.cancel(taskId: taskid);
+        downloadsListMaps.removeAt(index);
+        FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: true);
+        setState(() {});
+      },
+    )
         : _status == DownloadTaskStatus.failed
             ? Row(
-                children: [
+      children: [
                   //         GestureDetector(
                   //   child: Icon(Icons.cached, size: 20, color: Colors.green),
                   //   onTap: () {
@@ -279,7 +298,7 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                   //   },
                   // ),
                   SizedBox(
-                    width: 10,
+                    width: 20,
                   ),
                   GestureDetector(
                     child: Icon(Icons.delete, size: 20, color: Colors.red),
@@ -292,40 +311,43 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                   )
                 ],
               )
-            // : _status == DownloadTaskStatus.paused
-            //     ? Row(
-            //         mainAxisSize: MainAxisSize.min,
-            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //         children: <Widget>[
-            //           GestureDetector(
-            //             child: Icon(Icons.play_arrow,
-            //                 size: 20, color: Colors.blue),
-            //             onTap: () {
-            //               FlutterDownloader.resume(taskId: taskid).then(
-            //                 (newTaskID) => changeTaskID(taskid, newTaskID!),
-            //               );
-            //             },
-            //           ),
-            //           GestureDetector(
-            //             child: Icon(Icons.close, size: 20, color: Colors.red),
-            //             onTap: () {
-            //               FlutterDownloader.cancel(taskId: taskid);
-            //             },
-            //           )
-            //         ],
-            //       )
+            : _status == DownloadTaskStatus.paused
+                ? Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Icon(Icons.play_arrow,
+                            size: 20, color: Colors.blue),
+                        onTap: () {
+                          FlutterDownloader.resume(taskId: taskid).then(
+                            (newTaskID) => changeTaskID(taskid, newTaskID!),
+                          );
+                        },
+                      ),
+                      GestureDetector(
+                        child: Icon(Icons.close, size: 20, color: Colors.red),
+                        onTap: () {
+                          FlutterDownloader.cancel(taskId: taskid);
+                          downloadsListMaps.removeAt(index);
+                          FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: true);
+                          setState(() {});
+                        },
+                      )
+                    ],
+                  )
                 : _status == DownloadTaskStatus.running
                     ? Row(
                         mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          // GestureDetector(
-                          //   child: Icon(Icons.pause,
-                          //       size: 20, color: Colors.green),
-                          //   onTap: () {
-                          //     FlutterDownloader.pause(taskId: taskid);
-                          //   },
-                          // ),
+                          GestureDetector(
+                            child: Icon(Icons.pause,
+                                size: 20, color: Colors.green),
+                            onTap: () {
+                              FlutterDownloader.pause(taskId: taskid);
+                            },
+                          ),
                            GestureDetector(
                             child:
                                 Icon(Icons.close, size: 20, color: Colors.red),

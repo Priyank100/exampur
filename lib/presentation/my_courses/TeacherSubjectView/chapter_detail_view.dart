@@ -211,8 +211,13 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
               SizedBox(width: 5),
               materialList[index].docpath == null || materialList[index].docpath.toString().isEmpty ?
               SizedBox() :   InkWell(onTap: () {
-              String pdfPath = AppConstants.BANNER_BASE +  materialList[index].docpath.toString();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf('', pdfPath)));
+                String docPath = '';
+                materialList[index].docpath.toString().contains('http') ?
+                docPath = materialList[index].docpath.toString() :
+                docPath = AppConstants.BANNER_BASE + materialList[index].docpath.toString();
+                showPdfDialog(docPath, materialList[index].title.toString());
+              // String pdfPath = AppConstants.BANNER_BASE +  materialList[index].docpath.toString();
+              //   Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf('', pdfPath)));
 
               },
                 child: Container(height: 30,width: MediaQuery.of(context).size.width / 6,decoration: BoxDecoration( color: AppColors.dark,
@@ -435,6 +440,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                   width: MediaQuery.of(context).size.width/2,
                   child: MaterialButton(
                     onPressed: (){
+                      Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf(title, pdfPath)));
                     },
                     color: AppColors.amber,
@@ -445,6 +451,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                   width: MediaQuery.of(context).size.width/2,
                   child: MaterialButton(
                     onPressed: () async {
+                      Navigator.pop(context);
                       AppConstants.makeCallEmail(pdfPath);
                     },
                     color: AppColors.green,

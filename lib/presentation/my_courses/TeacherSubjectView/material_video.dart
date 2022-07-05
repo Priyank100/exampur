@@ -181,7 +181,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             saveInPublicStorage: false,
           );
           AppConstants.printLog(_taskid);
-          Navigator.push(context, MaterialPageRoute(builder: (_) => Downloads(0,)));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Downloads(0,)));
         });
       // }
     });
