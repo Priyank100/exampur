@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
@@ -266,6 +267,20 @@ class AppConstants {
     await FirebaseMessaging.instance.unsubscribeFromTopic(topic.replaceAll(' ', '_'));
   }
 
+  static Future<bool> checkInternet() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    } on SocketException catch (e) {
+      AppConstants.printLog('Connectivity>> ${e.message}');
+      return false;
+    }
+  }
+
 }
 
 class AnalyticsConstants {
@@ -316,8 +331,9 @@ class AnalyticsConstants {
       result = await appsflyerSdk!.logEvent(eventName, eventValues);
       AppConstants.printLog("anchal+$result");
       AppConstants.printLog(eventName);
-    } on Exception catch (e) {}
-    print("Result logEvent: $result");
+    } on Exception catch (e) {
+      AppConstants.printLog("Error: $e");
+    }
   }
 }
 

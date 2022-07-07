@@ -244,7 +244,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     );
     var dir = Directory(AppConstants.filePath);
     File file = File("${dir.path}/" + fileName + ".pdf");
-    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+file.toString());
+    AppConstants.printLog('>>>>>>>>>>>>>>>'+file.toString());
     dio.download(url, file.path, onReceiveProgress: (value1, value2) {
       setState(() {
         progress = ((value1/value2)*100).toInt();
