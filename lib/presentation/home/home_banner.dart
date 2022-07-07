@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
+import 'package:exampur_mobile/presentation/home/test_series_new/test_series_new.dart';
+import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,12 +61,13 @@ bool isLoading =false;
                           AppConstants.image(item.imagePath.toString(), boxfit: BoxFit.fill) :
                           AppConstants.image(AppConstants.BANNER_BASE + item.imagePath.toString(), boxfit: BoxFit.fill),
                         ),
-                        onTap: () {
+                        onTap: () async {
                           //for sendAnalyticsEvent
                           item.type=='Course' || item.type=='Combo Course' ? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerCourseClick):
                           item.type=='Book'? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerBookClick):
                           AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerExternalLinksClick);
-//for sendAnalyticsEventfor Appflyer
+
+                        //for sendAnalyticsEventfor Appflyer
                           Map<String, Object> stuff = {};
                           item.type=='Course' || item.type=='Combo Course' ? AnalyticsConstants.logEvent(AnalyticsConstants.bannerCourseClick,stuff):
                           item.type=='Book'? AnalyticsConstants.logEvent(AnalyticsConstants.bannerBookClick,stuff):
@@ -77,6 +81,13 @@ bool isLoading =false;
                           // Navigator.push(context, MaterialPageRoute(builder: (_) =>
                           //     BannerDetailPage(item.link.toString(),item.title.toString())
                           // ));
+                          item.type=='External'&&item.link=='Live Test Page' ?
+                          await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((token) async {
+                            Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        TestSeriesNew(API.liveTestWebUrl, token)));
+                            }) :
                           AppConstants.makeCallEmail(item.link.toString());
                         }),
                   );
