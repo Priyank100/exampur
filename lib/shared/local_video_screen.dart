@@ -97,13 +97,16 @@ class _LocalVideoScreenState extends State<LocalVideoScreen> {
   //     ),
   //   );
   // }
+
   FlickManager? flickManager;
+  late VideoPlayerController _videoPlayerController;
+
   @override
   void initState() {
     super.initState();
+    _videoPlayerController= VideoPlayerController.file(widget.file);
     flickManager = FlickManager(
-      videoPlayerController:
-      VideoPlayerController.file(widget.file),
+      videoPlayerController:_videoPlayerController,
     );
   }
 

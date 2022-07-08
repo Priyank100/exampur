@@ -55,7 +55,7 @@ class _MyDownloadPdfState extends State<MyDownloadPdf> {
                       children: [
                         Image.asset(Images.pdfIcon, scale: 4),
                         SizedBox(width: 10),
-                        Expanded(child: Text(pdfList[index].path.split('/').last)),
+                        Expanded(child: Text(pdfList[index].path.split('/').last, maxLines: 2,overflow: TextOverflow.ellipsis)),
                         InkWell(
                           onTap: (){
                             File file = File(pdfList[index].path);

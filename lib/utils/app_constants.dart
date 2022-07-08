@@ -219,9 +219,17 @@ class AppConstants {
         if(value.isGranted) {
           callback();
         } else {
-          AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
+          // AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
         }
       });
+    }
+  }
+
+  static void createExampurFolder() async {
+    final path= Directory(AppConstants.filePath);
+    bool exist = await path.exists();
+    if (!exist) {
+      path.create();
     }
   }
 

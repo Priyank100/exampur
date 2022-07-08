@@ -231,7 +231,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   }
 
   Widget VideoDownloadButton(List<MaterialData> materialList, index) {
- return   InkWell(
+    return InkWell(
       onTap: () {
         print(materialList[index].title);
         materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
