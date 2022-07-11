@@ -170,7 +170,7 @@ class _MyApexVideoMaterialState extends State<MyApexVideoMaterial> {
             saveInPublicStorage: false,
           );
           AppConstants.printLog(_taskid);
-          Navigator.push(context, MaterialPageRoute(builder: (_) => Downloads(0)));
+          // Navigator.push(context, MaterialPageRoute(builder: (_) => Downloads(0)));
         });
       }
     });

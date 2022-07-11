@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 
+
 class DownloadedVideo extends StatefulWidget {
   const DownloadedVideo(Key key) : super(key: key);
 
@@ -53,8 +54,7 @@ class DownloadedVideoState extends State<DownloadedVideo> {
       _bindBackgroundIsolate();
       return;
     }
-
-      _port.listen((dynamic data) {
+    _port.listen((dynamic data) {
         String id = data[0];
         DownloadTaskStatus status = data[1];
         int progress = data[2];

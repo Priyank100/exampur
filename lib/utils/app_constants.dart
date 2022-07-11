@@ -25,7 +25,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static bool isotpverify = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -218,7 +218,7 @@ class AppConstants {
         if(value.isGranted) {
           callback();
         } else {
-          AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
+         AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
         }
       });
     }
