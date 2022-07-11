@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:chewie/chewie.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
+import 'package:exampur_mobile/presentation/downloads/video_downloads.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -128,31 +129,52 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             height: 60,
           ),
           Center(
-            child: InkWell(onTap: (){
-              _playerController!.pause();
-              if(widget.download.isEmpty) {
-                if(widget.url.contains('mp4')) {
-                  AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+            child: InkWell(
+              onTap: () {
+                _playerController!.pause();
+                if(widget.download.isEmpty) {
+                  if(widget.url.contains('mp4')) {
+                    // AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+                    openPermissionDialog();
+                  } else {
+                    AppConstants.showAlertDialog(context, 'No Video Found to Download this Video');
+                  }
                 } else {
-                  AppConstants.showAlertDialog(context, 'No Video Found to Download this Video');
+                  if(widget.download.contains('mp4')) {
+                    // AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+                    openPermissionDialog();
+                  } else {
+                    AppConstants.showAlertDialog(context, 'No Video Found to Download this Video');
+                  }
                 }
-              } else {
-                if(widget.download.contains('mp4')) {
-                  AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
-                } else {
-                  AppConstants.showAlertDialog(context, 'No Video Found to Download this Video');
-                }
-              }
-            },
+              },
               child: Container(
                   height: 45,width:MediaQuery.of(context).size.width/1.10,decoration: BoxDecoration( color:AppColors.amber,
-                  borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, StringConstant.downloadVideo)!,style: TextStyle(color: Colors.white,fontSize: 15)
-              ))),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, StringConstant.downloadVideo)!,style: TextStyle(color: Colors.white,fontSize: 15)))
+              ),
             ),
           )
         ],
       ),
     );
+  }
+
+  Future<void> openPermissionDialog() async {
+    await Permission.storage.request().then((value) async {
+      if(value.isGranted) {
+        AppConstants.createExampurFolder();
+        requestVideoDownload();
+      } else {
+        AppConstants.showAlertDialogWithButton(
+            context,
+            "To download this file, click on 'Continue' to allow the storage permission from setting",
+                () async {
+              Navigator.pop(context);
+              await openAppSettings();
+            }
+        );
+      }
+    });
   }
 
   Future<void> requestVideoDownload() async {
@@ -179,7 +201,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             saveInPublicStorage: false,
           );
           AppConstants.printLog(_taskid);
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Downloads(0,)));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Downloads(0)));
         });
       // }
     });

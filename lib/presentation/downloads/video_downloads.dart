@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 
-
 class DownloadedVideo extends StatefulWidget {
   const DownloadedVideo(Key key) : super(key: key);
 
@@ -47,14 +46,14 @@ class DownloadedVideoState extends State<DownloadedVideo> {
   }
 
   void _bindBackgroundIsolate() {
-    bool isSuccess = IsolateNameServer.registerPortWithName(
-        _port.sendPort, 'downloader_send_port');
+    bool isSuccess = IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
     if (!isSuccess) {
       _unbindBackgroundIsolate();
       _bindBackgroundIsolate();
       return;
     }
-    _port.listen((dynamic data) {
+
+    _port.listen((dynamic data) async {
         String id = data[0];
         DownloadTaskStatus status = data[1];
         int progress = data[2];
@@ -64,13 +63,13 @@ class DownloadedVideoState extends State<DownloadedVideo> {
           element['status'] = status;
           setState(() {});
         });
-      });
-      FlutterDownloader.registerCallback(downloadCallback);
+    });
+    FlutterDownloader.registerCallback(downloadCallback);
   }
 
+  @pragma('vm:entry-point')
   static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
-    final SendPort? send =
-        IsolateNameServer.lookupPortByName('downloader_send_port');
+    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port');
     send!.send([id, status, progress]);
   }
 
@@ -110,8 +109,8 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                   : ListView.builder(
                       itemCount: downloadsListMaps.length,
                       itemBuilder: (BuildContext context, int index) {
-                        int itemCount = downloadsListMaps.length ?? 0;
-                        int i = itemCount - 1 - index;
+                        int count = downloadsListMaps.length;
+                        int i = count - 1 - index;
                         Map _map = downloadsListMaps[i];
                         String _filename = _map['filename'];
                         int _progress = _map['progress'];
@@ -155,6 +154,10 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                                     children: [
                                       _status == DownloadTaskStatus.failed ? Text('Failed')
                                       : _status == DownloadTaskStatus.canceled ? Text('Cancelled')
+                                      : _status == DownloadTaskStatus.paused ? Text('Paused')
+                                      : _status == DownloadTaskStatus.enqueued ? Text('Enqueued')
+                                      : _status == DownloadTaskStatus.running ? Text('Downloading...')
+                                      : _status == DownloadTaskStatus.undefined ? Text('Error')
                                           : _status == DownloadTaskStatus.complete ?
                                       Padding(
                                               padding: const EdgeInsets.only(
@@ -163,29 +166,17 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                                                 text: getTranslated(context,
                                                     StringConstant.watch)!,
                                                 onPressed: () {
-                                                  if (_status ==
-                                                      DownloadTaskStatus
-                                                          .complete) {
-                                                    Navigator.of(context,
-                                                            rootNavigator: true)
-                                                        .push(MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                LocalVideoScreen(
-                                                                    _file!,
-                                                                    _filename.split('~')[0])));
-                                                  }
+                                                  Navigator.of(context,
+                                                      rootNavigator: true)
+                                                      .push(MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          LocalVideoScreen(
+                                                              _file!,
+                                                              _filename.split('~')[0]))
+                                                  );
                                                 },
                                               ),
                                             ) : SizedBox()
-
-                                      // InkWell(
-                                      //   onTap: (){
-                                      //     // buttons(_status, _id, i);
-                                      //     FlutterDownloader.cancel(taskId: _id);
-                                      //     downloadsListMaps.removeAt(i);
-                                      //     FlutterDownloader.remove(taskId: _id, shouldDeleteContent: true);
-                                      //     setState(() {});
-                                      //   },child: Container( margin:EdgeInsets.only(top: 8,left: 8),color: AppColors.white,height: 30,width: 70,child: Center(child: Text('Remove',style: TextStyle(color: AppColors.red)))))
                                     ],
                                   ),
                                 ),
@@ -230,7 +221,9 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                         );
                       },
                     ),
-            )));
+            )
+        )
+    );
   }
 
   Widget downloadStatus(DownloadTaskStatus _status) {
@@ -259,110 +252,95 @@ class DownloadedVideoState extends State<DownloadedVideo> {
 
   Widget buttons(DownloadTaskStatus _status, String taskid, int index) {
 
+    return
+      _status == DownloadTaskStatus.canceled ?
+      Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              child:
+              Icon(Icons.replay, size: 20, color: Colors.blue),
+              onTap: () {
+                retryVideo(taskid);
+              },
+            ),
+        GestureDetector(
+          child: Icon(Icons.close, size: 20, color: Colors.red),
+          onTap: () {
+            deleteVideo(taskid, index);
+            },
+        )]
+      )
 
-    return _status == DownloadTaskStatus.canceled ?
-        // SizedBox()
-    // GestureDetector(
-    //         child: Icon(Icons.cached, size: 20, color: Colors.green),
-    //         onTap: () {
-    //           FlutterDownloader.retry(taskId: taskid).then((newTaskID) {
-    //             changeTaskID(taskid, newTaskID!);
-    //           });
-    //         },
-    //       )
-    GestureDetector(
-      child:
-      Icon(Icons.close, size: 20, color: Colors.red),
-      onTap: () {
-        FlutterDownloader.cancel(taskId: taskid);
-        downloadsListMaps.removeAt(index);
-        FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: true);
-        setState(() {});
-      },
-    )
-        : _status == DownloadTaskStatus.failed
-            ? Row(
-      children: [
-                  //         GestureDetector(
-                  //   child: Icon(Icons.cached, size: 20, color: Colors.green),
-                  //   onTap: () {
-                  //         FlutterDownloader.retry(taskId: taskid).then((newTaskID) {
-                  //           changeTaskID(taskid, newTaskID!);
-                  //         });
-                  //   },
-                  // ),
-                  SizedBox(
-                    width: 20,
+        : _status == DownloadTaskStatus.failed ?
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    child:
+                    Icon(Icons.replay, size: 20, color: Colors.blue),
+                    onTap: () {
+                      retryVideo(taskid);
+                    },
                   ),
                   GestureDetector(
-                    child: Icon(Icons.delete, size: 20, color: Colors.red),
+                    child: Icon(Icons.close, size: 20, color: Colors.red),
                     onTap: () {
-                      downloadsListMaps.removeAt(index);
-                      FlutterDownloader.remove(
-                          taskId: taskid, shouldDeleteContent: true);
-                      setState(() {});
+                      deleteVideo(taskid, index);
                     },
                   )
                 ],
               )
-            : _status == DownloadTaskStatus.paused
-                ? Row(
+
+            : _status == DownloadTaskStatus.paused ?
+                 Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       GestureDetector(
                         child: Icon(Icons.play_arrow,
                             size: 20, color: Colors.blue),
-                        onTap: () {
-                          FlutterDownloader.resume(taskId: taskid).then(
-                            (newTaskID) => changeTaskID(taskid, newTaskID!),
-                          );
+                        onTap: () async {
+                          resumeVideo(taskid);
                         },
                       ),
                       GestureDetector(
                         child: Icon(Icons.close, size: 20, color: Colors.red),
                         onTap: () {
-                          FlutterDownloader.cancel(taskId: taskid);
-                          downloadsListMaps.removeAt(index);
-                          FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: true);
-                          setState(() {});
+                          deleteVideo(taskid, index);
                         },
                       )
                     ],
                   )
-                : _status == DownloadTaskStatus.running
-                    ? Row(
+
+                : _status == DownloadTaskStatus.running ?
+                     Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           GestureDetector(
-                            child: Icon(Icons.pause,
-                                size: 20, color: Colors.green),
+                            child: Icon(Icons.pause, size: 20, color: Colors.green),
                             onTap: () {
-                              FlutterDownloader.pause(taskId: taskid);
+                              pauseVideo(taskid);
                             },
                           ),
                            GestureDetector(
                             child:
                                 Icon(Icons.close, size: 20, color: Colors.red),
                             onTap: () {
-                              FlutterDownloader.cancel(taskId: taskid);
-                              downloadsListMaps.removeAt(index);
-                              FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: false);
-                              setState(() {});
+                              deleteVideo(taskid, index);
                             },
                           )
                         ],
                       )
-                    : _status == DownloadTaskStatus.complete
-                        ? GestureDetector(
-                            child:
-                                Icon(Icons.delete, size: 20, color: Colors.red),
+
+                    : _status == DownloadTaskStatus.complete ?
+                         GestureDetector(
+                            child: Icon(Icons.delete, size: 20, color: Colors.red),
                             onTap: () {
-                              downloadsListMaps.removeAt(index);
-                              FlutterDownloader.remove(
-                                  taskId: taskid, shouldDeleteContent: true);
-                              setState(() {});
+                              deleteVideo(taskid, index);
                             },
                           )
                         :
@@ -370,12 +348,39 @@ class DownloadedVideoState extends State<DownloadedVideo> {
       child:
       Icon(Icons.close, size: 20, color: Colors.red),
       onTap: () {
-        FlutterDownloader.cancel(taskId: taskid);
-        downloadsListMaps.removeAt(index);
-        FlutterDownloader.remove(taskId: taskid, shouldDeleteContent: true);
-        setState(() {});
+        deleteVideo(taskid, index);
       },
     );
+  }
+
+  void pauseVideo(taskId) {
+    FlutterDownloader.pause(taskId: taskId);
+  }
+
+  Future<void> resumeVideo(taskId) async {
+    if(await AppConstants.checkInternet()) {
+      FlutterDownloader.resume(taskId: taskId).then(
+            (newTaskID) => changeTaskID(taskId, newTaskID!));
+    } else {
+      AppConstants.showAlertDialog(context, 'No Internet');
+    }
+  }
+
+  Future<void> retryVideo(taskId) async {
+    if(await AppConstants.checkInternet()) {
+      FlutterDownloader.retry(taskId: taskId).then((newTaskID) {
+      changeTaskID(taskId, newTaskID!);
+      });
+    } else {
+      AppConstants.showAlertDialog(context, 'No Internet');
+    }
+  }
+
+  void deleteVideo(taskId, index) {
+    FlutterDownloader.cancel(taskId: taskId);
+    downloadsListMaps.removeAt(index);
+    FlutterDownloader.remove(taskId: taskId, shouldDeleteContent: true);
+    setState(() {});
   }
 
   Future<void> deleteDir() async {
@@ -394,3 +399,7 @@ class DownloadedVideoState extends State<DownloadedVideo> {
     setState(() {});
   }
 }
+
+// for(var map in downloadsListMaps) {
+// FlutterDownloader.pause(taskId: map['id']);
+// }

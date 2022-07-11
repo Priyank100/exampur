@@ -67,30 +67,31 @@ class _HomeState extends State<Home> {
       if (message != null) {
         List<String> actiondata = message.data['action'].split("/");
        // List<String> actiontype = message.data['actiontype'].split("/");
+
         if(actiondata[0] == "Course"){
           AppConstants.goTo(context,
               BannerLinkDetailPage('Course', actiondata[1],
               ));
 
-        }else if(actiondata[0] == "Combo Course"){
+        } else if(actiondata[0] == "Combo Course"){
           AppConstants.goTo(context,
               BannerLinkDetailPage('Combo Course',actiondata[1],
               ));
-        }
-        else if(actiondata[0] == "Book"){
-          AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
 
+        } else if(actiondata[0] == "Book"){
+          AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
           ));
-        }
-        else if (actiondata[0] == "youtube"){
+
+        } else if (actiondata[0] == "youtube"){
           AppConstants.makeCallEmail("${actiondata[1]}");
-        }else if(actiondata[0] == "https:"){
+
+        } else if(actiondata[0] == "https:"){
           AppConstants.makeCallEmail(message.data['action']);
         }
       }
     });
 
-    ///forground work
+    ///foreground work
     FirebaseMessaging.onMessage.listen((message) {
       if (message.notification != null) {
         AppConstants.printLog(message.notification!.body);
@@ -397,8 +398,7 @@ class _HomeState extends State<Home> {
                   ),
                   SquareButton(
                     image: Images.practice,
-                    title:
-                        getTranslated(context, StringConstant.PracticeQuestion)!,
+                    title: getTranslated(context, StringConstant.PracticeQuestion)!,
                     color: AppColors.brown400,
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true).push(

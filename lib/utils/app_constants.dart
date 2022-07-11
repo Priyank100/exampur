@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
@@ -25,7 +26,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = true;
+  static bool isPrint       = false;
   static bool isotpverify = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -218,9 +219,17 @@ class AppConstants {
         if(value.isGranted) {
           callback();
         } else {
-         AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
+          AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
         }
       });
+    }
+  }
+
+  static void createExampurFolder() async {
+    final path= Directory(AppConstants.filePath);
+    bool exist = await path.exists();
+    if (!exist) {
+      path.create();
     }
   }
 
@@ -264,6 +273,20 @@ class AppConstants {
   static Future<void> unSubscription(String topic) async {
     AppConstants.printLog('>>>UnSubscription>>' + topic);
     await FirebaseMessaging.instance.unsubscribeFromTopic(topic.replaceAll(' ', '_'));
+  }
+
+  static Future<bool> checkInternet() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    } on SocketException catch (e) {
+      AppConstants.printLog('Connectivity>> ${e.message}');
+      return false;
+    }
   }
 
 }
@@ -316,8 +339,9 @@ class AnalyticsConstants {
       result = await appsflyerSdk!.logEvent(eventName, eventValues);
       AppConstants.printLog("anchal+$result");
       AppConstants.printLog(eventName);
-    } on Exception catch (e) {}
-    print("Result logEvent: $result");
+    } on Exception catch (e) {
+      AppConstants.printLog("Error: $e");
+    }
   }
 }
 

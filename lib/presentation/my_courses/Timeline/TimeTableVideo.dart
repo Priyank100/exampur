@@ -35,6 +35,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
   // late VideoPlayerController videoPlayerController;
   // ChewieController? chewieController;
   FlickManager? flickManager;
+  late VideoPlayerController _videoPlayerController;
 
 
   /*Future<bool> checkIfDocExists(String docId) async {
@@ -150,9 +151,9 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     // initializePlayer();
     // getChat();
     getSharedPrefData();
+    _videoPlayerController = VideoPlayerController.network(widget.url);
     flickManager = FlickManager(
-      videoPlayerController:
-      VideoPlayerController.network(widget.url),
+      videoPlayerController: _videoPlayerController,
     );
 
     // videoPlayerController = VideoPlayerController.network(widget.url);

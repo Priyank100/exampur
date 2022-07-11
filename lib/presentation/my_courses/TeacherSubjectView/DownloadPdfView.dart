@@ -143,8 +143,8 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
               iconSize: 50,
               color: Colors.black,
               onPressed: () async{
-                // AppConstants.checkPermission(context, Permission.storage, requestDownload);
-                AppConstants.checkPermission(context, Permission.storage, downloadPdfFile);
+                // AppConstants.checkPermission(context, Permission.storage, downloadPdfFile);
+                openPermissionDialog();
               },
             ),
           ],
@@ -173,7 +173,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     }
   }
 
-  Future<void> requestDownload() async {
+  /*Future<void> requestDownload() async {
     final dir = await getApplicationDocumentsDirectory();
     var _localPath = dir.path + '/' + widget.pdfTitle + '.pdf';
     final savedDir = Directory(_localPath);
@@ -203,7 +203,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
         });
       }
     });
-  }
+  }*/
 
   /*Future<void> downloadFile() async {
     AppConstants.showLoaderDialog(context, message:'Downloading...');
@@ -222,6 +222,24 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
       throw Exception("Error downloading url file");
     }
   }*/
+
+  Future<void> openPermissionDialog() async {
+    await Permission.storage.request().then((value) async {
+      if(value.isGranted) {
+        AppConstants.createExampurFolder();
+        downloadPdfFile();
+      } else {
+        AppConstants.showAlertDialogWithButton(
+            context,
+            "To download this file, click on 'Continue' to allow the storage permission from setting",
+                () async {
+              Navigator.pop(context);
+              await openAppSettings();
+            }
+        );
+      }
+    });
+  }
 
   void downloadPdfFile() async {
     final Dio dio = Dio();
@@ -244,7 +262,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     );
     var dir = Directory(AppConstants.filePath);
     File file = File("${dir.path}/" + fileName + ".pdf");
-    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+file.toString());
+    AppConstants.printLog('>>>>>>>>>>>>>>>'+file.toString());
     dio.download(url, file.path, onReceiveProgress: (value1, value2) {
       setState(() {
         progress = ((value1/value2)*100).toInt();

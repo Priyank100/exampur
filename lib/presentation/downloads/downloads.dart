@@ -58,7 +58,7 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
   @override
   void initState() {
     getTabList();
-   AppConstants.checkPermission(context, Permission.storage, _createFolder);
+    AppConstants.checkPermission(context, Permission.storage, _createFolder);
     super.initState();
   }
 

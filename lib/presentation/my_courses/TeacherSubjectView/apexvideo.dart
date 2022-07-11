@@ -29,6 +29,8 @@ class _MyApexVideoMaterialState extends State<MyApexVideoMaterial> {
   // late VideoPlayerController videoPlayerController;
   // ChewieController? chewieController;
   FlickManager? flickManager;
+  late VideoPlayerController _videoPlayerController;
+
   @override
   void initState() {
     super.initState();
@@ -46,9 +48,9 @@ class _MyApexVideoMaterialState extends State<MyApexVideoMaterial> {
     //       );
     //     });
     //initializePlayer();
+    _videoPlayerController = VideoPlayerController.network(widget.url);
     flickManager = FlickManager(
-      videoPlayerController:
-      VideoPlayerController.network(widget.url),
+      videoPlayerController: _videoPlayerController
     );
 
   }
