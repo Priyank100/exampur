@@ -398,8 +398,7 @@ class _HomeState extends State<Home> {
                   ),
                   SquareButton(
                     image: Images.practice,
-                    title:
-                        getTranslated(context, StringConstant.PracticeQuestion)!,
+                    title: getTranslated(context, StringConstant.PracticeQuestion)!,
                     color: AppColors.brown400,
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true).push(
