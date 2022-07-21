@@ -7,10 +7,11 @@ String myCourseListModelToJson(MyCourseListModel data) => json.encode(data.toJso
 class MyCourseListModel {
   MyCourseListModel({
       int? statusCode,
-      List<CourseData>? data,}){
+      List<CourseData>? data,
+  }){
     _statusCode = statusCode;
     _data = data;
-}
+  }
 
   MyCourseListModel.fromJson(dynamic json) {
     _statusCode = json['statusCode'];
@@ -24,8 +25,10 @@ class MyCourseListModel {
   int? _statusCode;
   List<CourseData>? _data;
 
+
   int? get statusCode => _statusCode;
   List<CourseData>? get data => _data;
+
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -58,6 +61,7 @@ class CourseData {
     String? status,
     String? validityTill,
     String? finalAmount,
+    String? testSeriesLink,
     EmiPlans? emiPlans
   }){
     _id = id;
@@ -68,6 +72,7 @@ class CourseData {
     _status = status;
     _validityTill = validityTill;
     _finalAmount = finalAmount;
+    _testSeriesLink = testSeriesLink;
     _emiPlans = emiPlans;
 }
 
@@ -85,6 +90,7 @@ class CourseData {
     _status = json['status']??'';
     _validityTill = json['validity_till']??'';
     _finalAmount = json['final_amount']==null?'':json['final_amount'].toString();
+    _testSeriesLink = json['test_series_link']==null?'':json['test_series_link'].toString();
     _emiPlans = json['emi_plans'] != null ? EmiPlans.fromJson(json['emi_plans']) : null;
   }
   String? _id;
@@ -95,6 +101,7 @@ class CourseData {
   String? _status;
   String? _validityTill;
   String? _finalAmount;
+  String? _testSeriesLink;
   EmiPlans? _emiPlans;
 
   String? get id => _id;
@@ -105,6 +112,7 @@ class CourseData {
   String? get status => _status;
   String? get validityTill => _validityTill;
   String? get finalAmount => _finalAmount;
+  String? get testSeriesLink => _testSeriesLink;
   EmiPlans? get emiPlans => _emiPlans;
 
   Map<String, dynamic> toJson() {
@@ -119,6 +127,7 @@ class CourseData {
     map['status'] = _status;
     map['validity_till'] = _validityTill;
     map['final_amount'] = _finalAmount;
+    map['test_series_link'] = _testSeriesLink;
     if (_emiPlans != null) {
       map['emi_plans'] = _emiPlans?.toJson();
     }

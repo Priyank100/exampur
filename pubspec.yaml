@@ -83,6 +83,7 @@ dependencies:
   sn_progress_dialog: ^1.0.8
   flutter_tex: ^4.0.3
   appsflyer_sdk: ^6.5.2+2
+  flutter_inappwebview: ^5.4.3+7
 
 
 

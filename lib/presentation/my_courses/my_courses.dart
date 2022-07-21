@@ -465,11 +465,12 @@ class MyCoursesState extends State<MyCourses> {
     );
   }
 
-  void openNext(i) {
+  Future<void> openNext(i) async {
+    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
             builder: (_) =>
-                MyCourseTabView(myCourseList[i].id.toString())));
+                MyCourseTabView(myCourseList[i].id.toString(),myCourseList[i].testSeriesLink.toString(),token)));
   }
 
   void toRePay(index){

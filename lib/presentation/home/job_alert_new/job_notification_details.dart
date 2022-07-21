@@ -5,6 +5,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class JobNotificationDetails extends StatefulWidget {
   final String articleId;
@@ -47,10 +48,34 @@ class _JobNotificationDetailsState extends State<JobNotificationDetails> {
                 const SizedBox(height: 5),
                 Html(
                     data: jobNotificationDetailModel!.contentModule![0].description.toString(),
+                    onLinkTap: (url,_,__,___) async {
+                      if(await canLaunch(url!)) {
+                        await launch(url);
+
+                      } else {
+                        throw 'Error url> $url';
+                      }
+                    },
                     style: {
                       'body': Style(
-                        fontSize: const FontSize(12),
-                      )}),
+                        lineHeight:LineHeight(2),
+                        fontSize: const FontSize(15),
+                      ),
+                      'table':Style(
+                        border: Border.all(width: 1),
+                      ),
+                      "tr": Style(
+                        border: Border.all(width: 1),
+                      ),
+                      "th": Style(
+                       // padding: EdgeInsets.all(6),
+                        backgroundColor: AppColors.grey,
+                      ),
+                      "td": Style(
+                        alignment: Alignment.topLeft,
+                        padding: EdgeInsets.only(left: 5, right: 5)
+                      ),
+                    }),
               ]),
         ),
       ),

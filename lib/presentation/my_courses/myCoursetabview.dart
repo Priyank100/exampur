@@ -1,10 +1,11 @@
 import 'dart:convert';
-
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/booktitle.dart';
+import 'package:exampur_mobile/presentation/authentication/terms_condition.dart';
 import 'package:exampur_mobile/presentation/home/practice_question/practice_question_category.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/subject_view.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
+import 'package:exampur_mobile/presentation/widgets/web_view.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,8 +17,9 @@ import 'Timeline/TimetableView.dart';
 
 class MyCourseTabView extends StatefulWidget {
   final String courseId;
-
-  const MyCourseTabView(this.courseId) : super();
+  final String testSeriesLink;
+  final String token;
+  const MyCourseTabView(this.courseId,this.testSeriesLink,this.token) : super();
 
   @override
   _MyCourseTabViewState createState() => _MyCourseTabViewState();
@@ -69,8 +71,10 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
                   routes: tabList.length == 0 ? [] : [
                     TimeTableView(widget.courseId),
                     SubjectView(widget.courseId),
+                    WebViewOpen(widget.testSeriesLink, widget.token),
                     MyCourseNotifications(widget.courseId),
-                    FeedbackView(userName, userMobile)
+                    FeedbackView(userName, userMobile),
+
                   ],
                   title: '')
           );

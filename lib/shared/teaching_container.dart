@@ -140,7 +140,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             widget.courseType==1?  Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
                             )): Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                MyCourseTabView(widget.courseData.id.toString())
+                                MyCourseTabView(widget.courseData.id.toString(),'','')
                             ));
                           },text: getTranslated(context, StringConstant.viewDetails)!,),
 

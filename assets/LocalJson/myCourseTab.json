@@ -11,10 +11,14 @@
     },
     {
       "id": "2",
-      "name": "Notification"
+      "name": "Test Series"
     },
     {
       "id": "3",
+      "name": "Notification"
+    },
+    {
+      "id": "4",
       "name": "FeedBack"
     }
   ]
