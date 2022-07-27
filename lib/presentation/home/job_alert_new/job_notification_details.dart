@@ -79,7 +79,6 @@ class _JobNotificationDetailsState extends State<JobNotificationDetails> {
               ]),
         ),
       ),
-
     );
   }
 }
