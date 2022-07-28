@@ -49,7 +49,7 @@ class _CurrentAffairsDetailsState extends State<CurrentAffairsDetails> {
                 AppConstants.langCode == 'hi' ?
                 currentAffairsDetailModel!.titleHindi.toString() :
                 currentAffairsDetailModel!.titleEng.toString(),
-                style: const TextStyle(fontSize: 20),),
+                style:  TextStyle(fontSize: 20,fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins',fontWeight: FontWeight.bold),),
                 currentAffairsDetailModel!.caTags == null || currentAffairsDetailModel!.caTags!.length < 0 ? SizedBox() :
                 Row(
                 children: [
@@ -77,8 +77,26 @@ class _CurrentAffairsDetailsState extends State<CurrentAffairsDetails> {
                   currentAffairsDetailModel!.descriptionEng.toString(),
                     style: {
                       'body': Style(
-                          fontSize: const FontSize(12),
-                      )}),
+                          lineHeight:LineHeight(2),
+                          fontSize: const FontSize(15),
+                          fontFamily: 'Noto Sans',
+                      ),
+                      'table':Style(
+                        border: Border.all(width: 1),
+                      ),
+                      "tr": Style(
+                          border: Border.all(width: 1)
+                      ),
+                      "th": Style(
+                        // padding: EdgeInsets.all(6),
+                        backgroundColor: AppColors.grey,
+                      ),
+                      "td": Style(
+                        alignment: Alignment.topLeft,
+                        padding: EdgeInsets.only(left: 5, right: 5),
+                        width: 200,
+                      ),
+                    }),
             ]),
           ),
         ),

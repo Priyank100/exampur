@@ -7,7 +7,7 @@ class CustomTextStyle {
   static TextStyle drawerText(BuildContext context) {
     return Theme.of(context).textTheme.bodyText1!.copyWith(
       fontSize: 15.0,
-        fontFamily:'Poppins',
+      fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins',
       fontWeight: FontWeight.bold,
     );
   }

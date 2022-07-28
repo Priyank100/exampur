@@ -103,7 +103,7 @@ class _JobNotificationListingState extends State<JobNotificationListing> {
             children: [
               Text(outputDate, textAlign: TextAlign.center),
               SizedBox(width: 10),
-              Flexible(child: Text(dataList[i].title.toString())),
+              Flexible(child: Text(dataList[i].title.toString(),)),
             ],
           ),
           Divider(color: AppColors.grey500),

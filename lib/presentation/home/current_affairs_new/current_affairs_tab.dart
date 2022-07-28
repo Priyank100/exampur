@@ -139,7 +139,7 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
             FocusScope.of(context).unfocus();
           },
           tabs: currentAffairsTab.map((item) => Tab(
-              text: AppConstants.langCode == 'hi' ? item.titleHindi.toString() : item.titleEng.toString())).toList(),
+              child:Text( AppConstants.langCode == 'hi' ? item.titleHindi.toString() : item.titleEng.toString(),style: TextStyle(fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins',fontSize: 17,fontWeight: FontWeight.bold),))).toList(),
           indicatorColor: AppColors.amber,
           padding: EdgeInsets.all(8),
         ),

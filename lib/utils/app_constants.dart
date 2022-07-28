@@ -154,6 +154,40 @@ class AppConstants {
     );
   }
 
+  static void showAlertDialogWithBack(BuildContext context, String message) {
+    AlertDialog alert = AlertDialog(
+      actions: [
+        TextButton(
+          child: Text('Close',style: TextStyle(color: AppColors.amber)),
+          onPressed:  () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+        )
+      ],
+      content: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(padding: EdgeInsets.all(8),
+                    child: Text("Message", style: TextStyle(fontSize: 16))),
+                Divider(),
+                Container(padding: EdgeInsets.all(8), child: Text(message)),
+              ],
+            )
+          ]),
+    );
+    showDialog(barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   static void showLoaderDialog(BuildContext context, {message}) {
     String msg = 'Loading';
     if(message != null) msg=message;

@@ -56,16 +56,26 @@ class _JobNotificationDetailsState extends State<JobNotificationDetails> {
                         throw 'Error url> $url';
                       }
                     },
+                    customRender: {
+                      "table": (context, child) {
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child:
+                          (context.tree as TableLayoutElement).toWidget(context),
+                        );
+                      },
+                    },
                     style: {
                       'body': Style(
                         lineHeight:LineHeight(2),
                         fontSize: const FontSize(15),
+                          fontFamily: 'Noto Sans'
                       ),
                       'table':Style(
                         border: Border.all(width: 1),
                       ),
                       "tr": Style(
-                        border: Border.all(width: 1),
+                        border: Border.all(width: 1)
                       ),
                       "th": Style(
                        // padding: EdgeInsets.all(6),
@@ -73,7 +83,8 @@ class _JobNotificationDetailsState extends State<JobNotificationDetails> {
                       ),
                       "td": Style(
                         alignment: Alignment.topLeft,
-                        padding: EdgeInsets.only(left: 5, right: 5)
+                        padding: EdgeInsets.only(left: 5, right: 5),
+                          width: 200,
                       ),
                     }),
               ]),
