@@ -74,7 +74,9 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(widget.name+'->'+widget.categoryname,style: TextStyle(fontSize: 15),),
+          child: Text(widget.name+'->'+widget.categoryname,
+            style: TextStyle(fontSize:AppConstants.langCode == 'hi' ? 18:15,
+                fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins',fontWeight: FontWeight.bold),),
         ),
           Expanded(child: dataList()),
 
@@ -149,13 +151,20 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
       children: [
       //   TeXView(
       //   child: TeXViewDocument(
-      //     practiceQuestionListingModel!.questions![index].englishQuestion.toString(),
+      //       r"""<p>
+      //               $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$</p>"""
       // ),
-
-          // Katex for fast render and MathJax for quality render.
-        //),
+      //
+      //   // Katex for fast render and MathJax for quality render.
+      //  ),
         Text('Question '+(count+index+1).toString() +':',style: TextStyle(color: AppColors.amber),),
         Html(
+        style: {
+    'body': Style(
+        fontSize: AppConstants.langCode == 'hi' ? FontSize(18):FontSize(15),
+    fontWeight: FontWeight.bold,
+    fontFamily:  AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins'
+    ),},
             data: AppConstants.langCode == 'hi' ?
             practiceQuestionListingModel!.questions![index].hindiQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' ') :
             practiceQuestionListingModel!.questions![index].englishQuestion.toString().replaceAll(RegExp(r"<[^>]*>",caseSensitive: true), ' '),
@@ -164,7 +173,9 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         Container(
           color: _radioValue[index].val == 0 ? practiceQuestionListingModel!.questions![index].correctAnswer == 1 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ? practiceQuestionListingModel!.questions![index].hindiOption1.toString().trim() : practiceQuestionListingModel!.questions![index].engOption1.toString().trim(),style: TextStyle(fontSize: 12)),
+            title: Text(AppConstants.langCode == 'hi' ? practiceQuestionListingModel!.questions![index].hindiOption1.toString().trim() : practiceQuestionListingModel!.questions![index].engOption1.toString().trim(),
+              style: TextStyle(fontSize:16,fontFamily: 'Noto Sans'
+              ),),
             value: 0,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
@@ -183,7 +194,8 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         Container(
           color: _radioValue[index].val == 1 ? practiceQuestionListingModel!.questions![index].correctAnswer == 2 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption2.toString().trim(): practiceQuestionListingModel!.questions![index].engOption2.toString().trim(),style: TextStyle(fontSize: 12)),
+            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption2.toString().trim(): practiceQuestionListingModel!.questions![index].engOption2.toString().trim(),
+                style: TextStyle(fontSize:16,fontFamily: 'Noto Sans')),
             value: 1,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
@@ -202,7 +214,8 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         Container(
           color: _radioValue[index].val == 2 ? practiceQuestionListingModel!.questions![index].correctAnswer == 3 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption3.toString().trim(): practiceQuestionListingModel!.questions![index].engOption3.toString().trim(),style: TextStyle(fontSize: 12)),
+            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption3.toString().trim(): practiceQuestionListingModel!.questions![index].engOption3.toString().trim(),
+                style: TextStyle(fontSize:16,fontFamily: 'Noto Sans')),
             value: 2,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
@@ -221,7 +234,8 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         Container(
           color: _radioValue[index].val == 3 ? practiceQuestionListingModel!.questions![index].correctAnswer == 4 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption4.toString().trim(): practiceQuestionListingModel!.questions![index].engOption4.toString().trim(),style: TextStyle(fontSize: 12)),
+            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption4.toString().trim(): practiceQuestionListingModel!.questions![index].engOption4.toString().trim(),
+                style: TextStyle(fontSize:16,fontFamily: 'Noto Sans')),
             value: 3,
             groupValue: _radioValue[index].val,
             onChanged: (value) {
@@ -240,7 +254,8 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
         Container(
           color: _radioValue[index].val == 4 ? practiceQuestionListingModel!.questions![index].correctAnswer == 5 ? AppColors.green : AppColors.red : AppColors.transparent,
           child: RadioListTile(
-            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption5.toString().trim(): practiceQuestionListingModel!.questions![index].engOption5.toString().trim(),style: TextStyle(fontSize: 12,)),
+            title: Text(AppConstants.langCode == 'hi' ?practiceQuestionListingModel!.questions![index].hindiOption5.toString().trim(): practiceQuestionListingModel!.questions![index].engOption5.toString().trim(),
+                style: TextStyle(fontSize:16,fontFamily: 'Noto Sans')),
             value: 4,
             groupValue: _radioValue[index].val,
             onChanged: (value) {

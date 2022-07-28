@@ -48,7 +48,7 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
 
   Future<void> getTagList() async {
     tagList = (await Provider.of<CaProvider>(context, listen: false).getCurrentAffairsTagList(context))!;
-    print('+++' + tagList.length.toString() + '+++' + tagList[0].name.toString());
+    // print('+++' + tagList.length.toString() + '+++' + tagList[0].name.toString());
     setState(() {});
   }
 
@@ -168,7 +168,8 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
                       AppConstants.langCode == 'hi' ?
                       currentAffairsListModel!.articleContent![index].titleHindi.toString() :
                       currentAffairsListModel!.articleContent![index].titleEng.toString(),
-                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 15,fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins',
+                          fontWeight: FontWeight.bold),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -181,7 +182,8 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
                     'body': Style(
                       maxLines: 3,
                       textOverflow: TextOverflow.ellipsis,
-                      fontSize: const FontSize(10)
+                      fontSize: const FontSize(12),
+                        fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins'
                     )}
                   )],
               ),

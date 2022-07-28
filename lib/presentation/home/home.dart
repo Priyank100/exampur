@@ -180,7 +180,7 @@ class _HomeState extends State<Home> {
                           '${userName} !',
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: CustomTextStyle.headingBold(context),
+                      style: TextStyle(fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins',fontSize: 20,fontWeight: FontWeight.bold),
                     ),
                   ),
                   DropdownButton<Language>(
@@ -494,7 +494,7 @@ class SquareButton extends StatelessWidget {
             Flexible(
                 child: new Text(
               title!,
-              style: TextStyle(color: AppColors.white, fontSize: 15),
+              style: TextStyle(color: AppColors.white, fontSize: 15,fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins'),
             ))
           ],
         ),

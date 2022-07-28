@@ -427,7 +427,7 @@ packages:
     source: hosted
     version: "2.2.1"
   flutter_inappwebview:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_inappwebview
       url: "https://pub.dartlang.org"

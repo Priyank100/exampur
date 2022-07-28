@@ -134,9 +134,10 @@ class _CurrentAffairsFilterState extends State<CurrentAffairsFilter> {
                     AppConstants.langCode == 'hi' ?
                     currentAffairsListModel!.articleContent![index].titleHindi.toString() :
                     currentAffairsListModel!.articleContent![index].titleEng.toString(),
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style:  TextStyle(fontSize: 15, fontWeight: FontWeight.bold,fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins',),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
+
                   ),
                   Text('Posted on ' + currentAffairsListModel!.articleContent![index].date.toString(),style: TextStyle(fontSize: 10,color: AppColors.amber)),
                   Html(
@@ -147,7 +148,8 @@ class _CurrentAffairsFilterState extends State<CurrentAffairsFilter> {
                         'body': Style(
                             maxLines: 3,
                             textOverflow: TextOverflow.ellipsis,
-                            fontSize: const FontSize(10)
+                            fontSize: const FontSize(12),
+                            fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins'
                         )}
                   )],
               ),

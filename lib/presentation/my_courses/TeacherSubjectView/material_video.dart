@@ -9,6 +9,7 @@ import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -32,16 +33,47 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
   @override
   void initState() {
     super.initState();
-    _playerController = VideoPlayerController.network(widget.url);
-    _playerController!..initialize().then((_){
+    // _playerController = VideoPlayerController.network(widget.url);
+    // _playerController!..initialize().then((_){
+    //   setState(() {
+    //     _playerController!.seekTo(Duration(seconds: 0));
+    //     _playerController!.play();
+    //   });
+    // });
+    // flickManager = FlickManager(
+    //   // videoPlayerController: VideoPlayerController.network(widget.url),
+    //   videoPlayerController: _playerController!,
+    // );
+    myInit();
+  }
+
+  Future<void> myInit() async {
+    try {
+      VideoPlayerController _oldCon = _playerController!;
+      _oldCon.dispose();
+      _playerController = null;
+    } catch(e) {
+      // print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
+      // print(e);
+    }
+    Future.delayed(Duration(milliseconds: 500));
+    try {
+      _playerController = VideoPlayerController.network(
+        widget.url,
+        videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
+      );
+
+    await _playerController!.initialize().then((value) {
       setState(() {
         _playerController!.seekTo(Duration(seconds: 0));
         _playerController!.play();
       });
     });
+    } catch(e) {
+      SchedulerBinding.instance!.addPostFrameCallback((_) => AppConstants.showAlertDialogWithBack(context, 'Video not available...'));
+    }
     flickManager = FlickManager(
-      // videoPlayerController: VideoPlayerController.network(widget.url),
-      videoPlayerController: _playerController!,
+      videoPlayerController: _playerController!
     );
   }
 
@@ -117,9 +149,17 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             color: AppColors.transparent,
             height: (MediaQuery.of(context).size.width) / 16 * 9,
             width: MediaQuery.of(context).size.width,
-            child: FlickVideoPlayer(
+              // child: FlickVideoPlayer(
+              //     flickManager: flickManager!
+              // )
+            child: _playerController!.value.isInitialized ? FlickVideoPlayer(
                 flickManager: flickManager!
-            ),
+            ) :  Container(
+              color: AppColors.black,
+              height: (MediaQuery.of(context).size.width) / 16 * 9,
+              width: MediaQuery.of(context).size.width,
+              child: Center(child: CircularProgressIndicator(color: AppColors.amber)),
+            )
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
