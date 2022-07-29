@@ -32,38 +32,25 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
 
   @override
   void initState() {
+    initializePlayer();
     super.initState();
-    // _playerController = VideoPlayerController.network(widget.url);
-    // _playerController!..initialize().then((_){
-    //   setState(() {
-    //     _playerController!.seekTo(Duration(seconds: 0));
-    //     _playerController!.play();
-    //   });
-    // });
-    // flickManager = FlickManager(
-    //   // videoPlayerController: VideoPlayerController.network(widget.url),
-    //   videoPlayerController: _playerController!,
-    // );
-    myInit();
   }
 
-  Future<void> myInit() async {
+  Future<void> initializePlayer() async {
     try {
       VideoPlayerController _oldCon = _playerController!;
       _oldCon.dispose();
       _playerController = null;
     } catch(e) {
-      // print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
       // print(e);
     }
-    Future.delayed(Duration(milliseconds: 500));
+    Future.delayed(Duration(milliseconds: 200));
     try {
-      _playerController = VideoPlayerController.network(
+    _playerController = VideoPlayerController.network(
         widget.url,
-        videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
-      );
-
-    await _playerController!.initialize().then((value) {
+        videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true)
+    );
+    await _playerController!.initialize().then((_){
       setState(() {
         _playerController!.seekTo(Duration(seconds: 0));
         _playerController!.play();
@@ -73,11 +60,9 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
       SchedulerBinding.instance!.addPostFrameCallback((_) => AppConstants.showAlertDialogWithBack(context, 'Video not available...'));
     }
     flickManager = FlickManager(
-      videoPlayerController: _playerController!
+      videoPlayerController: _playerController!,
     );
   }
-
-
 
   @override
   void dispose() {
