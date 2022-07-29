@@ -1,3 +1,5 @@
+import 'package:exampur_mobile/presentation/home/BannerBookDetailPage.dart';
+import 'package:exampur_mobile/presentation/home/banner_link_detail_page.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +18,30 @@ class LocalNotificationService {
       AppConstants.printLog(route.toString());
       if(route != null){
         AppConstants.printLog('anchal');
-        Navigator.of(context).pushNamed(route);
+        // Navigator.of(context).pushNamed(route);
+        List<String> actiondata = route.split("/");
+        // List<String> actiontype = message.data['actiontype'].split("/");
+
+        if(actiondata[0] == "Course"){
+          AppConstants.goTo(context,
+              BannerLinkDetailPage('Course', actiondata[1],
+              ));
+
+        } else if(actiondata[0] == "Combo Course"){
+          AppConstants.goTo(context,
+              BannerLinkDetailPage('Combo Course',actiondata[1],
+              ));
+
+        } else if(actiondata[0] == "Book"){
+          AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
+          ));
+
+        } else if (actiondata[0] == "youtube"){
+          AppConstants.makeCallEmail("${actiondata[1]}");
+
+        } else if(actiondata[0] == "https:"){
+          AppConstants.makeCallEmail(route);
+        }
       }
     });
   }

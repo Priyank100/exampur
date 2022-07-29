@@ -221,7 +221,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     Html(data:widget.courseData.description.toString(), style: {
                       "body": Style(
                         fontSize: FontSize(12.0),
-                        fontWeight: FontWeight.bold,
+                          fontFamily: 'Noto sans'
                       ),
                     },)
                   ],

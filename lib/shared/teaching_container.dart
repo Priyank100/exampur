@@ -96,7 +96,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                         'body': Style(
                                             maxLines: 3,
                                             textOverflow: TextOverflow.ellipsis,
-                                            fontSize: const FontSize(13)
+                                            fontSize: const FontSize(13),
                                         )})
                                 ],
                               ),
