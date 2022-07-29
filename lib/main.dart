@@ -47,6 +47,9 @@ void main() async {
   await FlutterDownloader.initialize(debug: true);
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true, badge: true, sound: true
+  );
   HttpOverrides.global = MyHttpOverrides();
 
   runApp(MultiProvider(providers: [

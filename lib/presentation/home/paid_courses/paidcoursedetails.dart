@@ -220,8 +220,10 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     ):SizedBox(),
                     Html(data:widget.courseData.description.toString(), style: {
                       "body": Style(
-                        fontSize: FontSize(12.0),
-                        fontWeight: FontWeight.bold,
+                         padding: EdgeInsets.zero,
+                          fontSize: FontSize(12.0),
+                        fontFamily: 'Noto Sans'
+                        //fontWeight: FontWeight.bold,
                       ),
                     },)
                   ],
