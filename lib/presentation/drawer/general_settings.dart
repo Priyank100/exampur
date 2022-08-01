@@ -189,9 +189,9 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     }else if (_email.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.Email_Required)!), backgroundColor:AppColors.black));
       return false;
-    }else if (!AppConstants.isEmailValid(_email)) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please enter valid Email Id'), backgroundColor:AppColors.black));
-      return false;
+    // }else if (!AppConstants.isEmailValid(_email)) {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please enter valid Email Id'), backgroundColor:AppColors.black));
+    //   return false;
     }else if (_city.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.CITY_REQUIRED)!), backgroundColor:AppColors.black));
       return false;
