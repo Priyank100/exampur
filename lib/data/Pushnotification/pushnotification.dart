@@ -15,14 +15,10 @@ class LocalNotificationService {
         android: AndroidInitializationSettings("@mipmap/ic_launcher"));
 
     _notificationsPlugin.initialize(initializationSettings,onSelectNotification: (String? route) async{
-      AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+      AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>anchal');
       AppConstants.printLog(route.toString());
       if(route != null){
-        AppConstants.printLog('anchal');
-        // Navigator.of(context).pushNamed(route);
-        // AppConstants.makeCallEmail(route);
         List<String> actiondata =route.split("/");
-        // List<String> actiontype =message.data['actiontype'].split("/");
         if(actiondata[0] == "Course"){
           AppConstants.goTo(context,
               BannerLinkDetailPage('Course', actiondata[1],
