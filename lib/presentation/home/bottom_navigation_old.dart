@@ -18,6 +18,7 @@ import 'package:exampur_mobile/presentation/help/help.dart';
 import 'package:exampur_mobile/presentation/home/test_series_new/test_series_new.dart';
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/presentation/widgets/rating_dialog.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
@@ -576,9 +577,20 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                           ]),
                       onTap: () {
                         _scaffoldKey.currentState?.openEndDrawer();
-                        LaunchReview.launch(
-                            androidAppId: AppConstants.androidId,
-                            iOSAppId: AppConstants.iosId);
+                        // LaunchReview.launch(
+                        //     androidAppId: AppConstants.androidId,
+                        //     iOSAppId: AppConstants.iosId);
+                        AlertDialog alert = AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                          contentPadding: EdgeInsets.zero,
+                          content: RatingDialog(),
+                        );
+                        showDialog(barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return alert;
+                        });
                       },
                     ),
                     // ListTile(

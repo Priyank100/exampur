@@ -50,7 +50,7 @@ class _TestSeriesNewState extends State<TestSeriesNew> {
               onWebViewCreated: (WebViewController webViewController) {
                 _controllerCompleter.future.then((value) => _controller = value);
                 _controllerCompleter.complete(webViewController);
-                },
+              },
               onPageFinished: (finish) {
                 setState(() {
                   isLoading = false;

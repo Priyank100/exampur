@@ -232,4 +232,9 @@ class API {
   // emi
   static const String order_course_with_emi = BASE_URL1 + 'order_course/emi_create';
 
+
+  //submit rating
+  static const String submitRatingUrl = '';
+  static const String submitRatingFeedbackUrl = '';
+
 }
