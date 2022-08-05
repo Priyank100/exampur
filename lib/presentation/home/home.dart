@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:exampur_mobile/ChatModule/ChatPage.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
@@ -32,6 +33,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../../main.dart';
 import 'BannerBookDetailPage.dart';
 import 'FreeVideos/freeVideo.dart';
@@ -54,6 +56,7 @@ class _HomeState extends State<Home> {
   // List<BannerData> bannerList = [];
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
   String TOKEN = '';
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   @override
   void initState() {
@@ -130,6 +133,33 @@ class _HomeState extends State<Home> {
       }
     });
     // getSharedPrefData();
+  }
+
+  clickNotification(RemoteMessage? message) {
+    if (message != null) {
+      List<String> actiondata =message.data['action'].split("/");
+      // List<String> actiontype =message.data['actiontype'].split("/");
+      if(actiondata[0] == "Course"){
+        AppConstants.goTo(context,
+            BannerLinkDetailPage('Course', actiondata[1],
+            ));
+
+      }else if(actiondata[0] == "Combo Course"){
+        AppConstants.goTo(context,
+            BannerLinkDetailPage('Combo Course',actiondata[1],
+            ));
+      }
+      else if(actiondata[0] == "Book"){
+        AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
+
+        ));
+      }
+      else if (actiondata[0] == "youtube"){
+        AppConstants.makeCallEmail("${actiondata[1]}");
+      }else if(actiondata[0] == "https:"){
+        AppConstants.makeCallEmail(message.data['action']);
+      }
+    }
   }
 
   Future<void> callProvider() async {

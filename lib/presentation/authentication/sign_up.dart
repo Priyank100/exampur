@@ -332,14 +332,16 @@ class SignUpState extends State<SignUp> {
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      // } else if (!AppConstants.isEmailValid(_email)) {
+      }
+      // else if (!AppConstants.isEmailValid(_email)) {
       //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //     content: Text('Please enter valid Email Id'),
       //     backgroundColor: AppColors.black,
       //     margin: EdgeInsets.all(20),
       //     behavior: SnackBarBehavior.floating,
       //   ));
-      } else if (_password.isEmpty) {
+      // }
+      else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please enter your Password'),
           backgroundColor: AppColors.black,
