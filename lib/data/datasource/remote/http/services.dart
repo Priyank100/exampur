@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class Service {
 
-  static Future<http.Response> post(String url, {var body, encoding}) async {
+  static Future<http.Response> post(String url, {var body, encoding, myHeader}) async {
     String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     AppConstants.printLog(token);
     var postBody = json.encode(body);
@@ -15,7 +15,7 @@ class Service {
       return await http
           .post(Uri.parse(url),
           body: utf8.encode(postBody),
-          headers: {
+          headers: myHeader ?? {
             "appAuthToken": token,
             "Content-Type": "application/json"
           },
