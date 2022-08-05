@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -23,6 +22,7 @@ class _TestSeriesNewState extends State<TestSeriesNew> {
   final _key = UniqueKey();
   WebViewController? _controller;
   String jsMsg = '';
+  bool showBackLoader = false;
 
   final Completer<WebViewController> _controllerCompleter =
   Completer<WebViewController>();
@@ -31,10 +31,16 @@ class _TestSeriesNewState extends State<TestSeriesNew> {
   Future<bool> _onWillPop(BuildContext context) async {
     if(_controller != null) {
       if (await _controller!.canGoBack()) {
+        AppConstants.printLog('>>>>>>>>>>>>>');
+        AppConstants.printLog(jsMsg);
         if(jsMsg.isNotEmpty) {
           if(jsMsg == 'finish') {
+            // AppConstants.printLog('>>>>>>>>>>>>>');
+            // AppConstants.printLog(jsMsg);
             Navigator.pop(context);
           } else {
+            AppConstants.showLoaderDialog(context);
+            showBackLoader = true;
             _controller!.loadUrl(jsMsg);
           }
         } else {
@@ -86,8 +92,18 @@ class _TestSeriesNewState extends State<TestSeriesNew> {
               onPageFinished: (finish) {
                 setState(() {
                   isLoading = false;
+                  if(showBackLoader) {
+                    showBackLoader = false;
+                    Navigator.pop(context);
+                  }
                 });
               },
+              // onPageStarted: (start){
+              //   setState(() {
+              //     isLoading = true;
+              //   });
+              // },
+
                 // navigationDelegate: (NavigationRequest request) {
                 //   AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>');
                 // AppConstants.printLog(request.url);
