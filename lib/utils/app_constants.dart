@@ -26,7 +26,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static bool isotpverify = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -58,6 +58,8 @@ class AppConstants {
   static String testSeriesToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjI4NjZiNTI2M2JjZDU5NGNlYjQ2OTEiLCJpYXQiOjE2NDY4MTQ5ODIsImV4cCI6MTY0NjkwMTM4Mn0.nC3XmvNX2Y_hKsiF1ZARgaMrWMVJ2w80AFyAKT0mLsA';
 
   static String CATEGORY_LENGTH       = '0';
+
+  static String logToken = 'QhmAn5x6UxxWVdc8pkEe77eDAH9U2U9sXjs4kqaxbT2vp5kVmfru5nLL2nEpSQm9dBHLFBeQuEcXmmpzcf34MetTuNXBbaLTuG7pETEGQ2Hp';
 
   static void printLog(message) {
     if (isPrint) {

@@ -237,4 +237,7 @@ class API {
   static const String submitRatingUrl = '';
   static const String submitRatingFeedbackUrl = '';
 
+
+  static const String log_free_course_view_detail = 'https://elastic.exampur.xyz/api/v1/service/log';
+
 }

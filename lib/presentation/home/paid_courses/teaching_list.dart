@@ -11,7 +11,8 @@ import 'package:provider/provider.dart';
 class TeachingList extends StatefulWidget {
   final int courseType;
   final String tabId;
-  const TeachingList(this.courseType, this.tabId) : super();
+  final String tabName;
+  const TeachingList(this.courseType, this.tabId, this.tabName) : super();
 
   @override
   _TeachingListState createState() => _TeachingListState();
@@ -95,7 +96,7 @@ class _TeachingListState extends State<TeachingList> {
   Widget listing(list) {
     return ListView.builder(itemCount:list.length,controller: scrollController,
         itemBuilder: (BuildContext context,int index){
-          return  TeachingContainer(list[index],widget.courseType,widget.tabId);
+          return  TeachingContainer(list[index],widget.courseType,widget.tabId, widget.tabName);
         });
   }
 }
