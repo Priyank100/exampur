@@ -78,7 +78,8 @@ class PaidCourseData {
     int? validTime,
     String? pdfPath,
     bool? onEmi,
-    List<EmiPlans>? emiPlans
+    List<EmiPlans>? emiPlans,
+    String? testSeriesLink,
   }){
     _id = id;
     _title = title;
@@ -95,6 +96,7 @@ class PaidCourseData {
     _pdfPath = pdfPath;
     _onEmi = onEmi??false;
     _emiPlans = emiPlans??[];
+    _testSeriesLink = testSeriesLink;
 }
 
   PaidCourseData.fromJson(dynamic json) {
@@ -127,6 +129,7 @@ class PaidCourseData {
       json['emi_plans'].forEach((v) {
         _emiPlans?.add(EmiPlans.fromJson(v));
       });
+      _testSeriesLink = json['test_series_link']==null?'':json['test_series_link'].toString();
     }
   }
   String? _id;
@@ -144,6 +147,7 @@ class PaidCourseData {
   String? _pdfPath;
   bool? _onEmi;
   List<EmiPlans>? _emiPlans;
+  String? _testSeriesLink;
 
   String? get id => _id;
   String? get title => _title;
@@ -160,6 +164,7 @@ class PaidCourseData {
   String? get pdfPath => _pdfPath;
   bool? get onEmi => _onEmi;
   List<EmiPlans>? get emiPLans => _emiPlans;
+  String? get testSeriesLink => _testSeriesLink;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -184,6 +189,7 @@ class PaidCourseData {
     if (_emiPlans != null) {
       map['emi_plans'] = _emiPlans?.map((v) => v.toJson()).toList();
     }
+    map['test_series_link'] = _testSeriesLink;
     return map;
   }
 

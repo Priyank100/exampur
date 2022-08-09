@@ -149,7 +149,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                         'body': Style(
                                             maxLines: 3,
                                             textOverflow: TextOverflow.ellipsis,
-                                            fontSize: const FontSize(13),
+                                            fontSize: const FontSize(13)
                                         )})
                                 ],
                               ),
@@ -203,10 +203,10 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             } else {
                               AppConstants.printLog(widget.courseData.title.toString());
                               AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-                              // String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+                              String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
                              submitLog(widget.courseData.title.toString(), widget.courseData.id.toString(), widget.tabName.toString());
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                  MyCourseTabView(widget.courseData.id.toString(),'','')
+                                  MyCourseTabView(widget.courseData.id.toString(),widget.courseData.testSeriesLink.toString(),token)
                               ));
                             }
                           },text: getTranslated(context, StringConstant.viewDetails)!,),

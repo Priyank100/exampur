@@ -27,8 +27,7 @@ class MyCourseTabView extends StatefulWidget {
 
 class _MyCourseTabViewState extends State<MyCourseTabView> {
   List<Book> tabList = [];
-  String userName = '';
-  String userMobile = '';
+  String userName = '';  String userMobile = '';
 
 
 
@@ -54,7 +53,6 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
   @override
   void initState() {
     getTabList();
-
     getSharedPrefData();
     super.initState();
   }
