@@ -199,7 +199,6 @@ class _RatingDialogState extends State<RatingDialog> {
       "x-auth-token": AppConstants.serviceLogToken,
       "Content-Type": "application/json"
     };
-    AppConstants.printLog("x-auth-token=" + AppConstants.serviceLogToken);
     await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) async {
 
       //save rating to show for next time
