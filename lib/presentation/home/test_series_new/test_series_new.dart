@@ -37,7 +37,7 @@ class _TestSeriesNewState extends State<TestSeriesNew> {
           if(jsMsg == 'finish') {
             // AppConstants.printLog('>>>>>>>>>>>>>');
             // AppConstants.printLog(jsMsg);
-            Navigator.pop(context);
+            Navigator.pop(context, 'ShowRatingDialog');
           } else {
             AppConstants.showLoaderDialog(context);
             showBackLoader = true;

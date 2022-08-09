@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/presentation/widgets/rating_dialog.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +24,7 @@ class Keys {
 class SharedPrefConstants {
   static const String TOKEN           = 'Token';
   static const String USER_DATA       = 'user_data';
+  static const String RATING          = 'rating';
 }
 
 class AppConstants {
@@ -59,7 +62,7 @@ class AppConstants {
 
   static String CATEGORY_LENGTH       = '0';
 
-  static String logToken = 'QhmAn5x6UxxWVdc8pkEe77eDAH9U2U9sXjs4kqaxbT2vp5kVmfru5nLL2nEpSQm9dBHLFBeQuEcXmmpzcf34MetTuNXBbaLTuG7pETEGQ2Hp';
+  static String serviceLogToken = 'QhmAn5x6UxxWVdc8pkEe77eDAH9U2U9sXjs4kqaxbT2vp5kVmfru5nLL2nEpSQm9dBHLFBeQuEcXmmpzcf34MetTuNXBbaLTuG7pETEGQ2Hp';
 
   static void printLog(message) {
     if (isPrint) {
@@ -323,6 +326,55 @@ class AppConstants {
       AppConstants.printLog('Connectivity>> ${e.message}');
       return false;
     }
+  }
+
+  static Future<void> checkRatingCondition(BuildContext context, bool isAppClose) async {
+    var userValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    String userName = userValue[0]['data']['first_name'].toString();
+
+    var ratingValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.RATING));
+    AppConstants.printLog(ratingValue);
+
+    if(ratingValue == null || ratingValue == 'null') {
+      showRatingDialog(context);
+
+    } else {
+      String name = ratingValue['name'];
+      String rating = ratingValue['rating'];
+      String date = ratingValue['date'];
+      DateTime now = DateTime.now();
+      DateTime ratingDate = DateFormat("dd-MM-yyyy").parse(date);
+      int difference = now.difference(ratingDate).inDays;
+
+      if(userName == name) {
+        if(rating.toString() == 'Cancel') {
+          if(difference  > 3) {
+            showRatingDialog(context);
+          } else if(isAppClose) {exit(0);}
+        } else {
+          if(int.parse(rating) < 4) {
+            if(difference  > 7) {
+              showRatingDialog(context);
+            } else if(isAppClose) {exit(0);}
+          } else if(isAppClose) {exit(0);}
+        }
+      } else {
+        showRatingDialog(context);
+      }
+    }
+  }
+
+  static void showRatingDialog(BuildContext context) {
+    showDialog(barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            contentPadding: EdgeInsets.zero,
+            content: RatingDialog(),
+          );
+        });
   }
 
 }

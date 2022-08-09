@@ -178,7 +178,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                       Column(
                         children: [
-                          CustomRoundButton(onPressed: (){
+                          CustomRoundButton(onPressed: () async {
                             // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
                             // // courseIdList.add(widget.courseData.id.toString());
                             // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;
@@ -203,6 +203,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             } else {
                               AppConstants.printLog(widget.courseData.title.toString());
                               AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+                              // String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
                              submitLog(widget.courseData.title.toString(), widget.courseData.id.toString(), widget.tabName.toString());
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                   MyCourseTabView(widget.courseData.id.toString(),'','')
@@ -312,10 +313,10 @@ class _TeachingContainerState extends State<TeachingContainer> {
       }
     };
     Map<String, String> header = {
-      "x-auth-token": AppConstants.logToken,
+      "x-auth-token": AppConstants.serviceLogToken,
       "Content-Type": "application/json"
     };
-    await Service.post(API.log_free_course_view_detail, body: body, myHeader: header).then((response) {
+    await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) {
       AppConstants.printLog(header);
       AppConstants.printLog(response.body);
       // if(response == null) {

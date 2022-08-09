@@ -232,12 +232,7 @@ class API {
   // emi
   static const String order_course_with_emi = BASE_URL1 + 'order_course/emi_create';
 
-
-  //submit rating
-  static const String submitRatingUrl = '';
-  static const String submitRatingFeedbackUrl = '';
-
-
-  static const String log_free_course_view_detail = 'https://elastic.exampur.xyz/api/v1/service/log';
+  //service log
+  static const String serviceLogUrl = 'https://elastic.exampur.xyz/api/v1/service/log';
 
 }

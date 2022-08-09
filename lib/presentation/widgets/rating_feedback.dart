@@ -13,9 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RatingFeedback extends StatefulWidget {
-  final String userName;
-  final String userMobile;
-  final String userEmail;
+  final String? userName;
+  final String? userMobile;
+  final String? userEmail;
   final String deviceModel;
   final String deviceMake;
   final String deviceOS;
@@ -128,8 +128,8 @@ class RatingFeedbackState extends State<RatingFeedback> {
     var body = {
       "user":{
         "name":widget.userName,
-        "mobile":widget.userMobile,
-        "email":widget.userEmail
+        "email":widget.userEmail,
+        "mobile":widget.userMobile
       },
       "device":{
         "model":widget.deviceModel,
@@ -140,15 +140,20 @@ class RatingFeedbackState extends State<RatingFeedback> {
         "version_name":widget.versionName,
         "version_code":widget.versionCode
       },
+      "type":"feedback",
       "message":message
     };
-    await Service.post(API.submitRatingFeedbackUrl, body: body).then((response) async {
+    Map<String, String> header = {
+      "x-auth-token": AppConstants.serviceLogToken,
+      "Content-Type": "application/json"
+    };
+    await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) {
       Navigator.pop(context);
       if (response == null) {
         AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
       } else {
         if(response.statusCode == 200) {
-
+            Navigator.pop(context);
         } else {
           AppConstants.showBottomMessage(context, 'Something went wrong', AppColors.red);
         }

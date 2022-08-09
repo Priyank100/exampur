@@ -192,7 +192,8 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
       onWillPop: () async {
         //Use this code if you just want to go back to 0th index
         if (_currIndex == 0) {
-          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+          AppConstants.checkRatingCondition(context, true);
+          // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
           return true;
         } else {
           setState(() {
@@ -575,21 +576,13 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                                   text: getTranslated(context, 'rate_us')),
                             ),
                           ]),
-                      onTap: () {
+                      onTap: () async {
                         _scaffoldKey.currentState?.openEndDrawer();
                         // LaunchReview.launch(
                         //     androidAppId: AppConstants.androidId,
                         //     iOSAppId: AppConstants.iosId);
-                        AlertDialog alert = AlertDialog(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                          contentPadding: EdgeInsets.zero,
-                          content: RatingDialog(),
-                        );
-                        showDialog(barrierDismissible: false,
-                        context: context,
-                        builder: (BuildContext context) {
-                          return alert;
+                        await SharedPref.clearSharedPref(SharedPrefConstants.RATING).then((value) {
+                          AppConstants.checkRatingCondition(context, false);
                         });
                       },
                     ),

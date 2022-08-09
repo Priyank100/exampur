@@ -309,7 +309,9 @@ class _HomeState extends State<Home> {
                           .push(MaterialPageRoute(
                               builder: (_) =>
                                   //   TestSeriesTab()
-                                  TestSeriesNew(API.testSeriesWebUrl, TOKEN)));
+                                  TestSeriesNew(API.testSeriesWebUrl, TOKEN))).then((value) {
+                        AppConstants.checkRatingCondition(context, false);
+                      });
                     },
                   ),
                   // SquareButton(
@@ -451,7 +453,9 @@ class _HomeState extends State<Home> {
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
-                                  TestSeriesNew(API.liveTestWebUrl, TOKEN)));
+                                  TestSeriesNew(API.liveTestWebUrl, TOKEN))).then((value) {
+                        AppConstants.checkRatingCondition(context, false);
+                      });
                     },
                   ),
                 ],

@@ -1,10 +1,6 @@
-import 'dart:developer';
 import 'dart:io';
-import 'package:chewie/chewie.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
-import 'package:exampur_mobile/presentation/downloads/video_downloads.dart';
-import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flick_video_player/flick_video_player.dart';
@@ -120,66 +116,75 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
   //   super.dispose();
   // }
 
+  Future<bool> _onWillPop(BuildContext context) async {
+    Navigator.pop(context);
+    AppConstants.checkRatingCondition(context, false);
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 8,
-          ),
-          Container(
-            color: AppColors.transparent,
-            height: (MediaQuery.of(context).size.width) / 16 * 9,
-            width: MediaQuery.of(context).size.width,
-              // child: FlickVideoPlayer(
-              //     flickManager: flickManager!
-              // )
-            child: _playerController!.value.isInitialized ? FlickVideoPlayer(
-                flickManager: flickManager!
-            ) :  Container(
-              color: AppColors.black,
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: Scaffold(
+        appBar: CustomAppBar(),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 8,
+            ),
+            Container(
+              color: AppColors.transparent,
               height: (MediaQuery.of(context).size.width) / 16 * 9,
               width: MediaQuery.of(context).size.width,
-              child: Center(child: CircularProgressIndicator(color: AppColors.amber)),
-            )
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(widget.title.replaceAll('--', ''), style: TextStyle(fontSize: 20)),
-          ),
-          SizedBox(
-            height: 60,
-          ),
-          Center(
-            child: InkWell(
-              onTap: () {
-                _playerController!.pause();
-                if(widget.download.isEmpty) {
-                  if(widget.url.contains('mp4')) {
-                    // AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
-                    openPermissionDialog();
-                  } else {
-                    AppConstants.showAlertDialog(context, 'No Video Found to Download this Video');
-                  }
-                } else {
-                  if(widget.download.contains('mp4')) {
-                    // AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
-                    openPermissionDialog();
-                  } else {
-                    AppConstants.showAlertDialog(context, 'No Video Found to Download this Video');
-                  }
-                }
-              },
-              child: Container(
-                  height: 45,width:MediaQuery.of(context).size.width/1.10,decoration: BoxDecoration( color:AppColors.amber,
-                  borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, StringConstant.downloadVideo)!,style: TextStyle(color: Colors.white,fontSize: 15)))
-              ),
+                // child: FlickVideoPlayer(
+                //     flickManager: flickManager!
+                // )
+              child: _playerController!.value.isInitialized ? FlickVideoPlayer(
+                  flickManager: flickManager!
+              ) :  Container(
+                color: AppColors.black,
+                height: (MediaQuery.of(context).size.width) / 16 * 9,
+                width: MediaQuery.of(context).size.width,
+                child: Center(child: CircularProgressIndicator(color: AppColors.amber)),
+              )
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(widget.title.replaceAll('--', ''), style: TextStyle(fontSize: 20)),
+            ),
+            SizedBox(
+              height: 60,
+            ),
+            Center(
+              child: InkWell(
+                onTap: () {
+                  _playerController!.pause();
+                  if(widget.download.isEmpty) {
+                    if(widget.url.contains('mp4')) {
+                      // AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+                      openPermissionDialog();
+                    } else {
+                      AppConstants.showAlertDialog(context, 'No Video Found to Download this Video');
+                    }
+                  } else {
+                    if(widget.download.contains('mp4')) {
+                      // AppConstants.checkPermission(context, Permission.storage, requestVideoDownload);
+                      openPermissionDialog();
+                    } else {
+                      AppConstants.showAlertDialog(context, 'No Video Found to Download this Video');
+                    }
+                  }
+                },
+                child: Container(
+                    height: 45,width:MediaQuery.of(context).size.width/1.10,decoration: BoxDecoration( color:AppColors.amber,
+                    borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, StringConstant.downloadVideo)!,style: TextStyle(color: Colors.white,fontSize: 15)))
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -5,15 +5,18 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/rate_model.dart';
+import 'package:exampur_mobile/data/model/rating_feedback_model.dart';
 import 'package:exampur_mobile/presentation/widgets/rating_feedback.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class RatingDialog extends StatefulWidget {
-  const RatingDialog({Key? key}) : super(key: key);
+  const RatingDialog() : super();
 
   @override
   State<RatingDialog> createState() => _RatingDialogState();
@@ -28,9 +31,9 @@ class _RatingDialogState extends State<RatingDialog> {
     AppColors.grey200
   ];
   List<RateModel> rateList = [];
-  String userName = '';
-  String userMobile = '';
-  String userEmail = '';
+  String? userName = '';
+  String? userMobile = '';
+  String? userEmail = '';
   String deviceModel = '';
   String deviceMake = '';
   String deviceOS = '';
@@ -69,6 +72,7 @@ class _RatingDialogState extends State<RatingDialog> {
       deviceModel = androidInfo.model.toString();
       deviceMake = androidInfo.brand.toString();
       deviceOS = androidInfo.version.release.toString();
+      setState(() {});
     }
   }
 
@@ -78,6 +82,7 @@ class _RatingDialogState extends State<RatingDialog> {
     // String packageName = packageInfo.packageName;
     versionName = packageInfo.version;
     versionCode = packageInfo.buildNumber;
+    setState(() {});
   }
 
   @override
@@ -110,13 +115,13 @@ class _RatingDialogState extends State<RatingDialog> {
             SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height/3,
+              height: MediaQuery.of(context).size.height/2.8,
               child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: rateList.length,
                   itemBuilder: (context, index) {
-                    return button(index);
+                    return ratingButton(index);
                   }
               ),
             )
@@ -126,12 +131,12 @@ class _RatingDialogState extends State<RatingDialog> {
     );
   }
 
-  Widget button(int index) {
+  Widget ratingButton(int index) {
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10, top: 10),
       child: InkWell(
         onTap: () {
-          Navigator.pop(context);
+          // Navigator.pop(context);
           setState(() {
             selectedColor[index] = AppColors.amber;
           });
@@ -152,13 +157,12 @@ class _RatingDialogState extends State<RatingDialog> {
   }
 
   Future<void> submitRating(String rate) async {
-    AppConstants.showLoaderDialog(context);
-    var body = {
+    var body = rate == 'Cancel' ?
+    {
       "user":{
         "name":userName,
-        // "id":"users id",   // id not used
-        "mobile":userMobile,
-        "email":userEmail
+        "email":userEmail,
+        "mobile":userMobile
       },
       "device":{
         "model":deviceModel,
@@ -169,28 +173,66 @@ class _RatingDialogState extends State<RatingDialog> {
         "version_name":versionName,
         "version_code":versionCode
       },
-      "status":rate == 'Cancel' ? "cancelled" : "rated",
+      "type":"rating",
+      "status":"cancelled",
+    }:
+    {
+      "user":{
+        "name":userName,
+        "email":userEmail,
+        "mobile":userMobile
+      },
+      "device":{
+        "model":deviceModel,
+        "make":deviceMake,
+        "os":deviceOS
+      },
+      "app":{
+        "version_name":versionName,
+        "version_code":versionCode
+      },
+      "type":"rating",
+      "status":"rated",
       "rating":rate
     };
-    await Service.post(API.submitRatingUrl, body: body).then((response) {
-      Navigator.pop(context);
+    Map<String, String> header = {
+      "x-auth-token": AppConstants.serviceLogToken,
+      "Content-Type": "application/json"
+    };
+    AppConstants.printLog("x-auth-token=" + AppConstants.serviceLogToken);
+    await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) async {
+
+      //save rating to show for next time
+      RatingFeedbackModel model = RatingFeedbackModel(userName, rate, DateFormat('dd-MM-yyyy').format(DateTime.now()));
+      await SharedPref.saveSharedPref(SharedPrefConstants.RATING, jsonEncode(model));
+
       if(response == null) {
         AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+
       } else {
         if(response.statusCode == 200) {
-          //get response
-          if(int.parse(rate) < 3) {
-            LaunchReview.launch(
-                androidAppId: AppConstants.androidId,
-                iOSAppId: AppConstants.iosId);
-          } else {
-            AppConstants.goTo(context,
-                RatingFeedback(
-                    userName, userMobile, userEmail,
-                    deviceModel, deviceMake, deviceOS,
-                    versionName, versionCode
-                )
-            );
+          Navigator.pop(context);
+
+          if(rate.toString() != 'Cancel') {
+            if (int.parse(rate) > 3) {
+              LaunchReview.launch(
+                  androidAppId: AppConstants.androidId,
+                  iOSAppId: AppConstants.iosId);
+
+            } else {
+              AppConstants.goTo(context,
+                  RatingFeedback(
+                      userName,
+                      userMobile,
+                      userEmail,
+                      deviceModel,
+                      deviceMake,
+                      deviceOS,
+                      versionName,
+                      versionCode
+                  )
+              );
+            }
           }
         } else {
           AppConstants.showBottomMessage(context, 'Something went wrong', AppColors.red);
