@@ -46,7 +46,7 @@ class _WebViewOpenState extends State<WebViewOpen> {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
-        body:widget.url == null ||widget.url.isEmpty ? AppConstants.noDataFound():
+        body:widget.url == null ||widget.url=='null'||widget.url.isEmpty ? AppConstants.noDataFound():
         Stack(
           children: <Widget>[
             WebView(

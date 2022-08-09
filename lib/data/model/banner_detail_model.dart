@@ -63,7 +63,9 @@ class Data {
     List<Macro>? macro,
       List<Category>? category, 
       int? regularPrice, 
-      int? salePrice,}){
+      int? salePrice,
+    String? pdfPath,
+  }){
     _id = id;
     _title = title;
     _bannerPath = bannerPath;
@@ -76,6 +78,7 @@ class Data {
     _category = category;
     _regularPrice = regularPrice;
     _salePrice = salePrice;
+    _pdfPath = pdfPath;
 }
 
   Data.fromJson(dynamic json) {
@@ -106,6 +109,7 @@ class Data {
     }
     _regularPrice = json['regular_price'];
     _salePrice = json['sale_price'];
+    _pdfPath = json['pdf_path'];
   }
   String? _id;
   String? _title;
@@ -119,6 +123,7 @@ class Data {
   List<Category>? _category;
   int? _regularPrice;
   int? _salePrice;
+  String? _pdfPath;
 
   String? get id => _id;
   String? get title => _title;
@@ -132,6 +137,7 @@ class Data {
   List<Category>? get category => _category;
   int? get regularPrice => _regularPrice;
   int? get salePrice => _salePrice;
+  String? get pdfPath => _pdfPath;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -153,6 +159,7 @@ class Data {
     }
     map['regular_price'] = _regularPrice;
     map['sale_price'] = _salePrice;
+    map['pdf_path'] = _pdfPath;
     return map;
   }
 

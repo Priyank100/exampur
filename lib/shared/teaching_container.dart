@@ -178,7 +178,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                       Column(
                         children: [
-                          CustomRoundButton(onPressed: (){
+                          CustomRoundButton(onPressed: () async {
                             // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
                             // // courseIdList.add(widget.courseData.id.toString());
                             // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;
@@ -203,9 +203,10 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             } else {
                               AppConstants.printLog(widget.courseData.title.toString());
                               AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+                              String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
                              submitLog(widget.courseData.title.toString(), widget.courseData.id.toString(), widget.tabName.toString());
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                  MyCourseTabView(widget.courseData.id.toString(),'','')
+                                  MyCourseTabView(widget.courseData.id.toString(),widget.courseData.testSeriesLink.toString(),token)
                               ));
                             }
                           },text: getTranslated(context, StringConstant.viewDetails)!,),

@@ -4,8 +4,10 @@ import 'package:exampur_mobile/data/model/upsell_book.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
+import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/banner_detail_model.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -61,7 +63,9 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
                 bannerDetailData!.salePrice.toString(),
                 bannerDetailData!.regularPrice.toString(),
                 bannerDetailData!.description.toString(),
-                bannerDetailData!.upsellBook??[]
+                bannerDetailData!.upsellBook??[],
+                bannerDetailData!.pdfPath.toString(),
+
         )
     );
   }
@@ -76,9 +80,10 @@ class Viedobanner extends StatefulWidget {
   final String regularPrice;
   final String description;
   final List<UpsellBook> upsellBookList;
+  final String pdfPath;
 
   const Viedobanner(this.type, this.videoUrl, this.title, this.id,
-      this.salePrice, this.regularPrice,this.description, this.upsellBookList)
+      this.salePrice, this.regularPrice,this.description, this.upsellBookList,this.pdfPath)
       : super();
 
   @override
@@ -295,6 +300,34 @@ class _ViedobannerState extends State<Viedobanner> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          widget.pdfPath==null || widget.pdfPath=='null' || widget.pdfPath.isEmpty ? SizedBox() :  Padding(
+                            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                widget.pdfPath.toString().contains('http') ?
+                                ViewPdf(widget.pdfPath.toString(),'') :
+                                ViewPdf(AppConstants.BANNER_BASE + widget.pdfPath.toString(),'')
+                                ));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(3.0),
+                                width: Dimensions.DailyMonthlyViewBtnWidth,
+                                height: Dimensions.DailyMonthlyViewBtnHeight,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: AppColors.black),
+                                    color: AppColors.red
+                                ),
+                                child: Text(getTranslated(context, StringConstant.viewPdf)!, style: TextStyle(color:AppColors.white, fontSize: 10)),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                         child: Text(widget.title.toString(),
@@ -325,8 +358,10 @@ class _ViedobannerState extends State<Viedobanner> {
                       ),
                       Html(data:widget.description.toString(), style: {
                         "body": Style(
-                          fontSize: FontSize(12.0),
-                          fontWeight: FontWeight.bold,
+                            padding: EdgeInsets.zero,
+                            fontSize: FontSize(12.0),
+                            fontFamily: 'Noto Sans'
+                          //fontWeight: FontWeight.bold,
                         ),
                       },)
                     ],
