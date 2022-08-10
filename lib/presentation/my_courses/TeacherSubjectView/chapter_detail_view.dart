@@ -203,7 +203,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
             children: [
               materialList[index].videoLink == null || materialList[index].videoLink.toString().isEmpty || materialList[index].videoLink == noVideoLink ?
               materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
-              SizedBox() : VideoDownloadButton(materialList, index) : VideoDownloadButton(materialList, index),
+              SizedBox() : WatchVideoButton(materialList, index) : WatchVideoButton(materialList, index),
 
               SizedBox(width: 5),
               materialList[index].pdfPath == null || materialList[index].pdfPath.toString().isEmpty ?
@@ -230,7 +230,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     );
   }
 
-  Widget VideoDownloadButton(List<MaterialData> materialList, index) {
+  Widget WatchVideoButton(List<MaterialData> materialList, index) {
     return InkWell(
       onTap: () {
         // print(materialList[index].title);

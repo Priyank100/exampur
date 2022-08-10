@@ -91,6 +91,7 @@ class FirebaseDynamicLinkService {
                   MyCourseTabView(courseData.id.toString(),'','')
               ));
             }
+
           case 2:
             BookEbook bookData = BookEbook.fromJson(json.decode(data));
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>

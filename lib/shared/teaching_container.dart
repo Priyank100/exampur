@@ -313,10 +313,10 @@ class _TeachingContainerState extends State<TeachingContainer> {
       }
     };
     Map<String, String> header = {
-      "x-auth-token": AppConstants.logToken,
+      "x-auth-token": AppConstants.serviceLogToken,
       "Content-Type": "application/json"
     };
-    await Service.post(API.log_free_course_view_detail, body: body, myHeader: header).then((response) {
+    await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) {
       AppConstants.printLog(header);
       AppConstants.printLog(response.body);
       // if(response == null) {

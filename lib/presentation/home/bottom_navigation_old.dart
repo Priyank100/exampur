@@ -18,6 +18,7 @@ import 'package:exampur_mobile/presentation/help/help.dart';
 import 'package:exampur_mobile/presentation/home/test_series_new/test_series_new.dart';
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/presentation/widgets/rating_dialog.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
@@ -191,7 +192,8 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
       onWillPop: () async {
         //Use this code if you just want to go back to 0th index
         if (_currIndex == 0) {
-          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+          AppConstants.checkRatingCondition(context, true);
+          // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
           return true;
         } else {
           setState(() {
@@ -574,11 +576,14 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                                   text: getTranslated(context, 'rate_us')),
                             ),
                           ]),
-                      onTap: () {
+                      onTap: () async {
                         _scaffoldKey.currentState?.openEndDrawer();
-                        LaunchReview.launch(
-                            androidAppId: AppConstants.androidId,
-                            iOSAppId: AppConstants.iosId);
+                        // LaunchReview.launch(
+                        //     androidAppId: AppConstants.androidId,
+                        //     iOSAppId: AppConstants.iosId);
+                        await SharedPref.clearSharedPref(SharedPrefConstants.RATING).then((value) {
+                          AppConstants.checkRatingCondition(context, false);
+                        });
                       },
                     ),
                     // ListTile(
