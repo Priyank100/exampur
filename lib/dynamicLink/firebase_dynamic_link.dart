@@ -3,6 +3,7 @@ import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/presentation/home/exampurone2one/one2oneViedo.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
+import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
 import 'package:exampur_mobile/shared/place_order_screen.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -82,8 +83,14 @@ class FirebaseDynamicLinkService {
           case 1:
             String type = deepLink.queryParameters['type'].toString();
             PaidCourseData courseData = PaidCourseData.fromJson(json.decode(data));
-            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                PaidCourseDetails('Course',courseData, int.parse(type.toString()))));
+            if(type == '1') {
+              return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                  PaidCourseDetails('Course',courseData, int.parse(type.toString()))));
+            } else {
+              return Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                  MyCourseTabView(courseData.id.toString(),'','')
+              ));
+            }
           case 2:
             BookEbook bookData = BookEbook.fromJson(json.decode(data));
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>
