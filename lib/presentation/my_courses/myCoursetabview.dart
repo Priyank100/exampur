@@ -71,7 +71,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
                     SubjectView(widget.courseId),
                     WebViewOpen(widget.testSeriesLink, widget.token),
                     MyCourseNotifications(widget.courseId),
-                    FeedbackView(userName, userMobile),
+                    FeedbackView(userName, userMobile, widget.token),
 
                   ],
                   title: '')
