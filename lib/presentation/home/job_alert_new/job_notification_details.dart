@@ -67,8 +67,8 @@ class _JobNotificationDetailsState extends State<JobNotificationDetails> {
                     },
                     style: {
                       'body': Style(
-                          lineHeight:LineHeight(2),
-                          fontSize: const FontSize(15),
+                        lineHeight:LineHeight(2),
+                        fontSize: const FontSize(15),
                           fontFamily: 'Noto Sans'
                       ),
                       'table':Style(
@@ -86,32 +86,11 @@ class _JobNotificationDetailsState extends State<JobNotificationDetails> {
                         padding: EdgeInsets.only(left: 5, right: 5),
                           width: 200,
                       ),
-                      /*'thead':Style(
-                        border: Border.all(width: 1),
-                      ),
-                      "h1": Style(
-                        fontFamily: 'serif',
-                        backgroundColor: Colors.black,
-                        color: Colors.white,
-                      ),
-                      "p": Style(
-                        border: Border(bottom: BorderSide(color: Colors.grey)),
-                        padding: const EdgeInsets.all(16),
-                        fontSize: FontSize.larger,
-                      ),
-                      "p > a": Style(
-                        textDecoration: TextDecoration.none,
-                      ),
-                      "#footer": Style(
-                        display: Display.BLOCK,
-                        whiteSpace: WhiteSpace.PRE,
-                        backgroundColor: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),*/
                     }),
               ]),
         ),
       ),
+
     );
   }
 }
