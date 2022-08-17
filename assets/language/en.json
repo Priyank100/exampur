@@ -190,6 +190,7 @@
   "select_chapter": "Select Chapter",
   "send": "Send",
   "saved_question": "Saved Question",
+  "submit": "Submit",
 
 
   "watch_app_tutorial": "Watch App Tutorials",
@@ -208,6 +209,13 @@
   "rate_us": "Rate Us",
   "recorded": "Recorded",
   "repeater": "Repeater",
+  "rating_title": "How happy are you with the app?",
+  "rating1": "Extremely Happy",
+  "rating2": "Happy",
+  "rating3": "Neutral",
+  "rating4": "Dissatisfied",
+  "rating5": "Very Dissatisfied",
+  "rating_feedback": "Your feedback is submitted successfully, we will do our best to fix this soon",
 
   "general": "General",
   "graduation": "Graduation",

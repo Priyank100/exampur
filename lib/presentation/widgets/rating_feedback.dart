@@ -32,6 +32,7 @@ class RatingFeedback extends StatefulWidget {
 
 class RatingFeedbackState extends State<RatingFeedback> {
   TextEditingController _descriptionController = TextEditingController();
+  bool submittedLoader = false;
 
   @override
   void initState() {
@@ -93,7 +94,7 @@ class RatingFeedbackState extends State<RatingFeedback> {
 
               SizedBox(height: 30),
 
-              Container(
+              submittedLoader ? SizedBox() : Container(
                     margin: EdgeInsets.only(left: 20, right: 20),
                     child: InkWell(
                       onTap: () {
@@ -104,7 +105,7 @@ class RatingFeedbackState extends State<RatingFeedback> {
                       child: Container(
                           height: 50,
                           color: AppColors.dark,
-                          child: Center(child: Text('Submit',style: TextStyle(color: Colors.white,fontSize: 20)))
+                          child: Center(child: Text(getTranslated(context, StringConstant.submit)!, style: TextStyle(color: Colors.white,fontSize: 20)))
                       ),
                     ),
                   )
@@ -119,6 +120,9 @@ class RatingFeedbackState extends State<RatingFeedback> {
     if (_message.isEmpty) {
       AppConstants.showBottomMessage(context, 'write about your problem', AppColors.black);
     } else {
+      setState(() {
+        submittedLoader = true;
+      });
       submitFeedback(_message);
     }
   }
@@ -149,11 +153,15 @@ class RatingFeedbackState extends State<RatingFeedback> {
     };
     await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) {
       Navigator.pop(context);
+      setState(() {
+        submittedLoader = false;
+      });
       if (response == null) {
         AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
       } else {
         if(response.statusCode == 200) {
-            Navigator.pop(context);
+          AppConstants.showToast(getTranslated(context, StringConstant.ratingFeedback)!);
+          Navigator.pop(context);
         } else {
           AppConstants.showBottomMessage(context, 'Something went wrong', AppColors.red);
         }

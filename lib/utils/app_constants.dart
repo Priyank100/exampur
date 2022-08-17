@@ -94,7 +94,7 @@ class AppConstants {
       behavior: SnackBarBehavior.floating,
       content: Text(message),
       backgroundColor: bgColor,
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 2000),
     ));
   }
 
@@ -666,6 +666,7 @@ class StringConstant {
   static String selectChapter= 'select_chapter';
   static String Send= 'send';
   static String savedQuestion= 'saved_question';
+  static String submit= 'submit';
 
   static String viewPdf= 'view_pdf';
 
@@ -680,6 +681,13 @@ class StringConstant {
   static String rateUs= 'rate_us';
   static String recorded= 'recorded';
   static String repeater= 'repeater';
+  static String ratingTitle= 'rating_title';
+  static String rating1= 'rating1';
+  static String rating2= 'rating2';
+  static String rating3= 'rating3';
+  static String rating4= 'rating4';
+  static String rating5= 'rating5';
+  static String ratingFeedback= 'rating_feedback';
 
   static String general= 'general';
 

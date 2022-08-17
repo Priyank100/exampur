@@ -42,19 +42,21 @@ class _RatingDialogState extends State<RatingDialog> {
 
   @override
   void initState() {
-    setRating();
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      this.setRating();
+    });
     getUserData();
     getDeviceData();
     getAppVersionData();
-    super.initState();
   }
 
   void setRating() {
-    rateList.add(RateModel('Extremely Happy', '5'));
-    rateList.add(RateModel('Happy', '4'));
-    rateList.add(RateModel('Neutral', '3'));
-    rateList.add(RateModel('Dissatisfied', '2'));
-    rateList.add(RateModel('Very Dissatisfied', '1'));
+    rateList.add(RateModel(getTranslated(context, StringConstant.rating1)!, '5'));
+    rateList.add(RateModel(getTranslated(context, StringConstant.rating2)!, '4'));
+    rateList.add(RateModel(getTranslated(context, StringConstant.rating3)!, '3'));
+    rateList.add(RateModel(getTranslated(context, StringConstant.rating4)!, '2'));
+    rateList.add(RateModel(getTranslated(context, StringConstant.rating5)!, '1'));
   }
 
   Future<void> getUserData() async {
@@ -110,7 +112,7 @@ class _RatingDialogState extends State<RatingDialog> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Text('How happy are you with the app?'),
+              child: Text(getTranslated(context, StringConstant.ratingTitle)!),
             ),
             SizedBox(height: 20),
             Container(
