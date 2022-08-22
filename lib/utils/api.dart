@@ -215,7 +215,7 @@ class API {
 
 
   //testSeriesWebUrl
-  static const String testSeriesWebUrl        = WEBVIEW_URL + 'test-series/';
+  static const String testSeriesWebUrl        = WEBVIEW_URL + 'test-series/?lang=hindi';
   static const String liveTestWebUrl          = WEBVIEW_URL + 'live-tests/';
   static const String quizzesWebUrl           = WEBVIEW_URL + 'short-quiz/';
   static const String attemptTestWebUrl       = WEBVIEW_URL + 'attempted-test/';
