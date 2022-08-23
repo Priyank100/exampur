@@ -10,9 +10,7 @@ import 'package:exampur_mobile/presentation/widgets/rating_feedback.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:launch_review/launch_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class RatingDialog extends StatefulWidget {
@@ -216,9 +214,7 @@ class _RatingDialogState extends State<RatingDialog> {
 
           if(rate.toString() != 'Cancel') {
             if (int.parse(rate) > 3) {
-              LaunchReview.launch(
-                  androidAppId: AppConstants.androidId,
-                  iOSAppId: AppConstants.iosId);
+              AppConstants.openPlayStore();
 
             } else {
               AppConstants.goTo(context,

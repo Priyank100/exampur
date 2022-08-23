@@ -18,7 +18,6 @@ import 'package:exampur_mobile/presentation/help/help.dart';
 import 'package:exampur_mobile/presentation/home/test_series_new/test_series_new.dart';
 import 'package:exampur_mobile/presentation/my_courses/my_courses.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
-import 'package:exampur_mobile/presentation/widgets/rating_dialog.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
@@ -26,16 +25,11 @@ import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
-import 'package:launch_review/launch_review.dart';
 import 'package:provider/provider.dart';
 
 class ItemClass {
@@ -578,9 +572,6 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                           ]),
                       onTap: () async {
                         _scaffoldKey.currentState?.openEndDrawer();
-                        // LaunchReview.launch(
-                        //     androidAppId: AppConstants.androidId,
-                        //     iOSAppId: AppConstants.iosId);
                         await SharedPref.clearSharedPref(SharedPrefConstants.RATING).then((value) {
                           AppConstants.checkRatingCondition(context, false);
                         });

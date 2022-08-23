@@ -11,10 +11,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'images.dart';
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 class Keys {
   // static const String Rozar_pay_key = 'rzp_test_tnxy74fGchHvRY';
@@ -31,7 +32,7 @@ class SharedPrefConstants {
 class AppConstants {
 
   static bool isPrint       = true;
-  static bool isotpverify = false;
+  static bool isotpverify   = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
   static String downloadMag = 'Download has been started. View your file in the download section of your phone or on the app in the "Download" section. Touch outside to close the pop-up. Your file is getting downloaded in the background.';
@@ -72,11 +73,27 @@ class AppConstants {
   }
 
   static Future<void> makeCallEmail(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
+    // if (await canLaunchUrl(Uri.parse(url))) {
+    //   await launchUrl(Uri.parse(url));
+    // } else {
+    //   throw 'Could not launch $url';
+    // }
+    UrlLauncherPlatform launcher = UrlLauncherPlatform.instance;
+    if (!await launcher.launch(
+      url,
+      useSafariVC: false,
+      useWebView: false,
+      enableJavaScript: false,
+      enableDomStorage: false,
+      universalLinksOnly: false,
+      headers: <String, String>{},
+    )) {
       throw 'Could not launch $url';
     }
+  }
+
+  static void openPlayStore() {
+    LaunchReview.launch(androidAppId: AppConstants.androidId, iOSAppId: AppConstants.iosId);
   }
 
   static void shareData({String? assetImagePath, required String message}) {

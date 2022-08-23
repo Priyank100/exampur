@@ -14,8 +14,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'bottom_navigation_old.dart';
-import 'bottom_navigation_new.dart';
+import 'bottom_navigation.dart';
 
 class LandingChooseCategory extends StatefulWidget {
   // final bool isMultiSelection;

@@ -6,11 +6,9 @@ import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:launch_review/launch_review.dart';
 import 'package:new_version/new_version.dart';
 import 'package:provider/provider.dart';
 
@@ -80,8 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
               "Lets update", style: TextStyle(color: AppColors.amber),),
             onPressed: () {
               SystemNavigator.pop();
-              LaunchReview.launch(androidAppId: AppConstants.androidId,
-                  iOSAppId: AppConstants.iosId);
+              AppConstants.openPlayStore();
             },
           );
           AlertDialog alert = AlertDialog(
