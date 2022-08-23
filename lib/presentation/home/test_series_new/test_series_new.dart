@@ -58,6 +58,7 @@ class _TestSeriesNewState extends State<TestSeriesNew> {
   @override
   void initState() {
     // TODO: implement initState
+    AppConstants.printLog(widget.url.replaceAll('TOKEN', widget.token).replaceAll('langCode', AppConstants.langCode));
     super.initState();
     if(Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
@@ -73,7 +74,7 @@ class _TestSeriesNewState extends State<TestSeriesNew> {
           children: <Widget>[
             WebView(
               key: _key,
-              initialUrl: widget.url.replaceAll('TOKEN', widget.token),
+              initialUrl: widget.url.replaceAll('TOKEN', widget.token).replaceAll('langCode', AppConstants.langCode),
               javascriptMode: JavascriptMode.unrestricted,
               javascriptChannels: {
                 JavascriptChannel(

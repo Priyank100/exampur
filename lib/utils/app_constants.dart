@@ -111,7 +111,7 @@ class AppConstants {
       behavior: SnackBarBehavior.floating,
       content: Text(message),
       backgroundColor: bgColor,
-      duration: Duration(milliseconds: 2000),
+      duration: Duration(milliseconds: 1000),
     ));
   }
 
