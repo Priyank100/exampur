@@ -215,12 +215,12 @@ class API {
 
 
   //testSeriesWebUrl
-  static const String testSeriesWebUrl        = WEBVIEW_URL + 'test-series/?lang=hindi';
-  static const String liveTestWebUrl          = WEBVIEW_URL + 'live-tests/';
-  static const String quizzesWebUrl           = WEBVIEW_URL + 'short-quiz/';
-  static const String attemptTestWebUrl       = WEBVIEW_URL + 'attempted-test/';
-  static const String attemptQuizzesWebUrl    = WEBVIEW_URL + 'attempted-quiz/';
-  static const String savedQuestionWebUrl     = WEBVIEW_URL + 'saved-question/';
+  static const String testSeriesWebUrl        = WEBVIEW_URL + 'test-series/?lang=langCode';
+  static const String liveTestWebUrl          = WEBVIEW_URL + 'live-tests/?lang=langCode';
+  static const String quizzesWebUrl           = WEBVIEW_URL + 'short-quiz/?lang=langCode';
+  static const String attemptTestWebUrl       = WEBVIEW_URL + 'attempted-test/?lang=langCode';
+  static const String attemptQuizzesWebUrl    = WEBVIEW_URL + 'attempted-quiz/?lang=langCode';
+  static const String savedQuestionWebUrl     = WEBVIEW_URL + 'saved-question/?lang=langCode';
 
 
   //order course and combo course with upsell book
