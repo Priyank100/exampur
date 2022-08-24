@@ -211,8 +211,8 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     var now = DateTime.now();
     final dir = await getApplicationDocumentsDirectory();
     var _localPath = dir.path + '/' + widget.title + '~' + now.toString();
-    await Directory(_localPath).exists().then((alreadyExist) async {
-      AppConstants.printLog(alreadyExist);
+    // await Directory(_localPath).exists().then((alreadyExist) async {
+    //   AppConstants.printLog(alreadyExist);
       // if (alreadyExist) {
       //   dir.deleteSync(recursive: true);
       //  // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
@@ -231,9 +231,11 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             saveInPublicStorage: false,
           );
           AppConstants.printLog(_taskid);
+          AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+          AppConstants.printLog(widget.download =="" ? widget.url: widget.download);
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Downloads(0)));
         });
       // }
-    });
+    // });
   }
 }

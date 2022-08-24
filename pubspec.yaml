@@ -54,6 +54,7 @@ dependencies:
   dio: ^4.0.4
   connectivity: ^3.0.6
   get_it: ^7.2.0
+  url_launcher: ^6.0.17
   youtube_player_flutter: ^8.0.0
   launch_review: ^3.0.1
   cached_network_image: ^3.2.0
@@ -83,7 +84,6 @@ dependencies:
   flutter_tex: ^4.0.3
   appsflyer_sdk: ^6.5.2+2
   package_info_plus: ^1.4.0
-  url_launcher_android: ^6.0.17
 
 
 

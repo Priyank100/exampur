@@ -117,7 +117,6 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                         DownloadTaskStatus _status = _map['status'];
                         String _id = _map['id'];
                         String _savedDirectory = _map['savedDirectory'];
-
                         List<FileSystemEntity> _directories = Directory(_savedDirectory).listSync(followLinks: true);
                         File? _file = (_directories.isNotEmpty
                             ? _directories.first
