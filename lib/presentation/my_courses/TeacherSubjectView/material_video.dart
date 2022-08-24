@@ -208,34 +208,24 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
   }
 
   Future<void> requestVideoDownload() async {
-    var now = DateTime.now();
-    final dir = await getApplicationDocumentsDirectory();
-    var _localPath = dir.path + '/' + widget.title + '~' + now.toString();
-    // await Directory(_localPath).exists().then((alreadyExist) async {
-    //   AppConstants.printLog(alreadyExist);
-      // if (alreadyExist) {
-      //   dir.deleteSync(recursive: true);
-      //  // AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
-      //  //  return;
-      //   requestVideoDownload();
-      //
-      // } else {
-        final savedDir = Directory(_localPath);
-        await savedDir.create(recursive: true).then((value) async {
-          String? _taskid = await FlutterDownloader.enqueue(
-            url: widget.download =="" ? widget.url: widget.download,
-            fileName: widget.title,
-            savedDir: _localPath,
-            showNotification: false,
-            openFileFromNotification: false,
-            saveInPublicStorage: false,
-          );
-          AppConstants.printLog(_taskid);
-          AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-          AppConstants.printLog(widget.download =="" ? widget.url: widget.download);
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Downloads(0)));
-        });
-      // }
-    // });
+      var now = DateTime.now();
+      final dir = await getApplicationDocumentsDirectory();
+      var _localPath = dir.path + '/' + widget.title + '~' + now.toString();
+      final savedDir = Directory(_localPath);
+      await savedDir.create(recursive: true).then((value) async {
+        String? _taskid = await FlutterDownloader.enqueue(
+          url: widget.download == "" ? widget.url : widget.download,
+          fileName: widget.title,
+          savedDir: _localPath,
+          showNotification: false,
+          openFileFromNotification: false,
+          saveInPublicStorage: false,
+        );
+        AppConstants.printLog(_taskid);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => Downloads(0)));
+      }).catchError((error) {
+        AppConstants.printLog(error);
+      });
   }
 }
