@@ -9,6 +9,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:launch_review/launch_review.dart';
@@ -31,7 +32,7 @@ class SharedPrefConstants {
 
 class AppConstants {
 
-  static bool isPrint       = true;
+  static bool isPrint       = false;
   static bool isotpverify   = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -129,19 +130,19 @@ class AppConstants {
         )
       ],
       content: Wrap(
-        crossAxisAlignment: WrapCrossAlignment.center,
-        alignment: WrapAlignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(padding: EdgeInsets.all(8),
-                  child: Text("Message", style: TextStyle(fontSize: 16))),
-              Divider(),
-              Container(padding: EdgeInsets.all(8), child: Text(message)),
-            ],
-          )
-        ]),
+          crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(padding: EdgeInsets.all(8),
+                    child: Text("Message", style: TextStyle(fontSize: 16))),
+                Divider(),
+                Container(padding: EdgeInsets.all(8), child: Text(message)),
+              ],
+            )
+          ]),
     );
     showDialog(barrierDismissible: false,
       context: context,
@@ -246,7 +247,7 @@ class AppConstants {
 
   static Widget noDataFound() {
     return Center(
-      child: Image.asset(Images.no_data)
+        child: Image.asset(Images.no_data)
     );
   }
 
@@ -396,6 +397,42 @@ class AppConstants {
             content: RatingDialog(),
           );
         });
+  }
+
+  static void showUpdateAlert(BuildContext context, String message, Function skipCall) {
+    Widget cancelButton = TextButton(
+      child: Text(getTranslated(context, StringConstant.skip)!,style: TextStyle(color: AppColors.amber)),
+      onPressed:  () {
+        Navigator.pop(context);
+        skipCall();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text('UPDATE NOW',style: TextStyle(color: AppColors.amber),),
+      onPressed:  () {
+        AppConstants.openPlayStore();
+      },
+    );
+    AlertDialog alert = AlertDialog(
+      title: Text('Update'),
+      content: Text(message),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return WillPopScope(
+            child: alert,
+            onWillPop: () async {
+              SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+              return true;
+            });
+      },
+    );
   }
 
 }
