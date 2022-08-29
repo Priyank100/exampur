@@ -54,6 +54,8 @@ class DownloadedVideoState extends State<DownloadedVideo> {
     }
 
     _port.listen((dynamic data) async {
+      AppConstants.printLog('>>>>>>>>>>>>>>>>>');
+      AppConstants.printLog(data);
         String id = data[0];
         DownloadTaskStatus status = data[1];
         int progress = data[2];
@@ -87,6 +89,9 @@ class DownloadedVideoState extends State<DownloadedVideo> {
       _map['filename'] = _task.filename;
       _map['savedDirectory'] = _task.savedDir;
       if (!_task.savedDir.contains('.pdf')) downloadsListMaps.add(_map);
+      if(_task.status == DownloadTaskStatus.enqueued) {
+        AppConstants.showAlertDialog(context, getTranslated(context, StringConstant.Memoryspace)!);
+      }
     });
     setState(() {});
   }
@@ -106,6 +111,7 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                             child: Image.asset('assets/images/no_data.png')
                         );
                       })
+                  // : downloadsListMaps.length==1 && downloadsListMaps[0]['status'] == DownloadTaskStatus.enqueued ? memorySpaceWidget()
                   : ListView.builder(
                       itemCount: downloadsListMaps.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -397,6 +403,26 @@ class DownloadedVideoState extends State<DownloadedVideo> {
     refreshScreen();
     setState(() {});
   }
+
+  Widget memorySpaceWidget() {
+    return Center(child:
+        Container(
+          height: MediaQuery.of(context).size.height/6,
+          width: MediaQuery.of(context).size.height/3,
+          decoration: BoxDecoration(
+              border: Border.all(width: 1.5),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          padding: EdgeInsets.all(10),
+          child: Column(
+           // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Alert',style: TextStyle(fontSize: 18),),
+              SizedBox(height: 30,),
+              Text('Your memory is out of space'),
+            ]),
+        ));
+  }
+
 }
 
 // for(var map in downloadsListMaps) {

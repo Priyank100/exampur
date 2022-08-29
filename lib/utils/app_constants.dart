@@ -673,6 +673,8 @@ class StringConstant {
   static String noLiveStreamPresent= 'no_live_stream_present';
   static String Normal= 'normal';
 
+  static String Memoryspace= 'memoryspace';
+
   static String testCourses= 'test_courses';
   static String TotalAmount= 'total_amount';
   static String TransactionReceipt= 'transaction_receipt';

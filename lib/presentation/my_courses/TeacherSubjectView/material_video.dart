@@ -15,8 +15,9 @@ class MyMaterialVideo extends StatefulWidget {
   String url;
   String title;
   String download;
+  String vid;
 
-  MyMaterialVideo(this.url, this.title, this.download) : super();
+  MyMaterialVideo(this.url, this.title, this.download,this.vid) : super();
 
   @override
   _MyMaterialVideoState createState() => _MyMaterialVideoState();
@@ -210,8 +211,10 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
   Future<void> requestVideoDownload() async {
       var now = DateTime.now();
       final dir = await getApplicationDocumentsDirectory();
-      var _localPath = dir.path + '/' + widget.title + '~' + now.toString();
-      final savedDir = Directory(_localPath);
+     //  var _localPath = dir.path + '/' + widget.title + '~' + now.toString();
+      var _localPath = dir.path + Platform.pathSeparator + widget.vid+ now.toString();
+       final savedDir = Directory(_localPath);
+     // final savedDir = Directory(AppConstants.filePath);
       await savedDir.create(recursive: true).then((value) async {
         String? _taskid = await FlutterDownloader.enqueue(
           url: widget.download == "" ? widget.url : widget.download,
@@ -222,6 +225,8 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
           saveInPublicStorage: false,
         );
         AppConstants.printLog(_taskid);
+        AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+        AppConstants.printLog( widget.download == "" ? widget.url : widget.download);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => Downloads(0)));
       }).catchError((error) {

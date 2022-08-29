@@ -5,6 +5,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:video_player/video_player.dart';
 
 class LocalVideoScreen extends StatefulWidget {
@@ -99,14 +100,42 @@ class _LocalVideoScreenState extends State<LocalVideoScreen> {
   // }
 
   FlickManager? flickManager;
-  late VideoPlayerController _videoPlayerController;
+  VideoPlayerController? _playerController;
 
   @override
   void initState() {
     super.initState();
-    _videoPlayerController= VideoPlayerController.file(widget.file);
+    initializePlayer();
+    // _videoPlayerController= VideoPlayerController.file(widget.file);
+    // flickManager = FlickManager(
+    //   videoPlayerController:_videoPlayerController,
+    // );
+  }
+  Future<void> initializePlayer() async {
+    try {
+      VideoPlayerController _oldCon = _playerController!;
+      _oldCon.dispose();
+      _playerController = null;
+    } catch(e) {
+      // print(e);
+    }
+    Future.delayed(Duration(milliseconds: 200));
+    try {
+      _playerController = VideoPlayerController.file(
+          widget.file,
+          videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true)
+      );
+      await _playerController!.initialize().then((_){
+        setState(() {
+          _playerController!.seekTo(Duration(seconds: 0));
+          _playerController!.play();
+        });
+      });
+    } catch(e) {
+      SchedulerBinding.instance!.addPostFrameCallback((_) => AppConstants.showAlertDialogWithBack(context, 'Video not available...'));
+    }
     flickManager = FlickManager(
-      videoPlayerController:_videoPlayerController,
+      videoPlayerController: _playerController!,
     );
   }
 
@@ -123,11 +152,20 @@ class _LocalVideoScreenState extends State<LocalVideoScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.only(top: 8),
-            height: (MediaQuery.of(context).size.width)/16*9,
-            child: FlickVideoPlayer(
-                flickManager: flickManager!
-            ),
+              color: AppColors.transparent,
+              height: (MediaQuery.of(context).size.width) / 16 * 9,
+              width: MediaQuery.of(context).size.width,
+              // child: FlickVideoPlayer(
+              //     flickManager: flickManager!
+              // )
+              child: _playerController!.value.isInitialized ? FlickVideoPlayer(
+                  flickManager: flickManager!
+              ) :  Container(
+                color: AppColors.black,
+                height: (MediaQuery.of(context).size.width) / 16 * 9,
+                width: MediaQuery.of(context).size.width,
+                child: Center(child: CircularProgressIndicator(color: AppColors.amber)),
+              )
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
