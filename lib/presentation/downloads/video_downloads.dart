@@ -162,8 +162,8 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                                       _status == DownloadTaskStatus.failed ? Text('Failed')
                                       : _status == DownloadTaskStatus.canceled ? Text('Cancelled')
                                       : _status == DownloadTaskStatus.paused ? Text('Paused')
-                                      : _status == DownloadTaskStatus.enqueued ? Text('Download failed, due to not enough space')
-                                      : _status == DownloadTaskStatus.running ? Text('Downloading...')
+                                      : _status == DownloadTaskStatus.enqueued ? Flexible(child:Text('Download failed due to not enough space'))
+                                      : _status == DownloadTaskStatus.running ?  Text('Download failed due to not enough space')
                                       : _status == DownloadTaskStatus.undefined ? Text('Error')
                                           : _status == DownloadTaskStatus.complete ?
                                       Padding(
