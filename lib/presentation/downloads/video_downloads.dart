@@ -89,9 +89,11 @@ class DownloadedVideoState extends State<DownloadedVideo> {
       _map['filename'] = _task.filename;
       _map['savedDirectory'] = _task.savedDir;
       if (!_task.savedDir.contains('.pdf')) downloadsListMaps.add(_map);
-      if(_task.status == DownloadTaskStatus.enqueued) {
-        AppConstants.showAlertDialog(context, getTranslated(context, StringConstant.Memoryspace)!);
-      }
+      // Future.delayed(Duration(milliseconds: 1000), () {
+      //   if(_task.status == DownloadTaskStatus.enqueued) {
+      //     AppConstants.showAlertDialog(context, getTranslated(context, StringConstant.Memoryspace)!);
+      //   }
+      // });
     });
     setState(() {});
   }
@@ -160,7 +162,7 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                                       _status == DownloadTaskStatus.failed ? Text('Failed')
                                       : _status == DownloadTaskStatus.canceled ? Text('Cancelled')
                                       : _status == DownloadTaskStatus.paused ? Text('Paused')
-                                      : _status == DownloadTaskStatus.enqueued ? Text('Enqueued')
+                                      : _status == DownloadTaskStatus.enqueued ? Text('Enqueued - Memory out of space')
                                       : _status == DownloadTaskStatus.running ? Text('Downloading...')
                                       : _status == DownloadTaskStatus.undefined ? Text('Error')
                                           : _status == DownloadTaskStatus.complete ?

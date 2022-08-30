@@ -12,13 +12,15 @@ import 'package:provider/provider.dart';
 import 'package:upgrader/upgrader.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen() : super();
+
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+
 
   @override
   void initState() {
