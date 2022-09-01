@@ -1,12 +1,9 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:http/http.dart' as http;
@@ -33,11 +30,13 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
   PDFViewController? _pdfViewController;
   bool loaded = false;
 
-  Future<File> getFileFromUrl(String url, {name}) async {
-    var fileName = 'testonline';
-    if (name != null) {
-      fileName = name;
-    }
+  // Future<File> getFileFromUrl(String url, {name}) async {
+  Future<File> getFileFromUrl(String url, String name) async {
+    // var fileName = 'testonline';
+    var fileName = name.replaceAll(' ', '_').replaceAll(RegExp('[^A-Za-z0-9_]'), '');
+    // if (name != null) {
+    //   fileName = name;
+    // }
     try {
       var data = await http.get(Uri.parse(url));
       var bytes = data.bodyBytes;
@@ -55,7 +54,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     // requestPersmission();
     AppConstants.printLog('Anchal>> ' + widget.pdfUrl);
     if(widget.pdfUrl.isNotEmpty) {
-      getFileFromUrl(widget.pdfUrl).then(
+      getFileFromUrl(widget.pdfUrl, widget.pdfTitle).then(
             (value) => {
           setState(() {
             if (value != null) {
@@ -69,7 +68,6 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
         },
       );
     }
-
     super.initState();
   }
 
@@ -227,7 +225,14 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     await Permission.storage.request().then((value) async {
       if(value.isGranted) {
         AppConstants.createExampurFolder();
-        downloadPdfFile();
+        // downloadPdfFile();
+
+        var fileName = widget.pdfTitle.replaceAll(' ', '_').replaceAll(RegExp('[^A-Za-z0-9_]'), '');
+        File safeFile = File(urlPDFPath);
+        await safeFile.copy('${Directory(AppConstants.filePath).path}/' + fileName + '.pdf').then((value) {
+          AppConstants.showBottomMessage(context, 'File has been downloaded successfully', AppColors.black);
+        });
+
       } else {
         AppConstants.showAlertDialogWithButton(
             context,
