@@ -48,6 +48,9 @@ class AppConstants {
   static String androidId     = 'com.edudrive.exampur';
   static String iosId         = '';
 
+  static String versionName = '';
+  static String versionCode = '';
+
   static String shareAppContent = 'Hey check out EXAMPUR App at: ' + playStoreAppUrl;
   // static String googleFeedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScCCm43CYzI4C0h4HgFCg5XB5dYa0my6q8rDif8IR_3RGuACQ/viewform';
   static String googleFeedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdnU2iboo0rPFiVBWcJZYHXSlIJeDZqiye8D2IqGjvZjrOMdA/viewform?usp=pp_url&entry.43008044=USER_NAME&entry.2068509611=USER_MOBILE';

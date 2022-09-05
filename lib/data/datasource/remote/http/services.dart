@@ -10,17 +10,21 @@ class Service {
     String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
     var postBody = json.encode(body);
     AppConstants.printLog(url + " Param- " + postBody);
+
+    Map<String, String> header = {
+      "appAuthToken": token,
+      "Content-Type": "application/json",
+      "app_version":AppConstants.versionCode
+    };
+
     try {
       return await http
           .post(Uri.parse(url),
           body: utf8.encode(postBody),
-          headers: myHeader ?? {
-            "appAuthToken": token,
-            "Content-Type": "application/json"
-          },
+          headers: myHeader ?? header,
           encoding: encoding)
           .then((response) {
-        AppConstants.printLog("token-  ${myHeader??token}");
+        AppConstants.printLog("Header-  ${myHeader??header}");
         AppConstants.printLog("Response- " + response.body);
         return response;
       });
@@ -37,6 +41,7 @@ class Service {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'appAuthToken': token,
+      "app_version":AppConstants.versionCode
     });
     AppConstants.printLog('Response> ${response.body.toString()}');
     if (response.statusCode == 200) {

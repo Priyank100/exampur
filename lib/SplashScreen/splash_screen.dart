@@ -8,6 +8,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:upgrader/upgrader.dart';
 
@@ -50,10 +51,15 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    AppConstants.versionName = packageInfo.version;
+    AppConstants.versionCode = packageInfo.buildNumber;
     await UpgradeAlert().upgrader.initialize().then((value) async {
       // String deviceVersion = UpgradeAlert().upgrader.currentInstalledVersion().toString();
       // String storeVersion = UpgradeAlert().upgrader.currentAppStoreVersion().toString();
       bool isUpdateAvailable = UpgradeAlert().upgrader.isUpdateAvailable();
+      // AppConstants.printLog('>>>>>>>>>>>>>>>');
+      // AppConstants.printLog(deviceVersion);
       if(isUpdateAvailable) {
         AppConstants.showUpdateAlert(
             context,
