@@ -1,8 +1,9 @@
-import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref {
+  static const String TOKEN           = 'Token';
+  static const String USER_DATA       = 'user_data';
+  static const String RATING          = 'rating';
 
   static Future saveSharedPref(String key, String value) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();

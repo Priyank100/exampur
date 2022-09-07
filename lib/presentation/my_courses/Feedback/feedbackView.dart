@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -32,7 +34,7 @@ class FeedbackView extends StatelessWidget {
               },
               color: AppColors.amber,
               child: Text(
-                getTranslated(context, StringConstant.feedBack)!,
+                getTranslated(context, LangString.feedBack)!,
                 style: TextStyle(color: AppColors.white),
               ),
             ),

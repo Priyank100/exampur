@@ -5,8 +5,12 @@ import 'dart:ui';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/shared/local_video_screen.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -91,7 +95,7 @@ class DownloadedVideoState extends State<DownloadedVideo> {
       if (!_task.savedDir.contains('.pdf')) downloadsListMaps.add(_map);
       // Future.delayed(Duration(milliseconds: 1000), () {
       //   if(_task.status == DownloadTaskStatus.enqueued) {
-      //     AppConstants.showAlertDialog(context, getTranslated(context, StringConstant.Memoryspace)!);
+      //     AppConstants.showAlertDialog(context, getTranslated(context, LangString.Memoryspace)!);
       //   }
       // });
     });
@@ -171,7 +175,7 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                                                   top: 0),
                                               child: CustomRoundButton(
                                                 text: getTranslated(context,
-                                                    StringConstant.watch)!,
+                                                    LangString.watch)!,
                                                 onPressed: () {
                                                   Navigator.of(context,
                                                       rootNavigator: true)

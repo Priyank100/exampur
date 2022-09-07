@@ -4,9 +4,13 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'offlinebatchesexam.dart';
 import 'package:provider/provider.dart';
@@ -72,7 +76,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0,top: 20),
                       child: Text(
-                        getTranslated(context, StringConstant.offlineBatches)!,
+                        getTranslated(context, LangString.offlineBatches)!,
                         style: CustomTextStyle.headingBold(context),
                       ),
                     ),

@@ -7,7 +7,9 @@ import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +61,7 @@ class _ChapterViewState extends State<ChapterView> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(getTranslated(context, StringConstant.selectChapter)!, style: TextStyle(fontSize: 25)),
+                  child: Text(getTranslated(context, LangString.selectChapter)!, style: TextStyle(fontSize: 25)),
                 ),
                 ListView.builder(itemCount: chapterList.length,
                     shrinkWrap: true,

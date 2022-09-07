@@ -2,8 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
 import 'package:exampur_mobile/presentation/home/test_series_new/test_series_new.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/api.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'BannerBookDetailPage.dart';
@@ -82,7 +85,7 @@ bool isLoading =false;
                           //     BannerDetailPage(item.link.toString(),item.title.toString())
                           // ));
                           item.type=='External'&&item.link=='Live Test Page' ?
-                          await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((token) async {
+                          await SharedPref.getSharedPref(SharedPref.TOKEN).then((token) async {
                             Navigator.of(context, rootNavigator: true).push(
                                 MaterialPageRoute(
                                     builder: (_) =>

@@ -5,7 +5,10 @@ import 'package:exampur_mobile/data/model/createUserModel.dart';
 import 'package:exampur_mobile/data/model/state_json.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,9 +41,9 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   bool isLoading = false;
 
   Future<void> getSharedPrefData() async {
-    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
     Email = jsonValue[0]['data']['email_id'].toString();
@@ -88,27 +91,27 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(getTranslated(context, StringConstant.name)!,style: TextStyle(color: AppColors.black,)),
+                  Text(getTranslated(context, LangString.name)!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
                   CustomTextField(hintText:'${Name}', value: (value) {},controller: _nameController,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context,StringConstant.phoneNumber )!,style: TextStyle(color: AppColors.black,)),
+                  Text(getTranslated(context,LangString.phoneNumber )!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
                   CustomTextField(hintText: '${Mobile}', value: (value) {},readOnly: true,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, StringConstant.email)!,style: TextStyle(color: AppColors.black,)),
+                  Text(getTranslated(context, LangString.email)!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
                   CustomTextField(hintText: '${Email}', value: (value) {},controller: _emailController,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, StringConstant.userName)!,style: TextStyle(color: AppColors.black)),
+                  Text(getTranslated(context, LangString.userName)!,style: TextStyle(color: AppColors.black)),
                   SizedBox(height: 8,),
                   CustomTextField(hintText: '${userName}', value: (value) {},readOnly: true,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, StringConstant.city)!,style: TextStyle(color: AppColors.black,)),
+                  Text(getTranslated(context, LangString.city)!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
                   CustomTextField(hintText:'${City}', value: (value) {},controller: _cityController,),
                   SizedBox(height: 10,),
-                  Text(getTranslated(context, StringConstant.state)!,style: TextStyle(color: AppColors.black,)),
+                  Text(getTranslated(context, LangString.state)!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
                   Container(
                     width: double.infinity,
@@ -184,19 +187,19 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 
   bool checkValidation(_firstName, _email, _city) {
     if (_firstName.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.Name_Field_Required)!), backgroundColor: AppColors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, LangString.Name_Field_Required)!), backgroundColor: AppColors.black));
       return false;
     }else if (_email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.Email_Required)!), backgroundColor:AppColors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, LangString.Email_Required)!), backgroundColor:AppColors.black));
       return false;
     // }else if (!AppConstants.isEmailValid(_email)) {
     //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please enter valid Email Id'), backgroundColor:AppColors.black));
     //   return false;
     }else if (_city.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.CITY_REQUIRED)!), backgroundColor:AppColors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, LangString.CITY_REQUIRED)!), backgroundColor:AppColors.black));
       return false;
     }else if (selectedState=='Select States') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text( getTranslated(context,StringConstant.State_Required)!), backgroundColor:AppColors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text( getTranslated(context,LangString.State_Required)!), backgroundColor:AppColors.black));
       return false;
     }else {
       return true;
@@ -222,10 +225,10 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       await Provider.of<AuthProvider>(context, listen: false).updateUserProfile(updateUserInfoModel).then((response) {
         isLoading = false;
         if(response) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.UpdatedSuccessfully)!), backgroundColor: AppColors.green));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, LangString.UpdatedSuccessfully)!), backgroundColor: AppColors.green));
           Navigator.pop(context);
         }else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.serverError)!), backgroundColor: AppColors.red));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, LangString.serverError)!), backgroundColor: AppColors.red));
         }
         setState(() {});
      }

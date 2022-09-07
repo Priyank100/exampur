@@ -1,8 +1,10 @@
-
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 
 
@@ -33,7 +35,7 @@ class TitleRow extends StatelessWidget {
         onTap: onTap,
         child: Row(children: [
          // isDetailsPage == null
-          Text(getTranslated(context, StringConstant.viewAll)!,
+          Text(getTranslated(context, LangString.viewAll)!,
 
               ),
              // : SizedBox.shrink(),

@@ -11,7 +11,9 @@ import 'package:exampur_mobile/data/model/study_material_new_model.dart';
 import 'package:exampur_mobile/data/model/study_material_sub_cat_model.dart';
 import 'package:exampur_mobile/data/repository/CaRepo.dart';
 import 'package:exampur_mobile/utils/api.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +51,7 @@ class CaProvider extends ChangeNotifier {
       notifyListeners();
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       notifyListeners();
     }
   }
@@ -63,7 +65,7 @@ class CaProvider extends ChangeNotifier {
       return myList;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       notifyListeners();
     }
   }
@@ -75,7 +77,7 @@ class CaProvider extends ChangeNotifier {
       return _studyMaterialSubCatModel;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       notifyListeners();
     }
   }
@@ -91,7 +93,7 @@ class CaProvider extends ChangeNotifier {
       return myList;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }
@@ -104,7 +106,7 @@ class CaProvider extends ChangeNotifier {
       return _currentAffairsNewListModel;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }
@@ -117,7 +119,7 @@ class CaProvider extends ChangeNotifier {
       return _currentAffairsNewDetailModel;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }
@@ -130,7 +132,7 @@ class CaProvider extends ChangeNotifier {
       return _currentAffairsNewListModel;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }
@@ -144,7 +146,7 @@ class CaProvider extends ChangeNotifier {
       return myList;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }

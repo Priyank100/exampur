@@ -8,6 +8,8 @@ import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,7 +59,7 @@ class RatingFeedbackState extends State<RatingFeedback> {
               Padding(
                 padding: EdgeInsets.only(left: 20.0, top: 20.0),
                 child: Text(
-                  getTranslated(context, StringConstant.feedBack)!,
+                  getTranslated(context, LangString.feedBack)!,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
@@ -80,7 +82,7 @@ class RatingFeedbackState extends State<RatingFeedback> {
                   controller: _descriptionController,
                   maxLines: 10,
                   decoration: InputDecoration(
-                      hintText: getTranslated(context, StringConstant.writeAboutTheProblem)!,
+                      hintText: getTranslated(context, LangString.writeAboutTheProblem)!,
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
                       isDense: true,
                       hintStyle: TextStyle(
@@ -105,7 +107,7 @@ class RatingFeedbackState extends State<RatingFeedback> {
                       child: Container(
                           height: 50,
                           color: AppColors.dark,
-                          child: Center(child: Text(getTranslated(context, StringConstant.submit)!, style: TextStyle(color: Colors.white,fontSize: 20)))
+                          child: Center(child: Text(getTranslated(context, LangString.submit)!, style: TextStyle(color: Colors.white,fontSize: 20)))
                       ),
                     ),
                   )
@@ -158,10 +160,10 @@ class RatingFeedbackState extends State<RatingFeedback> {
         submittedLoader = false;
       });
       if (response == null) {
-        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+        AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       } else {
         if(response.statusCode == 200) {
-          AppConstants.showToast(getTranslated(context, StringConstant.ratingFeedback)!);
+          AppConstants.showToast(getTranslated(context, LangString.ratingFeedback)!);
           Navigator.pop(context);
         } else {
           AppConstants.showBottomMessage(context, 'Something went wrong', AppColors.red);

@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:chewie/chewie.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';

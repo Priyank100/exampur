@@ -8,7 +8,9 @@ import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -241,7 +243,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                     'exam_categories': selectedCategoryIdList.toString()
                                   });
 
-                                  // SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, selectedCountries.length.toString());
+                                  // SharedPref.saveSharedPref(SharedPref.CATEGORY_LENGTH, selectedCountries.length.toString());
 
                                   AppConstants.printLog(selectedCategoryIdList.length.toString());
                                   if(selectedCategoryIdList.length > 0){

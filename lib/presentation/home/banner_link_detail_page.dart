@@ -6,7 +6,9 @@ import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/banner_detail_model.dart';
@@ -268,7 +270,7 @@ class _ViedobannerState extends State<Viedobanner> {
         //           margin: EdgeInsets.all(28),
         //           child: Center(
         //               child: Text(
-        //             getTranslated(context, StringConstant.buyCourse)!,
+        //             getTranslated(context, LangString.buyCourse)!,
         //             style: TextStyle(color: AppColors.white, fontSize: 18),
         //           )),
         //         ),
@@ -322,7 +324,7 @@ class _ViedobannerState extends State<Viedobanner> {
                                     border: Border.all(color: AppColors.black),
                                     color: AppColors.red
                                 ),
-                                child: Text(getTranslated(context, StringConstant.viewPdf)!, style: TextStyle(color:AppColors.white, fontSize: 10)),
+                                child: Text(getTranslated(context, LangString.viewPdf)!, style: TextStyle(color:AppColors.white, fontSize: 10)),
                               ),
                             ),
                           )
@@ -412,7 +414,7 @@ class _ViedobannerState extends State<Viedobanner> {
                   margin: EdgeInsets.all(28),
                   child: Center(
                       child: Text(
-                    getTranslated(context, StringConstant.buyCourse)!,
+                    getTranslated(context, LangString.buyCourse)!,
                     style: TextStyle(color: AppColors.white, fontSize: 18),
                   )),
                 ),

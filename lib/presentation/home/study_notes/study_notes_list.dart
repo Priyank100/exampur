@@ -5,6 +5,7 @@ import 'package:exampur_mobile/presentation/home/study_notes/study_notes_descrip
 import 'package:exampur_mobile/provider/StudyNotesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

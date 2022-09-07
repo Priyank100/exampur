@@ -4,7 +4,9 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +96,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> checkSharedPrefToken() async {
-    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {
+    await SharedPref.getSharedPref(SharedPref.TOKEN).then((value) {
       AppConstants.printLog('TOKEN>> $value');
       validateToken(value);
     });

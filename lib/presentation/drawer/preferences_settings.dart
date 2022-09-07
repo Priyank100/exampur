@@ -1,6 +1,8 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/response/languagemodel.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart';
@@ -25,7 +27,7 @@ class _PreferencesSettingsState extends State<PreferencesSettings> {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 20,top: 20),
-                child: Text(getTranslated(context, StringConstant.languagePreferences)!,style: TextStyle(color: AppColors.black,fontWeight: FontWeight.bold,fontSize: 20)),
+                child: Text(getTranslated(context, LangString.languagePreferences)!,style: TextStyle(color: AppColors.black,fontWeight: FontWeight.bold,fontSize: 20)),
               ),
 
              Container(
@@ -36,7 +38,7 @@ class _PreferencesSettingsState extends State<PreferencesSettings> {
                     color: AppColors.white
                   ),
                   child: DropdownButton<Language>(
-hint: Text(getTranslated(context, StringConstant.selectLanguage)!),
+hint: Text(getTranslated(context, LangString.selectLanguage)!),
                     isExpanded: true,
                     underline: SizedBox(),
                     icon: Icon(

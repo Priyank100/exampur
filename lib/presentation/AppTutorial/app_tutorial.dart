@@ -4,9 +4,10 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial_card.dart';
 import 'package:exampur_mobile/provider/AppToutorial_provider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +53,7 @@ isLoading=true;
                         left: Dimensions.FONT_SIZE_SMALL,
                         bottom: Dimensions.FONT_SIZE_SMALL),
                     child: Text(
-                      getTranslated(context, StringConstant.appTutorial)!,
+                      getTranslated(context, LangString.appTutorial)!,
                       style: CustomTextStyle.headingBigBold(context),
                     ),
                   ),

@@ -6,7 +6,11 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/One2one_provider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:exampur_mobile/utils/dimensions.dart';
 
 import 'package:flutter/material.dart';
@@ -83,7 +87,7 @@ isLoading=true;
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: Text(getTranslated(context, StringConstant.exampurOne2one)!,
+                child: Text(getTranslated(context, LangString.exampurOne2one)!,
                   style: CustomTextStyle.headingBold(context),
                 ),
               ),

@@ -2,9 +2,13 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/DownloadPdfView.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:exampur_mobile/data/model/study_material_sub_cat_model.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +35,7 @@ class _StudyMaterialCategoryPdfListingState extends State<StudyMaterialCategoryP
           children: [
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(widget.pagetype==1?getTranslated(context, StringConstant.PreviousYearPdf)!:getTranslated(context, StringConstant.studyMaterials)!, style: CustomTextStyle.headingMediumBold(context)),
+              child: Text(widget.pagetype==1?getTranslated(context, LangString.PreviousYearPdf)!:getTranslated(context, LangString.studyMaterials)!, style: CustomTextStyle.headingMediumBold(context)),
             ),
             subTitle(),
             SizedBox(height: 10),
@@ -80,7 +84,7 @@ class _StudyMaterialCategoryPdfListingState extends State<StudyMaterialCategoryP
                   height: Dimensions.DailyMonthlyViewBtnHeight,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(border: Border.all(color: AppColors.black)),
-                  child: Text(getTranslated(context, StringConstant.view)!, style: TextStyle(fontSize: 12)),
+                  child: Text(getTranslated(context, LangString.view)!, style: TextStyle(fontSize: 12)),
                 ),
               ),
             ],

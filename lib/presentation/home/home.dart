@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:exampur_mobile/ChatModule/ChatPage.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/Pushnotification/pushnotification.dart';
@@ -22,10 +21,13 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -168,7 +170,7 @@ class _HomeState extends State<Home> {
         .firstName
         .toString();
     // String token = await Provider.of<AuthProvider>(context, listen: false).informationModel.data!.authToken.toString();
-    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((token) async {
+    await SharedPref.getSharedPref(SharedPref.TOKEN).then((token) async {
       TOKEN = token;
       AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
       // AppConstants.printLog(">>>>>>>>>>>"+ AppConstants.encodeCategory());
@@ -204,7 +206,7 @@ class _HomeState extends State<Home> {
                 children: [
                   Flexible(
                     child: Text(
-                      getTranslated(context, StringConstant.hello)! +
+                      getTranslated(context, LangString.hello)! +
                           ', ' +
                           '${userName} !',
                       overflow: TextOverflow.ellipsis,
@@ -252,7 +254,7 @@ class _HomeState extends State<Home> {
                 children: [
                   SquareButton(
                     image: Images.paidcourse,
-                    title: getTranslated(context, StringConstant.paidCourse)!,
+                    title: getTranslated(context, LangString.paidCourse)!,
                     color: AppColors.paidCourses,
                     onPressed: () {
                       AnalyticsConstants.sendAnalyticsEvent(
@@ -266,7 +268,7 @@ class _HomeState extends State<Home> {
                   ),
                   SquareButton(
                     image: Images.free_course,
-                    title: getTranslated(context, StringConstant.freeCourses)!,
+                    title: getTranslated(context, LangString.freeCourses)!,
                     color: AppColors.freeCourses,
                     onPressed: () {
                       AnalyticsConstants.sendAnalyticsEvent(
@@ -329,7 +331,7 @@ class _HomeState extends State<Home> {
                 children: [
                   SquareButton(
                     image: Images.dailyquiz,
-                    title: getTranslated(context, StringConstant.Quizz),
+                    title: getTranslated(context, LangString.Quizz),
                     color: AppColors.quiz,
                     onPressed: () async {
                       Navigator.of(context, rootNavigator: true).push(
@@ -405,7 +407,7 @@ class _HomeState extends State<Home> {
                 children: [
                   // SquareButton(
                   //   image: Images.caBytes,
-                  //   title: getTranslated(context, StringConstant.CaBytes)!,
+                  //   title: getTranslated(context, LangString.CaBytes)!,
                   //   color: AppColors.jobAlert,
                   //   onPressed: () {
                   //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CaBytes()));
@@ -418,7 +420,7 @@ class _HomeState extends State<Home> {
                   // ),
                   SquareButton(
                     image: Images.studymaterial,
-                    title: getTranslated(context, StringConstant.PreviousYearPdf),
+                    title: getTranslated(context, LangString.PreviousYearPdf),
                     color: AppColors.paidCourses,
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true).push(
@@ -429,7 +431,7 @@ class _HomeState extends State<Home> {
                   ),
                   SquareButton(
                     image: Images.practice,
-                    title: getTranslated(context, StringConstant.PracticeQuestion)!,
+                    title: getTranslated(context, LangString.PracticeQuestion)!,
                     color: AppColors.brown400,
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true).push(
@@ -446,7 +448,7 @@ class _HomeState extends State<Home> {
                 children: [
                   SquareButton(
                     image: Images.live_test,
-                    title: getTranslated(context, StringConstant.liveTest),
+                    title: getTranslated(context, LangString.liveTest),
                     color: AppColors.orange,
                     onPressed: () async {
                       Navigator.of(context, rootNavigator: true).push(

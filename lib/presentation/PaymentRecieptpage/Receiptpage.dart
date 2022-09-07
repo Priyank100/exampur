@@ -4,10 +4,12 @@ import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/final_order_pay_model.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
-
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/utils/api.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -93,7 +95,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
         getReceipt(false);
 
       } else {
-        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+        AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       }
       setState(() {
         isLoad = false;
@@ -149,7 +151,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    getTranslated(context, StringConstant.TransactionReceipt)!,
+                    getTranslated(context, LangString.TransactionReceipt)!,
                     style: TextStyle(fontSize: 23),
                   ),
                   SizedBox(
@@ -164,7 +166,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                   Align(
                       alignment: Alignment.center,
                       child: Text(
-                        getTranslated(context, StringConstant.Thankyou)!  ,
+                        getTranslated(context, LangString.Thankyou)!  ,
                         style: TextStyle(fontSize: 30, color: AppColors.green),
                       )),
                   SizedBox(
@@ -184,30 +186,30 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                       child: Column(
                         children: [
                           TextUse(
-                            title: widget.type == 'Course' || widget.type == 'Combo' ?  getTranslated(context, StringConstant.coursename)! + ' :' :
+                            title: widget.type == 'Course' || widget.type == 'Combo' ?  getTranslated(context, LangString.coursename)! + ' :' :
                             widget.type == 'TestSeries' ?  'TestSeries Name' + ' :' :
-                            getTranslated(context, StringConstant.books)! +':',
+                            getTranslated(context, LangString.books)! +':',
                             text: model.data!.product!.title.toString(),
                           ),
                           SizedBox(
                             height: 8,
                           ),
                           TextUse(
-                            title:  getTranslated(context, StringConstant.OrderDate)! +' :',
+                            title:  getTranslated(context, LangString.OrderDate)! +' :',
                             text: model.data!.date.toString(),
                           ),
                           SizedBox(
                             height: 8,
                           ),
                           TextUse(
-                            title: getTranslated(context, StringConstant.TranscationId)! + ' :',
+                            title: getTranslated(context, LangString.TranscationId)! + ' :',
                             text: model.data!.paymentTransactionId.toString(),
                           ),
                           SizedBox(
                             height: 8,
                           ),
                           TextUse(
-                            title:  getTranslated(context, StringConstant.PaymentMode)! +' :',
+                            title:  getTranslated(context, LangString.PaymentMode)! +' :',
                             text: 'RazorPay',
                           ),
                           Divider(),
@@ -215,7 +217,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                getTranslated(context, StringConstant.TotalAmount)!,
+                                getTranslated(context, LangString.TotalAmount)!,
                                 style: TextStyle(fontSize: 18),
                               ),
                               Text('₹ '+model.data!.finalAmount.toString(),
@@ -253,7 +255,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                 ),
                 child: Center(
                     child: Text(
-                      getTranslated(context, StringConstant.BackToHomePage)!,
+                      getTranslated(context, LangString.BackToHomePage)!,
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ))),
           ),
@@ -382,7 +384,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
           }
         } else {
           AppConstants.showBottomMessage(
-              context, getTranslated(context, StringConstant.serverError)!,
+              context, getTranslated(context, LangString.serverError)!,
               AppColors.red);
         }
       });

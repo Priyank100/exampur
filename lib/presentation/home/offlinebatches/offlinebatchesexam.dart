@@ -4,8 +4,12 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -110,24 +114,24 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                           ),
                           Center(
                             child: Text(
-                              getTranslated(context, StringConstant.offlineBatches)!,
+                              getTranslated(context, LangString.offlineBatches)!,
                               style: CustomTextStyle.headingBold(context),
                             ),
                           ),
                           SizedBox(
                             height: 5,
                           ),
-                        Text(getTranslated(context, StringConstant.center)!+' : ' +
+                        Text(getTranslated(context, LangString.center)!+' : ' +
                             centerName),
                           SizedBox(
                             height: 5,
                           ),
-                        Text(getTranslated(context, StringConstant.phoneNumber)!+ ' : ' +
+                        Text(getTranslated(context, LangString.phoneNumber)!+ ' : ' +
                             centerMobile),
                           SizedBox(
                             height: 5,
                           ),
-                        Text(getTranslated(context, StringConstant.address)!+ ' : ' +
+                        Text(getTranslated(context, LangString.address)!+ ' : ' +
                             centerAddress, maxLines: 2),
                       ],),),
                     ),
@@ -232,7 +236,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                                               Color(0xFF060929)),
                                                           color: Color(0xFF060929)),
                                                       child:  Center(
-                                                          child: Text(getTranslated(context, StringConstant.viewDetails)!,
+                                                          child: Text(getTranslated(context, LangString.viewDetails)!,
                                                               style: TextStyle(
                                                                   fontSize: 13,
                                                                   color: Colors
@@ -259,7 +263,7 @@ class _OfflineBatchesExamState extends State<OfflineBatchesExam> {
                                                   ),
                                                   InkWell(
                                                     onTap: () {},
-                                                    child: Text(getTranslated(context, StringConstant.share)!,
+                                                    child: Text(getTranslated(context, LangString.share)!,
                                                         style:
                                                         TextStyle(fontSize: 13)),
                                                   ),

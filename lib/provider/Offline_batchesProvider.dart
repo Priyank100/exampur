@@ -6,6 +6,7 @@ import 'package:exampur_mobile/data/model/offlinebatches_courses_video.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/OfflineBatches_repo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:flutter/cupertino.dart';
 
 class OfflinebatchesProvider extends ChangeNotifier {

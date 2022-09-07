@@ -12,9 +12,11 @@ import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/JobAlertsRepo.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 
 class JobAlertsProvider extends ChangeNotifier {
   final JobAlertsRepo jobAlertsRepo;
@@ -86,7 +88,7 @@ class JobAlertsProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       Navigator.pushReplacement(
           context,
@@ -106,7 +108,7 @@ class JobAlertsProvider extends ChangeNotifier {
       return myList;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
@@ -120,7 +122,7 @@ class JobAlertsProvider extends ChangeNotifier {
       return myList;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
@@ -134,7 +136,7 @@ class JobAlertsProvider extends ChangeNotifier {
       return _jobNotificationListModel;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
@@ -148,7 +150,7 @@ class JobAlertsProvider extends ChangeNotifier {
       return _jobNotificationDetailModel;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
@@ -162,7 +164,7 @@ class JobAlertsProvider extends ChangeNotifier {
       return _jobNotificationListModel;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();

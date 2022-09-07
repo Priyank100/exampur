@@ -4,8 +4,12 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/shared/place_order_screen.dart';
+
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
@@ -32,7 +36,7 @@ class _BooksCardState extends State<BooksCard> {
         borderRadius: BorderRadius.all(
           Radius.circular(8),
         ),
-        boxShadow: const [
+        boxShadow:   const [
           BoxShadow(
             color: AppColors.grey,
             offset: Offset(
@@ -68,7 +72,7 @@ class _BooksCardState extends State<BooksCard> {
                   )
               );
             },
-            text: getTranslated(context, StringConstant.buy)!,
+            text: getTranslated(context, LangString.buy)!,
           ),
           SizedBox(
             height: 10,
@@ -94,7 +98,7 @@ class _BooksCardState extends State<BooksCard> {
                   width: 8,
                 ),
                 Text(
-                  getTranslated(context, StringConstant.share)!,
+                  getTranslated(context, LangString.share)!,
                   style: TextStyle(
                     color: AppColors.black,
                     fontSize: 16,

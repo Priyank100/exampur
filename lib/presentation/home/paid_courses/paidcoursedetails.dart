@@ -6,9 +6,13 @@ import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_scree
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -168,7 +172,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                         widget.courseData.validTime == null || widget.courseData.validTime == 'null' ? SizedBox() :
                         Padding(
                           padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
-                          child: Text(getTranslated(context, StringConstant.Validity)!+' :  '+widget.courseData.validTime.toString(),
+                          child: Text(getTranslated(context, LangString.Validity)!+' :  '+widget.courseData.validTime.toString(),
                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                         ),
                         widget.courseData.pdfPath==null || widget.courseData.pdfPath=='null' || widget.courseData.pdfPath!.isEmpty ? SizedBox():
@@ -191,7 +195,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                                   border: Border.all(color: AppColors.black),
                                   color: AppColors.red
                               ),
-                              child: Text(getTranslated(context, StringConstant.viewPdf)!, style: TextStyle(color:AppColors.white, fontSize: 10)),
+                              child: Text(getTranslated(context, LangString.viewPdf)!, style: TextStyle(color:AppColors.white, fontSize: 10)),
                             ),
                           ),
                         )
@@ -303,7 +307,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                       margin: EdgeInsets.all(10),
                       child: Center(
                           child: Text(
-                            getTranslated(context, StringConstant.buyCourse)!,
+                            getTranslated(context, LangString.buyCourse)!,
                             style: TextStyle(color: AppColors.white, fontSize: 18),
                           )),
                     ),

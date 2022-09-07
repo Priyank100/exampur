@@ -1,7 +1,9 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/appp_toutorial.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +56,7 @@ class _AppTutorialCardState extends State<AppTutorialCard> {
                           child: Row(
                             children: [
                               Icon(Icons.play_arrow, color: AppColors.white,),
-                              Text(getTranslated(context, StringConstant.watch)!, style: new TextStyle(fontSize: 16.0, color: AppColors.white))
+                              Text(getTranslated(context, LangString.watch)!, style: new TextStyle(fontSize: 16.0, color: AppColors.white))
                             ],
                           ),
                           onPressed: () {

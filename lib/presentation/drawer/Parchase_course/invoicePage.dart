@@ -4,7 +4,11 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/mypurchase_innvoice.dart';
 import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class InvoiceDetailPage extends StatefulWidget {
@@ -28,7 +32,7 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
 
   Future<void> getDemoList() async {
     isLoading=true;
-    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     String token = jsonValue[0]['data']['authToken'].toString();
     userName = jsonValue[0]['data']['first_name'].toString();
     mypurchaseInnvoice= (await Provider.of<MyPurchaseProvider>(context, listen: false).getMyInvoice(context,token, widget.mypurchaseIDData, widget.mypurchasetypeData))!;
@@ -48,25 +52,25 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            Text(getTranslated(context, StringConstant.inVoice)!,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+            Text(getTranslated(context, LangString.inVoice)!,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
               SizedBox(height: 8,),
               mypurchaseInnvoice!.transactionId !=null ? ColumnText(text:mypurchaseInnvoice!.transactionId.toString() ,
-              title: getTranslated(context, StringConstant.TranscationId,)) : SizedBox(),
+              title: getTranslated(context, LangString.TranscationId,)) : SizedBox(),
               SizedBox(height: 10,),
               ColumnText(text: mypurchaseInnvoice!.orderNo.toString(),
-                  title: getTranslated(context, StringConstant.BillNumber,)),
+                  title: getTranslated(context, LangString.BillNumber,)),
               SizedBox(height: 10,),
               ColumnText(text: userName.toString(),
-                  title: getTranslated(context, StringConstant.StudentName,)),
+                  title: getTranslated(context, LangString.StudentName,)),
               SizedBox(height: 10,),
               mypurchaseInnvoice!.product!.title != null ?   ColumnText(text: mypurchaseInnvoice!.product!.title.toString(),
-                  title: getTranslated(context, StringConstant.itemType,)):SizedBox(),
+                  title: getTranslated(context, LangString.itemType,)):SizedBox(),
               SizedBox(height: 10,),
               ColumnText(text: mypurchaseInnvoice!.product!.type.toString(),
-                  title: getTranslated(context, StringConstant.Course,)),
+                  title: getTranslated(context, LangString.Course,)),
               SizedBox(height: 10,),
               ColumnText(text:'₹ '+ mypurchaseInnvoice!.finalAmount.toString(),
-                  title: getTranslated(context, StringConstant.Pricegst,)),
+                  title: getTranslated(context, LangString.Pricegst,)),
               SizedBox(height: 10,),
               mypurchaseInnvoice!.emiPlans == null ? SizedBox():
               ColumnText(text: mypurchaseInnvoice!.emiPlans!.title.toString(),
@@ -96,9 +100,9 @@ bottomSheet: Container(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(StringConstant.LearningClosetPvt,style: TextStyle(color: Colors.black.withOpacity(0.7))),
-        Text(StringConstant.TermsandConditions,style: TextStyle(color: AppColors.grey)),
-        Text(StringConstant.ThisitemnonRefundable,style: TextStyle(color: AppColors.grey))
+        Text(LangString.LearningClosetPvt,style: TextStyle(color: Colors.black.withOpacity(0.7))),
+        Text(LangString.TermsandConditions,style: TextStyle(color: AppColors.grey)),
+        Text(LangString.ThisitemnonRefundable,style: TextStyle(color: AppColors.grey))
       ],
     ),
   ),

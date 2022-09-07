@@ -11,9 +11,10 @@ import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/teacher_chapter_model.dart';
 import 'package:exampur_mobile/data/repository/MyCourseRepo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 
 class MyCourseProvider extends ChangeNotifier {
   final MyCourseRepo myCourseRepo;
@@ -52,8 +53,8 @@ class MyCourseProvider extends ChangeNotifier {
             json.decode(apiResponse.response.toString()));
         return _myCourseListModel.data ?? [];
       } else if(statusCode == '409') {
-        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
-        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        SharedPref.clearSharedPref(SharedPref.TOKEN);
+        SharedPref.clearSharedPref(SharedPref.USER_DATA);
         Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
@@ -62,7 +63,7 @@ class MyCourseProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       // Navigator.pushReplacement(
       //     context,
@@ -83,8 +84,8 @@ class MyCourseProvider extends ChangeNotifier {
         _myCourseSubjectModel = MyCourseSubjectModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseSubjectModel.data??[];
       } else if(statusCode == '409') {
-        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
-        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        SharedPref.clearSharedPref(SharedPref.TOKEN);
+        SharedPref.clearSharedPref(SharedPref.USER_DATA);
         Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
@@ -93,7 +94,7 @@ class MyCourseProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       // Navigator.pushReplacement(
       //     context,
@@ -114,8 +115,8 @@ class MyCourseProvider extends ChangeNotifier {
         _myCourseMaterialModel = MyCourseMaterialModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseMaterialModel.data??[];
       } else if(statusCode == '409') {
-        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
-        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        SharedPref.clearSharedPref(SharedPref.TOKEN);
+        SharedPref.clearSharedPref(SharedPref.USER_DATA);
         Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
@@ -124,7 +125,7 @@ class MyCourseProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       // Navigator.pushReplacement(
       //     context,
@@ -147,8 +148,8 @@ class MyCourseProvider extends ChangeNotifier {
         _teacherchapterModel = TeacherChapterModel.fromJson(json.decode(apiResponse.response.toString()));
         return _teacherchapterModel.data??[];
       } else if(statusCode == '409') {
-        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
-        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        SharedPref.clearSharedPref(SharedPref.TOKEN);
+        SharedPref.clearSharedPref(SharedPref.USER_DATA);
         Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
@@ -157,7 +158,7 @@ class MyCourseProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       // Navigator.pushReplacement(
       //     context,
@@ -179,8 +180,8 @@ class MyCourseProvider extends ChangeNotifier {
         _myCourseTimelineListModel = MyCourseTimelineModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseTimelineListModel.data;
       } else if(statusCode == '409') {
-        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
-        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        SharedPref.clearSharedPref(SharedPref.TOKEN);
+        SharedPref.clearSharedPref(SharedPref.USER_DATA);
         Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
@@ -189,7 +190,7 @@ class MyCourseProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       notifyListeners();
     }
@@ -204,8 +205,8 @@ class MyCourseProvider extends ChangeNotifier {
         _myCourseTimelineliveStreamModel = CourseTimelineLiveStreamModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseTimelineliveStreamModel.data;
       } else if(statusCode == '409') {
-        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
-        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        SharedPref.clearSharedPref(SharedPref.TOKEN);
+        SharedPref.clearSharedPref(SharedPref.USER_DATA);
         Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
@@ -214,7 +215,7 @@ class MyCourseProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       // Navigator.pushReplacement(
       //     context,
@@ -235,8 +236,8 @@ class MyCourseProvider extends ChangeNotifier {
         _myCourseNotificationModel = MyCourseNotificationModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseNotificationModel.data;
       } else if(statusCode == '409') {
-        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
-        SharedPref.clearSharedPref(SharedPrefConstants.USER_DATA);
+        SharedPref.clearSharedPref(SharedPref.TOKEN);
+        SharedPref.clearSharedPref(SharedPref.USER_DATA);
         Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
@@ -245,7 +246,7 @@ class MyCourseProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       // Navigator.pushReplacement(
       //     context,

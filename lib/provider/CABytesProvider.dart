@@ -8,9 +8,12 @@ import 'package:exampur_mobile/data/model/c_a_bytes_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 
 import 'package:exampur_mobile/data/repository/CA_Bytes.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:exampur_mobile/utils/error_screen.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +45,7 @@ class CABytesProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       Navigator.pushReplacement(
           context,

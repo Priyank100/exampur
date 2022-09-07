@@ -4,6 +4,8 @@ import 'package:exampur_mobile/presentation/widgets/custom_button_amber_color_wa
 import 'package:exampur_mobile/provider/FreeVideoProvider.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -78,10 +80,10 @@ class _FreeVideoListingState extends State<FreeVideoListing> {
                               builder: (context) => YoutubeVideo(freeVideoContentModel!.chapter![index].videoContent![i].videoUrl.toString(),
                                   freeVideoContentModel!.chapter![index].videoContent![i].title.toString())));
                     },
-                      text:getTranslated(context, StringConstant.watch)!,),
+                      text:getTranslated(context, LangString.watch)!,),
 
                   // CustomRoundButton(onPressed: (){},
-                  //     text:getTranslated(context, StringConstant.viewPdf)!),
+                  //     text:getTranslated(context, LangString.viewPdf)!),
                   //   CustomSmallerElevatedButton(
                   //     onPressed: (){},color: AppColors.green,text: 'Give Test',
                   //   )

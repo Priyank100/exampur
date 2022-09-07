@@ -2,7 +2,11 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -140,7 +144,7 @@ class _One2OneVideoState extends State<One2OneVideo> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         new Text(
-                          flag ? getTranslated(context, StringConstant.showmore) !: getTranslated(context, StringConstant.showless) !,
+                          flag ? getTranslated(context, LangString.showmore) !: getTranslated(context, LangString.showless) !,
                           style: new TextStyle(color: AppColors.blue300,fontSize: 12),
                         ),
                       ],

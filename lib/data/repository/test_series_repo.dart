@@ -5,7 +5,10 @@ import 'package:exampur_mobile/data/datasource/remote/exception/api_error_handle
 import 'package:exampur_mobile/data/model/helpandfeedback.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/utils/api.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 
 class TestSeriesRepo {
   final DioClient dioClient;
@@ -26,7 +29,7 @@ class TestSeriesRepo {
   }
 
   Future<ApiResponse> myTestSeriesData() async {
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,

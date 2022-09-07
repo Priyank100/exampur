@@ -1,4 +1,6 @@
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 

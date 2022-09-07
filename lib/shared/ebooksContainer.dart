@@ -4,8 +4,10 @@ import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/DownloadPdfView.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -88,7 +90,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                                   child: Center(child: Text(
                                      widget.eBooks.salePrice != 0 ?
-                                      '\u{20B9} ${widget.eBooks.salePrice.toString()}':getTranslated(context, StringConstant.viewPdf)!,
+                                      '\u{20B9} ${widget.eBooks.salePrice.toString()}':getTranslated(context, LangString.viewPdf)!,
                                       style: TextStyle(fontSize: 12))
                                   )
                               )
@@ -112,7 +114,7 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                         color: AppColors.red,
                                       ),
                                       padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                      child: Center(child: Text(getTranslated(context, StringConstant.buy)!, style: TextStyle(fontSize: 12, color: AppColors.white)))
+                                      child: Center(child: Text(getTranslated(context, LangString.buy)!, style: TextStyle(fontSize: 12, color: AppColors.white)))
                                   )
                                 ) : SizedBox(),
                           ],

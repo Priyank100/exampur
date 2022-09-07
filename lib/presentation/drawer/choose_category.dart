@@ -8,6 +8,8 @@ import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +65,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       left: Dimensions.FONT_SIZE_SMALL,
                       bottom: Dimensions.FONT_SIZE_SMALL),
                   child: Text(
-                    getTranslated(context, StringConstant.selectCategories)!,
+                    getTranslated(context, LangString.selectCategories)!,
                     style: CustomTextStyle.headingBigBold(context),
                   ),
                 ),
@@ -91,7 +93,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       cursorColor: AppColors.amber,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.search,size: 25,color: AppColors.grey400),
-                        hintText: getTranslated(context,StringConstant.searchCategory),
+                        hintText: getTranslated(context,LangString.searchCategory),
                         hintStyle: TextStyle(
                           color: AppColors.grey400,
                         ),
@@ -236,7 +238,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       ?InkWell(
                     onTap: () {
 
-                      // SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, selectedCountries.length.toString());
+                      // SharedPref.saveSharedPref(SharedPref.CATEGORY_LENGTH, selectedCountries.length.toString());
 
                       AppConstants.printLog(selectedCategoryIdList.length.toString());
                       if(selectedCategoryIdList.length >0){
@@ -251,7 +253,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                           isLoading = false;
                         });
                         AppConstants.printLog('test');
-                        var snackBar = SnackBar(content: Text(getTranslated(context, StringConstant.pleaseChooseTheCategory)!),backgroundColor: AppColors.grey);
+                        var snackBar = SnackBar(content: Text(getTranslated(context, LangString.pleaseChooseTheCategory)!),backgroundColor: AppColors.grey);
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                     },
@@ -267,7 +269,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       child: Center(
                           child: Text(
                             // "Save (${selectedCountries.length})",
-                            getTranslated(context, StringConstant.saveTheCourse)!,
+                            getTranslated(context, LangString.saveTheCourse)!,
                             style: TextStyle(
                                 color: AppColors.white, fontSize: 20),
                           )),

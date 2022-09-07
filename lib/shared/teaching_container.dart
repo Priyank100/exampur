@@ -15,8 +15,11 @@ import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.
 import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/utils/api.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,7 +51,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
   String? versionCode;
 
   Future<void> getUserData() async {
-    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     userMobile = jsonValue[0]['data']['phone'].toString();
     userEmail = jsonValue[0]['data']['email_id'].toString();
@@ -203,13 +206,13 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             } else {
                               AppConstants.printLog(widget.courseData.title.toString());
                               AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-                              String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+                              String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
                              submitLog(widget.courseData.title.toString(), widget.courseData.id.toString(), widget.tabName.toString());
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                   MyCourseTabView(widget.courseData.id.toString(),widget.courseData.testSeriesLink.toString(),token)
                               ));
                             }
-                          },text: getTranslated(context, StringConstant.viewDetails)!,),
+                          },text: getTranslated(context, LangString.viewDetails)!,),
 
                           SizedBox(height: 10,),
 
@@ -239,7 +242,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                   )
                               ),
                             );
-                          },text: getTranslated(context, StringConstant.buyCourse)!):SizedBox(),
+                          },text: getTranslated(context, LangString.buyCourse)!):SizedBox(),
 
                           SizedBox(height: 10,),
 
@@ -266,7 +269,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                   Share.share(shareContent);
                                   // Share.share(dynamicUrl);
                                 },
-                                child: Text(getTranslated(context, StringConstant.share)!)
+                                child: Text(getTranslated(context, LangString.share)!)
                               )
                             ],
                           ),
@@ -321,7 +324,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
       AppConstants.printLog(header);
       AppConstants.printLog(response.body);
       // if(response == null) {
-      //   AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      //   AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       // } else {
       //   if(response.statusCode == 200) {
       //     AppConstants.printLog(response.body);

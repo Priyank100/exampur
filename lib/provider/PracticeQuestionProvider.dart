@@ -1,11 +1,12 @@
 import 'dart:convert';
-
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/practice_question_categories_model.dart';
 import 'package:exampur_mobile/data/model/practice_question_listing_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/PracticeQuestionRepo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class PracticeQuestionProvider extends ChangeNotifier {
       return myList;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }
@@ -42,7 +43,7 @@ class PracticeQuestionProvider extends ChangeNotifier {
       return _practiceQuestionListingModel;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }

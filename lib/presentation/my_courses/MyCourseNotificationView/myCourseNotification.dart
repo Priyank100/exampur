@@ -5,7 +5,9 @@ import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +32,7 @@ class _MyCourseNotificationsState extends State<MyCourseNotifications> {
 
   Future<void> callProvider() async {
     isLoading = true;
-   // String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+   // String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     myCourseNotificationList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseNotificationList(context, widget.courseId))!;
     isLoading = false;
     setState(() {}
@@ -67,7 +69,7 @@ class _MyCourseNotificationsState extends State<MyCourseNotifications> {
                                 child: Row(
                                   children: [
                                     Icon(Icons.play_arrow, color: AppColors.white,size: 10,),
-                                    Text(getTranslated(context, StringConstant.watch)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white))
+                                    Text(getTranslated(context, LangString.watch)!, style: new TextStyle(fontSize: 10.0, color: AppColors.white))
                                   ],
                                 ),
                                 onPressed: () {

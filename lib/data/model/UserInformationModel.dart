@@ -65,7 +65,7 @@ class Data {
     country: json["country"],
     phoneConf: json["phone_conf"],
     authToken: json["authToken"],
-    countCategories: json["count_categories"],
+    countCategories: json["count_categories"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {

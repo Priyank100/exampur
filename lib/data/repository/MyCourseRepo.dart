@@ -5,7 +5,9 @@ import 'package:exampur_mobile/data/datasource/remote/exception/api_error_handle
 import 'package:exampur_mobile/data/model/helpandfeedback.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/utils/api.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 
 class MyCourseRepo {
   final DioClient dioClient;
@@ -26,7 +28,7 @@ class MyCourseRepo {
   }
 
   Future<ApiResponse> subjectData(String courseId,) async {
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
@@ -40,7 +42,7 @@ class MyCourseRepo {
   }
 
   Future<ApiResponse> materialData(String subjectId, String courseId,String chapterName) async {
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
@@ -53,7 +55,7 @@ class MyCourseRepo {
     }
   }
   Future<ApiResponse> chapterData(String subjectId, String courseId,) async {
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
@@ -67,7 +69,7 @@ class MyCourseRepo {
   }
 
   Future<ApiResponse> myCourseTimelineData(String courseId,String activeBtn) async {
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
@@ -83,7 +85,7 @@ class MyCourseRepo {
   }
 
   Future<ApiResponse> myCourseTimelineshareStreamToMobile(String courseId,String token) async {
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,
@@ -98,7 +100,7 @@ class MyCourseRepo {
   }
 
   Future<ApiResponse> myCourseNotificationData(String courseId) async {
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     try {
       Map<String, dynamic> header = {
         "appAuthToken": token,

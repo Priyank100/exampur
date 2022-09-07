@@ -2,7 +2,11 @@ import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/datasource/remote/dio/dio_client.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
+
 import 'package:exampur_mobile/utils/custompassword_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,21 +35,21 @@ class _SecuritySettingsState extends State<SecuritySettings> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
 
-                Text(getTranslated(context, StringConstant.currentPassword)!,style: TextStyle(color: AppColors.black,)),
+                Text(getTranslated(context, LangString.currentPassword)!,style: TextStyle(color: AppColors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _currentPasswordController,
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: 15,),
-               Text(getTranslated(context, StringConstant.newPassword)!,style: TextStyle(color: AppColors.black,)),
+               Text(getTranslated(context, LangString.newPassword)!,style: TextStyle(color: AppColors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _newPasswordController,
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: 15,),
-                 Text(getTranslated(context, StringConstant.confirmPassword)!,style: TextStyle(color: AppColors.black,)),
+                 Text(getTranslated(context, LangString.confirmPassword)!,style: TextStyle(color: AppColors.black,)),
                 const SizedBox(height: 15,),
                 CustomPasswordTextField(
                   controller: _confirmPasswordController,
@@ -80,7 +84,7 @@ class _SecuritySettingsState extends State<SecuritySettings> {
             width: MediaQuery.of(context).size.width,
             child: Center(
               child: Text(
-                getTranslated(context,StringConstant.changePassword )!,
+                getTranslated(context,LangString.changePassword )!,
                 style:
                 TextStyle(fontSize: 18, color: AppColors.white),
               ),
@@ -100,42 +104,42 @@ class _SecuritySettingsState extends State<SecuritySettings> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text(getTranslated(context, StringConstant.PleasecurrentPassword)!),
+        content: Text(getTranslated(context, LangString.PleasecurrentPassword)!),
         backgroundColor: AppColors.black,
       ));
     } else if (newPassword.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text(getTranslated(context, StringConstant.PleaseEnternewPassword)!),
+        content: Text(getTranslated(context, LangString.PleaseEnternewPassword)!),
         backgroundColor: AppColors.black,
       ));
     } else if (newPassword.length < 8) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text(getTranslated(context, StringConstant.PleaseletterPassword)!),
+        content: Text(getTranslated(context, LangString.PleaseletterPassword)!),
         backgroundColor: AppColors.black,
       ));
     } else if (confirmPassword.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text(getTranslated(context, StringConstant.confirmPassword)!),
+        content: Text(getTranslated(context, LangString.confirmPassword)!),
         backgroundColor: AppColors.black,
       ));
     } else if (confirmPassword.length < 8) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text(getTranslated(context, StringConstant.PleaseletterPassword)!),
+        content: Text(getTranslated(context, LangString.PleaseletterPassword)!),
         backgroundColor: AppColors.black,
       ));
     } else if (newPassword != confirmPassword) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         margin: EdgeInsets.all(20),
         behavior: SnackBarBehavior.floating,
-        content: Text(getTranslated(context, StringConstant.ConfirmPasswordNotMatched)!),
+        content: Text(getTranslated(context, LangString.ConfirmPasswordNotMatched)!),
         backgroundColor: AppColors.black,
       ));
     } else {

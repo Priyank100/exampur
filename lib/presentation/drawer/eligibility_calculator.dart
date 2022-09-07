@@ -4,7 +4,10 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_smaller_button.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +66,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                     left: Dimensions.FONT_SIZE_SMALL,
                     top: Dimensions.FONT_SIZE_SMALL),
                 child: Text(
-                  getTranslated(context, StringConstant.eligibilityCalculator)!,
+                  getTranslated(context, LangString.eligibilityCalculator)!,
                   style: CustomTextStyle.headingMediumBold(context),
                 ),
               ),
@@ -76,7 +79,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                         ),
                   ),
                   child: Text(
-                    getTranslated(context, StringConstant.calculatorPage)!,
+                    getTranslated(context, LangString.calculatorPage)!,
                     style: CustomTextStyle.descriptionNormal(context),
                   )),
                   SizedBox(height: 20),
@@ -124,7 +127,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              getTranslated(context, StringConstant.state)!,
+              getTranslated(context, LangString.state)!,
               style: CustomTextStyle.headingBigBold(context),
             )),
         SizedBox(
@@ -169,10 +172,10 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   pageNo = 2;
                 });
               } else {
-                AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.PleaseSelectState), AppColors.black);
+                AppConstants.showBottomMessage(context, getTranslated(context, LangString.PleaseSelectState), AppColors.black);
               }
             },
-            text: getTranslated(context, StringConstant.next)!,
+            text: getTranslated(context, LangString.next)!,
           ),
         ),
       ],
@@ -186,7 +189,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              getTranslated(context, StringConstant.qualification)!,
+              getTranslated(context, LangString.qualification)!,
               style: CustomTextStyle.headingBigBold(context),
             )
         ),
@@ -204,7 +207,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   height: 30,
                   alignment: Alignment.center,
                   child: Text(
-                      getTranslated(context, StringConstant.Class10)!,
+                      getTranslated(context, LangString.Class10)!,
                       style: TextStyle(fontSize: 14, color: AppColors.black)),
                 ),
                 elevation: 10,
@@ -217,7 +220,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   setState(() {
                     qualifyVal = selected ? 0 : -1;
                     if(selected) {
-                      selectedQualification =getTranslated(context, StringConstant.Class10)!;
+                      selectedQualification =getTranslated(context, LangString.Class10)!;
                       percent = 50;
                     } else {
                       selectedQualification = '';
@@ -232,7 +235,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   height: 30,
                   alignment: Alignment.center,
                   child: Text(
-                      getTranslated(context, StringConstant.Class12)!,
+                      getTranslated(context, LangString.Class12)!,
                       style: TextStyle(fontSize: 14, color: AppColors.black)),
                 ),
                 elevation: 10,
@@ -245,7 +248,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   setState(() {
                     qualifyVal = selected ? 1 : -1;
                     if(selected) {
-                      selectedQualification =  getTranslated(context, StringConstant.Class12)!;
+                      selectedQualification =  getTranslated(context, LangString.Class12)!;
                       percent = 50;
                     } else {
                       selectedQualification = '';
@@ -268,7 +271,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   height: 30,
                   alignment: Alignment.center,
                   child: Text(
-                      getTranslated(context, StringConstant.graduation)!,
+                      getTranslated(context, LangString.graduation)!,
                       style: TextStyle(fontSize: 14, color: AppColors.black)),
                 ),
                 elevation: 10,
@@ -281,7 +284,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   setState(() {
                     qualifyVal = selected ? 2 : -1;
                     if(selected) {
-                      selectedQualification = getTranslated(context, StringConstant.graduation)!;
+                      selectedQualification = getTranslated(context, LangString.graduation)!;
                       percent = 50;
                     } else {
                       selectedQualification = '';
@@ -296,7 +299,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   height: 30,
                   alignment: Alignment.center,
                   child: Text(
-                      getTranslated(context, StringConstant.Postgraduation)!,
+                      getTranslated(context, LangString.Postgraduation)!,
                       style: TextStyle(fontSize: 14, color: AppColors.black)),
                 ),
                 elevation: 10,
@@ -309,7 +312,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   setState(() {
                     qualifyVal = selected ? 3 : -1;
                     if(selected) {
-                      selectedQualification = getTranslated(context, StringConstant.Postgraduation)!;
+                      selectedQualification = getTranslated(context, LangString.Postgraduation)!;
                       percent = 50;
                     } else {
                       selectedQualification = '';
@@ -333,10 +336,10 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   pageNo = 3;
                 });
               } else {
-                AppConstants.showBottomMessage(context, getTranslated(context,StringConstant.pleaseselectqualification), AppColors.black);
+                AppConstants.showBottomMessage(context, getTranslated(context,LangString.pleaseselectqualification), AppColors.black);
               }
             },
-            text: getTranslated(context, StringConstant.next)!,
+            text: getTranslated(context, LangString.next)!,
           ),
         ),
       ],
@@ -350,7 +353,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              getTranslated(context,StringConstant.Age)!,
+              getTranslated(context,LangString.Age)!,
               style: CustomTextStyle.headingBigBold(context),
             )
         ),
@@ -360,7 +363,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: CustomTextField(
-                hintText: getTranslated(context, StringConstant.enteryourage)!,
+                hintText: getTranslated(context, LangString.enteryourage)!,
                 textInputType: TextInputType.number,
                 textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
                 controller: ageController,
@@ -385,10 +388,10 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   pageNo = 4;
                 });
               } else {
-                AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.pleaseEnterAge), AppColors.black);
+                AppConstants.showBottomMessage(context, getTranslated(context, LangString.pleaseEnterAge), AppColors.black);
               }
             },
-            text: getTranslated(context,StringConstant.next)!,
+            text: getTranslated(context,LangString.next)!,
           ),
         ),
       ],
@@ -402,7 +405,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              getTranslated(context, StringConstant.attempthistory)!,
+              getTranslated(context, LangString.attempthistory)!,
               style: CustomTextStyle.headingBigBold(context),
             )
         ),
@@ -420,7 +423,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   height: 30,
                   alignment: Alignment.center,
                   child: Text(
-                      getTranslated(context, StringConstant.fresher)!,
+                      getTranslated(context, LangString.fresher)!,
                       style: TextStyle(fontSize: 14, color: AppColors.black)),
                 ),
                 elevation: 10,
@@ -433,7 +436,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   setState(() {
                     attemptVal = selected ? 0 : -1;
                     if(selected) {
-                      selectedAttemptHistory =  getTranslated(context, StringConstant.fresher)!;
+                      selectedAttemptHistory =  getTranslated(context, LangString.fresher)!;
                       percent = 100;
                     } else {
                       selectedAttemptHistory = '';
@@ -448,7 +451,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   height: 30,
                   alignment: Alignment.center,
                   child: Text(
-                      getTranslated(context, StringConstant.repeater)!,
+                      getTranslated(context, LangString.repeater)!,
                       style: TextStyle(fontSize: 14, color: AppColors.black)),
                 ),
                 elevation: 10,
@@ -461,7 +464,7 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                   setState(() {
                     attemptVal = selected ? 1 : -1;
                     if(selected) {
-                      selectedAttemptHistory = getTranslated(context, StringConstant.repeater)!;
+                      selectedAttemptHistory = getTranslated(context, LangString.repeater)!;
                       percent = 100;
                     } else {
                       selectedAttemptHistory = '';
@@ -485,10 +488,10 @@ class _EligibilityCalculatorState extends State<EligibilityCalculator> {
                 // call api
 
               } else {
-                AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.pleaseSelectAttemptHistory), AppColors.black);
+                AppConstants.showBottomMessage(context, getTranslated(context, LangString.pleaseSelectAttemptHistory), AppColors.black);
               }
             },
-            text: getTranslated(context, StringConstant.calculate)!,
+            text: getTranslated(context, LangString.calculate)!,
           ),
         ),
       ],

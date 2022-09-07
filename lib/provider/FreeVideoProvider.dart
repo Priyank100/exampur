@@ -7,8 +7,10 @@ import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/FreeVideosRepo.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 
 class FreeVideoProvider extends ChangeNotifier {
   final FreeVideosRepo freeVideosRepo;
@@ -31,7 +33,7 @@ class FreeVideoProvider extends ChangeNotifier {
       return myList;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
@@ -44,7 +46,7 @@ class FreeVideoProvider extends ChangeNotifier {
       _freeVideoListModel = FreeVideoListModel.fromJson(json.decode(apiResponse.response.toString()));
       return _freeVideoListModel;
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
@@ -55,7 +57,7 @@ class FreeVideoProvider extends ChangeNotifier {
       _freeVideoContentListModel = FreeVideoContentModel.fromJson(json.decode(apiResponse.response.toString()));
       return _freeVideoContentListModel;
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();

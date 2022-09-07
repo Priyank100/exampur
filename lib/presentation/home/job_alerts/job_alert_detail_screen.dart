@@ -8,6 +8,7 @@ import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
@@ -56,14 +57,14 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
       //           ViewPdf(AppConstants.BANNER_BASE + jobAlertsData!.pdfPath.toString(),'')
       //       ));
       //     },
-      //     child: Text(getTranslated(context, StringConstant.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
+      //     child: Text(getTranslated(context, LangString.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
       // )
       // Padding(
       //   padding: EdgeInsets.all(10),
       //     child: Column(
       //       crossAxisAlignment: CrossAxisAlignment.start,
       //       children: [
-      //         Text(getTranslated(context, StringConstant.jobAlerts)!, style: CustomTextStyle.headingMediumBold(context)),
+      //         Text(getTranslated(context, LangString.jobAlerts)!, style: CustomTextStyle.headingMediumBold(context)),
       //         Expanded(child: SingleChildScrollView(
       //             child: Column(
       //               children: [
@@ -75,7 +76,7 @@ class _JobAlertDetailScreenState extends State<JobAlertDetailScreen> {
       //                           ViewPdf(AppConstants.BANNER_BASE + jobAlertsData!.pdfPath.toString(),'')
       //                       ));
       //                     },
-      //                     child: Text(getTranslated(context, StringConstant.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
+      //                     child: Text(getTranslated(context, LangString.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
       //                 )
       //               ],
       //             )

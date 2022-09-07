@@ -8,7 +8,9 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,7 @@ class MyCoursesState extends State<MyCourses> {
 
   Future<void> callProvider() async {
     isLoading = true;
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     allCourseList = (await Provider.of<MyCourseProvider>(context, listen: false).getMyCourseList(context, token))!;
     myCourseList = allCourseList;
     getAllCategoryNameList();
@@ -84,7 +86,7 @@ class MyCoursesState extends State<MyCourses> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(getTranslated(context, StringConstant.myCourses)!,
+                  Text(getTranslated(context, LangString.myCourses)!,
                       style: CustomTextStyle.headingBold(context)),
                   allCourseList.length == 0 ? SizedBox() : Container(
                     width: MediaQuery.of(context).size.width/2,
@@ -114,7 +116,7 @@ class MyCoursesState extends State<MyCourses> {
                     cursorColor: AppColors.amber,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.search,size: 20,color: AppColors.grey400),
-                      hintText: getTranslated(context,StringConstant.searchCourse),
+                      hintText: getTranslated(context,LangString.searchCourse),
                       hintStyle: TextStyle(fontSize: 13,
                         color: AppColors.grey400,
                       ),
@@ -433,7 +435,7 @@ class MyCoursesState extends State<MyCourses> {
 
   void showAlertDialogWithButton(BuildContext context, int index, int diff) {
     Widget skipButton = TextButton(
-      child: Text(getTranslated(context, StringConstant.skip)!,style: TextStyle(color: AppColors.amber)),
+      child: Text(getTranslated(context, LangString.skip)!,style: TextStyle(color: AppColors.amber)),
       onPressed:  () {
         Navigator.pop(context);
         openNext(index);
@@ -447,7 +449,7 @@ class MyCoursesState extends State<MyCourses> {
       },
     );
     AlertDialog alert = AlertDialog(
-      title: Text(getTranslated(context, StringConstant.Alert)!),
+      title: Text(getTranslated(context, LangString.Alert)!),
       content: Text(
           diff > 0 ? 'Course validity is about to expire in $diff days.\nPay the next installment.' :
           'Course validity is expired.\nPay the next installment.'
@@ -466,7 +468,7 @@ class MyCoursesState extends State<MyCourses> {
   }
 
   Future<void> openNext(i) async {
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
             builder: (_) =>

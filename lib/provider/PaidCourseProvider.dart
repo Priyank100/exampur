@@ -8,9 +8,11 @@ import 'package:exampur_mobile/data/model/paid_course_tab.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/paid_course_repo.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 
 class PaidCoursesProvider extends ChangeNotifier {
   final PaidCoursesRepo paidcoursesRepo;
@@ -40,7 +42,7 @@ class PaidCoursesProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       // Navigator.pushReplacement(
       //     context,
@@ -68,7 +70,7 @@ class PaidCoursesProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       // Navigator.pushReplacement(
       //     context,
@@ -97,7 +99,7 @@ class PaidCoursesProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       // Navigator.pushReplacement(
       //     context,
@@ -125,7 +127,7 @@ class PaidCoursesProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       // Navigator.pushReplacement(
       //     context,

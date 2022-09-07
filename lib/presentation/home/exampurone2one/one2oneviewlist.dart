@@ -6,7 +6,11 @@ import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +40,7 @@ class _One2onelistState extends State<One2onelist> {
           Padding(
             padding: const EdgeInsets.only(left: 14.0,top:6,bottom: 7),
             child: Text(
-              getTranslated(context, StringConstant.exampurOne2one)!,
+              getTranslated(context, LangString.exampurOne2one)!,
               style: CustomTextStyle.headingBold(context),
             ),
           ),
@@ -127,7 +131,7 @@ class _One2onelistState extends State<One2onelist> {
                                              Lottie.asset('assets/LiveLottie.json'),
                                              // Lottie.network(
                                              //     'https://assets2.lottiefiles.com/packages/lf20_HztQu8.json'),
-                                             Text(getTranslated(context, StringConstant.newBatch)!,
+                                             Text(getTranslated(context, LangString.newBatch)!,
                                                  style: TextStyle(
                                                    fontSize: 10,
                                                  )),
@@ -160,7 +164,7 @@ class _One2onelistState extends State<One2onelist> {
                                                   color: Color(0xFF060929)),
                                               color: Color(0xFF060929)),
                                           child: Center(
-                                              child: Text(getTranslated(context,StringConstant.viewDetails)!,
+                                              child: Text(getTranslated(context,LangString.viewDetails)!,
                                                   style: TextStyle(
                                                       fontSize: 10,
                                                       color: AppColors.white)))),
@@ -189,7 +193,7 @@ class _One2onelistState extends State<One2onelist> {
                                         SizedBox(
                                           width: 5,
                                         ),
-                                        Text(getTranslated(context, StringConstant.share)!,
+                                        Text(getTranslated(context, LangString.share)!,
                                             style: TextStyle(fontSize: 13))
                                       ],
                                     ),

@@ -1,7 +1,11 @@
 import 'package:exampur_mobile/data/model/job_notification_list_model.dart';
 import 'package:exampur_mobile/presentation/home/job_alert_new/job_notification_details.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

@@ -1,7 +1,10 @@
 import 'package:exampur_mobile/data/model/study_notes_description_model.dart';
 import 'package:exampur_mobile/provider/StudyNotesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';

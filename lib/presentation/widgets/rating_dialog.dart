@@ -9,9 +9,11 @@ import 'package:exampur_mobile/data/model/rating_feedback_model.dart';
 import 'package:exampur_mobile/presentation/widgets/rating_feedback.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 
 class RatingDialog extends StatefulWidget {
   const RatingDialog() : super();
@@ -50,15 +52,15 @@ class _RatingDialogState extends State<RatingDialog> {
   }
 
   void setRating() {
-    rateList.add(RateModel(getTranslated(context, StringConstant.rating1)!, '5'));
-    rateList.add(RateModel(getTranslated(context, StringConstant.rating2)!, '4'));
-    rateList.add(RateModel(getTranslated(context, StringConstant.rating3)!, '3'));
-    rateList.add(RateModel(getTranslated(context, StringConstant.rating4)!, '2'));
-    rateList.add(RateModel(getTranslated(context, StringConstant.rating5)!, '1'));
+    rateList.add(RateModel(getTranslated(context, LangString.rating1)!, '5'));
+    rateList.add(RateModel(getTranslated(context, LangString.rating2)!, '4'));
+    rateList.add(RateModel(getTranslated(context, LangString.rating3)!, '3'));
+    rateList.add(RateModel(getTranslated(context, LangString.rating4)!, '2'));
+    rateList.add(RateModel(getTranslated(context, LangString.rating5)!, '1'));
   }
 
   Future<void> getUserData() async {
-    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     userMobile = jsonValue[0]['data']['phone'].toString();
     userEmail = jsonValue[0]['data']['email_id'].toString();
@@ -110,7 +112,7 @@ class _RatingDialogState extends State<RatingDialog> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Text(getTranslated(context, StringConstant.ratingTitle)!),
+              child: Text(getTranslated(context, LangString.ratingTitle)!),
             ),
             SizedBox(height: 20),
             Container(
@@ -204,10 +206,10 @@ class _RatingDialogState extends State<RatingDialog> {
 
       //save rating to show for next time
       RatingFeedbackModel model = RatingFeedbackModel(userName, rate, DateFormat('dd-MM-yyyy').format(DateTime.now()));
-      await SharedPref.saveSharedPref(SharedPrefConstants.RATING, jsonEncode(model));
+      await SharedPref.saveSharedPref(SharedPref.RATING, jsonEncode(model));
 
       if(response == null) {
-        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+        AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
 
       } else {
         if(response.statusCode == 200) {

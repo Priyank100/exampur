@@ -8,7 +8,9 @@ import 'package:exampur_mobile/data/model/issulistname.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:exampur_mobile/utils/api.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -39,6 +41,11 @@ class HelpState extends State<Help> {
 
   late GlobalKey<FormState> _formKeySignUp;
 
+  bool isLoading = false;
+  String issuevalue = '';
+  late String issue_id;
+  HelpandFeedbackModel CreateUserbody = HelpandFeedbackModel();
+
   @override
   void initState() {
     super.initState();
@@ -47,6 +54,7 @@ class HelpState extends State<Help> {
     _descriptionController = TextEditingController();
     getStateList();
     getUserData();
+    getDeviceData();
     getAppVersionData();
   }
 
@@ -55,9 +63,6 @@ class HelpState extends State<Help> {
     _descriptionController.dispose();
     super.dispose();
   }
-  bool isLoading = false;
-
-  String issuevalue = '';
 
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/LocalJson/issuename.json');
@@ -72,7 +77,7 @@ class HelpState extends State<Help> {
   }
 
   Future<void> getUserData() async {
-    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     userMobile = jsonValue[0]['data']['phone'].toString();
     userEmail = jsonValue[0]['data']['email_id'].toString();
@@ -90,7 +95,6 @@ class HelpState extends State<Help> {
     }
   }
 
-
   Future<void> getAppVersionData() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     // String appName = packageInfo.appName;
@@ -99,10 +103,6 @@ class HelpState extends State<Help> {
     versionCode = packageInfo.buildNumber;
     setState(() {});
   }
-
-  late String issue_id;
-  HelpandFeedbackModel CreateUserbody = HelpandFeedbackModel();
-
 
   void sendMail(){
 
@@ -120,7 +120,7 @@ class HelpState extends State<Help> {
               Padding(
                 padding: EdgeInsets.only(left: 20.0, top: 20.0),
                 child: Text(
-                  getTranslated(context, StringConstant.help)!,
+                  getTranslated(context, LangString.help)!,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
@@ -182,7 +182,7 @@ class HelpState extends State<Help> {
                   cursorColor: AppColors.amber,
                   controller: _descriptionController,
                   decoration: InputDecoration(
-                      hintText: getTranslated(context, StringConstant.writeAboutTheProblem)!,
+                      hintText: getTranslated(context, LangString.writeAboutTheProblem)!,
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
                       isDense: true,
                       //filled: true,
@@ -222,7 +222,7 @@ issuevalue='Select issue';
                 }
               },
                   child: Container(margin:  EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
-                    height: 50, color: AppColors.dark,child: Center(child: Text(getTranslated(context,StringConstant.submitIssue)!,style: TextStyle(color: Colors.white,fontSize: 20),)),))
+                    height: 50, color: AppColors.dark,child: Center(child: Text(getTranslated(context,LangString.submitIssue)!,style: TextStyle(color: Colors.white,fontSize: 20),)),))
                  :
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -243,18 +243,18 @@ issuevalue='Select issue';
                         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) =>AppTutorial()));
                       },
                       child: Text(
-                        getTranslated(context, StringConstant.watchAppTutorial)!,
+                        getTranslated(context, LangString.watchAppTutorial)!,
                         style: TextStyle(
                           fontSize: 20.0,
                         ),
                       )),
                 ),
               ),
-              Center(child: Text(getTranslated(context, StringConstant.facingProblemInApplication)!,style: TextStyle(color: AppColors.grey600))),
+              Center(child: Text(getTranslated(context, LangString.facingProblemInApplication)!,style: TextStyle(color: AppColors.grey600))),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomTextButton(onPressed: () { AppConstants.makeCallEmail('tel:'+AppConstants.Mobile_number);}, text: getTranslated(context, StringConstant.callUs)!),
+                  CustomTextButton(onPressed: () { AppConstants.makeCallEmail('tel:'+AppConstants.Mobile_number);}, text: getTranslated(context, LangString.callUs)!),
                   Text('/'),
                   CustomTextButton(onPressed: () {
                     Uri params = Uri(
@@ -263,7 +263,7 @@ issuevalue='Select issue';
                         query: 'subject=${AppConstants.Email_sub}'
                     );
                     AppConstants.makeCallEmail(params.toString());
-                    }, text:getTranslated(context, StringConstant.emailUs)! )
+                    }, text:getTranslated(context, LangString.emailUs)! )
                 ],
               ),
             ],
@@ -275,12 +275,12 @@ issuevalue='Select issue';
 
   bool checkValidation(_message) {
     if (_message.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.allFieldsMandatory)!), backgroundColor: AppColors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, LangString.allFieldsMandatory)!), backgroundColor: AppColors.black));
       return false;
     }
 
     else if (issuevalue=='Select issue') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.selectissue)!), backgroundColor:Colors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, LangString.selectissue)!), backgroundColor:Colors.black));
       return false;
    }
     else {
@@ -301,7 +301,7 @@ issuevalue='Select issue';
       if (response == null) {
         var snackBar = SnackBar( margin: EdgeInsets.all(20),
             behavior: SnackBarBehavior.floating,
-            content: Text(getTranslated(context, StringConstant.serverError)!),backgroundColor: AppColors.red);
+            content: Text(getTranslated(context, LangString.serverError)!),backgroundColor: AppColors.red);
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       } else if (response.statusCode == 200) {
         AppConstants.printLog(response.body.toString());
@@ -327,7 +327,7 @@ issuevalue='Select issue';
           if (response == null) {
             var snackBar = SnackBar( margin: EdgeInsets.all(20),
                 behavior: SnackBarBehavior.floating,
-                content: Text(getTranslated(context, StringConstant.serverError)!),backgroundColor: AppColors.red);
+                content: Text(getTranslated(context, LangString.serverError)!),backgroundColor: AppColors.red);
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           } else if (response.statusCode == 200) {
             AppConstants.printLog(response.body.toString());
@@ -399,7 +399,7 @@ issuevalue='Select issue';
         AppConstants.printLog(header);
         AppConstants.printLog(response.body);
         if(response == null) {
-          AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+          AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
         } else {
           if(response.statusCode == 200) {
             AppConstants.printLog(response.body);

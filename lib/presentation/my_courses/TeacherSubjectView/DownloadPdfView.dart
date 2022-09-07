@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -179,7 +180,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     await savedDir.exists().then((alreadyExist) async {
       AppConstants.printLog(alreadyExist);
       if(alreadyExist) {
-        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.ThisFileisAlreadyExist), AppColors.black);
+        AppConstants.showBottomMessage(context, getTranslated(context, LangString.ThisFileisAlreadyExist), AppColors.black);
         return;
 
       } else {

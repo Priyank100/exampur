@@ -7,8 +7,10 @@ import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -221,7 +223,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
 
               },
                 child: Container(height: 30,width: MediaQuery.of(context).size.width / 6,decoration: BoxDecoration( color: AppColors.dark,
-                    borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, StringConstant.pdf)!,style: TextStyle(color: Colors.white,fontSize: 11)))),
+                    borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, LangString.pdf)!,style: TextStyle(color: Colors.white,fontSize: 11)))),
               )
             ],
           ),
@@ -247,14 +249,14 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
           decoration: BoxDecoration(color: AppColors.amber, borderRadius: BorderRadius.all(Radius.circular(8))),
           child: Center(
               child: Text(
-                  getTranslated(context, StringConstant.watch)!,
+                  getTranslated(context, LangString.watch)!,
                   style: TextStyle(color: Colors.white, fontSize: 11)
               )
           )
       ),
     );
     // return CustomAmberButton(
-    //     text: getTranslated(context, StringConstant.watch)!,
+    //     text: getTranslated(context, LangString.watch)!,
     //     onPressed: () {
     //       materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
     //       Navigator.push(context, MaterialPageRoute(builder: (context) =>
@@ -281,7 +283,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
           decoration: BoxDecoration(color: Color(0xFF060929), borderRadius: BorderRadius.all(Radius.circular(8))),
           child: Center(
               child: Text(
-                  getTranslated(context, StringConstant.pdf)!,
+                  getTranslated(context, LangString.pdf)!,
                   style: TextStyle(color: Colors.white, fontSize: 11)
               )
           )
@@ -325,7 +327,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hlsUrl == null ? SizedBox() :     CustomButton(
             navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(),'',materialList[index].id.toString()),
-            title: getTranslated(context, StringConstant.Normal)!
+            title: getTranslated(context, LangString.Normal)!
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls240PUrl == null ? SizedBox() :   CustomButton(
@@ -374,7 +376,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hlsUrl == null ? SizedBox() :      CustomButton(
             navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].id.toString()),
-            title: getTranslated(context, StringConstant.Normal)
+            title: getTranslated(context, LangString.Normal)
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls240PUrl == null ? SizedBox() :  CustomButton(
@@ -434,7 +436,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(getTranslated(context, StringConstant.pleaseChoosetoOpenpdf)!),
+                Text(getTranslated(context, LangString.pleaseChoosetoOpenpdf)!),
                 SizedBox(height: 10),
                 Container(
                   width: MediaQuery.of(context).size.width/2,
@@ -444,7 +446,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf(title, pdfPath)));
                     },
                     color: AppColors.amber,
-                    child: Text(getTranslated(context, StringConstant.pdfViewer)!, style: TextStyle(color: AppColors.white)),
+                    child: Text(getTranslated(context, LangString.pdfViewer)!, style: TextStyle(color: AppColors.white)),
                   ),
                 ),
                 Container(
@@ -455,7 +457,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                       AppConstants.makeCallEmail(pdfPath);
                     },
                     color: AppColors.green,
-                    child: Text(getTranslated(context, StringConstant.browser)!, style: TextStyle(color: AppColors.white)),
+                    child: Text(getTranslated(context, LangString.browser)!, style: TextStyle(color: AppColors.white)),
                   ),
                 ),
               ],
