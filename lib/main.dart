@@ -26,6 +26,7 @@ import 'package:exampur_mobile/provider/TestSeriesProvider.dart';
 import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Localization/app_localization.dart';
@@ -50,6 +51,7 @@ void main() async {
   FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true, badge: true, sound: true
   );
+  // Get any initial links
   HttpOverrides.global = MyHttpOverrides();
 
   runApp(MultiProvider(providers: [
@@ -79,9 +81,6 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-  // const MyApp({
-  //   Key? key,
-  // }) : super(key: key);
   static void setLocale(BuildContext context, Locale newLocale) {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
     state!.setLocale(newLocale);
@@ -96,6 +95,7 @@ class _MyAppState extends State<MyApp> {
   setLocale(Locale locale) {
     setState(() {
       _locale = locale;
+      AppConstants.langCode = locale.languageCode;
     });
   }
  // final AppRouter _appRouter = AppRouter();
@@ -104,6 +104,7 @@ class _MyAppState extends State<MyApp> {
    getLocale().then((locale) {
      setState(() {
        this._locale = locale;
+       AppConstants.langCode = locale.languageCode;
      });
    });
    super.didChangeDependencies();

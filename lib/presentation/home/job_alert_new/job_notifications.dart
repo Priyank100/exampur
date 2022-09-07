@@ -42,11 +42,12 @@ class _JobNotificationsState extends State<JobNotifications> {
               child:  JobNotificationTag(this.callback2)
           ),
            tagSlug.isEmpty ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-           Expanded(
-              child: isLoading ?
+           // Expanded(
+           //    child:
+              isLoading ?
               Center(child: CircularProgressIndicator(color: AppColors.amber)) :
               JobNotificationListing(jobNotificationListModel!)
-          )
+         // )
         ],
       ),
     );

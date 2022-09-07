@@ -58,8 +58,6 @@ class _SplashScreenState extends State<SplashScreen> {
       // String deviceVersion = UpgradeAlert().upgrader.currentInstalledVersion().toString();
       // String storeVersion = UpgradeAlert().upgrader.currentAppStoreVersion().toString();
       bool isUpdateAvailable = UpgradeAlert().upgrader.isUpdateAvailable();
-      // AppConstants.printLog('>>>>>>>>>>>>>>>');
-      // AppConstants.printLog(deviceVersion);
       if(isUpdateAvailable) {
         AppConstants.showUpdateAlert(
             context,

@@ -51,6 +51,8 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   @override
   void initState() {
+    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    AppConstants.printLog(widget.courseData.videoPath.toString());
     String videoId = (YoutubePlayer.convertUrlToId(widget.courseData.videoPath.toString()) == null)
         ? "errorstring"
         : YoutubePlayer.convertUrlToId(widget.courseData.videoPath.toString())!;

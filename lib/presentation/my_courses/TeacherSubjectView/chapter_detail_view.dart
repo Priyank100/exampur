@@ -236,7 +236,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         // print(materialList[index].title);
         materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                  MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), ''))
+                  MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), '',materialList[index].id.toString()))
               ) :
               showVideoQualityDialog(materialList, index);
 
@@ -324,27 +324,27 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hlsUrl == null ? SizedBox() :     CustomButton(
-            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(),''),
+            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(),'',materialList[index].id.toString()),
             title: getTranslated(context, StringConstant.Normal)!
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls240PUrl == null ? SizedBox() :   CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), ''),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString()),
           title: '240p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls360PUrl == null ? SizedBox() :     CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), ''),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString()),
           title: '360p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls480PUrl == null ? SizedBox() :  CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), ''),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString()),
           title: '480p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls720PUrl == null ? SizedBox() :  CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), ''),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString()),
           title: '720p',
         ),
         SizedBox(height: 10),
@@ -373,31 +373,31 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hlsUrl == null ? SizedBox() :      CustomButton(
-            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString()),
+            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].id.toString()),
             title: getTranslated(context, StringConstant.Normal)
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls240PUrl == null ? SizedBox() :  CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].id.toString()),
           title: '240p',
         ),
         SizedBox(
           height: 10,
         ),
         materialList[index].timeline!.apexLink!.hls360PUrl == null ? SizedBox() :   CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the360.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the360.toString(),materialList[index].id.toString()),
           title: '360p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls480PUrl == null ? SizedBox() :      CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString(),materialList[index].id.toString()),
           title: '480p',
         ),
         SizedBox(
           height: 10,
         ),
         materialList[index].timeline!.apexLink!.hls720PUrl == null ? SizedBox() :      CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString(),materialList[index].id.toString()),
           title: '720p',
         ),
         SizedBox(height: 10),
