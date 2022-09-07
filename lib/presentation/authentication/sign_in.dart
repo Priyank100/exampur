@@ -94,7 +94,7 @@ class SignInState extends State<SignIn> {
       AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.loginScreen);
       Map<String, Object> stuff = {};
       AnalyticsConstants.logEvent(AnalyticsConstants.loginScreen,stuff);
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => BottomNavigationOld()), (route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => BottomNavigation()), (route) => false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage), backgroundColor: AppColors.grey,));
     }

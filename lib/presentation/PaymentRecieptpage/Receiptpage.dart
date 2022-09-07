@@ -109,7 +109,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
               context,
               MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      BottomNavigationOld()),
+                      BottomNavigation()),
                   (Route<dynamic> route) => false);
           return true;
         },
@@ -126,7 +126,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              BottomNavigationOld()),
+                              BottomNavigation()),
                           (Route<dynamic> route) => false);
                 },
                 child: Icon(Icons.arrow_back)),
@@ -240,7 +240,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          BottomNavigationOld()),
+                          BottomNavigation()),
                       (Route<dynamic> route) => false);
             },
             child: Container(
@@ -373,7 +373,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                 context,
                 MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        BottomNavigationOld()),
+                        BottomNavigation()),
                     (Route<dynamic> route) => false);
 
           } else {

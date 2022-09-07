@@ -31,6 +31,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
 
   List<Data> chooseList = [];
   List<String> selectedCategoryIdList = [];
+  bool isLoading = false;
 
   // late final List<Category> selectedList;
   // late final bool isSelected;
@@ -47,12 +48,11 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
   }
 
   Future<void> callProvider() async {
+    isLoading = true;
     await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context);
-    chooseList =
-        (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-            .getAllCategoryList(context))!;
-
+    chooseList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getAllCategoryList(context))!;
     myList = chooseList;
+    isLoading = false;
     setState(() {});
   }
 
@@ -60,8 +60,12 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(),
-        body: myList.length != 0
-            ? SafeArea(
+        body: isLoading ? Center(
+            child: CircularProgressIndicator(
+              color: Colors.amber,
+            )
+        ) :
+        SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -115,6 +119,10 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                         ),
                       ),
                       SizedBox(height: 15,),
+
+                      myList.length == 0 ? Center(
+                          child: AppConstants.noDataFound()
+                      ):
                       Expanded(
                         child: CustomScrollView(slivers: [
                           SliverGrid(
@@ -153,6 +161,8 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                                     myList[index]
                                                         .name
                                                         .toString(),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 2,
                                                     style: TextStyle(
                                                       fontSize: 14.0,
                                                       fontWeight:
@@ -229,6 +239,8 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                       ),
                       // selectedCountries.length > 0
                       //     ?
+
+                      myList.length == 0 ? SizedBox() :
                       Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 25,
@@ -303,10 +315,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                   ),
                 ),
               )
-            : Center(
-                child: CircularProgressIndicator(
-                color: Colors.amber,
-              )));
+    );
   }
 
   UpdateChoosecategory(List? categories) async {
@@ -337,7 +346,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
           }
         }
 
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigationOld()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigation()));
 
       } else if(response.statusCode == 429) {
         await Service.post(
@@ -355,7 +364,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder:
                     (context) =>
-                    BottomNavigationOld()
+                    BottomNavigation()
                 )
             );
           } else {

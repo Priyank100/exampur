@@ -111,7 +111,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder:
                             (context) =>
-                            BottomNavigationOld()
+                            BottomNavigation()
                         )
                     );
                   }

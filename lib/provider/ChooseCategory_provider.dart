@@ -29,7 +29,14 @@ class ChooseCategoryProvider extends ChangeNotifier {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if(statusCode == '200') {
         _categoryModel = ChooseCategory.fromJson(json.decode(apiResponse.response.toString()));
-        return _categoryModel.data;
+        List<Data> categoryList = [];
+        for(int i=0; i<_categoryModel.data!.length; i++) {
+          if(_categoryModel.data![i].name.toString().toLowerCase() != 'all exams') {
+            categoryList.add(_categoryModel.data![i]);
+          }
+        }
+        return categoryList;
+        // return _categoryModel.data;
       } else {
         AppConstants.showBottomMessage(context, apiResponse.response!.data['data'].toString(), AppColors.black);
       }
