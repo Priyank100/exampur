@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/helpandfeedback.dart';
@@ -10,6 +12,9 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
+import '../../SharePref/shared_pref.dart';
 
 class Help extends StatefulWidget {
   const Help({Key? key}) : super(key: key);
@@ -19,11 +24,14 @@ class Help extends StatefulWidget {
 }
 
 class HelpState extends State<Help> {
-  String userName = '';
-  String Name ='';
-  String Email='';
-  String Mobile='';
-  String City='';
+  String? deviceModel;
+  String? deviceMake;
+  String? deviceOS;
+  String? userName;
+  String? userMobile;
+  String? userEmail;
+  String? versionName;
+  String? versionCode;
  // String selectedState='';
   List<Issue> issueList = [];
 
@@ -36,9 +44,12 @@ class HelpState extends State<Help> {
     super.initState();
     getStateList();
     _formKeySignUp = GlobalKey<FormState>();
-
     _descriptionController = TextEditingController();
+    getStateList();
+    getUserData();
+    getAppVersionData();
   }
+
   @override
   void dispose() {
     _descriptionController.dispose();
@@ -57,6 +68,35 @@ class HelpState extends State<Help> {
     final IssueResponse = issulistnameFromJson(jsonString);
     issueList  =IssueResponse.issue!;
     issuevalue = issueList [0].name.toString();
+    setState(() {});
+  }
+
+  Future<void> getUserData() async {
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    userName = jsonValue[0]['data']['first_name'].toString();
+    userMobile = jsonValue[0]['data']['phone'].toString();
+    userEmail = jsonValue[0]['data']['email_id'].toString();
+    setState(() {});
+  }
+
+  Future<void> getDeviceData() async {
+    if(Platform.isAndroid){
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      deviceModel = androidInfo.model.toString();
+      deviceMake = androidInfo.brand.toString();
+      deviceOS = androidInfo.version.release.toString();
+      setState(() {});
+    }
+  }
+
+
+  Future<void> getAppVersionData() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    // String appName = packageInfo.appName;
+    // String packageName = packageInfo.packageName;
+    versionName = packageInfo.version;
+    versionCode = packageInfo.buildNumber;
     setState(() {});
   }
 
@@ -173,7 +213,8 @@ class HelpState extends State<Help> {
                   setState(() {
                     isLoading = true;
                   });
-                  helpandfeedback(_message);
+                  //helpandfeedback(_message);
+                  submitLog(_message);
                   setState(() {
 issuevalue='Select issue';
                   });
@@ -323,4 +364,52 @@ issuevalue='Select issue';
       }
     });
   }
-}
+
+  Future<void> submitLog(_message) async {
+    // AppConstants.showLoaderDialog(context);
+    {
+      var body = {
+        "user": {
+          "name": userName,
+          "email": userEmail,
+          "mobile": userMobile
+        },
+        "device": {
+          "model": deviceModel,
+          "make": deviceMake,
+          "os": deviceOS
+        },
+        "app": {
+          "version_name": versionName,
+          "version_code": versionCode
+        },
+        "type": "feedback",
+        "issue_type": issuevalue,
+        "page": "help",
+        "category": "HELP",
+        "message": _message
+      };
+      Map<String, String> header = {
+        "x-auth-token": AppConstants.serviceLogToken,
+        "Content-Type": "application/json"
+      };
+      await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((
+          response) {
+        isLoading = false;
+        AppConstants.printLog(header);
+        AppConstants.printLog(response.body);
+        if(response == null) {
+          AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+        } else {
+          if(response.statusCode == 200) {
+            AppConstants.printLog(response.body);
+            AppConstants.showBottomMessage(context, jsonDecode(response.body)['message'], AppColors.black);
+            _descriptionController.clear();
+            setState(() {});
+          } else {
+            AppConstants.showBottomMessage(context, 'Something went wrong', AppColors.red);
+          }
+        }
+      });
+    }
+  }}

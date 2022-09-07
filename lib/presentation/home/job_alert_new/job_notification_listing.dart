@@ -52,12 +52,19 @@ class _JobNotificationListingState extends State<JobNotificationListing> {
   Widget build(BuildContext context) {
     return widget.jobNotificationListModel == null || dataList.length == 0 ?
     AppConstants.noDataFound() :
-    Card(
+    Container(
+      height: MediaQuery.of(context).size.height/1.5,
       margin: EdgeInsets.all(10),
-      elevation: 10,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+             Radius.circular(20)
+          ),
+        border: Border.all(color: AppColors.grey400)
       ),
+      // elevation: 10,
+      // shape: RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.circular(20.0),
+      // ),
       child: Column(
         children: [
           Container(

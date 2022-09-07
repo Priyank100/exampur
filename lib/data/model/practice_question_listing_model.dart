@@ -143,20 +143,20 @@ class Questions {
     _id = json['id'];
     _englishParagraph = json['english_paragraph'];
     _englishQuestion = json['english_question'];
-    _solutionEng = json['solution_eng'];
+    _solutionEng = json['solution_eng'] ?? '';
     _engOption1 = json['eng_option1'];
     _engOption2 = json['eng_option2'];
     _engOption3 = json['eng_option3'];
     _engOption4 = json['eng_option4'];
-    _engOption5 = json['eng_option5'];
+    _engOption5 = json['eng_option5'] ?? '';
     _hindiParagraph = json['hindi_paragraph'];
     _hindiQuestion = json['hindi_question'];
-    _solutionHindi = json['solution_hindi'];
+    _solutionHindi = json['solution_hindi'] ?? '';
     _hindiOption1 = json['hindi_option1'];
     _hindiOption2 = json['hindi_option2'];
     _hindiOption3 = json['hindi_option3'];
     _hindiOption4 = json['hindi_option4'];
-    _hindiOption5 = json['hindi_option5'];
+    _hindiOption5 = json['hindi_option5'] ?? '';
     _correctAnswer = json['correct_answer'];
   }
   int? _id;
