@@ -17,11 +17,8 @@ import 'package:provider/provider.dart';
 import 'bottom_navigation.dart';
 
 class LandingChooseCategory extends StatefulWidget {
-  // final bool isMultiSelection;
 
-  const LandingChooseCategory(
-      // {this.isMultiSelection = false}
-      );
+  const LandingChooseCategory();
 
   @override
   _LandingChooseCategoryState createState() => _LandingChooseCategoryState();
@@ -32,11 +29,6 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
   List<Data> chooseList = [];
   List<String> selectedCategoryIdList = [];
   bool isLoading = false;
-
-  // late final List<Category> selectedList;
-  // late final bool isSelected;
-//  List<String> selectedList = [];
-
   List<Data> myList = [];
 
 
@@ -44,7 +36,6 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
   initState() {
     callProvider();
     super.initState();
-    //selectedCountries = chooseList;
   }
 
   Future<void> callProvider() async {
@@ -195,8 +186,6 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                             ),
                                           ],
                                         ),
-
-                                        //height: 100.0,
                                         decoration: BoxDecoration(
                                           border:
                                           myList[index].isSelected
@@ -237,8 +226,6 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                           ),
                         ]),
                       ),
-                      // selectedCountries.length > 0
-                      //     ?
 
                       myList.length == 0 ? SizedBox() :
                       Padding(
@@ -293,24 +280,6 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                 ),
                               ),
                             )
-                          // : Container(
-                          //     height: 50,
-                          //     width: double.infinity,
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: const BoxDecoration(
-                          //       color: Colors.amber,
-                          //       //border: Border.all( color: Colors.amber,),
-                          //       borderRadius:
-                          //           BorderRadius.all(Radius.circular(5.0) //
-                          //               ),
-                          //     ),
-                          //     child: Center(
-                          //         child: Text(
-                          //       "Save the course",
-                          //       style: TextStyle(
-                          //           color: Colors.white, fontSize: 20),
-                          //     )),
-                          //   ),
                     ],
                   ),
                 ),
