@@ -22,7 +22,6 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
-import 'package:exampur_mobile/shared/priyank_player.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
@@ -172,7 +171,7 @@ class _HomeState extends State<Home> {
     await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((token) async {
       TOKEN = token;
       AppConstants.selectedCategoryList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getSelectchooseCategoryList(context, token))!;
-      AppConstants.printLog(">>>>>>>>>>>"+ AppConstants.encodeCategory());
+      // AppConstants.printLog(">>>>>>>>>>>"+ AppConstants.encodeCategory());
       // bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context, AppConstants.encodeCategory()))!;
     });
     setState(() {});

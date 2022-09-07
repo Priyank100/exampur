@@ -14,7 +14,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
 class PaymentReceiptPage extends StatefulWidget {
   final String type;
