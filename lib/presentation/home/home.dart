@@ -108,6 +108,8 @@ class _HomeState extends State<Home> {
     ///on the notification
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       if (message != null) {
+        print('>>>>>>>>>>>>>>>>>>>>>>>');
+        print(message.data['action']);
         List<String> actiondata =message.data['action'].split("/");
        // List<String> actiontype =message.data['actiontype'].split("/");
         if(actiondata[0] == "Course"){
