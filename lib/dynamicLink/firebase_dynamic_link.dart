@@ -16,17 +16,20 @@ import 'package:exampur_mobile/data/model/e_book_model.dart';
 
 class FirebaseDynamicLinkService {
   static String uriPrefix = 'https://edudrive.page.link';
-  static String fallbackUrl = 'https://www.exampur.com';
+  // static String fallbackUrl = 'https://www.exampur.com';
+  static String fallbackUrl = 'https://play.google.com/store/apps/details?id=com.edudrive.exampur';
   static String exampurTitle = 'Exampur';
   static String exampurLogo = 'https://exampur.com/assets/images/logo/exampur-logo.png';
   static int minVersion = 1;
+  static String desktopBuy = 'https://buy.exampur.xyz/';
 
-  static Future<String> createDynamicLink(String dataType, String data, String courseType) async {
+  static Future<String> createDynamicLink(String dataType, String data, String courseType, String id) async {
     String _linkMessage;
-
+    String desktopCourseType = dataType == 'courses' ? 'buy-course' : dataType == 'combo' ? 'combo-course' : dataType == 'books' ? 'buy-book' : '';
     final DynamicLinkParameters parameters = DynamicLinkParameters(
         uriPrefix: uriPrefix,
-        link: Uri.parse(uriPrefix + '/${dataType}?data=${data}&type=${courseType}'),
+        // link: Uri.parse(uriPrefix + '/?link=${fallbackUrl}&dataType=${dataType}&data=${data}&type=${courseType}&ofl=${fallbackUrl}'),
+        link: Uri.parse(uriPrefix + '/?link=${desktopBuy+'$desktopCourseType/$id'}&dataType=${dataType}&data=${data}&type=${courseType}&ofl=${desktopBuy+'$desktopCourseType/$id'}'),
         androidParameters: AndroidParameters(
         packageName: AppConstants.androidId,
         minimumVersion: minVersion,
@@ -42,7 +45,9 @@ class FirebaseDynamicLinkService {
         title: exampurTitle,
         imageUrl: Uri.parse(exampurLogo),
         // description: 'Course',
-      )
+      ),
+      dynamicLinkParametersOptions: DynamicLinkParametersOptions(
+          shortDynamicLinkPathLength: ShortDynamicLinkPathLength.unguessable),
     );
     final ShortDynamicLink shortLink = await parameters.buildShortLink();
     Uri url = shortLink.shortUrl;
@@ -74,10 +79,15 @@ class FirebaseDynamicLinkService {
 
       if(deepLink!=null) {
         String data = deepLink.queryParameters['data'].toString();
-        var isCourses = deepLink.pathSegments.contains('courses');
-        var isBooks = deepLink.pathSegments.contains('books');
-        var isOne2One = deepLink.pathSegments.contains('one2one');
-        var isCombo = deepLink.pathSegments.contains('combo');
+        // var isCourses = deepLink.pathSegments.contains('courses');
+        // var isBooks = deepLink.pathSegments.contains('books');
+        // var isOne2One = deepLink.pathSegments.contains('one2one');
+        // var isCombo = deepLink.pathSegments.contains('combo');
+        String dataType = deepLink.queryParameters['dataType'].toString();
+        var isCourses = dataType.contains('courses');
+        var isBooks = dataType.contains('books');
+        var isOne2One = dataType.contains('one2one');
+        var isCombo = dataType.contains('combo');
 
         int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 : 0;
 
