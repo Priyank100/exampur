@@ -261,7 +261,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                                   String data = json.encode(widget.courseData);
                                   String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink(
-                                      courseTabType, data.replaceAll('&', 'and'), widget.courseType.toString()
+                                      courseTabType, data.replaceAll('&', 'and'), widget.courseType.toString(), widget.courseData.id.toString()
                                   );
                                   String shareContent =
                                       'Get "' + widget.courseData.title.toString() + '" Course from Exampur Now.\n' +

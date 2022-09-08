@@ -178,7 +178,7 @@ class _One2onelistState extends State<One2onelist> {
                                 InkWell(
                                   onTap: () async {
                                     String data = json.encode(widget.one2oneData);
-                                    String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink('one2one', data, '0');
+                                    String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink('one2one', data, '0', widget.one2oneData.id.toString());
                                     String shareContent =
                                         'Get "' + widget.one2oneData.title.toString() + '" Course from Exampur Now.\n' +
                                             dynamicUrl;

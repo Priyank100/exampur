@@ -80,7 +80,7 @@ class _BooksCardState extends State<BooksCard> {
           InkWell(
             onTap: () async {
               String data = json.encode(widget.books);
-              String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink('books', data, '0');
+              String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink('books', data, '0', widget.books.id.toString());
               String shareContent =
                   'Get "' + widget.books.title.toString() + '" Book from Exampur Now.\n' +
                       dynamicUrl;
