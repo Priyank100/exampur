@@ -2,6 +2,8 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +45,7 @@ class JobAlertsState extends State<JobAlerts> with TickerProviderStateMixin {
               length: jobAlertTabList.length,
               names: jobAlertTabList.map((item) => item.name.toString()).toList(),
               routes: jobAlertTabList.map((item) => JobAlertListScreen(item.id.toString())).toList(),
-              title: getTranslated(context, StringConstant.jobAlerts)!,
+              title: getTranslated(context, LangString.jobAlerts)!,
             ),
           );
         });

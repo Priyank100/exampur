@@ -4,6 +4,8 @@ import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -59,7 +61,7 @@ class _TimeTableViewState extends State<TimeTableView> {
                     callProvider();
                   },
                   color:activeButton=='L'? AppColors.amber:AppColors.grey400,
-                  child: Text(getTranslated(context, StringConstant.live)!,style: TextStyle(color: AppColors.white),)),
+                  child: Text(getTranslated(context, LangString.live)!,style: TextStyle(color: AppColors.white),)),
 
               MaterialButton(
                   minWidth:MediaQuery.of(context).size.width/2,
@@ -71,7 +73,7 @@ class _TimeTableViewState extends State<TimeTableView> {
                     // filterList(allDataList, activeButton);
                     callProvider();
                   },
-                  child:  Text(getTranslated(context, StringConstant.upComing)!,style: TextStyle(color: AppColors.white))),
+                  child:  Text(getTranslated(context, LangString.upComing)!,style: TextStyle(color: AppColors.white))),
             ],
           ),
         ),
@@ -176,7 +178,7 @@ class _TimeTableViewState extends State<TimeTableView> {
   }
 
   Future<void> callLiveStream(index) async {
-    String token = await SharedPref.getSharedPref(SharedPrefConstants.TOKEN);
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     await Provider.of<MyCourseProvider>(context, listen: false)
         .getMyCourseTimeLineLiveStream(
             context, myCourseTimeLineList[index].id.toString(), token)
@@ -221,7 +223,7 @@ class _TimeTableViewState extends State<TimeTableView> {
                         liveStreamData.apexLink!.hlsURL.toString(),
                         myCourseTimeLineList[index].title.toString(),
                         liveStreamData.id.toString()),
-                    title: getTranslated(context, StringConstant.Normal),
+                    title: getTranslated(context, LangString.Normal),
                   ),
                   SizedBox(
                     height: 10,

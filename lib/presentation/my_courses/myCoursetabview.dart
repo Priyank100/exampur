@@ -7,6 +7,7 @@ import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/subjec
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/presentation/widgets/web_view.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -44,7 +45,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
   }
 
   Future<void> getSharedPrefData() async {
-    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     userMobile = jsonValue[0]['data']['phone'].toString();
     setState(() {});

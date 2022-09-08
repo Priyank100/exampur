@@ -7,10 +7,13 @@ import 'package:exampur_mobile/shared/custom_web_view.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/daily_quiz_model.dart';
 import 'package:provider/provider.dart';
+
 class DailyQuiz extends StatefulWidget {
   const DailyQuiz() : super();
 
@@ -89,7 +92,7 @@ class _DailyQuizState extends State<DailyQuiz> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(getTranslated(context, StringConstant.dailyQuiz)!,style: TextStyle(fontSize: 30),),
+                child: Text(getTranslated(context, LangString.dailyQuiz)!,style: TextStyle(fontSize: 30),),
               ),
               ListView.builder(
                   itemCount: dailyQuizList.length,
@@ -145,13 +148,13 @@ class _DailyQuizState extends State<DailyQuiz> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               CustomRoundButton(onPressed: ()async{
-                                                await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {
+                                                await SharedPref.getSharedPref(SharedPref.TOKEN).then((value) {
                                                   String url = API.dailyQuiz_web_URL
                                                       .replaceAll('QUIZ_ID', dailyQuizList[index].id.toString())
                                                       .replaceAll('AUTH_TOKEN', value);
                                                   AppConstants.printLog('url>> $url');
                                                   AppConstants.goTo(context, CustomWebView(url));
-                                                });},text: getTranslated(context, StringConstant.attemptQuiz)!,),
+                                                });},text: getTranslated(context, LangString.attemptQuiz)!,),
 
                                               Row(
                                                 children: [

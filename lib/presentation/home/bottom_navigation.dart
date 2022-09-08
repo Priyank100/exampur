@@ -21,10 +21,13 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -40,14 +43,14 @@ class ItemClass {
   final icon;
 }
 
-class BottomNavigationOld extends StatefulWidget {
-  const BottomNavigationOld({Key? key}) : super(key: key);
+class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({Key? key}) : super(key: key);
 
   @override
-  _BottomNavigationOldState createState() => _BottomNavigationOldState();
+  _BottomNavigationState createState() => _BottomNavigationState();
 }
 
-class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerProviderStateMixin {
+class _BottomNavigationState extends State<BottomNavigation> with TickerProviderStateMixin {
   int _currIndex = 0;
   late AnimationController _hide;
   late List<AnimationController> _faders;
@@ -90,7 +93,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
   Future<void> callProvider() async {
     await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context);
 
-    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((token) async {
+    await SharedPref.getSharedPref(SharedPref.TOKEN).then((token) async {
       AppConstants.printLog('TOKEN>> $token');
       TOKEN = token;
       allCategoriesList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getAllCategoryList(context))!;
@@ -156,7 +159,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                 )),
       ItemClass(
           3,
-          getTranslated(context, StringConstant.downloads)!,
+          getTranslated(context, LangString.downloads)!,
           _currIndex == 3
               ? Image.asset(
                   Images.download,
@@ -171,7 +174,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                 )),
       ItemClass(
           4,
-          getTranslated(context, StringConstant.help)!,
+          getTranslated(context, LangString.help)!,
           _currIndex == 4
               ? Image.asset(Images.help,
                   height: 30, width: 25, color: AppColors.amber)
@@ -403,7 +406,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
                                   text: getTranslated(
-                                      context, StringConstant.attemptTest)),
+                                      context, LangString.attemptTest)),
                             ),
                           ]),
                       onTap: () async {
@@ -432,7 +435,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
                                   text: getTranslated(
-                                      context, StringConstant.attemptedQuiz)),
+                                      context, LangString.attemptedQuiz)),
                             ),
                           ]),
                       onTap: () async {
@@ -461,7 +464,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
                                   text: getTranslated(
-                                      context, StringConstant.savedQuestion)),
+                                      context, LangString.savedQuestion)),
                             ),
                           ]),
                       onTap: () async {
@@ -516,7 +519,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                               text: TextSpan(
                                   style: CustomTextStyle.drawerText(context),
                                   text: getTranslated(
-                                      context, StringConstant.PrivacyPolicy)),
+                                      context, LangString.PrivacyPolicy)),
                             ),
                           ]),
                       onTap: () {
@@ -572,7 +575,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                           ]),
                       onTap: () async {
                         _scaffoldKey.currentState?.openEndDrawer();
-                        await SharedPref.clearSharedPref(SharedPrefConstants.RATING).then((value) {
+                        await SharedPref.clearSharedPref(SharedPref.RATING).then((value) {
                           AppConstants.checkRatingCondition(context, false);
                         });
                       },
@@ -623,9 +626,9 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                             AnalyticsConstants.logoutClick);
                         Map<String, Object> stuff = {};
                         AnalyticsConstants.logEvent(AnalyticsConstants.logoutClick,stuff);
-                        SharedPref.clearSharedPref(SharedPrefConstants.TOKEN);
+                        SharedPref.clearSharedPref(SharedPref.TOKEN);
                         SharedPref.clearSharedPref(
-                            SharedPrefConstants.USER_DATA);
+                            SharedPref.USER_DATA);
                         Navigator.of(context).pushNamedAndRemoveUntil(
                             '/landingPage', (Route<dynamic> route) => false);
                       },
@@ -674,7 +677,7 @@ class _BottomNavigationOldState extends State<BottomNavigationOld> with TickerPr
                 AppConstants.showAlertDialogWithButton(
                     context,
                     getTranslated(
-                        context, StringConstant.Pleaseverifyyourphoneno)!,
+                        context, LangString.Pleaseverifyyourphoneno)!,
                     route);
                 return;
               }

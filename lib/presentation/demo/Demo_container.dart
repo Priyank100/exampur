@@ -2,7 +2,9 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/demo_model.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button_amber_color_watch.dart';
 import 'package:exampur_mobile/shared/youtube_video.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,7 +52,7 @@ class _DemoContainerState extends State<DemoContainer> {
 
                        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
      builder: (context) =>YoutubeVideo(widget.demoList[widget.index].targetLink.toString(),widget.demoList[widget.index].title.toString())));
-     },text:getTranslated(context, StringConstant.watch)!,),
+     },text:getTranslated(context, LangString.watch)!,),
 
 
                    ],

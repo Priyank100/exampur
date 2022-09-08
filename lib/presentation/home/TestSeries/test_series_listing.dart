@@ -5,6 +5,7 @@ import 'package:exampur_mobile/provider/TestSeriesProvider.dart';
 import 'package:exampur_mobile/shared/custom_web_view.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -77,7 +78,7 @@ class TestSeriesListingState extends State<TestSeriesListing> {
                                         builder: (context) => AttemptTestSeries(testSeriesList[index])));
 
                               } else {
-                                await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {
+                                await SharedPref.getSharedPref(SharedPref.TOKEN).then((value) {
                                   String url = API.testSeriesWeb_URL
                                       .replaceAll('TESTSERIES_ID', testSeriesList[index].id.toString())
                                       .replaceAll('AUTH_TOKEN', value);

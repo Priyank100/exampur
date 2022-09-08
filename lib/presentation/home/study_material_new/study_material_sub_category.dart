@@ -4,7 +4,11 @@ import 'package:exampur_mobile/presentation/home/study_material_new/study_materi
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +50,7 @@ class _StudyMaterialSubCategoryState extends State<StudyMaterialSubCategory> {
           children: [
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(widget.pagetype==1?getTranslated(context, StringConstant.PreviousYearPdf)!:getTranslated(context, StringConstant.studyMaterials)!, style: CustomTextStyle.headingMediumBold(context)),
+              child: Text(widget.pagetype==1?getTranslated(context, LangString.PreviousYearPdf)!:getTranslated(context, LangString.studyMaterials)!, style: CustomTextStyle.headingMediumBold(context)),
             ),
             isLoading || studyMaterialSubCatModel == null ? SizedBox() : categoryTitle(),
             SizedBox(height: 10),

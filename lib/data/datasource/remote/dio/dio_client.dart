@@ -2,7 +2,10 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,7 +20,7 @@ class DioClient {
   String token = '';
 
   DioClient(this.baseUrl, Dio dioC, {required this.loggingInterceptor, required this.sharedPreferences}) {
-    token = sharedPreferences.getString(SharedPrefConstants.TOKEN)?? "no_token";
+    token = sharedPreferences.getString(SharedPref.TOKEN)?? "no_token";
     AppConstants.printLog("NNNN $token");
 
     dio
@@ -27,7 +30,8 @@ class DioClient {
       ..httpClientAdapter
       ..options.headers = {
         'Content-Type': 'application/json; charset=UTF-8',
-        'appAuthToken': '$token'
+        'appAuthToken': '$token',
+        "app_version":AppConstants.versionCode
       };
     dio.interceptors.add(loggingInterceptor);
   }

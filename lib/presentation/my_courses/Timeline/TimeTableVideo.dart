@@ -7,6 +7,8 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -136,7 +138,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
 
   Future<void> getSharedPrefData() async {
     var jsonValue = jsonDecode(
-        await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+        await SharedPref.getSharedPref(SharedPref.USER_DATA));
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     userPhone = jsonValue[0]['data']['phone'].toString();
@@ -248,7 +250,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
             Divider(thickness: 1),
             Padding(
               padding: const EdgeInsets.only(left: 15),
-              child: Text(getTranslated(context, StringConstant.LiveChat)!,style: TextStyle(fontSize: 18)),
+              child: Text(getTranslated(context, LangString.LiveChat)!,style: TextStyle(fontSize: 18)),
             ),
             Divider(thickness: 1),
             Container(
@@ -343,7 +345,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
           child:  Row(
             children: [
               Expanded(child: CustomTextField(
-                  hintText: getTranslated(context, StringConstant.TypeYourDoubtHere)!,
+                  hintText: getTranslated(context, LangString.TypeYourDoubtHere)!,
                   controller: _sendchat,
                   value: (value) {}),
               ),
@@ -370,7 +372,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                     width: 90,
                     decoration: BoxDecoration(color: AppColors.amber,borderRadius:  BorderRadius.all(const Radius.circular(8)),),
 
-                    child: Center(child: Text(getTranslated(context, StringConstant.Send)!,style: TextStyle(color: AppColors.white),))
+                    child: Center(child: Text(getTranslated(context, LangString.Send)!,style: TextStyle(color: AppColors.white),))
                 ),
               )
 

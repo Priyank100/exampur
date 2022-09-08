@@ -5,7 +5,11 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/PracticeQuestionProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,8 +47,8 @@ class _PracticeQuestionCategoryState extends State<PracticeQuestionCategory> {
                   names: practiceQuestionDataList.map((item) => item.name.toString()).toList(),
                   routes: practiceQuestionDataList.length == 0 ? [] :
                   List.generate(practiceQuestionDataList.length, (index) => dataList(index)),
-                 // title: getTranslated(context, StringConstant.studyMaterials)!)
-                  title: getTranslated(context, StringConstant.PracticeQuestion)!)
+                 // title: getTranslated(context, LangString.studyMaterials)!)
+                  title: getTranslated(context, LangString.PracticeQuestion)!)
           );
         });
   }
@@ -64,7 +68,7 @@ class _PracticeQuestionCategoryState extends State<PracticeQuestionCategory> {
         decoration: BoxDecoration(
           borderRadius:
           BorderRadius.all(Radius.circular(12)),
-          boxShadow: const [
+          boxShadow:  [
             BoxShadow(
               color: AppColors.grey,
               offset: Offset(0.0, 0.0),

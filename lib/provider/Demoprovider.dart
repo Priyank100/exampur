@@ -1,21 +1,14 @@
 import 'dart:convert';
-
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/Helper/api_checker.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/demo_model.dart';
-
-
-
-
-
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/Demorepo.dart';
-
 import 'package:exampur_mobile/data/repository/One2One_repo.dart';
-
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/error_screen.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +54,7 @@ class DemoProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       AppConstants.showBottomMessage(
-          context, getTranslated(context, StringConstant.serverError)!,
+          context, getTranslated(context, LangString.serverError)!,
           AppColors.red);
       // Navigator.pushReplacement(
       //     context,

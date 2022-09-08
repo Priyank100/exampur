@@ -4,8 +4,10 @@ import 'package:exampur_mobile/data/model/daily_quiz_model.dart';
 
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/DailyQuiz_repo.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,7 @@ class DailyQuizProvider extends ChangeNotifier {
       }
       notifyListeners();
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(

@@ -5,7 +5,10 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/custompassword_textfield.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -94,7 +97,7 @@ class SignInState extends State<SignIn> {
       AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.loginScreen);
       Map<String, Object> stuff = {};
       AnalyticsConstants.logEvent(AnalyticsConstants.loginScreen,stuff);
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => BottomNavigationOld()), (route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => BottomNavigation()), (route) => false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage), backgroundColor: AppColors.grey,));
     }

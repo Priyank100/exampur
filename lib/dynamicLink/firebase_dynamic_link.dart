@@ -5,7 +5,9 @@ import 'package:exampur_mobile/presentation/home/exampurone2one/one2oneViedo.dar
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
 import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
 import 'package:exampur_mobile/shared/place_order_screen.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:flutter/cupertino.dart';

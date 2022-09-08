@@ -4,7 +4,11 @@ import 'package:exampur_mobile/presentation/home/current_affairs_new/current_aff
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/utils/api.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';

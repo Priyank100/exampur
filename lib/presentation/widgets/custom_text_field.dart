@@ -1,6 +1,8 @@
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 extension EmailValidator on String {
   bool isValidEmail() {
     return RegExp(

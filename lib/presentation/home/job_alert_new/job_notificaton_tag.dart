@@ -1,7 +1,10 @@
 import 'package:exampur_mobile/data/model/job_notification_course_model.dart';
 import 'package:exampur_mobile/data/model/job_notification_tag_model.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

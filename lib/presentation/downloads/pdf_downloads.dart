@@ -5,8 +5,12 @@ import 'dart:ui';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -138,7 +142,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
 
                           Padding(
                             padding: const EdgeInsets.only(top: 10),
-                            child: CustomRoundButton(text: getTranslated(context, StringConstant.viewPdf)!, onPressed: (){
+                            child: CustomRoundButton(text: getTranslated(context, LangString.viewPdf)!, onPressed: (){
                               if (_status == DownloadTaskStatus.complete) {
                                 Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
                                     ViewPdf('',_file!.path)
@@ -157,7 +161,7 @@ class _DownloadedPdfState extends State<DownloadedPdf> {
                           //   child: Container(margin: EdgeInsets.only(top: 8), decoration: BoxDecoration(
                           //       color:Color(0xFF060929),
                           //       borderRadius: BorderRadius.all(Radius.circular(5))),
-                          //    height: 30,width: 90,child: Center(child: Text(getTranslated(context, StringConstant.viewPdf)!,style: TextStyle(color: AppColors.white,fontSize: 12),)),),
+                          //    height: 30,width: 90,child: Center(child: Text(getTranslated(context, LangString.viewPdf)!,style: TextStyle(color: AppColors.white,fontSize: 12),)),),
                           // ),
                           // InkWell(
                           //   onTap: (){

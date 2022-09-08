@@ -5,7 +5,11 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +51,7 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
                   names: studyMaterialDataList.map((item) => item.superCategory.toString()).toList(),
                   routes: studyMaterialDataList.length == 0 ? [] :
                   List.generate(studyMaterialDataList.length, (index) => dataList(index)),
-                  title:widget.pagetype==1? getTranslated(context, StringConstant.PreviousYearPdf)!:getTranslated(context, StringConstant.studyMaterials)!)
+                  title:widget.pagetype==1? getTranslated(context, LangString.PreviousYearPdf)!:getTranslated(context, LangString.studyMaterials)!)
           );
         });
   }
@@ -67,7 +71,7 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
         decoration: BoxDecoration(
           borderRadius:
           BorderRadius.all(Radius.circular(12)),
-          boxShadow: const [
+          boxShadow:  [
             BoxShadow(
               color: AppColors.grey,
               offset: Offset(0.0, 0.0),

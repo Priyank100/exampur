@@ -12,7 +12,9 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +57,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   final TextEditingController _billinglandMarkController = TextEditingController();
 
   Future<void> getSharedPrefData() async {
-    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPrefConstants.USER_DATA));
+    var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
@@ -89,12 +91,12 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           children: [
             widget.type == 'Course'|| widget.type=='Combo' ?
              Text(
-              getTranslated(context, StringConstant.use_coupon)!,
+              getTranslated(context, LangString.use_coupon)!,
               maxLines: 2, softWrap: true,
               style: TextStyle(fontSize: 25),
             ) : widget.type == 'TestSeries' ? Text('Test Series', style: TextStyle(fontSize: 25)) :
             Text(
-              getTranslated(context, StringConstant.provideFurtherDetailsForDeliveryOfBooks)!,
+              getTranslated(context, LangString.provideFurtherDetailsForDeliveryOfBooks)!,
               maxLines: 2,softWrap: true, style: TextStyle(fontSize: 25),
             ),
 
@@ -103,7 +105,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               padding: const EdgeInsets.only(top: 20.0),
               child: TextUse(
                 image: Icons.location_city,
-                title: getTranslated(context, StringConstant.address),
+                title: getTranslated(context, LangString.address),
               ),
             ),
 
@@ -111,7 +113,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: CustomTextField(
-                hintText: getTranslated(context, StringConstant.enterAddress)!,
+                hintText: getTranslated(context, LangString.enterAddress)!,
                 textInputType: TextInputType.text,
                 controller: _billingAddressController,
                 value: (value) {},
@@ -123,7 +125,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               padding: const EdgeInsets.only(top: 15.0),
               child: TextUse(
                 image: Icons.location_city,
-                title: getTranslated(context, StringConstant.landmarkTehsil),
+                title: getTranslated(context, LangString.landmarkTehsil),
               ),
             ),
 
@@ -131,7 +133,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: CustomTextField(
-                hintText: getTranslated(context, StringConstant.landmarkTehsil)!,
+                hintText: getTranslated(context, LangString.landmarkTehsil)!,
                 textInputType: TextInputType.text,
                 controller: _billinglandMarkController,
                 value: (value) {},
@@ -143,7 +145,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               padding: const EdgeInsets.only(top: 15.0),
               child: TextUse(
                 image: Icons.location_city,
-                title: getTranslated(context, StringConstant.city),
+                title: getTranslated(context, LangString.city),
               ),
             ),
 
@@ -151,7 +153,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: CustomTextField(
-                hintText: getTranslated(context, StringConstant.enterCity)!,
+                hintText: getTranslated(context, LangString.enterCity)!,
                 //focusNode: _phoneNode,
                 textInputType: TextInputType.text,
                 controller: _billingCityController,
@@ -164,7 +166,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               padding: const EdgeInsets.only(top: 15.0),
               child: TextUse(
                 image: Icons.location_city,
-                title: getTranslated(context, StringConstant.state),
+                title: getTranslated(context, LangString.state),
               ),
             ),
 
@@ -172,7 +174,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: CustomTextField(
-                hintText: getTranslated(context, StringConstant.enterState)!,
+                hintText: getTranslated(context, LangString.enterState)!,
                 //focusNode: _phoneNode,
                 textInputType: TextInputType.text,
                 controller: _billingStateController,
@@ -185,7 +187,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               padding: const EdgeInsets.only(top: 15.0),
               child: TextUse(
                 image: Icons.location_city,
-                title: getTranslated(context, StringConstant.pinCode),
+                title: getTranslated(context, LangString.pinCode),
               ),
             ),
 
@@ -193,7 +195,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: CustomTextField(
-                hintText: getTranslated(context, StringConstant.enterPinCode)!,
+                hintText: getTranslated(context, LangString.enterPinCode)!,
                 //focusNode: _phoneNode,
                 textInputType: TextInputType.number,
                   controller:_billingPincodeController,
@@ -233,7 +235,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                         },
                      
                       decoration: new InputDecoration(
-                          hintText: getTranslated(context, StringConstant.applyCoupon),
+                          hintText: getTranslated(context, LangString.applyCoupon),
                           hintStyle: TextStyle(color: AppColors.grey500),
                           isDense: true,
                           fillColor: AppColors.grey.withOpacity(0.1),border: InputBorder.none
@@ -264,7 +266,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                     decoration: BoxDecoration(color: AppColors.amber,
                       borderRadius:  BorderRadius.all(const Radius.circular(12)),
                     ),
-                    height: 45,child: Center(child: Text(getTranslated(context, StringConstant.apply)!,style: TextStyle(color: AppColors.white),)),
+                    height: 45,child: Center(child: Text(getTranslated(context, LangString.apply)!,style: TextStyle(color: AppColors.white),)),
                   ),
                 ),
               )
@@ -293,14 +295,14 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 child: Center(
                     child: widget.type == 'Course'||widget.type=='Combo' ?
                     Text(
-                      getTranslated(context, StringConstant.continueToBuyCourse)!,
+                      getTranslated(context, LangString.continueToBuyCourse)!,
                       style: TextStyle(color: AppColors.white,fontSize: 18),
                     ) :  widget.type == 'TestSeries' ?
                     Text(
                       'Continue to Buy Test Series',
                       style: TextStyle(color: AppColors.white,fontSize: 18),
                     ) :
-                    Text(getTranslated(context, StringConstant.continueToBuyBook)! ,
+                    Text(getTranslated(context, LangString.continueToBuyBook)! ,
                       style: TextStyle(color: AppColors.white,fontSize: 18),
                     )
                 ),
@@ -332,7 +334,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
         if (jsonObject['statusCode'].toString() == '200') {
           AppConstants.printLog('anchal' + jsonObject['data']['promo_code']);
-          AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.apply), AppColors.black);
+          AppConstants.showBottomMessage(context, getTranslated(context, LangString.apply), AppColors.black);
           isCouponValid = true;
           setState(() {});
         } else {
@@ -345,7 +347,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         couponApi(API.CouponCode_URL_2, promoCode, id);
 
       } else {
-        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+        AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
         isCouponValid = false;
         _cuponCodeController.text = '';
       }
@@ -547,7 +549,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         saveDeliveryAddress(false, _address, _pincode, _city, _state,_landmark, _promocode);
 
       } else {
-        AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+        AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
         //isCouponValid = false;
       }
     });
@@ -555,25 +557,25 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
   bool checkValidation(_address, _state, _city,_pincode,_landmark,_promocode) {
     if (widget.type == 'Book' && _address.isEmpty) {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.address_REQUIRED)!, AppColors.black);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.address_REQUIRED)!, AppColors.black);
       return false;
     }
     else if (widget.type == 'Book' && _state.isEmpty) {
-      AppConstants.showBottomMessage(context,  getTranslated(context, StringConstant.State_Required)!, AppColors.black);
+      AppConstants.showBottomMessage(context,  getTranslated(context, LangString.State_Required)!, AppColors.black);
       return false;
     }
     else if (widget.type == 'Book' && _city.isEmpty) {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.CITY_REQUIRED)!, AppColors.black);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.CITY_REQUIRED)!, AppColors.black);
       return false;
     }else if (widget.type == 'Book' && _pincode.isEmpty) {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.pincode_REQUIRED)!, AppColors.black);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.pincode_REQUIRED)!, AppColors.black);
       return false;
     }
     else if (widget.type == 'Book' && _landmark.isEmpty) {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.landmarkTehsil)!, AppColors.black);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.landmarkTehsil)!, AppColors.black);
       return false;
     }else if(_promocode.toString().isNotEmpty && !isCouponValid) {
-      AppConstants.showBottomMessage(context,getTranslated(context, StringConstant.applyCoupon)!, AppColors.black);
+      AppConstants.showBottomMessage(context,getTranslated(context, LangString.applyCoupon)!, AppColors.black);
       return false;
     }
     else {
@@ -583,7 +585,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
   bool checkCoupon(_promocode){
     if (_promocode.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, StringConstant.PromoCode_REQUIRED)!), backgroundColor:AppColors.black));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, LangString.PromoCode_REQUIRED)!), backgroundColor:AppColors.black));
       return false;
     }
     else {

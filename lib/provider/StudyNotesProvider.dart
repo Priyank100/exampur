@@ -8,9 +8,11 @@ import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/model/study_notes_subject_model.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/repository/StudyNotesRepo.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 
 class StudyNotesProvider extends ChangeNotifier {
   final StudyNotesRepo studyNotesRepo;
@@ -36,7 +38,7 @@ class StudyNotesProvider extends ChangeNotifier {
       return myList;
 
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
@@ -48,7 +50,7 @@ class StudyNotesProvider extends ChangeNotifier {
       _studyNotesSubjectModel = StudyNotesSubjectModel.fromJson(json.decode(apiResponse.response.toString()));
       return _studyNotesSubjectModel;
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
@@ -59,7 +61,7 @@ class StudyNotesProvider extends ChangeNotifier {
       _studyNotesChapterModel = StudyNotesChaperModel.fromJson(json.decode(apiResponse.response.toString()));
       return _studyNotesChapterModel;
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
@@ -70,7 +72,7 @@ Future<StudyNotesDescriptionModel?> getStudyNotesChapterDescriptionList(BuildCon
       _studyNotesChapterDescriptionModel = StudyNotesDescriptionModel.fromJson(json.decode(apiResponse.response.toString()));
       return _studyNotesChapterDescriptionModel;
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError), AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();

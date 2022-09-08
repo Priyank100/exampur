@@ -3,7 +3,10 @@ import 'package:exampur_mobile/presentation/home/paid_courses/teaching_list.dart
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

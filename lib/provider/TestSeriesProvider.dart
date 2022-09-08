@@ -9,7 +9,9 @@ import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
 import 'package:exampur_mobile/data/repository/MyCourseRepo.dart';
 import 'package:exampur_mobile/data/repository/test_series_repo.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +43,7 @@ class TestSeriesProvider extends ChangeNotifier {
       }
       notifyListeners();
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }
@@ -66,7 +68,7 @@ class TestSeriesProvider extends ChangeNotifier {
       }
       notifyListeners();
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }
@@ -91,7 +93,7 @@ class TestSeriesProvider extends ChangeNotifier {
       }
       notifyListeners();
     } else {
-      AppConstants.showBottomMessage(context, getTranslated(context, StringConstant.serverError)!, AppColors.red);
+      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
       AppConstants.goAndReplace(context, ErrorScreen());
       notifyListeners();
     }

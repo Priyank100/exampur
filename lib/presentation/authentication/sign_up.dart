@@ -8,8 +8,11 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_button.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/api.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/custompassword_textfield.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
@@ -430,7 +433,7 @@ class SignUpState extends State<SignUp> {
         'Email':_emailController.text.toString(),
       };
       AnalyticsConstants.logEvent('USER_SIGNUP',stuff);
-      // SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, '0');
+      // SharedPref.saveSharedPref(SharedPref.CATEGORY_LENGTH, '0');
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => OtpScreen(false)));

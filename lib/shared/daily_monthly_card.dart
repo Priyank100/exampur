@@ -1,9 +1,13 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/presentation/home/current_affairs/contentDetailpage.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 
 class DailyMonthlyCard extends StatefulWidget {
@@ -66,7 +70,7 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
                             decoration: BoxDecoration(
                                 border: Border.all(color: AppColors.black)
                             ),
-                            child: Text(getTranslated(context, StringConstant.view)!, style: TextStyle(fontSize: 12)),
+                            child: Text(getTranslated(context, LangString.view)!, style: TextStyle(fontSize: 12)),
                           ),
                         ),
                         // InkWell(
@@ -77,7 +81,7 @@ class _DailyMonthlyCardState extends State<DailyMonthlyCard> {
                         //     children: [
                         //       Icon(Icons.share_outlined, size: 15),
                         //       SizedBox(width: 5),
-                        //       Text(getTranslated(context, StringConstant.share)!, style: TextStyle(fontSize: 10)),
+                        //       Text(getTranslated(context, LangString.share)!, style: TextStyle(fontSize: 10)),
                         //       SizedBox(width: 10),
                         //
                         //     ],

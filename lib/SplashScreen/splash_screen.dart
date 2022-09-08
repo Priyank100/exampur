@@ -4,25 +4,24 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:launch_review/launch_review.dart';
-import 'package:new_version/new_version.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
+import 'package:upgrader/upgrader.dart';
 
 class SplashScreen extends StatefulWidget {
-
+  const SplashScreen() : super();
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-
 
   @override
   void initState() {
@@ -53,7 +52,10 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  /*Future<void> _checkVersion() async {
+  Future<void> _checkVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    AppConstants.versionName = packageInfo.version;
+    AppConstants.versionCode = packageInfo.buildNumber;
     await UpgradeAlert().upgrader.initialize().then((value) async {
       // String deviceVersion = UpgradeAlert().upgrader.currentInstalledVersion().toString();
       // String storeVersion = UpgradeAlert().upgrader.currentAppStoreVersion().toString();
@@ -70,70 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
         callProvider();
       }
     });
-  }*/
-
-  void _checkVersion() async {
-    final newVersion = NewVersion(
-      androidId: "com.edudrive.exampur",
-    );
-    try {
-      final status = await newVersion.getVersionStatus();
-      AppConstants.printLog(status!.storeVersion.toString());
-      AppConstants.printLog(status.storeVersion.toString());
-
-      await newVersion.getVersionStatus().then((status) {
-        if (status == null
-            || status.localVersion == status.storeVersion
-            || getExtendedVersionNumber(status.localVersion) >=
-                getExtendedVersionNumber(status.storeVersion)) {
-          callProvider();
-        } else {
-          Widget cancelButton = TextButton(
-            child: Text("Skip", style: TextStyle(color: AppColors.amber)),
-            onPressed: () {
-              Navigator.pop(context);
-              callProvider();
-            },
-          );
-          Widget continueButton = TextButton(
-            child: Text(
-              "Lets update", style: TextStyle(color: AppColors.amber),),
-            onPressed: () {
-              SystemNavigator.pop();
-              LaunchReview.launch(androidAppId: AppConstants.androidId,
-                  iOSAppId: AppConstants.iosId);
-            },
-          );
-          AlertDialog alert = AlertDialog(
-            title: Text("UPDATE!!!"),
-            content: Text(
-                "Please update the app from " + "${status.localVersion}" +
-                    " to " + "${status.storeVersion}"),
-            actions: [
-              cancelButton,
-              continueButton,
-            ],
-          );
-
-          showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (BuildContext context) {
-              return WillPopScope(
-                  onWillPop: () async {
-                    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-                    return true;
-                  },
-                  child: alert);
-            },
-          );
-        }
-      });
-    } catch(e){
-      callProvider();
-    }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +96,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> checkSharedPrefToken() async {
-    await SharedPref.getSharedPref(SharedPrefConstants.TOKEN).then((value) {
+    await SharedPref.getSharedPref(SharedPref.TOKEN).then((value) {
       AppConstants.printLog('TOKEN>> $value');
       validateToken(value);
     });

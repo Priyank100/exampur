@@ -1,6 +1,9 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_round_button.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/my_purchase_model.dart';
 import 'invoicePage.dart';
@@ -121,7 +124,7 @@ class _PurchaseListContainerState extends State<PurchaseListContainer> {
                     children: [
                       Column(
                         children: [
-                          CustomRoundButton(text: getTranslated(context, StringConstant.viewInvoice)!, onPressed: (){
+                          CustomRoundButton(text: getTranslated(context, LangString.viewInvoice)!, onPressed: (){
                             Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 InvoiceDetailPage(widget.mypurchaseData.id.toString(),widget.mypurchaseData.product!.type.toString(),)
                             ));

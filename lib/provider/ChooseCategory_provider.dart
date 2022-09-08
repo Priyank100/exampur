@@ -5,7 +5,9 @@ import 'package:exampur_mobile/Helper/api_checker.dart';
 import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
 import 'package:exampur_mobile/data/model/GetcategoruModel.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:exampur_mobile/data/repository/ChooseCategory_repo.dart';
 
@@ -29,7 +31,14 @@ class ChooseCategoryProvider extends ChangeNotifier {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if(statusCode == '200') {
         _categoryModel = ChooseCategory.fromJson(json.decode(apiResponse.response.toString()));
-        return _categoryModel.data;
+        List<Data> categoryList = [];
+        for(int i=0; i<_categoryModel.data!.length; i++) {
+          if(_categoryModel.data![i].name.toString().toLowerCase() != 'all exams') {
+            categoryList.add(_categoryModel.data![i]);
+          }
+        }
+        return categoryList;
+        // return _categoryModel.data;
       } else {
         AppConstants.showBottomMessage(context, apiResponse.response!.data['data'].toString(), AppColors.black);
       }

@@ -6,6 +6,8 @@ import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -100,7 +102,7 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
           Padding(
             padding: const EdgeInsets.only(left: 8),
             child: Text(
-              getTranslated(context,StringConstant.priceBreakdown)!,
+              getTranslated(context,LangString.priceBreakdown)!,
               softWrap: true,
               style: TextStyle(fontSize: 14),
             ),
@@ -111,7 +113,7 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  getTranslated(context,StringConstant.Price)!,
+                  getTranslated(context,LangString.Price)!,
                   softWrap: true,
                   style: TextStyle(fontSize: 12),
                 ),
@@ -129,7 +131,7 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  getTranslated(context,StringConstant.sellingPrice)!,
+                  getTranslated(context,LangString.sellingPrice)!,
                   softWrap: true,
                   style: TextStyle(fontSize: 12),
                 ),
@@ -151,7 +153,7 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  getTranslated(context, StringConstant.TotalAmount)!,
+                  getTranslated(context, LangString.TotalAmount)!,
                   softWrap: true,
                   style: TextStyle(fontSize: 14),
                 ),
@@ -183,7 +185,7 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
                     ),
                   );
                 },
-                text:getTranslated(context, StringConstant.placeOrder)!,
+                text:getTranslated(context, LangString.placeOrder)!,
               ),
             ),
           ),

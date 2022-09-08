@@ -16,8 +16,10 @@ import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
 import 'package:exampur_mobile/presentation/home/LandingChooseCategory.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/utils/api.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,12 +54,12 @@ class AuthProvider extends ChangeNotifier {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if(statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
-        await SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
+        await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
-        await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
+        await SharedPref.saveSharedPref(SharedPref.USER_DATA, jsonEncode(_userData));
         // callback(true, '');
 
         AppConstants.CATEGORY_LENGTH = _informationModel.data!.countCategories.toString();
@@ -102,13 +104,14 @@ class AuthProvider extends ChangeNotifier {
       if(statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
 
-        await SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
+        await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
         AppConstants.isotpverify = _informationModel.data!.phoneConf!;
 
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
-        await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
+        await SharedPref.saveSharedPref(SharedPref.USER_DATA, jsonEncode(_userData));
+        AppConstants.CATEGORY_LENGTH = _informationModel.data!.countCategories.toString();
 
         callback(true, '');
       } else {
@@ -142,7 +145,7 @@ class AuthProvider extends ChangeNotifier {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
         List<UserInformationModel> _userData = [];
         _userData.add(_informationModel);
-        await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
+        await SharedPref.saveSharedPref(SharedPref.USER_DATA, jsonEncode(_userData));
         return true;
       } else {
         return false;
@@ -175,10 +178,10 @@ class AuthProvider extends ChangeNotifier {
 
       if (statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
-        await SharedPref.saveSharedPref(SharedPrefConstants.TOKEN, _informationModel.data!.authToken.toString());
+        await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
 
         _userData.add(_informationModel);
-        await SharedPref.saveSharedPref(SharedPrefConstants.USER_DATA, jsonEncode(_userData));
+        await SharedPref.saveSharedPref(SharedPref.USER_DATA, jsonEncode(_userData));
 
         AppConstants.CATEGORY_LENGTH = _informationModel.data!.countCategories.toString();
         AppConstants.isotpverify = _informationModel.data!.phoneConf??false;
@@ -224,7 +227,7 @@ class AuthProvider extends ChangeNotifier {
       if(response != null && response.statusCode == 200) {
         var jsonObject =  jsonDecode(response.body);
         if(jsonObject['statusCode'].toString() == '200') {
-          // await SharedPref.saveSharedPref(SharedPrefConstants.BANNER_BASE_SP, jsonObject['data'].toString());
+          // await SharedPref.saveSharedPref(SharedPref.BANNER_BASE_SP, jsonObject['data'].toString());
           AppConstants.printLog('BANNER_BASE>> ' + jsonObject['data'].toString());
           AppConstants.BANNER_BASE = jsonObject['data'].toString() + '/';
         } else {
@@ -239,7 +242,7 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> checkSelectCategory(context, countCategories) async {
 
-    // await SharedPref.getSharedPref(SharedPrefConstants.CATEGORY_LENGTH).then((countCategories) => {
+    // await SharedPref.getSharedPref(SharedPref.CATEGORY_LENGTH).then((countCategories) => {
       if(countCategories == 0) {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
@@ -251,7 +254,7 @@ class AuthProvider extends ChangeNotifier {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
-                BottomNavigationOld()
+                BottomNavigation()
             )
         );
       }

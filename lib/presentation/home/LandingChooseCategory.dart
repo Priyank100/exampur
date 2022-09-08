@@ -8,7 +8,9 @@ import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -17,11 +19,8 @@ import 'package:provider/provider.dart';
 import 'bottom_navigation.dart';
 
 class LandingChooseCategory extends StatefulWidget {
-  // final bool isMultiSelection;
 
-  const LandingChooseCategory(
-      // {this.isMultiSelection = false}
-      );
+  const LandingChooseCategory();
 
   @override
   _LandingChooseCategoryState createState() => _LandingChooseCategoryState();
@@ -31,11 +30,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
 
   List<Data> chooseList = [];
   List<String> selectedCategoryIdList = [];
-
-  // late final List<Category> selectedList;
-  // late final bool isSelected;
-//  List<String> selectedList = [];
-
+  bool isLoading = false;
   List<Data> myList = [];
 
 
@@ -43,16 +38,14 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
   initState() {
     callProvider();
     super.initState();
-    //selectedCountries = chooseList;
   }
 
   Future<void> callProvider() async {
+    isLoading = true;
     await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context);
-    chooseList =
-        (await Provider.of<ChooseCategoryProvider>(context, listen: false)
-            .getAllCategoryList(context))!;
-
+    chooseList = (await Provider.of<ChooseCategoryProvider>(context, listen: false).getAllCategoryList(context))!;
     myList = chooseList;
+    isLoading = false;
     setState(() {});
   }
 
@@ -60,8 +53,12 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(),
-        body: myList.length != 0
-            ? SafeArea(
+        body: isLoading ? Center(
+            child: CircularProgressIndicator(
+              color: Colors.amber,
+            )
+        ) :
+        SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -115,6 +112,10 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                         ),
                       ),
                       SizedBox(height: 15,),
+
+                      myList.length == 0 ? Center(
+                          child: AppConstants.noDataFound()
+                      ):
                       Expanded(
                         child: CustomScrollView(slivers: [
                           SliverGrid(
@@ -153,6 +154,8 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                                     myList[index]
                                                         .name
                                                         .toString(),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 2,
                                                     style: TextStyle(
                                                       fontSize: 14.0,
                                                       fontWeight:
@@ -185,8 +188,6 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                             ),
                                           ],
                                         ),
-
-                                        //height: 100.0,
                                         decoration: BoxDecoration(
                                           border:
                                           myList[index].isSelected
@@ -227,8 +228,8 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                           ),
                         ]),
                       ),
-                      // selectedCountries.length > 0
-                      //     ?
+
+                      myList.length == 0 ? SizedBox() :
                       Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 25,
@@ -242,7 +243,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                     'exam_categories': selectedCategoryIdList.toString()
                                   });
 
-                                  // SharedPref.saveSharedPref(SharedPrefConstants.CATEGORY_LENGTH, selectedCountries.length.toString());
+                                  // SharedPref.saveSharedPref(SharedPref.CATEGORY_LENGTH, selectedCountries.length.toString());
 
                                   AppConstants.printLog(selectedCategoryIdList.length.toString());
                                   if(selectedCategoryIdList.length > 0){
@@ -281,32 +282,11 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
                                 ),
                               ),
                             )
-                          // : Container(
-                          //     height: 50,
-                          //     width: double.infinity,
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: const BoxDecoration(
-                          //       color: Colors.amber,
-                          //       //border: Border.all( color: Colors.amber,),
-                          //       borderRadius:
-                          //           BorderRadius.all(Radius.circular(5.0) //
-                          //               ),
-                          //     ),
-                          //     child: Center(
-                          //         child: Text(
-                          //       "Save the course",
-                          //       style: TextStyle(
-                          //           color: Colors.white, fontSize: 20),
-                          //     )),
-                          //   ),
                     ],
                   ),
                 ),
               )
-            : Center(
-                child: CircularProgressIndicator(
-                color: Colors.amber,
-              )));
+    );
   }
 
   UpdateChoosecategory(List? categories) async {
@@ -337,7 +317,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
           }
         }
 
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigationOld()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigation()));
 
       } else if(response.statusCode == 429) {
         await Service.post(
@@ -355,7 +335,7 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder:
                     (context) =>
-                    BottomNavigationOld()
+                    BottomNavigation()
                 )
             );
           } else {

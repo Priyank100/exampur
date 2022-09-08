@@ -3,8 +3,12 @@ import 'package:exampur_mobile/data/model/offlinebatches_courses_video.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/Offline_batchesProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -107,7 +111,7 @@ class _OfflineBatchesVideoState extends State<OfflineBatchesVideo> {
                 width: 120,
                 child: Center(
                     child: Text(
-                      getTranslated(context, StringConstant.buy)!,
+                      getTranslated(context, LangString.buy)!,
                       style: TextStyle(color: AppColors.white),
                     )),
               ),

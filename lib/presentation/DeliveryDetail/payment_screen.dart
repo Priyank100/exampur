@@ -7,7 +7,9 @@ import 'package:exampur_mobile/data/model/delivery_upsell_model.dart';
 import 'package:exampur_mobile/presentation/PaymentRecieptpage/Receiptpage.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -47,29 +49,29 @@ class _PaymentScreenState extends State<PaymentScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(getTranslated(context, StringConstant.billingaddress)!,
+                Text(getTranslated(context, LangString.billingaddress)!,
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
 
                 Divider(),
 
-                textUse(getTranslated(context, StringConstant.name)!, widget.billingModel.name.toString()),
-                textUse(getTranslated(context, StringConstant.phoneNumber)!, widget.billingModel.mobile.toString()),
-                textUse(getTranslated(context, StringConstant.email)!, widget.billingModel.eMail.toString()),
-                widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ? SizedBox() :  textUse(getTranslated(context, StringConstant.address)!, widget.billingModel.address.toString()),
-                widget.billingModel.city.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, StringConstant.city)!, widget.billingModel.city.toString()),
-                widget.billingModel.state.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, StringConstant.state)!, widget.billingModel.state.toString()),
-                widget.billingModel.country.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, StringConstant.country)!, widget.billingModel.country.toString()),
-                widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ? SizedBox(): textUse(getTranslated(context, StringConstant.pinCode)!, widget.billingModel.pincode.toString()),
-                widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox(): textUse(getTranslated(context, StringConstant.landmarkTehsil)!, widget.billingModel.landmark.toString()),
+                textUse(getTranslated(context, LangString.name)!, widget.billingModel.name.toString()),
+                textUse(getTranslated(context, LangString.phoneNumber)!, widget.billingModel.mobile.toString()),
+                textUse(getTranslated(context, LangString.email)!, widget.billingModel.eMail.toString()),
+                widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ? SizedBox() :  textUse(getTranslated(context, LangString.address)!, widget.billingModel.address.toString()),
+                widget.billingModel.city.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, LangString.city)!, widget.billingModel.city.toString()),
+                widget.billingModel.state.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, LangString.state)!, widget.billingModel.state.toString()),
+                widget.billingModel.country.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, LangString.country)!, widget.billingModel.country.toString()),
+                widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ? SizedBox(): textUse(getTranslated(context, LangString.pinCode)!, widget.billingModel.pincode.toString()),
+                widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox(): textUse(getTranslated(context, LangString.landmarkTehsil)!, widget.billingModel.landmark.toString()),
 
                 Divider(),
 
                 widget.type == 'Course' || widget.type == 'Combo' ?
-                textUse(getTranslated(context, StringConstant.coursename)!, widget.billingModel.itemName.toString()) :
+                textUse(getTranslated(context, LangString.coursename)!, widget.billingModel.itemName.toString()) :
                 widget.type == 'TestSeries' ?
                 textUse('TestSeries Name', widget.billingModel.itemName.toString()) :
-                textUse(getTranslated(context, StringConstant.book_name)!, widget.billingModel.itemName.toString()),
-                textUse(getTranslated(context, StringConstant.TotalAmount)!, widget.deliveryUpsellModel.data!.amount.toString()),
+                textUse(getTranslated(context, LangString.book_name)!, widget.billingModel.itemName.toString()),
+                textUse(getTranslated(context, LangString.TotalAmount)!, widget.deliveryUpsellModel.data!.amount.toString()),
 
                 widget.couponCode.isEmpty ? SizedBox() :Divider(),
                 widget.couponCode.isEmpty ? SizedBox() : textUse('Coupon code apply', widget.couponCode),
@@ -92,7 +94,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     padding: EdgeInsets.all(10),
                     width: double.maxFinite,
                     color: Colors.amber,
-                    child: Text(getTranslated(context, StringConstant.paynow)!, textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
+                    child: Text(getTranslated(context, LangString.paynow)!, textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
                   )
                 )
               ],

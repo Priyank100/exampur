@@ -22,6 +22,7 @@ class API {
 
   //cache production
   static const String BASE_URL1 = 'https://auth.exampurcache.xyz/';
+  // static const String BASE_URL1 = 'http://172.16.12.113:3001/';
   static const String BASE_URL2 = 'https://static.exampurcache.xyz/';
 
   // call if BASE_URL1 got error-429

@@ -2,8 +2,10 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/job_alert_list_model.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alert_detail_screen.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -42,14 +44,14 @@ class _JobAlertViewContainerState extends State<JobAlertViewContainer> {
                   decoration: BoxDecoration(
                       border: Border.all(color: AppColors.black)
                   ),
-                  child: Text(getTranslated(context, StringConstant.view)!, style: TextStyle(fontSize: 12)),
+                  child: Text(getTranslated(context, LangString.view)!, style: TextStyle(fontSize: 12)),
                 ),
               ),
               SizedBox(width: 15,),
               // Row(children: [
               //   Image.asset(Images.share,height: 15,width: 15,),
               //   SizedBox(width: 5,),
-              //   Text(getTranslated(context, StringConstant.share)!, style: TextStyle(fontSize: 10))
+              //   Text(getTranslated(context, LangString.share)!, style: TextStyle(fontSize: 10))
               // ],)
             ],
           ),

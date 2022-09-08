@@ -4,7 +4,9 @@ import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:exampur_mobile/presentation/home/books/books_screen.dart';
 import 'package:exampur_mobile/presentation/home/books/e_books_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -48,7 +50,7 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
                       BooksScreen(),
                       EBooksScreen()
                     ],
-                    title: getTranslated(context, StringConstant.books)!)
+                    title: getTranslated(context, LangString.books)!)
             );
     });
   }

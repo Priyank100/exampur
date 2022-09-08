@@ -3,7 +3,9 @@ import 'package:exampur_mobile/data/model/demo_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/cupertino.dart';
@@ -72,7 +74,7 @@ class DemoState extends State<Demo> {
     return Scaffold(
         // appBar: AppBar(
         //     title: Text(
-        //     getTranslated(context, StringConstant.demo_classes)!,
+        //     getTranslated(context, LangString.demo_classes)!,
         //       style: CustomTextStyle.headingBigBold(context),
         //     ),
         //     backgroundColor: AppColors.transparent,
@@ -87,7 +89,7 @@ class DemoState extends State<Demo> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-                getTranslated(context, StringConstant.demo_classes)!,
+                getTranslated(context, LangString.demo_classes)!,
                   style: CustomTextStyle.headingBigBold(context),
                 ),
           ),
@@ -103,7 +105,7 @@ class DemoState extends State<Demo> {
                   SizedBox(height: Dimensions.FONT_SIZE_SMALL,),
                   // Padding(
                   //   padding: const EdgeInsets.only(left: 10),
-                  //   child: TitleRow(title: getTranslated(context, StringConstant.recorded)!, onTap: () {  },  ),
+                  //   child: TitleRow(title: getTranslated(context, LangString.recorded)!, onTap: () {  },  ),
                   // ),
                  Expanded(
                    child: ListView.builder(

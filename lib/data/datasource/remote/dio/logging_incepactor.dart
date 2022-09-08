@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
+
 
 class LoggingInterceptor extends InterceptorsWrapper {
   int maxCharactersPerLine = 200;

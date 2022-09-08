@@ -3,6 +3,7 @@ import 'package:exampur_mobile/data/model/job_alert_list_model.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'job_alert_view_container.dart';

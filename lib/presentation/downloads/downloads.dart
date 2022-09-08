@@ -5,6 +5,9 @@ import 'package:exampur_mobile/data/model/download_model.dart';
 import 'package:exampur_mobile/presentation/downloads/video_downloads.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -86,7 +89,7 @@ class DownloadsState extends State<Downloads> with SingleTickerProviderStateMixi
                         }
                     );
                   },
-                  title: getTranslated(context, StringConstant.downloads)!)
+                  title: getTranslated(context, LangString.downloads)!)
           );
         });
   }

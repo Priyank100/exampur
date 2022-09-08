@@ -4,7 +4,11 @@ import 'package:exampur_mobile/data/model/ca_sm_model.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
+import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:exampur_mobile/utils/lang_string.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -43,7 +47,7 @@ widget.contentlist.type=='PDF'?widget.contentlist.targetLink==null||widget.conte
                                     ViewPdf(AppConstants.BANNER_BASE + widget.contentlist.targetLink.toString(),'')
                                 ));
                               },
-                                child: Text(getTranslated(context, StringConstant.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
+                                child: Text(getTranslated(context, LangString.clickHereToViewPDF)!,style: TextStyle(fontSize: 20,color: AppColors.blue),)
                             )
                           //  Container(height: 3,color: AppColors.blue,margin:EdgeInsets.only(left: 15,right: 15) ,)
                           :SizedBox()
