@@ -236,4 +236,9 @@ class API {
   //service log
   static const String serviceLogUrl = 'https://elastic.exampur.xyz/api/v1/service/log';
 
+
+  //pre-booking
+  static const String preBookCouponUrl = '';
+  static const String preBookOrderUrl = '';
+
 }

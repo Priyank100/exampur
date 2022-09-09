@@ -80,6 +80,7 @@ class PaidCourseData {
     bool? onEmi,
     List<EmiPlans>? emiPlans,
     String? testSeriesLink,
+    String? type,
   }){
     _id = id;
     _title = title;
@@ -97,6 +98,7 @@ class PaidCourseData {
     _onEmi = onEmi??false;
     _emiPlans = emiPlans??[];
     _testSeriesLink = testSeriesLink;
+    _type = type ;
 }
 
   PaidCourseData.fromJson(dynamic json) {
@@ -131,6 +133,7 @@ class PaidCourseData {
       });
       _testSeriesLink = json['test_series_link']==null?'':json['test_series_link'].toString();
     }
+    _type = json['type']==null?'':json['type'].toString();
   }
   String? _id;
   String? _title;
@@ -148,6 +151,7 @@ class PaidCourseData {
   bool? _onEmi;
   List<EmiPlans>? _emiPlans;
   String? _testSeriesLink;
+  String? _type;
 
   String? get id => _id;
   String? get title => _title;
@@ -165,6 +169,7 @@ class PaidCourseData {
   bool? get onEmi => _onEmi;
   List<EmiPlans>? get emiPLans => _emiPlans;
   String? get testSeriesLink => _testSeriesLink;
+  String? get type => _type;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -190,6 +195,7 @@ class PaidCourseData {
       map['emi_plans'] = _emiPlans?.map((v) => v.toJson()).toList();
     }
     map['test_series_link'] = _testSeriesLink;
+    map['type'] = _type;
     return map;
   }
 

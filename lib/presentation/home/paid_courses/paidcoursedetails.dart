@@ -295,6 +295,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                           DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
                               widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
                               upsellBookList: widget.courseData.upsellBook??[], emiPlan: selectedEmiPlans,
+                            pre_booktype:widget.courseData.type,
                           )
                       ));
                     },
@@ -307,8 +308,9 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                       margin: EdgeInsets.all(10),
                       child: Center(
                           child: Text(
-                            getTranslated(context, LangString.buyCourse)!,
-                            style: TextStyle(color: AppColors.white, fontSize: 18),
+                            widget.courseData.type == ''?
+                            getTranslated(context, LangString.buyCourse)!:AppConstants.pre_book_button,
+                            style: TextStyle(color: AppColors.white, fontSize: 16),
                           )),
                     ),
                   )
