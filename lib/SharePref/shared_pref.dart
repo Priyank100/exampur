@@ -4,6 +4,7 @@ class SharedPref {
   static const String TOKEN           = 'Token';
   static const String USER_DATA       = 'user_data';
   static const String RATING          = 'rating';
+  static const String LANG_CODE       = 'languageCode';
 
   static Future saveSharedPref(String key, String value) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
