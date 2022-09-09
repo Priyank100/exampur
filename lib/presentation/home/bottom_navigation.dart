@@ -35,6 +35,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:provider/provider.dart';
 
+import '../../main.dart';
+
 class ItemClass {
   const ItemClass(this.index, this.label, this.icon);
 
@@ -621,14 +623,15 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                                   text: getTranslated(context, 'log_out')),
                             ),
                           ]),
-                      onTap: () {
+                      onTap: () async {
                         AnalyticsConstants.sendAnalyticsEvent(
                             AnalyticsConstants.logoutClick);
                         Map<String, Object> stuff = {};
                         AnalyticsConstants.logEvent(AnalyticsConstants.logoutClick,stuff);
                         SharedPref.clearSharedPref(SharedPref.TOKEN);
-                        SharedPref.clearSharedPref(
-                            SharedPref.USER_DATA);
+                        SharedPref.clearSharedPref(SharedPref.USER_DATA);
+                        Locale _locale = await setLocale('en');
+                        MyApp.setLocale(context, _locale);
                         Navigator.of(context).pushNamedAndRemoveUntil(
                             '/landingPage', (Route<dynamic> route) => false);
                       },
