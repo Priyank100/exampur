@@ -17,7 +17,7 @@ class Service {
     Map<String, String> header = {
       "appAuthToken": token,
       "Content-Type": "application/json",
-      "app_version":AppConstants.versionCode
+      "app-version":AppConstants.versionCode
     };
 
     try {
@@ -44,7 +44,7 @@ class Service {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'appAuthToken': token,
-      "app_version":AppConstants.versionCode
+      "app-version":AppConstants.versionCode
     });
     AppConstants.printLog('Response> ${response.body.toString()}');
     if (response.statusCode == 200) {
