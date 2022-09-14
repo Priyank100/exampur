@@ -80,7 +80,9 @@ class PaidCourseData {
     bool? onEmi,
     List<EmiPlans>? emiPlans,
     String? testSeriesLink,
-    String? type,
+    String? status,
+   PreBookDetail? preBookDetail,
+
   }){
     _id = id;
     _title = title;
@@ -98,7 +100,8 @@ class PaidCourseData {
     _onEmi = onEmi??false;
     _emiPlans = emiPlans??[];
     _testSeriesLink = testSeriesLink;
-    _type = type ;
+    _status = status ;
+   _preBookDetail = preBookDetail;
 }
 
   PaidCourseData.fromJson(dynamic json) {
@@ -133,7 +136,8 @@ class PaidCourseData {
       });
       _testSeriesLink = json['test_series_link']==null?'':json['test_series_link'].toString();
     }
-    _type = json['type']==null?'':json['type'].toString();
+    _status = json['status']==null?'Published':json['status'].toString();
+   _preBookDetail = json['prebook_details'] == null ? null : PreBookDetail.fromJson(json["prebook_details"]);
   }
   String? _id;
   String? _title;
@@ -151,7 +155,8 @@ class PaidCourseData {
   bool? _onEmi;
   List<EmiPlans>? _emiPlans;
   String? _testSeriesLink;
-  String? _type;
+  String? _status;
+ PreBookDetail? _preBookDetail;
 
   String? get id => _id;
   String? get title => _title;
@@ -169,7 +174,8 @@ class PaidCourseData {
   bool? get onEmi => _onEmi;
   List<EmiPlans>? get emiPLans => _emiPlans;
   String? get testSeriesLink => _testSeriesLink;
-  String? get type => _type;
+  String? get status => _status;
+ PreBookDetail? get preBookDetail => _preBookDetail;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -195,7 +201,8 @@ class PaidCourseData {
       map['emi_plans'] = _emiPlans?.map((v) => v.toJson()).toList();
     }
     map['test_series_link'] = _testSeriesLink;
-    map['type'] = _type;
+    map['status'] = _status;
+   map['prebook_details'] = _preBookDetail;
     return map;
   }
 
@@ -270,3 +277,43 @@ class EmiPlans {
     return map;
   }
 }
+
+class PreBookDetail{
+
+  PreBookDetail({
+    String? percentOff,
+    String? days, String? message,
+    String? couponCode
+  }) {
+    _percentOff = percentOff;
+    _days = days;
+    _message = message;
+    _couponCode = couponCode;
+  }
+  PreBookDetail.fromJson(dynamic json) {
+    _percentOff = json['percentage_off'] == null ? '' : json['percentage_off'].toString();
+    _days = json['days'] == null ? '' : json['days'].toString();
+    _message = json['message'] == null ? '' : json['message'].toString();
+    _couponCode = json['coupon_code'] == null ? '' : json['coupon_code'].toString();
+  }
+  String? _percentOff;
+  String? _days;
+  String? _message;
+  String? _couponCode;
+
+  String? get percentOff => _percentOff;
+  String? get days => _days;
+  String? get message => _message;
+  String? get couponCode => _couponCode;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['percentage_off'] = _percentOff;
+    map['days'] = _days;
+    map['message'] = _message;
+    map['coupon_code'] = _couponCode;
+    return map;
+  }
+
+}
+

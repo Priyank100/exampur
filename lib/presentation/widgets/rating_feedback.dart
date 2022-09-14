@@ -152,7 +152,7 @@ class RatingFeedbackState extends State<RatingFeedback> {
     Map<String, String> header = {
       "x-auth-token": AppConstants.serviceLogToken,
       "Content-Type": "application/json",
-      "app_version":AppConstants.versionCode
+      "app-version":AppConstants.versionCode
     };
     await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) {
       Navigator.pop(context);

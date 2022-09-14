@@ -51,6 +51,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
   String? userEmail;
   String? versionName;
   String? versionCode;
+  String message = '';
 
   Future<void> getUserData() async {
     var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
@@ -85,6 +86,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    message = AppConstants.langCode == 'hi' ? LangString.preBookTextHi : LangString.preBookTextEng;
     getUserData();
     getDeviceData();
     getAppVersionData();
@@ -243,11 +245,13 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               MaterialPageRoute(builder: (context) =>
                                   DeliveryDetailScreen(courseTabType, widget.courseData.id.toString(),
                                     widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
-                                      upsellBookList: widget.courseData.upsellBook??[],pre_booktype: widget.courseData.type,
+                                      upsellBookList: widget.courseData.upsellBook??[],pre_booktype: widget.courseData.status,preBookDetail:widget.courseData.preBookDetail
                                   )
                               ),
                             );
-                          },text: widget.courseData.type == ''?getTranslated(context, LangString.buyCourse)!:AppConstants.pre_book_button)
+                          },text: widget.courseData.status == 'Published'?getTranslated(context, LangString.buyCourse)!:
+                          message.replaceAll('X', widget.courseData.preBookDetail!.percentOff.toString())
+                          )
                               : SizedBox(),
 
                           SizedBox(height: 10,),
@@ -324,7 +328,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
     Map<String, String> header = {
       "x-auth-token": AppConstants.serviceLogToken,
       "Content-Type": "application/json",
-      "app_version":AppConstants.versionCode
+      "app-version":AppConstants.versionCode
     };
     await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) {
       AppConstants.printLog(header);

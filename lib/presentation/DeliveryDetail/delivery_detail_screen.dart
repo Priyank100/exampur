@@ -28,8 +28,9 @@ class DeliveryDetailScreen extends StatefulWidget {
   final List<UpsellBook>? upsellBookList;
   final String? emiPlan;
   final String? pre_booktype;
+  final PreBookDetail? preBookDetail;
 
-  const DeliveryDetailScreen(this.type, this.id, this.title, this.salePrice,{this.upsellBookList, this.emiPlan,this.pre_booktype}) ;
+  const DeliveryDetailScreen(this.type, this.id, this.title, this.salePrice,{this.upsellBookList, this.emiPlan,this.pre_booktype,this.preBookDetail}) ;
 
   @override
   _DeliveryDetailScreenState createState() => _DeliveryDetailScreenState();
@@ -49,6 +50,9 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   String preBookTypeCoupon = '';
   bool isBookSelected = false;
   List<String> selectedBookIdList = [];
+  String prebookButtonText = 'Pre-book Now';
+  String subMsg = '';
+  bool preBooked = false;
 
   final TextEditingController _billingAddressController = TextEditingController();
   final TextEditingController _billingCityController = TextEditingController();
@@ -78,8 +82,11 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   void initState()  {
     super.initState();
     getSharedPrefData();
-    if(widget.pre_booktype == 'pre'){
-      getpreBookTypeCoupon();
+    subMsg = AppConstants.langCode == 'hi' ? LangString.preBookSubTextHi : LangString.preBookSubTextEng;
+    if(widget.pre_booktype == 'Prebook'){
+      Future.delayed(Duration.zero, () {
+        checkPreBookOpted();
+      });
     }
 
   }
@@ -278,11 +285,11 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             ]),
             isCouponValid ? Text('Coupon applied successfully', style: TextStyle(color: AppColors.green, fontSize: 10),) : SizedBox(),
             widget.upsellBookList == null ? SizedBox() : widget.upsellBookList!.length > 0 ? showUpsellBookList() : SizedBox(),
-            widget.pre_booktype ==''? SizedBox(): SizedBox(height: 20),
-            widget.pre_booktype ==''? SizedBox():Center(child: Text(AppConstants.pre_book_text,style: TextStyle(color:AppColors.grey),)),
-            widget.pre_booktype ==''? SizedBox(height: 30): SizedBox(height: 10),
+            widget.type == 'Book' ? SizedBox() : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox(): SizedBox(height: 20),
+            widget.type == 'Book' ? SizedBox() : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox():Center(child: Text(preBooked ? getTranslated(context, LangString.preBookAlertAlreadyHead)!: subMsg.replaceAll('X', widget.preBookDetail!.percentOff.toString()),style: TextStyle(color:AppColors.grey),)),
+            widget.type == 'Book' ? SizedBox(height: 20,) : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox(height: 30): SizedBox(height: 10),
             InkWell(
-              onTap: (){
+              onTap:  (){
                 FocusScope.of(context).unfocus();
                 String _address = _billingAddressController.text.trim();
                 String _city = _billingCityController.text.trim();
@@ -290,26 +297,32 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _state = _billingStateController.text.trim();
                 String _landmark = _billinglandMarkController.text.trim();
                 String _promocode = _cuponCodeController.text.trim();
-                if(widget.pre_booktype == '')
+                if(widget.pre_booktype == 'Published')
                 {
                   if(checkValidation(_address, _state, _city, _pincode,_landmark,_promocode)) {
                     saveDeliveryAddress(true, _address, _pincode, _city, _state,_landmark, _promocode);
                   }
                 }
                 else{
-                  preBookOrderUrl();
+                  String message = AppConstants.langCode== 'hi'? LangString.preBookAlertAlreadyHi : LangString.preBookAlertAlreadyEng;
+                  preBooked ? AppConstants.showAlertDialogOkButton(context, getTranslated(context, LangString.preBookAlertAlreadyHead)!,
+                      message.replaceAll('X', widget.preBookDetail!.percentOff.toString()),
+                      (){
+                    Navigator.pop(context);
+                  }) : preBookOrder();
               }},
 
               child: Container(
+                padding: EdgeInsets.only(left: 5, right: 5),
                 height: 50,
                 decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(15),),color: AppColors.amber),
 
                 child: Center(
                     child: widget.type == 'Course'||widget.type=='Combo' ?
                     Text(
-                      widget.pre_booktype ==''?
-                      getTranslated(context, LangString.continueToBuyCourse)!:AppConstants.order_pre_book_button,
-                      style: TextStyle(color: AppColors.white,fontSize: 16),
+                      widget.pre_booktype =='Published'?
+                      getTranslated(context, LangString.continueToBuyCourse)!:prebookButtonText,textAlign: TextAlign.center,
+                      style: TextStyle(color: AppColors.white,fontSize: widget.pre_booktype =='Published'? 16:12),
                     ) :  widget.type == 'TestSeries' ?
                     Text(
                       'Continue to Buy Test Series',
@@ -607,43 +620,51 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     }
   }
 
-  preBookOrderUrl() async{
-     AppConstants.showAlertDialogOkButton(context,AppConstants.pre_book_button_alert,(){
-       Navigator.pop(context);
-       Navigator.pop(context);
-     });
-   //  final param = {};
-   //  await Service.post(API.preBookOrderUrl, body: param).then((response)
-   //  async {
-   //    if(response != null && response.statusCode == 200) {
-   //      var jsonObject = jsonDecode(response.body);
-   //      if (jsonObject['statusCode'].toString() == '200') {
-   //
-   //      }
-   //    }
-   //    else {
-   //      AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
-   //    }
-   //  }
-   //  );
+  Future<void> checkPreBookOpted() async {
+    AppConstants.showLoaderDialog(context);
+    await Service.get(API.preBookOptedUrl.replaceAll('COURSE_ID',widget.id)).then((response) async {
+      Navigator.pop(context);
+      if(response != null && response.statusCode == 200) {
+        var jsonObject = jsonDecode(response.body);
+        preBooked = jsonObject['status'];
+        if (jsonObject['status'] == true) {
+          setState(() {
+            _cuponCodeController.text = jsonObject['prebook_details']['coupon_code'];
+            String off = jsonObject['prebook_details']['percentage_off'].toString();
+            String btnText = AppConstants.langCode == 'hi' ? LangString.preBookDelBtnHi : LangString.preBookDelBtnEng;
+            prebookButtonText = btnText.replaceAll('X', off);
+          });
+        }
+        setState(() {});
+      }
+      else {
+        AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
+      }
+    }
+    );
+  }
+
+  Future<void> preBookOrder() async {
+    await Service.post(API.preBookOptedUrl.replaceAll('COURSE_ID',widget.id), body: {}).then((response) async {
+      if(response != null && response.statusCode == 200) {
+        var jsonObject = jsonDecode(response.body);
+        if (jsonObject['statusCode'].toString() == '200') {
+          String message = AppConstants.langCode== 'hi'? LangString.preBookAlertHi : LangString.preBookAlertEng;
+          AppConstants.showAlertDialogOkButton(context,getTranslated(context, LangString.preBookAlertSuccessHead)!,message.replaceAll('X', widget.preBookDetail!.percentOff.toString()),(){
+            Navigator.pop(context);
+            Navigator.pop(context);
+          });
+        }
+      }
+      else {
+        AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
+      }
+    }
+    );
     }
 
-  getpreBookTypeCoupon() async{
-    preBookTypeCoupon = 'Coupon';
-    _cuponCodeController.text = preBookTypeCoupon;
-     // await Service.get(API.preBookCouponUrl,).then((response)
-     // async {
-     //   if(response != null && response.statusCode == 200) {
-     //     var jsonObject = jsonDecode(response.body);
-     //     if (jsonObject['statusCode'].toString() == '200') {
-     //     }
-     //   }
-     //   else {
-     //     AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
-     //   }
-     // }
-     // );
-  }
+
+
 }
 
 class TextUse extends StatelessWidget {

@@ -65,13 +65,11 @@ class AppConstants {
 
   static String serviceLogToken = 'QhmAn5x6UxxWVdc8pkEe77eDAH9U2U9sXjs4kqaxbT2vp5kVmfru5nLL2nEpSQm9dBHLFBeQuEcXmmpzcf34MetTuNXBbaLTuG7pETEGQ2Hp';
 
-  static String pre_book_button = 'Pre-book now and get additional “discount %';
-  static String order_pre_book_button = 'Pre-Book Now';
-  static String pre_book_text = 'Get additional x% Discount on pre-booking';
-  static String pre_book_button_alert = ' Congratulations you have successfully pre-booked the course. You will get an additional X% discount coupon post course launch. for any query please call our customer support team';
 
 
-//==============================Constant Methods===================================================//
+
+
+  //==============================Constant Methods===================================================//
 
   static void printLog(message) {
     if (isPrint) {
@@ -158,7 +156,7 @@ class AppConstants {
     );
   }
 
-  static void showAlertDialogOkButton(BuildContext context, String message,Function function) {
+  static void showAlertDialogOkButton(BuildContext context,String header, String message,Function function) {
     AlertDialog alert = AlertDialog(
       actions: [
        Center(
@@ -181,7 +179,7 @@ class AppConstants {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(padding: EdgeInsets.all(8),
-                    child: Text("Message", style: TextStyle(fontSize: 16))),
+                    child: Text(header, style: TextStyle(fontSize: 16))),
                 Divider(),
                 Container(padding: EdgeInsets.all(8), child: Text(message)),
               ],
@@ -445,7 +443,7 @@ class AppConstants {
 
   static void showUpdateAlert(BuildContext context, String message, Function skipCall) {
     Widget cancelButton = TextButton(
-      child: Text(getTranslated(context, LangString.skip)!,style: TextStyle(color: AppColors.amber)),
+      child: Text('Skip',style: TextStyle(color: AppColors.amber)),
       onPressed:  () {
         Navigator.pop(context);
         skipCall();

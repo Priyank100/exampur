@@ -26,6 +26,7 @@ class CustomTheme with ChangeNotifier {
       brightness: Brightness.light,
       primaryColor: Color(0xffE0B229),
       secondaryHeaderColor: Color(0xFFE1EFFE),
+      primarySwatch: Colors.amber,
       accentColor: Color(0xffE0B229),
       scaffoldBackgroundColor: Color(0xffF6F7F9),
       backgroundColor: AppColors.white,

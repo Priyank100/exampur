@@ -129,7 +129,9 @@
   "pdf": "Pdf",
   "pdf_viewer": "PDF Viewer",
   "please_choose_to_open_pdf": "Please choose to open PDF",
-
+  "preBookAlert": " Congratulations you have successfully pre-booked the course. You will get an additional X% discount coupon post course launch. For any query please call our customer support team",
+  "preBookAlertSuccessHead" :"Pre-booking Successful",
+  "preBookAlertAlreadyHead": "Already Pre-booked",
 
 
   "name": "Name",
