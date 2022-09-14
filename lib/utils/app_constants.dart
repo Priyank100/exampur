@@ -66,7 +66,10 @@ class AppConstants {
   static String serviceLogToken = 'QhmAn5x6UxxWVdc8pkEe77eDAH9U2U9sXjs4kqaxbT2vp5kVmfru5nLL2nEpSQm9dBHLFBeQuEcXmmpzcf34MetTuNXBbaLTuG7pETEGQ2Hp';
 
 
-//==============================Constant Methods===================================================//
+
+
+
+  //==============================Constant Methods===================================================//
 
   static void printLog(message) {
     if (isPrint) {
@@ -139,6 +142,44 @@ class AppConstants {
               children: [
                 Container(padding: EdgeInsets.all(8),
                     child: Text("Message", style: TextStyle(fontSize: 16))),
+                Divider(),
+                Container(padding: EdgeInsets.all(8), child: Text(message)),
+              ],
+            )
+          ]),
+    );
+    showDialog(barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  static void showAlertDialogOkButton(BuildContext context,String header, String message,Function function) {
+    AlertDialog alert = AlertDialog(
+      actions: [
+       Center(
+         child: MaterialButton(
+           minWidth: MediaQuery.of(context).size.width/2,
+            color: AppColors.amber,
+           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            child: Text('OK',style: TextStyle(color: AppColors.white)),
+            onPressed:  () {
+              function();
+            },
+          ),
+       )
+      ],
+      content: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(padding: EdgeInsets.all(8),
+                    child: Text(header, style: TextStyle(fontSize: 16))),
                 Divider(),
                 Container(padding: EdgeInsets.all(8), child: Text(message)),
               ],
@@ -402,7 +443,7 @@ class AppConstants {
 
   static void showUpdateAlert(BuildContext context, String message, Function skipCall) {
     Widget cancelButton = TextButton(
-      child: Text(getTranslated(context, LangString.skip)!,style: TextStyle(color: AppColors.amber)),
+      child: Text('Skip',style: TextStyle(color: AppColors.amber)),
       onPressed:  () {
         Navigator.pop(context);
         skipCall();

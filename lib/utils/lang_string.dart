@@ -129,6 +129,20 @@ class LangString {
   static String pdf = 'pdf';
   static String pleaseChoosetoOpenpdf= 'please_choose_to_open_pdf';
   static String pdfViewer = 'pdf_viewer';
+  static String preBookAlertEng      = 'You will get additional X% discount post course launch.\nCall us for any queries.';
+  static String preBookAlertHi      = 'कोर्स लॉन्च के बाद आपको अतिरिक्त X% की छूट मिलेगी।\nकिसी भी प्रश्न के लिए हमें कॉल करें।';
+  static String preBookAlertSuccessHead     = 'preBookAlertSuccessHead';
+  static String preBookAlertAlreadyHead     = 'preBookAlertAlreadyHead';
+  static String preBookAlertAlreadyEng      = 'You will get additional X% discount post course launch. \nCall us for any queries.';
+  static String preBookAlertAlreadyHi      = 'कोर्स लॉन्च के बाद आपको अतिरिक्त X% की छूट मिलेगी। \nकिसी भी प्रश्न के लिए हमें कॉल करे।';
+  static String preBookTextEng = 'Pre-book now and get additional “X%" discount';
+  static String preBookTextHi = 'अभी प्री-बुक करें और अतिरिक्त "X%" छूट प्राप्त करें';
+  static String preBookDelBtnEng = 'Booking will start soon. You will get X% extra discount';
+  static String preBookDelBtnHi = 'बुकिंग जल्द शुरू होगी। आपको X% की छूट मिलेगी';
+  static String preBookSubTextEng = 'Get additional X% discount on pre-booking';
+  static String preBookSubTextHi = 'प्री-बुकिंग पर अतिरिक्त X% छूट पाएं';
+
+
 
   static String name= 'name';
   static String newPassword= 'new_password';

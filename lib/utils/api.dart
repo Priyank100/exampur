@@ -21,9 +21,13 @@ class API {
   // static const String BASE_URL2 = 'https://kubernetes.static.exampur.xyz/';
 
   //cache production
-  static const String BASE_URL1 = 'https://auth.exampurcache.xyz/';
-  // static const String BASE_URL1 = 'http://172.16.12.113:3001/';
-  static const String BASE_URL2 = 'https://static.exampurcache.xyz/';
+  // static const String BASE_URL1 = 'https://auth.exampurcache.xyz/';
+  // static const String BASE_URL2 = 'https://static.exampurcache.xyz/';
+
+  //Testing
+  static const String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
+  static const String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
+
 
   // call if BASE_URL1 got error-429
   static const String BASE_URL1_U = 'https://qvjplseirk.execute-api.ap-northeast-1.amazonaws.com/';
@@ -235,5 +239,10 @@ class API {
 
   //service log
   static const String serviceLogUrl = 'https://elastic.exampur.xyz/api/v1/service/log';
+
+
+  //pre-booking
+  static const String preBookOptedUrl = BASE_URL1 +'prebook-course/COURSE_ID';
+  static const String preBookCouponUrl = '';
 
 }
