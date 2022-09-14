@@ -293,7 +293,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () async {
-                       // AppConstants.subscription('onmessagetesting');
+                     // AppConstants.subscription('onmessagetesting');
                         _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,

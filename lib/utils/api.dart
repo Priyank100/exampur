@@ -2,6 +2,15 @@ class API {
   // static const String BASE_URL1 = 'https://auth.exampur.work/';
   // static const String BASE_URL2 = 'https://static.exampur.work/';
 
+  // static const String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
+  // static const String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
+
+  // static const String BASE_URL1 = 'https://7qclk4stsa.execute-api.ap-south-1.amazonaws.com/';
+  // static const String BASE_URL2 = 'https://seysl9nl99.execute-api.ap-south-1.amazonaws.com/';
+
+  // static const String BASE_URL1 = '';
+  // static const String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
+
   //Stage
   // static const String BASE_URL1 = 'https://auth-stage.exampur.xyz/';
   // static const String BASE_URL2 = 'https://static-stage.exampur.xyz/';
@@ -230,5 +239,10 @@ class API {
 
   //service log
   static const String serviceLogUrl = 'https://elastic.exampur.xyz/api/v1/service/log';
+
+
+  //pre-booking
+  static const String preBookOptedUrl = BASE_URL1 +'prebook-course/COURSE_ID';
+  static const String preBookCouponUrl = '';
 
 }

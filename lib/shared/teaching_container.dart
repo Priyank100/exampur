@@ -29,6 +29,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
 import 'package:http/http.dart' as http;
 
+import '../presentation/widgets/custom_smaller_button.dart';
+
 class TeachingContainer extends StatefulWidget {
   PaidCourseData courseData;
   int courseType;
@@ -49,6 +51,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
   String? userEmail;
   String? versionName;
   String? versionCode;
+  String message = '';
 
   Future<void> getUserData() async {
     var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
@@ -83,6 +86,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    message = AppConstants.langCode == 'hi' ? LangString.preBookTextHi : LangString.preBookTextEng;
     getUserData();
     getDeviceData();
     getAppVersionData();
@@ -180,6 +184,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
 
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           CustomRoundButton(onPressed: () async {
                             // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
@@ -216,7 +221,9 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                           SizedBox(height: 10,),
 
-                          widget.courseType==1? CustomRoundButton(onPressed: ()async{
+                          widget.courseType==1?
+                          CustomRoundButton(
+                              onPressed: ()async{
                             await   FirebaseAnalytics.instance.logEvent(name:'Paid_Courdse_Details',parameters: {
                               'Course_id':widget.courseData.id.toString().replaceAll(' ', '_'),
                               'Course_title':widget.courseData.title.toString().replaceAll(' ', '_')
@@ -238,11 +245,14 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               MaterialPageRoute(builder: (context) =>
                                   DeliveryDetailScreen(courseTabType, widget.courseData.id.toString(),
                                     widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
-                                      upsellBookList: widget.courseData.upsellBook??[]
+                                      upsellBookList: widget.courseData.upsellBook??[],pre_booktype: widget.courseData.status,preBookDetail:widget.courseData.preBookDetail
                                   )
                               ),
                             );
-                          },text: getTranslated(context, LangString.buyCourse)!):SizedBox(),
+                          },text: widget.courseData.status == 'Published'?getTranslated(context, LangString.buyCourse)!:
+                          message.replaceAll('X', widget.courseData.preBookDetail!.percentOff.toString())
+                          )
+                              : SizedBox(),
 
                           SizedBox(height: 10,),
 
@@ -334,6 +344,20 @@ class _TeachingContainerState extends State<TeachingContainer> {
       // }
     });
   }
+
+  Widget preBookButton() {
+    return InkWell(
+      onTap: (){
+        AppConstants.printLog('>>>>>>>>>>>>>>>>>');
+      },
+      child: Container(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            color: Color(0xFF060929),
+            borderRadius: BorderRadius.all(Radius.circular(8))),
+        child: Center(child: Text(getTranslated(context, LangString.buyCourse)!,style: TextStyle(color: Colors.white,fontSize: 11))),),
+    );
+  }
 }
 
 class RowTile extends StatelessWidget {
@@ -354,6 +378,8 @@ class RowTile extends StatelessWidget {
       ],),
     );
   }
+
+
 
 
 

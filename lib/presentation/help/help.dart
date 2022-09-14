@@ -56,6 +56,7 @@ class HelpState extends State<Help> {
     getUserData();
     getDeviceData();
     getAppVersionData();
+    getDeviceData();
   }
 
   @override

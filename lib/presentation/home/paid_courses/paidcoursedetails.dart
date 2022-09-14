@@ -45,6 +45,8 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   bool _muted = false;
   bool _isPlayerReady = false;
+  String message = '';
+
 // String _selectedQuality='';
   // String pdfLink = 'https://www.learningcontainer.com/download/sample-pdf-file-for-testing/?wpdmdl=1566&amp;refresh=621508d3713281645545683';
   // String pdfName = 'my_first_pdf';
@@ -57,6 +59,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   void initState() {
     AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     AppConstants.printLog(widget.courseData.videoPath.toString());
+    message = AppConstants.langCode == 'hi' ? LangString.preBookTextHi : LangString.preBookTextEng;
     String videoId = (YoutubePlayer.convertUrlToId(widget.courseData.videoPath.toString()) == null)
         ? "errorstring"
         : YoutubePlayer.convertUrlToId(widget.courseData.videoPath.toString())!;
@@ -295,6 +298,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                           DeliveryDetailScreen(widget.courseTabType, widget.courseData.id.toString(),
                               widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
                               upsellBookList: widget.courseData.upsellBook??[], emiPlan: selectedEmiPlans,
+                            pre_booktype:widget.courseData.status,preBookDetail:widget.courseData.preBookDetail
                           )
                       ));
                     },
@@ -307,8 +311,9 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                       margin: EdgeInsets.all(10),
                       child: Center(
                           child: Text(
-                            getTranslated(context, LangString.buyCourse)!,
-                            style: TextStyle(color: AppColors.white, fontSize: 18),
+                            widget.courseData.status == 'Published'?
+                            getTranslated(context, LangString.buyCourse)!:message.replaceAll('X', widget.courseData.preBookDetail!.percentOff.toString()),
+                            style: TextStyle(color: AppColors.white, fontSize:  widget.courseData.status == 'Published'?16: 12),
                           )),
                     ),
                   )
