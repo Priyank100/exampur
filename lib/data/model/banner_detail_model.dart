@@ -65,6 +65,7 @@ class Data {
       int? regularPrice, 
       int? salePrice,
     String? pdfPath,
+    String? status
   }){
     _id = id;
     _title = title;
@@ -79,6 +80,7 @@ class Data {
     _regularPrice = regularPrice;
     _salePrice = salePrice;
     _pdfPath = pdfPath;
+    _status = status;
 }
 
   Data.fromJson(dynamic json) {
@@ -110,6 +112,7 @@ class Data {
     _regularPrice = json['regular_price'];
     _salePrice = json['sale_price'];
     _pdfPath = json['pdf_path'];
+    _status = json['status'] ?? 'Published';
   }
   String? _id;
   String? _title;
@@ -124,6 +127,7 @@ class Data {
   int? _regularPrice;
   int? _salePrice;
   String? _pdfPath;
+  String? _status;
 
   String? get id => _id;
   String? get title => _title;
@@ -138,6 +142,7 @@ class Data {
   int? get regularPrice => _regularPrice;
   int? get salePrice => _salePrice;
   String? get pdfPath => _pdfPath;
+  String? get status => _status;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -160,6 +165,7 @@ class Data {
     map['regular_price'] = _regularPrice;
     map['sale_price'] = _salePrice;
     map['pdf_path'] = _pdfPath;
+    map['status'] = _status;
     return map;
   }
 

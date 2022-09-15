@@ -245,7 +245,9 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               MaterialPageRoute(builder: (context) =>
                                   DeliveryDetailScreen(courseTabType, widget.courseData.id.toString(),
                                     widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
-                                      upsellBookList: widget.courseData.upsellBook??[],pre_booktype: widget.courseData.status,preBookDetail:widget.courseData.preBookDetail
+                                      upsellBookList: widget.courseData.upsellBook??[],
+                                      pre_booktype: widget.courseData.status,
+                                      preBookDetail:widget.courseData.preBookDetail
                                   )
                               ),
                             );
@@ -344,20 +346,6 @@ class _TeachingContainerState extends State<TeachingContainer> {
       // }
     });
   }
-
-  Widget preBookButton() {
-    return InkWell(
-      onTap: (){
-        AppConstants.printLog('>>>>>>>>>>>>>>>>>');
-      },
-      child: Container(
-        padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-            color: Color(0xFF060929),
-            borderRadius: BorderRadius.all(Radius.circular(8))),
-        child: Center(child: Text(getTranslated(context, LangString.buyCourse)!,style: TextStyle(color: Colors.white,fontSize: 11))),),
-    );
-  }
 }
 
 class RowTile extends StatelessWidget {
@@ -384,6 +372,7 @@ class RowTile extends StatelessWidget {
 
 
 }
+
 class MyClip extends CustomClipper<Rect> {
   Rect getClip(Size size) {
     return Rect.fromLTWH(0, 0, 25, 25);

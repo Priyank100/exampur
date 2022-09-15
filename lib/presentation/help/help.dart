@@ -247,6 +247,7 @@ issuevalue='Select issue';
                         getTranslated(context, LangString.watchAppTutorial)!,
                         style: TextStyle(
                           fontSize: 20.0,
+                          color: AppColors.white
                         ),
                       )),
                 ),

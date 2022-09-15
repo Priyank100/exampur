@@ -83,12 +83,9 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     super.initState();
     getSharedPrefData();
     subMsg = AppConstants.langCode == 'hi' ? LangString.preBookSubTextHi : LangString.preBookSubTextEng;
-    if(widget.pre_booktype == 'Prebook'){
-      Future.delayed(Duration.zero, () {
-        checkPreBookOpted();
-      });
-    }
-
+    Future.delayed(Duration.zero, () {
+      checkPreBookOpted();
+    });
   }
 
   @override
@@ -629,8 +626,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         preBooked = jsonObject['status'];
         if (jsonObject['status'] == true) {
           setState(() {
-            _cuponCodeController.text = jsonObject['prebook_details']['coupon_code'];
             String off = jsonObject['prebook_details']['percentage_off'].toString();
+            _cuponCodeController.text = jsonObject['prebook_details']['coupon_code'].toString();
             String btnText = AppConstants.langCode == 'hi' ? LangString.preBookDelBtnHi : LangString.preBookDelBtnEng;
             prebookButtonText = btnText.replaceAll('X', off);
           });

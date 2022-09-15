@@ -67,7 +67,7 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
                 bannerDetailData!.description.toString(),
                 bannerDetailData!.upsellBook??[],
                 bannerDetailData!.pdfPath.toString(),
-
+                bannerDetailData!.status.toString()
         )
     );
   }
@@ -83,9 +83,10 @@ class Viedobanner extends StatefulWidget {
   final String description;
   final List<UpsellBook> upsellBookList;
   final String pdfPath;
+  final String status;
 
   const Viedobanner(this.type, this.videoUrl, this.title, this.id,
-      this.salePrice, this.regularPrice,this.description, this.upsellBookList,this.pdfPath)
+      this.salePrice, this.regularPrice,this.description, this.upsellBookList,this.pdfPath, this.status)
       : super();
 
   @override
@@ -389,7 +390,8 @@ class _ViedobannerState extends State<Viedobanner> {
                               widget.id.toString(),
                               widget.title.toString(),
                               widget.salePrice.toString(),
-                              upsellBookList: widget.upsellBookList)),
+                              upsellBookList: widget.upsellBookList,
+                              pre_booktype: widget.status)),
                     );
                   } else {
                     Navigator.push(
@@ -401,7 +403,8 @@ class _ViedobannerState extends State<Viedobanner> {
                               widget.id.toString(),
                               widget.title.toString(),
                               widget.salePrice.toString(),
-                              upsellBookList: widget.upsellBookList)),
+                              upsellBookList: widget.upsellBookList,
+                            pre_booktype: widget.status)),
                     );
                   }
                 },
