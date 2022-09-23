@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:intl/intl.dart';
+import 'package:ntp/ntp.dart';
 
 
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -21,12 +23,20 @@ class FirestoreDB {
   }
 
   static Future<void> sendMessage(String videoId, String name, String phone, String message) async {
+    DateTime _myTime;
+    DateTime googleTime;
+    _myTime = DateTime.now();
+    final int offset =
+    await NTP.getNtpOffset(localTime: _myTime, lookUpAddress: 'time.google.com');
+    googleTime = _myTime.add(Duration(milliseconds: offset));
+
     DocumentReference documentReference = chatDocument.collection(videoId).doc();
     Map<String, dynamic> data = {
       'user': name,
       'phone': phone,
       'message': message,
-      'createdAt': Timestamp.now()
+      // 'createdAt': Timestamp.now()
+      'createdAt': googleTime
     };
     await documentReference.set(data)
         .whenComplete(() => AppConstants.printLog("DONE"))
