@@ -83,9 +83,11 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     super.initState();
     getSharedPrefData();
     subMsg = AppConstants.langCode == 'hi' ? LangString.preBookSubTextHi : LangString.preBookSubTextEng;
-    Future.delayed(Duration.zero, () {
-      checkPreBookOpted();
-    });
+    if(widget.pre_booktype == 'Prebook') {
+      Future.delayed(Duration.zero, () {
+        checkPreBookOpted();
+      });
+    }
   }
 
   @override
@@ -284,7 +286,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             widget.upsellBookList == null ? SizedBox() : widget.upsellBookList!.length > 0 ? showUpsellBookList() : SizedBox(),
             widget.type == 'Book' ? SizedBox() : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox(): SizedBox(height: 20),
             widget.type == 'Book' ? SizedBox() : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox():Center(child: Text(preBooked ? getTranslated(context, LangString.preBookAlertAlreadyHead)!: subMsg.replaceAll('X', widget.preBookDetail!.percentOff.toString()),style: TextStyle(color:AppColors.grey),)),
-            widget.type == 'Book' ? SizedBox(height: 20,) : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox(height: 30): SizedBox(height: 10),
+            widget.type == 'Book' ? SizedBox(height: 20) : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox(height: 30): SizedBox(height: 10),
             InkWell(
               onTap:  (){
                 FocusScope.of(context).unfocus();
@@ -294,7 +296,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _state = _billingStateController.text.trim();
                 String _landmark = _billinglandMarkController.text.trim();
                 String _promocode = _cuponCodeController.text.trim();
-                if(widget.pre_booktype == 'Published')
+                if(widget.pre_booktype == null || widget.pre_booktype == 'Published')
                 {
                   if(checkValidation(_address, _state, _city, _pincode,_landmark,_promocode)) {
                     saveDeliveryAddress(true, _address, _pincode, _city, _state,_landmark, _promocode);
@@ -317,7 +319,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 child: Center(
                     child: widget.type == 'Course'||widget.type=='Combo' ?
                     Text(
-                      widget.pre_booktype =='Published'?
+                      widget.pre_booktype == null || widget.pre_booktype =='Published'?
                       getTranslated(context, LangString.continueToBuyCourse)!:prebookButtonText,textAlign: TextAlign.center,
                       style: TextStyle(color: AppColors.white,fontSize: widget.pre_booktype =='Published'? 16:12),
                     ) :  widget.type == 'TestSeries' ?
