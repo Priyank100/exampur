@@ -83,12 +83,11 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     super.initState();
     getSharedPrefData();
     subMsg = AppConstants.langCode == 'hi' ? LangString.preBookSubTextHi : LangString.preBookSubTextEng;
-    if(widget.pre_booktype == 'Prebook'){
+    if(widget.pre_booktype == 'Prebook') {
       Future.delayed(Duration.zero, () {
         checkPreBookOpted();
       });
     }
-
   }
 
   @override
@@ -102,7 +101,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             widget.type == 'Course'|| widget.type=='Combo' ?
-             Text(
+            Text(
               getTranslated(context, LangString.use_coupon)!,
               maxLines: 2, softWrap: true,
               style: TextStyle(fontSize: 25),
@@ -210,7 +209,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 hintText: getTranslated(context, LangString.enterPinCode)!,
                 //focusNode: _phoneNode,
                 textInputType: TextInputType.number,
-                  controller:_billingPincodeController,
+                controller:_billingPincodeController,
                 value: (value) {},
               ),
             ),
@@ -244,8 +243,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                         if (_cuponCodeController.text != value.toUpperCase())
                           _cuponCodeController.value = _cuponCodeController.value.copyWith(text: value.toUpperCase());
                         setState(() {});
-                        },
-                     
+                      },
+
                       decoration: new InputDecoration(
                           hintText: getTranslated(context, LangString.applyCoupon),
                           hintStyle: TextStyle(color: AppColors.grey500),
@@ -255,8 +254,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                     ),
 
                     //hintStyle: titilliumRegular.copyWith(color: ColorResources.HINT_TEXT_COLOR),
+                  ),
                 ),
-              ),
               ),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
               Expanded(
@@ -267,12 +266,12 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                     // String id = widget.paidcourseList.id.toString();
                     String id = widget.id.toString();
 
-                   if(checkCoupon(cuponCode)){
-                     FirebaseAnalytics.instance.logEvent(name:'PROMOCODE_APPLIED_',parameters: {
-                       'promocode':_cuponCodeController.text.toString().replaceAll(' ', '_'),
-                     });
-                     couponApi(API.CouponCode_URL, cuponCode,id);
-                   }
+                    if(checkCoupon(cuponCode)){
+                      FirebaseAnalytics.instance.logEvent(name:'PROMOCODE_APPLIED_',parameters: {
+                        'promocode':_cuponCodeController.text.toString().replaceAll(' ', '_'),
+                      });
+                      couponApi(API.CouponCode_URL, cuponCode,id);
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(color: AppColors.amber,
@@ -287,7 +286,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             widget.upsellBookList == null ? SizedBox() : widget.upsellBookList!.length > 0 ? showUpsellBookList() : SizedBox(),
             widget.type == 'Book' ? SizedBox() : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox(): SizedBox(height: 20),
             widget.type == 'Book' ? SizedBox() : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox():Center(child: Text(preBooked ? getTranslated(context, LangString.preBookAlertAlreadyHead)!: subMsg.replaceAll('X', widget.preBookDetail!.percentOff.toString()),style: TextStyle(color:AppColors.grey),)),
-            widget.type == 'Book' ? SizedBox(height: 20,) : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox(height: 30): SizedBox(height: 10),
+            widget.type == 'Book' ? SizedBox(height: 20) : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox(height: 30): SizedBox(height: 10),
             InkWell(
               onTap:  (){
                 FocusScope.of(context).unfocus();
@@ -297,7 +296,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _state = _billingStateController.text.trim();
                 String _landmark = _billinglandMarkController.text.trim();
                 String _promocode = _cuponCodeController.text.trim();
-                if(widget.pre_booktype == 'Published')
+                if(widget.pre_booktype == null || widget.pre_booktype == 'Published')
                 {
                   if(checkValidation(_address, _state, _city, _pincode,_landmark,_promocode)) {
                     saveDeliveryAddress(true, _address, _pincode, _city, _state,_landmark, _promocode);
@@ -307,10 +306,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                   String message = AppConstants.langCode== 'hi'? LangString.preBookAlertAlreadyHi : LangString.preBookAlertAlreadyEng;
                   preBooked ? AppConstants.showAlertDialogOkButton(context, getTranslated(context, LangString.preBookAlertAlreadyHead)!,
                       message.replaceAll('X', widget.preBookDetail!.percentOff.toString()),
-                      (){
-                    Navigator.pop(context);
-                  }) : preBookOrder();
-              }},
+                          (){
+                        Navigator.pop(context);
+                      }) : preBookOrder();
+                }},
 
               child: Container(
                 padding: EdgeInsets.only(left: 5, right: 5),
@@ -320,7 +319,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 child: Center(
                     child: widget.type == 'Course'||widget.type=='Combo' ?
                     Text(
-                      widget.pre_booktype =='Published'?
+                      widget.pre_booktype == null || widget.pre_booktype =='Published'?
                       getTranslated(context, LangString.continueToBuyCourse)!:prebookButtonText,textAlign: TextAlign.center,
                       style: TextStyle(color: AppColors.white,fontSize: widget.pre_booktype =='Published'? 16:12),
                     ) :  widget.type == 'TestSeries' ?
@@ -389,12 +388,12 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         Text('Click on the check box to add this book', style: TextStyle(fontSize: 12)),
         SizedBox(height: 10),
         ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: widget.upsellBookList!.length,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: widget.upsellBookList!.length,
             itemBuilder: (context, index) {
-            return upsellBookContainer(index);
-          })
+              return upsellBookContainer(index);
+            })
       ],
     );
   }
@@ -414,22 +413,22 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               children: [
                 Text(widget.upsellBookList![0].title.toString()),
                 Text('Regular: ₹${widget.upsellBookList![0].regularPrice}, Sale : ₹${widget.upsellBookList![0].salePrice}',
-                style: TextStyle(fontSize: 10))
+                    style: TextStyle(fontSize: 10))
               ],
             )
         ),
         Checkbox(
-          value: isBookSelected,
-          onChanged: (bool? value) {
-            isBookSelected = !isBookSelected;
-            if(isBookSelected) {
-              selectedBookIdList.add(widget.upsellBookList![0].id.toString());
-            } else {
-              selectedBookIdList.remove(widget.upsellBookList![0].id.toString());
-              // selectedBookIdList.clear();
-            }
-            setState(() {});
-          })
+            value: isBookSelected,
+            onChanged: (bool? value) {
+              isBookSelected = !isBookSelected;
+              if(isBookSelected) {
+                selectedBookIdList.add(widget.upsellBookList![0].id.toString());
+              } else {
+                selectedBookIdList.remove(widget.upsellBookList![0].id.toString());
+                // selectedBookIdList.clear();
+              }
+              setState(() {});
+            })
       ],
     );
   }
@@ -547,14 +546,14 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 widget.salePrice.toString()
             );
             Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                        PaymentScreen(
-                            widget.type,
-                            billingModel,
-                            deliveryUpsellModel,
-                            isCouponValid ? _cuponCodeController.text.toUpperCase() : '',
-                            widget.emiPlan??''
-                        )
+                PaymentScreen(
+                    widget.type,
+                    billingModel,
+                    deliveryUpsellModel,
+                    isCouponValid ? _cuponCodeController.text.toUpperCase() : '',
+                    widget.emiPlan??''
                 )
+            )
             );
           } else {
             AppConstants.printLog('yes');
@@ -629,8 +628,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         preBooked = jsonObject['status'];
         if (jsonObject['status'] == true) {
           setState(() {
-            _cuponCodeController.text = jsonObject['prebook_details']['coupon_code'];
             String off = jsonObject['prebook_details']['percentage_off'].toString();
+            _cuponCodeController.text = jsonObject['prebook_details']['coupon_code'].toString();
             String btnText = AppConstants.langCode == 'hi' ? LangString.preBookDelBtnHi : LangString.preBookDelBtnEng;
             prebookButtonText = btnText.replaceAll('X', off);
           });
@@ -661,7 +660,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       }
     }
     );
-    }
+  }
 
 
 

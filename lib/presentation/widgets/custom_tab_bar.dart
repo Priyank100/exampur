@@ -82,6 +82,75 @@ class _CustomTabBarState extends State<CustomTabBar> {
   }
 }
 
+class MyCourseTabBar extends StatefulWidget {
+  final int length;
+  final String title;
+  final List<String> names;
+  final List<Widget> routes;
+
+  const MyCourseTabBar({
+    Key? key,
+    required this.length,
+    required this.names,
+    required this.routes,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  _MyCourseTabBarState createState() => _MyCourseTabBarState();
+}
+
+class _MyCourseTabBarState extends State<MyCourseTabBar> {
+  Set<String> selected = new Set<String>();
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      initialIndex: 0,
+      length: widget.length,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          backgroundColor: AppColors.transparent,
+          iconTheme: IconThemeData(
+            color: AppColors.black,
+          ),
+          elevation: 0,
+          centerTitle: true,
+          title: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Image.asset(Images.exampur_title,
+              width: Dimensions.ICON_SIZE_Title,
+              height: Dimensions.ICON_SIZE_Title,
+            ),
+          ),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(60.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TabBar(
+                    isScrollable: true,
+                    unselectedLabelColor: AppColors.grey,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    indicatorColor: Theme.of(context).primaryColor,
+                    labelColor: Theme.of(context).primaryColor,
+                    tabs: [for (var i in widget.names) Tab(text: i)],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        body: TabBarView(
+          children: widget.routes,
+        ),
+      ),
+    );
+  }
+}
 
 class TabBarDemo extends StatefulWidget {
   final int length;

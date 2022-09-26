@@ -21,12 +21,12 @@ class API {
   // static const String BASE_URL2 = 'https://kubernetes.static.exampur.xyz/';
 
   //cache production
-  // static const String BASE_URL1 = 'https://auth.exampurcache.xyz/';
-  // static const String BASE_URL2 = 'https://static.exampurcache.xyz/';
+  static const String BASE_URL1 = 'https://auth.exampurcache.xyz/';
+  static const String BASE_URL2 = 'https://static.exampurcache.xyz/';
 
   //Testing
-  static const String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
-  static const String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
+  // static const String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
+  // static const String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
 
   // call if BASE_URL1 got error-429
