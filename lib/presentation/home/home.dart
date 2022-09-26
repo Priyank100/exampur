@@ -109,8 +109,6 @@ class _HomeState extends State<Home> {
     ///on the notification
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       if (message != null) {
-        print('>>>>>>>>>>>>>>>>>>>>>>>');
-        print(message.data['action']);
         List<String> actiondata =message.data['action'].split("/");
        // List<String> actiontype =message.data['actiontype'].split("/");
         if(actiondata[0] == "Course"){
@@ -184,6 +182,14 @@ class _HomeState extends State<Home> {
   void _changeLanguage(Language language) async {
     Locale _locale = await setLocale(language.languageCode);
     MyApp.setLocale(context, _locale);
+    var map = {
+      'Page_Name':'Home_Page',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':language.languageCode,
+      'Course_Category':'',
+      'User_ID':AppConstants.userMobile
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Translate_English,map);
   }
 
   /*Future<void>_refreshScreen() async{
@@ -306,6 +312,14 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'test_courses')!,
                     color: AppColors.series,
                     onPressed: () async {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':'',
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Test_Series,map);
                       AnalyticsConstants.sendAnalyticsEvent(
                           AnalyticsConstants.testSeriesClick);
                       Navigator.of(context, rootNavigator: true)
@@ -336,6 +350,14 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, LangString.Quizz),
                     color: AppColors.quiz,
                     onPressed: () async {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':'',
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Quiz,map);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
@@ -347,6 +369,14 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'study_materials')!,
                     color: AppColors.one2one,
                     onPressed: () {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':'',
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Study_Material,map);
                       Navigator.of(context, rootNavigator: true)
                           .push(MaterialPageRoute(
                               builder: (_) =>
@@ -366,6 +396,14 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'job_alerts')!,
                     color: AppColors.jobAlert,
                     onPressed: () {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':'',
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Job_Alerts,map);
                       Navigator.of(context, rootNavigator: true)
                           .push(MaterialPageRoute(builder: (_) =>
                           // JobAlerts()
@@ -378,6 +416,14 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, 'current_affairs')!,
                     color: AppColors.affairs,
                     onPressed: () {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':'',
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Current_Affairs,map);
                       AnalyticsConstants.sendAnalyticsEvent(
                           AnalyticsConstants.currentAffairsClick);
                       Map<String, Object> stuff = {};
@@ -425,6 +471,14 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, LangString.PreviousYearPdf),
                     color: AppColors.paidCourses,
                     onPressed: () {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':'',
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Previous_Year_PDF,map);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
@@ -436,6 +490,14 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, LangString.PracticeQuestion)!,
                     color: AppColors.brown400,
                     onPressed: () {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':'',
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Practice_Questions,map);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) => PracticeQuestionCategory()));
@@ -453,6 +515,14 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, LangString.liveTest),
                     color: AppColors.orange,
                     onPressed: () async {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':'',
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Live_Test,map);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>

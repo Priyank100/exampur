@@ -14,6 +14,7 @@ import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../utils/analytics_constants.dart';
 import 'DownloadPdfView.dart';
 
 class ChapterDetailView extends StatefulWidget {
@@ -235,6 +236,18 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   Widget WatchVideoButton(List<MaterialData> materialList, index) {
     return InkWell(
       onTap: () {
+        var map = {
+          'Page_Name':'My_Courses_Timeline',
+          'Mobile_Number':AppConstants.userMobile,
+          'Language':AppConstants.langCode,
+          'User_ID':AppConstants.userMobile,
+          'Course_Name':AppConstants.courseName,
+          'Faculty_Name':'',
+          'Subject_Name':AppConstants.subjectName,
+          'Chapter_Name':widget.chaptername,
+          'Topic_Name':materialList[index].title.toString()
+        };
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
         // print(materialList[index].title);
         materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
               Navigator.push(context, MaterialPageRoute(builder: (context) =>

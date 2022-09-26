@@ -29,8 +29,16 @@ class SignInState extends State<SignIn> {
   @override
   void initState() {
     super.initState();
-    _formKeyLogin = GlobalKey<FormState>();
+    var map = {
+      'Page_Name':'App_Login',
+      'Mobile_Number':'',
+      'Language':'Eng',
+      'User_ID':''
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Login_page,map);
 
+
+    _formKeyLogin = GlobalKey<FormState>();
     _phoneEmailController = TextEditingController();
     _passwordController = TextEditingController();
 
@@ -86,6 +94,14 @@ class SignInState extends State<SignIn> {
         loginBody.phoneExt = '91';
         // loginBody.phone = _phoneEmail;
         loginBody.password = _password;
+
+        var map = {
+          'Page_Name':'App_Login',
+          'Mobile_Number':_phoneEmail,
+          'Language':'Eng',
+          'User_ID':_phoneEmail
+        };
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Submit,map);
 
         await Provider.of<AuthProvider>(context, listen: false).login(context, loginBody, route);
       }
@@ -163,6 +179,13 @@ class SignInState extends State<SignIn> {
 
                           Text("Forgot Password?",style: TextStyle(color: AppColors.grey600),),
                           CustomTextButton(onPressed: () {
+                            var map = {
+                              'Page_Name':'App_Login',
+                              'Mobile_Number':_phoneEmailController.text.trim(),
+                              'Language':'Eng',
+                              'User_ID':_phoneEmailController.text.trim()
+                            };
+                            AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Forgot_Password_Login,map);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -213,7 +236,15 @@ class SignInState extends State<SignIn> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text("Facing problem in signing in?",style: TextStyle(color: AppColors.grey600)),
-                          CustomTextButton(onPressed: () { AppConstants.makeCallEmail('tel:'+AppConstants.Mobile_number);}, text: "Call us")
+                          CustomTextButton(onPressed: () {
+                            var map = {
+                              'Page_Name':'App_Login',
+                              'Mobile_Number':_phoneEmailController.text.trim(),
+                              'Language':'Eng',
+                              'User_ID':_phoneEmailController.text.trim()
+                            };
+                            AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Call_Us_Login,map);
+                            AppConstants.makeCallEmail('tel:'+AppConstants.Mobile_number);}, text: "Call us")
                         ],
                       )
                     ],

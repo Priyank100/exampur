@@ -64,7 +64,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
         future:  Future.delayed(Duration.zero, () => getTabList()),
         builder: (context, snapshot) {
           return Scaffold(
-              body: TabBarDemo(
+              body: MyCourseCustomTabBar(
                   length: tabList.length,
                   names: tabList.map((item) => item.name.toString()).toList(),
                   routes: tabList.length == 0 ? [] : [

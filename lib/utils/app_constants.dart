@@ -66,6 +66,12 @@ class AppConstants {
   static String serviceLogToken = 'QhmAn5x6UxxWVdc8pkEe77eDAH9U2U9sXjs4kqaxbT2vp5kVmfru5nLL2nEpSQm9dBHLFBeQuEcXmmpzcf34MetTuNXBbaLTuG7pETEGQ2Hp';
 
 
+  static String userName = '';
+  static String userMobile = '';
+  static String courseName = '';
+  static String subjectName = '';
+  static String chapterName = '';
+
 
 
 

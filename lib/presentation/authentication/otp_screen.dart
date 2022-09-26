@@ -17,6 +17,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../utils/analytics_constants.dart';
 import 'landing_page.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -42,6 +43,13 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   void initState() {
+    var map = {
+      'Page_Name':'Signup_OTP_Page',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':'Eng',
+      'User_ID':AppConstants.userMobile
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Signup_OTP_Page,map);
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if(skipCounter > 0) {
@@ -102,6 +110,13 @@ class _OtpScreenState extends State<OtpScreen> {
               SizedBox(height: 20),
               widget.isReset ? SizedBox() : enableSkip ? InkWell(
                 onTap: () {
+                  var map = {
+                    'Page_Name':'Signup_OTP_Page',
+                    'Mobile_Number':AppConstants.userName,
+                    'Language':'Eng',
+                    'User_ID':AppConstants.userName
+                  };
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Skip_OTP,map);
                   if(AppConstants.CATEGORY_LENGTH == '0' || AppConstants.CATEGORY_LENGTH == 'null') {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder:
@@ -123,6 +138,13 @@ class _OtpScreenState extends State<OtpScreen> {
               SizedBox(height: 10),
               InkWell(
                 onTap: () {
+                  var map = {
+                    'Page_Name':'Signup_OTP_Page',
+                    'Mobile_Number':AppConstants.userName,
+                    'Language':'Eng',
+                    'User_ID':AppConstants.userName
+                  };
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Login_New_Register,map);
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (_) => LandingPage()),
@@ -417,6 +439,13 @@ class _OtpScreenState extends State<OtpScreen> {
               MaterialPageRoute(builder: (_) => LandingChooseCategory()),
                   (route) => false);
         } else {
+          var map = {
+            'Page_Name':'Signup_OTP_Page',
+            'Mobile_Number':AppConstants.userName,
+            'Language':'Eng',
+            'User_ID':AppConstants.userName
+          };
+          AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Error_Invalid_OTP,map);
           showBottomMessage(context, msg, Colors.black);
         }
       } else if(response.statusCode==429){

@@ -34,7 +34,6 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:provider/provider.dart';
-
 import '../../main.dart';
 
 class ItemClass {
@@ -75,8 +74,15 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
   @override
   void initState() {
     super.initState();
-    FirebaseDynamicLinkService.initDynamicLink(context);
+    var map = {
+      'Page_Name':'Home_Page',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':'Eng',
+      'User_ID':AppConstants.userMobile
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Home_Page,map);
 
+    FirebaseDynamicLinkService.initDynamicLink(context);
     _faders = widgetList.map<AnimationController>((item) {
       return AnimationController(
         duration: Duration(milliseconds: 300),
@@ -701,6 +707,13 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
               AnalyticsConstants.logEvent(_currIndex == 1?AnalyticsConstants.demoClick:_currIndex == 2
                   ?AnalyticsConstants.myCoursesClick:AnalyticsConstants.downloadsClick,stuff
               );
+              var map = {
+                'Page_Name':'Home_Page',
+                'Mobile_Number':AppConstants.userMobile,
+                'Language':AppConstants.langCode,
+                'User_ID':AppConstants.userMobile
+              };
+              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_My_Courses,map);
             }
           },
           iconSize: 20,

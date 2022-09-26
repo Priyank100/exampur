@@ -10,6 +10,7 @@
         tools:node="remove"/>
 
     <application
+        android:name=".SampleApplication"
         android:label="ExampurOfficial"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"

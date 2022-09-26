@@ -11,6 +11,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 class BooksEbook extends StatefulWidget {
   @override
   BooksEbookState createState() => BooksEbookState();
@@ -34,6 +36,14 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
   @override
   void initState() {
     getTabList();
+    var map = {
+      'Page_Name':'Home_Page',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'Course_Category':'',
+      'User_ID':AppConstants.userMobile
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Books,map);
     super.initState();
   }
 

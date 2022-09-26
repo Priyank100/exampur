@@ -76,6 +76,7 @@ class _SubjectViewState extends State<SubjectView> {
   Widget GridItem(index) {
     return InkWell(
       onTap: () {
+        AppConstants.subjectName = subjectList[index].title.toString();
         Navigator.push(context, MaterialPageRoute(builder: (_) =>
             ChapterView(widget.courseId, subjectList[index].id.toString())
         ));

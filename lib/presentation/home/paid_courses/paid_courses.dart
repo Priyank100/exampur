@@ -10,6 +10,8 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 class PaidCourses extends StatefulWidget {
   final int courseType;
 
@@ -56,6 +58,14 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
   @override
   void initState() {
     getLists();
+    var map = {
+      'Page_Name':'Home_Page',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'Course_Category':'',
+      'User_ID':AppConstants.userMobile
+    };
+    widget.courseType == 1? AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Paid_Courses,map):null;
     // _controller = TabController(
     //               length: widget.courseType == 1
     //                   ? paidCourseTabList.length

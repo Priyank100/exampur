@@ -168,6 +168,7 @@ class MyCoursesState extends State<MyCourses> {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: InkWell(
         onTap: () {
+          AppConstants.courseName = myCourseList[index].title.toString();
           FocusScope.of(context).unfocus();
            if(myCourseList[index].status == 'EMI') {
              if(myCourseList[index].validityTill==null || myCourseList[index].validityTill!.isEmpty) {

@@ -61,6 +61,13 @@ class SignUpState extends State<SignUp> {
   @override
   void initState() {
     super.initState();
+    var map = {
+      'Page_Name':'Sign_Up',
+      'Mobile_Number':'',
+      'Language':'Eng',
+      'User_ID':''
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Sign_Up,map);
     _formKeySignUp = GlobalKey<FormState>();
     _nameController = TextEditingController();
     _emailController = TextEditingController();
@@ -414,6 +421,7 @@ class SignUpState extends State<SignUp> {
         CreateUserbody.country = AppConstants.defaultCountry;
         CreateUserbody.language = 'English';
 
+
         await Provider.of<AuthProvider>(context, listen: false)
             .userResgister(context, CreateUserbody, route);
       }
@@ -434,6 +442,13 @@ class SignUpState extends State<SignUp> {
       };
       AnalyticsConstants.logEvent('USER_SIGNUP',stuff);
       // SharedPref.saveSharedPref(SharedPref.CATEGORY_LENGTH, '0');
+      var map = {
+        'Page_Name':'Sign_Up',
+        'Mobile_Number':_phoneController.text.toString(),
+        'Language':'Eng',
+        'User_ID':_phoneController.text.toString(),
+      };
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Register,map);
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => OtpScreen(false)));

@@ -65,6 +65,18 @@ bool isLoading =false;
                           AppConstants.image(AppConstants.BANNER_BASE + item.imagePath.toString(), boxfit: BoxFit.fill),
                         ),
                         onTap: () async {
+                          //moEnageanaylytics
+                          var map = {
+                            'Page_Name':'Home_Page',
+                            'Banner_Rank':_current.toString(),
+                            'Banner_Name':item.title.toString(),
+                            'Mobile_Number':AppConstants.userMobile,
+                            'Language':AppConstants.langCode,
+                            'User_ID':AppConstants.userMobile,
+                            'Course_Category':''
+                          };
+                          AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Banner_Home,map);
+
                           //for sendAnalyticsEvent
                           item.type=='Course' || item.type=='Combo Course' ? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerCourseClick):
                           item.type=='Book'? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerBookClick):

@@ -297,6 +297,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _state = _billingStateController.text.trim();
                 String _landmark = _billinglandMarkController.text.trim();
                 String _promocode = _cuponCodeController.text.trim();
+
                 if(widget.pre_booktype == 'Published')
                 {
                   if(checkValidation(_address, _state, _city, _pincode,_landmark,_promocode)) {
@@ -320,7 +321,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 child: Center(
                     child: widget.type == 'Course'||widget.type=='Combo' ?
                     Text(
-                      widget.pre_booktype =='Published'?
+                      widget.pre_booktype == null || widget.pre_booktype =='Published'?
                       getTranslated(context, LangString.continueToBuyCourse)!:prebookButtonText,textAlign: TextAlign.center,
                       style: TextStyle(color: AppColors.white,fontSize: widget.pre_booktype =='Published'? 16:12),
                     ) :  widget.type == 'TestSeries' ?
