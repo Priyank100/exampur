@@ -59,6 +59,7 @@ void main() async {
   // Get any initial links
   HttpOverrides.global = MyHttpOverrides();
 
+  // to crash the app in any exception
   // FlutterError.onError = (FlutterErrorDetails details) async {
   //   await FirebaseCrashlytics.instance.recordFlutterError(details);
   //   exit(0);

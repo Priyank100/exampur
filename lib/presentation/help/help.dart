@@ -268,13 +268,6 @@ issuevalue='Select issue';
                     }, text:getTranslated(context, LangString.emailUs)! )
                 ],
               ),
-              // MaterialButton(
-              //     onPressed: (){
-              //       final a = [12];
-              //       print(a[1]);
-              //     },
-              //   child: Text('crash'),
-              // )
             ],
           ),
         ),
