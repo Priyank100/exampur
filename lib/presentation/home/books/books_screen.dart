@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 class BooksScreen extends StatefulWidget {
 
   @override
@@ -41,6 +43,13 @@ class _BooksScreenState extends State<BooksScreen> {
     scrollController.addListener(pagination);
     isLoad = 0;
     getBooksList(page);
+    var map = {
+    'Page_Name':'Books List',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+    };
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Books_List,map);
     super.initState();
   }
   void pagination() {

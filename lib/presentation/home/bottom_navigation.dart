@@ -300,6 +300,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () async {
                      // AppConstants.subscription('onmessagetesting');
+                        var map = {
+                          'Page_Name':'Side_Bar_App_Tutorial',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_App_Tutorial_Page_Side_Nav,map);
                         _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
@@ -329,6 +337,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () {
+                        var map = {
+                          'Page_Name':'Side_Bar_Category',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Choose_Category_Side_Nav,map);
                         _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
@@ -361,6 +377,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () {
+                        var map = {
+                          'Page_Name':'Side_Bar_Downloads',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Downloads_Side_Nav,map);
                         _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
@@ -389,6 +413,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () {
+                        var map = {
+                          'Page_Name':'Side_Bar_Purchase',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_My_Purchase_Side_Nav,map);
                         _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
@@ -418,6 +450,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () async {
+                        var map = {
+                          'Page_Name':'Side_Bar_TestSeries',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Attempted_Test_Side_Nav,map);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -447,6 +487,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () async {
+                        var map = {
+                          'Page_Name':'Side_Bar_Attempt_Quiz',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Attempted_Quiz_Side_Nav,map);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -476,6 +524,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () async {
+                        var map = {
+                          'Page_Name':'Side_Bar_SavedQuestion',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Saved_Questions_Side_Nav,map);
                         _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
@@ -504,6 +560,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () {
+                        var map = {
+                          'Page_Name':'Side_Bar_Setting',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Settings_Side_Nav,map);
                         _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
@@ -531,6 +595,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () {
+                        var map = {
+                          'Page_Name':'Side_Bar_PrivacyPolicy',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Privacy_Policy_Side_Nav,map);
                         _scaffoldKey.currentState?.openEndDrawer();
                         Navigator.push(
                             context,
@@ -558,6 +630,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () {
+                        var map = {
+                          'Page_Name':'Side_Bar_Share',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Share_Now_Side_Nav,map);
                         _scaffoldKey.currentState?.openEndDrawer();
                         AppConstants.shareData(
                             message: AppConstants.shareAppContent);
@@ -582,6 +662,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () async {
+                        var map = {
+                          'Page_Name':'Side_Bar_Rating',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Share_Now_Side_Nav,map);
                         _scaffoldKey.currentState?.openEndDrawer();
                         await SharedPref.clearSharedPref(SharedPref.RATING).then((value) {
                           AppConstants.checkRatingCondition(context, false);
@@ -630,6 +718,14 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () async {
+                        var map = {
+                          'Page_Name':'Side_Bar_Logout',
+                          'Mobile_Number':AppConstants.userMobile,
+                          'Language':AppConstants.langCode,
+                          'User_ID':AppConstants.userMobile,
+
+                        };
+                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Log_Out_Side_Nav,map);
                         AnalyticsConstants.sendAnalyticsEvent(
                             AnalyticsConstants.logoutClick);
                         Map<String, Object> stuff = {};
@@ -713,8 +809,11 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                 'Language':AppConstants.langCode,
                 'User_ID':AppConstants.userMobile
               };
-              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_My_Courses,map);
-            }
+            if(_currIndex == 1 || _currIndex == 2 || _currIndex == 3 || _currIndex == 4) {
+              AnalyticsConstants.trackEventMoEngage(
+                  _currIndex == 1?AnalyticsConstants.Click_Demo_Bottom_Nav:_currIndex == 2
+                      ?AnalyticsConstants.Click_My_Courses_Bottom_Nav:_currIndex == 3?AnalyticsConstants.Click_Downloads_Bottom_Nav:AnalyticsConstants.Click_Help_Bottom_Nav, map);
+            } }
           },
           iconSize: 20,
           selectedItemColor: AppColors.amber,

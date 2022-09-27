@@ -13,6 +13,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:exampur_mobile/data/model/study_material_sub_cat_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 class StudyMaterialCategoryPdfListing extends StatefulWidget {
   final int pagetype;
   final String subTitle;
@@ -76,7 +78,22 @@ class _StudyMaterialCategoryPdfListingState extends State<StudyMaterialCategoryP
             children: [
               InkWell(
                 onTap: (){
-                  AppConstants.goTo(context, DownloadViewPdf(widget.pdfList[index].title.toString(), widget.pdfList[index].filePath.toString()));
+                  var map = {
+                    'Page_Name':'Study_Material',
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':AppConstants.langCode,
+                    'User_ID':AppConstants.userMobile,
+                    'Study_Material_Type':widget.subTitle.toString()
+                  };
+                  var previousYearmap = {
+                    'Page_Name':'Previous_Year_PDFs',
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':AppConstants.langCode,
+                    'User_ID':AppConstants.userMobile,
+                    'Study_Material_Type':widget.subTitle.toString()
+                  };
+                  widget.pagetype==1?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Previous_Year_PDF,previousYearmap):AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Previous_Year_PDF,map);
+                 AppConstants.goTo(context, DownloadViewPdf(widget.pdfList[index].title.toString(), widget.pdfList[index].filePath.toString()));
                 },
                 child: Container(
                   padding: const EdgeInsets.all(3.0),

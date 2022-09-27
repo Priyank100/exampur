@@ -22,6 +22,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 typedef YoutubeQualityChangeCallback(String quality, Duration position);
 
 class PaidCourseDetails extends StatefulWidget {
@@ -57,6 +59,16 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   @override
   void initState() {
+    var map = {
+      'Page_Name':'Course_Details',
+      'Course_Category':AppConstants.paidTabName,
+      'Course_Name':widget.courseData.title.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Video_Name':widget.courseData.title.toString(),
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
     AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     AppConstants.printLog(widget.courseData.videoPath.toString());
     message = AppConstants.langCode == 'hi' ? LangString.preBookTextHi : LangString.preBookTextEng;
@@ -183,6 +195,15 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                           padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
                           child: InkWell(
                             onTap: (){
+                              var map = {
+                                'Page_Name':'Course_Details',
+                                'Course_Category':AppConstants.paidTabName,
+                                'Course_Name':widget.courseData.title.toString(),
+                                'Mobile_Number':AppConstants.userMobile,
+                                'Language':AppConstants.langCode,
+                                'User_ID':AppConstants.userMobile,
+                              };
+                              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_PDF,map);
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
                               widget.courseData.pdfPath.toString().contains('http') ?
                               ViewPdf(widget.courseData.pdfPath.toString(),'') :
@@ -289,6 +310,15 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                   InkWell(
                     onTap: () {
                       _controller.pause();
+                      var map = {
+                        'Page_Name':'Course_Details',
+                        'Course_Category':AppConstants.paidTabName,
+                        'Course_Name':widget.courseData.title.toString(),
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'User_ID':AppConstants.userMobile,
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Course,map);
                       FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
                         'Course_Id':widget.courseData.id.toString(),
                         'Course_Name':widget.courseData.title.toString()

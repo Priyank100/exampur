@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 
+import '../utils/analytics_constants.dart';
+
 class BooksCard extends StatefulWidget {
   final BookEbook  books;
 
@@ -67,6 +69,14 @@ class _BooksCardState extends State<BooksCard> {
           SizedBox(height: 10),
           CustomElevatedButton(
             onPressed: () {
+              var map = {
+                'Page_Name':'Books List',
+                'Mobile_Number':AppConstants.userMobile,
+                'Language':AppConstants.langCode,
+                'User_ID':AppConstants.userMobile,
+                'Book_Name':widget.books.title.toString()
+              };
+              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Book,map);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => PlaceOrderScreen(widget.books)
                   )
@@ -79,6 +89,14 @@ class _BooksCardState extends State<BooksCard> {
           ),
           InkWell(
             onTap: () async {
+              var map = {
+                'Page_Name':'Books List',
+                'Mobile_Number':AppConstants.userMobile,
+                'Language':AppConstants.langCode,
+                'User_ID':AppConstants.userMobile,
+                'Book_Name':widget.books.title.toString()
+              };
+              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Share_Books,map);
               String data = json.encode(widget.books);
               String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink('books', data, '0', widget.books.id.toString());
               String shareContent =

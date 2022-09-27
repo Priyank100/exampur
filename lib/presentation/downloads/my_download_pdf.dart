@@ -8,6 +8,8 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/analytics_constants.dart';
+
 class MyDownloadPdf extends StatefulWidget {
   const MyDownloadPdf() : super();
 
@@ -61,6 +63,14 @@ class _MyDownloadPdfState extends State<MyDownloadPdf> {
                         Expanded(child: Text(pdfList[index].path.split('/').last, maxLines: 2,overflow: TextOverflow.ellipsis)),
                         InkWell(
                           onTap: (){
+                            var map = {
+                              'Page_Name':'Downloads',
+                              'Mobile_Number':AppConstants.userMobile,
+                              'Language':AppConstants.langCode,
+                              'User_ID':AppConstants.userMobile,
+
+                            };
+                            AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_PDF,map);
                             File file = File(pdfList[index].path);
                             file.delete();
                             setState(() {});

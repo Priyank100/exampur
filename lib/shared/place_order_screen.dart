@@ -10,6 +10,8 @@ import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 
+import '../utils/analytics_constants.dart';
+
 class PlaceOrderScreen extends StatefulWidget {
   final BookEbook books;
 
@@ -134,6 +136,14 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
               alignment: FractionalOffset.bottomCenter,
               child: CustomElevatedButton(
                 onPressed: () {
+                  var map = {
+                    'Page_Name':'Confirm_Book_Purchase',
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':AppConstants.langCode,
+                    'User_ID':AppConstants.userMobile,
+                    'Book_Name':widget.books.title.toString()
+                  };
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Place_Order,map);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) =>

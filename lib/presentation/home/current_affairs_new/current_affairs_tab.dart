@@ -149,7 +149,7 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
         ),
         Expanded(
           child: TabBarView(
-              children: currentAffairsTab.map((item) => CurrentAffairsListing(item.id.toString())).toList()
+              children: currentAffairsTab.map((item) => CurrentAffairsListing(item.id.toString(),item.titleEng.toString())).toList()
           ),
         ),
       ],

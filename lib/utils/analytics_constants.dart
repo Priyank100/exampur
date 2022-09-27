@@ -101,7 +101,43 @@ class AnalyticsConstants {
   static String Click_Translate_English    = 'Click_Translate_English';
   static String Click_My_Courses    = 'Click_My_Courses';
   static String Click_Watch_Now    = 'Click_Watch_Now';
-
+  static String Course_List    = 'Course_List';
+  static String Click_Buy_Course    = 'Click_Buy_Course';
+  static String Click_Share_Course    = 'Click_Share_Course';
+  static String Click_View_Details_Course    = 'Click_View_Details_Course';
+  static String Click_View_PDF    = 'Click_View_PDF';
+  static String Coupon_Code_Successfully_Applied    = 'Coupon_Code_Successfully_Applied';
+  static String Coupon_Code_Failed    = 'Coupon_Code_Failed';
+  static String Click_Recommended_Book    = 'Click_Recommended_Book';
+  static String Check_Out_Page    = 'Check_Out_Page';
+  static String Click_Pay_Now    = 'Click_Pay_Now';
+  static String Purchase_Successful    = 'Purchase_Successful';
+  static String Purchase_Failed    = 'Purchase_Failed';
+  static String Books_List    = 'Books_List';
+  static String Click_Share_Books    = 'Click_Share_Books';
+  static String Click_Buy_Book    = 'Click_Buy_Book';
+  static String Click_Place_Order    = 'Click_Place_Order';
+  static String Click_Confirm_Purchase_Books    = 'Click_Confirm_Purchase_Books';
+  static String Current_Affairs   = 'Current_Affairs';
+  static String Click_CA_Article   = 'Click_CA_Article';
+  static String Click_Alerts   = 'Click_Alerts';
+  static String Click_App_Tutorial_Page_Side_Nav   = 'Click_App_Tutorial_Page_Side_Nav';
+  static String Click_Choose_Category_Side_Nav   = 'Click_Choose_Category_Side_Nav';
+  static String Click_My_Purchase_Side_Nav   = 'Click_My_Purchase_Side_Nav';
+  static String Click_Downloads_Side_Nav   = 'Click_Downloads_Side_Nav';
+  static String Click_Attempted_Test_Side_Nav   = 'Click_Attempted_Test_Side_Nav';
+  static String Click_Attempted_Quiz_Side_Nav   = 'Click_Attempted_Quiz_Side_Nav';
+  static String Click_Saved_Questions_Side_Nav   = 'Click_Saved_Questions_Side_Nav';
+  static String Click_Settings_Side_Nav   = 'Click_Settings_Side_Nav';
+  static String Click_Privacy_Policy_Side_Nav   = 'Click_Privacy_Policy_Side_Nav';
+  static String Click_Share_Now_Side_Nav   = 'Click_Share_Now_Side_Nav';
+  static String Click_Rate_Us_Side_Nav   = 'Click_Rate_Us_Side_Nav';
+  static String Click_Log_Out_Side_Nav   = 'Click_Log_Out_Side_Nav';
+  static String Click_Watch_Now_App_Tutorial   = 'Click_Watch_Now_App_Tutorial';
+  static String Click_Demo_Bottom_Nav   = 'Click_Demo_Bottom_Nav';
+  static String Click_My_Courses_Bottom_Nav   = 'Click_My_Courses_Bottom_Nav';
+  static String Click_Downloads_Bottom_Nav   = 'Click_Downloads_Bottom_Nav';
+  static String Click_Help_Bottom_Nav   = 'Click_Help_Bottom_Nav';
 
 
 }

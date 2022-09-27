@@ -71,6 +71,7 @@ class AppConstants {
   static String courseName = '';
   static String subjectName = '';
   static String chapterName = '';
+  static String paidTabName = '';
 
 
 

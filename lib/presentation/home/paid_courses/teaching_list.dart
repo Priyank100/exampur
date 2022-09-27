@@ -10,6 +10,8 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 class TeachingList extends StatefulWidget {
   final int courseType;
   final String tabId;
@@ -35,6 +37,18 @@ class _TeachingListState extends State<TeachingList> {
     scrollController.addListener(pagination);
     isLoad = 0;
     getLists(page);
+
+    var map = {
+      'Page_Name':'Course_List',
+      'Course_Category':widget.tabName,
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+    };
+
+    if(widget.courseType == 1) {
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Course_List,map);
+    }
     super.initState();
   }
 
