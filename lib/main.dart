@@ -59,6 +59,11 @@ void main() async {
   // Get any initial links
   HttpOverrides.global = MyHttpOverrides();
 
+  // FlutterError.onError = (FlutterErrorDetails details) async {
+  //   await FirebaseCrashlytics.instance.recordFlutterError(details);
+  //   exit(0);
+  // };
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
    // ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
