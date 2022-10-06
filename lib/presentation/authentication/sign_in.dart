@@ -26,31 +26,76 @@ class SignInState extends State<SignIn> {
   late TextEditingController _phoneEmailController;
   late TextEditingController _passwordController;
   late GlobalKey<FormState> _formKeyLogin;
+
+  FocusNode _phoneNode = FocusNode();
+  FocusNode _passNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
     var map = {
       'Page_Name':'App_Login',
       'Mobile_Number':'',
-      'Language':'Eng',
+      'Language':'en',
       'User_ID':''
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Login_page,map);
-
+    _phoneNode.addListener(onFocusChange1);
+    _passNode.addListener(onFocusChange2);
 
     _formKeyLogin = GlobalKey<FormState>();
     _phoneEmailController = TextEditingController();
     _passwordController = TextEditingController();
 
   }
+
+  void onFocusChange1() {
+    if(!_phoneNode.hasFocus) {
+      if(_phoneEmailController.text.toString().contains('@')){
+        var map = {
+          'Page_Name':'App_Login',
+          'Mobile_Number':_phoneEmailController.text.toString(),
+          'Language':'en',
+          'User_ID':_phoneEmailController.text.toString()
+        };
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_Email_Login,map);}
+
+      else{
+        var map = {
+          'Page_Name':'App_Login',
+          'Mobile_Number':_phoneEmailController.text.toString(),
+          'Language':'en',
+          'User_ID':_phoneEmailController.text.toString()
+        };
+
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_Mobile_Login,map);
+        }
+      }
+
+    }
+
+
+  void onFocusChange2() {
+    if(!_passNode.hasFocus) {
+      var map = {
+        'Page_Name':'App_Login',
+        'Mobile_Number':_phoneEmailController.text.toString(),
+        'Language':'en',
+        'User_ID':_phoneEmailController.text.toString()
+      };
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_Password_Login,map);
+    }}
+
+
   @override
   void dispose() {
     _phoneEmailController.dispose();
     _passwordController.dispose();
+    _phoneNode.removeListener(onFocusChange1);
+    _passNode.removeListener(onFocusChange2);
     super.dispose();
   }
-  FocusNode _phoneNode = FocusNode();
-  FocusNode _passNode = FocusNode();
+
   LoginModel loginBody = LoginModel();
 
   void loginUser() async {
@@ -98,7 +143,7 @@ class SignInState extends State<SignIn> {
         var map = {
           'Page_Name':'App_Login',
           'Mobile_Number':_phoneEmail,
-          'Language':'Eng',
+          'Language':'en',
           'User_ID':_phoneEmail
         };
         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Submit,map);
@@ -182,7 +227,7 @@ class SignInState extends State<SignIn> {
                             var map = {
                               'Page_Name':'App_Login',
                               'Mobile_Number':_phoneEmailController.text.trim(),
-                              'Language':'Eng',
+                              'Language':'en',
                               'User_ID':_phoneEmailController.text.trim()
                             };
                             AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Forgot_Password_Login,map);
@@ -240,7 +285,7 @@ class SignInState extends State<SignIn> {
                             var map = {
                               'Page_Name':'App_Login',
                               'Mobile_Number':_phoneEmailController.text.trim(),
-                              'Language':'Eng',
+                              'Language':'en',
                               'User_ID':_phoneEmailController.text.trim()
                             };
                             AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Call_Us_Login,map);

@@ -57,14 +57,18 @@ class SignUpState extends State<SignUp> {
     selectedState = stateList[0].name.toString();
     setState(() {});
   }
-
+  FocusNode _nameNode = FocusNode();
+  FocusNode _emailNode = FocusNode();
+  FocusNode _passwordNode = FocusNode();
+  FocusNode _phoneNode = FocusNode();
+  FocusNode _cityNode = FocusNode();
   @override
   void initState() {
     super.initState();
     var map = {
       'Page_Name':'Sign_Up',
       'Mobile_Number':'',
-      'Language':'Eng',
+      'Language':'en',
       'User_ID':''
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Sign_Up,map);
@@ -76,8 +80,72 @@ class SignUpState extends State<SignUp> {
     _userNameController = TextEditingController();
     _cityController = TextEditingController();
     _dobController = TextEditingController();
+
+    _nameNode.addListener(onFocusChange1);
+    _emailNode.addListener(onFocusChange2);
+    _passwordNode.addListener(onFocusChange3);
+    _phoneNode.addListener(onFocusChange4);
+    _cityNode.addListener(onFocusChange5);
+
+
     getStateList();
   }
+
+
+  void onFocusChange1() {
+    if(!_nameNode.hasFocus) {
+      var map = {
+        'Page_Name':'Sign_Up',
+        'Mobile_Number':_phoneController.text.toString(),
+        'Language':'en',
+        'User_ID':_phoneController.text.toString()
+      };
+
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_Name,map);
+    }}
+  void onFocusChange2() {
+    if(!_emailNode.hasFocus) {
+      var map = {
+        'Page_Name':'Sign_Up',
+        'Mobile_Number':_phoneController.text.toString(),
+        'Language':'en',
+        'User_ID':_phoneController.text.toString()
+      };
+
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_Email_ID,map);
+    }}
+  void onFocusChange3() {
+    if(!_passwordNode.hasFocus) {
+      var map = {
+        'Page_Name':'Sign_Up',
+        'Mobile_Number':_phoneController.text.toString(),
+        'Language':'en',
+        'User_ID':_phoneController.text.toString()
+      };
+
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_Password,map);
+    }}void onFocusChange4() {
+    if(!_phoneNode.hasFocus) {
+      var map = {
+        'Page_Name':'Sign_Up',
+        'Mobile_Number':_phoneController.text.toString(),
+        'Language':'en',
+        'User_ID':_phoneController.text.toString()
+      };
+
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_Mobile_Number,map);
+    }}
+  void onFocusChange5() {
+    if(!_cityNode.hasFocus) {
+      var map = {
+        'Page_Name':'Sign_Up',
+        'Mobile_Number':_phoneController.text.toString(),
+        'Language':'en',
+        'User_ID':_phoneController.text.toString()
+      };
+
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_City,map);
+    }}
 
   @override
   void dispose() {
@@ -88,6 +156,15 @@ class SignUpState extends State<SignUp> {
     _phoneController.dispose();
     _passwordController.dispose();
     _dobController.dispose();
+
+    _nameNode.removeListener(onFocusChange1);
+    _emailNode.removeListener(onFocusChange2);
+    _passwordNode.removeListener(onFocusChange3);
+    _phoneNode.removeListener(onFocusChange4);
+    _cityNode.removeListener(onFocusChange5);
+
+
+
     super.dispose();
   }
 
@@ -122,6 +199,7 @@ class SignUpState extends State<SignUp> {
                     CustomTextField(
                         hintText: "Name",
                         controller: _nameController,
+                        focusNode: _nameNode,
                         value: (value) {}),
                     SizedBox(
                       height: 15,
@@ -157,6 +235,7 @@ class SignUpState extends State<SignUp> {
                     CustomTextField(
                         hintText: "E-mail",
                         controller: _emailController,
+                        focusNode: _emailNode,
                         textInputType: TextInputType.emailAddress,
                         value: (value) {}),
                     SizedBox(
@@ -166,6 +245,7 @@ class SignUpState extends State<SignUp> {
                     CustomPasswordTextField(
                       hintTxt: 'Password',
                       controller: _passwordController,
+                      focusNode: _passwordNode,
                       textInputAction: TextInputAction.next,
                     ),
 
@@ -182,6 +262,7 @@ class SignUpState extends State<SignUp> {
                     CustomTextField(
                         hintText: "Phone number",
                         controller: _phoneController,
+                        focusNode: _phoneNode,
                         textInputType: TextInputType.number,
                         maxLength: 10,
                         textInputFormatter: <TextInputFormatter>[
@@ -214,6 +295,15 @@ class SignUpState extends State<SignUp> {
                           );
                         }).toList(),
                         onChanged: (selected) {
+                          if(selected != null){
+                            var map = {
+                              'Page_Name':'Sign_Up',
+                              'Mobile_Number':'',
+                              'Language':'en',
+                              'User_ID':''
+                            };
+                           AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_State,map);
+                          }
                           setState(() {
                             selectedState = selected.toString();
                           });
@@ -228,6 +318,7 @@ class SignUpState extends State<SignUp> {
                     CustomTextField(
                         hintText: "City",
                         controller: _cityController,
+                        focusNode: _cityNode,
                         value: (value) {}),
 
                     SizedBox(
@@ -240,6 +331,16 @@ class SignUpState extends State<SignUp> {
                             checkColor: AppColors.white,
                             activeColor: AppColors.amber,
                             onChanged: (newValue) {
+                              if(newValue!){
+                                var map = {
+                                  'Page_Name':'Sign_Up',
+                                  'Mobile_Number':'',
+                                  'Language':'en',
+                                  'User_ID':''
+                                };
+                                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Agree_TnC,map);
+                              }
+
                               setState(() {
                                 _isCheckTerms = newValue!;
                               });
@@ -445,10 +546,11 @@ class SignUpState extends State<SignUp> {
       var map = {
         'Page_Name':'Sign_Up',
         'Mobile_Number':_phoneController.text.toString(),
-        'Language':'Eng',
+        'Language':'en',
         'User_ID':_phoneController.text.toString(),
       };
-      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Register,map);
+
+     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Register,map);
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => OtpScreen(false)));

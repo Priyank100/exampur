@@ -6,7 +6,7 @@ import 'package:moengage_flutter/properties.dart';
 import 'app_constants.dart';
 
 class AnalyticsConstants {
-  static MoEngageFlutter _moengagePlugin = MoEngageFlutter();
+  static MoEngageFlutter moengagePlugin = MoEngageFlutter();
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
 
@@ -60,8 +60,10 @@ class AnalyticsConstants {
   }
 
   static void moEngageInitialize(){
-    _moengagePlugin.initialise();
-    // _moengagePlugin.setUniqueId('UAIIRLJXLAVMA3I6TOFYHV8P');
+    moengagePlugin.initialise();
+    // _moengagePlugin.setUserName(AppConstants.userName);
+    // _moengagePlugin.setPhoneNumber(AppConstants.userMobile);
+    // _moengagePlugin.setUniqueId(AppConstants.userMobile);
   }
 
   static void trackEventMoEngage(String eventName, Map<String, String> map) {
@@ -69,7 +71,7 @@ class AnalyticsConstants {
     for(var entry in map.entries) {
       properties.addAttribute(entry.key, entry.value);
     }
-   _moengagePlugin.trackEvent(eventName, properties);
+   moengagePlugin.trackEvent(eventName, properties);
      AppConstants.printLog(properties.generalAttributes);
     // AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Moengage');
   }
@@ -99,6 +101,7 @@ class AnalyticsConstants {
   static String Click_Practice_Questions    = 'Click_Practice_Questions';
   static String Click_Live_Test    = 'Click_Live_Test';
   static String Click_Translate_English    = 'Click_Translate_English';
+  static String Click_Translate_Hindi    = 'Click_Translate_Hindi';
   static String Click_My_Courses    = 'Click_My_Courses';
   static String Click_Watch_Now    = 'Click_Watch_Now';
   static String Course_List    = 'Course_List';
@@ -138,6 +141,19 @@ class AnalyticsConstants {
   static String Click_My_Courses_Bottom_Nav   = 'Click_My_Courses_Bottom_Nav';
   static String Click_Downloads_Bottom_Nav   = 'Click_Downloads_Bottom_Nav';
   static String Click_Help_Bottom_Nav   = 'Click_Help_Bottom_Nav';
-
+  static String Stop_Video   = 'Stop_Video';
+  static String Stop_Live_Video   = 'Stop_Live_Video';
+  static String Enter_Mobile_Login   = '"Enter_Mobile_Login';
+  static String Enter_Password_Login   = '"Enter_Password_Login';
+  static String Enter_Email_Login   = '"Enter_Email_Login';
+  static String Click_Agree_TnC   = 'Click_Agree_TnC';
+  static String Click_State   = 'Click_State';
+  static String Enter_Name   = 'Enter_Name';
+  static String Enter_Password   = 'Enter_Password';
+  static String Enter_Email_ID   = 'Enter_Email_ID';
+  static String Enter_Mobile_Number   = 'Enter_Mobile_Number';
+  static String Enter_City   = 'Enter_City';
+  static String Enter_OTP   = 'Enter_OTP';
+  static String Click_Verify_OTP   = 'Click_Verify_OTP';
 
 }

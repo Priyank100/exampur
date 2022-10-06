@@ -11,6 +11,8 @@ import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/analytics_constants.dart';
+
 class BannerLinkBookDetailPage extends StatefulWidget {
   final String type;
   final String datalink;
@@ -36,7 +38,18 @@ class _BannerLinkBookDetailPageState extends State<BannerLinkBookDetailPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getLists();
+    getLists().then((value) {
+      var map = {
+        'Page_Name':'Home_Page',
+        'Banner_Rank':AppConstants.currentindex,
+        'Banner_Name':bannerDetailData!.title.toString(),
+        'Mobile_Number':AppConstants.userMobile,
+        'Language':AppConstants.langCode,
+        'User_ID':AppConstants.userMobile,
+        'Course_Category':((bannerDetailData!.category!.map((item) => item.name)).toList()).join(', ')
+      };
+       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Banner_Home,map);
+    });
   }
   @override
   Widget build(BuildContext context) {

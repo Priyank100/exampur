@@ -218,51 +218,81 @@ class _TimeTableViewState extends State<TimeTableView> {
                   SizedBox(
                     height: 10,
                   ),
-                  CustomButton(
-                    navigateTo: MyTimeTableViedo(
-                        liveStreamData.apexLink!.hlsURL.toString(),
-                        myCourseTimeLineList[index].title.toString(),
-                        liveStreamData.id.toString()),
+                  CustomButtonLive(
+                    onPressed: (){
+                      AppConstants.videoQuality ='Normal';
+                      AppConstants.chapterName =myCourseTimeLineList[index].chapterName.toString();
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (_) => MyTimeTableViedo(
+                          liveStreamData.apexLink!.hlsURL.toString(),
+                          myCourseTimeLineList[index].title.toString(),
+                          liveStreamData.id.toString())));
+                    },
                     title: getTranslated(context, LangString.Normal),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  CustomButton(
-                    navigateTo: MyTimeTableViedo(
-                        liveStreamData.apexLink!.hls240pURL.toString(),
-                        myCourseTimeLineList[index].title.toString(),
-                        liveStreamData.id.toString()),
+                CustomButtonLive(
+                  onPressed: (){
+                      AppConstants.videoQuality ='240p';
+                      AppConstants.chapterName =myCourseTimeLineList[index].chapterName.toString();
+                     Navigator.pop(context);
+                Navigator.push(
+                context, MaterialPageRoute(builder: (_) => MyTimeTableViedo(
+                liveStreamData.apexLink!.hls240pURL.toString(),
+                myCourseTimeLineList[index].title.toString(),
+                liveStreamData.id.toString()),));
+          },
                     title: '240p',
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  CustomButton(
-                    navigateTo: MyTimeTableViedo(
-                        liveStreamData.apexLink!.hls360pURL.toString(),
-                        myCourseTimeLineList[index].title.toString(),
-                        liveStreamData.id.toString()),
+                  CustomButtonLive(
+                    onPressed: (){
+                      AppConstants.videoQuality ='360p';
+                      AppConstants.chapterName =myCourseTimeLineList[index].chapterName.toString();
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (_) =>MyTimeTableViedo(
+                          liveStreamData.apexLink!.hls360pURL.toString(),
+                          myCourseTimeLineList[index].title.toString(),
+                          liveStreamData.id.toString()),));
+                    },
                     title: '360p',
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  CustomButton(
-                    navigateTo: MyTimeTableViedo(
-                        liveStreamData.apexLink!.hls480pURL.toString(),
-                        myCourseTimeLineList[index].title.toString(),
-                        liveStreamData.id.toString()),
+                  CustomButtonLive(
+                    onPressed: (){
+                      AppConstants.videoQuality ='480p';
+                      AppConstants.chapterName =myCourseTimeLineList[index].chapterName.toString();
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (_) =>MyTimeTableViedo(
+                          liveStreamData.apexLink!.hls480pURL.toString(),
+                          myCourseTimeLineList[index].title.toString(),
+                          liveStreamData.id.toString()),));
+                    },
                     title: '480p',
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  CustomButton(
-                    navigateTo: MyTimeTableViedo(
-                        liveStreamData.apexLink!.hls720pURL.toString(),
-                        myCourseTimeLineList[index].title.toString(),
-                        liveStreamData.id.toString()),
+                  CustomButtonLive(
+                    onPressed: (){
+                      AppConstants.videoQuality ='720p';
+                      AppConstants.chapterName =myCourseTimeLineList[index].chapterName.toString();
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (_) =>MyTimeTableViedo(
+                          liveStreamData.apexLink!.hls720pURL.toString(),
+                          myCourseTimeLineList[index].title.toString(),
+                          liveStreamData.id.toString()),));
+                    },
                     title: '720p',
                   ),
                   SizedBox(
@@ -336,6 +366,43 @@ class CustomButton extends StatelessWidget {
           Navigator.pop(context);
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => navigateTo!));
+        },
+        child: Container(
+            width: width / 2,
+            height: 40,
+            // alignment: Alignment.center,
+            //padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8), color: AppColors.amber),
+            child: Center(
+              child: new Text(
+                title!,
+                style: TextStyle(color: AppColors.white),
+              ),
+            )));
+  }
+
+
+}
+
+class CustomButtonLive extends StatelessWidget {
+  final String? image;
+  final String? title;
+  final VoidCallback onPressed;
+  final Color? color;
+
+  CustomButtonLive(
+      {@required this.image,
+        @required this.title,
+        required this.onPressed,
+        this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width - 60;
+    return InkWell(
+        onTap: () {
+          onPressed();
         },
         child: Container(
             width: width / 2,

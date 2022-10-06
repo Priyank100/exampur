@@ -77,7 +77,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
     var map = {
       'Page_Name':'Home_Page',
       'Mobile_Number':AppConstants.userMobile,
-      'Language':'Eng',
+      'Language':'en',
       'User_ID':AppConstants.userMobile
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Home_Page,map);
@@ -803,17 +803,20 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
               AnalyticsConstants.logEvent(_currIndex == 1?AnalyticsConstants.demoClick:_currIndex == 2
                   ?AnalyticsConstants.myCoursesClick:AnalyticsConstants.downloadsClick,stuff
               );
-              var map = {
-                'Page_Name':'Home_Page',
-                'Mobile_Number':AppConstants.userMobile,
-                'Language':AppConstants.langCode,
-                'User_ID':AppConstants.userMobile
-              };
-            if(_currIndex == 1 || _currIndex == 2 || _currIndex == 3 || _currIndex == 4) {
-              AnalyticsConstants.trackEventMoEngage(
-                  _currIndex == 1?AnalyticsConstants.Click_Demo_Bottom_Nav:_currIndex == 2
-                      ?AnalyticsConstants.Click_My_Courses_Bottom_Nav:_currIndex == 3?AnalyticsConstants.Click_Downloads_Bottom_Nav:AnalyticsConstants.Click_Help_Bottom_Nav, map);
-            } }
+            }
+            var map = {
+              'Page_Name':'Home_Page',
+              'Mobile_Number':AppConstants.userMobile,
+              'Language':AppConstants.langCode,
+              'User_ID':AppConstants.userMobile
+            };
+            AnalyticsConstants.trackEventMoEngage(
+                _currIndex == 1 ? AnalyticsConstants.Click_Demo_Bottom_Nav :
+                _currIndex == 2 ? AnalyticsConstants.Click_My_Courses_Bottom_Nav :
+                _currIndex == 3? AnalyticsConstants.Click_Downloads_Bottom_Nav :
+                _currIndex == 4 ? AnalyticsConstants.Click_Help_Bottom_Nav :
+                AnalyticsConstants.Home_Page, map
+            );
           },
           iconSize: 20,
           selectedItemColor: AppColors.amber,

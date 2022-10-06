@@ -57,8 +57,12 @@ class AuthProvider extends ChangeNotifier {
       if(statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
 
+        //MoEngage
         AppConstants.userName = _informationModel.data!.firstName.toString();
         AppConstants.userMobile = _informationModel.data!.phone.toString();
+        AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
+        AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
+        // AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.userMobile);
 
         await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
@@ -117,8 +121,12 @@ class AuthProvider extends ChangeNotifier {
       if(statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
 
+        //MoEngage
         AppConstants.userName = _informationModel.data!.firstName.toString();
         AppConstants.userMobile = _informationModel.data!.phone.toString();
+        AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
+        AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
+        // AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.userMobile);
 
         await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
@@ -195,8 +203,12 @@ class AuthProvider extends ChangeNotifier {
       if (statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
 
+        //MoEngage
         AppConstants.userName = _informationModel.data!.firstName.toString();
         AppConstants.userMobile = _informationModel.data!.phone.toString();
+        AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
+        AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
+        // AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.userMobile);
 
         await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
         _userData.add(_informationModel);

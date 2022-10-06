@@ -189,7 +189,13 @@ class _HomeState extends State<Home> {
       'Course_Category':'',
       'User_ID':AppConstants.userMobile
     };
-    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Translate_English,map);
+    if(language.languageCode == 'hi'){
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Translate_Hindi,map);
+    }
+    else{
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Translate_English,map);
+    }
+
   }
 
   /*Future<void>_refreshScreen() async{

@@ -72,6 +72,8 @@ class AppConstants {
   static String subjectName = '';
   static String chapterName = '';
   static String paidTabName = '';
+  static String videoQuality = '';
+  static String currentindex = '';
 
 
 
