@@ -86,7 +86,7 @@ class AuthProvider extends ChangeNotifier {
         var map = {
           'Page_Name':'App_Login',
           'Mobile_Number':loginBody.phone.toString(),
-          'Language':'Eng',
+          'Language':'en',
           'User_ID':loginBody.phone.toString()
         };
         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Error_Invalid_Mobile,map);

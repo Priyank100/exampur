@@ -62,7 +62,7 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
       'Page_Name':'Home_Page',
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
-      'Course_Category':'',
+      'Course_Category':AppConstants.selectedCategoryName.toString(),
       'User_ID':AppConstants.userMobile
     };
     widget.courseType == 1? AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Paid_Courses,map):null;

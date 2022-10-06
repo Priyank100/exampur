@@ -112,6 +112,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
           if (AppConstants.selectedCategoryList[i] == allCategoriesList[j].id) {
             allCategoriesList[j].isSelected = true;
             selectedCategoryName.add(allCategoriesList[j].name.toString());
+            AppConstants.selectedCategoryName = selectedCategoryName;
           }
         }
       }

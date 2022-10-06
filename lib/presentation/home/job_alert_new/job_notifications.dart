@@ -70,9 +70,13 @@ class _JobNotificationsState extends State<JobNotifications> {
   }
 
   Future<void> getJobNotificationListing() async {
-    isLoading = true;
-    jobNotificationListModel = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationData(context, tagSlug, courseId))!;
-    isLoading = false;
-    setState(() {});
+    if(tagSlug.isNotEmpty) {
+      isLoading = true;
+      jobNotificationListModel =
+      (await Provider.of<JobAlertsProvider>(context, listen: false)
+          .getJobNotificationData(context, tagSlug, courseId))!;
+      isLoading = false;
+      setState(() {});
+    }
   }
 }

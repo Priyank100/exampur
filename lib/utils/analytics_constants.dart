@@ -143,9 +143,9 @@ class AnalyticsConstants {
   static String Click_Help_Bottom_Nav   = 'Click_Help_Bottom_Nav';
   static String Stop_Video   = 'Stop_Video';
   static String Stop_Live_Video   = 'Stop_Live_Video';
-  static String Enter_Mobile_Login   = '"Enter_Mobile_Login';
-  static String Enter_Password_Login   = '"Enter_Password_Login';
-  static String Enter_Email_Login   = '"Enter_Email_Login';
+  static String Enter_Mobile_Login   = 'Enter_Mobile_Login';
+  static String Enter_Password_Login   = 'Enter_Password_Login';
+  static String Enter_Email_Login   = 'Enter_Email_Login';
   static String Click_Agree_TnC   = 'Click_Agree_TnC';
   static String Click_State   = 'Click_State';
   static String Enter_Name   = 'Enter_Name';

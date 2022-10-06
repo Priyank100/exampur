@@ -186,7 +186,7 @@ class _HomeState extends State<Home> {
       'Page_Name':'Home_Page',
       'Mobile_Number':AppConstants.userMobile,
       'Language':language.languageCode,
-      'Course_Category':'',
+      'Course_Category':AppConstants.selectedCategoryName.toString(),
       'User_ID':AppConstants.userMobile
     };
     if(language.languageCode == 'hi'){
@@ -322,7 +322,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':'',
+                        'Course_Category':AppConstants.selectedCategoryName.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Test_Series,map);
@@ -360,7 +360,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':'',
+                        'Course_Category':AppConstants.selectedCategoryName.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Quiz,map);
@@ -379,7 +379,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':'',
+                        'Course_Category':AppConstants.selectedCategoryName.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Study_Material,map);
@@ -406,7 +406,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':'',
+                        'Course_Category':AppConstants.selectedCategoryName.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Job_Alerts,map);
@@ -426,7 +426,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':'',
+                        'Course_Category':AppConstants.selectedCategoryName.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Current_Affairs,map);
@@ -481,7 +481,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':'',
+                        'Course_Category':AppConstants.selectedCategoryName.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Previous_Year_PDF,map);
@@ -500,7 +500,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':'',
+                        'Course_Category':AppConstants.selectedCategoryName.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Practice_Questions,map);
@@ -525,7 +525,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':'',
+                        'Course_Category':AppConstants.selectedCategoryName.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Live_Test,map);

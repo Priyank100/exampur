@@ -334,15 +334,15 @@ class SignUpState extends State<SignUp> {
                               if(newValue!){
                                 var map = {
                                   'Page_Name':'Sign_Up',
-                                  'Mobile_Number':'',
+                                  'Mobile_Number':_phoneController.text.toString(),
                                   'Language':'en',
-                                  'User_ID':''
+                                  'User_ID':_phoneController.text.toString()
                                 };
                                 AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Agree_TnC,map);
                               }
 
                               setState(() {
-                                _isCheckTerms = newValue!;
+                                _isCheckTerms = newValue;
                               });
                             }),
                         Text(
