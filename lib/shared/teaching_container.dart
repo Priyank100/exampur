@@ -187,9 +187,6 @@ class _TeachingContainerState extends State<TeachingContainer> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           CustomRoundButton(onPressed: () async {
-                            // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
-                            // // courseIdList.add(widget.courseData.id.toString());
-                            // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;
 
                             String courseTabType = 'Course';
                             if(widget.tabId=='combo_course'){
@@ -198,12 +195,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               courseTabType = 'Course';
                             }
                             widget.courseType==1?AppConstants.subscription(widget.courseData.id.toString().replaceAll(' ', '_')):'';
-                            // widget.courseType==1?  Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                            //     PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
-                            // )): submitLog(context, widget.courseData.title.toString(), widget.courseData.id.toString());
-                            // Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                            //     MyCourseTabView(widget.courseData.id.toString(),'','')
-                            // ));
+
                             if(widget.courseType==1) {
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                   PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
@@ -289,10 +281,9 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           SizedBox(height: 15,),
                         ],
                       ),
-
-                    ],),
+                    ]
+                  ),
                 ),
-
               ],
             ),
           ),
@@ -335,15 +326,6 @@ class _TeachingContainerState extends State<TeachingContainer> {
     await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) {
       AppConstants.printLog(header);
       AppConstants.printLog(response.body);
-      // if(response == null) {
-      //   AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
-      // } else {
-      //   if(response.statusCode == 200) {
-      //     AppConstants.printLog(response.body);
-      //   } else {
-      //     AppConstants.showBottomMessage(context, 'Something went wrong', AppColors.red);
-      //   }
-      // }
     });
   }
 }
@@ -361,9 +343,7 @@ class RowTile extends StatelessWidget {
         Icon(Icons.done,color: Colors.amber,),
         SizedBox(width: 5,),
         Text(title),
-
-
-      ],),
+      ]),
     );
   }
 

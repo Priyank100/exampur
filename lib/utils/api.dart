@@ -243,6 +243,5 @@ class API {
 
   //pre-booking
   static const String preBookOptedUrl = BASE_URL1 +'prebook-course/COURSE_ID';
-  static const String preBookCouponUrl = '';
 
 }

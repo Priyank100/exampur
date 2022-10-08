@@ -83,7 +83,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     super.initState();
     getSharedPrefData();
     subMsg = AppConstants.langCode == 'hi' ? LangString.preBookSubTextHi : LangString.preBookSubTextEng;
-    if(widget.pre_booktype == 'Prebook') {
+    // if(widget.pre_booktype == 'Prebook') {
+    if(widget.type == 'Course' || widget.type=='Combo') {
       Future.delayed(Duration.zero, () {
         checkPreBookOpted();
       });
@@ -620,8 +621,14 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   }
 
   Future<void> checkPreBookOpted() async {
+    var course_type = '';
+    if(widget.type == 'Course') {
+      course_type = "course";
+    } else if(widget.type=='Combo') {
+      course_type = "combo_course";
+    }
     AppConstants.showLoaderDialog(context);
-    await Service.get(API.preBookOptedUrl.replaceAll('COURSE_ID',widget.id)).then((response) async {
+    await Service.get(API.preBookOptedUrl.replaceAll('COURSE_ID',widget.id) + '?course_type=' + course_type).then((response) async {
       Navigator.pop(context);
       if(response != null && response.statusCode == 200) {
         var jsonObject = jsonDecode(response.body);
@@ -644,7 +651,17 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   }
 
   Future<void> preBookOrder() async {
-    await Service.post(API.preBookOptedUrl.replaceAll('COURSE_ID',widget.id), body: {}).then((response) async {
+    var bodyParam = {};
+    if(widget.type == 'Course') {
+      bodyParam = {
+        "course_type": "course"
+      };
+    } else if(widget.type=='Combo') {
+      bodyParam = {
+        "course_type": "combo_course"
+      };
+    }
+    await Service.post(API.preBookOptedUrl.replaceAll('COURSE_ID',widget.id), body: bodyParam).then((response) async {
       if(response != null && response.statusCode == 200) {
         var jsonObject = jsonDecode(response.body);
         if (jsonObject['statusCode'].toString() == '200') {
