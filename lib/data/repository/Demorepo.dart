@@ -25,7 +25,6 @@ class DemoRepo {
       int currentPage = 1;
     //  String url = API.Demo_URL+ pageNo.toString();
       String url = API.Demo_URL;
-      AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

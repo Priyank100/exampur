@@ -1,17 +1,19 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
-import 'package:exampur_mobile/utils/lang_string.dart';
+import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-
-
 import 'package:http/http.dart' as http;
 
 class Service {
 
-  static Future<http.Response> post(String url, {var body, encoding, myHeader}) async {
+  // added appVersion in query param
+  static Future<http.Response> post(String uri, {var body, encoding, myHeader}) async {
     String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     var postBody = json.encode(body);
+
+    var sym = uri.contains(API.BASE_URL2) ? uri.contains('?') ? "&" : "?" : "";
+    String url = uri.contains(API.BASE_URL2) ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
     AppConstants.printLog(url + " Param- " + postBody);
 
     Map<String, String> header = {
@@ -19,6 +21,7 @@ class Service {
       "Content-Type": "application/json",
       "app-version":AppConstants.versionCode
     };
+
 
     try {
       return await http
@@ -36,7 +39,10 @@ class Service {
     }
   }
 
-  static Future<http.Response> get(String url) async {
+  // added appVersion in query param
+  static Future<http.Response> get(String uri) async {
+    var sym = uri.contains(API.BASE_URL2) ? uri.contains('?') ? "&" : "?" : "";
+    String url = uri.contains(API.BASE_URL2) ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
     AppConstants.printLog('URL> $url');
     String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     AppConstants.printLog(token);

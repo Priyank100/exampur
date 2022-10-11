@@ -22,7 +22,7 @@ class OfflineBatchesRepo {
   Future<ApiResponse> offlineBatchCenterRepo(int pageNo) async {
     try {
       String url = API.offline_batches + pageNo.toString();
-      AppConstants.printLog(url);
+      // AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -33,7 +33,7 @@ class OfflineBatchesRepo {
   Future<ApiResponse> offlineBatchCenterCoursesRepo(String id, int pageNo) async {
     try {
       String url = API.offline_batches_center.replaceAll('CENTER_ID', id) + pageNo.toString();
-      AppConstants.printLog(url);
+      // AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -44,7 +44,7 @@ class OfflineBatchesRepo {
   Future<ApiResponse> offlineBatchCenterCoursesVideoRepo(String id) async {
     try {
       String url = API.offline_batches_course.replaceAll('COURSE_ID', id);
-      AppConstants.printLog(url);
+      // AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

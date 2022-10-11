@@ -1,5 +1,4 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/data/model/upsell_book.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
@@ -16,9 +15,11 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../../data/model/paid_course_model_new.dart';
+
 class BannerLinkDetailPage extends StatefulWidget {
-  String type;
-  final datalink;
+  final String type;
+  final String datalink;
 
   BannerLinkDetailPage(this.type, this.datalink);
 
@@ -55,20 +56,22 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: bannerDetailData == null
-            ? Center(child: LoadingIndicator(context))
-            : Viedobanner(
-                widget.type,
-                bannerDetailData!.videoPath.toString(),
-                bannerDetailData!.title.toString(),
-                bannerDetailData!.id.toString(),
-                bannerDetailData!.salePrice.toString(),
-                bannerDetailData!.regularPrice.toString(),
-                bannerDetailData!.description.toString(),
-                bannerDetailData!.upsellBook??[],
-                bannerDetailData!.pdfPath.toString(),
-                bannerDetailData!.status.toString()
+        body: bannerDetailData == null ?
+        Center(child: LoadingIndicator(context)) :
+        Viedobanner(
+            widget.type,
+            bannerDetailData!.videoPath.toString(),
+            bannerDetailData!.title.toString(),
+            bannerDetailData!.id.toString(),
+            bannerDetailData!.salePrice.toString(),
+            bannerDetailData!.regularPrice.toString(),
+            bannerDetailData!.description.toString(),
+            bannerDetailData!.upsellBook??[],
+            bannerDetailData!.pdfPath.toString(),
+            bannerDetailData!.status.toString(),
+            preBookDetail: bannerDetailData!.preBookDetail
         )
+
     );
   }
 }
@@ -84,9 +87,10 @@ class Viedobanner extends StatefulWidget {
   final List<UpsellBook> upsellBookList;
   final String pdfPath;
   final String status;
+  final PreBookDetail? preBookDetail;
 
   const Viedobanner(this.type, this.videoUrl, this.title, this.id,
-      this.salePrice, this.regularPrice,this.description, this.upsellBookList,this.pdfPath, this.status)
+      this.salePrice, this.regularPrice,this.description, this.upsellBookList,this.pdfPath, this.status, {this.preBookDetail})
       : super();
 
   @override
@@ -103,6 +107,7 @@ class _ViedobannerState extends State<Viedobanner> {
 
   bool _muted = false;
   bool _isPlayerReady = false;
+  String message = '';
 
   @override
   void initState() {
@@ -129,6 +134,7 @@ class _ViedobannerState extends State<Viedobanner> {
     _seekToController = TextEditingController();
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
+    message = AppConstants.langCode == 'hi' ? LangString.preBookTextHi : LangString.preBookTextEng;
     super.initState();
   }
 
@@ -380,33 +386,54 @@ class _ViedobannerState extends State<Viedobanner> {
                   // _BuyCourseBottomSheet(
                   //   context,
                   // );
-                  // AppConstants.printLog(widget.type);
+
+                  // if (widget.type == 'Combo Course') {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => DeliveryDetailScreen(
+                  //             'Combo',
+                  //             widget.id.toString(),
+                  //             widget.title.toString(),
+                  //             widget.salePrice.toString(),
+                  //             upsellBookList: widget.upsellBookList,
+                  //             pre_booktype: widget.status)
+                  //     ),
+                  //   );
+                  // } else {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => DeliveryDetailScreen(
+                  //             'Course',
+                  //             widget.id.toString(),
+                  //             widget.title.toString(),
+                  //             widget.salePrice.toString(),
+                  //             upsellBookList: widget.upsellBookList,
+                  //           pre_booktype: widget.status)
+                  //     ),
+                  //   );
+                  // }
+                  String type = 'Course';
                   if (widget.type == 'Combo Course') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DeliveryDetailScreen(
-                              'Combo',
-                              widget.id.toString(),
-                              widget.title.toString(),
-                              widget.salePrice.toString(),
-                              upsellBookList: widget.upsellBookList,
-                              pre_booktype: widget.status)),
-                    );
+                    type = 'Combo';
                   } else {
-                    Navigator.push(
-                      context,
-                      // MaterialPageRoute(builder: (context) => DeliveryDetailScreen(widget.paidcourseList)),
-                      MaterialPageRoute(
-                          builder: (context) => DeliveryDetailScreen(
-                              'Course',
-                              widget.id.toString(),
-                              widget.title.toString(),
-                              widget.salePrice.toString(),
-                              upsellBookList: widget.upsellBookList,
-                            pre_booktype: widget.status)),
-                    );
+                    type = 'Course';
                   }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DeliveryDetailScreen(
+                          type,
+                          widget.id.toString(),
+                          widget.title.toString(),
+                          widget.salePrice.toString(),
+                          upsellBookList: widget.upsellBookList,
+                          pre_booktype: widget.status,
+                          preBookDetail: widget.preBookDetail,
+                        )
+                    ),
+                  );
                 },
                 child: Container(
                   width: double.infinity,
@@ -417,8 +444,10 @@ class _ViedobannerState extends State<Viedobanner> {
                   margin: EdgeInsets.all(28),
                   child: Center(
                       child: Text(
-                    getTranslated(context, LangString.buyCourse)!,
-                    style: TextStyle(color: AppColors.white, fontSize: 18),
+                        widget.status == 'Published'?
+                        getTranslated(context, LangString.buyCourse)! :
+                        message.replaceAll('X', widget.preBookDetail!.percentOff.toString()),
+                    style: TextStyle(color: AppColors.white, fontSize: widget.status == 'Published'?18: 12),
                   )),
                 ),
               ) ,

@@ -91,7 +91,7 @@ class MyCourseRepo {
         "appAuthToken": token,
       };
       String url = API.myCourse_timelineshareStream_URL+'/'+courseId;
-      AppConstants.printLog(url);
+      // AppConstants.printLog(url);
       final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {

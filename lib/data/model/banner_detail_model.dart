@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/data/model/upsell_book.dart';
 /// statusCode : 200
 /// data : {"_id":"61c98f8c3a7d50ce67803ef0","title":"Course 10","banner_path":"course/Sg0lFoGd-banner_course_2.jpeg","logo_path":"course/CnFUqrw1-logo_course_2.png","description":"Description for Course 10","video_path":"https://www.youtube.com/watch?v=ZoOwI3P5POo","flag":"New","macro":[{"icon":"right-tik","title":"Feature 1"},{"icon":"right-tik","title":"Feature 2"}],"category":[{"_id":"61d2cc701cea2fdab6e9cb06","name":"ALL EXAMS"},{"_id":"61d2cc8c1cea2fdab6e9cb07","name":"RAJASTHAN SPECIAL"}],"regular_price":2999,"sale_price":999}
@@ -65,7 +66,8 @@ class Data {
       int? regularPrice, 
       int? salePrice,
     String? pdfPath,
-    String? status
+    String? status,
+    PreBookDetail? preBookDetail,
   }){
     _id = id;
     _title = title;
@@ -81,6 +83,7 @@ class Data {
     _salePrice = salePrice;
     _pdfPath = pdfPath;
     _status = status;
+    _preBookDetail = preBookDetail;
 }
 
   Data.fromJson(dynamic json) {
@@ -113,6 +116,7 @@ class Data {
     _salePrice = json['sale_price'];
     _pdfPath = json['pdf_path'];
     _status = json['status'] ?? 'Published';
+    _preBookDetail = json['prebook_details'] == null ? null : PreBookDetail.fromJson(json["prebook_details"]);
   }
   String? _id;
   String? _title;
@@ -128,6 +132,7 @@ class Data {
   int? _salePrice;
   String? _pdfPath;
   String? _status;
+  PreBookDetail? _preBookDetail;
 
   String? get id => _id;
   String? get title => _title;
@@ -143,6 +148,7 @@ class Data {
   int? get salePrice => _salePrice;
   String? get pdfPath => _pdfPath;
   String? get status => _status;
+  PreBookDetail? get preBookDetail => _preBookDetail;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -166,6 +172,7 @@ class Data {
     map['sale_price'] = _salePrice;
     map['pdf_path'] = _pdfPath;
     map['status'] = _status;
+    map['prebook_details'] = _preBookDetail;
     return map;
   }
 
