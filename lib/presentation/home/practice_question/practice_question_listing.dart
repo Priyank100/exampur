@@ -35,6 +35,7 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   List<QueAnsModel> queAnsList = [];
   TeXViewRenderingEngine mathjax = TeXViewRenderingEngine.mathjax();
   bool isRender = false;
+  double bottomMargin = 12;
 
   @override
   void initState() {
@@ -44,7 +45,8 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   }
 
   Future<void> getQuestionsData(String url) async {
-    practiceQuestionListingModel = null;
+    practiceQuestionListingModel = PracticeQuestionListingModel();
+    queAnsList.clear();
     _radioValue.clear();
     isLoading = true;
     practiceQuestionListingModel = (await Provider.of<PracticeQuestionProvider>(context, listen: false).getPracticeQuestionListing(context, url))!;
@@ -99,9 +101,19 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
 
   void pagination() {
     if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
-      setState(() {
-        isBottomLoading = true;
-      });
+      // setState(() {
+      //   isBottomLoading = true;
+      // });
+      if(practiceQuestionListingModel!.previous.toString() != 'null' || practiceQuestionListingModel!.next.toString() != 'null') {
+        setState(() {
+          isBottomLoading = true;
+          bottomMargin = 45;
+        });
+      } else {
+        setState(() {
+          isBottomLoading = false;
+        });
+      }
     } else {
       setState(() {
         isBottomLoading = false;
@@ -177,8 +189,12 @@ class _PracticeQuestionListingState extends State<PracticeQuestionListing> {
   }
 
   Widget itemList(index) {
+    // print('==============================');
+    // print(queAnsList.length);
+    // print(index);
     return Container(
-      margin: EdgeInsets.all(12),
+      margin: EdgeInsets.fromLTRB(12, 12, 12, bottomMargin),
+      // margin: EdgeInsets.all(12),
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius:

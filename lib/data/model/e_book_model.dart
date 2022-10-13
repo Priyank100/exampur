@@ -71,8 +71,7 @@ class BookEbook {
       List<dynamic>? macro, 
       String? bannerPath, 
       String? logoPath,
-    String? status,
-  }){
+    String? status}){
     _id = id;
     _category = category;
     _title = title;

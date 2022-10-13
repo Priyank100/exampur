@@ -23,7 +23,7 @@ class One2OneRepo {
     try {
       int currentPage = 1;
       String url = API.One2One_URL+pageNo.toString();
-      AppConstants.printLog(url);
+      // AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

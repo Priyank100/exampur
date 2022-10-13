@@ -247,6 +247,7 @@ issuevalue='Select issue';
                         getTranslated(context, LangString.watchAppTutorial)!,
                         style: TextStyle(
                           fontSize: 20.0,
+                          color: AppColors.white
                         ),
                       )),
                 ),
@@ -305,11 +306,11 @@ issuevalue='Select issue';
             content: Text(getTranslated(context, LangString.serverError)!),backgroundColor: AppColors.red);
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       } else if (response.statusCode == 200) {
-        AppConstants.printLog(response.body.toString());
+        // AppConstants.printLog(response.body.toString());
         var jsonObject =  jsonDecode(response.body);
-        AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
+        // AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
         if(jsonObject['statusCode'].toString() == '200'){
-          AppConstants.printLog(jsonObject['data']);
+          // AppConstants.printLog(jsonObject['data']);
           _descriptionController.clear();
           AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
           //AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
@@ -331,11 +332,11 @@ issuevalue='Select issue';
                 content: Text(getTranslated(context, LangString.serverError)!),backgroundColor: AppColors.red);
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           } else if (response.statusCode == 200) {
-            AppConstants.printLog(response.body.toString());
+            // AppConstants.printLog(response.body.toString());
             var jsonObject =  jsonDecode(response.body);
-            AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
+            // AppConstants.printLog('priyank>> '+jsonObject['statusCode'].toString());
             if(jsonObject['statusCode'].toString() == '200'){
-              AppConstants.printLog(jsonObject['data']);
+              // AppConstants.printLog(jsonObject['data']);
               _descriptionController.clear();
               AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
               //AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
@@ -346,7 +347,7 @@ issuevalue='Select issue';
             }
 
           } else {
-            AppConstants.printLog("init address fail");
+            // AppConstants.printLog("init address fail");
             final body = json.decode(response.body);
             var snackBar = SnackBar( margin: EdgeInsets.all(20),
                 behavior: SnackBarBehavior.floating,
@@ -356,7 +357,7 @@ issuevalue='Select issue';
         });
 
     } else {
-      AppConstants.printLog("init address fail");
+      // AppConstants.printLog("init address fail");
         final body = json.decode(response.body);
         var snackBar = SnackBar( margin: EdgeInsets.all(20),
             behavior: SnackBarBehavior.floating,
@@ -398,13 +399,13 @@ issuevalue='Select issue';
       await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((
           response) {
         isLoading = false;
-        AppConstants.printLog(header);
-        AppConstants.printLog(response.body);
+        // AppConstants.printLog(header);
+        // AppConstants.printLog(response.body);
         if(response == null) {
           AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
         } else {
           if(response.statusCode == 200) {
-            AppConstants.printLog(response.body);
+            // AppConstants.printLog(response.body);
             AppConstants.showBottomMessage(context, jsonDecode(response.body)['message'], AppColors.black);
             _descriptionController.clear();
             setState(() {});
