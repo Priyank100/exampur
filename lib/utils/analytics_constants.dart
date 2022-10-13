@@ -61,6 +61,7 @@ class AnalyticsConstants {
 
   static void moEngageInitialize(){
     moengagePlugin.initialise();
+  // moengagePlugin.passFCMPushToken('UAIIRLJXLAVMA3I6TOFYHV8P');
     // _moengagePlugin.setUserName(AppConstants.userName);
     // _moengagePlugin.setPhoneNumber(AppConstants.userMobile);
     // _moengagePlugin.setUniqueId(AppConstants.userMobile);
