@@ -23,6 +23,7 @@ class AnalyticsConstants {
   static String demoClick                 = 'Demo_Clicked';
   static String myCoursesClick            = 'My_Courses_Clicked';
   static String downloadsClick            = 'Downloads_Clicked';
+  static String prebookClick            = 'PreBookClicked';
 
   static void sendAnalyticsEvent(String clickName) async {
     await analytics.logEvent(
