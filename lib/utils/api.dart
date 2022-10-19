@@ -246,4 +246,8 @@ class API {
   //pre-booking
   static String preBookOptedUrl = BASE_URL1 +'prebook-course/COURSE_ID';
 
+
+  //doubts
+  static String doubtsUrl = WEBVIEW_URL +'doubt-session/2/';
+
 }
