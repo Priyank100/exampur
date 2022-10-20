@@ -67,6 +67,9 @@ class AppConstants {
 
 
 
+  //========================================webviewcallwithnative=================================//
+  static const platform = const MethodChannel('flutter.native/helper');
+
 
 
   //==============================Constant Methods===================================================//

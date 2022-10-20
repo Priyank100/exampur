@@ -5,29 +5,43 @@ import '../../../utils/api.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
 
+
 class DoubtsPage extends StatefulWidget {
   final  String token;
-  const DoubtsPage(this.token) : super();
+  final  String firebaseId;
+  const DoubtsPage(this.token,this.firebaseId) : super();
 
   @override
   State<DoubtsPage> createState() => _DoubtsPageState();
 }
 
 class _DoubtsPageState extends State<DoubtsPage> {
-  getDocumentData () async {
-    final QuerySnapshot result =
-    await FirebaseFirestore.instance.collection('doubts_courses_id').get();
-    final List<DocumentSnapshot> documents = result.docs;
-    documents.forEach((data) {
-      print(data.id);
-      print('anchal');
-    }
-    );
+  String courseId = '';
+
+  // getDocumentData () async {
+  //   print('anchal');
+  //   final DocumentReference result =
+  //   await FirebaseFirestore.instance.collection('doubts_courses_id').doc('6254b133b2097d80b3af932d');
+  // }
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+
+  Future<Map<String, dynamic>> firebaseGetData({required String documentID}) async {
+    DocumentSnapshot ds =
+    await _firestore.collection("doubts_courses_id").doc(documentID).get();
+    Map<String, dynamic> data = ds.data() as Map<String, dynamic>;
+
+    print(data["id"]);
+    setState(() {
+      courseId = data["id"];
+    });// check if it null or not
+    return data;
+
   }
   @override
   void initState() {
     super.initState();
-    getDocumentData();
+    firebaseGetData( documentID: widget.firebaseId);
   }
   @override
   Widget build(BuildContext context) {
@@ -40,8 +54,14 @@ class _DoubtsPageState extends State<DoubtsPage> {
             MaterialButton(
               minWidth: MediaQuery.of(context).size.width/2,
               onPressed: () {
-                  AppConstants.makeCallEmail(API.doubtsUrl.replaceAll('TOKEN', widget.token));
-               // AppConstants.goTo(context, DoubtWebview(API.doubtsUrl,widget.token));
+                if(courseId.isEmpty || courseId == null){
+                  showBottomMessage(context, 'Something Wrong', Colors.red);
+                }else{
+                  AppConstants.platform.invokeMethod(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));
+                }
+
+                //AppConstants.makeCallEmail(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));
+                // AppConstants.goTo(context, DoubtWebview(API.doubtsUrl,widget.token));
               },
               color: AppColors.amber,
               child: Text(
@@ -53,5 +73,14 @@ class _DoubtsPageState extends State<DoubtsPage> {
         ),
       ),
     );
+  }
+  void showBottomMessage(context, message, bgColor) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      margin: EdgeInsets.all(20),
+      behavior: SnackBarBehavior.floating,
+      content: Text(message),
+      backgroundColor: bgColor,
+      duration: Duration(milliseconds: 700),
+    ));
   }
 }
