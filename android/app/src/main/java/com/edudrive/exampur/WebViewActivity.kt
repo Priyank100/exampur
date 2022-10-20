@@ -16,6 +16,7 @@ import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -25,10 +26,12 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class WebViewActivity : FlutterActivity() {
 
 
     var webView: WebView? = null
+    var backButton: ImageView? = null
     private val TAG = MainActivity::class.java.simpleName
     private var mCM: String? = null
     private var mUM: ValueCallback<Uri>? = null
@@ -39,6 +42,13 @@ class WebViewActivity : FlutterActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
+
+        backButton = findViewById<View>(R.id.back) as ImageView
+
+        backButton!!.setOnClickListener {
+            finish();
+        }
+
 
         if (Build.VERSION.SDK_INT >= 23 && (ContextCompat.checkSelfPermission(
                 this,
@@ -70,9 +80,6 @@ class WebViewActivity : FlutterActivity() {
             webView!!.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         }
         webView!!.webViewClient = WebViewActivity.Callback()
-//        webView!!.webViewClient = com.example.webviewpoc.MainActivity.Callback()
-//        webView!!.loadUrl("https://exampur.com/e-app/login?token=PVBcYoyoiChph5631666078922D46oLsGIkfnzMvW8&path=/e-app/doubt-session/2/")
-        Toast.makeText(this, "loading  : "+ getIntent().getStringExtra("url"), Toast.LENGTH_SHORT).show();
         webView!!.loadUrl(""+ getIntent().getStringExtra("url"))
 
 
@@ -84,6 +91,8 @@ class WebViewActivity : FlutterActivity() {
                 webView: WebView, filePathCallback: ValueCallback<Array<Uri>>,
                 fileChooserParams: FileChooserParams
             ): Boolean {
+
+
                 if (mUMA != null) {
                     mUMA!!.onReceiveValue(null)
                 }
@@ -107,13 +116,21 @@ class WebViewActivity : FlutterActivity() {
                 val contentSelectionIntent = Intent(Intent.ACTION_GET_CONTENT)
                 contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE)
                 contentSelectionIntent.type = "*/*"
-                val intentArray: Array<Intent?>
-                intentArray = takePictureIntent?.let { arrayOf(it) } ?: arrayOfNulls(0)
-                val chooserIntent = Intent(Intent.ACTION_CHOOSER)
-                chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent)
-                chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser")
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray)
-                startActivityForResult(chooserIntent, FCR)
+//                val intentArray: Array<Intent?>
+//                intentArray = takePictureIntent?.let { arrayOf(it) } ?: arrayOfNulls(0)
+//                val chooserIntent = Intent(Intent.ACTION_CHOOSER)
+//                chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent)
+//                chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser")
+//                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray)
+//                startActivityForResult(chooserIntent, FCR)
+
+
+                val i = Intent()
+                i.type = "image/*"
+                i.action = Intent.ACTION_GET_CONTENT
+                startActivityForResult(Intent.createChooser(i, "Select Picture"), FCR)
+
+
                 return true
             }
         }
@@ -122,11 +139,12 @@ class WebViewActivity : FlutterActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         super.onActivityResult(requestCode, resultCode, intent)
+
+
         if (Build.VERSION.SDK_INT >= 21) {
 //            var results: Array<Uri?>? = null
             //Check if response is positive
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Getting result ok ",Toast.LENGTH_SHORT).show()
                 if (requestCode == FCR) {
                     if (null == mUMA) {
                         return
@@ -135,6 +153,7 @@ class WebViewActivity : FlutterActivity() {
                         //Capture Photo if no image available
                         if (mCM != null) {
 //                            results = arrayOf(Uri.parse(mCM))
+                            Toast.makeText(this, "first part", Toast.LENGTH_SHORT).show()
                             mUMA!!.onReceiveValue(arrayOf(Uri.parse(mCM)))
                         }
                     } else {
@@ -148,8 +167,15 @@ class WebViewActivity : FlutterActivity() {
             }
 //            mUMA!!.onReceiveValue(results)
             mUMA = null
+
+
+            if(resultCode == 0){
+                mUMA = null
+            }
+
+
         } else {
-            Toast.makeText(this, "Getting result is not ok ",Toast.LENGTH_SHORT).show()
+
             if (requestCode == FCR) {
                 if (null == mUM) return
                 val result = if (intent == null || resultCode != RESULT_OK) null else intent.data

@@ -21,7 +21,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".WebViewActivity"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/LaunchTheme">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

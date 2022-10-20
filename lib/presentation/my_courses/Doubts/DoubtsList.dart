@@ -57,6 +57,7 @@ class _DoubtsPageState extends State<DoubtsPage> {
                 if(courseId.isEmpty || courseId == null){
                   showBottomMessage(context, 'Something Wrong', Colors.red);
                 }else{
+                  print(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));
                   AppConstants.platform.invokeMethod(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));
                 }
 
