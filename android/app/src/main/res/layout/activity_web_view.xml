@@ -10,7 +10,9 @@
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="49dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="40dp"
+        android:background="#ffffff"
+        >
 
         <ImageView
             android:layout_width="49dp"
@@ -28,11 +30,23 @@
 
 
 
-    <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/webview"
+    <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        />
+        android:layout_height="fill_parent">
+
+        <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/progress"/>
+
+    </FrameLayout>
 
 
 

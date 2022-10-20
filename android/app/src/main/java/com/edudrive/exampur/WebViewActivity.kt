@@ -25,6 +25,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.ProgressBar
 
 
 class WebViewActivity : FlutterActivity() {
@@ -37,6 +38,8 @@ class WebViewActivity : FlutterActivity() {
     private var mUM: ValueCallback<Uri>? = null
     private val FCR = 1
     private var mUMA: ValueCallback<Array<Uri>>? = null
+    var progress: ProgressBar? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +47,7 @@ class WebViewActivity : FlutterActivity() {
         setContentView(R.layout.activity_web_view)
 
         backButton = findViewById<View>(R.id.back) as ImageView
+        progress = findViewById<View>(R.id.progress) as ProgressBar
 
         backButton!!.setOnClickListener {
             finish();
@@ -132,6 +136,13 @@ class WebViewActivity : FlutterActivity() {
 
 
                 return true
+            }
+        }
+
+        webView!!.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView, url: String) {
+                super.onPageFinished(view, url)
+                progress!!.visibility = View.GONE
             }
         }
 
