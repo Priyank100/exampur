@@ -169,6 +169,8 @@ class MyCoursesState extends State<MyCourses> {
       child: InkWell(
         onTap: () {
           FocusScope.of(context).unfocus();
+         AppConstants.myCourseName = myCourseList[index].title.toString();
+         AppConstants.myCourseId= myCourseList[index].id.toString();
            if(myCourseList[index].status == 'EMI') {
              if(myCourseList[index].validityTill==null || myCourseList[index].validityTill!.isEmpty) {
                openNext(index);
