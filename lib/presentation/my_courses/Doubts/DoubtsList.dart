@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/api.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
+import '../../../utils/lang_string.dart';
 
 
 class DoubtsPage extends StatefulWidget {
@@ -31,7 +33,6 @@ class _DoubtsPageState extends State<DoubtsPage> {
     await _firestore.collection("doubts_courses_id").doc(documentID).get();
     Map<String, dynamic> data = ds.data() as Map<String, dynamic>;
 
-    print(data["id"]);
     setState(() {
       courseId = data["id"];
     });// check if it null or not
@@ -43,6 +44,7 @@ class _DoubtsPageState extends State<DoubtsPage> {
     super.initState();
     firebaseGetData( documentID: widget.firebaseId);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +53,7 @@ class _DoubtsPageState extends State<DoubtsPage> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 10,),
             MaterialButton(
               minWidth: MediaQuery.of(context).size.width/2,
               onPressed: () {
@@ -65,7 +68,7 @@ class _DoubtsPageState extends State<DoubtsPage> {
               },
               color: AppColors.amber,
               child: Text(
-                'Doubts',
+               getTranslated(context,  LangString.askdoubts)!,
                 style: TextStyle(color: AppColors.white),
               ),
             ),
