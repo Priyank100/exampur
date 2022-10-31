@@ -295,7 +295,8 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     var sec = _playerController!.value.position.inSeconds % 60;
     var m = '$min'.padLeft(2,'0');
     var s = '$sec'.padLeft(2,'0');
-    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>+ $m:$s');
+    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>+ $sec');
+    AppConstants.printLog(_playerController!.value.position.inSeconds);
     {
       var body = {
         "user": {
@@ -321,7 +322,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
         "content": {
           "timeline_name": widget.title.toString(),
           "timeline_id": widget.vid.toString(),
-          "time_spend":'$m:$s',
+          "time_spend":_playerController!.value.position.inSeconds,
         }
       };
       Map<String, String> header = {

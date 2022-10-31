@@ -53,7 +53,13 @@ class _DoubtsPageState extends State<DoubtsPage> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 10,),
+             Padding(
+               padding: const EdgeInsets.only(left: 20.0,right: 20),
+               child: Text(getTranslated(context, LangString.doubtstext)!,style: TextStyle(fontSize: 19), textAlign: TextAlign.center,
+            ),
+             ),
+
+            SizedBox(height: 30,),
             MaterialButton(
               minWidth: MediaQuery.of(context).size.width/2,
               onPressed: () {
