@@ -4,21 +4,25 @@
       "id": "0",
       "name": "Timeline"
     },
-
     {
       "id": "1",
+      "name": "Doubts"
+    },
+
+    {
+      "id": "2",
       "name": "Subjects"
     },
     {
-      "id": "2",
+      "id": "3",
       "name": "Test Series"
     },
     {
-      "id": "3",
+      "id": "4",
       "name": "Notification"
     },
     {
-      "id": "4",
+      "id": "5",
       "name": "FeedBack"
     }
   ]

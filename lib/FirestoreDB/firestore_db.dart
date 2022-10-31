@@ -9,6 +9,8 @@ final FirebaseFirestore firestore = FirebaseFirestore.instance;
 final DocumentReference chatDocument = firestore.collection('live_class').doc('chat');
 final DocumentReference attendanceDocument = firestore.collection('live_class').doc('attendance');
 
+final CollectionReference doubtCollection = firestore.collection('doubts_courses_id');
+
 class FirestoreDB {
 
 
