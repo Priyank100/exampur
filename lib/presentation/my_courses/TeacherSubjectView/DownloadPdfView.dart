@@ -1,21 +1,29 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
+import '../../../SharePref/shared_pref.dart';
+import '../../../data/datasource/remote/http/services.dart';
+import '../../../utils/api.dart';
+
 
 class DownloadViewPdf extends StatefulWidget {
   final String pdfTitle;
   final String pdfUrl;
-  const DownloadViewPdf(this.pdfTitle, this.pdfUrl) : super();
+  final bool? isTimlineRequired;
+  const DownloadViewPdf(this.pdfTitle, this.pdfUrl,{this.isTimlineRequired}) : super();
 
   @override
   _DownloadViewPdfState createState() => _DownloadViewPdfState();
@@ -30,6 +38,14 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
   bool pdfReady = false;
   PDFViewController? _pdfViewController;
   bool loaded = false;
+  String? deviceModel;
+  String? deviceMake;
+  String? deviceOS;
+  String? userName;
+  String? userMobile;
+  String? userEmail;
+  String? versionName;
+  String? versionCode;
 
   // Future<File> getFileFromUrl(String url, {name}) async {
   Future<File> getFileFromUrl(String url, String name) async {
@@ -53,6 +69,9 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
   @override
   void initState() {
     // requestPersmission();
+    getUserData();
+    getDeviceData();
+    getAppVersionData();
     AppConstants.printLog('Anchal>> ' + widget.pdfUrl);
     if(widget.pdfUrl.isNotEmpty) {
       getFileFromUrl(widget.pdfUrl, widget.pdfTitle).then(
@@ -71,6 +90,35 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     }
     super.initState();
   }
+
+  Future<void> getUserData() async {
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
+    userName = jsonValue[0]['data']['first_name'].toString();
+    userMobile = jsonValue[0]['data']['phone'].toString();
+    userEmail = jsonValue[0]['data']['email_id'].toString();
+    setState(() {});
+  }
+
+  Future<void> getDeviceData() async {
+    if(Platform.isAndroid){
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      deviceModel = androidInfo.model.toString();
+      deviceMake = androidInfo.brand.toString();
+      deviceOS = androidInfo.version.release.toString();
+      setState(() {});
+    }
+  }
+
+  Future<void> getAppVersionData() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    // String appName = packageInfo.appName;
+    // String packageName = packageInfo.packageName;
+    versionName = packageInfo.version;
+    versionCode = packageInfo.buildNumber;
+    setState(() {});
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +191,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
               color: Colors.black,
               onPressed: () async{
                 // AppConstants.checkPermission(context, Permission.storage, downloadPdfFile);
+             widget.isTimlineRequired == true ?   downloadPdfLog():null;
                 openPermissionDialog();
               },
             ),
@@ -275,5 +324,51 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
         pd.update(value: progress);
       });
     });
+  }
+
+ // ===================================ElasticaApi===========================
+
+  Future<void> downloadPdfLog() async {
+    // AppConstants.showLoaderDialog(context);
+    {
+      var body = {
+        "user": {
+          "name": userName,
+          "email": userEmail,
+          "mobile": userMobile
+        },
+        "device": {
+          "model": deviceModel,
+          "make": deviceMake,
+          "os": deviceOS
+        },
+        "app": {
+          "version_name": versionName,
+          "version_code": versionCode
+        },
+        "type": "content-log",
+        "content-type": "pdf-download",
+        "course": {
+          "name":AppConstants.myCourseName,
+          "id": AppConstants.myCourseId
+        },
+        "content": {
+          "timeline_name": AppConstants.timlineName,
+          "timeline_id":AppConstants.timlineId
+        }
+      };
+      Map<String, String> header = {
+        "x-auth-token": AppConstants.serviceLogToken,
+        "Content-Type": "application/json",
+        "app-version":AppConstants.versionCode
+      };
+      await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((
+          response) {
+       // AppConstants.printLog(header);
+        AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+        AppConstants.printLog(response.body);
+        AppConstants.printLog('pdf-download-click');
+      });
+    }
   }
 }

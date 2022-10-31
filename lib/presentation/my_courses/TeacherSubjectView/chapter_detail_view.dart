@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
 import 'package:exampur_mobile/presentation/authentication/terms_condition.dart';
@@ -13,7 +18,11 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
+import '../../../SharePref/shared_pref.dart';
+import '../../../data/datasource/remote/http/services.dart';
+import '../../../utils/api.dart';
 import 'DownloadPdfView.dart';
 
 class ChapterDetailView extends StatefulWidget {
@@ -32,14 +41,68 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   bool isLoading = false;
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
   List<GroupClass> groupingList = [];
-
+  String? deviceModel;
+  String? deviceMake;
+  String? deviceOS;
+  String? userName;
+  String? userMobile;
+  String? userEmail;
+  String? versionName;
+  String? versionCode;
   String noVideoLink = 'https://cdn.exampur.xyz/No+video+available+here.+This+is+a+Special+PDF.+Please+clink+on+View+PDF+to+access+the+material.mp4';
-
-
+  String firebaseId = '';
+  bool isTimlineRequired = false;
   @override
   void initState() {
     callProvider();
+    getUserData();
+    getDeviceData();
+    getAppVersionData();
+    getDatafromfirebase();
     super.initState();
+  }
+//====================================firebasecall==========================================
+  Future<void> getDatafromfirebase() async {
+    final QuerySnapshot result =
+    await FirebaseFirestore.instance.collection('timeline_video_track').get();
+    final List<DocumentSnapshot> documents = result.docs;
+    documents.forEach((data) {
+      if (widget.courseId == data.id) {
+        firebaseId = data.id;
+        isTimlineRequired = true;
+        AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
+        AppConstants.printLog(firebaseId);
+      }
+    });
+  }
+
+
+  Future<void> getUserData() async {
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
+    userName = jsonValue[0]['data']['first_name'].toString();
+    userMobile = jsonValue[0]['data']['phone'].toString();
+    userEmail = jsonValue[0]['data']['email_id'].toString();
+    setState(() {});
+  }
+
+  Future<void> getDeviceData() async {
+    if(Platform.isAndroid){
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      deviceModel = androidInfo.model.toString();
+      deviceMake = androidInfo.brand.toString();
+      deviceOS = androidInfo.version.release.toString();
+      setState(() {});
+    }
+  }
+
+  Future<void> getAppVersionData() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    // String appName = packageInfo.appName;
+    // String packageName = packageInfo.packageName;
+    versionName = packageInfo.version;
+    versionCode = packageInfo.buildNumber;
+    setState(() {});
   }
 
   Future<void>_refreshScreen() async{
@@ -217,7 +280,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                 materialList[index].docpath.toString().contains('http') ?
                 docPath = materialList[index].docpath.toString() :
                 docPath = AppConstants.BANNER_BASE + materialList[index].docpath.toString();
-                showPdfDialog(docPath, materialList[index].title.toString());
+                showPdfDialog(docPath, materialList[index].title.toString(),materialList[index].id.toString());
               // String pdfPath = AppConstants.BANNER_BASE +  materialList[index].docpath.toString();
               //   Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf('', pdfPath)));
 
@@ -238,7 +301,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         // print(materialList[index].title);
         materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                  MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), '',materialList[index].id.toString()))
+                  MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired))
               ) :
               showVideoQualityDialog(materialList, index);
 
@@ -275,7 +338,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         materialList[index].pdfPath.toString().contains('http') ?
         pdfPath = materialList[index].pdfPath.toString() :
         pdfPath = AppConstants.BANNER_BASE + materialList[index].pdfPath.toString();
-        showPdfDialog(pdfPath, materialList[index].title.toString());
+        showPdfDialog(pdfPath, materialList[index].title.toString(),materialList[index].id.toString());
       },
       child: Container(
           height: 30,
@@ -326,27 +389,27 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hlsUrl == null ? SizedBox() :     CustomButton(
-            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(),'',materialList[index].id.toString()),
+            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(),'',materialList[index].id.toString(),isTimlineRequired),
             title: getTranslated(context, LangString.Normal)!
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls240PUrl == null ? SizedBox() :   CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired),
           title: '240p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls360PUrl == null ? SizedBox() :     CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired),
           title: '360p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls480PUrl == null ? SizedBox() :  CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired),
           title: '480p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls720PUrl == null ? SizedBox() :  CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired),
           title: '720p',
         ),
         SizedBox(height: 10),
@@ -375,31 +438,31 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hlsUrl == null ? SizedBox() :      CustomButton(
-            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].id.toString()),
+            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].id.toString(),isTimlineRequired),
             title: getTranslated(context, LangString.Normal)
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls240PUrl == null ? SizedBox() :  CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].id.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].id.toString(),isTimlineRequired),
           title: '240p',
         ),
         SizedBox(
           height: 10,
         ),
         materialList[index].timeline!.apexLink!.hls360PUrl == null ? SizedBox() :   CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the360.toString(),materialList[index].id.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the360.toString(),materialList[index].id.toString(),isTimlineRequired),
           title: '360p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls480PUrl == null ? SizedBox() :      CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString(),materialList[index].id.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString(),materialList[index].id.toString(),isTimlineRequired),
           title: '480p',
         ),
         SizedBox(
           height: 10,
         ),
         materialList[index].timeline!.apexLink!.hls720PUrl == null ? SizedBox() :      CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString(),materialList[index].id.toString()),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString(),materialList[index].id.toString(),isTimlineRequired),
           title: '720p',
         ),
         SizedBox(height: 10),
@@ -427,7 +490,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   }
   }
 
-  void showPdfDialog(pdfPath, title) {
+  void showPdfDialog(pdfPath, title,timlineId) {
     AlertDialog alert = AlertDialog(
       content: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
@@ -442,8 +505,12 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                   width: MediaQuery.of(context).size.width/2,
                   child: MaterialButton(
                     onPressed: (){
+                      AppConstants.timlineId = timlineId.toString();
+                      AppConstants.timlineName = title.toString();
+                      AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>');
+                     isTimlineRequired == true ? pdfClickLog( timlineId.toString(),title):null;
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf(title, pdfPath)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf(title, pdfPath,isTimlineRequired:isTimlineRequired)));
                     },
                     color: AppColors.amber,
                     child: Text(getTranslated(context, LangString.pdfViewer)!, style: TextStyle(color: AppColors.white)),
@@ -471,6 +538,53 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         return alert;
       },
     );
+  }
+
+
+  //============================================ElsticApiCall========================================
+
+  Future<void> pdfClickLog(title,timlineId) async {
+    // AppConstants.showLoaderDialog(context);
+    {
+      var body = {
+        "user": {
+          "name": userName,
+          "email": userEmail,
+          "mobile": userMobile
+        },
+        "device": {
+          "model": deviceModel,
+          "make": deviceMake,
+          "os": deviceOS
+        },
+        "app": {
+          "version_name": versionName,
+          "version_code": versionCode
+        },
+        "type": "content-log",
+        "content-type": "pdf-view",
+        "course": {
+          "name":AppConstants.myCourseName,
+          "id": AppConstants.myCourseId
+        },
+        "content": {
+          "timeline_name": title,
+          "timeline_id": timlineId
+        }
+      };
+      Map<String, String> header = {
+        "x-auth-token": AppConstants.serviceLogToken,
+        "Content-Type": "application/json",
+        "app-version":AppConstants.versionCode
+      };
+      await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((
+          response) {
+       // AppConstants.printLog(header);
+        AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+        AppConstants.printLog(response.body);
+        AppConstants.printLog('pdf-View-click');
+      });
+    }
   }
 }
 

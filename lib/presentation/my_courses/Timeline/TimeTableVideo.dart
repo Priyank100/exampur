@@ -86,7 +86,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
               child: FlickVideoPlayer(
                 flickManager: flickManager!,
                 flickVideoWithControls: const FlickVideoWithControls(
-                  controls: const FlickPortraitControls(isLive: true),
+               controls: const FlickPortraitControls(isLive: true),
                 ),
               ),
             ),

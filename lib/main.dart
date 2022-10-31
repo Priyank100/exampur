@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';

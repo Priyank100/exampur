@@ -665,6 +665,11 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       if(response != null && response.statusCode == 200) {
         var jsonObject = jsonDecode(response.body);
         if (jsonObject['statusCode'].toString() == '200') {
+          await FirebaseAnalytics.instance.logEvent(name: 'PreBookClicked',parameters: {
+            'name':userName,
+            'course':widget.title.toString(),
+            'mobile_number':Mobile
+          });
           String message = AppConstants.langCode== 'hi'? LangString.preBookAlertHi : LangString.preBookAlertEng;
           AppConstants.showAlertDialogOkButton(context,getTranslated(context, LangString.preBookAlertSuccessHead)!,message.replaceAll('X', widget.preBookDetail!.percentOff.toString()),(){
             Navigator.pop(context);

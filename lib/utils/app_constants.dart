@@ -46,6 +46,12 @@ class AppConstants {
   static String versionName = '';
   static String versionCode = '';
 
+
+  static String myCourseName = '';
+  static String myCourseId = '';
+  static String timlineName = '';
+  static String timlineId = '';
+
   static String shareAppContent = 'Hey check out EXAMPUR App at: ' + playStoreAppUrl;
   // static String googleFeedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScCCm43CYzI4C0h4HgFCg5XB5dYa0my6q8rDif8IR_3RGuACQ/viewform';
   static String googleFeedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdnU2iboo0rPFiVBWcJZYHXSlIJeDZqiye8D2IqGjvZjrOMdA/viewform?usp=pp_url&entry.43008044=USER_NAME&entry.2068509611=USER_MOBILE';
@@ -66,6 +72,9 @@ class AppConstants {
   static String serviceLogToken = 'QhmAn5x6UxxWVdc8pkEe77eDAH9U2U9sXjs4kqaxbT2vp5kVmfru5nLL2nEpSQm9dBHLFBeQuEcXmmpzcf34MetTuNXBbaLTuG7pETEGQ2Hp';
 
 
+
+  //========================================webviewcallwithnative=================================//
+  static const platform = const MethodChannel('flutter.native/helper');
 
 
 
