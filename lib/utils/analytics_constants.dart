@@ -68,6 +68,7 @@ class AnalyticsConstants {
   }
 
   static void trackEventMoEngage(String eventName, Map<String, String> map) {
+    moengagePlugin.showInApp();
     var properties = MoEProperties();
     for(var entry in map.entries) {
       properties.addAttribute(entry.key, entry.value);
