@@ -27,7 +27,7 @@ class Keys {
 }
 
 class AppConstants {
-  static bool isPrint       = true;
+  static bool isPrint       = false;
   static bool isotpverify   = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -45,6 +45,12 @@ class AppConstants {
 
   static String versionName = '';
   static String versionCode = '';
+
+
+  static String myCourseName = '';
+  static String myCourseId = '';
+  static String timlineName = '';
+  static String timlineId = '';
 
   static String shareAppContent = 'Hey check out EXAMPUR App at: ' + playStoreAppUrl;
   // static String googleFeedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScCCm43CYzI4C0h4HgFCg5XB5dYa0my6q8rDif8IR_3RGuACQ/viewform';
@@ -78,6 +84,9 @@ class AppConstants {
   static List<String> selectedCategoryName = [];
   //=========================================================
 
+
+  //========================================webviewcallwithnative=================================//
+  static const platform = const MethodChannel('flutter.native/helper');
 
 
 

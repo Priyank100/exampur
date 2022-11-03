@@ -170,6 +170,8 @@ class MyCoursesState extends State<MyCourses> {
         onTap: () {
           AppConstants.courseName = myCourseList[index].title.toString();
           FocusScope.of(context).unfocus();
+         AppConstants.myCourseName = myCourseList[index].title.toString();
+         AppConstants.myCourseId= myCourseList[index].id.toString();
            if(myCourseList[index].status == 'EMI') {
              if(myCourseList[index].validityTill==null || myCourseList[index].validityTill!.isEmpty) {
                openNext(index);

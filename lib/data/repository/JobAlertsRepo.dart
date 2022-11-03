@@ -10,7 +10,7 @@ class JobAlertsRepo {
 
   Future<ApiResponse> jobAlertsTab() async {
     try {
-      const url = '${API.job_alerts_tab_URL}';
+      var url = '${API.job_alerts_tab_URL}';
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

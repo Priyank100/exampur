@@ -134,8 +134,8 @@ class PaidCourseData {
       json['emi_plans'].forEach((v) {
         _emiPlans?.add(EmiPlans.fromJson(v));
       });
-      _testSeriesLink = json['test_series_link']==null?'':json['test_series_link'].toString();
     }
+    _testSeriesLink = json['test_series_link']==null?'':json['test_series_link'].toString();
     _status = json['status']==null?'Published':json['status'].toString();
    _preBookDetail = json['prebook_details'] == null ? null : PreBookDetail.fromJson(json["prebook_details"]);
   }

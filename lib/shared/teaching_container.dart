@@ -209,12 +209,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               courseTabType = 'Course';
                             }
                             widget.courseType==1?AppConstants.subscription(widget.courseData.id.toString().replaceAll(' ', '_')):'';
-                            // widget.courseType==1?  Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                            //     PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
-                            // )): submitLog(context, widget.courseData.title.toString(), widget.courseData.id.toString());
-                            // Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                            //     MyCourseTabView(widget.courseData.id.toString(),'','')
-                            // ));
+
                             if(widget.courseType==1) {
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                   PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
@@ -266,7 +261,9 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               MaterialPageRoute(builder: (context) =>
                                   DeliveryDetailScreen(courseTabType, widget.courseData.id.toString(),
                                     widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
-                                      upsellBookList: widget.courseData.upsellBook??[],pre_booktype: widget.courseData.status,preBookDetail:widget.courseData.preBookDetail
+                                      upsellBookList: widget.courseData.upsellBook??[],
+                                      pre_booktype: widget.courseData.status,
+                                      preBookDetail:widget.courseData.preBookDetail
                                   )
                               ),
                             );
@@ -318,8 +315,8 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           SizedBox(height: 15,),
                         ],
                       ),
-
-                    ],),
+                    ]
+                  ),
                 ),
 
               ],
@@ -364,30 +361,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
     await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) {
       AppConstants.printLog(header);
       AppConstants.printLog(response.body);
-      // if(response == null) {
-      //   AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError)!, AppColors.red);
-      // } else {
-      //   if(response.statusCode == 200) {
-      //     AppConstants.printLog(response.body);
-      //   } else {
-      //     AppConstants.showBottomMessage(context, 'Something went wrong', AppColors.red);
-      //   }
-      // }
     });
-  }
-
-  Widget preBookButton() {
-    return InkWell(
-      onTap: (){
-        AppConstants.printLog('>>>>>>>>>>>>>>>>>');
-      },
-      child: Container(
-        padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-            color: Color(0xFF060929),
-            borderRadius: BorderRadius.all(Radius.circular(8))),
-        child: Center(child: Text(getTranslated(context, LangString.buyCourse)!,style: TextStyle(color: Colors.white,fontSize: 11))),),
-    );
   }
 }
 
@@ -404,9 +378,7 @@ class RowTile extends StatelessWidget {
         Icon(Icons.done,color: Colors.amber,),
         SizedBox(width: 5,),
         Text(title),
-
-
-      ],),
+      ]),
     );
   }
 
@@ -415,6 +387,7 @@ class RowTile extends StatelessWidget {
 
 
 }
+
 class MyClip extends CustomClipper<Rect> {
   Rect getClip(Size size) {
     return Rect.fromLTWH(0, 0, 25, 25);

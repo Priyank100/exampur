@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:exampur_mobile/SplashScreen/splash_screen.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/notifications/notification_screen.dart';
@@ -58,6 +57,12 @@ void main() async {
   );
   // Get any initial links
   HttpOverrides.global = MyHttpOverrides();
+
+  // to crash the app in any exception
+  // FlutterError.onError = (FlutterErrorDetails details) async {
+  //   await FirebaseCrashlytics.instance.recordFlutterError(details);
+  //   exit(0);
+  // };
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),

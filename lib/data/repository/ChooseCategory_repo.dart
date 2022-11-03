@@ -21,7 +21,6 @@ class ChooseCategoryRepo {
     try {
 
       final url =  '${API.All_category_URL}';
-      AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -35,7 +34,7 @@ class ChooseCategoryRepo {
         "appAuthToken": token,
       };
       final url =  '${API.Select_Choose_category_URL}';
-      AppConstants.printLog(url);
+      // AppConstants.printLog(url);
       final response = await dioClient.get(url, options: Options(headers: header));
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -47,7 +46,7 @@ class ChooseCategoryRepo {
           };
           final url =  '${API.Select_Choose_category_URL_2}';
           final response = await dioClient.get(url, options: Options(headers: header));
-          AppConstants.printLog(url);
+          // AppConstants.printLog(url);
           return ApiResponse.withSuccess(response);
         } catch (e) {
           return ApiResponse.withError(ApiErrorHandler.getMessage(e));

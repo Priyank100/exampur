@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -9,17 +12,23 @@ import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:video_player/video_player.dart';
+
+import '../../../SharePref/shared_pref.dart';
+import '../../../utils/api.dart';
 
 class MyMaterialVideo extends StatefulWidget {
   String url;
   String title;
   String download;
   String vid;
+  bool isTimlineRequired;
 
-  MyMaterialVideo(this.url, this.title, this.download,this.vid) : super();
+
+  MyMaterialVideo(this.url, this.title, this.download,this.vid,this.isTimlineRequired) : super();
 
   @override
   _MyMaterialVideoState createState() => _MyMaterialVideoState();
@@ -28,10 +37,51 @@ class MyMaterialVideo extends StatefulWidget {
 class _MyMaterialVideoState extends State<MyMaterialVideo> {
   FlickManager? flickManager;
   VideoPlayerController? _playerController;
+  String? deviceModel;
+  String? deviceMake;
+  String? deviceOS;
+  String? userName;
+  String? userMobile;
+  String? userEmail;
+  String? versionName;
+  String? versionCode;
+
+
+  Future<void> getUserData() async {
+    var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
+    userName = jsonValue[0]['data']['first_name'].toString();
+    userMobile = jsonValue[0]['data']['phone'].toString();
+    userEmail = jsonValue[0]['data']['email_id'].toString();
+    setState(() {});
+  }
+
+  Future<void> getDeviceData() async {
+    if(Platform.isAndroid){
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      deviceModel = androidInfo.model.toString();
+      deviceMake = androidInfo.brand.toString();
+      deviceOS = androidInfo.version.release.toString();
+      setState(() {});
+    }
+  }
+
+  Future<void> getAppVersionData() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    // String appName = packageInfo.appName;
+    // String packageName = packageInfo.packageName;
+    versionName = packageInfo.version;
+    versionCode = packageInfo.buildNumber;
+    setState(() {});
+  }
+
 
   @override
   void initState() {
     initializePlayer();
+    getUserData();
+    getDeviceData();
+    getAppVersionData();
     super.initState();
   }
 
@@ -68,6 +118,8 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     _playerController!.pause();
     _playerController!.dispose();
     flickManager!.dispose();
+
+    widget.isTimlineRequired == true ?  videoTimeLog():null;
     super.dispose();
   }
 
@@ -196,6 +248,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     await Permission.storage.request().then((value) async {
       if(value.isGranted) {
         AppConstants.createExampurFolder();
+      widget.isTimlineRequired == true ?  videoDownloadClickLog():null;
         requestVideoDownload();
       } else {
         AppConstants.showAlertDialogWithButton(
@@ -234,5 +287,102 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
       }).catchError((error) {
         AppConstants.printLog(error);
       });
+  }
+  Future<void> videoTimeLog() async {
+    // AppConstants.showLoaderDialog(context);
+    var d = Duration(seconds: _playerController!.value.position.inSeconds);
+    var min = d.inMinutes;
+    var sec = _playerController!.value.position.inSeconds % 60;
+    var m = '$min'.padLeft(2,'0');
+    var s = '$sec'.padLeft(2,'0');
+    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>+ $sec');
+    AppConstants.printLog(_playerController!.value.position.inSeconds);
+    {
+      var body = {
+        "user": {
+          "name": userName,
+          "email": userEmail,
+          "mobile": userMobile
+        },
+        "device": {
+          "model": deviceModel,
+          "make": deviceMake,
+          "os": deviceOS
+        },
+        "app": {
+          "version_name": versionName,
+          "version_code": versionCode
+        },
+        "type": "content-log",
+        "content-type": "video-view",
+        "course": {
+          "name":AppConstants.myCourseName,
+          "id": AppConstants.myCourseId
+        },
+        "content": {
+          "timeline_name": widget.title.toString(),
+          "timeline_id": widget.vid.toString(),
+          "time_spend":_playerController!.value.position.inSeconds,
+        }
+      };
+      Map<String, String> header = {
+        "x-auth-token": AppConstants.serviceLogToken,
+        "Content-Type": "application/json",
+        "app-version":AppConstants.versionCode
+      };
+
+      await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((
+          response) {
+       // AppConstants.printLog(header);
+        AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+        AppConstants.printLog(response.body);
+        AppConstants.printLog('video-view-click');
+      });
+    }
+  }
+
+  Future<void> videoDownloadClickLog() async {
+    // AppConstants.showLoaderDialog(context);
+    {
+      var body = {
+        "user": {
+          "name": userName,
+          "email": userEmail,
+          "mobile": userMobile
+        },
+        "device": {
+          "model": deviceModel,
+          "make": deviceMake,
+          "os": deviceOS
+        },
+        "app": {
+          "version_name": versionName,
+          "version_code": versionCode
+        },
+        "type": "content-log",
+        "content-type": "video-download",
+        "course": {
+          "name":AppConstants.myCourseName,
+          "id": AppConstants.myCourseId
+        },
+        "content": {
+          "timeline_name": widget.title.toString(),
+          "timeline_id": widget.vid.toString()
+        }
+      };
+      Map<String, String> header = {
+        "x-auth-token": AppConstants.serviceLogToken,
+        "Content-Type": "application/json",
+        "app-version":AppConstants.versionCode
+      };
+      AppConstants.printLog(body);
+      await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((
+          response) {
+       // AppConstants.printLog(header);
+        AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+        AppConstants.printLog(response.body);
+        AppConstants.printLog('video-downloading-click');
+      });
+    }
   }
 }

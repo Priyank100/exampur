@@ -103,7 +103,8 @@ class _PDFCardCAState extends State<PDFCardCA> {
                                       context,
                                       MaterialPageRoute(builder: (context) =>
                                           DeliveryDetailScreen('Book', widget.eBooks.id.toString(),
-                                              widget.eBooks.title.toString(), widget.eBooks.salePrice.toString()
+                                              widget.eBooks.title.toString(), widget.eBooks.salePrice.toString(),
+                                              pre_booktype:widget.eBooks.status
                                           )
                                       ),
                                     );

@@ -199,7 +199,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
         //Use this code if you just want to go back to 0th index
         if (_currIndex == 0) {
           AppConstants.checkRatingCondition(context, true);
-          // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+          // SystemChannels.platform.invokeMethod('SystemNavigator.pop');  // to close the app
           return true;
         } else {
           setState(() {

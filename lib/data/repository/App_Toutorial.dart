@@ -22,8 +22,8 @@ class AppTutorialRepo {
   Future<ApiResponse> apptutorialRepo() async {
     try {
       int currentPage = 1;
-      const url = API.AppTutorial_URL;
-      AppConstants.printLog(url);
+      var url = API.AppTutorial_URL;
+      // AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

@@ -15,8 +15,8 @@ class PaidCoursesRepo {
 
   Future<ApiResponse> paid_courses_Tab() async {
     try {
-      const url = '${API.PaidCoursesTab_URL}';
-      AppConstants.printLog(url);
+      var url = '${API.PaidCoursesTab_URL}';
+      // AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -27,7 +27,7 @@ class PaidCoursesRepo {
   Future<ApiResponse> paid_coursesRepo(String id, int pageNo) async {
     try {
       String url = API.PaidCoursesList_URL.replaceAll('PAID_COURSE_ID', id) + pageNo.toString();
-      AppConstants.printLog(url);
+      // AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -38,8 +38,8 @@ class PaidCoursesRepo {
 
   Future<ApiResponse> free_courses_Tab() async {
     try {
-      const url = '${API.FreeCoursesTab_URL}';
-      AppConstants.printLog(url);
+      var url = '${API.FreeCoursesTab_URL}';
+      // AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -50,7 +50,7 @@ class PaidCoursesRepo {
   Future<ApiResponse> free_coursesRepo(String id, int pageNo) async {
     try {
       String url = API.FreeCoursesList_URL.replaceAll('FREE_COURSE_ID', id) + pageNo.toString();
-      AppConstants.printLog(url);
+      // AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

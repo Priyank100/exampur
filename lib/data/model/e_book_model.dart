@@ -70,7 +70,8 @@ class BookEbook {
       String? flag, 
       List<dynamic>? macro, 
       String? bannerPath, 
-      String? logoPath,}){
+      String? logoPath,
+    String? status}){
     _id = id;
     _category = category;
     _title = title;
@@ -82,6 +83,7 @@ class BookEbook {
     _macro = macro;
     _bannerPath = bannerPath;
     _logoPath = logoPath;
+    _status = status ;
 }
 
   BookEbook.fromJson(dynamic json) {
@@ -106,6 +108,7 @@ class BookEbook {
     }
     _bannerPath = json['banner_path'];
     _logoPath = json['logo_path'];
+    _status = json['status']==null?'Published':json['status'].toString();
   }
   String? _id;
   List<Category>? _category;
@@ -118,6 +121,7 @@ class BookEbook {
   List<dynamic>? _macro;
   String? _bannerPath;
   String? _logoPath;
+  String? _status;
 
   String? get id => _id;
   List<Category>? get category => _category;
@@ -130,6 +134,7 @@ class BookEbook {
   List<dynamic>? get macro => _macro;
   String? get bannerPath => _bannerPath;
   String? get logoPath => _logoPath;
+  String? get status => _status;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -148,6 +153,7 @@ class BookEbook {
     }
     map['banner_path'] = _bannerPath;
     map['logo_path'] = _logoPath;
+    map['status'] = _status;
     return map;
   }
 

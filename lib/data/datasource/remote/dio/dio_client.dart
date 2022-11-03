@@ -9,6 +9,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../utils/api.dart';
 import 'logging_incepactor.dart';
 
 class DioClient {
@@ -36,6 +37,7 @@ class DioClient {
     dio.interceptors.add(loggingInterceptor);
   }
 
+  // added appVersion in query param
   Future<Response> get(String uri, {
     Map<String, dynamic>? queryParameters,
     Options? options,
@@ -43,9 +45,11 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      AppConstants.printLog("URL> ${uri.toString()}");
+      var sym = uri.contains(API.BASE_URL2) ? uri.contains('?') ? "&" : "?" : "";
+      String url = uri.contains(API.BASE_URL2) ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
+      AppConstants.printLog("URL> ${url.toString()}");
       var response = await dio.get(
-        uri,
+        url,
         queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,
@@ -61,6 +65,7 @@ class DioClient {
     }
   }
 
+  // added appVersion in query param
   Future<Response> post(String uri, {
     data,
     Map<String, dynamic>? queryParameters,
@@ -69,12 +74,13 @@ class DioClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-
     try {
-      AppConstants.printLog("URL> ${uri.toString()}");
+      var sym = uri.contains(API.BASE_URL2) ? uri.contains('?') ? "&" : "?" : "";
+      String url = uri.contains(API.BASE_URL2) ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
+      AppConstants.printLog("URL> ${url.toString()}");
       AppConstants.printLog("Param> ${data.toString()}");
       var response = await dio.post(
-        uri,
+        url,
         data: data,
         queryParameters: queryParameters,
         options: options,
@@ -90,6 +96,7 @@ class DioClient {
     }
   }
 
+  // added appVersion in query param
   Future<Response> put(String uri, {
     data,
     Map<String, dynamic>? queryParameters,
@@ -99,10 +106,12 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      AppConstants.printLog("URL> ${uri.toString()}");
+      var sym = uri.contains(API.BASE_URL2) ? uri.contains('?') ? "&" : "?" : "";
+      String url = uri.contains(API.BASE_URL2) ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
+      AppConstants.printLog("URL> ${url.toString()}");
       AppConstants.printLog("Param> ${data.toString()}");
       var response = await dio.put(
-        uri,
+        url,
         data: data,
         queryParameters: queryParameters,
         options: options,

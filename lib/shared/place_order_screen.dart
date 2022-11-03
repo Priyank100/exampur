@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
-
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';

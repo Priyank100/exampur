@@ -82,13 +82,13 @@ class _CustomTabBarState extends State<CustomTabBar> {
   }
 }
 
-class MyCourseCustomTabBar extends StatefulWidget {
+class MyCourseTabBar extends StatefulWidget {
   final int length;
   final String title;
   final List<String> names;
   final List<Widget> routes;
 
-  const MyCourseCustomTabBar({
+  const MyCourseTabBar({
     Key? key,
     required this.length,
     required this.names,
@@ -97,10 +97,10 @@ class MyCourseCustomTabBar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _MyCourseCustomTabBarState createState() => _MyCourseCustomTabBarState();
+  _MyCourseTabBarState createState() => _MyCourseTabBarState();
 }
 
-class _MyCourseCustomTabBarState extends State<MyCourseCustomTabBar> {
+class _MyCourseTabBarState extends State<MyCourseTabBar> {
   Set<String> selected = new Set<String>();
 
   @override
@@ -223,7 +223,7 @@ class _TabBarDemoState extends State<TabBarDemo>
           ),
           bottom:
           PreferredSize(
-            preferredSize: Size.fromHeight(80.0),
+            preferredSize: Size.fromHeight(90.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

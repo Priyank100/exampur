@@ -85,7 +85,8 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     super.initState();
     getSharedPrefData();
     subMsg = AppConstants.langCode == 'hi' ? LangString.preBookSubTextHi : LangString.preBookSubTextEng;
-    if(widget.pre_booktype == 'Prebook'){
+    // if(widget.pre_booktype == 'Prebook') {
+    if(widget.type == 'Course' || widget.type=='Combo') {
       Future.delayed(Duration.zero, () {
         checkPreBookOpted();
       });
@@ -298,6 +299,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _state = _billingStateController.text.trim();
                 String _landmark = _billinglandMarkController.text.trim();
                 String _promocode = _cuponCodeController.text.trim();
+                if(widget.pre_booktype == null || widget.pre_booktype == 'Published')
                 var map = {
                   'Page_Name':'Delivery_Details',
                   'Mobile_Number':AppConstants.userMobile,
@@ -659,16 +661,22 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   }
 
   Future<void> checkPreBookOpted() async {
+    var course_type = '';
+    if(widget.type == 'Course') {
+      course_type = "course";
+    } else if(widget.type=='Combo') {
+      course_type = "combo_course";
+    }
     AppConstants.showLoaderDialog(context);
-    await Service.get(API.preBookOptedUrl.replaceAll('COURSE_ID',widget.id)).then((response) async {
+    await Service.get(API.preBookOptedUrl.replaceAll('COURSE_ID',widget.id) + '?course_type=' + course_type).then((response) async {
       Navigator.pop(context);
       if(response != null && response.statusCode == 200) {
         var jsonObject = jsonDecode(response.body);
         preBooked = jsonObject['status'];
         if (jsonObject['status'] == true) {
           setState(() {
-            _cuponCodeController.text = jsonObject['prebook_details']['coupon_code'];
             String off = jsonObject['prebook_details']['percentage_off'].toString();
+            _cuponCodeController.text = jsonObject['prebook_details']['coupon_code'].toString();
             String btnText = AppConstants.langCode == 'hi' ? LangString.preBookDelBtnHi : LangString.preBookDelBtnEng;
             prebookButtonText = btnText.replaceAll('X', off);
           });
@@ -683,10 +691,25 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   }
 
   Future<void> preBookOrder() async {
-    await Service.post(API.preBookOptedUrl.replaceAll('COURSE_ID',widget.id), body: {}).then((response) async {
+    var bodyParam = {};
+    if(widget.type == 'Course') {
+      bodyParam = {
+        "course_type": "course"
+      };
+    } else if(widget.type=='Combo') {
+      bodyParam = {
+        "course_type": "combo_course"
+      };
+    }
+    await Service.post(API.preBookOptedUrl.replaceAll('COURSE_ID',widget.id), body: bodyParam).then((response) async {
       if(response != null && response.statusCode == 200) {
         var jsonObject = jsonDecode(response.body);
         if (jsonObject['statusCode'].toString() == '200') {
+          await FirebaseAnalytics.instance.logEvent(name: 'PreBookClicked',parameters: {
+            'name':userName,
+            'course':widget.title.toString(),
+            'mobile_number':Mobile
+          });
           String message = AppConstants.langCode== 'hi'? LangString.preBookAlertHi : LangString.preBookAlertEng;
           AppConstants.showAlertDialogOkButton(context,getTranslated(context, LangString.preBookAlertSuccessHead)!,message.replaceAll('X', widget.preBookDetail!.percentOff.toString()),(){
             Navigator.pop(context);
