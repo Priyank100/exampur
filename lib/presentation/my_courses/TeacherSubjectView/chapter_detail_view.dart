@@ -153,7 +153,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
 
   Widget unitGrouping(){
     return ListView.builder(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
       itemCount: groupingList.length,
         itemBuilder: (context, i) {
         return SingleChildScrollView(
@@ -171,7 +171,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                  });
                },
                child: Container(
-                 padding: EdgeInsets.all(13),
+                // padding: EdgeInsets.all(13),
                   margin: EdgeInsets.only(bottom: 10),
                   decoration: BoxDecoration(
                     border:groupingList[i].unitTitle!='Others'? Border.all(width: 0):null,
