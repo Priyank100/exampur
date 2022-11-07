@@ -17,6 +17,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../utils/analytics_constants.dart';
 import 'landing_page.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -32,6 +33,10 @@ class _OtpScreenState extends State<OtpScreen> {
   TextEditingController _otpController = TextEditingController();
   TextEditingController _newPasswordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+
+  FocusNode _otpNode = FocusNode();
+
+
   bool isOtp = false;
   bool enableSkip = false;
   int skipCounter = 20;
@@ -42,6 +47,13 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   void initState() {
+    var map = {
+      'Page_Name':'Signup_OTP_Page',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':'en',
+      'User_ID':AppConstants.userMobile
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Signup_OTP_Page,map);
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if(skipCounter > 0) {
@@ -59,7 +71,19 @@ class _OtpScreenState extends State<OtpScreen> {
     } else {
       getSharedPrefData();
     }
+    _otpNode.addListener(onFocusChange1);
   }
+
+  void onFocusChange1() {
+    if(!_otpNode.hasFocus) {
+      var map = {
+        'Page_Name':'Signup_OTP_Page',
+        'Mobile_Number':_phoneController.text.toString(),
+        'Language':'en',
+        'User_ID':_phoneController.text.toString()
+      };
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_OTP,map);
+    }}
 
   Future<void> getSharedPrefData() async {
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
@@ -72,6 +96,7 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void dispose() {
     timer.cancel();
+    _otpNode.removeListener(onFocusChange1);
   }
 
   @override
@@ -102,6 +127,13 @@ class _OtpScreenState extends State<OtpScreen> {
               SizedBox(height: 20),
               widget.isReset ? SizedBox() : enableSkip ? InkWell(
                 onTap: () {
+                  var map = {
+                    'Page_Name':'Signup_OTP_Page',
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':'en',
+                    'User_ID':AppConstants.userMobile
+                  };
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Skip_OTP,map);
                   if(AppConstants.CATEGORY_LENGTH == '0' || AppConstants.CATEGORY_LENGTH == 'null') {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder:
@@ -123,6 +155,13 @@ class _OtpScreenState extends State<OtpScreen> {
               SizedBox(height: 10),
               InkWell(
                 onTap: () {
+                  var map = {
+                    'Page_Name':'Signup_OTP_Page',
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':'en',
+                    'User_ID':AppConstants.userMobile
+                  };
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Login_New_Register,map);
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (_) => LandingPage()),
@@ -186,6 +225,7 @@ class _OtpScreenState extends State<OtpScreen> {
         SizedBox(height: 10),
         CustomTextField(hintText: "Enter the OTP",
             textInputType: TextInputType.number,
+            focusNode: _otpNode,
             autofillHints: const <String>[AutofillHints.oneTimeCode],
             controller: _otpController,
             textInputFormatter: <TextInputFormatter>[
@@ -393,6 +433,15 @@ class _OtpScreenState extends State<OtpScreen> {
     // await FirebaseAnalytics.instance.logEvent(name: 'OTP_SUBMIT',parameters: {
     //   'User_PhoneNumber':_phoneController.text.toString()
     // });
+    var map = {
+      'Page_Name':'Signup_OTP_Page',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':'en',
+      'User_ID':AppConstants.userMobile
+    };
+
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Verify_OTP,map);
+
     AppConstants.showLoaderDialog(context);
     var body = {
       // "phone_ext": "91",
@@ -417,6 +466,13 @@ class _OtpScreenState extends State<OtpScreen> {
               MaterialPageRoute(builder: (_) => LandingChooseCategory()),
                   (route) => false);
         } else {
+          var map = {
+            'Page_Name':'Signup_OTP_Page',
+            'Mobile_Number':AppConstants.userMobile,
+            'Language':'en',
+            'User_ID':AppConstants.userMobile
+          };
+          AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Error_Invalid_OTP,map);
           showBottomMessage(context, msg, Colors.black);
         }
       } else if(response.statusCode==429){

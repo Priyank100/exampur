@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 class JobNotificationListing extends StatefulWidget {
   final JobNotificationListModel jobNotificationListModel;
 
@@ -30,6 +32,15 @@ class _JobNotificationListingState extends State<JobNotificationListing> {
     dataList = widget.jobNotificationListModel.notification??[];
     nextUrl = widget.jobNotificationListModel.next.toString();
     scrollController.addListener(pagination);
+    var map = {
+      'Page_Name':'Job_Alerts',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Section':widget.jobNotificationListModel.tagName.toString(),
+      'Course_Category':widget.jobNotificationListModel.tagSlug.toString()
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Alerts,map);
     super.initState();
   }
 

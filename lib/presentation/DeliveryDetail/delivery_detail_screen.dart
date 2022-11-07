@@ -20,6 +20,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 
+import '../../utils/analytics_constants.dart';
+
 class DeliveryDetailScreen extends StatefulWidget {
   final String type;
   final String id;
@@ -287,7 +289,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             widget.upsellBookList == null ? SizedBox() : widget.upsellBookList!.length > 0 ? showUpsellBookList() : SizedBox(),
             widget.type == 'Book' ? SizedBox() : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox(): SizedBox(height: 20),
             widget.type == 'Book' ? SizedBox() : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox():Center(child: Text(preBooked ? getTranslated(context, LangString.preBookAlertAlreadyHead)!: subMsg.replaceAll('X', widget.preBookDetail!.percentOff.toString()),style: TextStyle(color:AppColors.grey),)),
-            widget.type == 'Book' ? SizedBox(height: 20) : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox(height: 30): SizedBox(height: 10),
+            widget.type == 'Book' ? SizedBox(height: 20,) : widget.pre_booktype ==null || widget.pre_booktype =='null' || widget.pre_booktype =='Published'? SizedBox(height: 30): SizedBox(height: 10),
             InkWell(
               onTap:  (){
                 FocusScope.of(context).unfocus();
@@ -297,7 +299,15 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _state = _billingStateController.text.trim();
                 String _landmark = _billinglandMarkController.text.trim();
                 String _promocode = _cuponCodeController.text.trim();
-                if(widget.pre_booktype == null || widget.pre_booktype == 'Published')
+                var map = {
+                  'Page_Name':'Delivery_Details',
+                  'Mobile_Number':AppConstants.userMobile,
+                  'Language':AppConstants.langCode,
+                  'User_ID':AppConstants.userMobile,
+                  'Book_Name':widget.title.toString()
+                };
+                widget.type == 'Book' ?  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Confirm_Purchase_Books,map):null;
+                if(widget.pre_booktype == null ||widget.pre_booktype == 'Published')
                 {
                   if(checkValidation(_address, _state, _city, _pincode,_landmark,_promocode)) {
                     saveDeliveryAddress(true, _address, _pincode, _city, _state,_landmark, _promocode);
@@ -363,11 +373,30 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           AppConstants.printLog('anchal' + jsonObject['data']['promo_code']);
           AppConstants.showBottomMessage(context, getTranslated(context, LangString.apply), AppColors.black);
           isCouponValid = true;
+          var map = {
+            'Page_Name':'Coupon_Code_Page',
+            'Course_Category':AppConstants.paidTabName,
+            'Course_Name':widget.title.toString(),
+            'Mobile_Number':AppConstants.userMobile,
+            'Language':AppConstants.langCode,
+            'User_ID':AppConstants.userMobile,
+
+          };
+          widget.type == 'Book' ? null: AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Coupon_Code_Successfully_Applied,map);
           setState(() {});
         } else {
           AppConstants.showBottomMessage(context, jsonObject['data'].toString(), AppColors.black);
           isCouponValid = false;
           _cuponCodeController.text = '';
+          var map = {
+            'Page_Name':'Coupon_Code_Page',
+            'Course_Category':AppConstants.paidTabName,
+            'Course_Name':widget.title.toString(),
+            'Mobile_Number':AppConstants.userMobile,
+            'Language':AppConstants.langCode,
+            'User_ID':AppConstants.userMobile,
+          };
+          widget.type == 'Book' ? null: AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Coupon_Code_Failed,map);
           setState(() {});
         }
       }else if(response.statusCode==429) {
@@ -424,6 +453,16 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             isBookSelected = !isBookSelected;
             if(isBookSelected) {
               selectedBookIdList.add(widget.upsellBookList![0].id.toString());
+              var map = {
+                'Page_Name':'Coupon_Code_Page',
+                'Course_Category':AppConstants.paidTabName,
+                'Course_Name':widget.title.toString(),
+                'Mobile_Number':AppConstants.userMobile,
+                'Language':AppConstants.langCode,
+                'User_ID':AppConstants.userMobile,
+                'Book_Name':widget.upsellBookList![0].title.toString()
+              };
+              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Recommended_Book,map);
             } else {
               selectedBookIdList.remove(widget.upsellBookList![0].id.toString());
               // selectedBookIdList.clear();

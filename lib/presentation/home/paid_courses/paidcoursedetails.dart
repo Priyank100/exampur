@@ -22,6 +22,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 typedef YoutubeQualityChangeCallback(String quality, Duration position);
 
 class PaidCourseDetails extends StatefulWidget {
@@ -57,6 +59,16 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   @override
   void initState() {
+    var map = {
+      'Page_Name':'Course_Details',
+      'Course_Category':AppConstants.paidTabName,
+      'Course_Name':widget.courseData.title.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Video_Name':widget.courseData.title.toString(),
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
     AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     AppConstants.printLog(widget.courseData.videoPath.toString());
     message = AppConstants.langCode == 'hi' ? LangString.preBookTextHi : LangString.preBookTextEng;
@@ -82,14 +94,6 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
     _seekToController = TextEditingController();
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
-    // if (defaultQuality == '720p') {
-    //   _selectedQuality = 'HD';
-    // } else if (defaultQuality == '1080p') {
-    //   _selectedQuality = 'Full HD';
-    // } else {
-    //   _selectedQuality =defaultQuality!.toUpperCase();
-    // }
-
     super.initState();
   }
 
@@ -114,6 +118,21 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
     _controller.dispose();
     _idController.dispose();
     _seekToController.dispose();
+    var d = Duration(seconds: _controller.value.position.inSeconds);
+    var min = d.inMinutes;
+    var sec = _controller.value.position.inSeconds % 60;
+    var m = '$min'.padLeft(2,'0');
+    var s = '$sec'.padLeft(2,'0');
+    var map = {
+      'Page_Name':'Course_Details',
+      'Course_Category':AppConstants.paidTabName,
+      'Course_Name':widget.courseData.title.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Total_Watch_Time':'$m:$s'
+    };
+   AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,map);
     super.dispose();
   }
 
@@ -126,29 +145,6 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
         // showVideoProgressIndicator: false,
         progressIndicatorColor: Colors.blueAccent,
         topActions: <Widget>[
-          //todo: change video quality
-          // const SizedBox(width: 8.0),
-          // Expanded(
-          //   child: Text(
-          //     _controller.metadata.title,
-          //     style: const TextStyle(
-          //       color: Colors.white,
-          //       fontSize: 18.0,
-          //     ),
-          //     overflow: TextOverflow.ellipsis,
-          //     maxLines: 1,
-          //   ),
-          // ),
-          // IconButton(
-          //   icon: const Icon(
-          //     Icons.settings,
-          //     color: Colors.white,
-          //     size: 25.0,
-          //   ),
-          //   onPressed: () {
-          //     _resolutionBottomSheet();
-          //   },
-          // ),
         ],
         onReady: () {
           _isPlayerReady = true;
@@ -183,6 +179,15 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                           padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
                           child: InkWell(
                             onTap: (){
+                              var map = {
+                                'Page_Name':'Course_Details',
+                                'Course_Category':AppConstants.paidTabName,
+                                'Course_Name':widget.courseData.title.toString(),
+                                'Mobile_Number':AppConstants.userMobile,
+                                'Language':AppConstants.langCode,
+                                'User_ID':AppConstants.userMobile,
+                              };
+                              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_PDF,map);
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
                               widget.courseData.pdfPath.toString().contains('http') ?
                               ViewPdf(widget.courseData.pdfPath.toString(),'') :
@@ -289,6 +294,15 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                   InkWell(
                     onTap: () {
                       _controller.pause();
+                      var map = {
+                        'Page_Name':'Course_Details',
+                        'Course_Category':AppConstants.paidTabName,
+                        'Course_Name':widget.courseData.title.toString(),
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'User_ID':AppConstants.userMobile,
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Course,map);
                       FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
                         'Course_Id':widget.courseData.id.toString(),
                         'Course_Name':widget.courseData.title.toString()

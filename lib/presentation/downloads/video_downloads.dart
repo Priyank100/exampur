@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../utils/analytics_constants.dart';
+
 class DownloadedVideo extends StatefulWidget {
   const DownloadedVideo(Key key) : super(key: key);
 
@@ -177,6 +179,17 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                                                 text: getTranslated(context,
                                                     LangString.watch)!,
                                                 onPressed: () {
+                                                  var map = {
+                                                    'Page_Name':'Downloads',
+                                                    'Mobile_Number':AppConstants.userMobile,
+                                                    'Language':AppConstants.langCode,
+                                                    'User_ID':AppConstants.userMobile,
+                                                    'Course_Name':_filename.replaceAll('--', '').split('~')[0],
+                                                    'Faculty_Name':'',
+                                                    'Topic_Name':_filename.replaceAll('--', '').split('~')[0]
+
+                                                  };
+                                                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
                                                   Navigator.of(context,
                                                       rootNavigator: true)
                                                       .push(MaterialPageRoute(

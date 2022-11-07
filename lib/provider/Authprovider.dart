@@ -25,6 +25,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../utils/analytics_constants.dart';
+
 class AuthProvider extends ChangeNotifier {
   final AuthRepo authRepo;
 
@@ -54,6 +56,17 @@ class AuthProvider extends ChangeNotifier {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if(statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
+
+        //MoEngage
+        AppConstants.userName = _informationModel.data!.firstName.toString();
+        AppConstants.userMobile = _informationModel.data!.phone.toString();
+        AppConstants.Email = _informationModel.data!.emailId.toString();
+        AppConstants.Id = _informationModel.data!.phone.toString();
+        AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
+        AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
+        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+        AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
+
         await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
 
@@ -73,6 +86,13 @@ class AuthProvider extends ChangeNotifier {
         }
 
       } else {
+        var map = {
+          'Page_Name':'App_Login',
+          'Mobile_Number':loginBody.phone.toString(),
+          'Language':'en',
+          'User_ID':loginBody.phone.toString()
+        };
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Error_Invalid_Mobile,map);
         callback(false, apiResponse.response!.data['data'].toString());
       }
 
@@ -103,6 +123,16 @@ class AuthProvider extends ChangeNotifier {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if(statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
+
+        //MoEngage
+        AppConstants.userName = _informationModel.data!.firstName.toString();
+        AppConstants.userMobile = _informationModel.data!.phone.toString();
+        AppConstants.Email = _informationModel.data!.emailId.toString();
+        AppConstants.Id = _informationModel.data!.phone.toString();
+        AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
+        AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
+        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+        AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
 
         await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
@@ -178,8 +208,19 @@ class AuthProvider extends ChangeNotifier {
 
       if (statusCode == '200') {
         _informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
-        await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
 
+        //MoEngage
+        AppConstants.userName = _informationModel.data!.firstName.toString();
+        AppConstants.userMobile = _informationModel.data!.phone.toString();
+        AppConstants.Email = _informationModel.data!.emailId.toString();
+        AppConstants.Id = _informationModel.data!.phone.toString();
+        AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
+        AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
+        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+        AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
+        // AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.userMobile);
+
+        await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
         _userData.add(_informationModel);
         await SharedPref.saveSharedPref(SharedPref.USER_DATA, jsonEncode(_userData));
 

@@ -154,7 +154,7 @@ class _MyCourseTabBarState extends State<MyCourseTabBar> {
 
 class TabBarDemo extends StatefulWidget {
   final int length;
-  final String title;
+  final String? title;
   final List<String> names;
   final List<Widget> routes;
   final TabController? controller;
@@ -166,7 +166,7 @@ class TabBarDemo extends StatefulWidget {
     required this.length,
     required this.names,
     required this.routes,
-    required this.title,
+     this.title,
     this.controller,
     this.isVideo,
     this.onPressed
@@ -233,7 +233,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
-                        widget.title,
+                        widget.title!,
                         style: CustomTextStyle.headingMediumBold(context),
                       ),
                     ),

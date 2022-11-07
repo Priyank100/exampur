@@ -23,6 +23,7 @@ import 'package:provider/provider.dart';
 import '../../../SharePref/shared_pref.dart';
 import '../../../data/datasource/remote/http/services.dart';
 import '../../../utils/api.dart';
+import '../../../utils/analytics_constants.dart';
 import 'DownloadPdfView.dart';
 
 class ChapterDetailView extends StatefulWidget {
@@ -153,7 +154,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
 
   Widget unitGrouping(){
     return ListView.builder(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
       itemCount: groupingList.length,
         itemBuilder: (context, i) {
         return SingleChildScrollView(
@@ -171,7 +172,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                  });
                },
                child: Container(
-                 padding: EdgeInsets.all(13),
+                // padding: EdgeInsets.all(13),
                   margin: EdgeInsets.only(bottom: 10),
                   decoration: BoxDecoration(
                     border:groupingList[i].unitTitle!='Others'? Border.all(width: 0):null,
@@ -298,10 +299,23 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   Widget WatchVideoButton(List<MaterialData> materialList, index) {
     return InkWell(
       onTap: () {
+        var map = {
+          'Page_Name':'My_Courses_Recorded',
+          'Mobile_Number':AppConstants.userMobile,
+          'Language':AppConstants.langCode,
+          'User_ID':AppConstants.userMobile,
+          'Course_Name':AppConstants.courseName,
+          'Faculty_Name':AppConstants.subjectName,
+          'Subject_Name':AppConstants.subjectName,
+          'Chapter_Name':widget.chaptername,
+          'Topic_Name':materialList[index].title.toString()
+        };
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
+        AppConstants.chapterName =widget.chaptername;
         // print(materialList[index].title);
         materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                  MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired))
+                  MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired,videoQuallity: 'normal',))
               ) :
               showVideoQualityDialog(materialList, index);
 
@@ -389,27 +403,27 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hlsUrl == null ? SizedBox() :     CustomButton(
-            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(),'',materialList[index].id.toString(),isTimlineRequired),
+            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(),'',materialList[index].id.toString(),isTimlineRequired,videoQuallity: 'normal',),
             title: getTranslated(context, LangString.Normal)!
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls240PUrl == null ? SizedBox() :   CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired,videoQuallity: '240p',),
           title: '240p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls360PUrl == null ? SizedBox() :     CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired,videoQuallity: '360p',),
           title: '360p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls480PUrl == null ? SizedBox() :  CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired,videoQuallity: '480p',),
           title: '480p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls720PUrl == null ? SizedBox() :  CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired,videoQuallity: '720p',),
           title: '720p',
         ),
         SizedBox(height: 10),
@@ -438,31 +452,31 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hlsUrl == null ? SizedBox() :      CustomButton(
-            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].id.toString(),isTimlineRequired),
+            navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hlsUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].id.toString(),isTimlineRequired, videoQuallity: 'normal'),
             title: getTranslated(context, LangString.Normal)
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls240PUrl == null ? SizedBox() :  CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].id.toString(),isTimlineRequired),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls240PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the240.toString(),materialList[index].id.toString(),isTimlineRequired, videoQuallity: '240p'),
           title: '240p',
         ),
         SizedBox(
           height: 10,
         ),
         materialList[index].timeline!.apexLink!.hls360PUrl == null ? SizedBox() :   CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the360.toString(),materialList[index].id.toString(),isTimlineRequired),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls360PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the360.toString(),materialList[index].id.toString(),isTimlineRequired,videoQuallity: '360p'),
           title: '360p',
         ),
         SizedBox(height: 10),
         materialList[index].timeline!.apexLink!.hls480PUrl == null ? SizedBox() :      CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString(),materialList[index].id.toString(),isTimlineRequired),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls480PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString(),materialList[index].id.toString(),isTimlineRequired,videoQuallity: '480p'),
           title: '480p',
         ),
         SizedBox(
           height: 10,
         ),
         materialList[index].timeline!.apexLink!.hls720PUrl == null ? SizedBox() :      CustomButton(
-          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString(),materialList[index].id.toString(),isTimlineRequired),
+          navigateTo: MyMaterialVideo(materialList[index].timeline!.apexLink!.hls720PUrl.toString(), materialList[index].title.toString(), materialList[index].timeline!.recordingProps!.the576.toString(),materialList[index].id.toString(),isTimlineRequired,videoQuallity:'720p'),
           title: '720p',
         ),
         SizedBox(height: 10),
@@ -505,6 +519,19 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                   width: MediaQuery.of(context).size.width/2,
                   child: MaterialButton(
                     onPressed: (){
+                      var map = {
+                        'Page_Name':'My_Courses_Recorded',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'User_ID':AppConstants.userMobile,
+                        'Course_Name':AppConstants.courseName,
+                        'Faculty_Name':AppConstants.subjectName,
+                        'Subject_Name':AppConstants.subjectName,
+                        'Chapter_Name':widget.chaptername,
+                        'Topic_Name':title.toString()
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_PDF_Viewer,map);
+                      print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
                       AppConstants.timlineId = timlineId.toString();
                       AppConstants.timlineName = title.toString();
                       AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>');
@@ -520,6 +547,18 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                   width: MediaQuery.of(context).size.width/2,
                   child: MaterialButton(
                     onPressed: () async {
+                      var map = {
+                        'Page_Name':'My_Courses_Recorded',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'User_ID':AppConstants.userMobile,
+                        'Course_Name':AppConstants.courseName,
+                        'Faculty_Name':AppConstants.subjectName,
+                        'Subject_Name':AppConstants.subjectName,
+                        'Chapter_Name':widget.chaptername,
+                        'Topic_Name':title.toString()
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_PDF_Browser,map);
                       Navigator.pop(context);
                       AppConstants.makeCallEmail(pdfPath);
                     },

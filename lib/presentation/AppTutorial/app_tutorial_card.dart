@@ -9,6 +9,8 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../utils/analytics_constants.dart';
+
 class AppTutorialCard extends StatefulWidget {
   final Data listData;
   final int index;
@@ -60,7 +62,14 @@ class _AppTutorialCardState extends State<AppTutorialCard> {
                             ],
                           ),
                           onPressed: () {
-
+                            var map = {
+                              'Page_Name':'App_tutorial',
+                              'Mobile_Number':AppConstants.userMobile,
+                              'Language':AppConstants.langCode,
+                              'User_ID':AppConstants.userMobile,
+                              'Video_Name':widget.listData.title.toString()
+                            };
+                            AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now_App_Tutorial,map);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

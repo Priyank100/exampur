@@ -30,6 +30,7 @@ import 'package:share/share.dart';
 import 'package:http/http.dart' as http;
 
 import '../presentation/widgets/custom_smaller_button.dart';
+import '../utils/analytics_constants.dart';
 
 class TeachingContainer extends StatefulWidget {
   PaidCourseData courseData;
@@ -187,7 +188,20 @@ class _TeachingContainerState extends State<TeachingContainer> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           CustomRoundButton(onPressed: () async {
-
+                            // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
+                            // // courseIdList.add(widget.courseData.id.toString());
+                            // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;
+                            var map = {
+                              'Page_Name':'Course_List',
+                              'Course_Category':widget.tabName,
+                              'Course_Name':widget.courseData.title.toString(),
+                              'Mobile_Number':AppConstants.userMobile,
+                              'Language':AppConstants.langCode,
+                              'User_ID':AppConstants.userMobile,
+                            };
+                            if(widget.courseType == 1) {
+                              AppConstants.paidTabName = widget.tabName;
+                              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_Details_Course,map);}
                             String courseTabType = 'Course';
                             if(widget.tabId=='combo_course'){
                               courseTabType = 'Combo';
@@ -220,6 +234,16 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               'Course_id':widget.courseData.id.toString().replaceAll(' ', '_'),
                               'Course_title':widget.courseData.title.toString().replaceAll(' ', '_')
                             });
+                            var map = {
+                              'Page_Name':'Course_List',
+                              'Course_Category':widget.tabName,
+                              'Course_Name':widget.courseData.title.toString(),
+                              'Mobile_Number':AppConstants.userMobile,
+                              'Language':AppConstants.langCode,
+                              'User_ID':AppConstants.userMobile,
+                            };
+                            AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Course,map);
+
                             String courseTabType = 'Course';
                             if(widget.tabId=='combo_course'){
                               courseTabType = 'Combo';
@@ -256,6 +280,16 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               SizedBox(width: 5,),
                               InkWell(
                                 onTap: () async {
+                                  var map = {
+                                    'Page_Name':'Course_List',
+                                    'Course_Category':widget.tabName,
+                                    'Course_Name':widget.courseData.title.toString(),
+                                    'Mobile_Number':AppConstants.userMobile,
+                                    'Language':AppConstants.langCode,
+                                    'User_ID':AppConstants.userMobile,
+                                  };
+                                   if(widget.courseType == 1) {
+                                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Share_Course,map);}
                                   String courseTabType = '';
                                   if(widget.tabId=='combo_course'){
                                     courseTabType = 'combo';
@@ -284,6 +318,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                     ]
                   ),
                 ),
+
               ],
             ),
           ),

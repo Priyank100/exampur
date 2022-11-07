@@ -65,7 +65,9 @@ bool isLoading =false;
                           AppConstants.image(AppConstants.BANNER_BASE + item.imagePath.toString(), boxfit: BoxFit.fill),
                         ),
                         onTap: () async {
+                          //moEnageanaylytics
                           //for sendAnalyticsEvent
+                          AppConstants.currentindex = _current.toString();
                           item.type=='Course' || item.type=='Combo Course' ? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerCourseClick):
                           item.type=='Book'? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerBookClick):
                           AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerExternalLinksClick);
@@ -76,6 +78,19 @@ bool isLoading =false;
                           item.type=='Book'? AnalyticsConstants.logEvent(AnalyticsConstants.bannerBookClick,stuff):
                           AnalyticsConstants.logEvent(AnalyticsConstants.bannerExternalLinksClick,stuff);
 
+                          if( item.type=='External'){
+                            var map = {
+                              'Page_Name':'Home_Page',
+                              'Banner_Rank':AppConstants.currentindex,
+                              'Banner_Name':item.title.toString(),
+                              'Mobile_Number':AppConstants.userMobile,
+                              'Language':AppConstants.langCode,
+                              'User_ID':AppConstants.userMobile,
+                              'Course_Category':''
+                            };
+                            AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Banner_Home,map);
+                          }
+
                           item.type=='Course' || item.type=='Combo Course'?
                           Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => BannerLinkDetailPage(item.type.toString(),item.link.toString()))):
                           item.type=='Book'?
@@ -84,7 +99,8 @@ bool isLoading =false;
                           // Navigator.push(context, MaterialPageRoute(builder: (_) =>
                           //     BannerDetailPage(item.link.toString(),item.title.toString())
                           // ));
-                          item.type=='External'&&item.link=='Live Test Page' ?
+
+                          item.type=='External'&& item.link=='Live Test Page' ?
                           await SharedPref.getSharedPref(SharedPref.TOKEN).then((token) async {
                             Navigator.of(context, rootNavigator: true).push(
                                 MaterialPageRoute(

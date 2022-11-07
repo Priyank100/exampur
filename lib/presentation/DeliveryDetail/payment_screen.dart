@@ -13,6 +13,8 @@ import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
+import '../../utils/analytics_constants.dart';
+
 class PaymentScreen extends StatefulWidget {
   final String type;
   final BillingModel billingModel;
@@ -33,6 +35,29 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void initState() {
     super.initState();
 
+    var coursemap = {
+      'Page_Name':'Check_Out_Course_Purchase',
+      'Course_Category':AppConstants.paidTabName,
+      'Course_Name':widget.billingModel.itemName.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Book_Name':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!?widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString():'',
+      'Course_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+      'Book_Price':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!? widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice.toString():'',
+      'Total_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+      'Book':widget.deliveryUpsellModel.data!.bookSelected == true ? 'Yes':'No'
+    };
+    var bookmap ={
+      'Page_Name':'Check_Out_Books_Purchase',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Book_Name':widget.billingModel.itemName.toString(),
+      'Book_Price':widget.billingModel.itemAmount.toString()
+    };
+   widget.type == 'Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Check_Out_Page,bookmap):
+   AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Check_Out_Page,coursemap);
     razorpay = new Razorpay();
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlerPaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlerErrorFailure);
@@ -88,6 +113,28 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 SizedBox(height: 20),
                 MaterialButton(
                   onPressed: () {
+                    var map = {
+                      'Page_Name':'Check_Out_Course_Purchase',
+                      'Course_Category':AppConstants.paidTabName,
+                      'Course_Name':widget.billingModel.itemName.toString(),
+                      'Mobile_Number':AppConstants.userMobile,
+                      'Language':AppConstants.langCode,
+                      'User_ID':AppConstants.userMobile,
+                      'Book_Name':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!?widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString():'',
+                      'Course_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+                      'Book_Price':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!? widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice.toString():'',
+                      'Total_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+                      'Book':widget.deliveryUpsellModel.data!.bookSelected == true ? 'Yes':'No'
+                    };
+                    var bookmap ={
+                      'Page_Name':'Check_Out_Books_Purchase',
+                      'Mobile_Number':AppConstants.userMobile,
+                      'Language':AppConstants.langCode,
+                      'User_ID':AppConstants.userMobile,
+                      'Book_Name':widget.billingModel.itemName.toString(),
+                      'Book_Price':widget.billingModel.itemAmount.toString()
+                    };
+                   widget.type=='Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Pay_Now,bookmap): AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Pay_Now,map);
                     openCheckout();
                   },
                   child: Container(
@@ -151,6 +198,30 @@ class _PaymentScreenState extends State<PaymentScreen> {
     AppConstants.printLog(response.paymentId);
     AppConstants.printLog(response.signature);
 
+    var map = {
+      'Page_Name':'Check_Out_Course_Purchase',
+      'Course_Category':AppConstants.paidTabName,
+      'Course_Name':widget.billingModel.itemName.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Book_Name':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!?widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString():'',
+      'Course_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+      'Book_Price':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!? widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice.toString():'',
+      'Total_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+      'Book':widget.deliveryUpsellModel.data!.bookSelected == true ? 'Yes':'No',
+      'Payment_Type':'RazorPay'
+    };
+    var bookmap ={
+      'Page_Name':'Check_Out_Books_Purchase',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Book_Name':widget.billingModel.itemName.toString(),
+      'Book_Price':widget.billingModel.itemAmount.toString()
+    };
+  widget.type == 'Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Successful,bookmap):  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Successful,map);
+
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -169,6 +240,30 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void handlerErrorFailure(PaymentFailureResponse response) {
     String msg = "ERROR: " + response.code.toString() + " - " + jsonDecode(response.message!)['error']['description'];
     AppConstants.showBottomMessage(context, msg, Colors.red);
+    var map = {
+      'Page_Name':'Check_Out_Course_Purchase',
+      'Course_Category':AppConstants.paidTabName,
+      'Course_Name':widget.billingModel.itemName.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Book_Name':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!?widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString():'',
+      'Course_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+      'Book_Price':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!? widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice.toString():'',
+      'Total_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+      'Book':widget.deliveryUpsellModel.data!.bookSelected == true ? 'Yes':'No',
+      'Payment_Type':'RazorPay'
+    };
+    var bookmap ={
+      'Page_Name':'Check_Out_Books_Purchase',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Book_Name':widget.billingModel.itemName.toString(),
+      'Book_Price':widget.billingModel.itemAmount.toString()
+    };
+    widget.type == 'Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Failed,bookmap):
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Failed,map);
   }
 
   void handlerExternalWallet(ExternalWalletResponse response) {

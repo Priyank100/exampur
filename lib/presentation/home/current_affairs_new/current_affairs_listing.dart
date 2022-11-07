@@ -15,11 +15,13 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/analytics_constants.dart';
 import 'current_affairs_filter.dart';
 
 class CurrentAffairsListing extends StatefulWidget {
   final String tabId;
-  const CurrentAffairsListing(this.tabId) : super();
+  final String tabname;
+  const CurrentAffairsListing(this.tabId,this.tabname) : super();
 
   @override
   State<CurrentAffairsListing> createState() => _CurrentAffairsListingState();
@@ -38,6 +40,13 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
     scrollController.addListener(pagination);
     getData(API.currentAffairsNewListUrl);
     getTagList();
+    var map ={
+      'Page_Name':widget.tabname.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Current_Affairs,map);
     super.initState();
   }
 
@@ -147,6 +156,14 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
     return InkWell(
       onTap: (){
         FocusScope.of(context).unfocus();
+        var map ={
+          'Page_Name':widget.tabname.toString(),
+          'Article_Date':AppConstants.langCode == 'hi' ?
+        currentAffairsListModel!.articleContent![index].titleHindi.toString() :
+        currentAffairsListModel!.articleContent![index].titleEng.toString(),
+          'Article_Name':currentAffairsListModel!.articleContent![index].date.toString(),
+        };
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_CA_Article,map);
         AppConstants.goTo(context, CurrentAffairsDetails(currentAffairsListModel!.articleContent![index].id.toString()));
       },
       child: Container(

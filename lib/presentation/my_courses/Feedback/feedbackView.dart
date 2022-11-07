@@ -9,12 +9,33 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class FeedbackView extends StatelessWidget {
+import '../../../utils/analytics_constants.dart';
+
+class FeedbackView extends StatefulWidget {
   final String userName;
   final String userMobile;
   final String token;
   const FeedbackView(this.userName, this.userMobile, this.token) : super();
 
+  @override
+  State<FeedbackView> createState() => _FeedbackViewState();
+}
+
+class _FeedbackViewState extends State<FeedbackView> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    var map = {
+      'Page_Name':'My_Courses_Feedback',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Name':AppConstants.courseName,
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Feedback,map);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +49,7 @@ class FeedbackView extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => MyWebView(
-                      selectedUrl: AppConstants.googleFeedbackFormUrl.replaceAll('USER_NAME', userName).replaceAll('USER_MOBILE', userMobile),
+                      selectedUrl: AppConstants.googleFeedbackFormUrl.replaceAll('USER_NAME', widget.userName).replaceAll('USER_MOBILE', widget.userMobile),
                     )
                 ));
               },

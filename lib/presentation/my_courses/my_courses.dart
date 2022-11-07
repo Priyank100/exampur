@@ -170,6 +170,7 @@ class MyCoursesState extends State<MyCourses> {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: InkWell(
         onTap: () {
+          AppConstants.courseName = myCourseList[index].title.toString();
           FocusScope.of(context).unfocus();
          AppConstants.myCourseName = myCourseList[index].title.toString();
          AppConstants.myCourseId= myCourseList[index].id.toString();

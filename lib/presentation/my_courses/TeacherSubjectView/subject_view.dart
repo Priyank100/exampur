@@ -11,6 +11,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 class SubjectView extends StatefulWidget {
   final String courseId;
 
@@ -27,6 +29,14 @@ class _SubjectViewState extends State<SubjectView> {
 
   @override
   void initState() {
+    var map = {
+      'Page_Name':'My_Courses_Subjects',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Name': AppConstants.courseName,
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Subjects,map);
     callProvider();
     super.initState();
   }
@@ -76,6 +86,17 @@ class _SubjectViewState extends State<SubjectView> {
   Widget GridItem(index) {
     return InkWell(
       onTap: () {
+        var map = {
+          'Page_Name':'My_Courses_Chapter',
+          'Mobile_Number':AppConstants.userMobile,
+          'Language':AppConstants.langCode,
+          'User_ID':AppConstants.userMobile,
+          'Course_Name': AppConstants.courseName,
+          'Faculty_Name':subjectList[index].title.toString(),
+          'Subject_Name':subjectList[index].title.toString()
+        };
+       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Chapter,map);
+        AppConstants.subjectName = subjectList[index].title.toString();
         Navigator.push(context, MaterialPageRoute(builder: (_) =>
             ChapterView(widget.courseId, subjectList[index].id.toString())
         ));

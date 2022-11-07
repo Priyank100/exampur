@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 class MyTimeTableViedo extends StatefulWidget {
 String url;
 String title;
@@ -55,7 +57,18 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     flickManager = FlickManager(
       videoPlayerController: _videoPlayerController,
     );
-
+    var map = {
+      'Page_Name':'My_Courses_Timeline',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Name':widget.title.toString(),
+      'Faculty_Name':AppConstants.subjectName.toString(),
+      'Subject_Name':AppConstants.subjectName.toString(),
+      'Chapter_Name':AppConstants.chapterName.toString(),
+      'Topic_Name':widget.title.toString(),
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
     // videoPlayerController = VideoPlayerController.network(widget.url);
     // chewieController = ChewieController(
     //   cupertinoProgressColors: ChewieProgressColors(),
@@ -185,6 +198,25 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
   @override
   void dispose() {
     flickManager!.dispose();
+    var d = Duration(seconds: _videoPlayerController.value.position.inSeconds);
+    var min = d.inMinutes;
+    var sec = _videoPlayerController.value.position.inSeconds % 60;
+    var m = '$min'.padLeft(2,'0');
+    var s = '$sec'.padLeft(2,'0');
+    var map = {
+      'Page_Name':'My_Courses_Timeline',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Name':widget.title.toString(),
+      'Faculty_Name':'',
+      'Subject_Name':AppConstants.subjectName.toString(),
+      'Chapter_Name':AppConstants.chapterName.toString(),
+      'Topic_Name':widget.title.toString(),
+      'Video_Quality':AppConstants.videoQuality.toString(),
+      'Total_Watch_Time':_videoPlayerController.value.position.inSeconds.toString()
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Live_Video,map);
     super.dispose();
   }
 }

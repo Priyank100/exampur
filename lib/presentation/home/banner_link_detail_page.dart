@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/data/model/upsell_book.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
@@ -16,6 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../data/model/paid_course_model_new.dart';
+import '../../utils/analytics_constants.dart';
 
 class BannerLinkDetailPage extends StatefulWidget {
   final String type;
@@ -50,7 +52,19 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getLists();
+    getLists().then((value) {
+      var map = {
+        'Page_Name':'Home_Page',
+        'Banner_Rank':AppConstants.currentindex,
+        'Banner_Name':bannerDetailData!.title.toString(),
+        'Mobile_Number':AppConstants.userMobile,
+        'Language':AppConstants.langCode,
+        'User_ID':AppConstants.userMobile,
+        'Course_Category':((bannerDetailData!.category!.map((item) => item.name)).toList()).join(', ')
+      };
+       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Banner_Home,map);
+    });
+
   }
 
   @override
@@ -107,7 +121,7 @@ class _ViedobannerState extends State<Viedobanner> {
 
   bool _muted = false;
   bool _isPlayerReady = false;
-  String message = '';
+  String message ='';
 
   @override
   void initState() {
@@ -134,7 +148,7 @@ class _ViedobannerState extends State<Viedobanner> {
     _seekToController = TextEditingController();
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
-    message = AppConstants.langCode == 'hi' ? LangString.preBookTextHi : LangString.preBookTextEng;
+    message = AppConstants.langCode == 'hi' ? LangString.preBookTextHi :LangString.preBookTextEng;
     super.initState();
   }
 
