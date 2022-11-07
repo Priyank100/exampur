@@ -154,7 +154,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
       ItemClass(
           2,
           getTranslated(context, 'my_courses')!,
-          // FaIcon(FontAwesomeIcons.camera),
+
           _currIndex == 2
               ? Image.asset(
                   Images.mycourse2,
