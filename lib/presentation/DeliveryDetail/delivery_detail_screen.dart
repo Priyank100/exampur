@@ -299,7 +299,6 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                 String _state = _billingStateController.text.trim();
                 String _landmark = _billinglandMarkController.text.trim();
                 String _promocode = _cuponCodeController.text.trim();
-                if(widget.pre_booktype == null || widget.pre_booktype == 'Published')
                 var map = {
                   'Page_Name':'Delivery_Details',
                   'Mobile_Number':AppConstants.userMobile,

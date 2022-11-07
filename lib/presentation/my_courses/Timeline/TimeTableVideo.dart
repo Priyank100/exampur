@@ -57,7 +57,18 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     flickManager = FlickManager(
       videoPlayerController: _videoPlayerController,
     );
-
+    var map = {
+      'Page_Name':'My_Courses_Timeline',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Name':widget.title.toString(),
+      'Faculty_Name':AppConstants.subjectName.toString(),
+      'Subject_Name':AppConstants.subjectName.toString(),
+      'Chapter_Name':AppConstants.chapterName.toString(),
+      'Topic_Name':widget.title.toString(),
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
     // videoPlayerController = VideoPlayerController.network(widget.url);
     // chewieController = ChewieController(
     //   cupertinoProgressColors: ChewieProgressColors(),
@@ -203,7 +214,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
       'Chapter_Name':AppConstants.chapterName.toString(),
       'Topic_Name':widget.title.toString(),
       'Video_Quality':AppConstants.videoQuality.toString(),
-      'Total_Watch_Time':'$m:$s'
+      'Total_Watch_Time':_videoPlayerController.value.position.inSeconds.toString()
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Live_Video,map);
     super.dispose();

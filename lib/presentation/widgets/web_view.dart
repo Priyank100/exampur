@@ -10,6 +10,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../utils/analytics_constants.dart';
+
 class WebViewOpen extends StatefulWidget {
   final String url;
   final String token;
@@ -40,6 +42,22 @@ class _WebViewOpenState extends State<WebViewOpen> {
     }else {
       return Future.value(true);
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    var map = {
+      'Page_Name':'My_Courses_Test_Series',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Name':AppConstants.courseName,
+      'Test_Section':'',
+      'Test_Type':''
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Test_Series,map);
   }
 
   @override

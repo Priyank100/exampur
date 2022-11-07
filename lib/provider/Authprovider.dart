@@ -60,9 +60,12 @@ class AuthProvider extends ChangeNotifier {
         //MoEngage
         AppConstants.userName = _informationModel.data!.firstName.toString();
         AppConstants.userMobile = _informationModel.data!.phone.toString();
+        AppConstants.Email = _informationModel.data!.emailId.toString();
+        AppConstants.Id = _informationModel.data!.phone.toString();
         AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
         AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
-        // AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.userMobile);
+        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+        AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
 
         await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
@@ -124,9 +127,12 @@ class AuthProvider extends ChangeNotifier {
         //MoEngage
         AppConstants.userName = _informationModel.data!.firstName.toString();
         AppConstants.userMobile = _informationModel.data!.phone.toString();
+        AppConstants.Email = _informationModel.data!.emailId.toString();
+        AppConstants.Id = _informationModel.data!.phone.toString();
         AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
         AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
-        // AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.userMobile);
+        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+        AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
 
         await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
@@ -206,8 +212,12 @@ class AuthProvider extends ChangeNotifier {
         //MoEngage
         AppConstants.userName = _informationModel.data!.firstName.toString();
         AppConstants.userMobile = _informationModel.data!.phone.toString();
+        AppConstants.Email = _informationModel.data!.emailId.toString();
+        AppConstants.Id = _informationModel.data!.phone.toString();
         AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
         AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
+        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+        AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
         // AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.userMobile);
 
         await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());

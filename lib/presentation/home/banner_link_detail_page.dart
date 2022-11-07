@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../data/model/paid_course_model_new.dart';
+import '../../utils/analytics_constants.dart';
 
 class BannerLinkDetailPage extends StatefulWidget {
   final String type;
@@ -120,6 +121,7 @@ class _ViedobannerState extends State<Viedobanner> {
 
   bool _muted = false;
   bool _isPlayerReady = false;
+  String message ='';
 
   @override
   void initState() {
@@ -146,6 +148,7 @@ class _ViedobannerState extends State<Viedobanner> {
     _seekToController = TextEditingController();
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
+    message = AppConstants.langCode == 'hi' ? LangString.preBookTextHi :LangString.preBookTextEng;
     super.initState();
   }
 

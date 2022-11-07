@@ -75,6 +75,8 @@ class AppConstants {
   // for moengage ------------------------------------
   static String userName = '';
   static String userMobile = '';
+  static String Email = '';
+  static String Id = '';
   static String courseName = '';
   static String subjectName = '';
   static String chapterName = '';

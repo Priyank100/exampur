@@ -158,5 +158,15 @@ class AnalyticsConstants {
   static String Enter_City   = 'Enter_City';
   static String Enter_OTP   = 'Enter_OTP';
   static String Click_Verify_OTP   = 'Click_Verify_OTP';
+  static String My_Courses_Subjects = 'My_Courses_Subjects';
+  static String My_Courses_Chapter = 'My_Courses_Chapter';
+  static String Recorded_Video = 'Recorded_Video';
+  static String Download_Video = 'Download_Video';
+  static String Stop_Recorded_Video = 'Stop_Recorded_Video';
+  static String Click_PDF_Viewer = 'Click_PDF_Viewer';
+  static String Click_PDF_Browser = 'Click_PDF_Browser';
+  static String My_Courses_Test_Series = 'My_Courses_Test_Series';
+  static String Click_Feedback = 'Click_Feedback';
+
 
 }

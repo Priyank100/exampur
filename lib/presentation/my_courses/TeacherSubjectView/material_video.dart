@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -18,6 +19,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../SharePref/shared_pref.dart';
+import '../../../utils/analytics_constants.dart';
 import '../../../utils/api.dart';
 
 class MyMaterialVideo extends StatefulWidget {
@@ -26,9 +28,10 @@ class MyMaterialVideo extends StatefulWidget {
   String download;
   String vid;
   bool isTimlineRequired;
+  String? videoQuallity;
 
 
-  MyMaterialVideo(this.url, this.title, this.download,this.vid,this.isTimlineRequired) : super();
+  MyMaterialVideo(this.url, this.title, this.download,this.vid,this.isTimlineRequired, {this.videoQuallity}) : super();
 
   @override
   _MyMaterialVideoState createState() => _MyMaterialVideoState();
@@ -45,6 +48,8 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
   String? userEmail;
   String? versionName;
   String? versionCode;
+  int counter = 0;
+  int temp = 0;
 
 
   Future<void> getUserData() async {
@@ -75,9 +80,21 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     setState(() {});
   }
 
-
   @override
   void initState() {
+    var map = {
+      'Page_Name':'Recorded_Video',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Name': AppConstants.courseName,
+      'Faculty_Name':AppConstants.subjectName,
+      'Subject_Name':AppConstants.subjectName,
+      'Chapter_Name':AppConstants.chapterName,
+      'Topic_Name':widget.title.toString(),
+      'Video_Quality':widget.videoQuallity.toString(),
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Recorded_Video,map);
     initializePlayer();
     getUserData();
     getDeviceData();
@@ -103,6 +120,8 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
       setState(() {
         _playerController!.seekTo(Duration(seconds: 0));
         _playerController!.play();
+        _playerController!.addListener(myListener);
+
       });
     });
     } catch(e) {
@@ -113,12 +132,37 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     );
   }
 
+  void myListener() {
+    if(_playerController!.value.position.inSeconds != temp && _playerController!.value.isPlaying ){
+      counter++;
+      temp = _playerController!.value.position.inSeconds;
+
+    }
+  }
+
+
   @override
   void dispose() {
     _playerController!.pause();
     _playerController!.dispose();
     flickManager!.dispose();
-
+    var d = Duration(seconds: _playerController!.value.position.inSeconds);
+    var min = d.inMinutes;
+    var sec = _playerController!.value.position.inSeconds % 60;
+    var map = {
+      'Page_Name':'Recorded_Video',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Name': AppConstants.courseName,
+      'Faculty_Name':AppConstants.subjectName,
+      'Subject_Name':AppConstants.subjectName,
+      'Chapter_Name':AppConstants.chapterName,
+      'Topic_Name':widget.title.toString(),
+      'Video_Quality':widget.videoQuallity.toString(),
+      'Total_Watch_Time':counter.toString()
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Recorded_Video,map);
     widget.isTimlineRequired == true ?  videoTimeLog():null;
     super.dispose();
   }
@@ -215,6 +259,19 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             Center(
               child: InkWell(
                 onTap: () {
+                  var map = {
+                    'Page_Name':'Recorded_Video',
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':AppConstants.langCode,
+                    'User_ID':AppConstants.userMobile,
+                    'Course_Name': AppConstants.courseName,
+                    'Faculty_Name':AppConstants.subjectName,
+                    'Subject_Name':AppConstants.subjectName,
+                    'Chapter_Name':AppConstants.chapterName,
+                    'Topic_Name':widget.title.toString(),
+                    'Video_Quality':widget.videoQuallity.toString(),
+                  };
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Download_Video,map);
                   _playerController!.pause();
                   if(widget.download.isEmpty) {
                     if(widget.url.contains('mp4')) {
