@@ -6,23 +6,18 @@
     },
     {
       "id": "1",
-      "name": "Doubts"
-    },
-
-    {
-      "id": "2",
       "name": "Subjects"
     },
     {
-      "id": "3",
+      "id": "2",
       "name": "Test Series"
     },
     {
-      "id": "4",
+      "id": "3",
       "name": "Notification"
     },
     {
-      "id": "5",
+      "id": "4",
       "name": "FeedBack"
     }
   ]
