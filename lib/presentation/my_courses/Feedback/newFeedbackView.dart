@@ -48,6 +48,7 @@ class _NewFeedbackViewState extends State<NewFeedbackView> {
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
       'Course_Name':AppConstants.courseName,
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Feedback,map);
     getUserData();
