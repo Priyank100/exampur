@@ -220,7 +220,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
                              submitLog(widget.courseData.title.toString(), widget.courseData.id.toString(), widget.tabName.toString());
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                  MyCourseTabView(widget.courseData.id.toString(),widget.courseData.testSeriesLink.toString(),token)
+                                  MyCourseTabView(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)
                               ));
                             }
                           },text: getTranslated(context, LangString.viewDetails)!,),

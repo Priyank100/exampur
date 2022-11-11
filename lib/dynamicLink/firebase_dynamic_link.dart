@@ -100,7 +100,7 @@ class FirebaseDynamicLinkService {
                   PaidCourseDetails('Course',courseData, int.parse(type.toString()))));
             } else {
               return Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                  MyCourseTabView(courseData.id.toString(),'','')
+                  MyCourseTabView(courseData.id.toString(),courseData.title.toString(),'','')
               ));
             }
 

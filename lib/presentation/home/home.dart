@@ -67,26 +67,19 @@ class _HomeState extends State<Home> {
 
     LocalNotificationService.initialize(context);
 
-    ///gives you the message on which user taps
-    ///and it opened the app from terminated state
+    ///gives you the message on which user taps and it opened the app from terminated state
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
         List<String> actiondata = message.data['action'].split("/");
-       // List<String> actiontype = message.data['actiontype'].split("/");
 
         if(actiondata[0] == "Course"){
-          AppConstants.goTo(context,
-              BannerLinkDetailPage('Course', actiondata[1],
-              ));
+          AppConstants.goTo(context, BannerLinkDetailPage('Course', actiondata[1]));
 
         } else if(actiondata[0] == "Combo Course"){
-          AppConstants.goTo(context,
-              BannerLinkDetailPage('Combo Course',actiondata[1],
-              ));
+          AppConstants.goTo(context, BannerLinkDetailPage('Combo Course',actiondata[1],));
 
         } else if(actiondata[0] == "Book"){
-          AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
-          ));
+          AppConstants.goTo(context, BannerLinkBookDetailPage('Book', actiondata[1]));
 
         } else if (actiondata[0] == "youtube"){
           AppConstants.makeCallEmail("${actiondata[1]}");
@@ -107,30 +100,24 @@ class _HomeState extends State<Home> {
       LocalNotificationService.display(message);
     });
 
-    ///When the app is in background but opened and user taps
-    ///on the notification
+    ///When the app is in background but opened and user taps on the notification
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       if (message != null) {
         List<String> actiondata =message.data['action'].split("/");
-       // List<String> actiontype =message.data['actiontype'].split("/");
+
         if(actiondata[0] == "Course"){
-          AppConstants.goTo(context,
-              BannerLinkDetailPage('Course', actiondata[1],
-              ));
+          AppConstants.goTo(context, BannerLinkDetailPage('Course', actiondata[1]));
 
-        }else if(actiondata[0] == "Combo Course"){
-          AppConstants.goTo(context,
-              BannerLinkDetailPage('Combo Course',actiondata[1],
-              ));
-        }
-        else if(actiondata[0] == "Book"){
-          AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
+        } else if(actiondata[0] == "Combo Course"){
+          AppConstants.goTo(context, BannerLinkDetailPage('Combo Course',actiondata[1]));
 
-          ));
-        }
-        else if (actiondata[0] == "youtube"){
+        } else if(actiondata[0] == "Book"){
+          AppConstants.goTo(context, BannerLinkBookDetailPage('Book', actiondata[1]));
+
+        } else if (actiondata[0] == "youtube") {
           AppConstants.makeCallEmail("${actiondata[1]}");
-        }else if(actiondata[0] == "https:"){
+
+        } else if(actiondata[0] == "https:"){
           AppConstants.makeCallEmail(message.data['action']);
         }
       }
@@ -139,7 +126,6 @@ class _HomeState extends State<Home> {
 
     moengagePlugin.setUpPushCallbacks((pushCampaign) {
       print(pushCampaign.clickedAction.toString()+ '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
-
     });
   }
 
@@ -147,24 +133,20 @@ class _HomeState extends State<Home> {
     if (message != null) {
       List<String> actiondata =message.data['action'].split("/");
       // List<String> actiontype =message.data['actiontype'].split("/");
+
       if(actiondata[0] == "Course"){
-        AppConstants.goTo(context,
-            BannerLinkDetailPage('Course', actiondata[1],
-            ));
+        AppConstants.goTo(context, BannerLinkDetailPage('Course', actiondata[1]));
 
-      }else if(actiondata[0] == "Combo Course"){
-        AppConstants.goTo(context,
-            BannerLinkDetailPage('Combo Course',actiondata[1],
-            ));
-      }
-      else if(actiondata[0] == "Book"){
-        AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
+      } else if(actiondata[0] == "Combo Course"){
+        AppConstants.goTo(context, BannerLinkDetailPage('Combo Course',actiondata[1]));
 
-        ));
-      }
-      else if (actiondata[0] == "youtube"){
+      } else if(actiondata[0] == "Book"){
+        AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1]));
+
+      } else if (actiondata[0] == "youtube"){
         AppConstants.makeCallEmail("${actiondata[1]}");
-      }else if(actiondata[0] == "https:"){
+
+      } else if(actiondata[0] == "https:"){
         AppConstants.makeCallEmail(message.data['action']);
       }
     }
