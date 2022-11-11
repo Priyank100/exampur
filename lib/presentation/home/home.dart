@@ -67,12 +67,10 @@ class _HomeState extends State<Home> {
 
     LocalNotificationService.initialize(context);
 
-    ///gives you the message on which user taps
-    ///and it opened the app from terminated state
+    ///gives you the message on which user taps and it opened the app from terminated state
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
         List<String> actiondata = message.data['action'].split("/");
-       // List<String> actiontype = message.data['actiontype'].split("/");
 
         if(actiondata[0] == "Course"){
           Navigator.of(context)
@@ -115,12 +113,11 @@ class _HomeState extends State<Home> {
       LocalNotificationService.display(message);
     });
 
-    ///When the app is in background but opened and user taps
-    ///on the notification
+    ///When the app is in background but opened and user taps on the notification
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       if (message != null) {
         List<String> actiondata =message.data['action'].split("/");
-       // List<String> actiontype =message.data['actiontype'].split("/");
+
         if(actiondata[0] == "Course"){
           Navigator.of(context)
               .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
@@ -161,6 +158,7 @@ class _HomeState extends State<Home> {
     if (message != null) {
       List<String> actiondata =message.data['action'].split("/");
       // List<String> actiontype =message.data['actiontype'].split("/");
+
       if(actiondata[0] == "Course"){
         Navigator.of(context)
             .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),

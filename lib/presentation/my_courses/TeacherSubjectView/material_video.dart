@@ -127,7 +127,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
       });
     });
     } catch(e) {
-      SchedulerBinding.instance!.addPostFrameCallback((_) => AppConstants.showAlertDialogWithBack(context, 'Video not available...'));
+      SchedulerBinding.instance.addPostFrameCallback((_) => AppConstants.showAlertDialogWithBack(context, 'Video not available...'));
     }
     flickManager = FlickManager(
       videoPlayerController: _playerController!,

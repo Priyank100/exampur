@@ -1,12 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/SharePref/shared_pref.dart';
-import 'package:exampur_mobile/presentation/widgets/rating_dialog.dart';
-import 'package:exampur_mobile/utils/lang_string.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +10,13 @@ import 'package:intl/intl.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
+import '../Localization/language_constrants.dart';
+import '../SharePref/shared_pref.dart';
+import '../presentation/widgets/rating_dialog.dart';
 import 'app_colors.dart';
 import 'images.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
+import 'lang_string.dart';
 
 class Keys {
   // static const String Rozar_pay_key = 'rzp_test_tnxy74fGchHvRY';
@@ -185,17 +183,17 @@ class AppConstants {
   static void showAlertDialogOkButton(BuildContext context,String header, String message,Function function) {
     AlertDialog alert = AlertDialog(
       actions: [
-       Center(
-         child: MaterialButton(
-           minWidth: MediaQuery.of(context).size.width/2,
+        Center(
+          child: MaterialButton(
+            minWidth: MediaQuery.of(context).size.width/2,
             color: AppColors.amber,
-           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
             child: Text('OK',style: TextStyle(color: AppColors.white)),
             onPressed:  () {
               function();
             },
           ),
-       )
+        )
       ],
       content: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,

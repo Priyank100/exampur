@@ -5,6 +5,7 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/booktitle.dart';
 import 'package:exampur_mobile/presentation/authentication/terms_condition.dart';
 import 'package:exampur_mobile/presentation/home/practice_question/practice_question_category.dart';
+import 'package:exampur_mobile/presentation/my_courses/Feedback/newFeedbackView.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/subject_view.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/presentation/widgets/web_view.dart';
@@ -20,11 +21,12 @@ import 'Timeline/TimetableView.dart';
 
 class MyCourseTabView extends StatefulWidget {
   final String courseId;
+  final String courseName;
   final String testSeriesLink;
   final String token;
 
 
-  const MyCourseTabView(this.courseId, this.testSeriesLink, this.token)
+  const MyCourseTabView(this.courseId, this.courseName, this.testSeriesLink, this.token)
       : super();
 
   @override
@@ -63,7 +65,8 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
         SubjectView(widget.courseId),
         WebViewOpen(widget.testSeriesLink, widget.token),
         MyCourseNotifications(widget.courseId),
-        FeedbackView(userName, userMobile, widget.token),
+        // FeedbackView(userName, userMobile, widget.token),
+        NewFeedbackView(widget.courseId, widget.courseName)
       ];
     }
     setState(() {});
@@ -95,7 +98,8 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
       SubjectView(widget.courseId),
       WebViewOpen(widget.testSeriesLink, widget.token),
       MyCourseNotifications(widget.courseId),
-      FeedbackView(userName, userMobile, widget.token),
+      // FeedbackView(userName, userMobile, widget.token)
+      NewFeedbackView(widget.courseId, widget.courseName)
     ];
   }
 
