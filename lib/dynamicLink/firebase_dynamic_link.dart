@@ -96,7 +96,9 @@ class FirebaseDynamicLinkService {
             String type = deepLink.queryParameters['type'].toString();
             PaidCourseData courseData = PaidCourseData.fromJson(json.decode(data));
             if(type == '1') {
-              return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              return Navigator.push(context, MaterialPageRoute(
+                  settings: RouteSettings(name: 'Direct'),
+                  builder: (context) =>
                   PaidCourseDetails('Course',courseData, int.parse(type.toString()))));
             } else {
               return Navigator.push(context, MaterialPageRoute(builder: (_) =>
@@ -115,7 +117,9 @@ class FirebaseDynamicLinkService {
           case 4:
             String type = deepLink.queryParameters['type'].toString();
             PaidCourseData courseData = PaidCourseData.fromJson(json.decode(data));
-            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+            return Navigator.push(context, MaterialPageRoute(
+                settings: RouteSettings(name: 'Direct'),
+                builder: (context) =>
                 PaidCourseDetails('Combo',courseData, int.parse(type.toString()))));
         }
 

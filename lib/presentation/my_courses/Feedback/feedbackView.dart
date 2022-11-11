@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
@@ -32,6 +33,7 @@ class _FeedbackViewState extends State<FeedbackView> {
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
       'Course_Name':AppConstants.courseName,
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Feedback,map);
     super.initState();

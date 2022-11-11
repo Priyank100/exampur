@@ -54,8 +54,8 @@ class _WebViewOpenState extends State<WebViewOpen> {
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
       'Course_Name':AppConstants.courseName,
-      'Test_Section':'',
-      'Test_Type':''
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
+
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Test_Series,map);
   }

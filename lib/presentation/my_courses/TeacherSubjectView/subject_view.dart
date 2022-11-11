@@ -35,6 +35,7 @@ class _SubjectViewState extends State<SubjectView> {
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
       'Course_Name': AppConstants.courseName,
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Subjects,map);
     callProvider();
@@ -93,7 +94,8 @@ class _SubjectViewState extends State<SubjectView> {
           'User_ID':AppConstants.userMobile,
           'Course_Name': AppConstants.courseName,
           'Faculty_Name':subjectList[index].title.toString(),
-          'Subject_Name':subjectList[index].title.toString()
+          'Subject_Name':subjectList[index].title.toString(),
+          'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
         };
        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Chapter,map);
         AppConstants.subjectName = subjectList[index].title.toString();

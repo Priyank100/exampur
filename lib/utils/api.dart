@@ -251,6 +251,6 @@ class API {
 
 
   //doubts
-  static String doubtsUrl = WEBVIEW_URL +'doubt-session/2/';
+  static String doubtsUrl = WEBVIEW_URL +'doubt-session/id/';
 
 }

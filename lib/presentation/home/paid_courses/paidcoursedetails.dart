@@ -48,6 +48,8 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   bool _muted = false;
   bool _isPlayerReady = false;
   String message = '';
+  int counter = 0;
+  int temp = 0;
 
 // String _selectedQuality='';
   // String pdfLink = 'https://www.learningcontainer.com/download/sample-pdf-file-for-testing/?wpdmdl=1566&amp;refresh=621508d3713281645545683';
@@ -59,16 +61,20 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   @override
   void initState() {
-    var map = {
-      'Page_Name':'Course_Details',
-      'Course_Category':AppConstants.paidTabName,
-      'Course_Name':widget.courseData.title.toString(),
-      'Mobile_Number':AppConstants.userMobile,
-      'Language':AppConstants.langCode,
-      'User_ID':AppConstants.userMobile,
-      'Video_Name':widget.courseData.title.toString(),
-    };
-    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
+    Future.delayed(Duration.zero, () {
+      var map = {
+        'Page_Name':'Course_Details',
+        'Course_Category':AppConstants.paidTabName,
+        'Course_Name':widget.courseData.title.toString(),
+        'Mobile_Number':AppConstants.userMobile,
+        'Language':AppConstants.langCode,
+        'User_ID':AppConstants.userMobile,
+        'Video_Name':widget.courseData.title.toString(),
+        'Path_name':ModalRoute.of(context)!.settings.name
+      };
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
+    });
+
     AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     AppConstants.printLog(widget.courseData.videoPath.toString());
     message = AppConstants.langCode == 'hi' ? LangString.preBookTextHi : LangString.preBookTextEng;
@@ -103,8 +109,14 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
         _playerState = _controller.value.playerState;
         _videoMetaData = _controller.metadata;
       });
+      if(_controller!.value.position.inSeconds != temp && _controller!.value.isPlaying ){
+        counter++;
+        temp = _controller!.value.position.inSeconds;
+
+      }
     }
   }
+
 
   @override
   void deactivate() {
@@ -123,6 +135,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
     var sec = _controller.value.position.inSeconds % 60;
     var m = '$min'.padLeft(2,'0');
     var s = '$sec'.padLeft(2,'0');
+    Future.delayed(Duration.zero, () {
     var map = {
       'Page_Name':'Course_Details',
       'Course_Category':AppConstants.paidTabName,
@@ -130,9 +143,11 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
-      'Total_Watch_Time':'$m:$s'
+      'Total_Watch_Time':counter,
+      'Path_name':ModalRoute.of(context)!.settings.name
     };
-   AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,map);
+
+  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,map);});
     super.dispose();
   }
 
@@ -186,6 +201,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                                 'Mobile_Number':AppConstants.userMobile,
                                 'Language':AppConstants.langCode,
                                 'User_ID':AppConstants.userMobile,
+                                'Path_name':ModalRoute.of(context)!.settings.name
                               };
                               AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_PDF,map);
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
@@ -301,6 +317,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
                         'User_ID':AppConstants.userMobile,
+                        'Path_name':ModalRoute.of(context)!.settings.name
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Course,map);
                       FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {

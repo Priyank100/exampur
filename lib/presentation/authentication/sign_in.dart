@@ -35,9 +35,8 @@ class SignInState extends State<SignIn> {
     super.initState();
     var map = {
       'Page_Name':'App_Login',
-      'Mobile_Number':'',
       'Language':'en',
-      'User_ID':''
+
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Login_page,map);
     _phoneNode.addListener(onFocusChange1);
@@ -54,13 +53,13 @@ class SignInState extends State<SignIn> {
       if(_phoneEmailController.text.toString().contains('@')){
         var map = {
           'Page_Name':'App_Login',
-          'Mobile_Number':_phoneEmailController.text.toString(),
+          'Email_id':_phoneEmailController.text.toString(),
           'Language':'en',
           'User_ID':_phoneEmailController.text.toString()
         };
-        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_Email_Login,map);}
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_Email_Login,map);
 
-      else{
+      } else{
         var map = {
           'Page_Name':'App_Login',
           'Mobile_Number':_phoneEmailController.text.toString(),
@@ -77,9 +76,10 @@ class SignInState extends State<SignIn> {
 
   void onFocusChange2() {
     if(!_passNode.hasFocus) {
+      String loginIdType =  _phoneEmailController.text.contains('@') ?'Email_Id':'Mobile_Number';
       var map = {
         'Page_Name':'App_Login',
-        'Mobile_Number':_phoneEmailController.text.toString(),
+        loginIdType:_phoneEmailController.text.toString(),
         'Language':'en',
         'User_ID':_phoneEmailController.text.toString()
       };
@@ -139,15 +139,14 @@ class SignInState extends State<SignIn> {
         loginBody.phoneExt = '91';
         // loginBody.phone = _phoneEmail;
         loginBody.password = _password;
-
+      String loginIdType =  _phoneEmail.contains('@') ?'Email_Id':'Mobile_Number';
         var map = {
           'Page_Name':'App_Login',
-          'Mobile_Number':_phoneEmail,
+          loginIdType:_phoneEmail,
           'Language':'en',
           'User_ID':_phoneEmail
         };
         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Submit,map);
-
         await Provider.of<AuthProvider>(context, listen: false).login(context, loginBody, route);
       }
     }
@@ -257,7 +256,7 @@ class SignInState extends State<SignIn> {
                             ),
                             onPressed: () {
                               FocusScope.of(context).unfocus();
-                              loginUser();
+                             loginUser();
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(

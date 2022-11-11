@@ -75,16 +75,24 @@ class _HomeState extends State<Home> {
        // List<String> actiontype = message.data['actiontype'].split("/");
 
         if(actiondata[0] == "Course"){
-          AppConstants.goTo(context,
-              BannerLinkDetailPage('Course', actiondata[1],
-              ));
+          Navigator.of(context)
+              .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
+              builder: (_) => BannerLinkDetailPage('Course', actiondata[1],)));
+          // AppConstants.goTo(context,
+          //     BannerLinkDetailPage('Course', actiondata[1],
+          //     ));
 
         } else if(actiondata[0] == "Combo Course"){
-          AppConstants.goTo(context,
-              BannerLinkDetailPage('Combo Course',actiondata[1],
-              ));
+          Navigator.of(context)
+              .push(MaterialPageRoute(
+              settings: RouteSettings(name: 'Direct'),
+              builder: (_) => BannerLinkDetailPage('Combo Course', actiondata[1],)));
+          // AppConstants.goTo(context,
+          //     BannerLinkDetailPage('Combo Course',actiondata[1],
+          //     ));
 
         } else if(actiondata[0] == "Book"){
+
           AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
           ));
 
@@ -114,14 +122,20 @@ class _HomeState extends State<Home> {
         List<String> actiondata =message.data['action'].split("/");
        // List<String> actiontype =message.data['actiontype'].split("/");
         if(actiondata[0] == "Course"){
-          AppConstants.goTo(context,
-              BannerLinkDetailPage('Course', actiondata[1],
-              ));
+          Navigator.of(context)
+              .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
+              builder: (_) => BannerLinkDetailPage('Course', actiondata[1],)));
+          // AppConstants.goTo(context,
+          //     BannerLinkDetailPage('Course', actiondata[1],
+          //     ));
 
         }else if(actiondata[0] == "Combo Course"){
-          AppConstants.goTo(context,
-              BannerLinkDetailPage('Combo Course',actiondata[1],
-              ));
+          Navigator.of(context)
+              .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
+              builder: (_) => BannerLinkDetailPage('Combo Course', actiondata[1],)));
+          // AppConstants.goTo(context,
+          //     BannerLinkDetailPage('Combo Course',actiondata[1],
+          //     ));
         }
         else if(actiondata[0] == "Book"){
           AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
@@ -138,7 +152,7 @@ class _HomeState extends State<Home> {
     // getSharedPrefData();
 
     moengagePlugin.setUpPushCallbacks((pushCampaign) {
-      print(pushCampaign.clickedAction.toString()+ '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
+      // print(pushCampaign.clickedAction.toString()+ '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
 
     });
   }
@@ -148,14 +162,20 @@ class _HomeState extends State<Home> {
       List<String> actiondata =message.data['action'].split("/");
       // List<String> actiontype =message.data['actiontype'].split("/");
       if(actiondata[0] == "Course"){
-        AppConstants.goTo(context,
-            BannerLinkDetailPage('Course', actiondata[1],
-            ));
+        Navigator.of(context)
+            .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
+            builder: (_) => BannerLinkDetailPage('Course', actiondata[1],)));
+        // AppConstants.goTo(context,
+        //     BannerLinkDetailPage('Course', actiondata[1],
+        //     ));
 
       }else if(actiondata[0] == "Combo Course"){
-        AppConstants.goTo(context,
-            BannerLinkDetailPage('Combo Course',actiondata[1],
-            ));
+        Navigator.of(context)
+            .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
+            builder: (_) => BannerLinkDetailPage('Combo Course', actiondata[1],)));
+        // AppConstants.goTo(context,
+        //     BannerLinkDetailPage('Combo Course',actiondata[1],
+        //     ));
       }
       else if(actiondata[0] == "Book"){
         AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
@@ -193,7 +213,7 @@ class _HomeState extends State<Home> {
       'Page_Name':'Home_Page',
       'Mobile_Number':AppConstants.userMobile,
       'Language':language.languageCode,
-      'Course_Category':AppConstants.selectedCategoryName.toString(),
+      'Course_Category':AppConstants.selectedCategoryNameList.toString(),
       'User_ID':AppConstants.userMobile
     };
     if(language.languageCode == 'hi'){
@@ -292,6 +312,14 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, LangString.freeCourses)!,
                     color: AppColors.freeCourses,
                     onPressed: () {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Free_Courses,map);
                       AnalyticsConstants.sendAnalyticsEvent(
                           AnalyticsConstants.freeCourseClick);
                       Map<String, Object> stuff = {};
@@ -329,7 +357,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':AppConstants.selectedCategoryName.toString(),
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Test_Series,map);
@@ -367,7 +395,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':AppConstants.selectedCategoryName.toString(),
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Quiz,map);
@@ -386,7 +414,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':AppConstants.selectedCategoryName.toString(),
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Study_Material,map);
@@ -413,7 +441,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':AppConstants.selectedCategoryName.toString(),
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Job_Alerts,map);
@@ -433,7 +461,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':AppConstants.selectedCategoryName.toString(),
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Current_Affairs,map);
@@ -488,7 +516,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':AppConstants.selectedCategoryName.toString(),
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Previous_Year_PDF,map);
@@ -507,7 +535,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':AppConstants.selectedCategoryName.toString(),
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Practice_Questions,map);
@@ -532,7 +560,7 @@ class _HomeState extends State<Home> {
                         'Page_Name':'Home_Page',
                         'Mobile_Number':AppConstants.userMobile,
                         'Language':AppConstants.langCode,
-                        'Course_Category':AppConstants.selectedCategoryName.toString(),
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
                         'User_ID':AppConstants.userMobile
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Live_Test,map);

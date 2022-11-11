@@ -27,7 +27,7 @@ class Keys {
 }
 
 class AppConstants {
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static bool isotpverify   = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -57,6 +57,7 @@ class AppConstants {
   static String googleFeedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdnU2iboo0rPFiVBWcJZYHXSlIJeDZqiye8D2IqGjvZjrOMdA/viewform?usp=pp_url&entry.43008044=USER_NAME&entry.2068509611=USER_MOBILE';
 
   static List<String> selectedCategoryList = [];
+  static List<String> selectedCategoryNameList = [];
 
   // static String currentAffairesId = '61efe9771dbf84752e750373';
   // static String studyMaterialsId = '61efe9921dbf84752e750384';
@@ -83,7 +84,9 @@ class AppConstants {
   static String paidTabName = '';
   static String videoQuality = '';
   static String currentindex = '';
-  static List<String> selectedCategoryName = [];
+  static int mycourseType = 0;
+  // static List<String> selectedCategoryName = [];
+
   //=========================================================
 
 

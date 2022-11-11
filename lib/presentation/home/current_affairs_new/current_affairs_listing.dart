@@ -13,6 +13,7 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/analytics_constants.dart';
@@ -156,12 +157,14 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
     return InkWell(
       onTap: (){
         FocusScope.of(context).unfocus();
+        var artical_date = DateFormat("dd-MM-yyyy").format(DateTime.parse(currentAffairsListModel!.articleContent![index].date.toString()));
+
         var map ={
           'Page_Name':widget.tabname.toString(),
-          'Article_Date':AppConstants.langCode == 'hi' ?
+          'Article_Date':artical_date,
+          'Article_Name':AppConstants.langCode == 'hi' ?
         currentAffairsListModel!.articleContent![index].titleHindi.toString() :
         currentAffairsListModel!.articleContent![index].titleEng.toString(),
-          'Article_Name':currentAffairsListModel!.articleContent![index].date.toString(),
         };
         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_CA_Article,map);
         AppConstants.goTo(context, CurrentAffairsDetails(currentAffairsListModel!.articleContent![index].id.toString()));

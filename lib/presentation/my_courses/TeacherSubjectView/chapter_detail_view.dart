@@ -308,7 +308,8 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
           'Faculty_Name':AppConstants.subjectName,
           'Subject_Name':AppConstants.subjectName,
           'Chapter_Name':widget.chaptername,
-          'Topic_Name':materialList[index].title.toString()
+          'Topic_Name':materialList[index].title.toString(),
+          'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
         };
         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
         AppConstants.chapterName =widget.chaptername;
@@ -528,10 +529,11 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                         'Faculty_Name':AppConstants.subjectName,
                         'Subject_Name':AppConstants.subjectName,
                         'Chapter_Name':widget.chaptername,
-                        'Topic_Name':title.toString()
+                        'Topic_Name':title.toString(),
+                        'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_PDF_Viewer,map);
-                      print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+                      // print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
                       AppConstants.timlineId = timlineId.toString();
                       AppConstants.timlineName = title.toString();
                       AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>');
@@ -556,7 +558,8 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                         'Faculty_Name':AppConstants.subjectName,
                         'Subject_Name':AppConstants.subjectName,
                         'Chapter_Name':widget.chaptername,
-                        'Topic_Name':title.toString()
+                        'Topic_Name':title.toString(),
+                        'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_PDF_Browser,map);
                       Navigator.pop(context);

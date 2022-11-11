@@ -5,6 +5,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotificationService {
@@ -22,14 +23,20 @@ class LocalNotificationService {
       if(route != null){
         List<String> actiondata =route.split("/");
         if(actiondata[0] == "Course"){
-          AppConstants.goTo(context,
-              BannerLinkDetailPage('Course', actiondata[1],
-              ));
+          Navigator.of(context)
+              .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
+              builder: (_) => BannerLinkDetailPage('Course', actiondata[1],)));
+          // AppConstants.goTo(context,
+          //     BannerLinkDetailPage('Course', actiondata[1],
+          //     ));
 
         }else if(actiondata[0] == "Combo Course"){
-          AppConstants.goTo(context,
-              BannerLinkDetailPage('Combo Course',actiondata[1],
-              ));
+          Navigator.of(context)
+              .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
+              builder: (_) => BannerLinkDetailPage('Combo Course', actiondata[1],)));
+          // AppConstants.goTo(context,
+          //     BannerLinkDetailPage('Combo Course',actiondata[1],
+          //     ));
         }
         else if(actiondata[0] == "Book"){
           AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],

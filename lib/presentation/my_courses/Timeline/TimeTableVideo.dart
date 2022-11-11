@@ -62,13 +62,13 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
-      'Course_Name':widget.title.toString(),
+      'Course_Name':AppConstants.courseName,
       'Faculty_Name':AppConstants.subjectName.toString(),
-      'Subject_Name':AppConstants.subjectName.toString(),
-      'Chapter_Name':AppConstants.chapterName.toString(),
       'Topic_Name':widget.title.toString(),
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
     };
-    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
+
+   AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
     // videoPlayerController = VideoPlayerController.network(widget.url);
     // chewieController = ChewieController(
     //   cupertinoProgressColors: ChewieProgressColors(),
@@ -208,14 +208,13 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
-      'Course_Name':widget.title.toString(),
-      'Faculty_Name':'',
-      'Subject_Name':AppConstants.subjectName.toString(),
-      'Chapter_Name':AppConstants.chapterName.toString(),
+      'Course_Name':AppConstants.courseName,
       'Topic_Name':widget.title.toString(),
       'Video_Quality':AppConstants.videoQuality.toString(),
-      'Total_Watch_Time':_videoPlayerController.value.position.inSeconds.toString()
+      'Total_Watch_Time':_videoPlayerController.value.position.inSeconds.toString(),
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
     };
+    // print(map);
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Live_Video,map);
     super.dispose();
   }

@@ -188,6 +188,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           CustomRoundButton(onPressed: () async {
+                            AppConstants.mycourseType = 1;
                             // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
                             // // courseIdList.add(widget.courseData.id.toString());
                             // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;
@@ -211,10 +212,14 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             widget.courseType==1?AppConstants.subscription(widget.courseData.id.toString().replaceAll(' ', '_')):'';
 
                             if(widget.courseType==1) {
-                              Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                              Navigator.push(context,
+                                  MaterialPageRoute(
+                                      settings: RouteSettings(name: 'PaidCourseListing'),
+                                      builder: (_) =>
                                   PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
                               ));
                             } else {
+                              AppConstants.courseName =widget.courseData.title.toString();
                               AppConstants.printLog(widget.courseData.title.toString());
                               AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
                               String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
@@ -230,6 +235,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           widget.courseType==1?
                           CustomRoundButton(
                               onPressed: ()async{
+                                AppConstants.paidTabName = widget.tabName;
                             await   FirebaseAnalytics.instance.logEvent(name:'Paid_Courdse_Details',parameters: {
                               'Course_id':widget.courseData.id.toString().replaceAll(' ', '_'),
                               'Course_title':widget.courseData.title.toString().replaceAll(' ', '_')
@@ -253,7 +259,9 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             widget.courseData.onEmi??false ?
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) =>
+                              MaterialPageRoute(
+                                  settings: RouteSettings(name: 'PaidCourseListing'),
+                                  builder: (context) =>
                                   PaidCourseDetails(courseTabType, widget.courseData,widget.courseType))
                             ) :
                             Navigator.push(

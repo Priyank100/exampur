@@ -74,13 +74,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
   @override
   void initState() {
     super.initState();
-    var map = {
-      'Page_Name':'Home_Page',
-      'Mobile_Number':AppConstants.userMobile,
-      'Language':'en',
-      'User_ID':AppConstants.userMobile
-    };
-    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Home_Page,map);
+
 
     FirebaseDynamicLinkService.initDynamicLink(context);
     _faders = widgetList.map<AnimationController>((item) {
@@ -96,6 +90,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
     _hide = AnimationController(vsync: this, duration: kThemeAnimationDuration);
 
     callProvider();
+
   }
 
   Future<void> callProvider() async {
@@ -112,12 +107,22 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
           if (AppConstants.selectedCategoryList[i] == allCategoriesList[j].id) {
             allCategoriesList[j].isSelected = true;
             selectedCategoryName.add(allCategoriesList[j].name.toString());
-            AppConstants.selectedCategoryName = selectedCategoryName;
+            AppConstants.selectedCategoryNameList = selectedCategoryName;
           }
         }
       }
       bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context, AppConstants.encodeCategory()))!;
       widgetList[0] = Home(bannerList);
+
+      var map = {
+        'Page_Name':'Home_Page',
+        'Mobile_Number':AppConstants.userMobile,
+        'Language':'en',
+        'User_ID':AppConstants.userMobile,
+        'Course_Category':AppConstants.selectedCategoryNameList
+      };
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Home_Page,map);
+
       setState(() {});
     });
   }
@@ -300,9 +305,9 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                             ),
                           ]),
                       onTap: () async {
-                     // AppConstants.subscription('onmessagetesting');
+                    //  AppConstants.subscription('onmessagetesting');
                         var map = {
-                          'Page_Name':'Side_Bar_App_Tutorial',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,
@@ -339,7 +344,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () {
                         var map = {
-                          'Page_Name':'Side_Bar_Category',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,
@@ -379,7 +384,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () {
                         var map = {
-                          'Page_Name':'Side_Bar_Downloads',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,
@@ -415,7 +420,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () {
                         var map = {
-                          'Page_Name':'Side_Bar_Purchase',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,
@@ -452,7 +457,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () async {
                         var map = {
-                          'Page_Name':'Side_Bar_TestSeries',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,
@@ -489,7 +494,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () async {
                         var map = {
-                          'Page_Name':'Side_Bar_Attempt_Quiz',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,
@@ -526,7 +531,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () async {
                         var map = {
-                          'Page_Name':'Side_Bar_SavedQuestion',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,
@@ -562,7 +567,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () {
                         var map = {
-                          'Page_Name':'Side_Bar_Setting',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,
@@ -597,7 +602,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () {
                         var map = {
-                          'Page_Name':'Side_Bar_PrivacyPolicy',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,
@@ -632,7 +637,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () {
                         var map = {
-                          'Page_Name':'Side_Bar_Share',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,
@@ -664,7 +669,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () async {
                         var map = {
-                          'Page_Name':'Side_Bar_Rating',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,
@@ -720,7 +725,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                           ]),
                       onTap: () async {
                         var map = {
-                          'Page_Name':'Side_Bar_Logout',
+                          'Page_Name':'Side_Nav_Bar',
                           'Mobile_Number':AppConstants.userMobile,
                           'Language':AppConstants.langCode,
                           'User_ID':AppConstants.userMobile,

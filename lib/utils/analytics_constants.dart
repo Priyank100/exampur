@@ -68,7 +68,7 @@ class AnalyticsConstants {
     // _moengagePlugin.setUniqueId(AppConstants.userMobile);
   }
 
-  static void trackEventMoEngage(String eventName, Map<String, String> map) {
+  static void trackEventMoEngage(String eventName, Map<String, dynamic> map) {
     moengagePlugin.showInApp();
     var properties = MoEProperties();
     for(var entry in map.entries) {
@@ -98,6 +98,7 @@ class AnalyticsConstants {
   static String Click_Test_Series    = 'Click_Test_Series';
   static String Click_Quiz    = 'Click_Quiz';
   static String Click_Study_Material    = 'Click_Study_Material';
+  static String Click_Study_Material_Pdf    = 'Click_Study_Material_Pdf';
   static String Click_Job_Alerts    = 'Click_Job_Alerts';
   static String Click_Current_Affairs    = 'Click_Current_Affairs';
   static String Click_Previous_Year_PDF    = 'Click_Previous_Year_PDF';
@@ -167,6 +168,10 @@ class AnalyticsConstants {
   static String Click_PDF_Browser = 'Click_PDF_Browser';
   static String My_Courses_Test_Series = 'My_Courses_Test_Series';
   static String Click_Feedback = 'Click_Feedback';
+  static String Click_Free_Courses = 'Click_Free_Courses';
+  static String My_Courses_Doubts = 'My_Courses_Doubts';
+  static String Click_Ask_Doubts = 'Click_Ask_Doubts';
+  static String Signup_Successful= 'Signup_Successful';
 
 
 }

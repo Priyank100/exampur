@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/api.dart';
@@ -43,6 +44,15 @@ class _DoubtsPageState extends State<DoubtsPage> {
   void initState() {
     super.initState();
     firebaseGetData( documentID: widget.firebaseId);
+    var map ={
+      'Page_Name':'My_Courses_Doubts',
+      'Course_Name':AppConstants.courseName,
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Doubts,map);
   }
 
   @override
@@ -63,10 +73,21 @@ class _DoubtsPageState extends State<DoubtsPage> {
             MaterialButton(
               minWidth: MediaQuery.of(context).size.width/2,
               onPressed: () {
+                var map ={
+                  'Page_Name':'My_Courses_Doubts',
+                  'Course_Name':AppConstants.courseName,
+                  'Mobile_Number':AppConstants.userMobile,
+                  'Language':AppConstants.langCode,
+                  'User_ID':AppConstants.userMobile,
+                  'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
+                };
+                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Ask_Doubts,map);
                 if(courseId.isEmpty || courseId == null){
                   showBottomMessage(context, 'Something Wrong', Colors.red);
                 }else{
-                  AppConstants.platform.invokeMethod(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));
+                     AppConstants.printLog(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId))   ;
+
+            AppConstants.platform.invokeMethod(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));
                 }
 
                 //AppConstants.makeCallEmail(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));
