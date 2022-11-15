@@ -14,16 +14,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/api.dart';
+
 class StudyMaterialNew extends StatefulWidget {
   final int pagetype;
-  final String url;
-  const StudyMaterialNew(this.pagetype,this.url) : super();
+  // final String url;
+  // const StudyMaterialNew(this.pagetype,this.url) : super();
+  const StudyMaterialNew(this.pagetype) : super();
 
   @override
   _StudyMaterialNewState createState() => _StudyMaterialNewState();
 }
 
 class _StudyMaterialNewState extends State<StudyMaterialNew> {
+  String url = '';
   List<StudyMaterialNewModel> studyMaterialDataList = [];
   bool isLoading = true;
 
@@ -34,8 +38,9 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
   }
 
   Future<void> getLists() async {
+    url = widget.pagetype == 0 ? API.studyMaterialNewUrl : API.previousYearMaterialUrl;
     isLoading = true;
-    studyMaterialDataList = (await Provider.of<CaProvider>(context, listen: false).getStudyMaterialNew(context, widget.url))!;
+    studyMaterialDataList = (await Provider.of<CaProvider>(context, listen: false).getStudyMaterialNew(context, url))!;
     isLoading = false;
   }
 
@@ -83,7 +88,7 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
         ),
         child: ListTile(
             onTap: () {
-              AppConstants.goTo(context, StudyMaterialSubCategory(widget.pagetype,tabTitle, category.id.toString()));
+              AppConstants.goTo(context, StudyMaterialSubCategory(widget.pagetype, tabTitle, category.id.toString()));
             },
             title: Text(
               category.name.toString(),

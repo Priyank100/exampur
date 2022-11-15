@@ -160,6 +160,7 @@ class TabBarDemo extends StatefulWidget {
   final TabController? controller;
   final bool? isVideo;
   final VoidCallback? onPressed;
+  final int? selectedTabIndex;
 
   const TabBarDemo({
     Key? key,
@@ -169,7 +170,8 @@ class TabBarDemo extends StatefulWidget {
      this.title,
     this.controller,
     this.isVideo,
-    this.onPressed
+    this.onPressed,
+    this.selectedTabIndex
   });
   @override
   _TabBarDemoState createState() => _TabBarDemoState();
@@ -203,7 +205,7 @@ class _TabBarDemoState extends State<TabBarDemo>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 0,
+      initialIndex: widget.selectedTabIndex ?? 0,
       length: widget.length,
       child: Scaffold(
         appBar: AppBar(
