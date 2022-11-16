@@ -26,6 +26,9 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import android.widget.ProgressBar
+import android.content.Context
+import android.webkit.JavascriptInterface
+import androidx.appcompat.app.AlertDialog
 
 
 class WebViewActivity : FlutterActivity() {
@@ -75,6 +78,9 @@ class WebViewActivity : FlutterActivity() {
         webSettings.javaScriptEnabled = true
         webSettings.allowFileAccess = true
 
+        webView!!.getSettings().setDomStorageEnabled(true)
+        webView!!.addJavascriptInterface(MyJavaScriptInterface(this@WebViewActivity), "ButtonRecognizer")
+
         if (Build.VERSION.SDK_INT >= 21) {
             webSettings.mixedContentMode = 0
             webView!!.setLayerType(View.LAYER_TYPE_HARDWARE, null)
@@ -85,7 +91,6 @@ class WebViewActivity : FlutterActivity() {
         }
         webView!!.webViewClient = WebViewActivity.Callback()
         webView!!.loadUrl(""+ getIntent().getStringExtra("url"))
-
 
         webView!!.webChromeClient = object : WebChromeClient() {
 
@@ -143,7 +148,22 @@ class WebViewActivity : FlutterActivity() {
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
                 progress!!.visibility = View.GONE
+                loadEvent(clickListener())
             }
+
+            private fun loadEvent(javascript: String) {
+                webView!!.loadUrl("javascript:$javascript")
+            }
+
+            private fun clickListener(): String {
+                return """${buttons}for(var i = 0; i < buttons.length; i++){
+	buttons[i].onclick = function(){ console.log('click worked.'); ButtonRecognizer.boundMethod('button clicked'); };
+}"""
+            }
+
+            private val buttons: String
+                private get() = "var buttons = document.getElementsByClassName('enroltest-ser-bg-btnn view-btn-1'); console.log(buttons.length + ' buttons');\n"
+
         }
 
     }
@@ -241,5 +261,13 @@ class WebViewActivity : FlutterActivity() {
 //    fun onConfigurationChanged(newConfig: Configuration?) {
 //        super.onConfigurationChanged(newConfig!!)
 //    }
+
+
+    inner class MyJavaScriptInterface(ctx: Context) {
+        @JavascriptInterface
+        fun boundMethod(html: String?) {
+            System.out.println("$$$$$$")
+        }
+    }
 
 }

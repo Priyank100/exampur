@@ -67,6 +67,7 @@ class _DoubtsPageState extends State<DoubtsPage> {
                   showBottomMessage(context, 'Something Wrong', Colors.red);
                 }else{
                   AppConstants.platform.invokeMethod(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));
+                  // AppConstants.platform.invokeMethod('https://exampur.com/testseries/');
                 }
 
                 //AppConstants.makeCallEmail(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));
