@@ -54,6 +54,18 @@ class _DoubtsPageState extends State<DoubtsPage> {
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Doubts,map);
   }
+   // void getmethod(){
+   //   AppConstants.platform.setMethodCallHandler((call)async{
+   //     // you can get hear method and passed arguments with method
+   //     if(call.method == 'flutter.native/helper'){
+   //       print('>>>>>>>>>>>>>>>>>>>>');
+   //       print(call.arguments);
+   //     }
+   //
+   //     return null;
+   //   });
+   // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +94,7 @@ class _DoubtsPageState extends State<DoubtsPage> {
                   'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
                 };
                 AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Ask_Doubts,map);
+
                 if(courseId.isEmpty || courseId == null){
                   showBottomMessage(context, 'Something Wrong', Colors.red);
                 }else{
@@ -99,6 +112,7 @@ class _DoubtsPageState extends State<DoubtsPage> {
                 style: TextStyle(color: AppColors.white),
               ),
             ),
+
           ],
         ),
       ),

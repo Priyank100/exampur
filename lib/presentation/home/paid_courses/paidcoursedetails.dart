@@ -62,6 +62,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
+      AppConstants.routeName = ModalRoute.of(context)!.settings.name!;
       var map = {
         'Page_Name':'Course_Details',
         'Course_Category':AppConstants.paidTabName,
@@ -112,8 +113,8 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       if(_controller!.value.position.inSeconds != temp && _controller!.value.isPlaying ){
         counter++;
         temp = _controller!.value.position.inSeconds;
-
       }
+
     }
   }
 
@@ -127,15 +128,6 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   @override
   void dispose() {
-    _controller.dispose();
-    _idController.dispose();
-    _seekToController.dispose();
-    var d = Duration(seconds: _controller.value.position.inSeconds);
-    var min = d.inMinutes;
-    var sec = _controller.value.position.inSeconds % 60;
-    var m = '$min'.padLeft(2,'0');
-    var s = '$sec'.padLeft(2,'0');
-    Future.delayed(Duration.zero, () {
     var map = {
       'Page_Name':'Course_Details',
       'Course_Category':AppConstants.paidTabName,
@@ -144,10 +136,17 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
       'Total_Watch_Time':counter,
-      'Path_name':ModalRoute.of(context)!.settings.name
+      'Path_name':AppConstants.routeName
     };
-
-  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,map);});
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,map);
+    _controller.dispose();
+    _idController.dispose();
+    _seekToController.dispose();
+    // var d = Duration(seconds: _controller.value.position.inSeconds);
+    // var min = d.inMinutes;
+    // var sec = _controller.value.position.inSeconds % 60;
+    // var m = '$min'.padLeft(2,'0');
+    // var s = '$sec'.padLeft(2,'0');
     super.dispose();
   }
 
@@ -310,6 +309,16 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                   InkWell(
                     onTap: () {
                       _controller.pause();
+                      var dispose = {
+                        'Page_Name':'Course_Details',
+                        'Course_Name':widget.courseData.title.toString(),
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'User_ID':AppConstants.userMobile,
+                        'Total_Watch_Time':counter,
+                        'Path_name':AppConstants.routeName
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,dispose);
                       var map = {
                         'Page_Name':'Course_Details',
                         'Course_Category':AppConstants.paidTabName,

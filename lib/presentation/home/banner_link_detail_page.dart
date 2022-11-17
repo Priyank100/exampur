@@ -130,6 +130,7 @@ class _ViedobannerState extends State<Viedobanner> {
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
+      AppConstants.routeName =ModalRoute.of(context)!.settings.name!;
     var map = {
       'Page_Name':'Course_Details',
       'Course_Name':widget.title.toString(),
@@ -191,10 +192,6 @@ class _ViedobannerState extends State<Viedobanner> {
 
   @override
   void dispose() {
-    _controller.dispose();
-    _idController.dispose();
-    _seekToController.dispose();
-    Future.delayed(Duration.zero, () {
     var map = {
       'Page_Name':'Course_Details',
       'Course_Name':widget.title.toString(),
@@ -202,9 +199,12 @@ class _ViedobannerState extends State<Viedobanner> {
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
       'Total_Watch_Time':counter,
-      'Path_name':ModalRoute.of(context)!.settings.name
+      'Path_name':AppConstants.routeName
     };
-    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,map);});
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,map);
+    _controller.dispose();
+    _idController.dispose();
+    _seekToController.dispose();
     super.dispose();
   }
 
@@ -437,7 +437,17 @@ class _ViedobannerState extends State<Viedobanner> {
         ),
         bottomNavigationBar:  InkWell(
                 onTap: () {
+                  var dispose = {
+                    'Page_Name':'Course_Details',
+                    'Course_Name':widget.title.toString(),
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':AppConstants.langCode,
+                    'User_ID':AppConstants.userMobile,
+                    'Total_Watch_Time':counter,
+                    'Path_name':AppConstants.routeName
+                  };
 
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,dispose);
                   var map = {
                     'Page_Name':'Course_Details',
                     'Course_Category':AppConstants.paidTabName,

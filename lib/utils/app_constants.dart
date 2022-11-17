@@ -83,6 +83,7 @@ class AppConstants {
   static String videoQuality = '';
   static String currentindex = '';
   static int mycourseType = 0;
+  static String routeName = '';
   // static List<String> selectedCategoryName = [];
 
   //=========================================================
@@ -90,6 +91,7 @@ class AppConstants {
 
   //========================================webviewcallwithnative=================================//
   static const platform = const MethodChannel('flutter.native/helper');
+
 
 
 

@@ -20,9 +20,10 @@ import '../../../utils/analytics_constants.dart';
 import 'current_affairs_filter.dart';
 
 class CurrentAffairsListing extends StatefulWidget {
+  final String currentlangCode;
   final String tabId;
   final String tabname;
-  const CurrentAffairsListing(this.tabId,this.tabname) : super();
+  const CurrentAffairsListing(this.currentlangCode,this.tabId,this.tabname) : super();
 
   @override
   State<CurrentAffairsListing> createState() => _CurrentAffairsListingState();
@@ -44,7 +45,7 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
     var map ={
       'Page_Name':widget.tabname.toString(),
       'Mobile_Number':AppConstants.userMobile,
-      'Language':AppConstants.langCode,
+      'Language':widget.currentlangCode,
       'User_ID':AppConstants.userMobile,
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Current_Affairs,map);
@@ -99,7 +100,7 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
                         FocusScope.of(context).unfocus();
                         String date = await AppConstants.selectDate(context, 'yyyy-MM-dd');
                         if(date.isNotEmpty) {
-                          AppConstants.goTo(context, CurrentAffairsFilter('D', date: date));
+                          AppConstants.goTo(context, CurrentAffairsFilter(widget.currentlangCode,'D', date: date));
                         }
                       },
                       child: FaIcon(FontAwesomeIcons.calendarAlt,size: 20))
@@ -162,12 +163,12 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
         var map ={
           'Page_Name':widget.tabname.toString(),
           'Article_Date':artical_date,
-          'Article_Name':AppConstants.langCode == 'hi' ?
+          'Article_Name':widget.currentlangCode == 'hi' ?
         currentAffairsListModel!.articleContent![index].titleHindi.toString() :
         currentAffairsListModel!.articleContent![index].titleEng.toString(),
         };
         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_CA_Article,map);
-        AppConstants.goTo(context, CurrentAffairsDetails(currentAffairsListModel!.articleContent![index].id.toString()));
+        AppConstants.goTo(context, CurrentAffairsDetails(widget.currentlangCode,currentAffairsListModel!.articleContent![index].id.toString()));
       },
       child: Container(
         padding: const EdgeInsets.all(5),
@@ -189,17 +190,17 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      AppConstants.langCode == 'hi' ?
+                    widget.currentlangCode == 'hi' ?
                       currentAffairsListModel!.articleContent![index].titleHindi.toString() :
                       currentAffairsListModel!.articleContent![index].titleEng.toString(),
-                      style: TextStyle(fontSize: 15,fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins',
+                      style: TextStyle(fontSize: 15,fontFamily: widget.currentlangCode == 'hi' ?'Noto Sans':'Poppins',
                           fontWeight: FontWeight.bold),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text('Posted on ' + currentAffairsListModel!.articleContent![index].date.toString(),style: TextStyle(fontSize: 10,color: AppColors.amber)),
                   Html(
-                      data: AppConstants.langCode == 'hi' ?
+                      data: widget.currentlangCode == 'hi' ?
                       currentAffairsListModel!.articleContent![index].descriptionHindi.toString().replaceAll(RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true), ' ') :
                       currentAffairsListModel!.articleContent![index].descriptionEng.toString().replaceAll(RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true), ' '),
                   style: {
@@ -207,7 +208,7 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
                       maxLines: 3,
                       textOverflow: TextOverflow.ellipsis,
                       fontSize: const FontSize(12),
-                        fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins'
+                        fontFamily:widget.currentlangCode == 'hi' ?'Noto Sans':'Poppins'
                     )}
                   )],
               ),
@@ -235,7 +236,7 @@ class _CurrentAffairsListingState extends State<CurrentAffairsListing> {
         onChanged: (tagData) {
           setState(() {
             // _selectedValue = data!;
-            AppConstants.goTo(context, CurrentAffairsFilter('T', selectedTagName: tagData!.name.toString()));
+            AppConstants.goTo(context, CurrentAffairsFilter(widget.currentlangCode,'T', selectedTagName: tagData!.name.toString()));
           });
         },
         items: tagList.map<DropdownMenuItem<CurrentAffairsNewTagListModel>>((CurrentAffairsNewTagListModel value) {

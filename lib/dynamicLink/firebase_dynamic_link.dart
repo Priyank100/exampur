@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/presentation/home/exampurone2one/one2oneViedo.dart';
@@ -73,7 +74,7 @@ class FirebaseDynamicLinkService {
 
   }
 
-  static handleDeepLink(BuildContext context, PendingDynamicLinkData dataLink) {
+  static handleDeepLink(BuildContext context, PendingDynamicLinkData dataLink) async {
     try{
       final Uri deepLink = dataLink.link;
 
@@ -101,8 +102,9 @@ class FirebaseDynamicLinkService {
                   builder: (context) =>
                   PaidCourseDetails('Course',courseData, int.parse(type.toString()))));
             } else {
+              String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
               return Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                  MyCourseTabView(courseData.id.toString(),courseData.title.toString(),'','')
+                  MyCourseTabView(courseData.id.toString(),courseData.title.toString(),courseData.testSeriesLink.toString().replaceAll('and', '&'),token)
               ));
             }
 
