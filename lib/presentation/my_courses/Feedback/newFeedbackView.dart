@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
+import 'package:exampur_mobile/provider/new_my_course_provider.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -9,7 +10,6 @@ import 'package:provider/provider.dart';
 import '../../../Localization/language_constrants.dart';
 import '../../../SharePref/shared_pref.dart';
 import '../../../data/model/my_course_subject_model.dart';
-import '../../../provider/MyCourseProvider.dart';
 import '../../../utils/analytics_constants.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
@@ -85,7 +85,7 @@ class _NewFeedbackViewState extends State<NewFeedbackView> {
 
   Future<void> callProvider() async {
     isLoading = true;
-    subjectList = (await Provider.of<MyCourseProvider>(context, listen: false).getSubjectList(context, widget.courseId))!;
+    subjectList = (await Provider.of<NewMyCourseProvider>(context, listen: false).getSubjectList(context, widget.courseId))!;
     isLoading = false;
     setState(() {});
   }

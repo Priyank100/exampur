@@ -25,7 +25,7 @@ class Keys {
 }
 
 class AppConstants {
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static bool isotpverify   = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -496,5 +496,11 @@ class AppConstants {
             });
       },
     );
+  }
+
+  static int unlockItem(int listLength) {
+    double unlock = (30 / 100) * listLength;
+    int num = unlock.round();
+    return num;
   }
 }

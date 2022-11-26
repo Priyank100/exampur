@@ -42,6 +42,7 @@ class WebViewActivity : FlutterActivity() {
     private val FCR = 1
     private var mUMA: ValueCallback<Array<Uri>>? = null
     var progress: ProgressBar? = null
+    var doubtCourseId : String = "";
 
 
 
@@ -58,17 +59,17 @@ class WebViewActivity : FlutterActivity() {
 
 
         if (Build.VERSION.SDK_INT >= 23 && (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED)
+                        this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.CAMERA
+                ) != PackageManager.PERMISSION_GRANTED)
         ) {
             ActivityCompat.requestPermissions(
-                this@WebViewActivity,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
-                1
+                    this@WebViewActivity,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
+                    1
             )
         }
 
@@ -77,6 +78,9 @@ class WebViewActivity : FlutterActivity() {
         val webSettings = webView!!.settings
         webSettings.javaScriptEnabled = true
         webSettings.allowFileAccess = true
+
+        doubtCourseId = getIntent().getStringExtra("url")!!.substring(getIntent().getStringExtra("url")!!.lastIndexOf('/') + 1);
+        doubtCourseId = doubtCourseId.substringBefore("?")
 
         webView!!.getSettings().setDomStorageEnabled(true)
         webView!!.addJavascriptInterface(MyJavaScriptInterface(this@WebViewActivity), "ButtonRecognizer")
@@ -97,8 +101,8 @@ class WebViewActivity : FlutterActivity() {
 
             //For Android 5.0+
             override fun onShowFileChooser(
-                webView: WebView, filePathCallback: ValueCallback<Array<Uri>>,
-                fileChooserParams: FileChooserParams
+                    webView: WebView, filePathCallback: ValueCallback<Array<Uri>>,
+                    fileChooserParams: FileChooserParams
             ): Boolean {
 
 
@@ -156,13 +160,21 @@ class WebViewActivity : FlutterActivity() {
             }
 
             private fun clickListener(): String {
-                return """${buttons}for(var i = 0; i < buttons.length; i++){
-	buttons[i].onclick = function(){ console.log('click worked.'); ButtonRecognizer.boundMethod('button clicked'); };
-}"""
+                return """${buttons}
+                    for(var i = 0; i < buttons.length; i++){
+                        buttons[i].onclick = function(){
+//                            console.log(">>>>>>>>>>>Anchal");
+//                            console.log($(this).attr('id'));
+//                            console.log(${doubtCourseId});
+                            if(${doubtCourseId} == $(this).attr('id')) {
+                                ButtonRecognizer.boundMethod('button clicked');
+                            }
+                        };
+                    }"""
             }
 
             private val buttons: String
-                private get() = "var buttons = document.getElementsByClassName('enroltest-ser-bg-btnn view-btn-1'); console.log(buttons.length + ' buttons');\n"
+                private get() = "var buttons = document.getElementsByClassName('btn btn-primary');"
 
         }
 
@@ -219,10 +231,10 @@ class WebViewActivity : FlutterActivity() {
 
     class Callback : WebViewClient() {
         override fun onReceivedError(
-            view: WebView,
-            errorCode: Int,
-            description: String,
-            failingUrl: String
+                view: WebView,
+                errorCode: Int,
+                description: String,
+                failingUrl: String
         ) {
 //            Toast.makeText(this, "Failed loading app!", Toast.LENGTH_SHORT).show()
         }
@@ -232,12 +244,12 @@ class WebViewActivity : FlutterActivity() {
     @Throws(IOException::class)
     private fun createImageFile(): File? {
         @SuppressLint("SimpleDateFormat") val timeStamp =
-            SimpleDateFormat("yyyyMMdd_HHmmss").format(
-                Date()
-            )
+                SimpleDateFormat("yyyyMMdd_HHmmss").format(
+                        Date()
+                )
         val imageFileName = "img_" + timeStamp + "_"
         val storageDir =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(imageFileName, ".jpg", storageDir)
     }
 
@@ -266,7 +278,10 @@ class WebViewActivity : FlutterActivity() {
     inner class MyJavaScriptInterface(ctx: Context) {
         @JavascriptInterface
         fun boundMethod(html: String?) {
-            System.out.println("$$$$$$")
+            val intent = Intent()
+            intent.putExtra("Submitted", "Done")
+            setResult(1, intent)
+            finish()
         }
     }
 

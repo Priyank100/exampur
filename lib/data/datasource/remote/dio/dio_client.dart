@@ -45,8 +45,8 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      var sym = uri.contains(API.BASE_URL2) ? uri.contains('?') ? "&" : "?" : "";
-      String url = uri.contains(API.BASE_URL2) ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
+      var sym = uri.contains(API.BASE_URL2) || uri.contains('courses/paid') ? uri.contains('?') ? "&" : "?" : "";
+      String url = uri.contains(API.BASE_URL2) || uri.contains('courses/paid') ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
       AppConstants.printLog("URL> ${url.toString()}");
       var response = await dio.get(
         url,

@@ -86,7 +86,8 @@ class API {
 
   //PaidCourse
   static String PaidCoursesTab_URL  = BASE_URL2 + 'category/course_paid';
-  static String PaidCoursesList_URL = BASE_URL2 + 'courses/paid/' + 'PAID_COURSE_ID' + '/10/';
+  // static String PaidCoursesList_URL = BASE_URL2 + 'courses/paid/' + 'PAID_COURSE_ID' + '/10/';
+  static String PaidCoursesList_URL = TEST_BASE_URL + 'courses/paid/' + 'PAID_COURSE_ID' + '/10/';
 
   //FreeCourse
   static String FreeCoursesTab_URL  = BASE_URL2 + 'category/course_free';
@@ -169,7 +170,7 @@ class API {
   static String myCourse_subject_URL              = BASE_URL1 + 'course_subject/';
   static String myCourse_material_URL             = BASE_URL1 + 'course_material/material/';
   static String myCourse_chapter_URL              = BASE_URL1 + 'course_material/chapter/';
-  // static String myCourse_timeline_URL     = BASE_URL1 + 'course_timeline';
+  // static String myCourse_timeline_URL             = BASE_URL1 + 'course_timeline';
   static String myCourse_timelineshareStream_URL  = BASE_URL1 + 'course_timeline/shareStreamToMobile';
   static String myCourse_notification_URL         = BASE_URL1 + 'course_notification';
   static String myCourse_timeline_live_URL        = BASE_URL1 + 'course_timeline/live';
@@ -251,6 +252,33 @@ class API {
 
 
   //doubts
-  static String doubtsUrl = WEBVIEW_URL +'doubt-session/id/';
+  static String doubtsUrl = WEBVIEW_URL +'doubt-session/id?purchase=TF';
+
+//================================== New My Course ===============================================
+
+  static String TEST_BASE_URL = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
+
+  // bottomSheet
+  static String bottomSheet_URL                     = '';
+
+  // timeline - Live = https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/sampling/class/live/:course_id
+  static String newMyCourseTimelineLive_URL         = TEST_BASE_URL + 'sampling/class/live/';
+
+  // timeline - Upcoming = https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/sampling/class/upcoming/:course_id
+  static String newMyCourseTimelineUpcoming_URL     = TEST_BASE_URL + 'sampling/class/upcoming/';
+
+  // timeline - live video watch
+  static String newMyCourseTimelineShareStream_URL  = BASE_URL1 + 'course_timeline/shareStreamToMobile';
+
+  // subject list = https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/sampling/subject/:course_id
+  static String newMyCourseSubjects_URL             = TEST_BASE_URL + 'sampling/subject/';
+
+  // chapter list = https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/sampling/chapter/:subject_id/:course_id
+  static String newMyCourseChapters_URL             = TEST_BASE_URL + 'sampling/chapter/';
+
+  // topic list = https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/sampling/material/:subject_id/:course_id/:chapter_name
+  static String newMyCourseTopics_URL               = TEST_BASE_URL + 'sampling/material/';
+
+//----------------------------------------------------------------------------------------------------
 
 }

@@ -54,15 +54,74 @@ class PaidCoursesProvider extends ChangeNotifier {
     }
   }
 
+  // Future<List<PaidCourseData>?> getPaidCourseList(BuildContext context, String id, int pageNo) async {
+  //   ApiResponse apiResponse = await paidcoursesRepo.paid_coursesRepo(id, pageNo);
+  //   if (apiResponse.response != null &&
+  //       apiResponse.response!.statusCode == 200) {
+  //     var statusCode = apiResponse.response!.data['statusCode'].toString();
+  //     if (statusCode == '200') {
+  //       _paidcourseModel = PaidCourseModelNew.fromJson(json.decode(apiResponse.response.toString()));
+  //
+  // //====== get purchased id list ==========================================
+  //       var jsonRes = json.decode(apiResponse.response.toString());
+  //       List<dynamic> purchasedList = jsonRes['userPurchasedCourseList'];
+  //       for(int i=0; i<purchasedList.length; i++) {
+  //         for(int j=0; j<_paidcourseModel.data!.length; j++) {
+  //           if(purchasedList[i].toString() == _paidcourseModel.data![j].id.toString()) {
+  //           } else {
+  //           }
+  //         }
+  //         // AppConstants.purchasedCourseIdList.add(purchasedList[i].toString());
+  //       }
+  // //=======================================================================
+  //
+  //       return _paidcourseModel.data;
+  //
+  //     } else {
+  //       String error = apiResponse.response!.data['data'].toString();
+  //       AppConstants.showBottomMessage(context, error, AppColors.black);
+  //     }
+  //     notifyListeners();
+  //   } else {
+  //     AppConstants.showBottomMessage(
+  //         context, getTranslated(context, LangString.serverError)!,
+  //         AppColors.red);
+  //     // Navigator.pushReplacement(
+  //     //     context,
+  //     //     MaterialPageRoute(
+  //     //         builder: (context) => ErrorScreen()
+  //     //     )
+  //     // );
+  //     notifyListeners();
+  //   }
+  // }
+
   Future<List<PaidCourseData>?> getPaidCourseList(BuildContext context, String id, int pageNo) async {
     ApiResponse apiResponse = await paidcoursesRepo.paid_coursesRepo(id, pageNo);
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       var statusCode = apiResponse.response!.data['statusCode'].toString();
       if (statusCode == '200') {
-        _paidcourseModel = PaidCourseModelNew.fromJson(
-            json.decode(apiResponse.response.toString()));
+
+        //====== get purchased id list ==========================================
+        var jsonRes = json.decode(apiResponse.response.toString());
+        List<dynamic> purchasedList = jsonRes['userPurchasedCourseList'];
+        PaidCourseModelNew pcModel = PaidCourseModelNew.fromJson(jsonRes);
+        for(int i=0; i<purchasedList.length; i++) {
+          for(int j=0; j<pcModel.data!.length; j++) {
+            if(purchasedList[i].toString() == pcModel.data![j].id.toString()) {
+              jsonRes['data'][j]['purchase'] = true;
+            } else {
+              jsonRes['data'][j]['purchase'] = false;
+            }
+          }
+        }
+        //=======================================================================
+
+        // _paidcourseModel = PaidCourseModelNew.fromJson(json.decode(apiResponse.response.toString()));
+        _paidcourseModel = PaidCourseModelNew.fromJson(jsonRes);
         return _paidcourseModel.data;
+
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);

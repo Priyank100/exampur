@@ -125,7 +125,7 @@ class _HomeState extends State<Home> {
     // getSharedPrefData();
 
     moengagePlugin.setUpPushCallbacks((pushCampaign) {
-      print(pushCampaign.clickedAction.toString()+ '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
+      // print(pushCampaign.clickedAction.toString()+ '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
     });
   }
 

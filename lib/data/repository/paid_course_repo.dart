@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/dio/dio_client.dart';
 import 'package:exampur_mobile/data/datasource/remote/exception/api_error_handler.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
@@ -26,7 +29,9 @@ class PaidCoursesRepo {
 
   Future<ApiResponse> paid_coursesRepo(String id, int pageNo) async {
     try {
-      String url = API.PaidCoursesList_URL.replaceAll('PAID_COURSE_ID', id) + pageNo.toString();
+      var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
+      var userMobile = jsonValue[0]['data']['phone'].toString();
+      String url = API.PaidCoursesList_URL.replaceAll('PAID_COURSE_ID', id) + pageNo.toString() + '?phone=' + userMobile;
       // AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

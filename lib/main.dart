@@ -23,6 +23,7 @@ import 'package:exampur_mobile/provider/PracticeQuestionProvider.dart';
 import 'package:exampur_mobile/provider/StudyNotesProvider.dart';
 import 'package:exampur_mobile/provider/TestSeriesProvider.dart';
 import 'package:exampur_mobile/provider/mypurchaseProvider.dart';
+import 'package:exampur_mobile/provider/new_my_course_provider.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
 
 import 'package:exampur_mobile/utils/lang_string.dart';
@@ -87,6 +88,7 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl<PracticeQuestionProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<StudyNotesProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<FreeVideoProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<NewMyCourseProvider>()),
   ], child: MyApp()));
 }
 

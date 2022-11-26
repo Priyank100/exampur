@@ -1,18 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
+import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/data/model/my_course_material_model.dart';
-import 'package:exampur_mobile/presentation/authentication/terms_condition.dart';
+import 'package:exampur_mobile/presentation/my_course_new/timeline/timeline_view.dart';
+import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/DownloadPdfView.dart';
 import 'package:exampur_mobile/presentation/my_courses/TeacherSubjectView/material_video.dart';
-import 'package:exampur_mobile/presentation/my_courses/Timeline/TimetableView.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_bottomsheet.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
-import 'package:exampur_mobile/provider/MyCourseProvider.dart';
+import 'package:exampur_mobile/provider/new_my_course_provider.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
+import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
-import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
+import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
@@ -20,24 +24,19 @@ import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-import '../../../SharePref/shared_pref.dart';
-import '../../../data/datasource/remote/http/services.dart';
-import '../../../utils/api.dart';
-import '../../../utils/analytics_constants.dart';
-import 'DownloadPdfView.dart';
 
-class ChapterDetailView extends StatefulWidget {
+class TopicsView extends StatefulWidget {
   String subjectId;
   String courseId;
   String chaptername;
 
-  ChapterDetailView(this.subjectId, this.courseId, this.chaptername) : super();
+  TopicsView(this.subjectId, this.courseId, this.chaptername) : super();
 
   @override
-  State<ChapterDetailView> createState() => _ChapterDetailViewState();
+  State<TopicsView> createState() => _TopicsViewState();
 }
 
-class _ChapterDetailViewState extends State<ChapterDetailView> {
+class _TopicsViewState extends State<TopicsView> {
   List<MaterialData> mainList = [];
   bool isLoading = false;
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
@@ -53,6 +52,8 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   String noVideoLink = 'https://cdn.exampur.xyz/No+video+available+here.+This+is+a+Special+PDF.+Please+clink+on+View+PDF+to+access+the+material.mp4';
   String firebaseId = '';
   bool isTimlineRequired = false;
+  int unlockValue = 0;
+
   @override
   void initState() {
     callProvider();
@@ -62,7 +63,22 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     getDatafromfirebase();
     super.initState();
   }
-//====================================firebasecall==========================================
+
+  Future<void> callProvider() async {
+    isLoading = true;
+    mainList = (await Provider.of<NewMyCourseProvider>(context, listen: false).getTopicList(context, widget.subjectId, widget.courseId, widget.chaptername))!;
+    grouping();
+    isLoading = false;
+    mainList.length == 0 ? unlockValue = 0 : unlockValue = AppConstants.unlockItem(mainList.length);
+    setState(() {});
+  }
+
+  Future<void>_refreshScreen() async{
+    mainList.clear();
+    groupingList.clear();
+    return callProvider();
+  }
+
   Future<void> getDatafromfirebase() async {
     final QuerySnapshot result =
     await FirebaseFirestore.instance.collection('timeline_video_track').get();
@@ -71,12 +87,9 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       if (widget.courseId == data.id) {
         firebaseId = data.id;
         isTimlineRequired = true;
-        AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
-        AppConstants.printLog(firebaseId);
       }
     });
   }
-
 
   Future<void> getUserData() async {
     var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
@@ -106,121 +119,124 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     setState(() {});
   }
 
-  Future<void>_refreshScreen() async{
-    mainList.clear();
-    groupingList.clear();
-    return callProvider();
-  }
-
-  Future<void> callProvider() async {
-    isLoading = true;
-    mainList = (await Provider.of<MyCourseProvider>(context, listen: false).getMaterialList(context, widget.subjectId, widget.courseId, widget.chaptername))!;
-    grouping();
-    isLoading = false;
-    setState(() {});
+  void grouping() {
+    var groupedLists = {};
+    mainList.forEach((data) {
+      if (groupedLists['${data.unit}'] == null) {
+        groupedLists['${data.unit}'] = <MaterialData>[];
+      }
+      (groupedLists['${data.unit}'] as List<MaterialData>).add(data);
+    });
+    for(int i=0; i<groupedLists.length; i++) {
+      String key = groupedLists.keys.elementAt(i);
+      var value = groupedLists.values.elementAt(i);
+      if(key == 'Others'){
+        groupingList.add(GroupClass(key, value,true));
+      }
+      else{
+        groupingList.add(GroupClass(key, value,false));
+      }
+    }
+    groupingList.length == 0 ? unlockValue = 0 : unlockValue = AppConstants.unlockItem(groupingList.length);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
-      body:RefreshWidget(
-      keyRefresh: keyRefresh,
-      onRefresh:_refreshScreen,
-    child: isLoading ? LoadingIndicator(context)
-          : mainList.length == 0 ? AppConstants.noDataFound()
-          : unitGrouping()
-    // ListView.builder(
-    //           itemCount: materialList.length,
-    //           padding: EdgeInsets.all(5),
-    //           shrinkWrap: true,
-    //           itemBuilder: (BuildContext context, int index) {
-    //             return Container(
-    //               margin: EdgeInsets.all(5),
-    //               child: Padding(
-    //                 padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-    //                 child: Row(
-    //                   children: [
-    //                     chapterImage(index),
-    //                     SizedBox(width: 10),
-    //                     chapterData(index)
-    //                   ],
-    //                 ),
-    //               ),
-    //             );
-    //           }),
-      ));
+        appBar: CustomAppBar(),
+        body:RefreshWidget(
+            keyRefresh: keyRefresh,
+            onRefresh:_refreshScreen,
+            child: isLoading ? LoadingIndicator(context)
+                : mainList.length == 0 ? AppConstants.noDataFound()
+                : unitGrouping()
+        ));
   }
 
   Widget unitGrouping(){
     return ListView.builder(
-      padding: EdgeInsets.all(5),
-      itemCount: groupingList.length,
+        padding: EdgeInsets.all(5),
+        itemCount: groupingList.length,
         itemBuilder: (context, i) {
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-
-              InkWell(
-               onTap: (){
-                 setState(() {
-                   if(groupingList[i].unitTitle == 'Others'){
-                     groupingList[i].showVideo == true;
-                   }else{
-                  groupingList[i].showVideo = !groupingList[i].showVideo;}
-                 });
-               },
-               child: Container(
-                // padding: EdgeInsets.all(13),
-                  margin: EdgeInsets.only(bottom: 10),
-                  decoration: BoxDecoration(
-                    border:groupingList[i].unitTitle!='Others'? Border.all(width: 0):null,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child:Column(
-                    children: [
-                      groupingList[i].unitTitle!='Others'?  Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InkWell(
+                  onTap: (){
+                    setState(() {
+                      if(groupingList[i].unitTitle == 'Others'){
+                        groupingList[i].showVideo == true;
+                      }else{
+                        groupingList[i].showVideo = !groupingList[i].showVideo;}
+                    });
+                  },
+                  child: Container(
+                    // padding: EdgeInsets.all(13),
+                      margin: EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                          border:groupingList[i].unitTitle!='Others'? Border.all(width: 0):null,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child:Column(
                         children: [
-                          Text(groupingList[i].unitTitle, style: TextStyle(fontSize: 18)),
-                          Icon(Icons.arrow_drop_down_sharp)
+                          groupingList[i].unitTitle!='Others'?  Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(groupingList[i].unitTitle, style: TextStyle(fontSize: 18)),
+                              Icon(Icons.arrow_drop_down_sharp)
+                            ],
+                          ):SizedBox(),
+
+                          ListView.builder(
+                              itemCount: groupingList[i].list.length,
+                              padding: EdgeInsets.all(5),
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return groupingList[i].showVideo ? InkWell(
+                                  onTap: () {
+                                    if(index+1 > unlockValue) {
+                                      ModalBottomSheet.moreModalBottomSheet(context);
+                                    }
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.all(5),
+                                        child: Padding(
+                                          padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                                          child: Row(
+                                            children: [
+                                              chapterImage(groupingList[i].list, index),
+                                              SizedBox(width: 10),
+                                              chapterData(groupingList[i].list, index)
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      index+1 > unlockValue ? Opacity(
+                                          opacity: 0.6,
+                                          child: Container(
+                                              width: MediaQuery.of(context).size.width,
+                                              height: 110,
+                                              margin: EdgeInsets.only(top: 2),
+                                              color: AppColors.black,
+                                              child: Image.asset(Images.lock, scale: 1.5, color: AppColors.red900)
+                                          )
+                                      ) : SizedBox()
+                                    ],
+                                  ),
+                                ):SizedBox();
+                              })
                         ],
-                      ):SizedBox(),
+                      )
 
-                      ListView.builder(
-                          itemCount: groupingList[i].list.length,
-                          padding: EdgeInsets.all(5),
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            return groupingList[i].showVideo ?Container(
-                              margin: EdgeInsets.all(5),
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-                                child: Row(
-                                  children: [
-                                    chapterImage(groupingList[i].list, index),
-                                    SizedBox(width: 10),
-                                    chapterData(groupingList[i].list, index)
-                                  ],
-                                ),
-                              ),
-                            ):SizedBox();
-                          })
-                    ],
-                  )
-
+                  ),
                 ),
-             ),
-
-           //   groupingList[i].unitTitle!='Others'?Text(groupingList[i].unitTitle, style: TextStyle(fontSize: 18)):SizedBox(),
-
-
-             // groupingList[i].unitTitle!='Others'?Divider():SizedBox()
-            ],
-          ),
-        );
+              ],
+            ),
+          );
         }
     );
   }
@@ -232,7 +248,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       child: materialList[index].videoLink == null || materialList[index].videoLink.toString().isEmpty ?
       materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
 
-          Image.asset(Images.pdfIcon):
+      Image.asset(Images.pdfIcon):
 
       AppConstants.image(
           materialList[index].timeline != null &&
@@ -260,12 +276,10 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(materialList[index].title.toString().replaceAll('--', ''), style: TextStyle(fontSize: 12)),
-          // Text(materialList[index].subjectId!.title.toString(),overflow: TextOverflow.ellipsis, maxLines: 2,),
+          Text(materialList[index].title.toString().replaceAll('--', ''), maxLines: 3, style: TextStyle(fontSize: 12, overflow: TextOverflow.ellipsis)),
           SizedBox(height: 5),
 
           Row(
-             // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               materialList[index].videoLink == null || materialList[index].videoLink.toString().isEmpty || materialList[index].videoLink == noVideoLink ?
               materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
@@ -282,8 +296,6 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                 docPath = materialList[index].docpath.toString() :
                 docPath = AppConstants.BANNER_BASE + materialList[index].docpath.toString();
                 showPdfDialog(docPath, materialList[index].title.toString(),materialList[index].id.toString());
-              // String pdfPath = AppConstants.BANNER_BASE +  materialList[index].docpath.toString();
-              //   Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf('', pdfPath)));
 
               },
                 child: Container(height: 30,width: MediaQuery.of(context).size.width / 6,decoration: BoxDecoration( color: AppColors.dark,
@@ -312,12 +324,11 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         };
         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
         AppConstants.chapterName =widget.chaptername;
-        // print(materialList[index].title);
         materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                  MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired,videoQuallity: 'normal',))
-              ) :
-              showVideoQualityDialog(materialList, index);
+        Navigator.push(context, MaterialPageRoute(builder: (context) =>
+            MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired,videoQuallity: 'normal',))
+        ) :
+        showVideoQualityDialog(materialList, index);
 
       },
       child: Container(
@@ -332,15 +343,6 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
           )
       ),
     );
-    // return CustomAmberButton(
-    //     text: getTranslated(context, LangString.watch)!,
-    //     onPressed: () {
-    //       materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
-    //       Navigator.push(context, MaterialPageRoute(builder: (context) =>
-    //           MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), ''))
-    //       ) :
-    //       showVideoQualityDialog(index);
-    //     });
   }
 
   Widget PdfButton(List<MaterialData> materialList, index) {
@@ -484,27 +486,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     );
   }
 
-  void grouping() {
-    var groupedLists = {};
-    mainList.forEach((data) {
-        if (groupedLists['${data.unit}'] == null) {
-          groupedLists['${data.unit}'] = <MaterialData>[];
-        }
-        (groupedLists['${data.unit}'] as List<MaterialData>).add(data);
-    });
-    for(int i=0; i<groupedLists.length; i++) {
-      String key = groupedLists.keys.elementAt(i);
-      var value = groupedLists.values.elementAt(i);
-      if(key == 'Others'){
-        groupingList.add(GroupClass(key, value,true));
-      }
-     else{
-      groupingList.add(GroupClass(key, value,false));
-    }
-  }
-  }
-
-  void showPdfDialog(pdfPath, title,timlineId) {
+  void showPdfDialog(pdfPath, title, timlineId) {
     AlertDialog alert = AlertDialog(
       content: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
@@ -531,11 +513,9 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
                         'Topic_Name':title.toString()
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_PDF_Viewer,map);
-                      // print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
                       AppConstants.timlineId = timlineId.toString();
                       AppConstants.timlineName = title.toString();
-                      AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>');
-                     isTimlineRequired == true ? pdfClickLog( timlineId.toString(),title):null;
+                      isTimlineRequired == true ? pdfClickLog( timlineId.toString(),title):null;
                       Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => DownloadViewPdf(title, pdfPath,isTimlineRequired:isTimlineRequired)));
                     },
@@ -579,10 +559,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     );
   }
 
-
-  //============================================ElsticApiCall========================================
-
-  Future<void> pdfClickLog(title,timlineId) async {
+  Future<void> pdfClickLog(title, timlineId) async {
     // AppConstants.showLoaderDialog(context);
     {
       var body = {
@@ -618,13 +595,13 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       };
       await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((
           response) {
-       // AppConstants.printLog(header);
         AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
         AppConstants.printLog(response.body);
         AppConstants.printLog('pdf-View-click');
       });
     }
   }
+
 }
 
 class GroupClass {
@@ -632,5 +609,4 @@ class GroupClass {
   List<MaterialData> list;
   bool showVideo ;
   GroupClass(this.unitTitle, this.list,this.showVideo);
-
 }
