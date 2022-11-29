@@ -222,7 +222,7 @@ class AnalyticsConstants {
   static String Click_Doubts_Unlock_Sampling= 'Click_Doubts_Unlock_Sampling';
   static String Click_Subject= 'Click_Subject';
   static String Click_Chapter= 'Click_Chapter';
-  static String My_Courses_Doubts = 'My_Courses_Doubts';
+
 
 
 }
