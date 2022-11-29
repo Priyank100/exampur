@@ -216,6 +216,13 @@ class AnalyticsConstants {
   static String My_Courses_Doubts = 'My_Courses_Doubts';
   static String Click_Ask_Doubts = 'Click_Ask_Doubts';
   static String Signup_Successful= 'Signup_Successful';
+  static String Click_View_Demo= 'Click_View_Demo';
+  static String Click_Purchase_Now_Sampling= 'Click_Purchase_Now_Sampling';
+  static String Purchase_Now_Sampling= 'Purchase_Now_Sampling';
+  static String Click_Doubts_Unlock_Sampling= 'Click_Doubts_Unlock_Sampling';
+  static String Click_Subject= 'Click_Subject';
+  static String Click_Chapter= 'Click_Chapter';
+  static String My_Courses_Doubts = 'My_Courses_Doubts';
 
 
 }

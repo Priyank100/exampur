@@ -82,6 +82,7 @@ class PaidCourseData {
     String? testSeriesLink,
     String? status,
    PreBookDetail? preBookDetail,
+    bool? purchase = false
 
   }){
     _id = id;
@@ -102,6 +103,7 @@ class PaidCourseData {
     _testSeriesLink = testSeriesLink;
     _status = status ;
    _preBookDetail = preBookDetail;
+   _purchase = purchase;
 }
 
   PaidCourseData.fromJson(dynamic json) {
@@ -138,6 +140,7 @@ class PaidCourseData {
     _testSeriesLink = json['test_series_link']==null?'':json['test_series_link'].toString();
     _status = json['status']==null?'Published':json['status'].toString();
    _preBookDetail = json['prebook_details'] == null ? null : PreBookDetail.fromJson(json["prebook_details"]);
+   _purchase = json['purchase'] == null ? false : json['purchase'];
   }
   String? _id;
   String? _title;
@@ -157,6 +160,7 @@ class PaidCourseData {
   String? _testSeriesLink;
   String? _status;
  PreBookDetail? _preBookDetail;
+ bool? _purchase;
 
   String? get id => _id;
   String? get title => _title;
@@ -176,6 +180,7 @@ class PaidCourseData {
   String? get testSeriesLink => _testSeriesLink;
   String? get status => _status;
  PreBookDetail? get preBookDetail => _preBookDetail;
+ bool? get purchase => _purchase;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -203,6 +208,7 @@ class PaidCourseData {
     map['test_series_link'] = _testSeriesLink;
     map['status'] = _status;
    map['prebook_details'] = _preBookDetail;
+   map['purchase'] = _purchase;
     return map;
   }
 

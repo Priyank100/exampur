@@ -430,7 +430,7 @@ class _HomeState extends State<Home> {
                           .push(MaterialPageRoute(
                               builder: (_) =>
                                   // CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)
-                                  StudyMaterialNew(0,API.studyMaterialNewUrl)));
+                                  StudyMaterialNew(0)));
                     },
                   ),
                 ],
@@ -531,7 +531,7 @@ class _HomeState extends State<Home> {
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
-                                  StudyMaterialNew(1,API.previousYearMaterialUrl)));
+                                  StudyMaterialNew(1)));
                     },
                   ),
                   SquareButton(

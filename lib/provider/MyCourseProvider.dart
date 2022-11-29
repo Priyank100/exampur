@@ -235,10 +235,6 @@ class MyCourseProvider extends ChangeNotifier {
       if (statusCode == '200') {
         _myCourseNotificationModel = MyCourseNotificationModel.fromJson(json.decode(apiResponse.response.toString()));
         return _myCourseNotificationModel.data;
-      } else if(statusCode == '409') {
-        SharedPref.clearSharedPref(SharedPref.TOKEN);
-        SharedPref.clearSharedPref(SharedPref.USER_DATA);
-        Navigator.of(context).pushNamedAndRemoveUntil('/landingPage', (Route<dynamic> route) => false);
       } else {
         String error = apiResponse.response!.data['data'].toString();
         AppConstants.showBottomMessage(context, error, AppColors.black);

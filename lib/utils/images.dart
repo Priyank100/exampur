@@ -41,6 +41,8 @@ class Images {
   static const String practice = 'assets/images/practice.png';
   static const String attemptquiz = 'assets/images/attemptquiz.png';
   static const String savequestion = 'assets/images/savequestion.png';
+  // static const String unlock = 'assets/images/unLock.png';
   static const String unlock = 'assets/images/unLock.png';
+  static const String lock = 'assets/images/lock.png';
 
 }

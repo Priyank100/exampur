@@ -11,21 +11,37 @@ import io.flutter.plugin.common.MethodChannel
 
 class MainActivity: FlutterActivity() {
 
+    private lateinit var mResult: MethodChannel.Result
+
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "flutter.native/helper").setMethodCallHandler {
-                call, result ->
+            call, result ->
+            mResult = result
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", ""+call.method)
-            startActivity(intent)
-            result.success("Hello Kotlin")
+            startActivityForResult(intent, 123)
+        }
+    }
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
+        if (resultCode == 1) {
+            if (requestCode == 123) {
+                var res = intent!!.getStringExtra("Submitted")
+                if (res.equals("Done")) {
+                    mResult.success(res);
+                }
+            }
         }
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
 }

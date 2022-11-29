@@ -26,6 +26,9 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import android.widget.ProgressBar
+import android.content.Context
+import android.webkit.JavascriptInterface
+import androidx.appcompat.app.AlertDialog
 
 
 class WebViewActivity : FlutterActivity() {
@@ -39,6 +42,7 @@ class WebViewActivity : FlutterActivity() {
     private val FCR = 1
     private var mUMA: ValueCallback<Array<Uri>>? = null
     var progress: ProgressBar? = null
+    var doubtCourseId : String = "";
 
 
 
@@ -55,17 +59,17 @@ class WebViewActivity : FlutterActivity() {
 
 
         if (Build.VERSION.SDK_INT >= 23 && (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED)
+                        this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.CAMERA
+                ) != PackageManager.PERMISSION_GRANTED)
         ) {
             ActivityCompat.requestPermissions(
-                this@WebViewActivity,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
-                1
+                    this@WebViewActivity,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
+                    1
             )
         }
 
@@ -74,6 +78,12 @@ class WebViewActivity : FlutterActivity() {
         val webSettings = webView!!.settings
         webSettings.javaScriptEnabled = true
         webSettings.allowFileAccess = true
+
+        doubtCourseId = getIntent().getStringExtra("url")!!.substring(getIntent().getStringExtra("url")!!.lastIndexOf('/') + 1);
+        doubtCourseId = doubtCourseId.substringBefore("?")
+
+        webView!!.getSettings().setDomStorageEnabled(true)
+        webView!!.addJavascriptInterface(MyJavaScriptInterface(this@WebViewActivity), "ButtonRecognizer")
 
         if (Build.VERSION.SDK_INT >= 21) {
             webSettings.mixedContentMode = 0
@@ -86,14 +96,13 @@ class WebViewActivity : FlutterActivity() {
         webView!!.webViewClient = WebViewActivity.Callback()
         webView!!.loadUrl(""+ getIntent().getStringExtra("url"))
 
-
         webView!!.webChromeClient = object : WebChromeClient() {
 
 
             //For Android 5.0+
             override fun onShowFileChooser(
-                webView: WebView, filePathCallback: ValueCallback<Array<Uri>>,
-                fileChooserParams: FileChooserParams
+                    webView: WebView, filePathCallback: ValueCallback<Array<Uri>>,
+                    fileChooserParams: FileChooserParams
             ): Boolean {
 
 
@@ -143,7 +152,30 @@ class WebViewActivity : FlutterActivity() {
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
                 progress!!.visibility = View.GONE
+                loadEvent(clickListener())
             }
+
+            private fun loadEvent(javascript: String) {
+                webView!!.loadUrl("javascript:$javascript")
+            }
+
+            private fun clickListener(): String {
+                return """${buttons}
+                    for(var i = 0; i < buttons.length; i++){
+                        buttons[i].onclick = function(){
+//                            console.log(">>>>>>>>>>>Anchal");
+//                            console.log($(this).attr('id'));
+//                            console.log(${doubtCourseId});
+                            if(${doubtCourseId} == $(this).attr('id')) {
+                                ButtonRecognizer.boundMethod('button clicked');
+                            }
+                        };
+                    }"""
+            }
+
+            private val buttons: String
+                private get() = "var buttons = document.getElementsByClassName('btn btn-primary');"
+
         }
 
     }
@@ -199,10 +231,10 @@ class WebViewActivity : FlutterActivity() {
 
     class Callback : WebViewClient() {
         override fun onReceivedError(
-            view: WebView,
-            errorCode: Int,
-            description: String,
-            failingUrl: String
+                view: WebView,
+                errorCode: Int,
+                description: String,
+                failingUrl: String
         ) {
 //            Toast.makeText(this, "Failed loading app!", Toast.LENGTH_SHORT).show()
         }
@@ -212,12 +244,12 @@ class WebViewActivity : FlutterActivity() {
     @Throws(IOException::class)
     private fun createImageFile(): File? {
         @SuppressLint("SimpleDateFormat") val timeStamp =
-            SimpleDateFormat("yyyyMMdd_HHmmss").format(
-                Date()
-            )
+                SimpleDateFormat("yyyyMMdd_HHmmss").format(
+                        Date()
+                )
         val imageFileName = "img_" + timeStamp + "_"
         val storageDir =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(imageFileName, ".jpg", storageDir)
     }
 
@@ -241,5 +273,16 @@ class WebViewActivity : FlutterActivity() {
 //    fun onConfigurationChanged(newConfig: Configuration?) {
 //        super.onConfigurationChanged(newConfig!!)
 //    }
+
+
+    inner class MyJavaScriptInterface(ctx: Context) {
+        @JavascriptInterface
+        fun boundMethod(html: String?) {
+            val intent = Intent()
+            intent.putExtra("Submitted", "Done")
+            setResult(1, intent)
+            finish()
+        }
+    }
 
 }
