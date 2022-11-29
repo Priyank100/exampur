@@ -9,6 +9,16 @@ class NewMyCourseRepo {
   final DioClient dioClient;
   NewMyCourseRepo ({required this.dioClient});
 
+  Future<ApiResponse> samplingFeatures(String courseId) async {
+    try {
+      String url = API.samplingFeatures_URL + courseId;
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
   Future<ApiResponse> myCourseTimelineRepo(String courseId, String activeBtn) async {
     String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     try {

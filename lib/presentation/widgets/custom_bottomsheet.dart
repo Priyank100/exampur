@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class ModalBottomSheet {
   static void moreModalBottomSheet(context) {
+    List<String> featuresList = SamplingBottomSheetParam.getFeaturesList;
     Size size = MediaQuery.of(context).size;
     showModalBottomSheet(
         isScrollControlled: true,
@@ -39,17 +40,16 @@ class ModalBottomSheet {
                       SizedBox(height: 10),
                       Text('To unlock the videos \nPurchace the course and continue watching.',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
                       SizedBox(height: 10),
-                      CustomContainerText('500+ Interactive Videos'),
-                      SizedBox(height: 10),
-                      CustomContainerText('500+ Live Videos'),
-                      SizedBox(height: 10),
-                      CustomContainerText('500+ chapter Notes'),
-                      SizedBox(height: 10),
-                      CustomContainerText('500+ Test Series'),
+                      ListView.builder(
+                        shrinkWrap: true,
+                          itemCount: featuresList.length,
+                          itemBuilder: (context, index) {
+                            return CustomContainerText(featuresList[index]);
+                          }),
                       SizedBox(height: 20),
                       InkWell(
                         onTap: (){
-                          Map<String, dynamic> data = DeliveryDetailScreenParam.getDeliveryDetailParam;
+                          Map<String, dynamic> data = SamplingBottomSheetParam.getDeliveryDetailParam;
                           Navigator.pushReplacement(
                               context, MaterialPageRoute(builder: (context) =>
                               DeliveryDetailScreen(
@@ -85,6 +85,7 @@ class ModalBottomSheet {
   static Widget CustomContainerText(String text) {
     return Container(
       height: 40,
+      margin: EdgeInsets.all(2),
       decoration: BoxDecoration(
           color: AppColors.grey300,
           borderRadius: BorderRadius.all(Radius.circular(8))

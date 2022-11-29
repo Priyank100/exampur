@@ -6,6 +6,7 @@ import 'package:exampur_mobile/data/model/my_course_material_model.dart';
 import 'package:exampur_mobile/data/model/my_course_subject_model.dart';
 import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
+import 'package:exampur_mobile/data/model/sampling_features_model.dart';
 import 'package:exampur_mobile/data/model/teacher_chapter_model.dart';
 import 'package:exampur_mobile/data/repository/new_my_course_repo.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
@@ -16,6 +17,9 @@ import 'package:flutter/material.dart';
 class NewMyCourseProvider extends ChangeNotifier {
   final NewMyCourseRepo newMyCourseRepo;
   NewMyCourseProvider({required this.newMyCourseRepo});
+
+  SamplingFeaturesModel _samplingFeaturesModel = SamplingFeaturesModel();
+  SamplingFeaturesModel get samplingFeaturesModel => _samplingFeaturesModel;
 
   MyCourseTimelineModel _myCourseTimelineListModel = MyCourseTimelineModel();
   MyCourseTimelineModel get myCourseTimelineListModel => _myCourseTimelineListModel;
@@ -32,6 +36,26 @@ class NewMyCourseProvider extends ChangeNotifier {
   MyCourseMaterialModel _myCourseMaterialModel = MyCourseMaterialModel();
   MyCourseMaterialModel get myCourseMaterialModel => _myCourseMaterialModel;
 
+  Future<List<String>?> getSamplingFeaturesList(BuildContext context, String courseId) async {
+    ApiResponse apiResponse = await newMyCourseRepo.samplingFeatures(courseId);
+
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+      if (statusCode == '200') {
+        _samplingFeaturesModel = SamplingFeaturesModel.fromJson(json.decode(apiResponse.response.toString()));
+        return _samplingFeaturesModel.data!.features;
+      } else {
+        String error = apiResponse.response!.data['data'].toString();
+        AppConstants.showBottomMessage(context, error, AppColors.black);
+      }
+      notifyListeners();
+    } else {
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, LangString.serverError)!,
+          AppColors.red);
+      notifyListeners();
+    }
+  }
 
   Future<List<TimelineData>?> getMyCourseTimeLineList(BuildContext context, String courseId, String activeBtn) async {
     ApiResponse apiResponse = await newMyCourseRepo.myCourseTimelineRepo(courseId,activeBtn);

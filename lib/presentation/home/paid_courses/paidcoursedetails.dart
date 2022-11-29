@@ -4,6 +4,7 @@ import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/my_course_new/mycourse_tab.dart';
 import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
+import 'package:exampur_mobile/provider/new_my_course_provider.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -16,6 +17,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PaidCourseDetails extends StatefulWidget {
@@ -292,8 +294,10 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                         "preBooktype": widget.courseData.status,
                         "preBookDetail": widget.courseData.preBookDetail
                       };
-                      DeliveryDetailScreenParam.setDeliveryDetailParam = map;
+                      SamplingBottomSheetParam.setDeliveryDetailParam = map;
 
+                      List<String> samplingFeaturesList = (await Provider.of<NewMyCourseProvider>(context, listen: false).getSamplingFeaturesList(context, widget.courseData.id.toString()))!;
+                      SamplingBottomSheetParam.setFeaturesList = samplingFeaturesList;
                       String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
                       Navigator.push(context, MaterialPageRoute(builder: (_) =>
                           MyCourseTab(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)

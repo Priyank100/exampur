@@ -259,7 +259,7 @@ class API {
   static String TEST_BASE_URL = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
   // bottomSheet
-  static String bottomSheet_URL                     = '';
+  static String samplingFeatures_URL                = TEST_BASE_URL + 'sampling/features/';
 
   // timeline - Live = https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/sampling/class/live/:course_id
   static String newMyCourseTimelineLive_URL         = TEST_BASE_URL + 'sampling/class/live/';
