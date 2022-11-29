@@ -107,7 +107,7 @@ class _TimelineViewState extends State<TimelineView> {
                             index < unlockValue ?
                             myCourseTimeLineList[index].type.toString().toUpperCase() == 'ZOOM' ?
                             AppConstants.makeCallEmail(myCourseTimeLineList[index].targetLink.toString()) :
-                            callLiveStream(index) : ModalBottomSheet.moreModalBottomSheet(context) : null;
+                            callLiveStream(index) : ModalBottomSheet.moreModalBottomSheet(context,'Timeline_View') : null;
                           },
                           child: Stack(
                             children: [

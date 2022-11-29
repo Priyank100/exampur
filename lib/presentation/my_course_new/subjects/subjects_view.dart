@@ -13,6 +13,8 @@ import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/delivery_detail_screen_param.dart';
+
 class SubjectsView extends StatefulWidget {
   final String courseId;
   const SubjectsView(this.courseId) : super();
@@ -29,14 +31,6 @@ class _SubjectsViewState extends State<SubjectsView> {
 
   @override
   void initState() {
-    var map = {
-      'Page_Name':'My_Courses_Subjects',
-      'Mobile_Number':AppConstants.userMobile,
-      'Language':AppConstants.langCode,
-      'User_ID':AppConstants.userMobile,
-      'Course_Name': AppConstants.courseName,
-    };
-    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Subjects,map);
     callProvider();
     super.initState();
   }
@@ -86,23 +80,25 @@ class _SubjectsViewState extends State<SubjectsView> {
   Widget GridItem(index) {
     return InkWell(
       onTap: () {
+        var analytics = {
+          'Page_Name': 'My_Courses_Subjects',
+          'Course_Category': AppConstants.paidTabName,
+          'Course_Name': SamplingBottomSheetParam.getDeliveryDetailParam['title'].toString(),
+          'Mobile_Number': AppConstants.userMobile,
+          'Language': AppConstants.langCode,
+          'User_ID': AppConstants.userMobile,
+          'Course_Type':'Demo',
+          'Locked':index < unlockValue ? 'Flase' : 'True',
+          'Subject_Name':subjectList[index].title.toString(),
+        };
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Subject, analytics);
         if(index < unlockValue) {
-          var map = {
-            'Page_Name':'My_Courses_Chapter',
-            'Mobile_Number':AppConstants.userMobile,
-            'Language':AppConstants.langCode,
-            'User_ID':AppConstants.userMobile,
-            'Course_Name': AppConstants.courseName,
-            'Faculty_Name':subjectList[index].title.toString(),
-            'Subject_Name':subjectList[index].title.toString()
-          };
-          AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Chapter,map);
           AppConstants.subjectName = subjectList[index].title.toString();
           Navigator.push(context, MaterialPageRoute(builder: (_) =>
               ChaptersView(widget.courseId, subjectList[index].id.toString())
           ));
         } else {
-          ModalBottomSheet.moreModalBottomSheet(context);
+          ModalBottomSheet.moreModalBottomSheet(context,'Subject_View');
         }
       },
       child: Column(

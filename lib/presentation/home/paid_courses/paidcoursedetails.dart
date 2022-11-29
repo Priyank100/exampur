@@ -283,6 +283,17 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                   InkWell(
                     onTap: () async {
                       _controller.pause();
+                      AppConstants.mycourseType = 2;
+
+                      var analytics = {
+                        'Page_Name':'Course_Details',
+                        'Course_Category':AppConstants.paidTabName,
+                        'Course_Name':widget.courseData.title.toString(),
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'User_ID':AppConstants.userMobile,
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_Demo,analytics);
 
                       Map<String, dynamic> map = {
                         "courseTabType": widget.courseTabType.toString(),

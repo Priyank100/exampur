@@ -13,6 +13,9 @@ import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/analytics_constants.dart';
+import '../../../utils/delivery_detail_screen_param.dart';
+
 class ChaptersView extends StatefulWidget {
   final String courseId;
   final String subjectId;
@@ -103,16 +106,28 @@ class _ChaptersViewState extends State<ChaptersView> {
             listTileChapter(index),
             index+1 > unlockValue ? InkWell(
               onTap: () {
-                ModalBottomSheet.moreModalBottomSheet(context);
+                var analytics = {
+                  'Page_Name': 'My_Courses_Chapter',
+                  'Course_Category': AppConstants.paidTabName,
+                  'Course_Name': SamplingBottomSheetParam.getDeliveryDetailParam['title'].toString(),
+                  'Mobile_Number': AppConstants.userMobile,
+                  'Language': AppConstants.langCode,
+                  'User_ID': AppConstants.userMobile,
+                  'Course_Type':'Demo',
+                  'Locked':'True',
+                  'Subject_Name':AppConstants.subjectName,
+                };
+                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Chapter, analytics);
+               ModalBottomSheet.moreModalBottomSheet(context,'Chapter_View',);
               },
               child: Opacity(
                   opacity: 0.6,
                   child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 75,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
                             color: AppColors.black,
                             offset:  Offset(
@@ -139,7 +154,18 @@ class _ChaptersViewState extends State<ChaptersView> {
     return ListTile(
         contentPadding: EdgeInsets.all(8),
         onTap: (){
-          if(index < unlockValue) {
+          var analytics = {
+            'Page_Name': 'My_Courses_Chapter',
+            'Course_Category': AppConstants.paidTabName,
+            'Course_Name': SamplingBottomSheetParam.getDeliveryDetailParam['title'].toString(),
+            'Mobile_Number': AppConstants.userMobile,
+            'Language': AppConstants.langCode,
+            'User_ID': AppConstants.userMobile,
+            'Course_Type':'Demo',
+            'Locked':'False',
+            'Subject_Name':AppConstants.subjectName,
+          };
+          AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Chapter, analytics);
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -147,9 +173,6 @@ class _ChaptersViewState extends State<ChaptersView> {
                         TopicsView(widget.subjectId, widget.courseId, chapterList[index].toString())
                 )
             );
-          } else {
-            ModalBottomSheet.moreModalBottomSheet(context);
-          }
         },
         leading: Image.asset(Images.exampur_logo,height: 40,width: 60,),
         title: Column(

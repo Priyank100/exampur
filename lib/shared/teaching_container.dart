@@ -188,6 +188,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           CustomRoundButton(onPressed: () async {
+                            AppConstants.mycourseType = 1;
                             // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
                             // // courseIdList.add(widget.courseData.id.toString());
                             // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;

@@ -81,6 +81,7 @@ class AppConstants {
   static String paidTabName = '';
   static String videoQuality = '';
   static String currentindex = '';
+  static int mycourseType = 0;
   static List<String> selectedCategoryName = [];
   //=========================================================
 

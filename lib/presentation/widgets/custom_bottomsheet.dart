@@ -4,10 +4,23 @@ import 'package:exampur_mobile/utils/delivery_detail_screen_param.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/analytics_constants.dart';
+import '../../utils/app_constants.dart';
+
 class ModalBottomSheet {
-  static void moreModalBottomSheet(context) {
+  static void moreModalBottomSheet(context,pageName) {
+    Map<String, dynamic> data = SamplingBottomSheetParam.getDeliveryDetailParam;
     List<String> featuresList = SamplingBottomSheetParam.getFeaturesList;
     Size size = MediaQuery.of(context).size;
+    var analytics = {
+      'Page_Name':pageName.toString(),
+      'Course_Category':AppConstants.paidTabName,
+      'Course_Name':data['title'].toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Now_Sampling,analytics);
     showModalBottomSheet(
         isScrollControlled: true,
         shape: RoundedRectangleBorder(
@@ -49,7 +62,15 @@ class ModalBottomSheet {
                       SizedBox(height: 20),
                       InkWell(
                         onTap: (){
-                          Map<String, dynamic> data = SamplingBottomSheetParam.getDeliveryDetailParam;
+                          var analytics = {
+                            'Page_Name':pageName.toString(),
+                            'Course_Category':AppConstants.paidTabName,
+                            'Course_Name':data['title'].toString(),
+                            'Mobile_Number':AppConstants.userMobile,
+                            'Language':AppConstants.langCode,
+                            'User_ID':AppConstants.userMobile,
+                          };
+                          AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Purchase_Now_Sampling,analytics);
                           Navigator.pushReplacement(
                               context, MaterialPageRoute(builder: (context) =>
                               DeliveryDetailScreen(

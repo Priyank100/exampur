@@ -7,6 +7,9 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 
+import '../../../utils/analytics_constants.dart';
+import '../../../utils/delivery_detail_screen_param.dart';
+
 
 class DoubtsPage extends StatefulWidget {
   final String token;
@@ -37,7 +40,16 @@ class _DoubtsPageState extends State<DoubtsPage> with WidgetsBindingObserver {
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
-    firebaseGetData( documentID: widget.firebaseId);
+    // firebaseGetData( documentID: widget.firebaseId);
+    var map ={
+      'Page_Name':'My_Courses_Doubts',
+      'Course_Name':AppConstants.courseName,
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : AppConstants.mycourseType == 1 ? 'Free_Course' : 'Demo'
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Doubts,map);
   }
 
 
@@ -50,8 +62,19 @@ class _DoubtsPageState extends State<DoubtsPage> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      if(nativeData != null && nativeData == 'Done')
-        ModalBottomSheet.moreModalBottomSheet(context);
+      if(nativeData != null && nativeData == 'Done') {
+        var analytics = {
+          'Page_Name': 'Doubts Page',
+          'Course_Category': AppConstants.paidTabName,
+          'Course_Name': SamplingBottomSheetParam.getDeliveryDetailParam['title'].toString(),
+          'Mobile_Number': AppConstants.userMobile,
+          'Language': AppConstants.langCode,
+          'User_ID': AppConstants.userMobile,
+        };
+        AnalyticsConstants.trackEventMoEngage(
+            AnalyticsConstants.Click_Doubts_Unlock_Sampling, analytics);
+        ModalBottomSheet.moreModalBottomSheet(context, 'DoubtPage');
+      }
     }
   }
 
