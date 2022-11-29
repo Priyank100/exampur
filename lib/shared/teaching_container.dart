@@ -228,6 +228,13 @@ class _TeachingContainerState extends State<TeachingContainer> {
                           SizedBox(height: 10,),
 
                           widget.courseType==1?
+
+                          widget.courseData.purchase == true ?
+                              Row(children: [
+                                Icon(Icons.check_circle, color: AppColors.green, size: 15),
+                                Text('Already Purchased', style: TextStyle(color: AppColors.green, fontSize: 12))
+                              ]):
+
                           CustomRoundButton(
                               onPressed: ()async{
                             await   FirebaseAnalytics.instance.logEvent(name:'Paid_Courdse_Details',parameters: {

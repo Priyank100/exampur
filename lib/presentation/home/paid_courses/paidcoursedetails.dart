@@ -3,6 +3,7 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
 import 'package:exampur_mobile/presentation/my_course_new/mycourse_tab.dart';
+import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
 import 'package:exampur_mobile/shared/view_pdf.dart';
 import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
@@ -276,6 +277,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                           )),
                     ),
                   ):SizedBox(),
+                  widget.courseData.purchase == true ? SizedBox() :
                   InkWell(
                     onTap: () async {
                       _controller.pause();
@@ -311,6 +313,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                           )),
                     )
                   ),
+                  widget.courseData.purchase == true ? AlreadyPurchasedBtn() :
                   InkWell(
                     onTap: () {
                       _controller.pause();
@@ -348,11 +351,54 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                             widget.courseData.status == 'Published'?
                             getTranslated(context, LangString.buyCourse)!:message.replaceAll('X', widget.courseData.preBookDetail!.percentOff.toString()),
                             style: TextStyle(color: AppColors.white, fontSize:  widget.courseData.status == 'Published'?16: 12),
-                          )),
+                          )
+                      ),
                     ),
                   )
                 ],
               ) : SizedBox()
+        ),
+      ),
+    );
+  }
+
+  Widget AlreadyPurchasedBtn() {
+    return InkWell(
+      onTap: () async {
+        _controller.pause();
+        String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
+        var map = {
+          'Page_Name':'Course_Details',
+          'Course_Category':AppConstants.paidTabName,
+          'Course_Name':widget.courseData.title.toString(),
+          'Mobile_Number':AppConstants.userMobile,
+          'Language':AppConstants.langCode,
+          'User_ID':AppConstants.userMobile,
+        };
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Course,map);
+        FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
+          'Course_Id':widget.courseData.id.toString(),
+          'Course_Name':widget.courseData.title.toString()
+        });
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) =>
+            MyCourseTabView(
+                widget.courseData.id.toString(),
+                widget.courseData.title.toString(),
+                widget.courseData.testSeriesLink.toString(),
+                token
+            )
+        ));
+      },
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: AppColors.amber,
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        height: 40,
+        margin: EdgeInsets.all(10),
+        child: Center(
+            child: Text('VIEW (Already Purchased)', style: TextStyle(color: AppColors.white))
         ),
       ),
     );
