@@ -1,5 +1,7 @@
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:moengage_flutter/constants.dart';
+import 'package:moengage_flutter/inapp_campaign.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
 
@@ -59,17 +61,59 @@ class AnalyticsConstants {
       AppConstants.printLog("Error: $e");
     }
   }
+  static void inAppCallback() {
+    // moengagePlugin.setUpInAppCallbacks(
+    //     onInAppClick: _onInAppClick,
+    //     onInAppShown: _onInAppShown,
+    //     onInAppDismiss: _onInAppDismiss,
+    //     onInAppCustomAction: _onInAppCustomAction,
+    //     onInAppSelfHandle: _onInAppSelfHandle
+    // );
+  }
 
   static void moEngageInitialize(){
+    moengagePlugin.setUpInAppCallbacks(
+        onInAppClick: _onInAppClick,
+        onInAppShown: _onInAppShown,
+        onInAppDismiss: _onInAppDismiss,
+        onInAppCustomAction: _onInAppCustomAction,
+        onInAppSelfHandle: _onInAppSelfHandle
+    );
     moengagePlugin.initialise();
+    moengagePlugin.showInApp();
   // moengagePlugin.passFCMPushToken('UAIIRLJXLAVMA3I6TOFYHV8P');
     // _moengagePlugin.setUserName(AppConstants.userName);
     // _moengagePlugin.setPhoneNumber(AppConstants.userMobile);
     // _moengagePlugin.setUniqueId(AppConstants.userMobile);
   }
 
+  static void _onInAppClick(InAppCampaign message) {
+    print("This is a inapp click callback from native to flutter. Payload " +
+        message.toString());
+  }
+
+  static void _onInAppShown(InAppCampaign message) {
+    print("This is a callback on inapp shown from native to flutter. Payload " +
+        message.toString());
+  }
+
+  static void _onInAppDismiss(InAppCampaign message) {
+    print("This is a callback on inapp dismiss from native to flutter. Payload " +
+        message.toString());
+  }
+
+  static void _onInAppCustomAction(InAppCampaign message) {
+    print("This is a callback on inapp custom action from native to flutter. Payload " +
+        message.toString());
+  }
+
+  static void _onInAppSelfHandle(InAppCampaign message) {
+    print("This is a callback on inapp self handle from native to flutter. Payload " +
+        message.toString());
+  }
+
   static void trackEventMoEngage(String eventName, Map<String, dynamic> map) {
-    moengagePlugin.showInApp();
+    // moengagePlugin.showInApp();
     var properties = MoEProperties();
     for(var entry in map.entries) {
       properties.addAttribute(entry.key, entry.value);

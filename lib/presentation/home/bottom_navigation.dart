@@ -91,6 +91,11 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
 
     callProvider();
 
+    // AnalyticsConstants.moengagePlugin.setUpInAppCallbacks(onInAppClick: (inAppCampaign) {
+    //   print('>>>>>>>>>>>>>>>>>');
+    //   print(inAppCampaign.navigationAction!.url.toString());
+    // });
+
   }
 
   Future<void> callProvider() async {

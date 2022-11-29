@@ -51,7 +51,8 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   String? versionName;
   String? versionCode;
   String noVideoLink = 'https://cdn.exampur.xyz/No+video+available+here.+This+is+a+Special+PDF.+Please+clink+on+View+PDF+to+access+the+material.mp4';
-  String firebaseId = '';
+  //String firebaseId = '';
+  String contentCourseId = '';
   bool isTimlineRequired = false;
   @override
   void initState() {
@@ -59,24 +60,36 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     getUserData();
     getDeviceData();
     getAppVersionData();
-    getDatafromfirebase();
+   // getDatafromfirebase();
+    getContentLogCourseId();
     super.initState();
   }
 //====================================firebasecall==========================================
-  Future<void> getDatafromfirebase() async {
-    final QuerySnapshot result =
-    await FirebaseFirestore.instance.collection('timeline_video_track').get();
-    final List<DocumentSnapshot> documents = result.docs;
-    documents.forEach((data) {
-      if (widget.courseId == data.id) {
-        firebaseId = data.id;
+//   Future<void> getDatafromfirebase() async {
+//     final QuerySnapshot result =
+//     await FirebaseFirestore.instance.collection('timeline_video_track').get();
+//     final List<DocumentSnapshot> documents = result.docs;
+//     documents.forEach((data) {
+//       if (widget.courseId == data.id) {
+//         firebaseId = data.id;
+//         isTimlineRequired = true;
+//         AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
+//         AppConstants.printLog(firebaseId);
+//       }
+//     });
+//   }
+
+  void getContentLogCourseId(){
+    AppConstants.contentLogList.forEach((data) {
+      if (widget.courseId == data) {
+        contentCourseId = data;
         isTimlineRequired = true;
-        AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
-        AppConstants.printLog(firebaseId);
+      // print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
+      //   print(contentCourseId);
       }
     });
-  }
 
+  }
 
   Future<void> getUserData() async {
     var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));

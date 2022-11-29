@@ -253,4 +253,9 @@ class API {
   //doubts
   static String doubtsUrl = WEBVIEW_URL +'doubt-session/id/';
 
+
+  static String contentUrl = 'https://tn4skt6hsj.execute-api.ap-south-1.amazonaws.com/config/content-log';
+
+  static String doubtgetUrl = 'https://tn4skt6hsj.execute-api.ap-south-1.amazonaws.com/config/doubt';
+
 }

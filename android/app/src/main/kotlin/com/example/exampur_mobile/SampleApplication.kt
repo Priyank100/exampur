@@ -16,9 +16,10 @@ import com.moengage.core.DataCenter
 class SampleApplication : FlutterApplication() {
     override fun onCreate() {
         super.onCreate();
-        val moEngage = MoEngage.Builder(this, "UAIIRLJXLAVMA3I6TOFYHV8P").
-        setDataCenter(DataCenter.DATA_CENTER_3)
-                .configureNotificationMetaData(NotificationConfig(R.drawable.logo, R.drawable.logo));
+        val moEngage = MoEngage.Builder(this, "UAIIRLJXLAVMA3I6TOFYHV8P")
+            .setDataCenter(DataCenter.DATA_CENTER_3)
+            .configureNotificationMetaData(NotificationConfig(R.drawable.logo, R.drawable.logo))
+            .configureLogs(LogConfig(LogLevel.VERBOSE, true));
         MoEInitializer.initialize(this, moEngage);
 
     }

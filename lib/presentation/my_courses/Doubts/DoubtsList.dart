@@ -7,43 +7,44 @@ import '../../../utils/api.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
 import '../../../utils/lang_string.dart';
+import '../../widgets/custom_bottomsheet.dart';
 
 
 class DoubtsPage extends StatefulWidget {
   final  String token;
-  final  String firebaseId;
-  const DoubtsPage(this.token,this.firebaseId) : super();
+  final  String webId;
+  const DoubtsPage(this.token,this.webId) : super();
 
   @override
   State<DoubtsPage> createState() => _DoubtsPageState();
 }
 
 class _DoubtsPageState extends State<DoubtsPage> {
-  String courseId = '';
+  // String courseId = '';
 
   // getDocumentData () async {
   //   print('anchal');
   //   final DocumentReference result =
   //   await FirebaseFirestore.instance.collection('doubts_courses_id').doc('6254b133b2097d80b3af932d');
   // }
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-
-  Future<Map<String, dynamic>> firebaseGetData({required String documentID}) async {
-    DocumentSnapshot ds =
-    await _firestore.collection("doubts_courses_id").doc(documentID).get();
-    Map<String, dynamic> data = ds.data() as Map<String, dynamic>;
-
-    setState(() {
-      courseId = data["id"];
-    });// check if it null or not
-    return data;
-
-  }
+  // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  //
+  //
+  // Future<Map<String, dynamic>> firebaseGetData({required String documentID}) async {
+  //   DocumentSnapshot ds =
+  //   await _firestore.collection("doubts_courses_id").doc(documentID).get();
+  //   Map<String, dynamic> data = ds.data() as Map<String, dynamic>;
+  //
+  //   setState(() {
+  //     courseId = data["id"];
+  //   });// check if it null or not
+  //   return data;
+  //
+  // }
   @override
   void initState() {
     super.initState();
-    firebaseGetData( documentID: widget.firebaseId);
+   // firebaseGetData( documentID: widget.firebaseId);
     var map ={
       'Page_Name':'My_Courses_Doubts',
       'Course_Name':AppConstants.courseName,
@@ -95,12 +96,11 @@ class _DoubtsPageState extends State<DoubtsPage> {
                 };
                 AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Ask_Doubts,map);
 
-                if(courseId.isEmpty || courseId == null){
+                if(widget.webId.isEmpty || widget.webId == null){
                   showBottomMessage(context, 'Something Wrong', Colors.red);
                 }else{
-                     AppConstants.printLog(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId))   ;
-
-            AppConstants.platform.invokeMethod(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));
+                     AppConstants.printLog(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id',widget.webId))   ;
+                    AppConstants.platform.invokeMethod(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', widget.webId));
                 }
 
                 //AppConstants.makeCallEmail(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));

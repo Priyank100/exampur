@@ -12,6 +12,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
 import '../Localization/language_constrants.dart';
 import '../SharePref/shared_pref.dart';
+import '../data/model/DoubtCourseIdModel.dart';
 import '../presentation/widgets/rating_dialog.dart';
 import 'app_colors.dart';
 import 'images.dart';
@@ -25,7 +26,7 @@ class Keys {
 }
 
 class AppConstants {
-  static bool isPrint       = true;
+  static bool isPrint       = false;
   static bool isotpverify   = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -56,6 +57,10 @@ class AppConstants {
 
   static List<String> selectedCategoryList = [];
   static List<String> selectedCategoryNameList = [];
+
+
+  static List<String> contentLogList = [];
+  static List<Course> doubtCourseIdList = [];
 
   // static String currentAffairesId = '61efe9771dbf84752e750373';
   // static String studyMaterialsId = '61efe9921dbf84752e750384';

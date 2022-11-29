@@ -37,6 +37,7 @@ import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart'
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import '../../main.dart';
+import '../../provider/ConfigProvider.dart';
 import 'BannerBookDetailPage.dart';
 import 'FreeVideos/freeVideo.dart';
 import 'TestSeries/test_series_tab.dart';
@@ -64,6 +65,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     callProvider();
+    getConfig();
 
     LocalNotificationService.initialize(context);
 
@@ -201,6 +203,14 @@ class _HomeState extends State<Home> {
       // AppConstants.printLog(">>>>>>>>>>>"+ AppConstants.encodeCategory());
       // bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context, AppConstants.encodeCategory()))!;
     });
+    setState(() {});
+  }
+
+  Future<void> getConfig() async {
+    await Provider.of<ConfigProvider>(context, listen: false)
+        .getContentLog(context);
+    await Provider.of<ConfigProvider>(
+        context, listen: false).getDoubtCourseId(context);
     setState(() {});
   }
 
