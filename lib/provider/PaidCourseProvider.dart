@@ -111,8 +111,6 @@ class PaidCoursesProvider extends ChangeNotifier {
           for(int j=0; j<pcModel.data!.length; j++) {
             if(purchasedList[i].toString() == pcModel.data![j].id.toString()) {
               jsonRes['data'][j]['purchase'] = true;
-            } else {
-              jsonRes['data'][j]['purchase'] = false;
             }
           }
         }

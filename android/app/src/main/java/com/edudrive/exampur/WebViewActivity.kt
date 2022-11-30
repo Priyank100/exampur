@@ -163,7 +163,7 @@ class WebViewActivity : FlutterActivity() {
                 return """${buttons}
                     for(var i = 0; i < buttons.length; i++){
                         buttons[i].onclick = function(){
-//                            console.log(">>>>>>>>>>>Anchal");
+//                            console.log(">>>>>>>>>>>");
 //                            console.log($(this).attr('id'));
 //                            console.log(${doubtCourseId});
                             if(${doubtCourseId} == $(this).attr('id')) {

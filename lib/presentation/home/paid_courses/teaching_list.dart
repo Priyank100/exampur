@@ -51,9 +51,6 @@ class _TeachingListState extends State<TeachingList> {
   Future<void> getLists(pageNo) async {
     if(widget.courseType == 1) {
       List<PaidCourseData> list = (await Provider.of<PaidCoursesProvider>(context, listen: false).getPaidCourseList(context, widget.tabId, pageNo))!;
-      // for(int i=0; i<list.length; i++) {
-      //   print('>>>>' + list[i].purchase.toString());
-      // }
       if(list.length > 0) {
         isData = true;
         paidCourseList = paidCourseList + list;
