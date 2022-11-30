@@ -78,7 +78,9 @@ class _BooksCardState extends State<BooksCard> {
               };
               AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Book,map);
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PlaceOrderScreen(widget.books)
+                  MaterialPageRoute(
+                      settings: RouteSettings(name: 'BookListing'),
+                      builder: (context) => PlaceOrderScreen(widget.books)
                   )
               );
             },

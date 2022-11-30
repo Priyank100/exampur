@@ -39,7 +39,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
   String userMobile = '';
   bool tabname = false;
   List<Widget> tabroutes =[];
-  String firebaseId = '';
+  String courseId = '';
   String webId = '';
 
   Future<String> loadJsonFromAssets() async {
@@ -50,7 +50,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
     bool isDoubtsRequired = false;
     AppConstants.doubtCourseIdList.forEach((data) {
       if (widget.courseId == data.courseId) {
-        firebaseId = data.courseId!;
+        courseId = data.courseId!;
         webId = data.webId!.toString();
         isDoubtsRequired = true;
       }
@@ -62,7 +62,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
       tabList.insert(1, Book(id: "1", name: "Doubts"));
       tabroutes =[
         TimeTableView(widget.courseId),
-        DoubtsPage(widget.token, webId),
+        DoubtsPage(widget.token, webId, 'True'),
         SubjectView(widget.courseId),
         WebViewOpen(widget.testSeriesLink, widget.token),
         MyCourseNotifications(widget.courseId),

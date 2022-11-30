@@ -31,6 +31,15 @@ class _SubjectsViewState extends State<SubjectsView> {
 
   @override
   void initState() {
+    var map = {
+      'Page_Name':'My_Courses_Subjects',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Name': AppConstants.courseName,
+      'Course_Type':'Demo'
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Subjects,map);
     callProvider();
     super.initState();
   }

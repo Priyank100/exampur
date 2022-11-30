@@ -252,7 +252,7 @@ class API {
 
 
   //doubts
-  static String doubtsUrl = WEBVIEW_URL +'doubt-session/id?purchase=TF';
+  static String doubtsUrl = WEBVIEW_URL +'doubt-session/id/?purchase=TF';
 
 //================================== New My Course ===============================================
 

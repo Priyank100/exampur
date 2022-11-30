@@ -212,6 +212,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             widget.courseType==1?AppConstants.subscription(widget.courseData.id.toString().replaceAll(' ', '_')):'';
 
                             if(widget.courseType==1) {
+                              AppConstants.courseName =widget.courseData.title.toString();
                               Navigator.push(context,
                                   MaterialPageRoute(
                                       settings: RouteSettings(name: 'PaidCourseListing'),
@@ -219,6 +220,15 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                   PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
                               ));
                             } else {
+                              var map = {
+                                'Page_Name':'Course_Detail_Page',
+                                'Course_Category':widget.tabName,
+                                'Course_Name':widget.courseData.title.toString(),
+                                'Mobile_Number':AppConstants.userMobile,
+                                'Language':AppConstants.langCode,
+                                'User_ID':AppConstants.userMobile,
+                              };
+                              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Free_Course_Detail,map);
                               AppConstants.courseName =widget.courseData.title.toString();
                               AppConstants.printLog(widget.courseData.title.toString());
                               AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
@@ -402,13 +412,13 @@ class RowTile extends StatelessWidget {
 
 
 }
-
-class MyClip extends CustomClipper<Rect> {
-  Rect getClip(Size size) {
-    return Rect.fromLTWH(0, 0, 25, 25);
-  }
-
-  bool shouldReclip(oldClipper) {
-    return false;
-  }
-}
+//
+// class MyClip extends CustomClipper<Rect> {
+//   Rect getClip(Size size) {
+//     return Rect.fromLTWH(0, 0, 25, 25);
+//   }
+//
+//   bool shouldReclip(oldClipper) {
+//     return false;
+//   }
+// }

@@ -222,6 +222,12 @@ class AnalyticsConstants {
   static String Click_Doubts_Unlock_Sampling= 'Click_Doubts_Unlock_Sampling';
   static String Click_Subject= 'Click_Subject';
   static String Click_Chapter= 'Click_Chapter';
+  static String Course_Detail_page= 'Course_Detail_page';
+  static String Free_Course_List= 'Free_Course_List';
+  static String Free_Course_Detail= 'Free_Course_Detail';
+  static String Course_Details_Page= 'Course_Details_Page';
+  static String Payment_Page_Back_Button= 'Payment_Page_Back_Button';
+  static String Click_Topic_Study_Material= 'Click_Topic_Study_Material';
 
 
 

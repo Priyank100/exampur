@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../utils/api.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
+import '../../../utils/delivery_detail_screen_param.dart';
 import '../../../utils/lang_string.dart';
 import '../../widgets/custom_bottomsheet.dart';
 
@@ -13,13 +14,15 @@ import '../../widgets/custom_bottomsheet.dart';
 class DoubtsPage extends StatefulWidget {
   final  String token;
   final  String webId;
-  const DoubtsPage(this.token,this.webId) : super();
+  final String purchase;
+  const DoubtsPage(this.token,this.webId,this.purchase) : super();
 
   @override
   State<DoubtsPage> createState() => _DoubtsPageState();
 }
 
-class _DoubtsPageState extends State<DoubtsPage> {
+class _DoubtsPageState extends State<DoubtsPage> with WidgetsBindingObserver {
+  var nativeData;
   // String courseId = '';
 
   // getDocumentData () async {
@@ -43,6 +46,7 @@ class _DoubtsPageState extends State<DoubtsPage> {
   // }
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
    // firebaseGetData( documentID: widget.firebaseId);
     var map ={
@@ -51,7 +55,7 @@ class _DoubtsPageState extends State<DoubtsPage> {
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
-      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : AppConstants.mycourseType == 1?'Free_Course':'Demo'
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Doubts,map);
   }
@@ -67,6 +71,30 @@ class _DoubtsPageState extends State<DoubtsPage> {
    //   });
    // }
 
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      if(nativeData != null && nativeData == 'Done') {
+        var analytics = {
+          'Page_Name': 'Doubts Page',
+          'Course_Category': AppConstants.paidTabName,
+          'Course_Name': SamplingBottomSheetParam.getDeliveryDetailParam['title'].toString(),
+          'Mobile_Number': AppConstants.userMobile,
+          'Language': AppConstants.langCode,
+          'User_ID': AppConstants.userMobile,
+        };
+        AnalyticsConstants.trackEventMoEngage(
+            AnalyticsConstants.Click_Doubts_Unlock_Sampling, analytics);
+        ModalBottomSheet.moreModalBottomSheet(context, 'DoubtPage');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,22 +113,24 @@ class _DoubtsPageState extends State<DoubtsPage> {
             SizedBox(height: 30,),
             MaterialButton(
               minWidth: MediaQuery.of(context).size.width/2,
-              onPressed: () {
+              onPressed: () async {
                 var map ={
                   'Page_Name':'My_Courses_Doubts',
                   'Course_Name':AppConstants.courseName,
                   'Mobile_Number':AppConstants.userMobile,
                   'Language':AppConstants.langCode,
                   'User_ID':AppConstants.userMobile,
-                  'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
+                  'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : AppConstants.mycourseType == 1?'Free_Course':'Demo'
                 };
                 AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Ask_Doubts,map);
 
                 if(widget.webId.isEmpty || widget.webId == null){
                   showBottomMessage(context, 'Something Wrong', Colors.red);
                 }else{
-                     AppConstants.printLog(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id',widget.webId))   ;
-                    AppConstants.platform.invokeMethod(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', widget.webId));
+                     AppConstants.printLog(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', widget.webId).replaceAll('TF', widget.purchase))   ;
+                    // AppConstants.platform.invokeMethod(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', widget.webId));
+                     nativeData = await AppConstants.platform.invokeMethod(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', widget.webId).replaceAll('TF', widget.purchase));
+                     setState((){});
                 }
 
                 //AppConstants.makeCallEmail(API.doubtsUrl.replaceAll('TOKEN', widget.token).replaceAll('id', courseId));
@@ -112,7 +142,6 @@ class _DoubtsPageState extends State<DoubtsPage> {
                 style: TextStyle(color: AppColors.white),
               ),
             ),
-
           ],
         ),
       ),

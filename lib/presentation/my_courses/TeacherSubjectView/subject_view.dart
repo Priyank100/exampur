@@ -98,6 +98,17 @@ class _SubjectViewState extends State<SubjectView> {
           'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
         };
        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Chapter,map);
+        var courseSubject = {
+          'Page_Name':'My_Courses_Subject',
+          'Mobile_Number':AppConstants.userMobile,
+          'Language':AppConstants.langCode,
+          'User_ID':AppConstants.userMobile,
+          'Course_Name': AppConstants.courseName,
+          'Faculty_Name':subjectList[index].title.toString(),
+          'Subject_Name':subjectList[index].title.toString(),
+          'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
+        };
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Subject,courseSubject);
         AppConstants.subjectName = subjectList[index].title.toString();
         Navigator.push(context, MaterialPageRoute(builder: (_) =>
             ChapterView(widget.courseId, subjectList[index].id.toString())

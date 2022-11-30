@@ -172,6 +172,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   void dispose() {
     super.dispose();
+    var backbutton= {
+      'Page_Name':'Payment_Page',
+      'Course_Category':AppConstants.paidTabName,
+      'Course_Name':widget.billingModel.itemName.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Price':widget.deliveryUpsellModel.data!.amount,
+      'Total_Price':widget.deliveryUpsellModel.data!.amount,
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Payment_Page_Back_Button,backbutton);
     razorpay.clear();
   }
 
