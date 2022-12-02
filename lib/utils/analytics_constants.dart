@@ -8,9 +8,14 @@ import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 
+import '../SharePref/shared_pref.dart';
 import '../presentation/home/BannerBookDetailPage.dart';
 import '../presentation/home/banner_link_detail_page.dart';
 import '../presentation/home/books/books_ebooks.dart';
+import '../presentation/home/current_affairs_new/current_affairs_tab.dart';
+import '../presentation/home/job_alert_new/job_notifications.dart';
+import '../presentation/home/study_material_new/study_material_new.dart';
+import '../presentation/home/test_series_new/test_series_new.dart';
 import 'app_constants.dart';
 
 class AnalyticsConstants {
@@ -107,20 +112,26 @@ class AnalyticsConstants {
   }
 
 
-  static void moEngageInitialize(BuildContext context){
+  static Future<void> moEngageInitialize(BuildContext context) async {
+  String token =  await SharedPref.getSharedPref(SharedPref.TOKEN);
     moengagePlugin.initialise();
     moengagePlugin.showInApp();
     moengagePlugin.setUpInAppCallbacks(
         onInAppClick: (inAppCompaign) {
           List<String> actiondata = inAppCompaign.navigationAction!.url.split("/");
-          List<String> actionId = actiondata[4].split("=");
-          print('>>>>>>>>>>>>>>>>>>' + actionId[1] );
+          // List<String> actionId = actiondata[4].split("=");
+          // print('>>>>>>>>>>>>>>>>>>' + actionId[1] );
+          print('%%^&&&&');
           if(actiondata[3] == 'course') {
+            List<String> actionId = actiondata[4].split("=");
+            print('>>>>>>>>>>>>>>>>>>' + actionId[1] );
             Navigator.of(context)
                 .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
-                builder: (_) => BannerLinkDetailPage('course', actionId[1],)));
+                builder: (_) => BannerLinkDetailPage('Course', actionId[1],)));
           }
-          else if(actiondata[0] == "Combo Course"){
+          else if(actiondata[3] == "Combo Course"){
+            List<String> actionId = actiondata[4].split("=");
+            print('>>>>>>>>>>>>>>>>>>' + actionId[1] );
             Navigator.of(context)
                 .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
                 builder: (_) => BannerLinkDetailPage('Combo Course', actionId[1],)));
@@ -128,15 +139,26 @@ class AnalyticsConstants {
             //     BannerLinkDetailPage('Combo Course',actiondata[1],
             //     ));
           }
-          else if(actiondata[0] == "Book"){
+          else if(actiondata[3] == "Book"){
             AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
 
             ));
           }
-          else if(actiondata[0] == "Live Test page"){
-            AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
-
-            ));
+          else if(actiondata[3] == "studymaterial"){
+            AppConstants.goTo(context,   StudyMaterialNew(0));
+          }
+          else if(actiondata[3] == "currentaffairs"){
+            AppConstants.goTo(context,   CurrentAffairsTab());
+          }
+          else if(actiondata[3] == "jobalert"){
+            AppConstants.goTo(context,   JobNotifications());
+          }else if(actiondata[3] == "Livetest"||actiondata[3] == "quizPage" ){
+            List<String> actionId = actiondata[4].split("=");
+            print('>>>>>>>>>>>>>>>>>>' + actiondata.toString() );
+            String url = actionId[1]+'/'+actiondata[5]+'/'+actiondata[6]+'/'+actiondata[7]+'/'+actiondata[8]+'/'+actiondata[9]+'/'+actiondata[10]+'/'+actiondata[11]+actiondata[12];
+            print('anchal'+actionId[1]+'/'+actiondata[5]+'/'+actiondata[6]+'/'+actiondata[7]+'/'+actiondata[8]+'/'+actiondata[9]+'/'+actiondata[10]+'/'+actiondata[11]+actiondata[12]);
+           print('priyank++++++++'+ url);
+            AppConstants.goTo(context,   TestSeriesNew(url,token));
           }
         },
         onInAppShown: _onInAppShown,
