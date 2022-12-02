@@ -68,23 +68,6 @@ class AnalyticsConstants {
       AppConstants.printLog("Error: $e");
     }
   }
-  late BuildContext context;
-  static void onInAppClick(InAppCampaign message,context) {
-
-    print('>>>>>>>>>>>'+ message.navigationAction!.url);// https://edudrive.page.link/course/courseId=63412111d60860384c299bd3
-    List<String> actiondata = message.navigationAction!.url.split("/");
-    print(actiondata[3]);
-
-    if(actiondata[3] == 'course') {
-      AppConstants.goTo(context, BannerLinkDetailPage('Course', actiondata[1],));
-      // Navigator.push(context,MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
-      //     builder: (_) => BannerLinkDetailPage('Course', actiondata[1],)));
-
-    }
-
-
-
-  }
 
   static void _onInAppShown(InAppCampaign message) {
     print("This is a callback on inapp shown from native to flutter. Payload " +
@@ -111,34 +94,6 @@ class AnalyticsConstants {
     moengagePlugin.initialise();
     moengagePlugin.showInApp();
     moengagePlugin.setUpInAppCallbacks(
-        onInAppClick: (inAppCompaign) {
-          List<String> actiondata = inAppCompaign.navigationAction!.url.split("/");
-          List<String> actionId = actiondata[4].split("=");
-          print('>>>>>>>>>>>>>>>>>>' + actionId[1] );
-          if(actiondata[3] == 'course') {
-            Navigator.of(context)
-                .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
-                builder: (_) => BannerLinkDetailPage('course', actionId[1],)));
-          }
-          else if(actiondata[0] == "Combo Course"){
-            Navigator.of(context)
-                .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
-                builder: (_) => BannerLinkDetailPage('Combo Course', actionId[1],)));
-            // AppConstants.goTo(context,
-            //     BannerLinkDetailPage('Combo Course',actiondata[1],
-            //     ));
-          }
-          else if(actiondata[0] == "Book"){
-            AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
-
-            ));
-          }
-          else if(actiondata[0] == "Live Test page"){
-            AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
-
-            ));
-          }
-        },
         onInAppShown: _onInAppShown,
         onInAppDismiss: _onInAppDismiss,
         onInAppCustomAction: _onInAppCustomAction,

@@ -75,9 +75,6 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      AnalyticsConstants.moEngageInitialize(context);
-    });
 
     FirebaseDynamicLinkService.initDynamicLink(context);
     _faders = widgetList.map<AnimationController>((item) {

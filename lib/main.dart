@@ -53,7 +53,7 @@ void main() async {
   await di.init();
   await FlutterDownloader.initialize(debug: true);
   await Firebase.initializeApp();
-  // FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true, badge: true, sound: true
   );
