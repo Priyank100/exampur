@@ -3,6 +3,7 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/my_course_timeline_model.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/MyCourseProvider.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
@@ -29,6 +30,16 @@ class _TimeTableViewState extends State<TimeTableView> {
 
   @override
   void initState() {
+    var map = {
+      "Page_Name":"Timline_View",
+    'Mobile_Number':AppConstants.userMobile,
+    'Language':AppConstants.langCode,
+    'User_ID':AppConstants.userMobile,
+      'Course_Name':AppConstants.courseName,
+      'Section':activeButton == 'L'? 'Live':'UpComing',
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Timeline, map);
     callProvider();
     super.initState();
   }

@@ -74,7 +74,11 @@ class _WebViewOpenState extends State<WebViewOpen> {
               gestureRecognizers: {
               Factory<VerticalDragGestureRecognizer>(
               () => VerticalDragGestureRecognizer()
-               )},
+               ),
+                Factory<HorizontalDragGestureRecognizer>(
+                        () => HorizontalDragGestureRecognizer()
+                )
+              },
               initialUrl: widget.url.replaceAll('<token>', widget.token),
               javascriptMode: JavascriptMode.unrestricted,
               onWebViewCreated: (WebViewController webViewController) {

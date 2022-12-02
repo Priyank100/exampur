@@ -12,7 +12,7 @@
 
     <application
         android:name=".SampleApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
         android:label="ExampurOfficial"
@@ -89,6 +89,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <service android:exported="false" android:name="com.moengage.firebase.MoEFireBaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <!--
  Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java

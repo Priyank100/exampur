@@ -21,25 +21,27 @@ class PlaceOrderScreen extends StatefulWidget {
 }
 
 class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
-  void initState() {
-    Future.delayed(Duration.zero, () {
-      AppConstants.routeName = ModalRoute.of(context)!.settings.name!;
-    });}
-  Future<bool> _onWillPop(BuildContext context) async {
-    if(AppConstants.routeName == 'Direct'){
-      Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) => BooksEbook()
-      ));
-    } else{
-      Navigator.pop(context);
-    }
-    return Future.value(true);
-  }
+  // void initState() {
+  //   Future.delayed(Duration.zero, () {
+  //     AppConstants.routeName = ModalRoute.of(context)!.settings.name!;
+  //   });}
+  // Future<bool> _onWillPop(BuildContext context) async {
+  //   if(AppConstants.routeName == 'Direct'){
+  //     Navigator.pushReplacement(context, MaterialPageRoute(
+  //         builder: (context) => BooksEbook()
+  //     ));
+  //   } else{
+  //     Navigator.pop(context);
+  //   }
+  //   return Future.value(true);
+  // }
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onWillPop(context),
-      child: Scaffold(
+    return
+      // WillPopScope(
+      // onWillPop: () => _onWillPop(context),
+      // child:
+      Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(),
         body: Column(
@@ -322,7 +324,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
         //     ),
         //   ),
         // ),
-      ),
+   //   ),
     );
   }
 }

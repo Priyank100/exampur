@@ -31,6 +31,7 @@ import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
 import 'package:provider/provider.dart';
@@ -74,7 +75,9 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
   @override
   void initState() {
     super.initState();
-
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      AnalyticsConstants.moEngageInitialize(context);
+    });
 
     FirebaseDynamicLinkService.initDynamicLink(context);
     _faders = widgetList.map<AnimationController>((item) {

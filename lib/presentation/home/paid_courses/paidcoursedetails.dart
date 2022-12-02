@@ -212,6 +212,68 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                             child: Text(getTranslated(context, LangString.Validity)!+' :  '+widget.courseData.validTime.toString(),
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisSize: MainAxisSize.min,
+                              children:[
+                          widget.courseData.purchase == true ? SizedBox() :   Padding(
+                            padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
+                            child: InkWell(
+                              onTap: () async {
+                                _controller.pause();
+                                AppConstants.mycourseType = 2;
+                                var dispose = {
+                                  'Page_Name':'Course_Details',
+                                  'Course_Name':widget.courseData.title.toString(),
+                                  'Mobile_Number':AppConstants.userMobile,
+                                  'Language':AppConstants.langCode,
+                                  'User_ID':AppConstants.userMobile,
+                                  'Total_Watch_Time':counter,
+                                  'Path_name':AppConstants.routeName
+                                };
+                                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,dispose);
+                                var analytics = {
+                                  'Page_Name':'Course_Details',
+                                  'Course_Category':AppConstants.paidTabName,
+                                  'Course_Name':widget.courseData.title.toString(),
+                                  'Mobile_Number':AppConstants.userMobile,
+                                  'Language':AppConstants.langCode,
+                                  'User_ID':AppConstants.userMobile,
+                                };
+                                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_Demo,analytics);
+
+                                Map<String, dynamic> map = {
+                                  "courseTabType": widget.courseTabType.toString(),
+                                  "id": widget.courseData.id.toString(),
+                                  "title": widget.courseData.title.toString(),
+                                  "salePrice": widget.courseData.salePrice.toString(),
+                                  "upsellBookList": widget.courseData.upsellBook??[],
+                                  "selectedEmiPlan": selectedEmiPlans,
+                                  "preBooktype": widget.courseData.status,
+                                  "preBookDetail": widget.courseData.preBookDetail
+                                };
+                                SamplingBottomSheetParam.setDeliveryDetailParam = map;
+
+                                List<String> samplingFeaturesList = (await Provider.of<NewMyCourseProvider>(context, listen: false).getSamplingFeaturesList(context, widget.courseData.id.toString()))!;
+                                SamplingBottomSheetParam.setFeaturesList = samplingFeaturesList;
+                                String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
+                                Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                MyCourseTab(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)
+                                ));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(3.0),
+                                width: Dimensions.DailyMonthlyViewBtnWidth,
+                                height: Dimensions.DailyMonthlyViewBtnHeight,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                   // border: Border.all(color: AppColors.black),
+                                    color: AppColors.amber
+                                ),
+                                child: Text('View Demo', style: TextStyle(color:AppColors.white, fontSize: 10)),
+                              ),
+                            ),
+                          ),
                           widget.courseData.pdfPath==null || widget.courseData.pdfPath=='null' || widget.courseData.pdfPath!.isEmpty ? SizedBox():
                           Padding(
                             padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
@@ -245,7 +307,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                                 child: Text(getTranslated(context, LangString.viewPdf)!, style: TextStyle(color:AppColors.white, fontSize: 10)),
                               ),
                             ),
-                          )
+                          )])
                         ],
                       ),
                       widget.courseType==1 ?  Padding(
@@ -330,55 +392,55 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                             )),
                       ),
                     ):SizedBox(),
-                    widget.courseData.purchase == true ? SizedBox() :
-                    InkWell(
-                      onTap: () async {
-                        _controller.pause();
-                        AppConstants.mycourseType = 2;
-
-                        var analytics = {
-                          'Page_Name':'Course_Details',
-                          'Course_Category':AppConstants.paidTabName,
-                          'Course_Name':widget.courseData.title.toString(),
-                          'Mobile_Number':AppConstants.userMobile,
-                          'Language':AppConstants.langCode,
-                          'User_ID':AppConstants.userMobile,
-                        };
-                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_Demo,analytics);
-
-                        Map<String, dynamic> map = {
-                          "courseTabType": widget.courseTabType.toString(),
-                          "id": widget.courseData.id.toString(),
-                          "title": widget.courseData.title.toString(),
-                          "salePrice": widget.courseData.salePrice.toString(),
-                          "upsellBookList": widget.courseData.upsellBook??[],
-                          "selectedEmiPlan": selectedEmiPlans,
-                          "preBooktype": widget.courseData.status,
-                          "preBookDetail": widget.courseData.preBookDetail
-                        };
-                        SamplingBottomSheetParam.setDeliveryDetailParam = map;
-
-                        List<String> samplingFeaturesList = (await Provider.of<NewMyCourseProvider>(context, listen: false).getSamplingFeaturesList(context, widget.courseData.id.toString()))!;
-                        SamplingBottomSheetParam.setFeaturesList = samplingFeaturesList;
-                        String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
-                        Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                            MyCourseTab(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)
-                        ));
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: AppColors.amber,
-                            borderRadius: BorderRadius.all(Radius.circular(10))),
-                        height: 40,
-                        margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                        child: Center(
-                            child: Text(
-                              'View Demo',
-                              style: TextStyle(color: AppColors.white, fontSize: 16),
-                            )),
-                      )
-                    ),
+                    // widget.courseData.purchase == true ? SizedBox() :
+                    // InkWell(
+                    //   onTap: () async {
+                    //     _controller.pause();
+                    //     AppConstants.mycourseType = 2;
+                    //
+                    //     var analytics = {
+                    //       'Page_Name':'Course_Details',
+                    //       'Course_Category':AppConstants.paidTabName,
+                    //       'Course_Name':widget.courseData.title.toString(),
+                    //       'Mobile_Number':AppConstants.userMobile,
+                    //       'Language':AppConstants.langCode,
+                    //       'User_ID':AppConstants.userMobile,
+                    //     };
+                    //     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_Demo,analytics);
+                    //
+                    //     Map<String, dynamic> map = {
+                    //       "courseTabType": widget.courseTabType.toString(),
+                    //       "id": widget.courseData.id.toString(),
+                    //       "title": widget.courseData.title.toString(),
+                    //       "salePrice": widget.courseData.salePrice.toString(),
+                    //       "upsellBookList": widget.courseData.upsellBook??[],
+                    //       "selectedEmiPlan": selectedEmiPlans,
+                    //       "preBooktype": widget.courseData.status,
+                    //       "preBookDetail": widget.courseData.preBookDetail
+                    //     };
+                    //     SamplingBottomSheetParam.setDeliveryDetailParam = map;
+                    //
+                    //     List<String> samplingFeaturesList = (await Provider.of<NewMyCourseProvider>(context, listen: false).getSamplingFeaturesList(context, widget.courseData.id.toString()))!;
+                    //     SamplingBottomSheetParam.setFeaturesList = samplingFeaturesList;
+                    //     String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
+                    //     Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                    //         MyCourseTab(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)
+                    //     ));
+                    //   },
+                    //   child: Container(
+                    //     width: double.infinity,
+                    //     decoration: BoxDecoration(
+                    //         color: AppColors.amber,
+                    //         borderRadius: BorderRadius.all(Radius.circular(10))),
+                    //     height: 40,
+                    //     margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                    //     child: Center(
+                    //         child: Text(
+                    //           'View Demo',
+                    //           style: TextStyle(color: AppColors.white, fontSize: 16),
+                    //         )),
+                    //   )
+                    // ),
                     widget.courseData.purchase == true ? AlreadyPurchasedBtn() :
                     InkWell(
                       onTap: () {

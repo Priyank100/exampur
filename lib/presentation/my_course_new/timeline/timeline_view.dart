@@ -11,6 +11,7 @@ import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../../../utils/analytics_constants.dart';
 import '../../widgets/custom_bottomsheet.dart';
 
 class TimelineView extends StatefulWidget {
@@ -29,6 +30,16 @@ class _TimelineViewState extends State<TimelineView> {
 
   @override
   void initState() {
+    var map = {
+      "Page_Name":"Timline_View",
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Name':AppConstants.courseName,
+      'Section':activeButton == 'L'? 'Live':'UpComing',
+      'Course_Type':'Demo'
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.My_Courses_Timeline, map);
     callProvider();
     super.initState();
   }
@@ -182,13 +193,16 @@ class _TimelineViewState extends State<TimelineView> {
                                     ],
                                   )),
                               index+1 > unlockValue && activeButton=='L' ? Opacity(
-                                  opacity: 0.6,
+                                  opacity: 0.7,
                                   child: Container(
                                       width: MediaQuery.of(context).size.width,
                                       height: 100.0,
                                       margin: const EdgeInsets.all(2),
+                                      padding: EdgeInsets.all(10),
                                       color: AppColors.black,
-                                      child: Image.asset(Images.lock, scale: 1.5, color: AppColors.red900)
+                                      child: Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Image.asset(Images.lock, scale: 2, color: AppColors.white))
                                   )
                               ) : SizedBox()
                             ],

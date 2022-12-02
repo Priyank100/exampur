@@ -113,7 +113,7 @@ class FirebaseDynamicLinkService {
             BookEbook bookData = BookEbook.fromJson(json.decode(data));
             // bookData.title.
             return Navigator.push(context, MaterialPageRoute(
-                settings: RouteSettings(name: 'Direct'),
+               // settings: RouteSettings(name: 'Direct'),
                 builder: (context) =>
                 PlaceOrderScreen(bookData)));
           case 3:

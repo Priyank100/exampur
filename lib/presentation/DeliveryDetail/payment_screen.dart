@@ -173,7 +173,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void dispose() {
     super.dispose();
     var backbutton= {
-      'Page_Name':'Payment_Page',
+      'Page_Name':'Check_Out_Course_Purchase',
       'Course_Category':AppConstants.paidTabName,
       'Course_Name':widget.billingModel.itemName.toString(),
       'Mobile_Number':AppConstants.userMobile,

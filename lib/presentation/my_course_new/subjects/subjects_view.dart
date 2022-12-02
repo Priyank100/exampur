@@ -27,7 +27,7 @@ class _SubjectsViewState extends State<SubjectsView> {
   List<SubjectData> subjectList = [];
   bool isLoading = false;
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
-  int unlockValue = 0;
+  // int unlockValue = 0;
 
   @override
   void initState() {
@@ -48,7 +48,7 @@ class _SubjectsViewState extends State<SubjectsView> {
     isLoading = true;
     subjectList = (await Provider.of<NewMyCourseProvider>(context, listen: false).getSubjectList(context, widget.courseId))!;
     isLoading = false;
-    subjectList.length == 0 ? unlockValue = 0 : unlockValue = AppConstants.unlockItem(subjectList.length);
+    // subjectList.length == 0 ? unlockValue = 0 : unlockValue = AppConstants.unlockItem(subjectList.length);
     setState(() {});
   }
   Future<void>_refreshScreen() async{
@@ -97,18 +97,19 @@ class _SubjectsViewState extends State<SubjectsView> {
           'Language': AppConstants.langCode,
           'User_ID': AppConstants.userMobile,
           'Course_Type':'Demo',
-          'Locked':index < unlockValue ? 'Flase' : 'True',
+          // 'Locked':index < unlockValue ? 'Flase' : 'True',
+          'Locked':'Flase',
           'Subject_Name':subjectList[index].title.toString(),
         };
         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Subject, analytics);
-        if(index < unlockValue) {
+        // if(index < unlockValue) {
           AppConstants.subjectName = subjectList[index].title.toString();
           Navigator.push(context, MaterialPageRoute(builder: (_) =>
               ChaptersView(widget.courseId, subjectList[index].id.toString())
           ));
-        } else {
-          ModalBottomSheet.moreModalBottomSheet(context,'Subject_View');
-        }
+        // } else {
+        //   ModalBottomSheet.moreModalBottomSheet(context,'Subject_View');
+        // }
       },
       child: Column(
         children: [
@@ -118,15 +119,15 @@ class _SubjectsViewState extends State<SubjectsView> {
                 subjectList[index].logoPath.toString().contains('http') ?
                 AppConstants.image(subjectList[index].logoPath.toString(), width: 80.0,height: 80.0,boxfit: BoxFit.fill) :
                 AppConstants.image(AppConstants.BANNER_BASE + subjectList[index].logoPath.toString(), width: 80.0,height: 80.0,boxfit: BoxFit.fill),
-                index+1 > unlockValue ? Opacity(
-                    opacity: 0.6,
-                    child: Container(
-                        width: 80.0,
-                        height: 80.0,
-                        color: AppColors.black,
-                        child: Image.asset(Images.lock, scale: 1.5, color: AppColors.red900)
-                    )
-                ) : SizedBox()
+                // index+1 > unlockValue ? Opacity(
+                //     opacity: 0.6,
+                //     child: Container(
+                //         width: 80.0,
+                //         height: 80.0,
+                //         color: AppColors.black,
+                //         child: Image.asset(Images.lock, scale: 1.5, color: AppColors.red900)
+                //     )
+                // ) : SizedBox()
              ])
           ),
           Text(subjectList[index].title.toString(), overflow: TextOverflow.ellipsis, maxLines: 2,style: TextStyle(fontSize: 10),textAlign: TextAlign.center,),

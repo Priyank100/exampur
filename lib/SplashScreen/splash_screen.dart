@@ -10,6 +10,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:upgrader/upgrader.dart';
@@ -29,7 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
     Map<String, Object> stuff = {};
     AnalyticsConstants.logEvent(AnalyticsConstants.splashScreen,stuff);
     AnalyticsConstants.initAppFlyer();
-    AnalyticsConstants.moEngageInitialize();
+    // Future.delayed(Duration.zero,() {
+    // AnalyticsConstants.moEngageInitialize(context);});
     checkInternet();
     super.initState();
   }

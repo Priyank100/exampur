@@ -215,14 +215,17 @@ class _TopicsViewState extends State<TopicsView> {
                                           ),
                                         ),
                                       ),
-                                      index+1 > unlockValue ? Opacity(
-                                          opacity: 0.6,
+                                      (index+1 > unlockValue) ? Opacity(
+                                          opacity: 0.7,
                                           child: Container(
                                               width: MediaQuery.of(context).size.width,
                                               height: 110,
                                               margin: EdgeInsets.only(top: 2),
+                                              padding: EdgeInsets.all(10),
                                               color: AppColors.black,
-                                              child: Image.asset(Images.lock, scale: 1.5, color: AppColors.red900)
+                                              child: Align(
+                                                  alignment: Alignment.bottomRight,
+                                                  child: Image.asset(Images.lock, scale: 2, color: AppColors.white))
                                           )
                                       ) : SizedBox()
                                     ],

@@ -29,7 +29,7 @@ class _ChaptersViewState extends State<ChaptersView> {
   List<String> chapterList = [];
   bool isLoading = false;
   final keyRefresh = GlobalKey<RefreshIndicatorState>();
-  int unlockValue = 0;
+  // int unlockValue = 0;
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _ChaptersViewState extends State<ChaptersView> {
     isLoading = true;
     chapterList = (await Provider.of<NewMyCourseProvider>(context, listen: false).getChapterList(context, widget.subjectId, widget.courseId))!;
     isLoading = false;
-    chapterList.length == 0 ? unlockValue = 0 : unlockValue = AppConstants.unlockItem(chapterList.length);
+    // chapterList.length == 0 ? unlockValue = 0 : unlockValue = AppConstants.unlockItem(chapterList.length);
     setState(() {});
   }
   Future<void>_refreshScreen() async{
@@ -104,46 +104,46 @@ class _ChaptersViewState extends State<ChaptersView> {
         child: Stack(
           children: [
             listTileChapter(index),
-            index+1 > unlockValue ? InkWell(
-              onTap: () {
-                var analytics = {
-                  'Page_Name': 'My_Courses_Chapter',
-                  'Course_Category': AppConstants.paidTabName,
-                  'Course_Name': SamplingBottomSheetParam.getDeliveryDetailParam['title'].toString(),
-                  'Mobile_Number': AppConstants.userMobile,
-                  'Language': AppConstants.langCode,
-                  'User_ID': AppConstants.userMobile,
-                  'Course_Type':'Demo',
-                  'Locked':'True',
-                  'Subject_Name':AppConstants.subjectName,
-                };
-                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Chapter, analytics);
-               ModalBottomSheet.moreModalBottomSheet(context,'Chapter_View',);
-              },
-              child: Opacity(
-                  opacity: 0.6,
-                  child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 75,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.black,
-                            offset:  Offset(
-                              0.0,
-                              0.0,
-                            ),
-                            blurRadius: 0.95,
-                            spreadRadius: 0.0,
-                          ),
-                        ],
-                        color: AppColors.black,
-                      ),
-                      child: Image.asset(Images.lock, scale: 1.5, color: AppColors.red900)
-                  )
-              ),
-            ) : SizedBox()
+            // index+1 > unlockValue ? InkWell(
+            //   onTap: () {
+            //     var analytics = {
+            //       'Page_Name': 'My_Courses_Chapter',
+            //       'Course_Category': AppConstants.paidTabName,
+            //       'Course_Name': SamplingBottomSheetParam.getDeliveryDetailParam['title'].toString(),
+            //       'Mobile_Number': AppConstants.userMobile,
+            //       'Language': AppConstants.langCode,
+            //       'User_ID': AppConstants.userMobile,
+            //       'Course_Type':'Demo',
+            //       'Locked':'True',
+            //       'Subject_Name':AppConstants.subjectName,
+            //     };
+            //     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Chapter, analytics);
+            //    ModalBottomSheet.moreModalBottomSheet(context,'Chapter_View',);
+            //   },
+            //   child: Opacity(
+            //       opacity: 0.6,
+            //       child: Container(
+            //           width: MediaQuery.of(context).size.width,
+            //           height: 75,
+            //           decoration: const BoxDecoration(
+            //             borderRadius: BorderRadius.all(Radius.circular(15)),
+            //             boxShadow: [
+            //               BoxShadow(
+            //                 color: AppColors.black,
+            //                 offset:  Offset(
+            //                   0.0,
+            //                   0.0,
+            //                 ),
+            //                 blurRadius: 0.95,
+            //                 spreadRadius: 0.0,
+            //               ),
+            //             ],
+            //             color: AppColors.black,
+            //           ),
+            //           child: Image.asset(Images.lock, scale: 1.5, color: AppColors.red900)
+            //       )
+            //   ),
+            // ) : SizedBox()
           ],
         )
       ),

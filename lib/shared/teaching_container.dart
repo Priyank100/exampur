@@ -228,7 +228,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                 'Language':AppConstants.langCode,
                                 'User_ID':AppConstants.userMobile,
                               };
-                              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Free_Course_Detail,map);
+                              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Free_Course_Details,map);
                               AppConstants.courseName =widget.courseData.title.toString();
                               AppConstants.printLog(widget.courseData.title.toString());
                               AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');

@@ -1,13 +1,20 @@
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
+import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/material.dart';
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/inapp_campaign.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
+import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 
+import '../presentation/home/BannerBookDetailPage.dart';
+import '../presentation/home/banner_link_detail_page.dart';
+import '../presentation/home/books/books_ebooks.dart';
 import 'app_constants.dart';
 
 class AnalyticsConstants {
+
   static MoEngageFlutter moengagePlugin = MoEngageFlutter();
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
@@ -61,35 +68,22 @@ class AnalyticsConstants {
       AppConstants.printLog("Error: $e");
     }
   }
-  static void inAppCallback() {
-    // moengagePlugin.setUpInAppCallbacks(
-    //     onInAppClick: _onInAppClick,
-    //     onInAppShown: _onInAppShown,
-    //     onInAppDismiss: _onInAppDismiss,
-    //     onInAppCustomAction: _onInAppCustomAction,
-    //     onInAppSelfHandle: _onInAppSelfHandle
-    // );
-  }
+  late BuildContext context;
+  static void onInAppClick(InAppCampaign message,context) {
 
-  static void moEngageInitialize(){
-    moengagePlugin.setUpInAppCallbacks(
-        onInAppClick: _onInAppClick,
-        onInAppShown: _onInAppShown,
-        onInAppDismiss: _onInAppDismiss,
-        onInAppCustomAction: _onInAppCustomAction,
-        onInAppSelfHandle: _onInAppSelfHandle
-    );
-    moengagePlugin.initialise();
-    moengagePlugin.showInApp();
-  // moengagePlugin.passFCMPushToken('UAIIRLJXLAVMA3I6TOFYHV8P');
-    // _moengagePlugin.setUserName(AppConstants.userName);
-    // _moengagePlugin.setPhoneNumber(AppConstants.userMobile);
-    // _moengagePlugin.setUniqueId(AppConstants.userMobile);
-  }
+    print('>>>>>>>>>>>'+ message.navigationAction!.url);// https://edudrive.page.link/course/courseId=63412111d60860384c299bd3
+    List<String> actiondata = message.navigationAction!.url.split("/");
+    print(actiondata[3]);
 
-  static void _onInAppClick(InAppCampaign message) {
-    print("This is a inapp click callback from native to flutter. Payload " +
-        message.toString());
+    if(actiondata[3] == 'course') {
+      AppConstants.goTo(context, BannerLinkDetailPage('Course', actiondata[1],));
+      // Navigator.push(context,MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
+      //     builder: (_) => BannerLinkDetailPage('Course', actiondata[1],)));
+
+    }
+
+
+
   }
 
   static void _onInAppShown(InAppCampaign message) {
@@ -111,6 +105,52 @@ class AnalyticsConstants {
     print("This is a callback on inapp self handle from native to flutter. Payload " +
         message.toString());
   }
+
+
+  static void moEngageInitialize(BuildContext context){
+    moengagePlugin.initialise();
+    moengagePlugin.showInApp();
+    moengagePlugin.setUpInAppCallbacks(
+        onInAppClick: (inAppCompaign) {
+          List<String> actiondata = inAppCompaign.navigationAction!.url.split("/");
+          List<String> actionId = actiondata[4].split("=");
+          print('>>>>>>>>>>>>>>>>>>' + actionId[1] );
+          if(actiondata[3] == 'course') {
+            Navigator.of(context)
+                .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
+                builder: (_) => BannerLinkDetailPage('course', actionId[1],)));
+          }
+          else if(actiondata[0] == "Combo Course"){
+            Navigator.of(context)
+                .push(MaterialPageRoute(settings: RouteSettings(name: 'Direct'),
+                builder: (_) => BannerLinkDetailPage('Combo Course', actionId[1],)));
+            // AppConstants.goTo(context,
+            //     BannerLinkDetailPage('Combo Course',actiondata[1],
+            //     ));
+          }
+          else if(actiondata[0] == "Book"){
+            AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
+
+            ));
+          }
+          else if(actiondata[0] == "Live Test page"){
+            AppConstants.goTo(context,   BannerLinkBookDetailPage('Book', actiondata[1],
+
+            ));
+          }
+        },
+        onInAppShown: _onInAppShown,
+        onInAppDismiss: _onInAppDismiss,
+        onInAppCustomAction: _onInAppCustomAction,
+        onInAppSelfHandle: _onInAppSelfHandle
+    );
+  // moengagePlugin.passFCMPushToken('UAIIRLJXLAVMA3I6TOFYHV8P');
+    // _moengagePlugin.setUserName(AppConstants.userName);
+    // _moengagePlugin.setPhoneNumber(AppConstants.userMobile);
+    // _moengagePlugin.setUniqueId(AppConstants.userMobile);
+  }
+
+
 
   static void trackEventMoEngage(String eventName, Map<String, dynamic> map) {
     // moengagePlugin.showInApp();
@@ -224,10 +264,11 @@ class AnalyticsConstants {
   static String Click_Chapter= 'Click_Chapter';
   static String Course_Detail_page= 'Course_Detail_page';
   static String Free_Course_List= 'Free_Course_List';
-  static String Free_Course_Detail= 'Free_Course_Detail';
+  static String Click_Free_Course_Details= 'Click_Free_Course_Details';
   static String Course_Details_Page= 'Course_Details_Page';
   static String Payment_Page_Back_Button= 'Payment_Page_Back_Button';
   static String Click_Topic_Study_Material= 'Click_Topic_Study_Material';
+  static String My_Courses_Timeline= 'My_Courses_Timeline';
 
 
 
