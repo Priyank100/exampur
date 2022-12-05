@@ -93,8 +93,10 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
       'Chapter_Name':AppConstants.chapterName,
       'Topic_Name':widget.title.toString(),
       'Video_Quality':widget.videoQuallity.toString(),
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : AppConstants.mycourseType == 1?'Free_Course':'Demo'
     };
-    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Recorded_Video,map);
+
+   AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Recorded_Video,map);
     initializePlayer();
     getUserData();
     getDeviceData();
@@ -160,7 +162,8 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
       'Chapter_Name':AppConstants.chapterName,
       'Topic_Name':widget.title.toString(),
       'Video_Quality':widget.videoQuallity.toString(),
-      'Total_Watch_Time':counter.toString()
+      'Total_Watch_Time':counter,
+      'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : AppConstants.mycourseType == 1?'Free_Course':'Demo'
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Recorded_Video,map);
     widget.isTimlineRequired == true ?  videoTimeLog():null;
@@ -270,6 +273,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
                     'Chapter_Name':AppConstants.chapterName,
                     'Topic_Name':widget.title.toString(),
                     'Video_Quality':widget.videoQuallity.toString(),
+                    'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : AppConstants.mycourseType == 1?'Free_Course':'Demo'
                   };
                   AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Download_Video,map);
                   _playerController!.pause();

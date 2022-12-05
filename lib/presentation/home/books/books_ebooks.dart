@@ -40,7 +40,7 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
       'Page_Name':'Home_Page',
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
-      'Course_Category':AppConstants.selectedCategoryName.toString(),
+      'Course_Category':AppConstants.selectedCategoryNameList.toString(),
       'User_ID':AppConstants.userMobile
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Books,map);

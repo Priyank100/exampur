@@ -40,10 +40,14 @@ class _TeachingListState extends State<TeachingList> {
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
+      'Type_List':widget.courseType == 1?'Paid_Course':'Free_Course'
     };
 
     if(widget.courseType == 1) {
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Course_List,map);
+    }
+    else{
+      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Free_Course_List,map);
     }
     super.initState();
   }

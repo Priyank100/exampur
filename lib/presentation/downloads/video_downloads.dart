@@ -185,7 +185,6 @@ class DownloadedVideoState extends State<DownloadedVideo> {
                                                     'Language':AppConstants.langCode,
                                                     'User_ID':AppConstants.userMobile,
                                                     'Course_Name':_filename.replaceAll('--', '').split('~')[0],
-                                                    'Faculty_Name':'',
                                                     'Topic_Name':_filename.replaceAll('--', '').split('~')[0]
 
                                                   };

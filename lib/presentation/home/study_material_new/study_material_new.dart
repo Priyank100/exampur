@@ -4,6 +4,7 @@ import 'package:exampur_mobile/presentation/home/study_material_new/study_materi
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -88,6 +89,15 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
         ),
         child: ListTile(
             onTap: () {
+              var map = {
+                'Page_Name':'Study_Material',
+                'Study_Material_Type':tabTitle,
+                'Topic_Name': category.name.toString(),
+                'Mobile_Number':AppConstants.userMobile,
+                'Language':AppConstants.langCode,
+                'User_ID':AppConstants.userMobile
+              };
+              widget.pagetype==1? null:AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Topic_Study_Material, map);
               AppConstants.goTo(context, StudyMaterialSubCategory(widget.pagetype, tabTitle, category.id.toString()));
             },
             title: Text(

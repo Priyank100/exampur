@@ -14,6 +14,8 @@ import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 class ChapterView extends StatefulWidget {
   final String courseId;
   final String subjectId;
@@ -88,6 +90,17 @@ class _ChapterViewState extends State<ChapterView> {
                           child:ListTile(
                               contentPadding: EdgeInsets.all(8),
                               onTap: (){
+                                var map = {
+                                  'Page_Name':'My_Courses_Chapter',
+                                  'Mobile_Number':AppConstants.userMobile,
+                                  'Language':AppConstants.langCode,
+                                  'User_ID':AppConstants.userMobile,
+                                  'Course_Name': AppConstants.courseName,
+                                  'Faculty_Name':AppConstants.subjectName,
+                                  'Subject_Name':AppConstants.subjectName,
+                                  'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
+                                };
+                                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Chapter,map);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(

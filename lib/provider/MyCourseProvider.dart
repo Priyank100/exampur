@@ -237,7 +237,7 @@ class MyCourseProvider extends ChangeNotifier {
         return _myCourseNotificationModel.data;
       } else {
         String error = apiResponse.response!.data['data'].toString();
-        AppConstants.showBottomMessage(context, error, AppColors.black);
+        AppConstants.showBottomMessage(context, 'Course is not purchased', AppColors.black);
       }
       notifyListeners();
     } else {

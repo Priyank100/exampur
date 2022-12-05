@@ -78,22 +78,26 @@ class _StudyMaterialCategoryPdfListingState extends State<StudyMaterialCategoryP
             children: [
               InkWell(
                 onTap: (){
+                 String pagetype = widget.pagetype==1?'Previous_Year_Type':'Study_Material_Type';
+                 // print(pagetype);
                   var map = {
                     'Page_Name':'Study_Material',
                     'Mobile_Number':AppConstants.userMobile,
                     'Language':AppConstants.langCode,
                     'User_ID':AppConstants.userMobile,
-                    'Study_Material_Type':widget.subTitle.toString()
+                    'Study_Material_Type':widget.subTitle.split('->')[0].toString()
                   };
                   var previousYearmap = {
                     'Page_Name':'Previous_Year_PDFs',
                     'Mobile_Number':AppConstants.userMobile,
                     'Language':AppConstants.langCode,
                     'User_ID':AppConstants.userMobile,
-                    'Study_Material_Type':widget.subTitle.toString()
+                    'Previous_Year_Type':widget.subTitle.split('->')[0].toString()
                   };
-                  widget.pagetype==1?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Previous_Year_PDF,previousYearmap):AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Previous_Year_PDF,map);
-                 AppConstants.goTo(context, DownloadViewPdf(widget.pdfList[index].title.toString(), widget.pdfList[index].filePath.toString()));
+
+                  // print( widget.pagetype==1?previousYearmap:map);
+                  widget.pagetype==1?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_PDF,previousYearmap):AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_PDF,map);
+                AppConstants.goTo(context, DownloadViewPdf(widget.pdfList[index].title.toString(), widget.pdfList[index].filePath.toString()));
                 },
                 child: Container(
                   padding: const EdgeInsets.all(3.0),

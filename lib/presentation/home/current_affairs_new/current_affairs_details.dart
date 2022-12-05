@@ -13,8 +13,9 @@ import 'package:provider/provider.dart';
 import 'current_affairs_filter.dart';
 
 class CurrentAffairsDetails extends StatefulWidget {
+  final String langCode;
   final String articleId;
-  const CurrentAffairsDetails(this.articleId) : super();
+  const CurrentAffairsDetails(this.langCode,this.articleId) : super();
 
   @override
   State<CurrentAffairsDetails> createState() => _CurrentAffairsDetailsState();
@@ -50,10 +51,10 @@ class _CurrentAffairsDetailsState extends State<CurrentAffairsDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
               Text(
-                AppConstants.langCode == 'hi' ?
+                widget.langCode == 'hi' ?
                 currentAffairsDetailModel!.titleHindi.toString() :
                 currentAffairsDetailModel!.titleEng.toString(),
-                style:  TextStyle(fontSize: 20,fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins',fontWeight: FontWeight.bold),),
+                style:  TextStyle(fontSize: 20,fontFamily: widget.langCode == 'hi' ?'Noto Sans':'Poppins',fontWeight: FontWeight.bold),),
                 currentAffairsDetailModel!.caTags == null || currentAffairsDetailModel!.caTags!.length < 0 ? SizedBox() :
                 Row(
                 children: [
@@ -64,7 +65,7 @@ class _CurrentAffairsDetailsState extends State<CurrentAffairsDetails> {
                         children: List<Widget>.generate(currentAffairsDetailModel!.caTags!.length, (int index) {
                           return InkWell(
                             onTap: () {
-                              AppConstants.goAndReplace(context, CurrentAffairsFilter('T', selectedTagName: currentAffairsDetailModel!.caTags![index].name.toString()));
+                              AppConstants.goAndReplace(context, CurrentAffairsFilter(widget.langCode,'T', selectedTagName: currentAffairsDetailModel!.caTags![index].name.toString()));
                             },
                             child: Chip(
                                 label: Text(currentAffairsDetailModel!.caTags![index].name.toString(), style: TextStyle(fontSize: 10),)
@@ -76,7 +77,7 @@ class _CurrentAffairsDetailsState extends State<CurrentAffairsDetails> {
                 ]),
                 const SizedBox(height: 5),
                 Html(
-                  data: AppConstants.langCode == 'hi' ?
+                  data: widget.langCode == 'hi' ?
                   currentAffairsDetailModel!.descriptionHindi.toString() :
                   currentAffairsDetailModel!.descriptionEng.toString(),
                     style: {

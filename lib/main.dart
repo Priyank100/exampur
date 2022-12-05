@@ -9,6 +9,7 @@ import 'package:exampur_mobile/provider/BooksEBooksProvider.dart';
 import 'package:exampur_mobile/provider/CABytesProvider.dart';
 import 'package:exampur_mobile/provider/CaProvider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
+import 'package:exampur_mobile/provider/ConfigProvider.dart';
 import 'package:exampur_mobile/provider/DailyQuizProvider.dart';
 import 'package:exampur_mobile/provider/Demoprovider.dart';
 import 'package:exampur_mobile/provider/FreeVideoProvider.dart';
@@ -88,6 +89,7 @@ void main() async {
     ChangeNotifierProvider(create: (context) => di.sl<PracticeQuestionProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<StudyNotesProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<FreeVideoProvider>()),
+    ChangeNotifierProvider(create: (context) => di.sl<ConfigProvider>()),
     ChangeNotifierProvider(create: (context) => di.sl<NewMyCourseProvider>()),
   ], child: MyApp()));
 }

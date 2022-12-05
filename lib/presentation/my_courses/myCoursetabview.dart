@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
@@ -38,29 +39,30 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
   String userMobile = '';
   bool tabname = false;
   List<Widget> tabroutes =[];
-  String firebaseId = '';
+  String courseId = '';
+  String webId = '';
 
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/LocalJson/myCourseTab.json');
   }
 
   void getTabList() async {
-    final QuerySnapshot result =
-    await FirebaseFirestore.instance.collection('doubts_courses_id').get();
-    final List<DocumentSnapshot> documents = result.docs;
     bool isDoubtsRequired = false;
-    documents.forEach((data) {
-      if (widget.courseId == data.id) {
-        firebaseId = data.id;
+    AppConstants.doubtCourseIdList.forEach((data) {
+      if (widget.courseId == data.courseId) {
+        courseId = data.courseId!;
+        webId = data.webId!.toString();
         isDoubtsRequired = true;
       }
+      // print('??????????????????????');
+      // print(firebaseId);
     });
 
     if(isDoubtsRequired && tabList.length != 6){
       tabList.insert(1, Book(id: "1", name: "Doubts"));
       tabroutes =[
         TimeTableView(widget.courseId),
-        DoubtsPage(widget.token, firebaseId,'True'),
+        DoubtsPage(widget.token, webId, 'True'),
         SubjectView(widget.courseId),
         WebViewOpen(widget.testSeriesLink, widget.token),
         MyCourseNotifications(widget.courseId),
@@ -68,7 +70,6 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
         NewFeedbackView(widget.courseId, widget.courseName)
       ];
     }
-    setState(() {});
   }
 
   Future<void> getSharedPrefData() async {

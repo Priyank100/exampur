@@ -34,7 +34,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   void initState() {
     super.initState();
-
     var coursemap = {
       'Page_Name':'Check_Out_Course_Purchase',
       'Course_Category':AppConstants.paidTabName,
@@ -42,19 +41,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
-      'Book_Name':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!?widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString():'',
-      'Course_Price':widget.deliveryUpsellModel.data!.amount.toString(),
-      'Book_Price':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!? widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice.toString():'',
-      'Total_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+      'Course_Price':widget.deliveryUpsellModel.data!.amount,
+      'Total_Price':widget.deliveryUpsellModel.data!.amount,
       'Book':widget.deliveryUpsellModel.data!.bookSelected == true ? 'Yes':'No'
     };
+    if(widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!) {
+      coursemap['Book_Price'] = widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice;
+      coursemap['Book_Name'] = widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString();
+    }
+
     var bookmap ={
       'Page_Name':'Check_Out_Books_Purchase',
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
       'Book_Name':widget.billingModel.itemName.toString(),
-      'Book_Price':widget.billingModel.itemAmount.toString()
+      'Book_Price':widget.billingModel.itemAmount
     };
    widget.type == 'Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Check_Out_Page,bookmap):
    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Check_Out_Page,coursemap);
@@ -120,19 +122,21 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       'Mobile_Number':AppConstants.userMobile,
                       'Language':AppConstants.langCode,
                       'User_ID':AppConstants.userMobile,
-                      'Book_Name':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!?widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString():'',
-                      'Course_Price':widget.deliveryUpsellModel.data!.amount.toString(),
-                      'Book_Price':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!? widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice.toString():'',
-                      'Total_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+                      'Course_Price':widget.deliveryUpsellModel.data!.amount,
+                      'Total_Price':widget.deliveryUpsellModel.data!.amount,
                       'Book':widget.deliveryUpsellModel.data!.bookSelected == true ? 'Yes':'No'
                     };
+                    if(widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!) {
+                      map['Book_Price'] = widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice;
+                      map['Book_Name'] = widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString();
+                    }
                     var bookmap ={
                       'Page_Name':'Check_Out_Books_Purchase',
                       'Mobile_Number':AppConstants.userMobile,
                       'Language':AppConstants.langCode,
                       'User_ID':AppConstants.userMobile,
                       'Book_Name':widget.billingModel.itemName.toString(),
-                      'Book_Price':widget.billingModel.itemAmount.toString()
+                      'Book_Price':widget.billingModel.itemAmount
                     };
                    widget.type=='Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Pay_Now,bookmap): AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Pay_Now,map);
                     openCheckout();
@@ -168,6 +172,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   void dispose() {
     super.dispose();
+    var backbutton= {
+      'Page_Name':'Check_Out_Course_Purchase',
+      'Course_Category':AppConstants.paidTabName,
+      'Course_Name':widget.billingModel.itemName.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Course_Price':widget.deliveryUpsellModel.data!.amount,
+      'Total_Price':widget.deliveryUpsellModel.data!.amount,
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Payment_Page_Back_Button,backbutton);
     razorpay.clear();
   }
 
@@ -205,20 +220,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
-      'Book_Name':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!?widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString():'',
-      'Course_Price':widget.deliveryUpsellModel.data!.amount.toString(),
-      'Book_Price':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!? widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice.toString():'',
-      'Total_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+      'Course_Price':widget.deliveryUpsellModel.data!.amount,
+      'Total_Price':widget.deliveryUpsellModel.data!.amount,
       'Book':widget.deliveryUpsellModel.data!.bookSelected == true ? 'Yes':'No',
       'Payment_Type':'RazorPay'
     };
+    if(widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!) {
+      map['Book_Price'] = widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice;
+      map['Book_Name'] = widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString();
+    }
     var bookmap ={
       'Page_Name':'Check_Out_Books_Purchase',
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
       'Book_Name':widget.billingModel.itemName.toString(),
-      'Book_Price':widget.billingModel.itemAmount.toString()
+      'Book_Price':widget.billingModel.itemAmount
     };
   widget.type == 'Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Successful,bookmap):  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Successful,map);
 
@@ -247,20 +264,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
-      'Book_Name':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!?widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString():'',
-      'Course_Price':widget.deliveryUpsellModel.data!.amount.toString(),
-      'Book_Price':widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!? widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice.toString():'',
-      'Total_Price':widget.deliveryUpsellModel.data!.amount.toString(),
+     'Course_Price':widget.deliveryUpsellModel.data!.amount,
+      'Total_Price':widget.deliveryUpsellModel.data!.amount,
       'Book':widget.deliveryUpsellModel.data!.bookSelected == true ? 'Yes':'No',
       'Payment_Type':'RazorPay'
     };
+    if(widget.deliveryUpsellModel.data!.bookSelected!=null && widget.deliveryUpsellModel.data!.bookSelected!) {
+      map['Book_Price'] = widget.deliveryUpsellModel.data!.upsellBookDetails![0].salePrice;
+      map['Book_Name'] = widget.deliveryUpsellModel.data!.upsellBookDetails![0].title.toString();
+    }
     var bookmap ={
       'Page_Name':'Check_Out_Books_Purchase',
       'Mobile_Number':AppConstants.userMobile,
       'Language':AppConstants.langCode,
       'User_ID':AppConstants.userMobile,
       'Book_Name':widget.billingModel.itemName.toString(),
-      'Book_Price':widget.billingModel.itemAmount.toString()
+      'Book_Price':widget.billingModel.itemAmount
     };
     widget.type == 'Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Failed,bookmap):
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Failed,map);

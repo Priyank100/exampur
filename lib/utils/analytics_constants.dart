@@ -1,11 +1,20 @@
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
+import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/material.dart';
+import 'package:moengage_flutter/constants.dart';
+import 'package:moengage_flutter/inapp_campaign.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
+import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 
+import '../presentation/home/BannerBookDetailPage.dart';
+import '../presentation/home/banner_link_detail_page.dart';
+import '../presentation/home/books/books_ebooks.dart';
 import 'app_constants.dart';
 
 class AnalyticsConstants {
+
   static MoEngageFlutter moengagePlugin = MoEngageFlutter();
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
@@ -60,16 +69,46 @@ class AnalyticsConstants {
     }
   }
 
-  static void moEngageInitialize(){
+  static void _onInAppShown(InAppCampaign message) {
+    print("This is a callback on inapp shown from native to flutter. Payload " +
+        message.toString());
+  }
+
+  static void _onInAppDismiss(InAppCampaign message) {
+    print("This is a callback on inapp dismiss from native to flutter. Payload " +
+        message.toString());
+  }
+
+  static void _onInAppCustomAction(InAppCampaign message) {
+    print("This is a callback on inapp custom action from native to flutter. Payload " +
+        message.toString());
+  }
+
+  static void _onInAppSelfHandle(InAppCampaign message) {
+    print("This is a callback on inapp self handle from native to flutter. Payload " +
+        message.toString());
+  }
+
+
+  static void moEngageInitialize(BuildContext context){
     moengagePlugin.initialise();
+    moengagePlugin.showInApp();
+    moengagePlugin.setUpInAppCallbacks(
+        onInAppShown: _onInAppShown,
+        onInAppDismiss: _onInAppDismiss,
+        onInAppCustomAction: _onInAppCustomAction,
+        onInAppSelfHandle: _onInAppSelfHandle
+    );
   // moengagePlugin.passFCMPushToken('UAIIRLJXLAVMA3I6TOFYHV8P');
     // _moengagePlugin.setUserName(AppConstants.userName);
     // _moengagePlugin.setPhoneNumber(AppConstants.userMobile);
     // _moengagePlugin.setUniqueId(AppConstants.userMobile);
   }
 
-  static void trackEventMoEngage(String eventName, Map<String, String> map) {
-    moengagePlugin.showInApp();
+
+
+  static void trackEventMoEngage(String eventName, Map<String, dynamic> map) {
+    // moengagePlugin.showInApp();
     var properties = MoEProperties();
     for(var entry in map.entries) {
       properties.addAttribute(entry.key, entry.value);
@@ -98,6 +137,7 @@ class AnalyticsConstants {
   static String Click_Test_Series    = 'Click_Test_Series';
   static String Click_Quiz    = 'Click_Quiz';
   static String Click_Study_Material    = 'Click_Study_Material';
+  static String Click_Study_Material_Pdf    = 'Click_Study_Material_Pdf';
   static String Click_Job_Alerts    = 'Click_Job_Alerts';
   static String Click_Current_Affairs    = 'Click_Current_Affairs';
   static String Click_Previous_Year_PDF    = 'Click_Previous_Year_PDF';
@@ -167,13 +207,24 @@ class AnalyticsConstants {
   static String Click_PDF_Browser = 'Click_PDF_Browser';
   static String My_Courses_Test_Series = 'My_Courses_Test_Series';
   static String Click_Feedback = 'Click_Feedback';
+  static String Click_Free_Courses = 'Click_Free_Courses';
+  static String My_Courses_Doubts = 'My_Courses_Doubts';
+  static String Click_Ask_Doubts = 'Click_Ask_Doubts';
+  static String Signup_Successful= 'Signup_Successful';
   static String Click_View_Demo= 'Click_View_Demo';
   static String Click_Purchase_Now_Sampling= 'Click_Purchase_Now_Sampling';
   static String Purchase_Now_Sampling= 'Purchase_Now_Sampling';
   static String Click_Doubts_Unlock_Sampling= 'Click_Doubts_Unlock_Sampling';
   static String Click_Subject= 'Click_Subject';
   static String Click_Chapter= 'Click_Chapter';
-  static String My_Courses_Doubts = 'My_Courses_Doubts';
+  static String Course_Detail_page= 'Course_Detail_page';
+  static String Free_Course_List= 'Free_Course_List';
+  static String Click_Free_Course_Details= 'Click_Free_Course_Details';
+  static String Course_Details_Page= 'Course_Details_Page';
+  static String Payment_Page_Back_Button= 'Payment_Page_Back_Button';
+  static String Click_Topic_Study_Material= 'Click_Topic_Study_Material';
+  static String My_Courses_Timeline= 'My_Courses_Timeline';
+
 
 
 }

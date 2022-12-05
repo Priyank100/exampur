@@ -212,10 +212,24 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             widget.courseType==1?AppConstants.subscription(widget.courseData.id.toString().replaceAll(' ', '_')):'';
 
                             if(widget.courseType==1) {
-                              Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                              AppConstants.courseName =widget.courseData.title.toString();
+                              Navigator.push(context,
+                                  MaterialPageRoute(
+                                      settings: RouteSettings(name: 'PaidCourseListing'),
+                                      builder: (_) =>
                                   PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
                               ));
                             } else {
+                              var map = {
+                                'Page_Name':'Course_Detail_Page',
+                                'Course_Category':widget.tabName,
+                                'Course_Name':widget.courseData.title.toString(),
+                                'Mobile_Number':AppConstants.userMobile,
+                                'Language':AppConstants.langCode,
+                                'User_ID':AppConstants.userMobile,
+                              };
+                              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Free_Course_Details,map);
+                              AppConstants.courseName =widget.courseData.title.toString();
                               AppConstants.printLog(widget.courseData.title.toString());
                               AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
                               String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
@@ -238,6 +252,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                           CustomRoundButton(
                               onPressed: ()async{
+                                AppConstants.paidTabName = widget.tabName;
                             await   FirebaseAnalytics.instance.logEvent(name:'Paid_Courdse_Details',parameters: {
                               'Course_id':widget.courseData.id.toString().replaceAll(' ', '_'),
                               'Course_title':widget.courseData.title.toString().replaceAll(' ', '_')
@@ -261,7 +276,9 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             widget.courseData.onEmi??false ?
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) =>
+                              MaterialPageRoute(
+                                  settings: RouteSettings(name: 'PaidCourseListing'),
+                                  builder: (context) =>
                                   PaidCourseDetails(courseTabType, widget.courseData,widget.courseType))
                             ) :
                             Navigator.push(
@@ -395,13 +412,13 @@ class RowTile extends StatelessWidget {
 
 
 }
-
-class MyClip extends CustomClipper<Rect> {
-  Rect getClip(Size size) {
-    return Rect.fromLTWH(0, 0, 25, 25);
-  }
-
-  bool shouldReclip(oldClipper) {
-    return false;
-  }
-}
+//
+// class MyClip extends CustomClipper<Rect> {
+//   Rect getClip(Size size) {
+//     return Rect.fromLTWH(0, 0, 25, 25);
+//   }
+//
+//   bool shouldReclip(oldClipper) {
+//     return false;
+//   }
+// }

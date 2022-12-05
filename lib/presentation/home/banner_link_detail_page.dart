@@ -53,18 +53,20 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
     // TODO: implement initState
     super.initState();
     getLists().then((value) {
+      Future.delayed(Duration.zero, () {
       var map = {
-        'Page_Name':'Home_Page',
+        'Page_Name':'Course_Details',
         'Banner_Rank':AppConstants.currentindex,
         'Banner_Name':bannerDetailData!.title.toString(),
         'Mobile_Number':AppConstants.userMobile,
         'Language':AppConstants.langCode,
         'User_ID':AppConstants.userMobile,
-        'Course_Category':((bannerDetailData!.category!.map((item) => item.name)).toList()).join(', ')
+        'Course_Category':((bannerDetailData!.category!.map((item) => item.name)).toList()).join(', '),
+        'Path_name':ModalRoute.of(context)!.settings.name
       };
        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Banner_Home,map);
     });
-
+    });
   }
 
   @override
@@ -83,7 +85,7 @@ class _BannerLinkDetailPageState extends State<BannerLinkDetailPage> {
             bannerDetailData!.upsellBook??[],
             bannerDetailData!.pdfPath.toString(),
             bannerDetailData!.status.toString(),
-            preBookDetail: bannerDetailData!.preBookDetail
+            preBookDetail: bannerDetailData!.preBookDetail,
         )
 
     );
@@ -122,9 +124,24 @@ class _ViedobannerState extends State<Viedobanner> {
   bool _muted = false;
   bool _isPlayerReady = false;
   String message ='';
+  int counter = 0;
+  int temp = 0;
 
   @override
   void initState() {
+    Future.delayed(Duration.zero, () {
+      AppConstants.routeName =ModalRoute.of(context)!.settings.name!;
+    var map = {
+      'Page_Name':'Course_Details',
+      'Course_Name':widget.title.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Video_Name':widget.title.toString(),
+      'Path_name':ModalRoute.of(context)!.settings.name
+    };
+       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
+    });
     String videoId =
         (YoutubePlayer.convertUrlToId(widget.videoUrl.toString()) == null)
             ? "errorstring"
@@ -158,6 +175,11 @@ class _ViedobannerState extends State<Viedobanner> {
         _playerState = _controller.value.playerState;
         _videoMetaData = _controller.metadata;
       });
+      if(_controller!.value.position.inSeconds != temp && _controller!.value.isPlaying ){
+        counter++;
+        temp = _controller!.value.position.inSeconds;
+
+      }
     }
   }
 
@@ -170,6 +192,16 @@ class _ViedobannerState extends State<Viedobanner> {
 
   @override
   void dispose() {
+    var map = {
+      'Page_Name':'Course_Details',
+      'Course_Name':widget.title.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Total_Watch_Time':counter,
+      'Path_name':AppConstants.routeName
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,map);
     _controller.dispose();
     _idController.dispose();
     _seekToController.dispose();
@@ -330,6 +362,16 @@ class _ViedobannerState extends State<Viedobanner> {
                             padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                             child: InkWell(
                               onTap: (){
+                                var map = {
+                                  'Page_Name':'Course_Details',
+                                  'Course_Category':AppConstants.paidTabName,
+                                  'Course_Name':widget.title.toString(),
+                                  'Mobile_Number':AppConstants.userMobile,
+                                  'Language':AppConstants.langCode,
+                                  'User_ID':AppConstants.userMobile,
+                                  'Path_name':ModalRoute.of(context)!.settings.name
+                                };
+                                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_PDF,map);
                                 Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 widget.pdfPath.toString().contains('http') ?
                                 ViewPdf(widget.pdfPath.toString(),'') :
@@ -395,6 +437,27 @@ class _ViedobannerState extends State<Viedobanner> {
         ),
         bottomNavigationBar:  InkWell(
                 onTap: () {
+                  var dispose = {
+                    'Page_Name':'Course_Details',
+                    'Course_Name':widget.title.toString(),
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':AppConstants.langCode,
+                    'User_ID':AppConstants.userMobile,
+                    'Total_Watch_Time':counter,
+                    'Path_name':AppConstants.routeName
+                  };
+
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,dispose);
+                  var map = {
+                    'Page_Name':'Course_Details',
+                    'Course_Category':AppConstants.paidTabName,
+                    'Course_Name':widget.title.toString(),
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':AppConstants.langCode,
+                    'User_ID':AppConstants.userMobile,
+                    'Path_name':ModalRoute.of(context)!.settings.name
+                  };
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Course,map);
                   _controller.pause();
                   // showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: AppColors.transparent, builder: (context) =>BottomSheeet1(widget.paidcourseList));
                   // _BuyCourseBottomSheet(

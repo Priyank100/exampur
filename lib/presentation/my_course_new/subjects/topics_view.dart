@@ -215,14 +215,17 @@ class _TopicsViewState extends State<TopicsView> {
                                           ),
                                         ),
                                       ),
-                                      index+1 > unlockValue ? Opacity(
-                                          opacity: 0.6,
+                                      (index+1 > unlockValue) ? Opacity(
+                                          opacity: 0.7,
                                           child: Container(
                                               width: MediaQuery.of(context).size.width,
                                               height: 110,
                                               margin: EdgeInsets.only(top: 2),
+                                              padding: EdgeInsets.all(10),
                                               color: AppColors.black,
-                                              child: Image.asset(Images.lock, scale: 1.5, color: AppColors.red900)
+                                              child: Align(
+                                                  alignment: Alignment.bottomRight,
+                                                  child: Image.asset(Images.lock, scale: 2, color: AppColors.white))
                                           )
                                       ) : SizedBox()
                                     ],
@@ -311,6 +314,19 @@ class _TopicsViewState extends State<TopicsView> {
   Widget WatchVideoButton(List<MaterialData> materialList, index) {
     return InkWell(
       onTap: () {
+        var map = {
+          'Page_Name':'My_Courses_Recorded',
+          'Mobile_Number':AppConstants.userMobile,
+          'Language':AppConstants.langCode,
+          'User_ID':AppConstants.userMobile,
+          'Course_Name':AppConstants.courseName,
+          'Faculty_Name':AppConstants.subjectName,
+          'Subject_Name':AppConstants.subjectName,
+          'Chapter_Name':widget.chaptername,
+          'Topic_Name':materialList[index].title.toString(),
+          'Course_Type':'Demo'
+        };
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
         AppConstants.chapterName =widget.chaptername;
         materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
         Navigator.push(context, MaterialPageRoute(builder: (context) =>
@@ -489,6 +505,19 @@ class _TopicsViewState extends State<TopicsView> {
                   width: MediaQuery.of(context).size.width/2,
                   child: MaterialButton(
                     onPressed: (){
+                      var map = {
+                        'Page_Name':'My_Courses_Recorded',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'User_ID':AppConstants.userMobile,
+                        'Course_Name':AppConstants.courseName,
+                        'Faculty_Name':AppConstants.subjectName,
+                        'Subject_Name':AppConstants.subjectName,
+                        'Chapter_Name':widget.chaptername,
+                        'Topic_Name':title.toString(),
+                        'Course_Type':'Demo'
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_PDF_Viewer,map);
                       AppConstants.timlineId = timlineId.toString();
                       AppConstants.timlineName = title.toString();
                       isTimlineRequired == true ? pdfClickLog( timlineId.toString(),title):null;
@@ -503,6 +532,19 @@ class _TopicsViewState extends State<TopicsView> {
                   width: MediaQuery.of(context).size.width/2,
                   child: MaterialButton(
                     onPressed: () async {
+                      var map = {
+                        'Page_Name':'My_Courses_Recorded',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'User_ID':AppConstants.userMobile,
+                        'Course_Name':AppConstants.courseName,
+                        'Faculty_Name':AppConstants.subjectName,
+                        'Subject_Name':AppConstants.subjectName,
+                        'Chapter_Name':widget.chaptername,
+                        'Topic_Name':title.toString(),
+                        'Course_Type':'Demo'
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_PDF_Browser,map);
                      Navigator.pop(context);
                       AppConstants.makeCallEmail(pdfPath);
                     },

@@ -25,6 +25,7 @@ class ChooseCategoryScreen extends StatefulWidget {
 
 class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
   List<String> selectedCategoryIdList = [];
+  List<String> selectedCategoryName = [];
   List<Data> myList = [];
 
   @override
@@ -323,21 +324,33 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
       } else if (response.statusCode == 200) {
         AppConstants.printLog(response.body.toString());
         var jsonObject = jsonDecode(response.body);
-        AppConstants.printLog('priyank>> ' + jsonObject['statusCode'].toString());
 
         if (jsonObject['statusCode'].toString() == '200') {
+
+          AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+          AppConstants.printLog(jsonObject);
 
           for(int i=0; i<myList.length; i++) {
             if(myList[i].isSelected == true) {
               AppConstants.subscription(myList[i].id.toString());
-              AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-              AppConstants.printLog(myList[i].id.toString());
+              // AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+              // AppConstants.printLog(myList[i].id.toString());
             } else {
               AppConstants.unSubscription(myList[i].id.toString());
             }
           }
 
           AppConstants.selectedCategoryList = jsonObject['data'].cast<String>();
+          AppConstants.selectedCategoryNameList.clear();
+          for (int i = 0; i < selectedCategoryIdList.length; i++) {
+            for (int j = 0; j < myList.length; j++) {
+              if (selectedCategoryIdList[i] == myList[j].id) {
+                myList[j].isSelected = true;
+                selectedCategoryName.add(myList[j].name.toString());
+                AppConstants.selectedCategoryNameList = selectedCategoryName;
+              }
+            }
+          }
           Navigator.pop(context, 'updated');
           // setState(() {});
           AppConstants.showBottomMessage(context, 'Saved successfully', AppColors.black);

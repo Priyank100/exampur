@@ -23,6 +23,7 @@ class CurrentAffairsTab extends StatefulWidget {
 class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
   List<CurentAffairsNewTabModel> currentAffairsTab = [];
   bool isLoading = true;
+  String currentlangCode    = 'hi';
 
   @override
   void initState() {
@@ -66,7 +67,7 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
                             autocorrect: false,
                             onTap: () {
                               FocusScope.of(context).unfocus();
-                              AppConstants.goTo(context, CurrentAffairsFilter('S'));
+                              AppConstants.goTo(context, CurrentAffairsFilter(currentlangCode,'S'));
                             },
                             cursorColor: AppColors.amber,
                             decoration: InputDecoration(
@@ -95,7 +96,7 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
                           width: 30,
                         ),
                         onChanged: (Language? language) {
-                          AppConstants.langCode = language!.languageCode;
+                          currentlangCode = language!.languageCode;
                           setState(() {});
                         },
                         items: Language.languageList()
@@ -143,13 +144,13 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
             FocusScope.of(context).unfocus();
           },
           tabs: currentAffairsTab.map((item) => Tab(
-              child:Text( AppConstants.langCode == 'hi' ? item.titleHindi.toString() : item.titleEng.toString(),style: TextStyle(fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins',fontSize: 17,fontWeight: FontWeight.bold),))).toList(),
+              child:Text( currentlangCode == 'hi' ? item.titleHindi.toString() : item.titleEng.toString(),style: TextStyle(fontFamily: currentlangCode == 'hi' ?'Noto Sans':'Poppins',fontSize: 17,fontWeight: FontWeight.bold),))).toList(),
           indicatorColor: AppColors.amber,
           padding: EdgeInsets.all(8),
         ),
         Expanded(
           child: TabBarView(
-              children: currentAffairsTab.map((item) => CurrentAffairsListing(item.id.toString(),item.titleEng.toString())).toList()
+              children: currentAffairsTab.map((item) => CurrentAffairsListing(currentlangCode,item.id.toString(),item.titleEng.toString())).toList()
           ),
         ),
       ],

@@ -67,6 +67,7 @@ bool isLoading =false;
                         onTap: () async {
                           //moEnageanaylytics
                           //for sendAnalyticsEvent
+                          AppConstants.paidTabName = item.id.toString();
                           AppConstants.currentindex = _current.toString();
                           item.type=='Course' || item.type=='Combo Course' ? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerCourseClick):
                           item.type=='Book'? AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.bannerBookClick):
@@ -86,13 +87,14 @@ bool isLoading =false;
                               'Mobile_Number':AppConstants.userMobile,
                               'Language':AppConstants.langCode,
                               'User_ID':AppConstants.userMobile,
-                              'Course_Category':''
                             };
                             AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Banner_Home,map);
                           }
 
                           item.type=='Course' || item.type=='Combo Course'?
-                          Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => BannerLinkDetailPage(item.type.toString(),item.link.toString()))):
+                          Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+                              settings: RouteSettings(name: 'Home_page'),
+                              builder: (_) => BannerLinkDetailPage(item.type.toString(),item.link.toString()))):
                           item.type=='Book'?
                           Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => BannerLinkBookDetailPage(item.type.toString(),item.link.toString())
                           )):

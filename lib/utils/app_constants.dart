@@ -12,6 +12,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
 import '../Localization/language_constrants.dart';
 import '../SharePref/shared_pref.dart';
+import '../data/model/DoubtCourseIdModel.dart';
 import '../presentation/widgets/rating_dialog.dart';
 import 'app_colors.dart';
 import 'images.dart';
@@ -55,6 +56,11 @@ class AppConstants {
   static String googleFeedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdnU2iboo0rPFiVBWcJZYHXSlIJeDZqiye8D2IqGjvZjrOMdA/viewform?usp=pp_url&entry.43008044=USER_NAME&entry.2068509611=USER_MOBILE';
 
   static List<String> selectedCategoryList = [];
+  static List<String> selectedCategoryNameList = [];
+
+
+  static List<String> contentLogList = [];
+  static List<Course> doubtCourseIdList = [];
 
   // static String currentAffairesId = '61efe9771dbf84752e750373';
   // static String studyMaterialsId = '61efe9921dbf84752e750384';
@@ -82,12 +88,15 @@ class AppConstants {
   static String videoQuality = '';
   static String currentindex = '';
   static int mycourseType = 0;
-  static List<String> selectedCategoryName = [];
+  static String routeName = '';
+  // static List<String> selectedCategoryName = [];
+
   //=========================================================
 
 
   //========================================webviewcallwithnative=================================//
   static const platform = const MethodChannel('flutter.native/helper');
+
 
 
 

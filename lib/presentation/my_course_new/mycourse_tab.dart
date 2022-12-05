@@ -12,6 +12,8 @@ import 'package:exampur_mobile/presentation/widgets/web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../utils/app_constants.dart';
+
 class MyCourseTab extends StatefulWidget {
   final String courseId;
   final String courseName;
@@ -31,19 +33,20 @@ class _MyCourseTabState extends State<MyCourseTab> {
   String userMobile = '';
   bool tabname = false;
   List<Widget> tabroutes =[];
-  String firebaseId = '';
+  String courseId = '';
+  String webId = '';
+
 
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/LocalJson/myCourseTab.json');
   }
 
   void getTabList() async {
-    final QuerySnapshot result = await FirebaseFirestore.instance.collection('doubts_courses_id').get();
-    final List<DocumentSnapshot> documents = result.docs;
     bool isDoubtsRequired = false;
-    documents.forEach((data) {
-      if (widget.courseId == data.id) {
-        firebaseId = data.id;
+    AppConstants.doubtCourseIdList.forEach((data) {
+      if (widget.courseId == data.courseId) {
+        courseId = data.courseId!;
+        webId = data.webId!.toString();
         isDoubtsRequired = true;
       }
     });
@@ -52,7 +55,7 @@ class _MyCourseTabState extends State<MyCourseTab> {
       tabList.insert(1, Book(id: "1", name: "Doubts"));
       tabroutes =[
         TimelineView(widget.courseId),
-        DoubtsPage(widget.token, firebaseId, 'False'),
+        DoubtsPage(widget.token, webId, 'False'),
         SubjectsView(widget.courseId),
         WebViewOpen(widget.testSeriesLink, widget.token),
         MyCourseNotifications(widget.courseId),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/presentation/home/exampurone2one/one2oneViedo.dart';
@@ -73,7 +74,7 @@ class FirebaseDynamicLinkService {
 
   }
 
-  static handleDeepLink(BuildContext context, PendingDynamicLinkData dataLink) {
+  static handleDeepLink(BuildContext context, PendingDynamicLinkData dataLink) async {
     try{
       final Uri deepLink = dataLink.link;
 
@@ -84,6 +85,7 @@ class FirebaseDynamicLinkService {
         // var isOne2One = deepLink.pathSegments.contains('one2one');
         // var isCombo = deepLink.pathSegments.contains('combo');
         String dataType = deepLink.queryParameters['dataType'].toString();
+
         var isCourses = dataType.contains('courses');
         var isBooks = dataType.contains('books');
         var isOne2One = dataType.contains('one2one');
@@ -96,17 +98,23 @@ class FirebaseDynamicLinkService {
             String type = deepLink.queryParameters['type'].toString();
             PaidCourseData courseData = PaidCourseData.fromJson(json.decode(data));
             if(type == '1') {
-              return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              return Navigator.push(context, MaterialPageRoute(
+                  settings: RouteSettings(name: 'Direct'),
+                  builder: (context) =>
                   PaidCourseDetails('Course',courseData, int.parse(type.toString()))));
             } else {
+              String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
               return Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                  MyCourseTabView(courseData.id.toString(),courseData.title.toString(),'','')
+                  MyCourseTabView(courseData.id.toString(),courseData.title.toString(),courseData.testSeriesLink.toString().replaceAll('and', '&'),token)
               ));
             }
 
           case 2:
             BookEbook bookData = BookEbook.fromJson(json.decode(data));
-            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+            // bookData.title.
+            return Navigator.push(context, MaterialPageRoute(
+               // settings: RouteSettings(name: 'Direct'),
+                builder: (context) =>
                 PlaceOrderScreen(bookData)));
           case 3:
             One2OneCourses one2OneData = One2OneCourses.fromJson(json.decode(data));
@@ -115,7 +123,9 @@ class FirebaseDynamicLinkService {
           case 4:
             String type = deepLink.queryParameters['type'].toString();
             PaidCourseData courseData = PaidCourseData.fromJson(json.decode(data));
-            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+            return Navigator.push(context, MaterialPageRoute(
+                settings: RouteSettings(name: 'Direct'),
+                builder: (context) =>
                 PaidCourseDetails('Combo',courseData, int.parse(type.toString()))));
         }
 

@@ -14,10 +14,11 @@ import 'current_affairs_details.dart';
 import 'current_affairs_tab.dart';
 
 class CurrentAffairsFilter extends StatefulWidget {
+  final String langCode;
   final String searchType;
   final String? date;
   final String? selectedTagName;
-  const CurrentAffairsFilter(this.searchType, {this.date, this.selectedTagName}) : super();
+  const CurrentAffairsFilter(this.langCode,this.searchType, {this.date, this.selectedTagName}) : super();
 
   @override
   State<CurrentAffairsFilter> createState() => _CurrentAffairsFilterState();
@@ -113,7 +114,7 @@ class _CurrentAffairsFilterState extends State<CurrentAffairsFilter> {
     return InkWell(
       onTap: (){
         FocusScope.of(context).unfocus();
-        AppConstants.goTo(context, CurrentAffairsDetails(currentAffairsListModel!.articleContent![index].id.toString()));
+        AppConstants.goTo(context, CurrentAffairsDetails(widget.langCode,currentAffairsListModel!.articleContent![index].id.toString()));
       },
       child: Container(
         padding: const EdgeInsets.all(5),
@@ -135,17 +136,17 @@ class _CurrentAffairsFilterState extends State<CurrentAffairsFilter> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppConstants.langCode == 'hi' ?
+                    widget.langCode == 'hi' ?
                     currentAffairsListModel!.articleContent![index].titleHindi.toString() :
                     currentAffairsListModel!.articleContent![index].titleEng.toString(),
-                    style:  TextStyle(fontSize: 15, fontWeight: FontWeight.bold,fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins',),
+                    style:  TextStyle(fontSize: 15, fontWeight: FontWeight.bold,fontFamily: widget.langCode == 'hi' ?'Noto Sans':'Poppins',),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
 
                   ),
                   Text('Posted on ' + currentAffairsListModel!.articleContent![index].date.toString(),style: TextStyle(fontSize: 10,color: AppColors.amber)),
                   Html(
-                      data: AppConstants.langCode == 'hi' ?
+                      data: widget.langCode == 'hi' ?
                       currentAffairsListModel!.articleContent![index].descriptionHindi.toString().replaceAll(RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true), ' ') :
                       currentAffairsListModel!.articleContent![index].descriptionEng.toString().replaceAll(RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true), ' '),
                       style: {
@@ -153,7 +154,7 @@ class _CurrentAffairsFilterState extends State<CurrentAffairsFilter> {
                             maxLines: 3,
                             textOverflow: TextOverflow.ellipsis,
                             fontSize: const FontSize(12),
-                            fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins'
+                            fontFamily: widget.langCode == 'hi' ?'Noto Sans':'Poppins'
                         )}
                   )],
               ),

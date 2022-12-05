@@ -142,7 +142,14 @@ class AuthProvider extends ChangeNotifier {
         _userData.add(_informationModel);
         await SharedPref.saveSharedPref(SharedPref.USER_DATA, jsonEncode(_userData));
         AppConstants.CATEGORY_LENGTH = _informationModel.data!.countCategories.toString();
+        var map = {
+          'Page_Name':'Signup_Successful',
+          'Mobile_Number':_informationModel.data!.phone.toString(),
+          'Language':'en',
+          'User_ID':_informationModel.data!.phone.toString(),
+        };
 
+        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Signup_Successful,map);
         callback(true, '');
       } else {
         callback(false, apiResponse.response!.data['data'].toString());

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 class Service {
@@ -15,7 +17,7 @@ class Service {
     var sym = uri.contains(API.BASE_URL2) ? uri.contains('?') ? "&" : "?" : "";
     String url = uri.contains(API.BASE_URL2) ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
     AppConstants.printLog(url + " Param- " + postBody);
-
+    // Fluttertoast.showToast(msg: postBody.toString());
     Map<String, String> header = {
       "appAuthToken": token,
       "Content-Type": "application/json",
@@ -45,6 +47,7 @@ class Service {
     String url = uri.contains(API.BASE_URL2) ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
     AppConstants.printLog('URL> $url');
     String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
+    // Fluttertoast.showToast(msg: url);
     AppConstants.printLog(token);
     final response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',

@@ -67,9 +67,7 @@ class SignUpState extends State<SignUp> {
     super.initState();
     var map = {
       'Page_Name':'Sign_Up',
-      'Mobile_Number':'',
       'Language':'en',
-      'User_ID':''
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Sign_Up,map);
     _formKeySignUp = GlobalKey<FormState>();
@@ -298,9 +296,8 @@ class SignUpState extends State<SignUp> {
                           if(selected != null){
                             var map = {
                               'Page_Name':'Sign_Up',
-                              'Mobile_Number':'',
                               'Language':'en',
-                              'User_ID':''
+
                             };
                            AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_State,map);
                           }

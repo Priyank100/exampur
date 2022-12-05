@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 
@@ -48,6 +50,7 @@ class DioClient {
       var sym = uri.contains(API.BASE_URL2) || uri.contains('courses/paid') ? uri.contains('?') ? "&" : "?" : "";
       String url = uri.contains(API.BASE_URL2) || uri.contains('courses/paid') ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
       AppConstants.printLog("URL> ${url.toString()}");
+     // Fluttertoast.showToast(msg: url);
       var response = await dio.get(
         url,
         queryParameters: queryParameters,
@@ -79,6 +82,7 @@ class DioClient {
       String url = uri.contains(API.BASE_URL2) ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
       AppConstants.printLog("URL> ${url.toString()}");
       AppConstants.printLog("Param> ${data.toString()}");
+      // Fluttertoast.showToast(msg: data.toString());
       var response = await dio.post(
         url,
         data: data,
