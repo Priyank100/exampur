@@ -1,16 +1,11 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../utils/api.dart';
 import 'logging_incepactor.dart';
 
@@ -58,6 +53,7 @@ class DioClient {
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
+      // Fluttertoast.showToast(msg: '${url}\n${response.data.toString()}');
       return response;
     } on SocketException catch (e) {
       throw SocketException(e.toString());
@@ -92,6 +88,7 @@ class DioClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
+      // Fluttertoast.showToast(msg: '${url}\n${response.data.toString()}');
       return response;
     } on FormatException catch (_) {
       throw FormatException("Unable to process the data");
@@ -123,6 +120,7 @@ class DioClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
+      // Fluttertoast.showToast(msg: '${url}\n${response.data.toString()}');
       return response;
     } on FormatException catch (_) {
       throw FormatException("Unable to process the data");
@@ -145,6 +143,7 @@ class DioClient {
         options: options,
         cancelToken: cancelToken,
       );
+      // Fluttertoast.showToast(msg: '${uri}\n${response.data.toString()}');
       return response;
     } on FormatException catch (_) {
       throw FormatException("Unable to process the data");
