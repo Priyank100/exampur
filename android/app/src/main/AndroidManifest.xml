@@ -59,6 +59,9 @@
                 <data
                     android:host="edudrive.page.link"
                     android:scheme="https" />
+                <data
+                    android:host="link.exampur.com"
+                    android:scheme="https" />
             </intent-filter>
 
             <meta-data
