@@ -22,9 +22,14 @@ class API {
   // static String BASE_URL2 = 'https://static-dev.exampur.xyz/';
   // static String BASE_URL2 = 'https://kubernetes.static.exampur.xyz/';
 
-  //cache production
-  static String BASE_URL1 = 'https://auth.exampurcache.xyz/';
-  static String BASE_URL2 = 'https://static.exampurcache.xyz/';
+  // //cache production
+  // static String BASE_URL1 = 'https://auth.exampurcache.xyz/';
+  // static String BASE_URL2 = 'https://static.exampurcache.xyz/';
+
+
+  //New url
+  static String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
+  static String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
   //Testing
  //static String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
@@ -282,8 +287,10 @@ class API {
 //----------------------------------------------------------------------------------------------------
 
 
-  static String contentUrl = 'https://tn4skt6hsj.execute-api.ap-south-1.amazonaws.com/config/content-log';
+ // static String contentUrl = 'https://tn4skt6hsj.execute-api.ap-south-1.amazonaws.com/config/content-log';
+  static String contentUrl = 'https://kzw2rwmi1d.execute-api.ap-south-1.amazonaws.com/config/content-log';
 
-  static String doubtgetUrl = 'https://tn4skt6hsj.execute-api.ap-south-1.amazonaws.com/config/doubt';
+ // static String doubtgetUrl = 'https://tn4skt6hsj.execute-api.ap-south-1.amazonaws.com/config/doubt';
+  static String doubtgetUrl = 'https://kzw2rwmi1d.execute-api.ap-south-1.amazonaws.com/config/doubt';
 
 }
