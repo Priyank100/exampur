@@ -274,8 +274,10 @@ class API {
 //----------------------------------------------------------------------------------------------------
 
 
-  static String contentUrl = 'https://tn4skt6hsj.execute-api.ap-south-1.amazonaws.com/config/content-log';
+ // static String contentUrl = 'https://tn4skt6hsj.execute-api.ap-south-1.amazonaws.com/config/content-log';
+  static String contentUrl = 'https://kzw2rwmi1d.execute-api.ap-south-1.amazonaws.com/config/content-log';
 
-  static String doubtgetUrl = 'https://tn4skt6hsj.execute-api.ap-south-1.amazonaws.com/config/doubt';
+ // static String doubtgetUrl = 'https://tn4skt6hsj.execute-api.ap-south-1.amazonaws.com/config/doubt';
+  static String doubtgetUrl = 'https://kzw2rwmi1d.execute-api.ap-south-1.amazonaws.com/config/doubt';
 
 }
