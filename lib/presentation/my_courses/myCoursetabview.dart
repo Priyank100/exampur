@@ -24,9 +24,10 @@ class MyCourseTabView extends StatefulWidget {
   final String courseName;
   final String testSeriesLink;
   final String token;
+  final String? tabTitle;
 
 
-  const MyCourseTabView(this.courseId, this.courseName, this.testSeriesLink, this.token)
+  const MyCourseTabView(this.courseId, this.courseName, this.testSeriesLink, this.token, {this.tabTitle})
       : super();
 
   @override
@@ -112,12 +113,14 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
         builder: (context, snapshot) {
           return Scaffold(
               body: MyCourseTabBar(
+                  selectedTabIndex: 1,
                   length: tabList.length,
                   names: tabList.map((item) => item.name.toString()).toList(),
                   routes: tabList.length == 0
                       ? []
                       : tabroutes,
-                  title: ''));
+                  title: '')
+          );
         });
   }
 }

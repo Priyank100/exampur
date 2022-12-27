@@ -14,8 +14,9 @@ import '../../../utils/analytics_constants.dart';
 
 class PaidCourses extends StatefulWidget {
   final int courseType;
+  final String? categoryId;
 
-  const PaidCourses(this.courseType) : super();
+  const PaidCourses(this.courseType, {this.categoryId}) : super();
 
   @override
   _PaidCoursesState createState() => _PaidCoursesState();
@@ -27,6 +28,8 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
   List<Data> freeCourseTabList = [];
   bool isPaidData = false;
   bool isFreeData = false;
+
+  int tabIndex = 0;
 
   Future<void> getLists() async {
     if (widget.courseType == 1) {
@@ -51,6 +54,16 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
     }
     paidCourseTabList.insertAll(0,newList1);
     freeCourseTabList.insertAll(0,newList2);
+    for(int i=0; i<paidCourseTabList.length; i++) {
+      if(widget.categoryId == paidCourseTabList[i].id) {
+        tabIndex = i;
+      }
+    }
+    for(int i=0; i<freeCourseTabList.length; i++) {
+      if(widget.categoryId == freeCourseTabList[i].id) {
+        tabIndex = i;
+      }
+    }
     isPaidData = true;
     isFreeData = true;
   }
@@ -66,11 +79,6 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
       'User_ID':AppConstants.userMobile
     };
     widget.courseType == 1? AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Paid_Courses,map):null;
-    // _controller = TabController(
-    //               length: widget.courseType == 1
-    //                   ? paidCourseTabList.length
-    //                   : freeCourseTabList.length,
-    //               vsync: this);
     super.initState();
   }
 
@@ -105,7 +113,8 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
             ? paidCourseTabList.map((item) => TeachingList(1, item.id.toString(),item.name.toString())).toList()
             : freeCourseTabList.map((item) => TeachingList(0, item.id.toString(), item.name.toString())).toList(),
 
-        title: "");
+        title: "",
+        selectedTabIndex: tabIndex);
   }
 
   Widget noData() {
