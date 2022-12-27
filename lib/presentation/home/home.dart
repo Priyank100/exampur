@@ -313,7 +313,7 @@ class _HomeState extends State<Home> {
                       Map<String, Object> stuff = {};
                       AnalyticsConstants.logEvent(AnalyticsConstants.paidCourseClick,stuff);
                       Navigator.of(context, rootNavigator: true).push(
-                          MaterialPageRoute(builder: (_) => PaidCourses(1)));
+                          MaterialPageRoute(builder: (_) => PaidCourses(1,tabId: '')));
                     },
                     // navigateTo: PaidCourses(1)
                   ),

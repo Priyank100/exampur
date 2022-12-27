@@ -14,8 +14,8 @@ import '../../../utils/analytics_constants.dart';
 
 class PaidCourses extends StatefulWidget {
   final int courseType;
-
-  const PaidCourses(this.courseType) : super();
+   final String? tabId;
+   PaidCourses(this.courseType,{this.tabId}) : super();
 
   @override
   _PaidCoursesState createState() => _PaidCoursesState();
@@ -105,7 +105,8 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
             ? paidCourseTabList.map((item) => TeachingList(1, item.id.toString(),item.name.toString())).toList()
             : freeCourseTabList.map((item) => TeachingList(0, item.id.toString(), item.name.toString())).toList(),
 
-        title: "");
+        title: "",
+   );
   }
 
   Widget noData() {

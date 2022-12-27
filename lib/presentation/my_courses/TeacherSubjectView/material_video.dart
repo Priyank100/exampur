@@ -82,6 +82,10 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
 
   @override
   void initState() {
+    print('>>>>>>>>>>>');
+    print(widget.vid);
+    print(widget.url);
+    print(widget.title);
     var map = {
       'Page_Name':'Recorded_Video',
       'Mobile_Number':AppConstants.userMobile,

@@ -12,6 +12,7 @@ import 'package:moengage_flutter/properties.dart';
 import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import '../Localization/language_constrants.dart';
 import '../SharePref/shared_pref.dart';
+import '../presentation/AppTutorial/app_tutorial.dart';
 import '../presentation/DeliveryDetail/delivery_detail_screen.dart';
 import '../presentation/home/BannerBookDetailPage.dart';
 import '../presentation/home/banner_link_detail_page.dart';
@@ -21,6 +22,7 @@ import '../presentation/home/job_alert_new/job_notifications.dart';
 import '../presentation/home/study_material_new/study_material_new.dart';
 import '../presentation/home/test_series_new/test_series_new.dart';
 import '../presentation/my_courses/TeacherSubjectView/DownloadPdfView.dart';
+import '../presentation/my_courses/TeacherSubjectView/material_video.dart';
 import 'app_colors.dart';
 import 'app_constants.dart';
 import 'lang_string.dart';
@@ -142,6 +144,9 @@ class AnalyticsConstants {
           String screenWithData = inAppCompaign.navigationAction!.url.split(
               dynamicBase)[1];
 
+          print('>>>>>>>>>>>>>>');
+          print(screenWithData);
+
           String screenName = '';
           List<String> actiondata = [];
 
@@ -157,6 +162,7 @@ class AnalyticsConstants {
 
           print('%%^&&&&');
           print(screenName);
+
 
           //======================================CouponCode========================================//
 
@@ -185,6 +191,38 @@ class AnalyticsConstants {
           else if (screenName == "jobAlert") {
             AppConstants.goTo(context, JobNotifications());
           }
+          // else if (screenName == "jobAlert") {
+          //   AppConstants.goTo(context, JobNotifications());
+          // }
+
+          //========================================AppTutorial====================================//
+          else if (screenName == "appTutorial") {
+            AppConstants.goTo(context, AppTutorial());
+          }
+
+          //========================================bookListingPage===============================//
+          else if (screenName == "books") {
+            AppConstants.goTo(context, BooksEbook());
+          }
+//=====================================================bookdetailpage===============================//
+          else if (screenName == "bookDetail") {
+            List<String> bookId = [
+              actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
+              actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
+            ];
+            AppConstants.goTo(context, BannerLinkBookDetailPage('Book',bookId[1]));
+          }
+
+          else if (screenName == "recorded") {
+            List<String> act = actiondata[1].split('&').toList();
+            String title = act[0].split('=')[1];
+            String vid = act[1].split('=')[1];
+            bool contentLog = act[2].split('=')[1].toLowerCase()=='true'?true:false;
+            String url = act[3].split('=')[1];
+            AppConstants.goTo(context, MyMaterialVideo(url,title,'',vid,contentLog));
+          }
+
+
           //======================================pdf========================================//
 
           else if (screenName == "pdf") {
