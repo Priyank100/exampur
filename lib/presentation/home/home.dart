@@ -13,6 +13,7 @@ import 'package:exampur_mobile/presentation/home/daily_quiz/daily_quiz.dart';
 import 'package:exampur_mobile/presentation/home/home_banner.dart';
 import 'package:exampur_mobile/presentation/home/job_alert_new/job_notifications.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
+import 'package:exampur_mobile/presentation/home/paid_courses/offline_courses.dart';
 import 'package:exampur_mobile/presentation/home/practice_question/practice_question_category.dart';
 import 'package:exampur_mobile/presentation/home/study_material_new/study_material_new.dart';
 import 'package:exampur_mobile/presentation/home/study_notes/study_notes_list.dart';
@@ -45,6 +46,7 @@ import 'package:provider/provider.dart';
 
 import 'banner_link_detail_page.dart';
 import 'current_affairs_new/current_affairs_tab.dart';
+
 
 class Home extends StatefulWidget {
   final List<BannerData> bannerList;
@@ -318,6 +320,24 @@ class _HomeState extends State<Home> {
                     // navigateTo: PaidCourses(1)
                   ),
                   SquareButton(
+                    image: Images.offlinebatch,
+                    title: getTranslated(context, LangString.offileCourse)!,
+                    color: AppColors.orange,
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(builder: (_) => OfflineCourse()));
+                    },
+                    // navigateTo: PaidCourses(1)
+                  ),
+
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  SquareButton(
                     image: Images.free_course,
                     title: getTranslated(context, LangString.freeCourses)!,
                     color: AppColors.freeCourses,
@@ -338,13 +358,6 @@ class _HomeState extends State<Home> {
                           MaterialPageRoute(builder: (_) => PaidCourses(0)));
                     },
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.book,
                     title: getTranslated(context, 'books')!,
@@ -358,6 +371,21 @@ class _HomeState extends State<Home> {
                           .push(MaterialPageRoute(builder: (_) => BooksEbook()));
                     },
                   ),
+
+                  // SquareButton(
+                  //     image: Images.one2one,
+                  //     title: getTranslated(context, 'exampur_one2one')!,
+                  //     color: AppColors.one2one,
+                  //     navigateTo:
+                  //     Exampuron2oneView()
+                  // ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
                   SquareButton(
                     image: Images.testseries,
                     title: getTranslated(context, 'test_courses')!,
@@ -375,27 +403,13 @@ class _HomeState extends State<Home> {
                           AnalyticsConstants.testSeriesClick);
                       Navigator.of(context, rootNavigator: true)
                           .push(MaterialPageRoute(
-                              builder: (_) =>
-                                  //   TestSeriesTab()
-                                  TestSeriesNew(API.testSeriesWebUrl, TOKEN))).then((value) {
+                          builder: (_) =>
+                          //   TestSeriesTab()
+                          TestSeriesNew(API.testSeriesWebUrl, TOKEN))).then((value) {
                         AppConstants.checkRatingCondition(context, false);
                       });
                     },
                   ),
-                  // SquareButton(
-                  //     image: Images.one2one,
-                  //     title: getTranslated(context, 'exampur_one2one')!,
-                  //     color: AppColors.one2one,
-                  //     navigateTo:
-                  //     Exampuron2oneView()
-                  // ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.dailyquiz,
                     title: getTranslated(context, LangString.Quizz),
@@ -415,6 +429,14 @@ class _HomeState extends State<Home> {
                                   TestSeriesNew(API.quizzesWebUrl, TOKEN)));
                     },
                   ),
+
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
                   SquareButton(
                     image: Images.studymaterial,
                     title: getTranslated(context, 'study_materials')!,
@@ -430,18 +452,11 @@ class _HomeState extends State<Home> {
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Study_Material,map);
                       Navigator.of(context, rootNavigator: true)
                           .push(MaterialPageRoute(
-                              builder: (_) =>
-                                  // CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)
-                                  StudyMaterialNew(0)));
+                          builder: (_) =>
+                          // CurrentAffairs(getTranslated(context, 'study_materials')!, AppConstants.studyMaterialsId)
+                          StudyMaterialNew(0)));
                     },
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.jobalert,
                     title: getTranslated(context, 'job_alerts')!,
@@ -462,6 +477,19 @@ class _HomeState extends State<Home> {
                               ));
                     },
                   ),
+
+                  // SquareButton(
+                  //     image: Images.offlinebatch,
+                  //     title: getTranslated(context, 'offline_batches')!,
+                  //     color: AppColors.brown400,
+                  //     navigateTo: OfflineCourse()),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
                   SquareButton(
                     image: Images.current_affair,
                     title: getTranslated(context, 'current_affairs')!,
@@ -492,18 +520,6 @@ class _HomeState extends State<Home> {
                               builder: (_) => CurrentAffairsTab()));
                     },
                   ),
-                  // SquareButton(
-                  //     image: Images.offlinebatch,
-                  //     title: getTranslated(context, 'offline_batches')!,
-                  //     color: AppColors.brown400,
-                  //     navigateTo: OfflineCourse()),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   // SquareButton(
                   //   image: Images.caBytes,
                   //   title: getTranslated(context, LangString.CaBytes)!,
@@ -536,6 +552,14 @@ class _HomeState extends State<Home> {
                                   StudyMaterialNew(1)));
                     },
                   ),
+
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
                   SquareButton(
                     image: Images.practice,
                     title: getTranslated(context, LangString.PracticeQuestion)!,
@@ -554,13 +578,6 @@ class _HomeState extends State<Home> {
                               builder: (_) => PracticeQuestionCategory()));
                     },
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.live_test,
                     title: getTranslated(context, LangString.liveTest),

@@ -102,6 +102,7 @@ class LangString {
   static String liveTest= 'live_test';
 
   static String paidCourse= 'paid_course';
+  static String offileCourse= 'offile_Course';
   static String pleaseChooseTheCategory= 'please_choose_the_category';
   static String phoneNumber= 'phone_number';
   static String pinCode= 'pin_code';
