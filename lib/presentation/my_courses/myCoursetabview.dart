@@ -43,6 +43,8 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
   String courseId = '';
   String webId = '';
 
+  int tabIndex = 0;
+
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/LocalJson/myCourseTab.json');
   }
@@ -104,6 +106,13 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
     ];
   }
 
+  void setTabIndex() {
+    switch(widget.tabTitle.toString().toLowerCase().replaceAll(' ', '')) {
+      case 'timeline':break;
+
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +122,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
         builder: (context, snapshot) {
           return Scaffold(
               body: MyCourseTabBar(
-                  selectedTabIndex: 1,
+                  selectedTabIndex: tabIndex,
                   length: tabList.length,
                   names: tabList.map((item) => item.name.toString()).toList(),
                   routes: tabList.length == 0

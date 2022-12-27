@@ -87,6 +87,7 @@ class MyCourseTabBar extends StatefulWidget {
   final String title;
   final List<String> names;
   final List<Widget> routes;
+  final int? selectedTabIndex;
 
   const MyCourseTabBar({
     Key? key,
@@ -94,6 +95,7 @@ class MyCourseTabBar extends StatefulWidget {
     required this.names,
     required this.routes,
     required this.title,
+    this.selectedTabIndex
   }) : super(key: key);
 
   @override
@@ -106,7 +108,7 @@ class _MyCourseTabBarState extends State<MyCourseTabBar> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 0,
+      initialIndex: widget.selectedTabIndex ?? 0,
       length: widget.length,
       child: Scaffold(
         appBar: AppBar(
