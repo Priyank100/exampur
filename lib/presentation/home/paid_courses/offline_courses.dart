@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../data/model/paid_course_model_new.dart';
 import '../../../provider/PaidCourseProvider.dart';
 import '../../../shared/teaching_container.dart';
+import '../../../utils/analytics_constants.dart';
 import '../../../utils/app_constants.dart';
 import '../../widgets/loading_indicator.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,14 @@ class _OfflineCourseState extends State<OfflineCourse> {
   String offlineTabId = '';
   String offlineName = '';
   void initState() {
+    var map = {
+      'Page_Name':'Course_List',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'Course_Category':AppConstants.selectedCategoryNameList.toString(),
+      'User_ID':AppConstants.userMobile
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Course_List,map);
     scrollController.addListener(pagination);
     isLoad = 0;
     getLists(page);}

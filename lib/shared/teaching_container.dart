@@ -193,7 +193,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             // // courseIdList.add(widget.courseData.id.toString());
                             // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;
                             var map = {
-                              'Page_Name':'Course_List_Offline',
+                              'Page_Name':'Course_List',
                               'Course_Category':widget.tabName,
                               'Course_Name':widget.courseData.title.toString(),
                               'Mobile_Number':AppConstants.userMobile,
@@ -221,7 +221,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               ));
                             } else {
                               var map = {
-                                'Page_Name':'Course_List_Offline',
+                                'Page_Name':'Course_List',
                                 'Course_Category':widget.tabName,
                                 'Course_Name':widget.courseData.title.toString(),
                                 'Mobile_Number':AppConstants.userMobile,
@@ -242,7 +242,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                           SizedBox(height: 10,),
 
-                          widget.courseType==1?
+                          widget.courseType==1 || widget.courseType==2?
 
                           widget.courseData.purchase == true ?
                               Row(children: [

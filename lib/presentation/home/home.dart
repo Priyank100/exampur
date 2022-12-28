@@ -324,6 +324,14 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, LangString.offileCourse)!,
                     color: AppColors.orange,
                     onPressed: () {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_offline_Courses,map);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(builder: (_) => OfflineCourse()));
                     },
