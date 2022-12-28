@@ -38,32 +38,28 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
   List<Book> tabList = [];
   String userName = '';
   String userMobile = '';
-  bool tabname = false;
-  List<Widget> tabroutes =[];
-  String courseId = '';
+  List<Widget> tabRoutes =[];
   String webId = '';
 
   int tabIndex = 0;
+  bool isDoubtsRequired = false;
 
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/LocalJson/myCourseTab.json');
   }
 
   void getTabList() async {
-    bool isDoubtsRequired = false;
+
     AppConstants.doubtCourseIdList.forEach((data) {
       if (widget.courseId == data.courseId) {
-        courseId = data.courseId!;
         webId = data.webId!.toString();
         isDoubtsRequired = true;
       }
-      // print('??????????????????????');
-      // print(firebaseId);
     });
 
     if(isDoubtsRequired && tabList.length != 6){
       tabList.insert(1, Book(id: "1", name: "Doubts"));
-      tabroutes =[
+      tabRoutes = [
         TimeTableView(widget.courseId),
         DoubtsPage(widget.token, webId, 'True'),
         SubjectView(widget.courseId),
@@ -72,6 +68,7 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
         // FeedbackView(userName, userMobile, widget.token),
         NewFeedbackView(widget.courseId, widget.courseName)
       ];
+      setTabIndex(true);
     }
   }
 
@@ -93,10 +90,11 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
   }
 
   loadStaticDetails() async{
+    setTabIndex(false);
     String jsonString = await loadJsonFromAssets();
     final myCourseTabResponse = booktitleFromJson(jsonString);
     tabList = myCourseTabResponse.book!;
-    tabroutes = [
+    tabRoutes = [
       TimeTableView(widget.courseId),
       SubjectView(widget.courseId),
       WebViewOpen(widget.testSeriesLink, widget.token),
@@ -106,29 +104,42 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
     ];
   }
 
-  void setTabIndex() {
+  void setTabIndex(bool isDoubt) {
     switch(widget.tabTitle.toString().toLowerCase().replaceAll(' ', '')) {
-      case 'timeline':break;
-
+      case 'timeline':
+        tabIndex = 0;
+        break;
+      case 'doubts':
+        tabIndex = isDoubt ? 1 : 0;
+        break;
+      case 'subjects':
+        tabIndex = isDoubt ? 2 : 1;
+        break;
+      case 'testseries':
+        tabIndex = isDoubt ? 3 : 2;
+        break;
+      case 'notification':
+        tabIndex = isDoubt ? 4 : 3;
+        break;
+      case 'feedback':
+        tabIndex = isDoubt ? 5 : 4;
+        break;
     }
   }
 
 
   @override
   Widget build(BuildContext context) {
-
     return FutureBuilder(
         future: Future.delayed(Duration.zero, () => getTabList()),
         builder: (context, snapshot) {
           return Scaffold(
               body: MyCourseTabBar(
-                  selectedTabIndex: tabIndex,
+                  // selectedTabIndex: tabIndex,
                   length: tabList.length,
                   names: tabList.map((item) => item.name.toString()).toList(),
-                  routes: tabList.length == 0
-                      ? []
-                      : tabroutes,
-                  title: '')
+                  routes: tabRoutes
+              )
           );
         });
   }
