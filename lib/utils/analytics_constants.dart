@@ -90,11 +90,8 @@ class AnalyticsConstants {
   late BuildContext context;
 
   static void onInAppClick(InAppCampaign message, context) {
-    print('>>>>>>>>>>>' +
-        message.navigationAction!
-            .url); // https://edudrive.page.link/course/courseId=63412111d60860384c299bd3
+   // https://edudrive.page.link/course/courseId=63412111d60860384c299bd3
     List<String> actiondata = message.navigationAction!.url.split("/");
-    print(actiondata[3]);
 
     if (actiondata[3] == 'course') {
       AppConstants.goTo(
@@ -110,26 +107,26 @@ class AnalyticsConstants {
   }
 
   static void _onInAppShown(InAppCampaign message) {
-    print("This is a callback on inapp shown from native to flutter. Payload " +
-        message.toString());
+   // print("This is a callback on inapp shown from native to flutter. Payload " +
+     //   message.toString());
   }
 
   static void _onInAppDismiss(InAppCampaign message) {
-    print(
-        "This is a callback on inapp dismiss from native to flutter. Payload " +
-            message.toString());
+    // print(
+    //     "This is a callback on inapp dismiss from native to flutter. Payload " +
+    //         message.toString());
   }
 
   static void _onInAppCustomAction(InAppCampaign message) {
-    print(
-        "This is a callback on inapp custom action from native to flutter. Payload " +
-            message.toString());
+    // print(
+    //     "This is a callback on inapp custom action from native to flutter. Payload " +
+    //         message.toString());
   }
 
   static void _onInAppSelfHandle(InAppCampaign message) {
-    print(
-        "This is a callback on inapp self handle from native to flutter. Payload " +
-            message.toString());
+    // print(
+    //     "This is a callback on inapp self handle from native to flutter. Payload " +
+    //         message.toString());
   }
 
   static Future<void> moEngageInitialize(BuildContext context) async {
@@ -147,8 +144,8 @@ class AnalyticsConstants {
           String screenWithData = inAppCompaign.navigationAction!.url.split(
               dynamicBase)[1];
 
-          print('>>>>>>>>>>>>>>');
-          print(screenWithData);
+          // print('>>>>>>>>>>>>>>');
+          // print(screenWithData);
 
           String screenName = '';
           List<String> actiondata = [];
@@ -163,8 +160,6 @@ class AnalyticsConstants {
             screenName = screenWithData;
           }
 
-          print('%%^&&&&');
-          print(screenName);
 
 
           //======================================CouponCode========================================//
@@ -174,8 +169,6 @@ class AnalyticsConstants {
               actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
               actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
             ];
-            print('anchal');
-            print(screenName+courseData[1]);
             checkOutPageApi(context,courseData[1]);
 
           }
@@ -233,10 +226,6 @@ class AnalyticsConstants {
                   actiondata[1].substring(actiondata[1].indexOf("&") + 1).trim()
                 ];
                // name,category.name.toString(),slug,category.slug.toString()
-                print(tabData[0].replaceAll('name=', ''));
-                print(tabData[1].replaceAll('categoryName=', ''));
-                print(tabData[2].replaceAll('slug=', ''));
-                print(tabData[3].replaceAll('categorySlug=', ''));
                 AppConstants.goTo(context, PracticeQuestionListing(tabData[0].replaceAll('name=', ''),tabData[1].replaceAll('categoryName=', ''),tabData[2].replaceAll('slug=', ''),tabData[3].replaceAll('categorySlug=', '')));
               }
               else{
@@ -311,7 +300,6 @@ class AnalyticsConstants {
               actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
               actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
             ];
-            print(urlData[1]);
             AppConstants.goTo(context, TestSeriesNew(urlData[1], token));
           }
         },
