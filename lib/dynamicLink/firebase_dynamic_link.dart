@@ -97,9 +97,11 @@ class FirebaseDynamicLinkService {
           case 1:
             String type = deepLink.queryParameters['type'].toString();
             PaidCourseData courseData = PaidCourseData.fromJson(json.decode(data));
-            if(type == '1') {
+            print('moooooooooo');
+            print(type);
+            if(type == '1' || type == '2') {
               return Navigator.push(context, MaterialPageRoute(
-                  settings: RouteSettings(name: 'Direct'),
+                  settings:RouteSettings(name: 'Direct'+type),
                   builder: (context) =>
                   PaidCourseDetails('Course',courseData, int.parse(type.toString()))));
             } else {
