@@ -34,7 +34,7 @@ import '../utils/analytics_constants.dart';
 
 class TeachingContainer extends StatefulWidget {
   PaidCourseData courseData;
-  int courseType;
+ int courseType;
   String tabId;
   String tabName;
     TeachingContainer (this.courseData,this.courseType,this.tabId, this.tabName) : super();
@@ -211,7 +211,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             }
                             widget.courseType==1?AppConstants.subscription(widget.courseData.id.toString().replaceAll(' ', '_')):'';
 
-                            if(widget.courseType==1) {
+                            if(widget.courseType==1 || widget.courseType==2) {
                               AppConstants.courseName =widget.courseData.title.toString();
                               Navigator.push(context,
                                   MaterialPageRoute(
@@ -221,7 +221,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               ));
                             } else {
                               var map = {
-                                'Page_Name':'Course_Detail_Page',
+                                'Page_Name':'Course_List',
                                 'Course_Category':widget.tabName,
                                 'Course_Name':widget.courseData.title.toString(),
                                 'Mobile_Number':AppConstants.userMobile,
@@ -242,7 +242,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                           SizedBox(height: 10,),
 
-                          widget.courseType==1?
+                          widget.courseType==1 || widget.courseType==2?
 
                           widget.courseData.purchase == true ?
                               Row(children: [

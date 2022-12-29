@@ -2,6 +2,7 @@ import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import 'package:exampur_mobile/presentation/DeliveryDetail/delivery_detail_screen.dart';
+import 'package:exampur_mobile/presentation/home/paid_courses/offline_courses.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 import 'package:exampur_mobile/presentation/my_course_new/mycourse_tab.dart';
 import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
@@ -24,7 +25,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class PaidCourseDetails extends StatefulWidget {
   String courseTabType;
   final PaidCourseData courseData;
-  int courseType;
+   int courseType;
   PaidCourseDetails(this.courseTabType,this.courseData,this.courseType) : super();
 
   @override
@@ -162,10 +163,14 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   }
 
   Future<bool> _onWillPop(BuildContext context) async {
-    if(AppConstants.routeName == 'Direct'){
+    if(AppConstants.routeName == 'Direct1') {
       Navigator.pushReplacement(context, MaterialPageRoute(
           builder: (context) => PaidCourses(1)
       ));
+    } else if(AppConstants.routeName == 'Direct2') {
+        Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (context) => OfflineCourse()
+        ));
     } else{
     Navigator.pop(context);
   }
@@ -310,7 +315,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                           )])
                         ],
                       ),
-                      widget.courseType==1 ?  Padding(
+                      widget.courseType==1 || widget.courseType==2 ?  Padding(
                         padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
                         child: Row(
                           children: [
@@ -348,7 +353,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
             ],
           ),
           bottomNavigationBar: Container(
-            child: widget.courseType==1 ?
+            child: widget.courseType==1 || widget.courseType==2 ?
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,

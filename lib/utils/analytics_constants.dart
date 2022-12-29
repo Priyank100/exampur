@@ -224,6 +224,7 @@ class AnalyticsConstants {
   static String Payment_Page_Back_Button= 'Payment_Page_Back_Button';
   static String Click_Topic_Study_Material= 'Click_Topic_Study_Material';
   static String My_Courses_Timeline= 'My_Courses_Timeline';
+  static String Click_offline_Courses= 'Click_offline_Courses';
 
 
 
