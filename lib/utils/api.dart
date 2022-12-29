@@ -4,15 +4,6 @@ class API {
   // static String BASE_URL1 = 'https://auth.exampur.work/';
   // static String BASE_URL2 = 'https://static.exampur.work/';
 
-  // static String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
-  // static String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
-
-  // static String BASE_URL1 = 'https://7qclk4stsa.execute-api.ap-south-1.amazonaws.com/';
-  // static String BASE_URL2 = 'https://seysl9nl99.execute-api.ap-south-1.amazonaws.com/';
-
-  // static String BASE_URL1 = '';
-  // static String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
-
   //Stage
   // static String BASE_URL1 = 'https://auth-stage.exampur.xyz/';
   // static String BASE_URL2 = 'https://static-stage.exampur.xyz/';
@@ -22,21 +13,17 @@ class API {
   // static String BASE_URL2 = 'https://static-dev.exampur.xyz/';
   // static String BASE_URL2 = 'https://kubernetes.static.exampur.xyz/';
 
-  // //cache production
+  //cache production
   // static String BASE_URL1 = 'https://auth.exampurcache.xyz/';
   // static String BASE_URL2 = 'https://static.exampurcache.xyz/';
 
+  //prod
+  // static String BASE_URL1 = 'https://api-auth-prod.exampur.xyz/';
+  // static String BASE_URL2 = 'https://api-static-prod.exampur.xyz/';
 
-  //New url
+  //Testing
   static String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
   static String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
-
-  //Testing
- //static String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
-
-  //Testing
-  // static String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
-  // static String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
 
   // call if BASE_URL1 got error-429

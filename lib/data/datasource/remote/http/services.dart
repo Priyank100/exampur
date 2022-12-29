@@ -17,7 +17,7 @@ class Service {
     var sym = uri.contains(API.BASE_URL2) ? uri.contains('?') ? "&" : "?" : "";
     String url = uri.contains(API.BASE_URL2) ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
     AppConstants.printLog(url + " Param- " + postBody);
-    // Fluttertoast.showToast(msg: postBody.toString());
+    // Fluttertoast.showToast(msg: url + " Param- " + postBody);
     Map<String, String> header = {
       "appAuthToken": token,
       "Content-Type": "application/json",
@@ -34,6 +34,7 @@ class Service {
           .then((response) {
         AppConstants.printLog("Header-  ${myHeader??header}");
         AppConstants.printLog("Response- " + response.body);
+        // Fluttertoast.showToast(msg: '${url}\n${response.body.toString()}');
         return response;
       });
     } catch (error) {
@@ -56,6 +57,7 @@ class Service {
       "app-version":AppConstants.versionCode
     });
     AppConstants.printLog('Response> ${response.body.toString()}');
+    // Fluttertoast.showToast(msg: '${url}\n${response.body.toString()}');
     if (response.statusCode == 200) {
       return response;
     } else {

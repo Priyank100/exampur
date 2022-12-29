@@ -11,7 +11,8 @@ import 'package:provider/provider.dart';
 
 class JobNotificationCourses extends StatefulWidget {
   Function callback;
-   JobNotificationCourses(this.callback) : super();
+  final String? courseIdMoE;
+  JobNotificationCourses(this.callback, {this.courseIdMoE}) : super();
 
   @override
   State<JobNotificationCourses> createState() => _JobNotificationCoursesState();
@@ -37,9 +38,23 @@ class _JobNotificationCoursesState extends State<JobNotificationCourses> {
         selectedColorList.add(FgBgColor(MaterialStateProperty.all<Color>(AppColors.black), MaterialStateProperty.all<Color>(AppColors.white)));
       }
     }
-    selectedColorList[0].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
-    selectedColorList[0].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
-    selectedCourseId = '';
+    // selectedCourseId = '';
+    // selectedColorList[0].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+    // selectedColorList[0].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+
+    if(widget.courseIdMoE == null) {
+      selectedCourseId = '';
+      selectedColorList[0].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+      selectedColorList[0].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+    } else {
+      selectedCourseId = widget.courseIdMoE!;
+      for(int i=0; i<jobNotificationCourseList.length; i++) {
+        if(jobNotificationCourseList[i].id.toString() == widget.courseIdMoE) {
+          selectedColorList[i].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+          selectedColorList[i].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+        }
+      }
+    }
     this.widget.callback(selectedCourseId);
     setState(() {});
   }
@@ -47,6 +62,7 @@ class _JobNotificationCoursesState extends State<JobNotificationCourses> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+        // controller: scrollController,
         itemCount: jobNotificationCourseList.length,
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,

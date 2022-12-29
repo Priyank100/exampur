@@ -16,7 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class JobNotifications extends StatefulWidget {
-  const JobNotifications() : super();
+  final String? courseIdMoE;
+  final String? tagSlugMoE;
+  JobNotifications({this.courseIdMoE, this.tagSlugMoE}) : super();
 
   @override
   State<JobNotifications> createState() => _JobNotificationsState();
@@ -29,6 +31,15 @@ class _JobNotificationsState extends State<JobNotifications> {
   bool isLoading = true;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    courseId = widget.courseIdMoE == null ? '' : widget.courseIdMoE!;
+    tagSlug = widget.tagSlugMoE == null ? '' : widget.tagSlugMoE!;
+    setState((){});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
@@ -38,12 +49,12 @@ class _JobNotificationsState extends State<JobNotifications> {
           Container(
               padding: const EdgeInsets.all(5),
               height: 60,
-              child:  JobNotificationCourses(this.callback)
+              child:  JobNotificationCourses(this.callback, courseIdMoE: widget.courseIdMoE)
           ),
           Container(
               padding: const EdgeInsets.all(5),
               height: 60,
-              child:  JobNotificationTag(this.callback2)
+              child:  JobNotificationTag(this.callback2, tagSlugMoE: widget.tagSlugMoE)
           ),
            tagSlug.isEmpty ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
            // Expanded(

@@ -14,6 +14,9 @@ import 'package:flutter/services.dart';
 import '../../../utils/analytics_constants.dart';
 
 class BooksEbook extends StatefulWidget {
+  final int? bookEbookTab;
+  const BooksEbook({this.bookEbookTab}) : super();
+
   @override
   BooksEbookState createState() => BooksEbookState();
 }
@@ -54,13 +57,15 @@ class BooksEbookState extends State<BooksEbook> with SingleTickerProviderStateMi
         builder: (context, snapshot) {
             return Scaffold(
                 body: TabBarDemo(
+                    selectedTabIndex: widget.bookEbookTab ?? 0,
                     length: tabList.length,
                     names: tabList.map((item) => item.name.toString()).toList(),
-                    routes: tabList.length == 0 ? [] : [
+                    routes: [
                       BooksScreen(),
                       EBooksScreen()
                     ],
                     title: getTranslated(context, LangString.books)!)
+              // body: tabBar(),
             );
     });
   }
