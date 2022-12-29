@@ -174,16 +174,16 @@ class AnalyticsConstants {
           }
           //======================================StudyMaterialScreen========================================//
 
-          else if (screenName == "studyMaterial") {
+          else if (screenName == "study-material") {
             if(actiondata == null || actiondata.isEmpty) {
               AppConstants.goTo(context, StudyMaterialNew(0));
             } else {
-              if(actiondata[1].toLowerCase().contains('tabtitle')){
+              if(actiondata[1].toLowerCase().contains('tab-title')){
                 List<String> tabData = [
                   actiondata[1].substring(0, actiondata[1].indexOf("&")).trim(),
                   actiondata[1].substring(actiondata[1].indexOf("&") + 1).trim()
                 ];
-                AppConstants.goTo(context, StudyMaterialSubCategory(0,tabData[0].replaceAll('tabTitle=', ''),tabData[1].replaceAll('categoryId=', '')));
+                AppConstants.goTo(context, StudyMaterialSubCategory(0,tabData[0].replaceAll('tab-title=', ''),tabData[1].replaceAll('category-id=', '')));
               }else{
                 List<String> tabData = [
                   actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
@@ -194,16 +194,16 @@ class AnalyticsConstants {
             }
           }
 //============================================previousyear================================//
-          else if (screenName == "previousYearPdf") {
+          else if (screenName == "previous-year-pdf") {
             if(actiondata == null || actiondata.isEmpty) {
               AppConstants.goTo(context, StudyMaterialNew(1));
             } else {
-              if(actiondata[1].toLowerCase().contains('tabtitle')){
+              if(actiondata[1].toLowerCase().contains('tab-title')){
                 List<String> tabData = [
                   actiondata[1].substring(0, actiondata[1].indexOf("&")).trim(),
                   actiondata[1].substring(actiondata[1].indexOf("&") + 1).trim()
                 ];
-                AppConstants.goTo(context, StudyMaterialSubCategory(1,tabData[0].replaceAll('tabTitle=', ''),tabData[1].replaceAll('categoryId=', '')));
+                AppConstants.goTo(context, StudyMaterialSubCategory(1,tabData[0].replaceAll('tab-title=', ''),tabData[1].replaceAll('category-id=', '')));
               }else{
                 List<String> tabData = [
                   actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
@@ -215,7 +215,7 @@ class AnalyticsConstants {
           }
 
           //======================================practiseQuestion==========================================//
-          else if (screenName == "practiceQuestion") {
+          else if (screenName == "practice-question") {
             if(actiondata == null || actiondata.isEmpty) {
               AppConstants.goTo(context, PracticeQuestionCategory());
             }
@@ -226,7 +226,7 @@ class AnalyticsConstants {
                   actiondata[1].substring(actiondata[1].indexOf("&") + 1).trim()
                 ];
                // name,category.name.toString(),slug,category.slug.toString()
-                AppConstants.goTo(context, PracticeQuestionListing(tabData[0].replaceAll('name=', ''),tabData[1].replaceAll('categoryName=', ''),tabData[2].replaceAll('slug=', ''),tabData[3].replaceAll('categorySlug=', '')));
+                AppConstants.goTo(context, PracticeQuestionListing(tabData[0].replaceAll('name=', ''),tabData[1].replaceAll('category-name=', ''),tabData[2].replaceAll('slug=', ''),tabData[3].replaceAll('category-slug=', '')));
               }
               else{
                 List<String> tabData = [
@@ -241,12 +241,12 @@ class AnalyticsConstants {
 
           //======================================currentAffairScreen========================================//
 
-          else if (screenName == "currentAffair") {
+          else if (screenName == "current-affair") {
             AppConstants.goTo(context, CurrentAffairsTab());
           }
           //======================================jobAlertScreen========================================//
 
-          else if (screenName == "jobAlert") {
+          else if (screenName == "job-alert") {
             AppConstants.goTo(context, JobNotifications());
           }
           // else if (screenName == "jobAlert") {
@@ -254,7 +254,7 @@ class AnalyticsConstants {
           // }
 
           //========================================AppTutorial====================================//
-          else if (screenName == "appTutorial") {
+          else if (screenName == "app-tutorial") {
             AppConstants.goTo(context, AppTutorial());
           }
 
@@ -263,7 +263,7 @@ class AnalyticsConstants {
             AppConstants.goTo(context, BooksEbook());
           }
 //=====================================================bookdetailpage===============================//
-          else if (screenName == "bookDetail") {
+          else if (screenName == "book-detail") {
             List<String> bookId = [
               actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
               actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
@@ -294,8 +294,8 @@ class AnalyticsConstants {
           }
           //======================================TestScreen========================================//
 
-          else if (screenName == "liveTest" ||
-              screenName == "quiz"|| screenName =="testSeries") {
+          else if (screenName == "live-test" ||
+              screenName == "quiz"|| screenName =="test-series") {
             List<String> urlData = [
               actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
               actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
