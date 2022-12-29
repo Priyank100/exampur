@@ -12,15 +12,20 @@ import 'package:moengage_flutter/properties.dart';
 import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
 import '../Localization/language_constrants.dart';
 import '../SharePref/shared_pref.dart';
+import '../presentation/AppTutorial/app_tutorial.dart';
 import '../presentation/DeliveryDetail/delivery_detail_screen.dart';
 import '../presentation/home/BannerBookDetailPage.dart';
 import '../presentation/home/banner_link_detail_page.dart';
 import '../presentation/home/books/books_ebooks.dart';
 import '../presentation/home/current_affairs_new/current_affairs_tab.dart';
 import '../presentation/home/job_alert_new/job_notifications.dart';
+import '../presentation/home/practice_question/practice_question_category.dart';
+import '../presentation/home/practice_question/practice_question_listing.dart';
 import '../presentation/home/study_material_new/study_material_new.dart';
+import '../presentation/home/study_material_new/study_material_sub_category.dart';
 import '../presentation/home/test_series_new/test_series_new.dart';
 import '../presentation/my_courses/TeacherSubjectView/DownloadPdfView.dart';
+import '../presentation/my_courses/TeacherSubjectView/material_video.dart';
 import 'app_colors.dart';
 import 'app_constants.dart';
 import 'lang_string.dart';
@@ -56,6 +61,7 @@ class AnalyticsConstants {
   }
 
   static AppsflyerSdk? appsflyerSdk;
+
   static void initAppFlyer() {
     AppsFlyerOptions appsFlyerOptions = AppsFlyerOptions(
       afDevKey: 'fTnrQRnV94zciX3oyNoNu',
@@ -84,11 +90,8 @@ class AnalyticsConstants {
   late BuildContext context;
 
   static void onInAppClick(InAppCampaign message, context) {
-    print('>>>>>>>>>>>' +
-        message.navigationAction!
-            .url); // https://edudrive.page.link/course/courseId=63412111d60860384c299bd3
+   // https://edudrive.page.link/course/courseId=63412111d60860384c299bd3
     List<String> actiondata = message.navigationAction!.url.split("/");
-    print(actiondata[3]);
 
     if (actiondata[3] == 'course') {
       AppConstants.goTo(
@@ -104,27 +107,30 @@ class AnalyticsConstants {
   }
 
   static void _onInAppShown(InAppCampaign message) {
-    print("This is a callback on inapp shown from native to flutter. Payload " +
-        message.toString());
+   // print("This is a callback on inapp shown from native to flutter. Payload " +
+     //   message.toString());
   }
 
   static void _onInAppDismiss(InAppCampaign message) {
-    print("This is a callback on inapp dismiss from native to flutter. Payload " +
-        message.toString());
+    // print(
+    //     "This is a callback on inapp dismiss from native to flutter. Payload " +
+    //         message.toString());
   }
 
   static void _onInAppCustomAction(InAppCampaign message) {
-    print("This is a callback on inapp custom action from native to flutter. Payload " +
-        message.toString());
+    // print(
+    //     "This is a callback on inapp custom action from native to flutter. Payload " +
+    //         message.toString());
   }
 
   static void _onInAppSelfHandle(InAppCampaign message) {
-    print("This is a callback on inapp self handle from native to flutter. Payload " +
-        message.toString());
+    // print(
+    //     "This is a callback on inapp self handle from native to flutter. Payload " +
+    //         message.toString());
   }
 
-
-  static void moEngageInitialize(BuildContext context){
+  static Future<void> moEngageInitialize(BuildContext context) async {
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     moengagePlugin.initialise();
     moengagePlugin.showInApp();
     moengagePlugin.setUpInAppCallbacks(
@@ -137,6 +143,9 @@ class AnalyticsConstants {
 
           String screenWithData = inAppCompaign.navigationAction!.url.split(
               dynamicBase)[1];
+
+          // print('>>>>>>>>>>>>>>');
+          // print(screenWithData);
 
           String screenName = '';
           List<String> actiondata = [];
@@ -151,8 +160,7 @@ class AnalyticsConstants {
             screenName = screenWithData;
           }
 
-          print('%%^&&&&');
-          print(screenName);
+
 
           //======================================CouponCode========================================//
 
@@ -161,16 +169,76 @@ class AnalyticsConstants {
               actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
               actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
             ];
-            print('anchal');
-            print(screenName+courseData[1]);
             checkOutPageApi(context,courseData[1]);
 
           }
           //======================================StudyMaterialScreen========================================//
 
           else if (screenName == "studyMaterial") {
-            AppConstants.goTo(context, StudyMaterialNew(0));
+            if(actiondata == null || actiondata.isEmpty) {
+              AppConstants.goTo(context, StudyMaterialNew(0));
+            } else {
+              if(actiondata[1].toLowerCase().contains('tabtitle')){
+                List<String> tabData = [
+                  actiondata[1].substring(0, actiondata[1].indexOf("&")).trim(),
+                  actiondata[1].substring(actiondata[1].indexOf("&") + 1).trim()
+                ];
+                AppConstants.goTo(context, StudyMaterialSubCategory(0,tabData[0].replaceAll('tabTitle=', ''),tabData[1].replaceAll('categoryId=', '')));
+              }else{
+                List<String> tabData = [
+                  actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
+                  actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
+                ];
+                AppConstants.goTo(context, StudyMaterialNew(0,tabId: tabData[1],));
+              }
+            }
           }
+//============================================previousyear================================//
+          else if (screenName == "previousYearPdf") {
+            if(actiondata == null || actiondata.isEmpty) {
+              AppConstants.goTo(context, StudyMaterialNew(1));
+            } else {
+              if(actiondata[1].toLowerCase().contains('tabtitle')){
+                List<String> tabData = [
+                  actiondata[1].substring(0, actiondata[1].indexOf("&")).trim(),
+                  actiondata[1].substring(actiondata[1].indexOf("&") + 1).trim()
+                ];
+                AppConstants.goTo(context, StudyMaterialSubCategory(1,tabData[0].replaceAll('tabTitle=', ''),tabData[1].replaceAll('categoryId=', '')));
+              }else{
+                List<String> tabData = [
+                  actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
+                  actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
+                ];
+                AppConstants.goTo(context, StudyMaterialNew(1,tabId: tabData[1],));
+              }
+            }
+          }
+
+          //======================================practiseQuestion==========================================//
+          else if (screenName == "practiceQuestion") {
+            if(actiondata == null || actiondata.isEmpty) {
+              AppConstants.goTo(context, PracticeQuestionCategory());
+            }
+            else {
+              if(actiondata[1].toLowerCase().contains('name')){
+                List<String> tabData = [
+                  actiondata[1].substring(0, actiondata[1].indexOf("&")).trim(),
+                  actiondata[1].substring(actiondata[1].indexOf("&") + 1).trim()
+                ];
+               // name,category.name.toString(),slug,category.slug.toString()
+                AppConstants.goTo(context, PracticeQuestionListing(tabData[0].replaceAll('name=', ''),tabData[1].replaceAll('categoryName=', ''),tabData[2].replaceAll('slug=', ''),tabData[3].replaceAll('categorySlug=', '')));
+              }
+              else{
+                List<String> tabData = [
+                  actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
+                  actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
+                ];
+                AppConstants.goTo(context, PracticeQuestionCategory(tabId: tabData[1],));
+              }
+
+            }
+          }
+
           //======================================currentAffairScreen========================================//
 
           else if (screenName == "currentAffair") {
@@ -181,6 +249,38 @@ class AnalyticsConstants {
           else if (screenName == "jobAlert") {
             AppConstants.goTo(context, JobNotifications());
           }
+          // else if (screenName == "jobAlert") {
+          //   AppConstants.goTo(context, JobNotifications());
+          // }
+
+          //========================================AppTutorial====================================//
+          else if (screenName == "appTutorial") {
+            AppConstants.goTo(context, AppTutorial());
+          }
+
+          //========================================bookListingPage===============================//
+          else if (screenName == "books") {
+            AppConstants.goTo(context, BooksEbook());
+          }
+//=====================================================bookdetailpage===============================//
+          else if (screenName == "bookDetail") {
+            List<String> bookId = [
+              actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
+              actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
+            ];
+            AppConstants.goTo(context, BannerLinkBookDetailPage('Book',bookId[1]));
+          }
+
+          else if (screenName == "recorded") {
+            List<String> act = actiondata[1].split('&').toList();
+            String title = act[0].split('=')[1];
+            String vid = act[1].split('=')[1];
+            bool contentLog = act[2].split('=')[1].toLowerCase()=='true'?true:false;
+            String url = act[3].split('=')[1];
+            AppConstants.goTo(context, MyMaterialVideo(url,title,'',vid,contentLog));
+          }
+
+
           //======================================pdf========================================//
 
           else if (screenName == "pdf") {
@@ -195,12 +295,11 @@ class AnalyticsConstants {
           //======================================TestScreen========================================//
 
           else if (screenName == "liveTest" ||
-              screenName == "quiz") {
+              screenName == "quiz"|| screenName =="testSeries") {
             List<String> urlData = [
               actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
               actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
             ];
-            print(urlData[1]);
             AppConstants.goTo(context, TestSeriesNew(urlData[1], token));
           }
         },

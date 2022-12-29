@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Map<String, Object> stuff = {};
     AnalyticsConstants.logEvent(AnalyticsConstants.splashScreen,stuff);
     AnalyticsConstants.initAppFlyer();
-     AnalyticsConstants.moEngageInitialize(context);
+     // AnalyticsConstants.moEngageInitialize(context);
     checkInternet();
     super.initState();
   }
