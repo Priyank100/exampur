@@ -681,13 +681,11 @@ class SquareButton extends StatelessWidget {
               width: 15,
             ),
             Flexible(
-                child: new Text(
+                child: Text(
               title!,
               style: TextStyle(color: AppColors.white, fontSize: 15,fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins'),
             )),
          SizedBox(width: 10,),
-         // tag == true ? SizedBox(): Align( alignment: Alignment.topLeft,
-         //     child:Image.asset(Images.newImg))
           ],
         ),
       ),
