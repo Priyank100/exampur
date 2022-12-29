@@ -322,6 +322,7 @@ class _HomeState extends State<Home> {
                   SquareButton(
                     image: Images.offlinebatch,
                     title: getTranslated(context, LangString.offileCourse)!,
+                    tagImage: Images.newImg,
                     color: AppColors.orange,
                     onPressed: () {
                       var map = {
@@ -368,6 +369,7 @@ class _HomeState extends State<Home> {
                   ),
                   SquareButton(
                     image: Images.book,
+                    tagImage:Images.offerImg ,
                     title: getTranslated(context, 'books')!,
                     color: AppColors.book,
                     onPressed: () {
@@ -639,12 +641,14 @@ class _HomeState extends State<Home> {
 
 class SquareButton extends StatelessWidget {
   final String? image;
+  final String? tagImage;
   final String? title;
   final VoidCallback onPressed;
   final Color? color;
 
   SquareButton(
       {@required this.image,
+        this.tagImage,
       @required this.title,
       required this.onPressed,
       this.color});
@@ -656,7 +660,9 @@ class SquareButton extends StatelessWidget {
       onTap: () {
         onPressed();
       },
-      child: Container(
+      child: Stack(
+        children:[
+          Container(
         width: width / 2,
         height: 80,
         padding: EdgeInsets.all(8),
@@ -678,10 +684,20 @@ class SquareButton extends StatelessWidget {
                 child: new Text(
               title!,
               style: TextStyle(color: AppColors.white, fontSize: 15,fontFamily: AppConstants.langCode == 'hi' ?'Noto Sans':'Poppins'),
-            ))
+            )),
+         SizedBox(width: 10,),
+         // tag == true ? SizedBox(): Align( alignment: Alignment.topLeft,
+         //     child:Image.asset(Images.newImg))
           ],
         ),
       ),
-    );
+          tagImage == null ? SizedBox() : Positioned(
+            right: 0,
+              child: Container(
+                  margin: EdgeInsets.only(right: 5),
+                  child: Image.asset(tagImage!, scale: 2.5,))
+          )
+      ],
+      ) );
   }
 }

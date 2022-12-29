@@ -44,5 +44,7 @@ class Images {
   // static const String unlock = 'assets/images/unLock.png';
   static const String unlock = 'assets/images/unLock.png';
   static const String lock = 'assets/images/lock.png';
+  static const String newImg = 'assets/images/new.png';
+  static const String offerImg = 'assets/images/offer.png';
 
 }
