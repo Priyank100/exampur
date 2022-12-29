@@ -378,8 +378,7 @@ class AnalyticsConstants {
   static String Click_Share_Course = 'Click_Share_Course';
   static String Click_View_Details_Course = 'Click_View_Details_Course';
   static String Click_View_PDF = 'Click_View_PDF';
-  static String Coupon_Code_Successfully_Applied =
-      'Coupon_Code_Successfully_Applied';
+  static String Coupon_Code_Successfully_Applied = 'Coupon_Code_Successfully_Applied';
   static String Coupon_Code_Failed = 'Coupon_Code_Failed';
   static String Click_Recommended_Book = 'Click_Recommended_Book';
   static String Check_Out_Page = 'Check_Out_Page';
@@ -394,16 +393,13 @@ class AnalyticsConstants {
   static String Current_Affairs = 'Current_Affairs';
   static String Click_CA_Article = 'Click_CA_Article';
   static String Click_Alerts = 'Click_Alerts';
-  static String Click_App_Tutorial_Page_Side_Nav =
-      'Click_App_Tutorial_Page_Side_Nav';
-  static String Click_Choose_Category_Side_Nav =
-      'Click_Choose_Category_Side_Nav';
+  static String Click_App_Tutorial_Page_Side_Nav = 'Click_App_Tutorial_Page_Side_Nav';
+  static String Click_Choose_Category_Side_Nav = 'Click_Choose_Category_Side_Nav';
   static String Click_My_Purchase_Side_Nav = 'Click_My_Purchase_Side_Nav';
   static String Click_Downloads_Side_Nav = 'Click_Downloads_Side_Nav';
   static String Click_Attempted_Test_Side_Nav = 'Click_Attempted_Test_Side_Nav';
   static String Click_Attempted_Quiz_Side_Nav = 'Click_Attempted_Quiz_Side_Nav';
-  static String Click_Saved_Questions_Side_Nav =
-      'Click_Saved_Questions_Side_Nav';
+  static String Click_Saved_Questions_Side_Nav = 'Click_Saved_Questions_Side_Nav';
   static String Click_Settings_Side_Nav = 'Click_Settings_Side_Nav';
   static String Click_Privacy_Policy_Side_Nav = 'Click_Privacy_Policy_Side_Nav';
   static String Click_Share_Now_Side_Nav = 'Click_Share_Now_Side_Nav';
@@ -454,4 +450,5 @@ class AnalyticsConstants {
   static String Payment_Page_Back_Button = 'Payment_Page_Back_Button';
   static String Click_Topic_Study_Material = 'Click_Topic_Study_Material';
   static String My_Courses_Timeline = 'My_Courses_Timeline';
+  static String Click_offline_Courses= 'Click_offline_Courses';
 }
