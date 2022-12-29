@@ -280,4 +280,7 @@ class API {
  // static String doubtgetUrl = 'https://tn4skt6hsj.execute-api.ap-south-1.amazonaws.com/config/doubt';
   static String doubtgetUrl = 'https://kzw2rwmi1d.execute-api.ap-south-1.amazonaws.com/config/doubt';
 
+
+  static String checkoutUrl = 'https://static.exampurcache.xyz/app-config/link/course-details/courseID';
+
 }

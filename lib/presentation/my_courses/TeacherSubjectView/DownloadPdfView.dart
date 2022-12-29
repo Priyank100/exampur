@@ -20,7 +20,7 @@ import '../../../utils/api.dart';
 
 
 class DownloadViewPdf extends StatefulWidget {
-  final String pdfTitle;
+ final String pdfTitle;
   final String pdfUrl;
   final bool? isTimlineRequired;
   const DownloadViewPdf(this.pdfTitle, this.pdfUrl,{this.isTimlineRequired}) : super();
