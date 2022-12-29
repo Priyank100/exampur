@@ -306,7 +306,7 @@ class AnalyticsConstants {
           //======================================TestScreen========================================//
 
           else if (screenName == "liveTest" ||
-              screenName == "quiz") {
+              screenName == "quiz"|| screenName =="testSeries") {
             List<String> urlData = [
               actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
               actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
