@@ -42,9 +42,6 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
         newList1.add(paidCourseTabList[i]);
         paidCourseTabList.remove(paidCourseTabList[i]);
       }
-      if(paidCourseTabList[i].name!.toLowerCase().contains('offline')){
-        paidCourseTabList.remove(paidCourseTabList[i]);
-      }
     }
     for(int i=0; i<freeCourseTabList.length; i++) {
       if(AppConstants.selectedCategoryList.contains(freeCourseTabList[i].id.toString())) {
@@ -54,6 +51,11 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
     }
     paidCourseTabList.insertAll(0,newList1);
     freeCourseTabList.insertAll(0,newList2);
+    for(int i=0; i<paidCourseTabList.length; i++) {
+      if(paidCourseTabList[i].name.toString().toLowerCase().contains('offline')){
+        paidCourseTabList.remove(paidCourseTabList[i]);
+      }
+    }
     isPaidData = true;
     isFreeData = true;
   }
