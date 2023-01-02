@@ -164,7 +164,7 @@ class AnalyticsConstants {
 
           //======================================CouponCode========================================//
 
-          if (screenName == 'purchase') {
+          if (screenName == 'checkout') {
             List<String> courseData = [
               actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
               actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
