@@ -1,4 +1,6 @@
 import 'dart:convert';
+
+import 'package:exampur_mobile/utils/app_constants.dart';
 /// statusCode : 200
 /// data : [{"_id":"620e926277751ef02cb8c0e7","category":[{"_id":"61d2cc701cea2fdab6e9cb06","name":"ALL EXAMS"},{"_id":"61cad845da1d8532b6f33fd1","name":"HARYANA SPECIAL"},{"_id":"61d2cc8c1cea2fdab6e9cb07","name":"RAJASTHAN SPECIAL"}],"title":"Book 1","description":"Demo B 1","regular_price":1,"sale_price":1,"flag":"New","macro":[],"banner_path":"book/zQGtizT1-Screenshot-2022-02-14-at-5-24-46-PM-png","logo_path":"book/opsTZQxm-Screenshot-2022-02-13-at-2-34-16-PM-png"}]
 /// totalCount : 1
@@ -106,7 +108,7 @@ class BookEbook {
         _macro?.add(Macro.fromJson(v));
       });
     }
-    _bannerPath = json['banner_path'];
+    _bannerPath = json['banner_path'].toString().contains('http') ? json['banner_path'] : AppConstants.BANNER_BASE + json['banner_path'];
     _logoPath = json['logo_path'];
     _status = json['status']==null?'Published':json['status'].toString();
   }
