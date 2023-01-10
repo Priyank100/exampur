@@ -7,14 +7,13 @@ import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-
-
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CurrentAffairsTab extends StatefulWidget {
-  const CurrentAffairsTab({Key? key}) : super(key: key);
+  // final String? tabId;
+  const CurrentAffairsTab() : super();
 
   @override
   State<CurrentAffairsTab> createState() => _CurrentAffairsTabState();
@@ -24,6 +23,7 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
   List<CurentAffairsNewTabModel> currentAffairsTab = [];
   bool isLoading = true;
   String currentlangCode    = 'hi';
+  // int tabIndex = 0;
 
   @override
   void initState() {
@@ -34,6 +34,11 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
   Future<void> getTab() async {
     isLoading = true;
     currentAffairsTab = (await Provider.of<CaProvider>(context, listen: false).getCurrentAffairsNewTab(context))!;
+    // for(int i=0; i<currentAffairsTab.length; i++) {
+    //   if(widget.tabId == currentAffairsTab[i].id.toString()) {
+    //     tabIndex = i;
+    //   }
+    // }
     isLoading = false;
     setState(() {});
   }
@@ -125,7 +130,7 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
               ),
               Expanded(
                   child:DefaultTabController(
-                    initialIndex: 0,
+                    // initialIndex: tabIndex,
                     length: currentAffairsTab.length,
                     child: tabBar(),
                   )

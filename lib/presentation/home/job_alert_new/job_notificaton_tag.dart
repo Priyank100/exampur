@@ -10,7 +10,8 @@ import 'package:provider/provider.dart';
 
 class JobNotificationTag extends StatefulWidget {
   Function callback2;
-   JobNotificationTag(this.callback2) : super();
+  final String? tagSlugMoE;
+  JobNotificationTag(this.callback2, {this.tagSlugMoE}) : super();
 
   @override
   State<JobNotificationTag> createState() => _JobNotificationTagState();
@@ -35,11 +36,36 @@ class _JobNotificationTagState extends State<JobNotificationTag> {
         selectedColorList.add(FgBgColor(MaterialStateProperty.all<Color>(AppColors.black), MaterialStateProperty.all<Color>(AppColors.white)));
       }
     }
-    selectedColorList[0].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
-    selectedColorList[0].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
-    selectedTagSlug = jobNotificationTagList[0].slug.toString();
+    // selectedColorList[0].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+    // selectedColorList[0].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+    // selectedTagSlug = jobNotificationTagList[0].slug.toString();
+
+    if(widget.tagSlugMoE == null) {
+      selectedColorList[0].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+      selectedColorList[0].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+      selectedTagSlug = jobNotificationTagList[0].slug.toString();
+    } else {
+      selectedTagSlug = widget.tagSlugMoE!;
+      for(int i=0; i<jobNotificationTagList.length; i++) {
+        if(jobNotificationTagList[i].slug == widget.tagSlugMoE) {
+          selectedColorList[i].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+          selectedColorList[i].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+        }
+      }
+    }
+
     this.widget.callback2(selectedTagSlug);
     setState(() {});
+
+    //   selectedCourseId = widget.courseIdMoE!;
+    //   for(int i=0; i<jobNotificationCourseList.length; i++) {
+    //     if(jobNotificationCourseList[i].id.toString() == widget.courseIdMoE) {
+    //       selectedColorList[i].fgColor = MaterialStateProperty.all<Color>(AppColors.white);
+    //       selectedColorList[i].bgColor = MaterialStateProperty.all<Color>(AppColors.amber);
+    //     }
+    //   }
+    // }
+    // this.widget.callback(selectedCourseId);
   }
 
   @override

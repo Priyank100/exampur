@@ -21,7 +21,8 @@ class StudyMaterialNew extends StatefulWidget {
   final int pagetype;
   // final String url;
   // const StudyMaterialNew(this.pagetype,this.url) : super();
-  const StudyMaterialNew(this.pagetype) : super();
+  final String? tabId;
+  const StudyMaterialNew(this.pagetype, {this.tabId}) : super();
 
   @override
   _StudyMaterialNewState createState() => _StudyMaterialNewState();
@@ -31,6 +32,7 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
   String url = '';
   List<StudyMaterialNewModel> studyMaterialDataList = [];
   bool isLoading = true;
+  int tabIndex = 0;
 
   @override
   void initState() {
@@ -42,7 +44,13 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
     url = widget.pagetype == 0 ? API.studyMaterialNewUrl : API.previousYearMaterialUrl;
     isLoading = true;
     studyMaterialDataList = (await Provider.of<CaProvider>(context, listen: false).getStudyMaterialNew(context, url))!;
+  for(var i=0; i<studyMaterialDataList.length; i++){
+    if(widget.tabId == studyMaterialDataList[i].id.toString()){
+      tabIndex = i;
+    }
+  }
     isLoading = false;
+ // setState((){});
   }
 
   @override
@@ -53,6 +61,7 @@ class _StudyMaterialNewState extends State<StudyMaterialNew> {
           return isLoading ? loader() : studyMaterialDataList.length == 0 ? noData() :
             Scaffold(
               body: TabBarDemo(
+                selectedTabIndex: tabIndex,
                   length: studyMaterialDataList.length,
                   names: studyMaterialDataList.map((item) => item.superCategory.toString()).toList(),
                   routes: studyMaterialDataList.length == 0 ? [] :

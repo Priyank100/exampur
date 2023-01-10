@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +14,7 @@ import 'package:share/share.dart';
 import '../Localization/language_constrants.dart';
 import '../SharePref/shared_pref.dart';
 import '../data/model/DoubtCourseIdModel.dart';
+import '../data/model/OfflineCounselingModel.dart';
 import '../presentation/widgets/rating_dialog.dart';
 import 'app_colors.dart';
 import 'images.dart';
@@ -36,6 +38,7 @@ class AppConstants {
   static String defaultCountry = 'India';
 
   static String Mobile_number = '9873111552';
+  static String offline_call  = '9054993549';
   static String Email_id      = 'help@exampur.com';
   static String Email_sub     = 'Feedback';
   static String playStoreAppUrl = 'https://play.google.com/store/apps/details?id=com.edudrive.exampur';
@@ -61,6 +64,7 @@ class AppConstants {
 
   static List<String> contentLogList = [];
   static List<Course> doubtCourseIdList = [];
+  static List<CounselingCourse> offlineCounselingIdList = [];
 
   // static String currentAffairesId = '61efe9771dbf84752e750373';
   // static String studyMaterialsId = '61efe9921dbf84752e750384';
@@ -261,6 +265,45 @@ class AppConstants {
           child: Text('Close',style: TextStyle(color: AppColors.amber)),
           onPressed:  () {
             Navigator.pop(context);
+            Navigator.pop(context);
+          },
+        )
+      ],
+      content: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(padding: EdgeInsets.all(8),
+                    child: Text("Message", style: TextStyle(fontSize: 16))),
+                Divider(),
+                Container(padding: EdgeInsets.all(8), child: Text(message)),
+              ],
+            )
+          ]),
+    );
+    showDialog(barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+  static void showAlertDialogWithYesBack(BuildContext context, String message) {
+    AlertDialog alert = AlertDialog(
+      actions: [
+        TextButton(
+          child: Text('Close',style: TextStyle(color: AppColors.amber)),
+          onPressed:  () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+        ),
+        TextButton(
+          child: Text('Cancel',style: TextStyle(color: AppColors.amber)),
+          onPressed:  () {
             Navigator.pop(context);
           },
         )
@@ -512,5 +555,10 @@ class AppConstants {
     double unlock = (30 / 100) * listLength;
     int num = unlock.round();
     return num;
+  }
+
+  static String customRound(double val) {
+    num mod = pow(10.0, 2);
+    return ((val * mod).round().toDouble() / mod).toStringAsFixed(2);
   }
 }

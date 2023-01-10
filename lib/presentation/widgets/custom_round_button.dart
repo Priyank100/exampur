@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 class CustomRoundButton extends StatefulWidget {
   final VoidCallback onPressed;
   final String text;
+  final Color? color;
   const CustomRoundButton({
     Key? key,
     required this.text,
-    required this.onPressed,
+    required this.onPressed,this.color
   }) : super(key: key);
 
   @override
@@ -24,7 +25,7 @@ class _CustomRoundButtonState extends State<CustomRoundButton> {
       child: Container(height: 30,
           constraints: BoxConstraints(minWidth: 120),
           padding: EdgeInsets.only(left: 8,right: 8),
-          decoration: BoxDecoration( color: Color(0xFF060929),
+          decoration: BoxDecoration( color:widget.color?? Color(0xFF060929),
           borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(widget.text,style: TextStyle(color: Colors.white,fontSize: 11)))),
     );
   }

@@ -84,33 +84,37 @@ class _CustomTabBarState extends State<CustomTabBar> {
 
 class MyCourseTabBar extends StatefulWidget {
   final int length;
-  final String title;
+  final String? title;
   final List<String> names;
   final List<Widget> routes;
+  final TabController? controller;
+  final int? selectedTabIndex;
 
   const MyCourseTabBar({
     Key? key,
     required this.length,
     required this.names,
     required this.routes,
-    required this.title,
+    this.title,
+    this.controller,
+    this.selectedTabIndex
   }) : super(key: key);
 
   @override
   _MyCourseTabBarState createState() => _MyCourseTabBarState();
 }
 
-class _MyCourseTabBarState extends State<MyCourseTabBar> {
+class _MyCourseTabBarState extends State<MyCourseTabBar> with SingleTickerProviderStateMixin {
   Set<String> selected = new Set<String>();
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 0,
+      initialIndex: widget.selectedTabIndex ?? 0,
       length: widget.length,
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: true,
+          // automaticallyImplyLeading: true,
           backgroundColor: AppColors.transparent,
           iconTheme: IconThemeData(
             color: AppColors.black,
@@ -138,6 +142,7 @@ class _MyCourseTabBarState extends State<MyCourseTabBar> {
                     indicatorColor: Theme.of(context).primaryColor,
                     labelColor: Theme.of(context).primaryColor,
                     tabs: [for (var i in widget.names) Tab(text: i)],
+                    controller: widget.controller,
                   ),
                 ),
               ],
@@ -145,6 +150,7 @@ class _MyCourseTabBarState extends State<MyCourseTabBar> {
           ),
         ),
         body: TabBarView(
+          controller:widget.controller,
           children: widget.routes,
         ),
       ),

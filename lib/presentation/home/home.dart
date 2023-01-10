@@ -215,6 +215,8 @@ class _HomeState extends State<Home> {
         .getContentLog(context);
     await Provider.of<ConfigProvider>(
         context, listen: false).getDoubtCourseId(context);
+    await Provider.of<ConfigProvider>(
+        context, listen: false).getOfflineCourseId(context);
     setState(() {});
   }
 
@@ -315,7 +317,7 @@ class _HomeState extends State<Home> {
                       Map<String, Object> stuff = {};
                       AnalyticsConstants.logEvent(AnalyticsConstants.paidCourseClick,stuff);
                       Navigator.of(context, rootNavigator: true).push(
-                          MaterialPageRoute(builder: (_) => PaidCourses(1)));
+                          MaterialPageRoute(builder: (_) => PaidCourses(1,)));
                     },
                     // navigateTo: PaidCourses(1)
                   ),

@@ -14,7 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PracticeQuestionCategory extends StatefulWidget {
-  const PracticeQuestionCategory({Key? key}) : super(key: key);
+  final String? tabId;
+  const PracticeQuestionCategory({this.tabId}) : super();
 
   @override
   State<PracticeQuestionCategory> createState() => _PracticeQuestionCategoryState();
@@ -23,7 +24,7 @@ class PracticeQuestionCategory extends StatefulWidget {
 class _PracticeQuestionCategoryState extends State<PracticeQuestionCategory> {
   List<PracticeQuestionCategoriesModel> practiceQuestionDataList = [];
   bool isLoading = true;
-
+  int tabIndex = 0;
   @override
   void initState() {
     getLists();
@@ -32,6 +33,11 @@ class _PracticeQuestionCategoryState extends State<PracticeQuestionCategory> {
   Future<void> getLists() async {
     isLoading = true;
     practiceQuestionDataList = (await Provider.of<PracticeQuestionProvider>(context, listen: false).getPracticeQuestion(context))!;
+    for(var i=0; i<practiceQuestionDataList.length; i++){
+      if(widget.tabId == practiceQuestionDataList[i].id.toString()){
+        tabIndex = i;
+      }
+    }
     isLoading = false;
   }
 
@@ -43,6 +49,7 @@ class _PracticeQuestionCategoryState extends State<PracticeQuestionCategory> {
           return isLoading ? loader() : practiceQuestionDataList.length == 0 ? noData() :
           Scaffold(
               body: TabBarDemo(
+                selectedTabIndex: tabIndex,
                   length: practiceQuestionDataList.length,
                   names: practiceQuestionDataList.map((item) => item.name.toString()).toList(),
                   routes: practiceQuestionDataList.length == 0 ? [] :

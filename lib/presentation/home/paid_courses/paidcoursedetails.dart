@@ -25,7 +25,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class PaidCourseDetails extends StatefulWidget {
   String courseTabType;
   final PaidCourseData courseData;
-   int courseType;
+  int courseType;
   PaidCourseDetails(this.courseTabType,this.courseData,this.courseType) : super();
 
   @override
@@ -140,17 +140,17 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
       'Path_name':AppConstants.routeName
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Course_Details_Page,backbutton);
-    var map = {
-      'Page_Name':'Course_Details',
-      'Course_Category':AppConstants.paidTabName,
-      'Course_Name':widget.courseData.title.toString(),
-      'Mobile_Number':AppConstants.userMobile,
-      'Language':AppConstants.langCode,
-      'User_ID':AppConstants.userMobile,
-      'Total_Watch_Time':counter,
-      'Path_name':AppConstants.routeName
-    };
-    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,map);
+    // var map = {
+    //   'Page_Name':'Course_Details',
+    //   'Course_Category':AppConstants.paidTabName,
+    //   'Course_Name':widget.courseData.title.toString(),
+    //   'Mobile_Number':AppConstants.userMobile,
+    //   'Language':AppConstants.langCode,
+    //   'User_ID':AppConstants.userMobile,
+    //   'Total_Watch_Time':counter,
+    //   'Path_name':AppConstants.routeName
+    // };
+    // AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,map);
     _controller.dispose();
     _idController.dispose();
     _seekToController.dispose();
@@ -163,6 +163,17 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   }
 
   Future<bool> _onWillPop(BuildContext context) async {
+    var dispose = {
+      'Page_Name':'Course_Details',
+      'Course_Name':widget.courseData.title.toString(),
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+      'Total_Watch_Time':counter,
+      'Path_name':AppConstants.routeName
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,dispose);
+
     if(AppConstants.routeName == 'Direct1') {
       Navigator.pushReplacement(context, MaterialPageRoute(
           builder: (context) => PaidCourses(1)
@@ -227,16 +238,6 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                               onTap: () async {
                                 _controller.pause();
                                 AppConstants.mycourseType = 2;
-                                var dispose = {
-                                  'Page_Name':'Course_Details',
-                                  'Course_Name':widget.courseData.title.toString(),
-                                  'Mobile_Number':AppConstants.userMobile,
-                                  'Language':AppConstants.langCode,
-                                  'User_ID':AppConstants.userMobile,
-                                  'Total_Watch_Time':counter,
-                                  'Path_name':AppConstants.routeName
-                                };
-                                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,dispose);
                                 var analytics = {
                                   'Page_Name':'Course_Details',
                                   'Course_Category':AppConstants.paidTabName,
@@ -446,20 +447,49 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     //         )),
                     //   )
                     // ),
+
+               widget.courseType == 2?     InkWell(onTap: (){
+                 var map = {
+                   'Page_Name':'Course_Details',
+                   'Course_Category':AppConstants.paidTabName,
+                   'Course_Name':widget.courseData.title.toString(),
+                   'Mobile_Number':AppConstants.userMobile,
+                   'Language':AppConstants.langCode,
+                   'User_ID':AppConstants.userMobile,
+                   'Path_name':ModalRoute.of(context)!.settings.name
+                 };
+                 AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Offline_call_us,map);
+                 AppConstants.makeCallEmail('tel:'+AppConstants.offline_call);
+               },
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: AppColors.green,
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        height: 40,
+                        margin: EdgeInsets.only(left: 8,right: 8,top: 5),
+                        child: Center(
+                            child: Text(
+                              'Call Us',
+                              style: TextStyle(color: AppColors.white, fontSize:  widget.courseData.status == 'Published'?16: 12),
+                            )
+                        ),
+                      ),
+                    ):SizedBox(),
                     widget.courseData.purchase == true ? AlreadyPurchasedBtn() :
                     InkWell(
                       onTap: () {
                         _controller.pause();
-                        var dispose = {
-                          'Page_Name':'Course_Details',
-                          'Course_Name':widget.courseData.title.toString(),
-                          'Mobile_Number':AppConstants.userMobile,
-                          'Language':AppConstants.langCode,
-                          'User_ID':AppConstants.userMobile,
-                          'Total_Watch_Time':counter,
-                          'Path_name':AppConstants.routeName
-                        };
-                        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,dispose);
+                        // var dispose = {
+                        //   'Page_Name':'Course_Details',
+                        //   'Course_Name':widget.courseData.title.toString(),
+                        //   'Mobile_Number':AppConstants.userMobile,
+                        //   'Language':AppConstants.langCode,
+                        //   'User_ID':AppConstants.userMobile,
+                        //   'Total_Watch_Time':counter,
+                        //   'Path_name':AppConstants.routeName
+                        // };
+                        // AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Video,dispose);
                         var map = {
                           'Page_Name':'Course_Details',
                           'Course_Category':AppConstants.paidTabName,

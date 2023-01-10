@@ -19,6 +19,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../data/model/DoubtCourseIdModel.dart';
+import '../data/model/OfflineCounselingModel.dart';
 import '../data/repository/config_Repo.dart';
 
 class ConfigProvider extends ChangeNotifier {
@@ -65,10 +66,26 @@ class ConfigProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> getOfflineCourseId(BuildContext context) async {
+    ApiResponse apiResponse = await configRepo.offlineCourseRepo();
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      var status = apiResponse.response!.data['status'];
+      if (status == true) {
+        OfflineCounselingModel model = OfflineCounselingModel.fromJson(json.decode(apiResponse.response.toString()));
+        AppConstants.offlineCounselingIdList = model.courses!;
+      } else {
+        AppConstants.showBottomMessage(context, 'Status:false', AppColors.black);
+      }
+      notifyListeners();
+    } else {
+      AppConstants.showBottomMessage(
+          context, getTranslated(context, LangString.serverError)!,
+          AppColors.red);
+      notifyListeners();
+    }
+  }
 }
 
-class DoubtCourseId{
-  String? course_id;
-  String? web_id;
-  DoubtCourseId({this.course_id,this.web_id});
-}
+
