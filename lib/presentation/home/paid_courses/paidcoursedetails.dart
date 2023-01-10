@@ -447,6 +447,35 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     //         )),
                     //   )
                     // ),
+
+               widget.courseType == 2?     InkWell(onTap: (){
+                 var map = {
+                   'Page_Name':'Course_Details',
+                   'Course_Category':AppConstants.paidTabName,
+                   'Course_Name':widget.courseData.title.toString(),
+                   'Mobile_Number':AppConstants.userMobile,
+                   'Language':AppConstants.langCode,
+                   'User_ID':AppConstants.userMobile,
+                   'Path_name':ModalRoute.of(context)!.settings.name
+                 };
+                 AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Offline_call_us,map);
+                 AppConstants.makeCallEmail('tel:'+AppConstants.offline_call);
+               },
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: AppColors.green,
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        height: 40,
+                        margin: EdgeInsets.only(left: 8,right: 8,top: 5),
+                        child: Center(
+                            child: Text(
+                              'Call Us',
+                              style: TextStyle(color: AppColors.white, fontSize:  widget.courseData.status == 'Published'?16: 12),
+                            )
+                        ),
+                      ),
+                    ):SizedBox(),
                     widget.courseData.purchase == true ? AlreadyPurchasedBtn() :
                     InkWell(
                       onTap: () {

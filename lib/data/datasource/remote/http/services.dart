@@ -64,5 +64,37 @@ class Service {
       throw Exception('Failed to load API');
     }
   }
+
+  static Future<http.Response> patch(String uri, {var body, encoding, myHeader}) async {
+    String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
+    var postBody = json.encode(body);
+
+    var sym = uri.contains(API.BASE_URL2) ? uri.contains('?') ? "&" : "?" : "";
+    String url = uri.contains(API.BASE_URL2) ? '${uri}${sym}appVersion=${AppConstants.versionCode}' : uri;
+    AppConstants.printLog(url + " Param- " + postBody);
+    // Fluttertoast.showToast(msg: url + " Param- " + postBody);
+    Map<String, String> header = {
+      "appAuthToken": token,
+      "Content-Type": "application/json",
+      "app-version":AppConstants.versionCode
+    };
+
+
+    try {
+      return await http
+          .patch(Uri.parse(url),
+          body: utf8.encode(postBody),
+          headers: myHeader ?? header,
+          encoding: encoding)
+          .then((response) {
+        AppConstants.printLog("Header-  ${myHeader??header}");
+        AppConstants.printLog("Response- " + response.body);
+        // Fluttertoast.showToast(msg: '${url}\n${response.body.toString()}');
+        return response;
+      });
+    } catch (error) {
+      throw Exception('Failed to load API');
+    }
+  }
 }
 

@@ -52,6 +52,47 @@ class _BooksCardState extends State<BooksCard> {
       ),
       child: Column(
         children: [
+           InkWell(
+              onTap: () async {
+                var map = {
+                  'Page_Name':'Books List',
+                  'Mobile_Number':AppConstants.userMobile,
+                  'Language':AppConstants.langCode,
+                  'User_ID':AppConstants.userMobile,
+                  'Book_Name':widget.books.title.toString()
+                };
+                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Share_Books,map);
+                String data = json.encode(widget.books);
+                String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink('books', data, '0', widget.books.id.toString());
+                String shareContent =
+                    'Get "' + widget.books.title.toString() + '" Book from Exampur Now.\n' +
+                        dynamicUrl;
+                Share.share(shareContent);
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 12,top: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Image.asset(
+                      Images.share,
+                      height: 15,
+                      width: 20,
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      getTranslated(context, LangString.share)!,
+                      style: TextStyle(
+                        color: AppColors.black,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           widget.books.bannerPath.toString().contains('http') ?
           AppConstants.image(widget.books.bannerPath.toString()) :
           AppConstants.image(AppConstants.BANNER_BASE + widget.books.bannerPath.toString()),
@@ -67,66 +108,93 @@ class _BooksCardState extends State<BooksCard> {
             style: TextStyle(fontSize: 12),
           ),
           SizedBox(height: 10),
-          CustomElevatedButton(
-            onPressed: () {
-              var map = {
-                'Page_Name':'Books List',
-                'Mobile_Number':AppConstants.userMobile,
-                'Language':AppConstants.langCode,
-                'User_ID':AppConstants.userMobile,
-                'Book_Name':widget.books.title.toString()
-              };
-              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Book,map);
-              Navigator.push(context,
-                  MaterialPageRoute(
-                     // settings: RouteSettings(name: 'BookListing'),
-                      builder: (context) => PlaceOrderScreen(widget.books)
-                  )
-              );
+
+          // CustomElevatedButton(
+          //   onPressed: () {
+          //     var map = {
+          //       'Page_Name':'Books List',
+          //       'Mobile_Number':AppConstants.userMobile,
+          //       'Language':AppConstants.langCode,
+          //       'User_ID':AppConstants.userMobile,
+          //       'Book_Name':widget.books.title.toString()
+          //     };
+          //     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Book,map);
+          //     Navigator.push(context,
+          //         MaterialPageRoute(
+          //            // settings: RouteSettings(name: 'BookListing'),
+          //             builder: (context) => PlaceOrderScreen(widget.books)
+          //         )
+          //     );
+          //   },
+          //   text: getTranslated(context, LangString.buy)!,
+          // ),
+          InkWell(
+            onTap: (){
+                  var map = {
+                    'Page_Name':'Books List',
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':AppConstants.langCode,
+                    'User_ID':AppConstants.userMobile,
+                    'Book_Name':widget.books.title.toString()
+                  };
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Book,map);
+                  Navigator.push(context,
+                      MaterialPageRoute(
+                         // settings: RouteSettings(name: 'BookListing'),
+                          builder: (context) => PlaceOrderScreen(widget.books)
+                      )
+                  );
             },
-            text: getTranslated(context, LangString.buy)!,
+           child: Container(
+             height: 55,
+             decoration: BoxDecoration(color: Theme.of(context).primaryColor,
+               borderRadius:BorderRadius.circular(10.0),
+             ),
+             alignment: Alignment.center,
+             child: Text(getTranslated(context, LangString.buy)!,style: TextStyle(fontSize: 18, color: Colors.white),),
+           ),
           ),
           SizedBox(
             height: 10,
           ),
-          InkWell(
-            onTap: () async {
-              var map = {
-                'Page_Name':'Books List',
-                'Mobile_Number':AppConstants.userMobile,
-                'Language':AppConstants.langCode,
-                'User_ID':AppConstants.userMobile,
-                'Book_Name':widget.books.title.toString()
-              };
-              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Share_Books,map);
-              String data = json.encode(widget.books);
-              String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink('books', data, '0', widget.books.id.toString());
-              String shareContent =
-                  'Get "' + widget.books.title.toString() + '" Book from Exampur Now.\n' +
-                      dynamicUrl;
-              Share.share(shareContent);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  Images.share,
-                  height: 15,
-                  width: 20,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  getTranslated(context, LangString.share)!,
-                  style: TextStyle(
-                    color: AppColors.black,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-          )
+          // InkWell(
+          //   onTap: () async {
+          //     var map = {
+          //       'Page_Name':'Books List',
+          //       'Mobile_Number':AppConstants.userMobile,
+          //       'Language':AppConstants.langCode,
+          //       'User_ID':AppConstants.userMobile,
+          //       'Book_Name':widget.books.title.toString()
+          //     };
+          //     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Share_Books,map);
+          //     String data = json.encode(widget.books);
+          //     String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink('books', data, '0', widget.books.id.toString());
+          //     String shareContent =
+          //         'Get "' + widget.books.title.toString() + '" Book from Exampur Now.\n' +
+          //             dynamicUrl;
+          //     Share.share(shareContent);
+          //   },
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Image.asset(
+          //         Images.share,
+          //         height: 15,
+          //         width: 20,
+          //       ),
+          //       SizedBox(
+          //         width: 8,
+          //       ),
+          //       Text(
+          //         getTranslated(context, LangString.share)!,
+          //         style: TextStyle(
+          //           color: AppColors.black,
+          //           fontSize: 16,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // )
         ],
       ),
     );

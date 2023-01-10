@@ -215,6 +215,8 @@ class _HomeState extends State<Home> {
         .getContentLog(context);
     await Provider.of<ConfigProvider>(
         context, listen: false).getDoubtCourseId(context);
+    await Provider.of<ConfigProvider>(
+        context, listen: false).getOfflineCourseId(context);
     setState(() {});
   }
 

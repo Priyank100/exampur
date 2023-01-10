@@ -17,8 +17,10 @@ import '../presentation/DeliveryDetail/delivery_detail_screen.dart';
 import '../presentation/home/BannerBookDetailPage.dart';
 import '../presentation/home/banner_link_detail_page.dart';
 import '../presentation/home/books/books_ebooks.dart';
+import '../presentation/home/current_affairs_new/current_affairs_details.dart';
 import '../presentation/home/current_affairs_new/current_affairs_tab.dart';
 import '../presentation/home/job_alert_new/job_notifications.dart';
+import '../presentation/home/paid_courses/paid_courses.dart';
 import '../presentation/home/practice_question/practice_question_category.dart';
 import '../presentation/home/practice_question/practice_question_listing.dart';
 import '../presentation/home/study_material_new/study_material_new.dart';
@@ -242,16 +244,57 @@ class AnalyticsConstants {
           //======================================currentAffairScreen========================================//
 
           else if (screenName == "current-affair") {
-            AppConstants.goTo(context, CurrentAffairsTab());
+            if(actiondata == null || actiondata.isEmpty) {
+              AppConstants.goTo(context, CurrentAffairsTab());
+            }
+           else{
+              AppConstants.goTo(context, CurrentAffairsDetails('hi',actiondata[1].replaceAll('article-id=', '')));
+            }
           }
           //======================================jobAlertScreen========================================//
 
           else if (screenName == "job-alert") {
-            AppConstants.goTo(context, JobNotifications());
+            // print('jobAlert');
+            if(actiondata == null || actiondata.isEmpty) {
+              AppConstants.goTo(context, JobNotifications());
+            }
+            else {
+              if(actiondata[1].contains('&')) {
+                List<String> tabData = [
+                  actiondata[1].substring(0, actiondata[1].indexOf("&")).trim(),
+                  actiondata[1].substring(actiondata[1].indexOf("&") + 1).trim()
+                ];
+                AppConstants.goTo(context, JobNotifications(
+                    courseIdMoE: tabData[0].replaceAll('course-id=', ''),
+                    tagSlugMoE: tabData[1].replaceAll('tag-slug=', '')));
+              } else {
+                AppConstants.goTo(context, JobNotifications(
+                    courseIdMoE: actiondata[1].replaceAll('course-id=', '')));
+              }
+            }
           }
-          // else if (screenName == "jobAlert") {
-          //   AppConstants.goTo(context, JobNotifications());
-          // }
+
+//=====================================paid-Course======================================//
+
+          else if (screenName == "paid-course") {
+            if(actiondata == null || actiondata.isEmpty) {
+              AppConstants.goTo(context, PaidCourses(1));
+            } else {
+              AppConstants.goTo(context, PaidCourses(
+                1, categoryId: actiondata[1].replaceAll('category-id=', ''),));
+            }
+          }
+
+          //=======================================Free-Course================================//
+
+          else if (screenName == "free-course") {
+            if(actiondata == null || actiondata.isEmpty) {
+              AppConstants.goTo(context, PaidCourses(0));
+            } else {
+              AppConstants.goTo(context, PaidCourses(
+                0, categoryId: actiondata[1].replaceAll('category-id=', ''),));
+            }
+          }
 
           //========================================AppTutorial====================================//
           else if (screenName == "app-tutorial") {
@@ -260,7 +303,10 @@ class AnalyticsConstants {
 
           //========================================bookListingPage===============================//
           else if (screenName == "books") {
-            AppConstants.goTo(context, BooksEbook());
+            AppConstants.goTo(context, BooksEbook(bookEbookTab:0));
+          }
+          else if (screenName == "ebooks") {
+            AppConstants.goTo(context, BooksEbook(bookEbookTab:1));
           }
 //=====================================================bookdetailpage===============================//
           else if (screenName == "book-detail") {
@@ -451,4 +497,6 @@ class AnalyticsConstants {
   static String Click_Topic_Study_Material = 'Click_Topic_Study_Material';
   static String My_Courses_Timeline = 'My_Courses_Timeline';
   static String Click_offline_Courses= 'Click_offline_Courses';
+  static String Offline_call_us= 'Offline_call_us';
+  static String counselling= 'counselling';
 }

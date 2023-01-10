@@ -41,6 +41,15 @@ class ConfigRepo {
     }
   }
 
-
+  Future<ApiResponse> offlineCourseRepo() async {
+    try {
+      var url = API.offlineCourseUrl;
+      // AppConstants.printLog(url);
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 
 }

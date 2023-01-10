@@ -82,7 +82,9 @@ class PaidCourseData {
     String? testSeriesLink,
     String? status,
    PreBookDetail? preBookDetail,
-    bool? purchase = false
+    bool? purchase = false,
+    bool? offlineCounseling = false,
+    String? offlineWeblink,
 
   }){
     _id = id;
@@ -104,6 +106,8 @@ class PaidCourseData {
     _status = status ;
    _preBookDetail = preBookDetail;
    _purchase = purchase;
+   _offlineCounseling = offlineCounseling;
+   _offlineWeblink = offlineWeblink;
 }
 
   PaidCourseData.fromJson(dynamic json) {
@@ -141,6 +145,8 @@ class PaidCourseData {
     _status = json['status']==null?'Published':json['status'].toString();
    _preBookDetail = json['prebook_details'] == null ? null : PreBookDetail.fromJson(json["prebook_details"]);
    _purchase = json['purchase'] == null ? false : json['purchase'];
+    _offlineCounseling = json['offline_counseling'] == null ? false : json['offline_counseling'];
+    _offlineWeblink = json['offline_weblink'] == null ? '' : json['offline_weblink'];
   }
   String? _id;
   String? _title;
@@ -161,6 +167,16 @@ class PaidCourseData {
   String? _status;
  PreBookDetail? _preBookDetail;
  bool? _purchase;
+ bool? _offlineCounseling = false;
+ String? _offlineWeblink = '';
+
+  set setOfflineCounseling(bool value) {
+    _offlineCounseling = value;
+  }
+
+  set setOfflineWeblink(String value) {
+    _offlineWeblink = value;
+  }
 
   String? get id => _id;
   String? get title => _title;
@@ -181,6 +197,8 @@ class PaidCourseData {
   String? get status => _status;
  PreBookDetail? get preBookDetail => _preBookDetail;
  bool? get purchase => _purchase;
+ bool? get offlineCounseling => _offlineCounseling;
+ String? get offlineWeblink => _offlineWeblink;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -209,6 +227,8 @@ class PaidCourseData {
     map['status'] = _status;
    map['prebook_details'] = _preBookDetail;
    map['purchase'] = _purchase;
+   map['offline_counseling'] = _offlineCounseling;
+   map['offline_weblink'] = _offlineWeblink;
     return map;
   }
 

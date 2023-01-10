@@ -15,6 +15,7 @@ class LangString {
   static String attemptedQuiz= 'attempted_quiz';
   static String askdoubts= 'ask_doubts';
   static String doubtstext= 'doubts_text';
+  static String Are_you_Sure_you_want_to_back= 'Are_you_Sure_you_want_to_back';
 
   static String books= 'books';
   static String buy= 'buy';

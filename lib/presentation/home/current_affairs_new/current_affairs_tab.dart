@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CurrentAffairsTab extends StatefulWidget {
-  final String? tabId;
-  const CurrentAffairsTab({this.tabId}) : super();
+  // final String? tabId;
+  const CurrentAffairsTab() : super();
 
   @override
   State<CurrentAffairsTab> createState() => _CurrentAffairsTabState();
@@ -23,7 +23,7 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
   List<CurentAffairsNewTabModel> currentAffairsTab = [];
   bool isLoading = true;
   String currentlangCode    = 'hi';
-  int tabIndex = 0;
+  // int tabIndex = 0;
 
   @override
   void initState() {
@@ -34,11 +34,11 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
   Future<void> getTab() async {
     isLoading = true;
     currentAffairsTab = (await Provider.of<CaProvider>(context, listen: false).getCurrentAffairsNewTab(context))!;
-    for(int i=0; i<currentAffairsTab.length; i++) {
-      if(widget.tabId == currentAffairsTab[i].id.toString()) {
-        tabIndex = i;
-      }
-    }
+    // for(int i=0; i<currentAffairsTab.length; i++) {
+    //   if(widget.tabId == currentAffairsTab[i].id.toString()) {
+    //     tabIndex = i;
+    //   }
+    // }
     isLoading = false;
     setState(() {});
   }
@@ -130,7 +130,7 @@ class _CurrentAffairsTabState extends State<CurrentAffairsTab> {
               ),
               Expanded(
                   child:DefaultTabController(
-                    initialIndex: tabIndex,
+                    // initialIndex: tabIndex,
                     length: currentAffairsTab.length,
                     child: tabBar(),
                   )

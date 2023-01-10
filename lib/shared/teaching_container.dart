@@ -29,6 +29,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
 import 'package:http/http.dart' as http;
 
+import '../presentation/my_courses/Feedback/feedbackView.dart';
 import '../presentation/widgets/custom_smaller_button.dart';
 import '../utils/analytics_constants.dart';
 
@@ -83,6 +84,15 @@ class _TeachingContainerState extends State<TeachingContainer> {
     setState(() {});
   }
 
+  void getOfflineCounseling(){
+    AppConstants.offlineCounselingIdList.forEach((data) {
+      if (widget.courseData.id == data.courseId) {
+        widget.courseData.setOfflineCounseling = true;
+        widget.courseData.setOfflineWeblink = data.webLink.toString();
+      }
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -91,6 +101,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
     getUserData();
     getDeviceData();
     getAppVersionData();
+    getOfflineCounseling();
   }
   @override
   Widget build(BuildContext context) {
@@ -120,12 +131,53 @@ class _TeachingContainerState extends State<TeachingContainer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+              widget.courseType == 2?  Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Image.asset(Images.share,height: 18,width: 18,),
+                      SizedBox(width: 5,),
+                      InkWell(
+                          onTap: () async {
+                            var map = {
+                              'Page_Name':'Course_List',
+                              'Course_Category':widget.tabName,
+                              'Course_Name':widget.courseData.title.toString(),
+                              'Mobile_Number':AppConstants.userMobile,
+                              'Language':AppConstants.langCode,
+                              'User_ID':AppConstants.userMobile,
+                            };
+                            if(widget.courseType == 1) {
+                              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Share_Course,map);}
+                            String courseTabType = '';
+                            if(widget.tabId=='combo_course'){
+                              courseTabType = 'combo';
+                            }else{
+                              courseTabType = 'courses';
+                            }
+
+                            String data = json.encode(widget.courseData);
+                            String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink(
+                                courseTabType, data.replaceAll('&', 'and'), widget.courseType.toString(), widget.courseData.id.toString()
+                            );
+                            String shareContent =
+                                'Get "' + widget.courseData.title.toString() + '" Course from Exampur Now.\n' +
+                                    dynamicUrl;
+                            Share.share(shareContent);
+                            // Share.share(dynamicUrl);
+                          },
+                          child: Text(getTranslated(context, LangString.share)!)
+                      )
+                    ],
+                  ),
+                ):SizedBox(),
                 ClipRRect(
                   borderRadius: BorderRadius.all( Radius.circular(10),
 
                   ),
                   child: Container(
-                    //padding: EdgeInsets.all(8),
+                    padding: EdgeInsets.all( widget.courseType == 2? 8:0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
@@ -177,16 +229,32 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
 
                 Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: Row(
+                  padding: const EdgeInsets.only(right: 8, left: 8),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-
-
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                     widget.courseType == 2 &&  widget.courseData.offlineCounseling == true ?     CustomRoundButton(
+                       onPressed: () async {
+                         var map = {
+                           'Page_Name':'Course_List',
+                           'Course_Category':widget.tabName,
+                           'Course_Name':widget.courseData.title.toString(),
+                           'Mobile_Number':AppConstants.userMobile,
+                           'Language':AppConstants.langCode,
+                           'User_ID':AppConstants.userMobile,
+                         };
+                         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.counselling,map);
+                         if(widget.courseData.offlineWeblink!.isEmpty) {
+                           AppConstants.showToast('No Link Found');
+
+                         } else {
+                             AppConstants.goTo(context, MyWebView(selectedUrl:widget.courseData.offlineWeblink));
+
+                         }
+                              },text: 'Free counselling form',color: Colors.green,):SizedBox(),
                           CustomRoundButton(onPressed: () async {
                             AppConstants.mycourseType = 1;
                             // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
@@ -217,8 +285,8 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                   MaterialPageRoute(
                                       settings: RouteSettings(name: 'PaidCourseListing'),
                                       builder: (_) =>
-                                  PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
-                              ));
+                                          PaidCourseDetails(courseTabType, widget.courseData,widget.courseType)
+                                  ));
                             } else {
                               var map = {
                                 'Page_Name':'Course_List',
@@ -233,114 +301,122 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               AppConstants.printLog(widget.courseData.title.toString());
                               AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
                               String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
-                             submitLog(widget.courseData.title.toString(), widget.courseData.id.toString(), widget.tabName.toString());
+                              submitLog(widget.courseData.title.toString(), widget.courseData.id.toString(), widget.tabName.toString());
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                   MyCourseTabView(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)
                               ));
                             }
-                          },text: getTranslated(context, LangString.viewDetails)!,),
+                          },text: getTranslated(context, LangString.viewDetails)!,)
+                        ],
+                      ),
 
-                          SizedBox(height: 10,),
+                      SizedBox(height: 10,),
 
-                          widget.courseType==1 || widget.courseType==2?
+                      widget.courseType==1 || widget.courseType==2?
 
-                          widget.courseData.purchase == true ?
-                              Row(children: [
-                                Icon(Icons.check_circle, color: AppColors.green, size: 15),
-                                Text('Already Purchased', style: TextStyle(color: AppColors.green, fontSize: 12))
-                              ]):
+                      widget.courseData.purchase == true ?
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                        Icon(Icons.check_circle, color: AppColors.green, size: 15),
+                        Text('Already Purchased', style: TextStyle(color: AppColors.green, fontSize: 12))
+                      ]):
 
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
                           CustomRoundButton(
                               onPressed: ()async{
                                 AppConstants.paidTabName = widget.tabName;
-                            await   FirebaseAnalytics.instance.logEvent(name:'Paid_Courdse_Details',parameters: {
-                              'Course_id':widget.courseData.id.toString().replaceAll(' ', '_'),
-                              'Course_title':widget.courseData.title.toString().replaceAll(' ', '_')
-                            });
-                            var map = {
-                              'Page_Name':'Course_List',
-                              'Course_Category':widget.tabName,
-                              'Course_Name':widget.courseData.title.toString(),
-                              'Mobile_Number':AppConstants.userMobile,
-                              'Language':AppConstants.langCode,
-                              'User_ID':AppConstants.userMobile,
-                            };
-                            AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Course,map);
+                                await   FirebaseAnalytics.instance.logEvent(name:'Paid_Courdse_Details',parameters: {
+                                  'Course_id':widget.courseData.id.toString().replaceAll(' ', '_'),
+                                  'Course_title':widget.courseData.title.toString().replaceAll(' ', '_')
+                                });
+                                var map = {
+                                  'Page_Name':'Course_List',
+                                  'Course_Category':widget.tabName,
+                                  'Course_Name':widget.courseData.title.toString(),
+                                  'Mobile_Number':AppConstants.userMobile,
+                                  'Language':AppConstants.langCode,
+                                  'User_ID':AppConstants.userMobile,
+                                };
+                                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Course,map);
 
-                            String courseTabType = 'Course';
-                            if(widget.tabId=='combo_course'){
-                              courseTabType = 'Combo';
-                            }else{
-                              courseTabType = 'Course';
-                            }
-                            widget.courseData.onEmi??false ?
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  settings: RouteSettings(name: 'PaidCourseListing'),
-                                  builder: (context) =>
-                                  PaidCourseDetails(courseTabType, widget.courseData,widget.courseType))
-                            ) :
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) =>
-                                  DeliveryDetailScreen(courseTabType, widget.courseData.id.toString(),
-                                    widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
-                                      upsellBookList: widget.courseData.upsellBook??[],
-                                      pre_booktype: widget.courseData.status,
-                                      preBookDetail:widget.courseData.preBookDetail
-                                  )
-                              ),
-                            );
-                          },text: widget.courseData.status == 'Published'?getTranslated(context, LangString.buyCourse)!:
+                                String courseTabType = 'Course';
+                                if(widget.tabId=='combo_course'){
+                                  courseTabType = 'Combo';
+                                }else{
+                                  courseTabType = 'Course';
+                                }
+                                widget.courseData.onEmi??false ?
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        settings: RouteSettings(name: 'PaidCourseListing'),
+                                        builder: (context) =>
+                                            PaidCourseDetails(courseTabType, widget.courseData,widget.courseType))
+                                ) :
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>
+                                      DeliveryDetailScreen(courseTabType, widget.courseData.id.toString(),
+                                          widget.courseData.title.toString(), widget.courseData.salePrice.toString(),
+                                          upsellBookList: widget.courseData.upsellBook??[],
+                                          pre_booktype: widget.courseData.status,
+                                          preBookDetail:widget.courseData.preBookDetail
+                                      )
+                                  ),
+                                );
+                              },text: widget.courseData.status == 'Published'?getTranslated(context, LangString.buyCourse)!:
                           message.replaceAll('X', widget.courseData.preBookDetail!.percentOff.toString())
-                          )
-                              : SizedBox(),
-
-                          SizedBox(height: 10,),
-
-                          Row(
-                            children: [
-                              Image.asset(Images.share,height: 18,width: 18,),
-                              SizedBox(width: 5,),
-                              InkWell(
-                                onTap: () async {
-                                  var map = {
-                                    'Page_Name':'Course_List',
-                                    'Course_Category':widget.tabName,
-                                    'Course_Name':widget.courseData.title.toString(),
-                                    'Mobile_Number':AppConstants.userMobile,
-                                    'Language':AppConstants.langCode,
-                                    'User_ID':AppConstants.userMobile,
-                                  };
-                                   if(widget.courseType == 1) {
-                                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Share_Course,map);}
-                                  String courseTabType = '';
-                                  if(widget.tabId=='combo_course'){
-                                    courseTabType = 'combo';
-                                  }else{
-                                    courseTabType = 'courses';
-                                  }
-
-                                  String data = json.encode(widget.courseData);
-                                  String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink(
-                                      courseTabType, data.replaceAll('&', 'and'), widget.courseType.toString(), widget.courseData.id.toString()
-                                  );
-                                  String shareContent =
-                                      'Get "' + widget.courseData.title.toString() + '" Course from Exampur Now.\n' +
-                                          dynamicUrl;
-                                  Share.share(shareContent);
-                                  // Share.share(dynamicUrl);
-                                },
-                                child: Text(getTranslated(context, LangString.share)!)
-                              )
-                            ],
                           ),
+                        ],
+                      )
+                          : SizedBox(),
 
-                          SizedBox(height: 15,),
+                      SizedBox(height: 10,),
+
+                      widget.courseType == 2?SizedBox():    Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Image.asset(Images.share,height: 18,width: 18,),
+                          SizedBox(width: 5,),
+                          InkWell(
+                              onTap: () async {
+                                var map = {
+                                  'Page_Name':'Course_List',
+                                  'Course_Category':widget.tabName,
+                                  'Course_Name':widget.courseData.title.toString(),
+                                  'Mobile_Number':AppConstants.userMobile,
+                                  'Language':AppConstants.langCode,
+                                  'User_ID':AppConstants.userMobile,
+                                };
+                                if(widget.courseType == 1) {
+                                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Share_Course,map);}
+                                String courseTabType = '';
+                                if(widget.tabId=='combo_course'){
+                                  courseTabType = 'combo';
+                                }else{
+                                  courseTabType = 'courses';
+                                }
+
+                                String data = json.encode(widget.courseData);
+                                String dynamicUrl = await FirebaseDynamicLinkService.createDynamicLink(
+                                    courseTabType, data.replaceAll('&', 'and'), widget.courseType.toString(), widget.courseData.id.toString()
+                                );
+                                String shareContent =
+                                    'Get "' + widget.courseData.title.toString() + '" Course from Exampur Now.\n' +
+                                        dynamicUrl;
+                                Share.share(shareContent);
+                                // Share.share(dynamicUrl);
+                              },
+                              child: Text(getTranslated(context, LangString.share)!)
+                          )
                         ],
                       ),
-                    ]
+
+                      SizedBox(height: 15,),
+                    ],
                   ),
                 ),
 
@@ -412,6 +488,7 @@ class RowTile extends StatelessWidget {
 
 
 }
+
 //
 // class MyClip extends CustomClipper<Rect> {
 //   Rect getClip(Size size) {
