@@ -28,6 +28,7 @@ import '../presentation/home/study_material_new/study_material_sub_category.dart
 import '../presentation/home/test_series_new/test_series_new.dart';
 import '../presentation/my_courses/TeacherSubjectView/DownloadPdfView.dart';
 import '../presentation/my_courses/TeacherSubjectView/material_video.dart';
+import '../presentation/my_courses/myCoursetabview.dart';
 import 'app_colors.dart';
 import 'app_constants.dart';
 import 'lang_string.dart';
@@ -294,6 +295,12 @@ class AnalyticsConstants {
               AppConstants.goTo(context, PaidCourses(
                 0, categoryId: actiondata[1].replaceAll('category-id=', ''),));
             }
+          }
+
+          //================================================MyCourse===============================//
+          else if (screenName == 'my-course'){
+            List<String> mycourse = actiondata[1].split('&');
+           AppConstants.goTo(context, MyCourseTabView(mycourse[0].replaceAll('courseId=',''),mycourse[1].replaceAll('title=',''),mycourse[2].replaceAll('testSeriesLink=',''),token,tabIndex:int.parse(mycourse[3].replaceAll('tabIndex=',''))));
           }
 
           //========================================AppTutorial====================================//

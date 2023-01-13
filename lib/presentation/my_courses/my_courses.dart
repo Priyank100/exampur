@@ -478,7 +478,7 @@ class MyCoursesState extends State<MyCourses> {
     Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
             builder: (_) =>
-                MyCourseTabView(myCourseList[i].id.toString(), myCourseList[i].title.toString(), myCourseList[i].testSeriesLink.toString(),token)));
+                MyCourseTabView(myCourseList[i].id.toString(), myCourseList[i].title.toString(),myCourseList[i].testSeriesLink.toString(),token,)));
   }
 
   void toRePay(index){

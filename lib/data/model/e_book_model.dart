@@ -108,7 +108,7 @@ class BookEbook {
         _macro?.add(Macro.fromJson(v));
       });
     }
-    _bannerPath = json['banner_path'].toString().contains('http') ? json['banner_path'] : AppConstants.BANNER_BASE + json['banner_path'];
+    _bannerPath = json['banner_path'] == null ? '' : json['banner_path'].toString().contains('http') ? json['banner_path'].toString() : AppConstants.BANNER_BASE + json['banner_path'].toString();
     _logoPath = json['logo_path'];
     _status = json['status']==null?'Published':json['status'].toString();
   }

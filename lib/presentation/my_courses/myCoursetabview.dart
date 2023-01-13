@@ -24,10 +24,10 @@ class MyCourseTabView extends StatefulWidget {
   final String courseName;
   final String testSeriesLink;
   final String token;
-  final String? tabTitle;
+  final int? tabIndex;
 
 
-  const MyCourseTabView(this.courseId, this.courseName, this.testSeriesLink, this.token, {this.tabTitle})
+  const MyCourseTabView(this.courseId, this.courseName, this.testSeriesLink, this.token, {this.tabIndex})
       : super();
 
   @override
@@ -40,8 +40,6 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
   String userMobile = '';
   List<Widget> tabRoutes =[];
   String webId = '';
-
-  int tabIndex = 0;
   bool isDoubtsRequired = false;
 
   Future<String> loadJsonFromAssets() async {
@@ -59,16 +57,16 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
 
     if(isDoubtsRequired && tabList.length != 6){
       tabList.insert(1, Book(id: "1", name: "Doubts"));
-      tabRoutes = [
-        TimeTableView(widget.courseId),
-        DoubtsPage(widget.token, webId, 'True'),
-        SubjectView(widget.courseId),
-        WebViewOpen(widget.testSeriesLink, widget.token),
-        MyCourseNotifications(widget.courseId),
-        // FeedbackView(userName, userMobile, widget.token),
-        NewFeedbackView(widget.courseId, widget.courseName)
-      ];
-      setTabIndex(true);
+      // tabRoutes = [
+      //   TimeTableView(widget.courseId),
+      //   DoubtsPage(widget.token, webId, 'True'),
+      //   SubjectView(widget.courseId),
+      //   WebViewOpen(widget.testSeriesLink, widget.token),
+      //   MyCourseNotifications(widget.courseId),
+      //   // FeedbackView(userName, userMobile, widget.token),
+      //   NewFeedbackView(widget.courseId, widget.courseName)
+      // ];
+      // setTabIndex(true);
     }
   }
 
@@ -90,42 +88,42 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
   }
 
   loadStaticDetails() async{
-    setTabIndex(false);
+    // setTabIndex(false);
     String jsonString = await loadJsonFromAssets();
     final myCourseTabResponse = booktitleFromJson(jsonString);
     tabList = myCourseTabResponse.book!;
-    tabRoutes = [
-      TimeTableView(widget.courseId),
-      SubjectView(widget.courseId),
-      WebViewOpen(widget.testSeriesLink, widget.token),
-      MyCourseNotifications(widget.courseId),
-      // FeedbackView(userName, userMobile, widget.token)
-      NewFeedbackView(widget.courseId, widget.courseName)
-    ];
+    // tabRoutes = [
+    //   TimeTableView(widget.courseId),
+    //   SubjectView(widget.courseId),
+    //   WebViewOpen(widget.testSeriesLink, widget.token),
+    //   MyCourseNotifications(widget.courseId),
+    //   // FeedbackView(userName, userMobile, widget.token)
+    //   NewFeedbackView(widget.courseId, widget.courseName)
+    // ];
   }
 
-  void setTabIndex(bool isDoubt) {
-    switch(widget.tabTitle.toString().toLowerCase().replaceAll(' ', '')) {
-      case 'timeline':
-        tabIndex = 0;
-        break;
-      case 'doubts':
-        tabIndex = isDoubt ? 1 : 0;
-        break;
-      case 'subjects':
-        tabIndex = isDoubt ? 2 : 1;
-        break;
-      case 'testseries':
-        tabIndex = isDoubt ? 3 : 2;
-        break;
-      case 'notification':
-        tabIndex = isDoubt ? 4 : 3;
-        break;
-      case 'feedback':
-        tabIndex = isDoubt ? 5 : 4;
-        break;
-    }
-  }
+  // void setTabIndex(bool isDoubt) {
+  //   switch(widget.tabTitle.toString().toLowerCase().replaceAll(' ', '')) {
+  //     case 'timeline':
+  //       tabIndex = 0;
+  //       break;
+  //     case 'doubts':
+  //       tabIndex = isDoubt ? 1 : 0;
+  //       break;
+  //     case 'subjects':
+  //       tabIndex = isDoubt ? 2 : 1;
+  //       break;
+  //     case 'testseries':
+  //       tabIndex = isDoubt ? 3 : 2;
+  //       break;
+  //     case 'notification':
+  //       tabIndex = isDoubt ? 4 : 3;
+  //       break;
+  //     case 'feedback':
+  //       tabIndex = isDoubt ? 5 : 4;
+  //       break;
+  //   }
+  // }
 
 
   @override
@@ -135,10 +133,24 @@ class _MyCourseTabViewState extends State<MyCourseTabView> {
         builder: (context, snapshot) {
           return Scaffold(
               body: MyCourseTabBar(
-                  // selectedTabIndex: tabIndex,
+                  selectedTabIndex: widget.tabIndex??0,
                   length: tabList.length,
                   names: tabList.map((item) => item.name.toString()).toList(),
-                  routes: tabRoutes
+                  // routes: tabRoutes
+                  routes: tabList.length == 5 ? [
+                    TimeTableView(widget.courseId),
+                    SubjectView(widget.courseId),
+                    WebViewOpen(widget.testSeriesLink, widget.token),
+                    MyCourseNotifications(widget.courseId),
+                    NewFeedbackView(widget.courseId, widget.courseName)
+                  ] : [
+                    TimeTableView(widget.courseId),
+                    DoubtsPage(widget.token, webId, 'True'),
+                    SubjectView(widget.courseId),
+                    WebViewOpen(widget.testSeriesLink, widget.token),
+                    MyCourseNotifications(widget.courseId),
+                    NewFeedbackView(widget.courseId, widget.courseName)
+                  ]
               )
           );
         });
