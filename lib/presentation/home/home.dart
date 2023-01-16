@@ -14,6 +14,7 @@ import 'package:exampur_mobile/presentation/home/home_banner.dart';
 import 'package:exampur_mobile/presentation/home/job_alert_new/job_notifications.dart';
 import 'package:exampur_mobile/presentation/home/job_alerts/job_alerts.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/offline_courses.dart';
+import 'package:exampur_mobile/presentation/home/paid_courses/recorded_course_vod.dart';
 import 'package:exampur_mobile/presentation/home/practice_question/practice_question_category.dart';
 import 'package:exampur_mobile/presentation/home/study_material_new/study_material_new.dart';
 import 'package:exampur_mobile/presentation/home/study_notes/study_notes_list.dart';
@@ -322,6 +323,33 @@ class _HomeState extends State<Home> {
                     // navigateTo: PaidCourses(1)
                   ),
                   SquareButton(
+                    image: Images.vodImg,
+                    title: 'Recorded Course (VOD)',
+                    tagImage: Images.newImg,
+                    color: AppColors.grey,
+                    onPressed: () {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
+                        'User_ID':AppConstants.userMobile
+                      };
+                     // AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_offline_Courses,map);
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(builder: (_) => RecordedCourseVod()));
+                    },
+                    // navigateTo: PaidCourses(1)
+                  ),
+
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  SquareButton(
                     image: Images.offlinebatch,
                     title: getTranslated(context, LangString.offileCourse)!,
                     tagImage: Images.newImg,
@@ -340,14 +368,6 @@ class _HomeState extends State<Home> {
                     },
                     // navigateTo: PaidCourses(1)
                   ),
-
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.free_course,
                     title: getTranslated(context, LangString.freeCourses)!,
@@ -369,20 +389,7 @@ class _HomeState extends State<Home> {
                           MaterialPageRoute(builder: (_) => PaidCourses(0)));
                     },
                   ),
-                  SquareButton(
-                    image: Images.book,
-                    tagImage:Images.offerImg ,
-                    title: getTranslated(context, 'books')!,
-                    color: AppColors.book,
-                    onPressed: () {
-                      AnalyticsConstants.sendAnalyticsEvent(
-                          AnalyticsConstants.booksClick);
-                      Map<String, Object> stuff = {};
-                      AnalyticsConstants.logEvent(AnalyticsConstants.booksClick,stuff);
-                      Navigator.of(context, rootNavigator: true)
-                          .push(MaterialPageRoute(builder: (_) => BooksEbook()));
-                    },
-                  ),
+
 
                   // SquareButton(
                   //     image: Images.one2one,
@@ -398,6 +405,20 @@ class _HomeState extends State<Home> {
               ),
               Row(
                 children: [
+                  SquareButton(
+                    image: Images.book,
+                    tagImage:Images.offerImg ,
+                    title: getTranslated(context, 'books')!,
+                    color: AppColors.book,
+                    onPressed: () {
+                      AnalyticsConstants.sendAnalyticsEvent(
+                          AnalyticsConstants.booksClick);
+                      Map<String, Object> stuff = {};
+                      AnalyticsConstants.logEvent(AnalyticsConstants.booksClick,stuff);
+                      Navigator.of(context, rootNavigator: true)
+                          .push(MaterialPageRoute(builder: (_) => BooksEbook()));
+                    },
+                  ),
                   SquareButton(
                     image: Images.testseries,
                     title: getTranslated(context, 'test_courses')!,
@@ -422,6 +443,14 @@ class _HomeState extends State<Home> {
                       });
                     },
                   ),
+
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
                   SquareButton(
                     image: Images.dailyquiz,
                     title: getTranslated(context, LangString.Quizz),
@@ -442,13 +471,6 @@ class _HomeState extends State<Home> {
                     },
                   ),
 
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.studymaterial,
                     title: getTranslated(context, 'study_materials')!,
@@ -469,6 +491,19 @@ class _HomeState extends State<Home> {
                           StudyMaterialNew(0)));
                     },
                   ),
+
+                  // SquareButton(
+                  //     image: Images.offlinebatch,
+                  //     title: getTranslated(context, 'offline_batches')!,
+                  //     color: AppColors.brown400,
+                  //     navigateTo: OfflineCourse()),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
                   SquareButton(
                     image: Images.jobalert,
                     title: getTranslated(context, 'job_alerts')!,
@@ -484,24 +519,12 @@ class _HomeState extends State<Home> {
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Job_Alerts,map);
                       Navigator.of(context, rootNavigator: true)
                           .push(MaterialPageRoute(builder: (_) =>
-                          // JobAlerts()
-                               JobNotifications()
-                              ));
+                      // JobAlerts()
+                      JobNotifications()
+                      ));
                     },
                   ),
 
-                  // SquareButton(
-                  //     image: Images.offlinebatch,
-                  //     title: getTranslated(context, 'offline_batches')!,
-                  //     color: AppColors.brown400,
-                  //     navigateTo: OfflineCourse()),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.current_affair,
                     title: getTranslated(context, 'current_affairs')!,
@@ -545,6 +568,15 @@ class _HomeState extends State<Home> {
                   //             'https://downloadexampur.appx.co.in/paid_course/0.46657945645736841649068141070.mp4')));*/
                   //   },
                   // ),
+
+
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
                   SquareButton(
                     image: Images.studymaterial,
                     title: getTranslated(context, LangString.PreviousYearPdf),
@@ -564,14 +596,6 @@ class _HomeState extends State<Home> {
                                   StudyMaterialNew(1)));
                     },
                   ),
-
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.practice,
                     title: getTranslated(context, LangString.PracticeQuestion)!,
@@ -590,6 +614,14 @@ class _HomeState extends State<Home> {
                               builder: (_) => PracticeQuestionCategory()));
                     },
                   ),
+
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
                   SquareButton(
                     image: Images.live_test,
                     title: getTranslated(context, LangString.liveTest),
@@ -611,28 +643,24 @@ class _HomeState extends State<Home> {
                       });
                     },
                   ),
+                  // SquareButton(
+                  //   image: Images.current_affair,
+                  //   title: 'Study Notes',
+                  //   color: AppColors.paidCourses,
+                  //   onPressed: () {
+                  //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
+                  //   },
+                  // ),
+                  // SquareButton(
+                  //   image: Images.current_affair,
+                  //   title: 'Free Videos',
+                  //   color: AppColors.paidCourses,
+                  //   onPressed: () {
+                  //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideos(API.freeVideoUrl)));
+                  //   },
+                  // ),
                 ],
               ),
-              // Row(
-              //   children: [
-              //     // SquareButton(
-              //     //   image: Images.current_affair,
-              //     //   title: 'Study Notes',
-              //     //   color: AppColors.paidCourses,
-              //     //   onPressed: () {
-              //     //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
-              //     //   },
-              //     // ),
-              //     SquareButton(
-              //       image: Images.current_affair,
-              //       title: 'Free Videos',
-              //       color: AppColors.paidCourses,
-              //       onPressed: () {
-              //         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideos(API.freeVideoUrl)));
-              //       },
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         // ),

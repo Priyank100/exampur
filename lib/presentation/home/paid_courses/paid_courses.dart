@@ -62,6 +62,9 @@ class _PaidCoursesState extends State<PaidCourses> with SingleTickerProviderStat
       if(paidCourseTabList[i].name!.toLowerCase().contains('offline')){
         paidCourseTabList.remove(paidCourseTabList[i]);
       }
+      if(paidCourseTabList[i].name!.toLowerCase().contains('recorded')){
+        paidCourseTabList.remove(paidCourseTabList[i]);
+      }
     }
     for(int i=0; i<freeCourseTabList.length; i++) {
       if(widget.categoryId == freeCourseTabList[i].id) {
