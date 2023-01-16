@@ -131,7 +131,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              widget.courseType == 2?  Padding(
+              widget.courseType == 2 || widget.courseType == 3?  Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -177,7 +177,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                   ),
                   child: Container(
-                    padding: EdgeInsets.all( widget.courseType == 2? 8:0),
+                    padding: EdgeInsets.all( widget.courseType == 2 || widget.courseType == 3? 8:0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
@@ -236,7 +236,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                     widget.courseType == 2 &&  widget.courseData.offlineCounseling == true ?     CustomRoundButton(
+                          (widget.courseType == 2 || widget.courseType == 3) &&  widget.courseData.offlineCounseling == true ?     CustomRoundButton(
                        onPressed: () async {
                          var map = {
                            'Page_Name':'Course_List',
@@ -279,7 +279,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             }
                             widget.courseType==1?AppConstants.subscription(widget.courseData.id.toString().replaceAll(' ', '_')):'';
 
-                            if(widget.courseType==1 || widget.courseType==2) {
+                            if(widget.courseType==1 || widget.courseType==2 || widget.courseType == 3) {
                               AppConstants.courseName =widget.courseData.title.toString();
                               Navigator.push(context,
                                   MaterialPageRoute(
@@ -312,7 +312,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                       SizedBox(height: 10,),
 
-                      widget.courseType==1 || widget.courseType==2?
+                      widget.courseType==1 || widget.courseType==2 || widget.courseType == 3?
 
                       widget.courseData.purchase == true ?
                       Row(
@@ -376,7 +376,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
 
                       SizedBox(height: 10,),
 
-                      widget.courseType == 2?SizedBox():    Row(
+                      widget.courseType == 2 || widget.courseType == 3?SizedBox():    Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Image.asset(Images.share,height: 18,width: 18,),

@@ -18,6 +18,7 @@ class AppColors {
   static const Color cyan        = Colors.cyan;
   static const Color blueGrey    = Colors.blueGrey;
   static const Color grey        = Colors.grey;
+  static const Color brown        = Colors.brown;
   static const Color transparent = Colors.transparent;
 
   static Color grey200 = Colors.grey[200]!;

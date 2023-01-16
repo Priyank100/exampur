@@ -316,7 +316,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                           )])
                         ],
                       ),
-                      widget.courseType==1 || widget.courseType==2 ?  Padding(
+                      widget.courseType==1 || widget.courseType==2 || widget.courseType==3?  Padding(
                         padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
                         child: Row(
                           children: [
@@ -354,7 +354,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
             ],
           ),
           bottomNavigationBar: Container(
-            child: widget.courseType==1 || widget.courseType==2 ?
+            child: widget.courseType==1 || widget.courseType==2 || widget.courseType==3 ?
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -448,7 +448,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     //   )
                     // ),
 
-               widget.courseType == 2?     InkWell(onTap: (){
+               widget.courseType == 2 || widget.courseType==3?     InkWell(onTap: (){
                  var map = {
                    'Page_Name':'Course_Details',
                    'Course_Category':AppConstants.paidTabName,
