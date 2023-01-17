@@ -16,6 +16,7 @@ import 'package:intl/intl.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../utils/analytics_constants.dart';
+import '../../widgets/custom_rateTeacherBottomsheet.dart';
 
 class MyTimeTableViedo extends StatefulWidget {
 String url;
@@ -109,8 +110,28 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
             ),
             Divider(thickness: 1),
             Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(getTranslated(context, LangString.LiveChat)!,style: TextStyle(fontSize: 18)),
+              padding: const EdgeInsets.only(left: 10,right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(getTranslated(context, LangString.LiveChat)!,style: TextStyle(fontSize: 18)),
+                  InkWell(
+                    onTap: (){
+                      RateTeacherBottom.rateTeacherBottomSheet(context);
+                    },
+                    child: Container
+                      (
+                      height: 40,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(getTranslated(context, LangString.ratethisteacher)!,style: TextStyle(color: Colors.white),),),
+                  )
+                ],
+              ),
             ),
             Divider(thickness: 1),
             Container(

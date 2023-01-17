@@ -21,6 +21,7 @@ import 'package:video_player/video_player.dart';
 import '../../../SharePref/shared_pref.dart';
 import '../../../utils/analytics_constants.dart';
 import '../../../utils/api.dart';
+import '../../widgets/custom_rateTeacherBottomsheet.dart';
 
 class MyMaterialVideo extends StatefulWidget {
   String url;
@@ -298,11 +299,33 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
                     borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, LangString.downloadVideo)!,style: TextStyle(color: Colors.white,fontSize: 15)))
                 ),
               ),
+            ),
+            SizedBox(height: 10,),
+            InkWell(
+              onTap: (){
+                _playerController!.pause();
+                 // var mapdata = {
+                 //   "title":widget.title,
+                 //   "url":widget.url
+                 // };
+                RateTeacherBottom.rateTeacherBottomSheet(context,);
+              },
+              child: Center(
+                child: Container(height: 45,
+                  width:MediaQuery.of(context).size.width/1.10,
+                  decoration: BoxDecoration( color:AppColors.white,
+                   border: Border.all(color: Colors.amber,width: 2),
+                   borderRadius: BorderRadius.all(Radius.circular(8))),
+                  alignment: Alignment.center,
+                  child: Text(getTranslated(context, LangString.ratethisteacher)!,style: TextStyle(color: Colors.amber,fontSize: 15)),
+                ),
+              ),
             )
           ],
         ),
       ),
     );
+
   }
 
   Future<void> openPermissionDialog() async {
