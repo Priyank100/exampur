@@ -15,6 +15,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 
+import '../presentation/home/books/books_ebooks.dart';
+import '../presentation/home/current_affairs_new/current_affairs_tab.dart';
+import '../presentation/home/paid_courses/offline_courses.dart';
+import '../presentation/home/paid_courses/paid_courses.dart';
+import '../presentation/home/test_series_new/test_series_new.dart';
+
 class FirebaseDynamicLinkService {
   static String uriPrefix = 'https://edudrive.page.link';
   // static String fallbackUrl = 'https://www.exampur.com';
@@ -91,7 +97,19 @@ class FirebaseDynamicLinkService {
         var isOne2One = dataType.contains('one2one');
         var isCombo = dataType.contains('combo');
 
-        int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 : 0;
+        var isCurrentAffairs = dataType.contains('current-affair');
+        var isLiveTest = dataType.contains('live-test');
+        var isQuiz = dataType.contains('quiz');
+        var isBookList = dataType.contains('book-list');
+        var isOfflineCourses = dataType.contains('offline-course-list');
+        var isPaidCourses = dataType.contains('paid-course-list');
+
+        // int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 : 0;
+
+        int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 :
+                        isCurrentAffairs ? 5 : isLiveTest || isQuiz ? 6 : isBookList ? 7 :
+                        isOfflineCourses ? 8 : isPaidCourses ? 9 : 0;
+
 
         switch(condition) {
           case 1:
@@ -116,10 +134,12 @@ class FirebaseDynamicLinkService {
                // settings: RouteSettings(name: 'Direct'),
                 builder: (context) =>
                 PlaceOrderScreen(bookData)));
+
           case 3:
             One2OneCourses one2OneData = One2OneCourses.fromJson(json.decode(data));
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>
                 One2OneVideo(one2OneData)));
+
           case 4:
             String type = deepLink.queryParameters['type'].toString();
             PaidCourseData courseData = PaidCourseData.fromJson(json.decode(data));
@@ -127,6 +147,31 @@ class FirebaseDynamicLinkService {
                 settings: RouteSettings(name: 'Direct'),
                 builder: (context) =>
                 PaidCourseDetails('Combo',courseData, int.parse(type.toString()))));
+
+          case 5:
+            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                CurrentAffairsTab()));
+
+          case 6:
+            String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
+            String splitPart = isLiveTest ? 'test-link=' : 'quiz-link=';
+            String testLink = deepLink.toString().split(splitPart)[1];
+            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                TestSeriesNew(testLink.replaceAll('%3D', '='), token)));
+
+          case 7:
+            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                BooksEbook()));
+
+          case 8:
+            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                OfflineCourse()));
+
+          case 9:
+            String categoryId = deepLink.queryParameters['category-id'].toString();
+            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                PaidCourses(1, categoryId: categoryId)));
+
         }
 
 

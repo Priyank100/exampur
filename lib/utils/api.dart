@@ -283,6 +283,6 @@ class API {
 
 
   static String checkoutUrl = 'https://static.exampurcache.xyz/app-config/link/course-details/courseID';
-  static String offlineCourseUrl = 'https://kzw2rwmi1d.execute-api.ap-south-1.amazonaws.com/config/offline';
+  static String offlineCounselingForm = 'https://kzw2rwmi1d.execute-api.ap-south-1.amazonaws.com/config/offline';
 
 }
