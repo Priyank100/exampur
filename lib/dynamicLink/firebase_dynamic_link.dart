@@ -20,6 +20,8 @@ import '../presentation/home/current_affairs_new/current_affairs_tab.dart';
 import '../presentation/home/paid_courses/offline_courses.dart';
 import '../presentation/home/paid_courses/paid_courses.dart';
 import '../presentation/home/test_series_new/test_series_new.dart';
+import '../presentation/my_courses/TeacherSubjectView/material_video.dart';
+import '../presentation/my_courses/Timeline/TimeTableVideo.dart';
 
 class FirebaseDynamicLinkService {
   static String uriPrefix = 'https://edudrive.page.link';
@@ -97,18 +99,21 @@ class FirebaseDynamicLinkService {
         var isOne2One = dataType.contains('one2one');
         var isCombo = dataType.contains('combo');
 
-        var isCurrentAffairs = dataType.contains('current-affair');
-        var isLiveTest = dataType.contains('live-test');
-        var isQuiz = dataType.contains('quiz');
-        var isBookList = dataType.contains('book-list');
-        var isOfflineCourses = dataType.contains('offline-course-list');
-        var isPaidCourses = dataType.contains('paid-course-list');
+        var isCurrentAffairs = dataType == 'current-affair';
+        var isLiveTest = dataType == 'live-test';
+        var isQuiz = dataType == 'quiz';
+        var isBookList = dataType == 'book-list';
+        var isEBookList = dataType == 'ebook-list';
+        var isOfflineCourses = dataType == 'offline-course-list';
+        var isPaidCourses = dataType == 'paid-course-list';
+        var isRecordedVideo = dataType == 'recorded-video';
+        var isLiveVideo = dataType == 'live-video';
 
         // int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 : 0;
 
-        int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 :
-                        isCurrentAffairs ? 5 : isLiveTest || isQuiz ? 6 : isBookList ? 7 :
-                        isOfflineCourses ? 8 : isPaidCourses ? 9 : 0;
+        int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 : isCurrentAffairs ? 5 :
+                        isLiveTest || isQuiz ? 6 : isBookList ? 7 : isEBookList ? 8 : isOfflineCourses ? 9 :
+                        isPaidCourses ? 10 : isRecordedVideo ? 11 : isLiveVideo ? 12 : 0;
 
 
         switch(condition) {
@@ -161,16 +166,35 @@ class FirebaseDynamicLinkService {
 
           case 7:
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                BooksEbook()));
+                BooksEbook(bookEbookTab: 0,)));
 
           case 8:
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                OfflineCourse()));
+                BooksEbook(bookEbookTab: 1,)));
 
           case 9:
+            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                OfflineCourse()));
+
+          case 10:
             String categoryId = deepLink.queryParameters['category-id'].toString();
             return Navigator.push(context, MaterialPageRoute(builder: (context) =>
                 PaidCourses(1, categoryId: categoryId)));
+
+          case 11:
+            String title = deepLink.queryParameters['title'].toString();
+            String vid = deepLink.queryParameters['vid'].toString();
+            bool contentLog = deepLink.queryParameters['contentLog'].toString().toLowerCase()=='true'?true:false;
+            String url = deepLink.queryParameters['url'].toString();
+            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                MyMaterialVideo(url,title,'',vid,contentLog)));
+
+          case 12:
+            String url = deepLink.queryParameters['url'].toString();
+            String title = deepLink.queryParameters['title'].toString();
+            String vid = deepLink.queryParameters['vid'].toString();
+            return Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                MyTimeTableViedo(url, title, vid)));
 
         }
 
