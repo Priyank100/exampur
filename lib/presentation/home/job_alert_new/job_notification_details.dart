@@ -22,6 +22,7 @@ class JobNotificationDetails extends StatefulWidget {
 class _JobNotificationDetailsState extends State<JobNotificationDetails> {
   JobNotificationDetailModel? jobNotificationDetailModel;
   bool isLoading = true;
+  String description = '';
 
   @override
   void initState() {
@@ -32,6 +33,9 @@ class _JobNotificationDetailsState extends State<JobNotificationDetails> {
   Future<void> getDetails() async {
     isLoading = true;
     jobNotificationDetailModel = (await Provider.of<JobAlertsProvider>(context, listen: false).getJobNotificationDetail(context, widget.articleId))!;
+    for(int i=0; i<jobNotificationDetailModel!.contentModule!.length; i++) {
+      description = description + jobNotificationDetailModel!.contentModule![i].description.toString();
+    }
     isLoading = false;
     setState(() {});
   }
@@ -51,7 +55,8 @@ class _JobNotificationDetailsState extends State<JobNotificationDetails> {
                 Text(jobNotificationDetailModel!.title.toString(), style: const TextStyle(fontSize: 20)),
                 const SizedBox(height: 5),
                 Html(
-                    data: jobNotificationDetailModel!.contentModule![0].description.toString(),
+                    // data: jobNotificationDetailModel!.contentModule![0].description.toString(),
+                    data: description,
                     onLinkTap: (url,_,__,___) async {
                       if(await canLaunch(url!)) {
                         await launch(url);

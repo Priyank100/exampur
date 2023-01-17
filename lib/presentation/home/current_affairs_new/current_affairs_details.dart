@@ -80,6 +80,15 @@ class _CurrentAffairsDetailsState extends State<CurrentAffairsDetails> {
                   data: widget.langCode == 'hi' ?
                   currentAffairsDetailModel!.descriptionHindi.toString() :
                   currentAffairsDetailModel!.descriptionEng.toString(),
+                    customRender: {
+                      "table": (context, child) {
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child:
+                          (context.tree as TableLayoutElement).toWidget(context),
+                        );
+                      },
+                    },
                     style: {
                       'body': Style(
                           lineHeight:LineHeight(2),
