@@ -448,7 +448,8 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     //   )
                     // ),
 
-               widget.courseType == 2 || widget.courseType==3?     InkWell(onTap: (){
+               widget.courseType == 2 ?
+               InkWell(onTap: (){
                  var map = {
                    'Page_Name':'Course_Details',
                    'Course_Category':AppConstants.paidTabName,

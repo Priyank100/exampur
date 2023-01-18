@@ -34,7 +34,7 @@ class _RecordedCourseVodState extends State<RecordedCourseVod> {
       'Course_Category':AppConstants.selectedCategoryNameList.toString(),
       'User_ID':AppConstants.userMobile
     };
-    //AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Course_List,map);
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Course_List,map);
     scrollController.addListener(pagination);
     isLoad = 0;
     getLists(page);}
