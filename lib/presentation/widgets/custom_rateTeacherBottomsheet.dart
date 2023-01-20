@@ -5,6 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../../utils/analytics_constants.dart';
+import '../../utils/app_constants.dart';
+
 class RateTeacherBottom{
   static void rateTeacherBottomSheet(context) {
     IconData? _selectedIcon;
@@ -52,6 +55,16 @@ class RateTeacherBottom{
             ),
             onRatingUpdate: (rating) {
               Navigator.pop(context);
+              var map = {
+                'Page_Name':'Recorded_Video',
+                'Mobile_Number':AppConstants.userMobile,
+                'Language':AppConstants.langCode,
+                'User_ID':AppConstants.userMobile,
+                "topic":AppConstants.timlineName,
+                "class type":AppConstants.teacherRatingType == 0 ? "live":"recorded",
+                "rating count":rating.toString()
+              };
+              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_rating_count, map);
               RateTeacheFullrBottom.rateTeacherFullBottomSheet(context,rating);
             },
           ),

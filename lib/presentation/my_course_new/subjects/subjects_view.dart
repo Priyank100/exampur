@@ -103,6 +103,7 @@ class _SubjectsViewState extends State<SubjectsView> {
         };
         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Subject, analytics);
         // if(index < unlockValue) {
+          AppConstants.subjectId = subjectList[index].id.toString();
           AppConstants.subjectName = subjectList[index].title.toString();
           Navigator.push(context, MaterialPageRoute(builder: (_) =>
               ChaptersView(widget.courseId, subjectList[index].id.toString())

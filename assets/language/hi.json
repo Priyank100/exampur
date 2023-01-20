@@ -4,7 +4,7 @@
   "help": "मदद",
   "help_and_feedback": "सहायता और प्रतिक्रिया",
   "home": "घर",
-  "how_was_the_leacture": "लेक्चर कैसा रहा?",
+  "how_was_the_leacture": "Teacher का क्लास आपको कैसा लगा?",
 
   "books": "पुस्तकें",
   "buy": "खरीदें",
@@ -62,8 +62,8 @@
   "write_about_the_problem": "समस्या के बारे में लिखें",
   "watch": "देखो",
   "watch_now": "अब देखिए",
-  "what_went_bad": "क्या खराब हो गया?",
-  "What_went_good":"क्या अच्छा हुआ?",
+  "what_went_bad": "आपने खराब रेटिंग क्यों दिया?",
+  "What_went_good":"आपको क्या अच्छा लगा ?",
 
   "issue_submitted_successfully": "सफलतापूर्वक सबमिट किया गया",
   "item_type": "वस्तु परक",
@@ -86,6 +86,7 @@
   "rating4": "असंतुष्ट",
   "rating5": "बहुत असंतुष्ट",
   "rating_feedback": "आपका फ़ीडबैक सफलतापूर्वक सबमिट कर दिया गया है, हम इसे जल्द ही ठीक करने की पूरी कोशिश करेंगे",
+  "rating_teacher": "आपका फ़ीडबैक सफलतापूर्वक सबमिट कर दिया गया है",
   "ratethisteacher": "इस शिक्षक को रेट करें",
 
   "log_out": "लॉग आउट",
@@ -265,5 +266,5 @@
 
 "offile_Course": "ऑफलाइन (कक्षा) पाठ्यक्रम",
 
-  "your_rating_help_us_improve": "आपकी रेटिंग हमें बेहतर बनाने में मदद करती है"
+  "your_rating_help_us_improve": "आपके rating पर हम  action लेंगे"
 }

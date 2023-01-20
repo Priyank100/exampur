@@ -506,4 +506,7 @@ class AnalyticsConstants {
   static String Click_offline_Courses= 'Click_offline_Courses';
   static String Offline_call_us= 'Offline_call_us';
   static String counselling= 'counselling';
+  static String Click_class_feedback= 'Click_class_feedback';
+  static String Click_rating_count= 'Click_rating_count';
+  static String Submit_feedback= 'Submit–feedback';
 }

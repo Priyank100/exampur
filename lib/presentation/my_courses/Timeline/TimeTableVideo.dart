@@ -117,7 +117,17 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                   Text(getTranslated(context, LangString.LiveChat)!,style: TextStyle(fontSize: 18)),
                   InkWell(
                     onTap: (){
-                      RateTeacherBottom.rateTeacherBottomSheet(context);
+                      AppConstants.teacherRatingType = 0;
+                      var map = {
+                        'Page_Name':'Recorded_Video',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'User_ID':AppConstants.userMobile,
+                        "topic":widget.title.toString(),
+                        "class type":"live"
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_class_feedback, map);
+                     RateTeacherBottom.rateTeacherBottomSheet(context);
                     },
                     child: Container
                       (
@@ -232,7 +242,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
       'Course_Name':AppConstants.courseName,
       'Topic_Name':widget.title.toString(),
       'Video_Quality':AppConstants.videoQuality.toString(),
-      'Total_Watch_Time':_videoPlayerController.value.position.inSeconds.toString(),
+      'Total_Watch_Time':_videoPlayerController.value.position.inSeconds,
       'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
     };
     // print(map);
