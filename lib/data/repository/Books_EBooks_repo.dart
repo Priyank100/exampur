@@ -13,7 +13,8 @@ class BooksEBooksRepo {
 
   Future<ApiResponse> books(int pageNo,) async {
     try {
-      String url = API.Books_URL+ pageNo.toString() +'?category='+ AppConstants.encodeCategory();
+      // String url = API.Books_URL+ pageNo.toString() +'?category='+ AppConstants.encodeCategory();
+      String url = "${API.Books_URL}${pageNo.toString()}?category=${AppConstants.encodeCategory()=='W10='?'':AppConstants.encodeCategory()}";
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);
     } catch (e) {

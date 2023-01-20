@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import '../../data/datasource/remote/http/services.dart';
 import '../../utils/analytics_constants.dart';
 import '../../utils/api.dart';

@@ -22,7 +22,7 @@ class RateTeacherBottom{
     context: context,
     builder: (BuildContext bc) {
     return Container(
-      height: MediaQuery.of(context).size.height/4,
+      height: MediaQuery.of(context).size.height/3.8,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
