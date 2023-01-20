@@ -327,6 +327,8 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
         AppConstants.chapterName =widget.chaptername;
         // print(materialList[index].title);
+        AppConstants.timlineId =materialList[index].timeline!.id.toString() ;
+        AppConstants.timlineName =materialList[index].timeline!.title.toString() ;
         materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
                   MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired,videoQuallity: 'normal',))

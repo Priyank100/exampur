@@ -172,6 +172,7 @@ class AnalyticsConstants {
               actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
             ];
             checkOutPageApi(context,courseData[1]);
+
           }
 //======================================StudyMaterialScreen========================================//
           else if (screenName == "study-material") {
@@ -490,4 +491,7 @@ class AnalyticsConstants {
   static String Offline_call_us= 'Offline_call_us';
   static String counselling= 'counselling';
   static String recordedcoursevod= 'Recorded Course VOD';
+  static String Click_class_feedback= 'Click_class_feedback';
+  static String Click_rating_count= 'Click_rating_count';
+  static String Submit_feedback= 'Submit–feedback';
 }

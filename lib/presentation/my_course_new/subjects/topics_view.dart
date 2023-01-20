@@ -299,8 +299,7 @@ class _TopicsViewState extends State<TopicsView> {
                 docPath = materialList[index].docpath.toString() :
                 docPath = AppConstants.BANNER_BASE + materialList[index].docpath.toString();
                 showPdfDialog(docPath, materialList[index].title.toString(),materialList[index].id.toString());
-
-              },
+                },
                 child: Container(height: 30,width: MediaQuery.of(context).size.width / 6,decoration: BoxDecoration( color: AppColors.dark,
                     borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, LangString.pdf)!,style: TextStyle(color: Colors.white,fontSize: 11)))),
               )
@@ -328,6 +327,8 @@ class _TopicsViewState extends State<TopicsView> {
         };
         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Watch_Now,map);
         AppConstants.chapterName =widget.chaptername;
+        AppConstants.timlineId =materialList[index].timeline!.id.toString() ;
+        AppConstants.timlineName =materialList[index].timeline!.title.toString() ;
         materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
         Navigator.push(context, MaterialPageRoute(builder: (context) =>
             MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired,videoQuallity: 'normal',))

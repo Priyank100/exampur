@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/Pushnotification/pushnotification.dart';
@@ -67,6 +69,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    getDeviceData();
     callProvider();
     getConfig();
 
@@ -659,6 +662,17 @@ class _HomeState extends State<Home> {
         // ),
       ),
     );
+  }
+
+  Future<void> getDeviceData() async {
+    if(Platform.isAndroid){
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      AppConstants.deviceModel = androidInfo.model.toString();
+      AppConstants.deviceMake = androidInfo.brand.toString();
+      AppConstants.deviceOS = androidInfo.version.release.toString();
+      setState(() {});
+    }
   }
 }
 

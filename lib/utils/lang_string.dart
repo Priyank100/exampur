@@ -75,6 +75,8 @@ class LangString {
   static String EnterApplycoupon= 'Enter_valid_coupon_apply';
   static String Email_Required= 'email_required';
   static String emailUs= 'email_us';
+  static String excellent= 'excellent';
+  static String Enter_Your_Feedback_Here= 'Enter_Your_Feedback_Here';
 
 
   static String freeCourses= 'free_courses';
@@ -88,6 +90,7 @@ class LangString {
   static String homePage= 'home_page';
   static String help= 'help';
   static String helpAndFeedback= 'help_and_feedback';
+  static String howWasTheLeacture= 'how_was_the_leacture';
 
   static String issueSubmittedSuccessfully= 'issue_submitted_successfully';
   static String itemType= 'item_type';
@@ -145,6 +148,7 @@ class LangString {
   static String preBookDelBtnHi = 'बुकिंग जल्द शुरू होगी। आपको X% की छूट मिलेगी';
   static String preBookSubTextEng = 'Get additional X% discount on pre-booking';
   static String preBookSubTextHi = 'प्री-बुकिंग पर अतिरिक्त X% छूट पाएं';
+  static String poor = 'poor';
 
 
 
@@ -208,6 +212,8 @@ class LangString {
   static String watchAppTutorial= 'watch_app_tutorial';
   static String writeAboutTheProblem= 'write_about_the_problem';
   static String watch= 'watch';
+  static String WhatWentBad= 'what_went_bad';
+  static String WhatWentGood= 'What_went_good';
 
   static String myPurchase= 'my_purchase';
   static String myTimetable= 'my_timetable';
@@ -224,6 +230,9 @@ class LangString {
   static String rating5= 'rating5';
   static String ratingFeedback= 'rating_feedback';
   static String recordedCourseVod= 'recorded_course_vod';
+  static String ratingTeacher= 'rating_teacher';
+  static String ratethisteacher= 'ratethisteacher';
+
 
   static String general= 'general';
 
@@ -236,7 +245,10 @@ class LangString {
   static String view= 'view';
   static String viewInvoice= 'view_invoice';
   static String Validity= 'validity';
+  static String veryPoor= 'very_poor';
 
   static String qualification= 'qualification';
   static String Quizz= 'quizz';
+
+  static String yourRatingHelpUsImprove= 'your_rating_help_us_improve';
 }

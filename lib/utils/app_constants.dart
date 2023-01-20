@@ -47,6 +47,9 @@ class AppConstants {
 
   static String versionName = '';
   static String versionCode = '';
+  static String deviceModel = '';
+  static String deviceMake = '';
+  static String deviceOS = '';
 
 
   static String myCourseName = '';
@@ -86,6 +89,7 @@ class AppConstants {
   static String Email = '';
   static String Id = '';
   static String courseName = '';
+  static String subjectId = '';
   static String subjectName = '';
   static String chapterName = '';
   static String paidTabName = '';
@@ -93,6 +97,7 @@ class AppConstants {
   static String currentindex = '';
   static int mycourseType = 0;
   static String routeName = '';
+  static int teacherRatingType = 0;
   // static List<String> selectedCategoryName = [];
 
   //=========================================================
