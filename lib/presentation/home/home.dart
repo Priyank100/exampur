@@ -348,7 +348,7 @@ class _HomeState extends State<Home> {
                 children: [
                   SquareButton(
                     image: Images.vodImg,
-                    title: 'Recorded Course (VOD)',
+                    title: getTranslated(context, LangString.recordedCourseVod)!,
                     tagImage: Images.newImg,
                     color: AppColors.grey,
                     onPressed: () {

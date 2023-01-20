@@ -223,6 +223,7 @@ class LangString {
   static String rating4= 'rating4';
   static String rating5= 'rating5';
   static String ratingFeedback= 'rating_feedback';
+  static String recordedCourseVod= 'recorded_course_vod';
 
   static String general= 'general';
 

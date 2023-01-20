@@ -102,7 +102,7 @@
 
 
 
-  "paid_course": "Paid Course",
+  "paid_course": "LIVE Course",
   "please_choose_the_category": "Please Choose the Category",
   "phone_number": "Phone Number",
   "pin_code": "Pin Code",
@@ -124,7 +124,6 @@
   "price_breakdown": "Price Breakdown",
   "price": "Price",
   "place_order": "Place Order",
-  "price": "Price (Including GST)",
   "please_verify_your_phone_no.": "Please verify your phone number",
   "practice_question":"Practice Question",
   "previous_year_pdf": "Previous Year PDF",
@@ -223,6 +222,7 @@
   "rating4": "Dissatisfied",
   "rating5": "Very Dissatisfied",
   "rating_feedback": "Your feedback is submitted successfully, we will do our best to fix this soon",
+  "recorded_course_vod": "Recorded Course (VOD)",
 
   "general": "General",
   "graduation": "Graduation",
