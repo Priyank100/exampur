@@ -21,7 +21,7 @@ class API {
   // static String BASE_URL1 = 'https://api-auth-prod.exampur.xyz/';
   // static String BASE_URL2 = 'https://api-static-prod.exampur.xyz/';
 
-  //Testing
+
   static String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
   static String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
@@ -283,6 +283,6 @@ class API {
 
 
   static String checkoutUrl = 'https://static.exampurcache.xyz/app-config/link/course-details/courseID';
-  static String offlineCourseUrl = 'https://kzw2rwmi1d.execute-api.ap-south-1.amazonaws.com/config/offline';
+  static String offlineCounselingForm = 'https://kzw2rwmi1d.execute-api.ap-south-1.amazonaws.com/config/offline';
 
 }

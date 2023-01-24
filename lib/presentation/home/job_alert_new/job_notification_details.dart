@@ -2,10 +2,7 @@ import 'package:exampur_mobile/data/model/job_notification_detail_model.dart';
 import 'package:exampur_mobile/provider/JobAlertsProvider.dart';
 import 'package:exampur_mobile/utils/appBar.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
-import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +52,7 @@ class _JobNotificationDetailsState extends State<JobNotificationDetails> {
                 Text(jobNotificationDetailModel!.title.toString(), style: const TextStyle(fontSize: 20)),
                 const SizedBox(height: 5),
                 Html(
-                    // data: jobNotificationDetailModel!.contentModule![0].description.toString(),
+                  // data: jobNotificationDetailModel!.contentModule![0].description.toString(),
                     data: description,
                     onLinkTap: (url,_,__,___) async {
                       if(await canLaunch(url!)) {
@@ -76,24 +73,24 @@ class _JobNotificationDetailsState extends State<JobNotificationDetails> {
                     },
                     style: {
                       'body': Style(
-                        lineHeight:LineHeight(2),
-                        fontSize: const FontSize(15),
+                          lineHeight:LineHeight(2),
+                          fontSize: const FontSize(15),
                           fontFamily: 'Noto Sans'
                       ),
                       'table':Style(
                         border: Border.all(width: 1),
                       ),
                       "tr": Style(
-                        border: Border.all(width: 1)
+                          border: Border.all(width: 1)
                       ),
                       "th": Style(
-                       // padding: EdgeInsets.all(6),
+                        // padding: EdgeInsets.all(6),
                         backgroundColor: AppColors.grey,
                       ),
                       "td": Style(
                         alignment: Alignment.topLeft,
                         padding: EdgeInsets.only(left: 5, right: 5),
-                          width: 200,
+                        width: 200,
                       ),
                     }),
               ]),

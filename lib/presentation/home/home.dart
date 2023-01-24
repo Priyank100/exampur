@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/Pushnotification/pushnotification.dart';
@@ -67,6 +69,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    getDeviceData();
     callProvider();
     getConfig();
 
@@ -320,35 +323,7 @@ class _HomeState extends State<Home> {
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(builder: (_) => PaidCourses(1,)));
                     },
-                    // navigateTo: PaidCourses(1)
                   ),
-                  SquareButton(
-                    image: Images.vodImg,
-                    title: 'Recorded Course (VOD)',
-                    tagImage: Images.newImg,
-                    color: AppColors.grey,
-                    onPressed: () {
-                      var map = {
-                        'Page_Name':'Home_Page',
-                        'Mobile_Number':AppConstants.userMobile,
-                        'Language':AppConstants.langCode,
-                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
-                        'User_ID':AppConstants.userMobile
-                      };
-                     // AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_offline_Courses,map);
-                      Navigator.of(context, rootNavigator: true).push(
-                          MaterialPageRoute(builder: (_) => RecordedCourseVod()));
-                    },
-                    // navigateTo: PaidCourses(1)
-                  ),
-
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.offlinebatch,
                     title: getTranslated(context, LangString.offileCourse)!,
@@ -366,8 +341,60 @@ class _HomeState extends State<Home> {
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(builder: (_) => OfflineCourse()));
                     },
-                    // navigateTo: PaidCourses(1)
                   ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  SquareButton(
+                    image: Images.vodImg,
+                    title: getTranslated(context, LangString.recordedCourseVod)!,
+                    tagImage: Images.newImg,
+                    color: AppColors.grey,
+                    onPressed: () {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.recordedcoursevod,map);
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(builder: (_) => RecordedCourseVod()));
+                    },
+                  ),
+                  SquareButton(
+                    image: Images.book,
+                    tagImage:Images.offerImg ,
+                    title: getTranslated(context, 'books')!,
+                    color: AppColors.book,
+                    onPressed: () {
+                      AnalyticsConstants.sendAnalyticsEvent(
+                          AnalyticsConstants.booksClick);
+                      Map<String, Object> stuff = {};
+                      AnalyticsConstants.logEvent(AnalyticsConstants.booksClick,stuff);
+                      Navigator.of(context, rootNavigator: true)
+                          .push(MaterialPageRoute(builder: (_) => BooksEbook()));
+                    },
+                  ),
+                  // SquareButton(
+                  //     image: Images.one2one,
+                  //     title: getTranslated(context, 'exampur_one2one')!,
+                  //     color: AppColors.one2one,
+                  //     navigateTo:
+                  //     Exampuron2oneView()
+                  // ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
                   SquareButton(
                     image: Images.free_course,
                     title: getTranslated(context, LangString.freeCourses)!,
@@ -387,36 +414,6 @@ class _HomeState extends State<Home> {
                       AnalyticsConstants.logEvent(AnalyticsConstants.freeCourseClick,stuff);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(builder: (_) => PaidCourses(0)));
-                    },
-                  ),
-
-
-                  // SquareButton(
-                  //     image: Images.one2one,
-                  //     title: getTranslated(context, 'exampur_one2one')!,
-                  //     color: AppColors.one2one,
-                  //     navigateTo:
-                  //     Exampuron2oneView()
-                  // ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  SquareButton(
-                    image: Images.book,
-                    tagImage:Images.offerImg ,
-                    title: getTranslated(context, 'books')!,
-                    color: AppColors.book,
-                    onPressed: () {
-                      AnalyticsConstants.sendAnalyticsEvent(
-                          AnalyticsConstants.booksClick);
-                      Map<String, Object> stuff = {};
-                      AnalyticsConstants.logEvent(AnalyticsConstants.booksClick,stuff);
-                      Navigator.of(context, rootNavigator: true)
-                          .push(MaterialPageRoute(builder: (_) => BooksEbook()));
                     },
                   ),
                   SquareButton(
@@ -443,7 +440,6 @@ class _HomeState extends State<Home> {
                       });
                     },
                   ),
-
                 ],
               ),
               SizedBox(
@@ -666,6 +662,17 @@ class _HomeState extends State<Home> {
         // ),
       ),
     );
+  }
+
+  Future<void> getDeviceData() async {
+    if(Platform.isAndroid){
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      AppConstants.deviceModel = androidInfo.model.toString();
+      AppConstants.deviceMake = androidInfo.brand.toString();
+      AppConstants.deviceOS = androidInfo.version.release.toString();
+      setState(() {});
+    }
   }
 }
 

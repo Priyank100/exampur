@@ -111,6 +111,12 @@ class _TimeTableViewState extends State<TimeTableView> {
                                                 myCourseTimeLineList[index].type.toString().toUpperCase() == 'ZOOM' ?
                                                     AppConstants.makeCallEmail(myCourseTimeLineList[index].targetLink.toString()) :
                                             callLiveStream(index) : null;
+                                            if(activeButton=='L'){
+                                              AppConstants.subjectName = myCourseTimeLineList[index].subjectId!.title.toString();
+                                              AppConstants.subjectId = myCourseTimeLineList[index].subjectId!.id.toString();
+                                              AppConstants.timlineId =myCourseTimeLineList[index].id.toString() ;
+                                              AppConstants.timlineName =myCourseTimeLineList[index].title.toString() ;
+                                            }
                                             },
                                           child: Container(
                                           padding: EdgeInsets.all(8),

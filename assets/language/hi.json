@@ -4,6 +4,7 @@
   "help": "मदद",
   "help_and_feedback": "सहायता और प्रतिक्रिया",
   "home": "घर",
+  "how_was_the_leacture": "Teacher का क्लास आपको कैसा लगा?",
 
   "books": "पुस्तकें",
   "buy": "खरीदें",
@@ -61,6 +62,8 @@
   "write_about_the_problem": "समस्या के बारे में लिखें",
   "watch": "देखो",
   "watch_now": "अब देखिए",
+  "what_went_bad": "आपने खराब रेटिंग क्यों दिया?",
+  "What_went_good":"आपको क्या अच्छा लगा ?",
 
   "issue_submitted_successfully": "सफलतापूर्वक सबमिट किया गया",
   "item_type": "वस्तु परक",
@@ -83,6 +86,9 @@
   "rating4": "असंतुष्ट",
   "rating5": "बहुत असंतुष्ट",
   "rating_feedback": "आपका फ़ीडबैक सफलतापूर्वक सबमिट कर दिया गया है, हम इसे जल्द ही ठीक करने की पूरी कोशिश करेंगे",
+  "recorded_course_vod": "अभिलिखित पाठ्यक्रम (VOD)",
+  "rating_teacher": "आपका फ़ीडबैक सफलतापूर्वक सबमिट कर दिया गया है",
+  "ratethisteacher": "इस शिक्षक को रेट करें",
 
   "log_out": "लॉग आउट",
 
@@ -126,6 +132,8 @@
   "enter_your_age": "अपनी आयु दर्ज करें",
   "email_required": "ईमेल जरूरी है",
   "email_us": "हमे ईमेल करे",
+  "excellent": "बढ़िया",
+  "Enter_Your_Feedback_Here": "अपनी प्रतिक्रिया यहां दर्ज करें..",
 
 
 
@@ -136,7 +144,7 @@
   "preference": "पसंद",
   "phone_number": "फ़ोन नंबर",
   "pin_code": "पिन कोड",
-  "paid_course": "सशुल्क पाठ्यक्रम",
+  "paid_course": "लाइव पाठ्यक्रम",
   "PromoCode_REQUIRED": "प्रोमोकोड आवश्यक होना चाहिए",
   "pincode_REQUIRED": "पिनकोड आवश्यक होना चाहिए",
   "pay_now": "अब भुगतान करें",
@@ -162,6 +170,7 @@
   "preBookAlert": "बधाई हो आपने सफलतापूर्वक पाठ्यक्रम की प्री-बुकिंग कर ली है। कोर्स लॉन्च के बाद आपको अतिरिक्त X% डिस्काउंट कूपन मिलेगा। किसी भी प्रश्न के लिए कृपया हमारी ग्राहक सहायता टीम को कॉल करें",
    "preBookAlertSuccessHead": "प्री-बुकिंग सफल",
   "preBookAlertAlreadyHead": "पहले से बुक है",
+  "poor": "ख़राब",
 
 
   "general": "सामान्य",
@@ -250,10 +259,13 @@
   "view_pdf": "पीडीएफ देखें",
   "view_invoice": "चालान देखें",
   "validity": "वैधता",
+  "very_poor": "बहुत ख़राब",
 
 
 "qualification": "योग्यता",
   "quizz": "प्रश्नोत्तरी",
 
-"offile_Course": "ऑफलाइन (कक्षा) पाठ्यक्रम"
+"offile_Course": "ऑफलाइन (कक्षा) पाठ्यक्रम",
+
+  "your_rating_help_us_improve": "आपके Rating पर हम  Action लेंगे"
 }

@@ -18,7 +18,7 @@ class BooksScreen extends StatefulWidget {
 }
 
 class _BooksScreenState extends State<BooksScreen> {
-  List<BookEbook> eBooksList = [];
+  List<BookEbook> bookList = [];
   bool isBottomLoading = false;
   var scrollController = ScrollController();
   int page = 0;
@@ -29,7 +29,7 @@ class _BooksScreenState extends State<BooksScreen> {
    List<BookEbook> list = (await Provider.of<BooksEBooksProvider>(context, listen: false).getBooksList(context,pageNo))!;
     if(list.length > 0) {
       isData = true;
-      eBooksList = eBooksList + list;
+      bookList = bookList + list;
     } else {
       isData = false;
     }
@@ -69,20 +69,19 @@ class _BooksScreenState extends State<BooksScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body:isLoad==0? Center(child: LoadingIndicator(context)):
-        eBooksList.length==0 ? AppConstants.noDataFound() :
+        bookList.length==0 ? AppConstants.noDataFound() :
         ListView.builder(
-            itemCount: eBooksList.length,
+            itemCount: bookList.length,
             controller: scrollController,
            // shrinkWrap: true,
             itemBuilder: (BuildContext context,int index){
-          return  BooksCard(eBooksList[index]);
+          return  BooksCard(bookList[index]);
         }),
         bottomNavigationBar:isBottomLoading ? Container(
         // padding: EdgeInsets.all(8),
         height:40,
         width: 40,
-        child: Center(child:LoadingIndicator(context))) :
-    SizedBox(),
+        child: Center(child:LoadingIndicator(context))) : SizedBox(),
     );
   }
 }

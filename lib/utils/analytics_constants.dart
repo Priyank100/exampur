@@ -165,8 +165,7 @@ class AnalyticsConstants {
 
 
 
-          //======================================CouponCode========================================//
-
+//======================================CouponCode========================================//
           if (screenName == 'checkout') {
             List<String> courseData = [
               actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
@@ -175,8 +174,7 @@ class AnalyticsConstants {
             checkOutPageApi(context,courseData[1]);
 
           }
-          //======================================StudyMaterialScreen========================================//
-
+//======================================StudyMaterialScreen========================================//
           else if (screenName == "study-material") {
             if(actiondata == null || actiondata.isEmpty) {
               AppConstants.goTo(context, StudyMaterialNew(0));
@@ -216,8 +214,7 @@ class AnalyticsConstants {
               }
             }
           }
-
-          //======================================practiseQuestion==========================================//
+//======================================practiseQuestion==========================================//
           else if (screenName == "practice-question") {
             if(actiondata == null || actiondata.isEmpty) {
               AppConstants.goTo(context, PracticeQuestionCategory());
@@ -241,9 +238,7 @@ class AnalyticsConstants {
 
             }
           }
-
-          //======================================currentAffairScreen========================================//
-
+//======================================currentAffairScreen========================================//
           else if (screenName == "current-affair") {
             if(actiondata == null || actiondata.isEmpty) {
               AppConstants.goTo(context, CurrentAffairsTab());
@@ -252,8 +247,7 @@ class AnalyticsConstants {
               AppConstants.goTo(context, CurrentAffairsDetails('hi',actiondata[1].replaceAll('article-id=', '')));
             }
           }
-          //======================================jobAlertScreen========================================//
-
+//======================================jobAlertScreen========================================//
           else if (screenName == "job-alert") {
             // print('jobAlert');
             if(actiondata == null || actiondata.isEmpty) {
@@ -274,9 +268,7 @@ class AnalyticsConstants {
               }
             }
           }
-
 //=====================================paid-Course======================================//
-
           else if (screenName == "paid-course") {
             if(actiondata == null || actiondata.isEmpty) {
               AppConstants.goTo(context, PaidCourses(1));
@@ -285,9 +277,7 @@ class AnalyticsConstants {
                 1, categoryId: actiondata[1].replaceAll('category-id=', ''),));
             }
           }
-
-          //=======================================Free-Course================================//
-
+//=======================================Free-Course================================//
           else if (screenName == "free-course") {
             if(actiondata == null || actiondata.isEmpty) {
               AppConstants.goTo(context, PaidCourses(0));
@@ -296,19 +286,16 @@ class AnalyticsConstants {
                 0, categoryId: actiondata[1].replaceAll('category-id=', ''),));
             }
           }
-
-          //================================================MyCourse===============================//
+//================================================MyCourse===============================//
           else if (screenName == 'my-course'){
             List<String> mycourse = actiondata[1].split('&');
            AppConstants.goTo(context, MyCourseTabView(mycourse[0].replaceAll('courseId=',''),mycourse[1].replaceAll('title=',''),mycourse[2].replaceAll('testSeriesLink=',''),token,tabIndex:int.parse(mycourse[3].replaceAll('tabIndex=',''))));
           }
-
-          //========================================AppTutorial====================================//
+//========================================AppTutorial====================================//
           else if (screenName == "app-tutorial") {
             AppConstants.goTo(context, AppTutorial());
           }
-
-          //========================================bookListingPage===============================//
+//========================================bookListingPage===============================//
           else if (screenName == "books") {
             AppConstants.goTo(context, BooksEbook(bookEbookTab:0));
           }
@@ -323,7 +310,7 @@ class AnalyticsConstants {
             ];
             AppConstants.goTo(context, BannerLinkBookDetailPage('Book',bookId[1]));
           }
-
+//=====================================================recorded===============================//
           else if (screenName == "recorded") {
             List<String> act = actiondata[1].split('&').toList();
             String title = act[0].split('=')[1];
@@ -332,10 +319,7 @@ class AnalyticsConstants {
             String url = act[3].split('=')[1];
             AppConstants.goTo(context, MyMaterialVideo(url,title,'',vid,contentLog));
           }
-
-
-          //======================================pdf========================================//
-
+//=============================================pdf===========================================//
           else if (screenName == "pdf") {
             List <String> titles = [
               actiondata[1].substring(0, actiondata[1].indexOf("&")).trim(),
@@ -345,8 +329,7 @@ class AnalyticsConstants {
                 titles[0].replaceAll('title=', ''),
                 titles[1].replaceAll('url=', '')));
           }
-          //======================================TestScreen========================================//
-
+//======================================TestScreen========================================//
           else if (screenName == "live-test" ||
               screenName == "quiz"|| screenName =="test-series") {
             List<String> urlData = [
@@ -355,6 +338,7 @@ class AnalyticsConstants {
             ];
             AppConstants.goTo(context, TestSeriesNew(urlData[1], token));
           }
+//===============================================================================================
         },
         onInAppShown: _onInAppShown,
         onInAppDismiss: _onInAppDismiss,
@@ -506,4 +490,8 @@ class AnalyticsConstants {
   static String Click_offline_Courses= 'Click_offline_Courses';
   static String Offline_call_us= 'Offline_call_us';
   static String counselling= 'counselling';
+  static String recordedcoursevod= 'Recorded Course VOD';
+  static String Click_class_feedback= 'Click_class_feedback';
+  static String Click_rating_count= 'Click_rating_count';
+  static String Submit_feedback= 'Submit–feedback';
 }

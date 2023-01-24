@@ -263,6 +263,8 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                                 List<String> samplingFeaturesList = (await Provider.of<NewMyCourseProvider>(context, listen: false).getSamplingFeaturesList(context, widget.courseData.id.toString()))!;
                                 SamplingBottomSheetParam.setFeaturesList = samplingFeaturesList;
                                 String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
+                                AppConstants.myCourseName = widget.courseData.title.toString();
+                                AppConstants.myCourseId= widget.courseData.id.toString();
                                 Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 MyCourseTab(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)
                                 ));
@@ -448,7 +450,8 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     //   )
                     // ),
 
-               widget.courseType == 2 || widget.courseType==3?     InkWell(onTap: (){
+               widget.courseType == 2 ?
+               InkWell(onTap: (){
                  var map = {
                    'Page_Name':'Course_Details',
                    'Course_Category':AppConstants.paidTabName,

@@ -302,6 +302,8 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
                               String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
                               submitLog(widget.courseData.title.toString(), widget.courseData.id.toString(), widget.tabName.toString());
+                              AppConstants.myCourseName = widget.courseData.title.toString();
+                              AppConstants.myCourseId= widget.courseData.id.toString();
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                   MyCourseTabView(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)
                               ));

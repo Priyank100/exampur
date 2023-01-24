@@ -119,6 +119,12 @@ class _TimelineViewState extends State<TimelineView> {
                             myCourseTimeLineList[index].type.toString().toUpperCase() == 'ZOOM' ?
                             AppConstants.makeCallEmail(myCourseTimeLineList[index].targetLink.toString()) :
                             callLiveStream(index) : ModalBottomSheet.moreModalBottomSheet(context,'Timeline_View') : null;
+                            if(activeButton=='L'){
+                              AppConstants.subjectName = myCourseTimeLineList[index].subjectId!.title.toString();
+                              AppConstants.subjectId = myCourseTimeLineList[index].subjectId!.id.toString();
+                              AppConstants.timlineId =myCourseTimeLineList[index].id.toString() ;
+                              AppConstants.timlineName =myCourseTimeLineList[index].title.toString() ;
+                            }
                           },
                           child: Stack(
                             children: [

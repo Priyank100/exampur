@@ -43,7 +43,7 @@ class ConfigRepo {
 
   Future<ApiResponse> offlineCourseRepo() async {
     try {
-      var url = API.offlineCourseUrl;
+      var url = API.offlineCounselingForm;
       // AppConstants.printLog(url);
       final response = await dioClient.get(url);
       return ApiResponse.withSuccess(response);

@@ -18,7 +18,7 @@
   "Are_you_Sure_you_want_to_back": "Are you Sure you want to back",
 
 
-  "books": "Books",
+  "books": "Books/Class Notes",
   "buy": "Buy",
   "buy_course": "Buy course",
   "billing_address": "Billing Address ",
@@ -74,6 +74,8 @@
   "enter_your_age": "Enter your age",
   "email_required": "EMAIL MUST BE REQUIRED",
   "email_us": "Email Us",
+  "excellent": "Excellent",
+  "Enter_Your_Feedback_Here": "Enter your feedback here..",
 
 
 
@@ -88,6 +90,7 @@
   "home_page": "Home Page",
   "help": "Help",
   "help_and_feedback": "Help and Feedback",
+  "how_was_the_leacture": "How was the Leacture ?",
 
   "issue_submitted_successfully": "Issue Submitted Successfully",
   "item_type": "Item Type",
@@ -102,7 +105,7 @@
 
 
 
-  "paid_course": "Paid Course",
+  "paid_course": "LIVE Course",
   "please_choose_the_category": "Please Choose the Category",
   "phone_number": "Phone Number",
   "pin_code": "Pin Code",
@@ -124,7 +127,6 @@
   "price_breakdown": "Price Breakdown",
   "price": "Price",
   "place_order": "Place Order",
-  "price": "Price (Including GST)",
   "please_verify_your_phone_no.": "Please verify your phone number",
   "practice_question":"Practice Question",
   "previous_year_pdf": "Previous Year PDF",
@@ -135,6 +137,7 @@
   "preBookAlert": " Congratulations you have successfully pre-booked the course. You will get an additional X% discount coupon post course launch. For any query please call our customer support team",
   "preBookAlertSuccessHead" :"Pre-booking Successful",
   "preBookAlertAlreadyHead": "Already Pre-booked",
+  "poor": "Poor",
 
 
   "name": "Name",
@@ -204,6 +207,8 @@
   "write_about_the_problem": "Write about the problem",
   "watch": "Watch",
   "wtch_now": "Watch Now",
+  "what_went_bad": "What went bad?",
+  "What_went_good": "What went good?",
 
 
 
@@ -223,6 +228,9 @@
   "rating4": "Dissatisfied",
   "rating5": "Very Dissatisfied",
   "rating_feedback": "Your feedback is submitted successfully, we will do our best to fix this soon",
+  "recorded_course_vod": "Recorded Course (VOD)",
+  "rating_teacher": "Your feedback is submitted successfully",
+  "ratethisteacher": "Rate this Teacher",
 
   "general": "General",
   "graduation": "Graduation",
@@ -238,8 +246,11 @@
   "view_pdf": "View PDF",
   "view_invoice": "View Invoice",
   "validity": "Validity",
+  "very_poor":"Very Poor",
 
   "qualification": "Qualification",
-  "quizz": "Quiz"
+  "quizz": "Quiz",
+
+  "your_rating_help_us_improve": "Your rating help us improve"
 
 }

@@ -442,8 +442,19 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(widget.upsellBookList![0].title.toString()),
-                Text('Regular: ₹${widget.upsellBookList![0].regularPrice}, Sale : ₹${widget.upsellBookList![0].salePrice}',
-                style: TextStyle(fontSize: 10))
+                Row(children: [
+                  Text('Regular: ',
+                      style: TextStyle(fontSize: 10)),
+                  Text('₹${widget.upsellBookList![0].regularPrice}',
+                      style: TextStyle(fontSize: 10, decoration: TextDecoration.lineThrough,)),
+                  Text(' Sale : ',
+                      style: TextStyle(fontSize: 10)),
+                  Text('₹${widget.upsellBookList![0].salePrice}',
+                      style: TextStyle(fontSize: 10))
+                ],),
+                Text(AppConstants.langCode == 'hi'?'इस course के साथ NOTES खरीदते समय आप "200 अतिरिक्त" बचा रहे हैं':'You are saving "200 extra" while purchasing book with this course',
+                    style: TextStyle(fontSize: 10,color: Colors.green), )
+
               ],
             )
         ),

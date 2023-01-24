@@ -21,6 +21,8 @@ import 'package:video_player/video_player.dart';
 import '../../../SharePref/shared_pref.dart';
 import '../../../utils/analytics_constants.dart';
 import '../../../utils/api.dart';
+import '../../../utils/images.dart';
+import '../../widgets/custom_rateTeacherBottomsheet.dart';
 
 class MyMaterialVideo extends StatefulWidget {
   String url;
@@ -298,11 +300,49 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
                     borderRadius: BorderRadius.all(Radius.circular(8))),child: Center(child: Text(getTranslated(context, LangString.downloadVideo)!,style: TextStyle(color: Colors.white,fontSize: 15)))
                 ),
               ),
+            ),
+            SizedBox(height: 10,),
+            InkWell(
+              onTap: (){
+                AppConstants.teacherRatingType = 1;
+                var map = {
+                  'Page_Name':'Recorded_Video',
+                  'Mobile_Number':AppConstants.userMobile,
+                  'Language':AppConstants.langCode,
+                  'User_ID':AppConstants.userMobile,
+                  "topic":widget.title.toString(),
+                  "class type":"recorded"
+                };
+                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_class_feedback, map);
+                _playerController!.pause();
+                RateTeacherBottom.rateTeacherBottomSheet(context,);
+              },
+              child: Center(
+                child: Container(height: 45,
+                  width:MediaQuery.of(context).size.width/1.10,
+                  decoration: BoxDecoration( color:AppColors.amber,
+                  // border: Border.all(color: Colors.amber,width: 2),
+                   borderRadius: BorderRadius.all(Radius.circular(8))),
+                 //alignment: Alignment.center,
+                  child: Stack(
+                    children: [
+                      Center(child:
+                      Text(getTranslated(context, LangString.ratethisteacher)!,style: TextStyle(color: Colors.white,fontSize: 15),textAlign: TextAlign.center,),
+                      ),
+                      Positioned(
+                        right: 0,
+                          child:   Image.asset(Images.newImg,scale: 3,) )
+
+                    ],
+                  ),
+                ),
+              ),
             )
           ],
         ),
       ),
     );
+
   }
 
   Future<void> openPermissionDialog() async {
