@@ -16,34 +16,34 @@ class RateTeacheFullrBottom{
     IconData? _selectedIcon;
     List<String> slectedList = [];
     String selectedText = '';
-    List <TextDataModel> LowratingData = [
-      TextDataModel('Wrong Concept taught',false),
-      TextDataModel('Smart board notes was not clear',false),
-      TextDataModel('Less Energy',false),
-      TextDataModel('Steps missed in explanation',false),
-      TextDataModel('Teacher is trying to prove the wrong ans',false),
-      TextDataModel('Others',false),
-    ];
-    List <TextDataModel> highRatingData = [
-      TextDataModel('Rich Content',false),
-      TextDataModel('Fantastic Explanation',false),
-      TextDataModel('High Energetic',false),
-      TextDataModel('Neat Smart board work',false),
-      TextDataModel('Others',false),
-    ];
+    // List <TextDataModel> LowratingData = [
+    //   TextDataModel('Wrong Concept taught',false),
+    //   TextDataModel('Smart board notes was not clear',false),
+    //   TextDataModel('Less Energy',false),
+    //   TextDataModel('Steps missed in explanation',false),
+    //   TextDataModel('Teacher is trying to prove the wrong ans',false),
+    //   TextDataModel('Others',false),
+    // ];
+    // List <TextDataModel> highRatingData = [
+    //   TextDataModel('Rich Content',false),
+    //   TextDataModel('Fantastic Explanation',false),
+    //   TextDataModel('High Energetic',false),
+    //   TextDataModel('Neat Smart board work',false),
+    //   TextDataModel('Others',false),
+    // ];
     List <TextDataModel> LowratingDataHi = [
-      TextDataModel('Teacher ने subject अच्छे से नहीं समझाया',false),
+      TextDataModel('Teacher ने Subject अच्छे से नहीं समझाया',false),
       TextDataModel('Teacher सिलेबस के हिसाब से नहीं पढ़ा रहे',false),
-      TextDataModel('Teacher में energy कम था और boring लेक्चर था',false),
+      TextDataModel('Teacher में Energy कम था और Boring लेक्चर था',false),
       TextDataModel('Teacher गलत कॉन्सेप्ट पढ़ा कर रहे थे',false),
-      TextDataModel('Teacher step मिस कर रहे थे, Flow समझ में नहीं आ रहा था',false),
+      TextDataModel('Teacher Step मिस कर रहे थे, Flow समझ में नहीं आ रहा था',false),
     ];
     List <TextDataModel> highratingDataHi = [
       TextDataModel('Teacher बहुत अच्छे से समझाए',false),
-      TextDataModel('काफी detail में concept पढ़ाए',false),
-      TextDataModel('Teacher काफी active the और class बहुत interesting थी',false),
+      TextDataModel('काफी Detail में Concept पढ़ाए',false),
+      TextDataModel('Teacher काफी Active the और Class बहुत Interesting थी',false),
       TextDataModel('Syllabus पूरा कवर कर दिए',false),
-      TextDataModel('Doubts सारा solve हो गया, अब questions भी बन रहा',false),
+      TextDataModel('Doubts सारा Solve हो गया, अब Questions भी बन रहा',false),
     ];
     showModalBottomSheet(
         isScrollControlled: true,
@@ -98,15 +98,15 @@ class RateTeacheFullrBottom{
                             setState((){
                               val = rating;
                               slectedList.clear();
-                              for(var i=0; i< LowratingData.length;i++){
-                                LowratingData[i].isTrue = false;
-                              }
+                              // for(var i=0; i< LowratingData.length;i++){
+                              //   LowratingData[i].isTrue = false;
+                              // }
                               for(var i=0; i< LowratingDataHi.length;i++){
                                 LowratingDataHi[i].isTrue = false;
                               }
-                              for(var i=0; i< highRatingData.length;i++){
-                                highRatingData[i].isTrue = false;
-                              }
+                              // for(var i=0; i< highRatingData.length;i++){
+                              //   highRatingData[i].isTrue = false;
+                              // }
                               for(var i=0; i< highratingDataHi.length;i++){
                                 highratingDataHi[i].isTrue = false;
                               }
@@ -153,41 +153,57 @@ class RateTeacheFullrBottom{
                                           return InkWell(
                                             onTap: (){
                                               setState(() {
+                                                // if(val <= 3){
+                                                //   LowratingData[index].isTrue = !LowratingData[index].isTrue;
+                                                //   if(LowratingData[index].isTrue) {
+                                                //    slectedList.add(AppConstants.langCode == 'hi'?LowratingDataHi[index].title :LowratingData[index].title);
+                                                //     // final String result = slectedList.join(', ');
+                                                //     // print(result);
+                                                //   } else {
+                                                //     slectedList.remove(AppConstants.langCode == 'hi'?LowratingDataHi[index].title :LowratingData[index].title);
+                                                //   }
+                                                // }else{
+                                                //   highRatingData[index].isTrue = !highRatingData[index].isTrue;
+                                                //   if(highRatingData[index].isTrue) {
+                                                //     slectedList.add(AppConstants.langCode == 'hi'?highratingDataHi[index].title:highRatingData[index].title);
+                                                //     // final String result = slectedList.join(', ');
+                                                //     // print(result);
+                                                //   } else {
+                                                //     slectedList.remove(AppConstants.langCode == 'hi'?highratingDataHi[index].title:highRatingData[index].title);
+                                                //   }
+                                                // }
                                                 if(val <= 3){
-                                                  LowratingData[index].isTrue = !LowratingData[index].isTrue;
-                                                  if(LowratingData[index].isTrue) {
-                                                   slectedList.add(AppConstants.langCode == 'hi'?LowratingDataHi[index].title :LowratingData[index].title);
-                                                    // final String result = slectedList.join(', ');
-                                                    // print(result);
-                                                  } else {
-                                                    slectedList.remove(AppConstants.langCode == 'hi'?LowratingDataHi[index].title :LowratingData[index].title);
+                                                  LowratingDataHi[index].isTrue = !LowratingDataHi[index].isTrue;
+                                                  if(LowratingDataHi[index].isTrue) {
+                                                    slectedList.add(LowratingDataHi[index].title);
+                                                  }else{
+                                                    slectedList.remove(LowratingDataHi[index].title);
                                                   }
                                                 }else{
-                                                  highRatingData[index].isTrue = !highRatingData[index].isTrue;
-                                                  if(highRatingData[index].isTrue) {
-                                                    slectedList.add(AppConstants.langCode == 'hi'?highratingDataHi[index].title:highRatingData[index].title);
-                                                    // final String result = slectedList.join(', ');
-                                                    // print(result);
-                                                  } else {
-                                                    slectedList.remove(AppConstants.langCode == 'hi'?highratingDataHi[index].title:highRatingData[index].title);
-                                                  }
+                                                  highratingDataHi[index].isTrue = !highratingDataHi[index].isTrue;
+                                                     if(highratingDataHi[index].isTrue) {
+                                                       slectedList.add(highratingDataHi[index].title);
+                                                     }else{
+                                                       slectedList.remove(highratingDataHi[index].title);
+                                                     }
                                                 }
 
                                               });
                                             },
                                             child: Container(
-                                              margin: EdgeInsets.all(8),
+                                              margin: EdgeInsets.all(5),
                                               padding:EdgeInsets.all(8) ,
                                               decoration: BoxDecoration(
-                                                  color: val <= 3 ? LowratingData[index].isTrue ? Colors.amber :Colors.white :highRatingData[index].isTrue ? Colors.amber :Colors.white,
+                                                 // color: val <= 3 ? LowratingData[index].isTrue ? Colors.amber :Colors.white :highRatingData[index].isTrue ? Colors.amber :Colors.white,
+                                                  color: val <= 3 ? LowratingDataHi[index].isTrue ? Colors.amber :Colors.white :highratingDataHi[index].isTrue ? Colors.amber :Colors.white,
                                                   borderRadius: BorderRadius.circular(10)
                                               ),
                                               alignment: Alignment.center,
-                                              child: Text(val <= 3 ? AppConstants.langCode == 'hi'?LowratingDataHi[index].title:LowratingData[index].title:AppConstants.langCode == 'hi'?highratingDataHi[index].title:highRatingData[index].title, textAlign: TextAlign.center,style: TextStyle(color:val<= 3? LowratingData[index].isTrue  == true ? Colors.white:null:highRatingData[index].isTrue  == true ? Colors.white:null),),
+                                              child: Text(val <= 3 ? LowratingDataHi[index].title:highratingDataHi[index].title, textAlign: TextAlign.center,style: TextStyle(color:val<= 3? LowratingDataHi[index].isTrue  == true ? Colors.white:null:highratingDataHi[index].isTrue  == true ? Colors.white:null),),
                                             ),
                                           );
                                         },
-                                        childCount: val <= 3 ? AppConstants.langCode == 'hi'?LowratingDataHi.length: LowratingData.length:AppConstants.langCode == 'hi'?highratingDataHi.length:highRatingData.length,
+                                        childCount: val <= 3 ?LowratingDataHi.length:highratingDataHi.length,
                                       ),
 
                                     ) ,
@@ -230,6 +246,7 @@ class RateTeacheFullrBottom{
 
                               InkWell(
                                 onTap: () async {
+                                //  Focus.of(context).unfocus();
                                   var map = {
                                     'Page_Name':'Recorded_Video',
                                     'Mobile_Number':AppConstants.userMobile,
@@ -242,7 +259,7 @@ class RateTeacheFullrBottom{
                                   AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Submit_feedback, map);
                                   // AppConstants.showLoaderDialog(context);
                                   if(slectedList.isEmpty) {
-                                    print('anchal');
+                                    // print('anchal');
                                     AppConstants.showAlertDialog(
                                         context, 'Please select the reason',
                                     );
@@ -292,7 +309,7 @@ class RateTeacheFullrBottom{
                                     await Service.post(
                                         API.serviceLogUrl, body: body,
                                         myHeader: header).then((response) {
-                                      print(response);
+                                      // print(response);
                                       Navigator.pop(context);
                                       Navigator.pop(context);
                                       if (response == null) {
@@ -323,7 +340,7 @@ class RateTeacheFullrBottom{
                                       borderRadius: BorderRadius.circular(10),
                                       color: Color(0xff3207f0)
                                   ),
-                                  child: Text(getTranslated(context, LangString.Continue)!,style: TextStyle(color: Colors.white,fontSize: 20),),
+                                  child: Text('Submit',style: TextStyle(color: Colors.white,fontSize: 20),),
                                 ),
                               ),
                             ],

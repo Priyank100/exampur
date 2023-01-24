@@ -18,6 +18,7 @@ import 'package:exampur_mobile/data/model/e_book_model.dart';
 
 import '../presentation/home/books/books_ebooks.dart';
 import '../presentation/home/current_affairs_new/current_affairs_tab.dart';
+import '../presentation/home/home.dart';
 import '../presentation/home/paid_courses/offline_courses.dart';
 import '../presentation/home/paid_courses/paid_courses.dart';
 import '../presentation/home/study_material_new/study_material_new.dart';
@@ -106,7 +107,7 @@ class FirebaseDynamicLinkService {
         var isOfflineCourses = dataType == 'offline-course-list';
         var isPaidCourses = dataType == 'paid-course-list';
         var isRecordedVideo = dataType == 'recorded-video';
-        var isLiveVideo = dataType == 'live-video';
+        var isLiveVideo = dataType == 'live-videoooooooooooooooooo';
         var isPdf = dataType == 'pdf';
         var isPreviousYearPdf = dataType == 'previous-year';
         var isCheckout = dataType == 'checkout';
@@ -212,13 +213,13 @@ class FirebaseDynamicLinkService {
             ));
 
           case 12:
-            String url = deepLink.queryParameters['url'].toString();
-            String title = deepLink.queryParameters['title'].toString();
-            String vid = deepLink.queryParameters['vid'].toString();
-            return Navigator.push(context, MaterialPageRoute(
-                builder: (context) =>
-                    MyTimeTableViedo(url, title, vid)
-            ));
+            // String url = deepLink.queryParameters['url'].toString();
+            // String title = deepLink.queryParameters['title'].toString();
+            // String vid = deepLink.queryParameters['vid'].toString();
+            // return Navigator.push(context, MaterialPageRoute(
+            //     builder: (context) =>
+            //         MyTimeTableViedo(url, title, vid)
+            // ));
 
           case 13:
             String title = deepLink.queryParameters['title'].toString();
