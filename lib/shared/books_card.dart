@@ -1,20 +1,16 @@
 import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
-import 'package:exampur_mobile/presentation/widgets/custom_button.dart';
 import 'package:exampur_mobile/shared/place_order_screen.dart';
-
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
-
 import 'package:exampur_mobile/utils/images.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
-
+import '../presentation/my_courses/TeacherSubjectView/DownloadPdfView.dart';
 import '../utils/analytics_constants.dart';
 
 class BooksCard extends StatefulWidget {
@@ -128,31 +124,80 @@ class _BooksCardState extends State<BooksCard> {
           //   },
           //   text: getTranslated(context, LangString.buy)!,
           // ),
-          InkWell(
-            onTap: (){
-                  var map = {
-                    'Page_Name':'Books List',
-                    'Mobile_Number':AppConstants.userMobile,
-                    'Language':AppConstants.langCode,
-                    'User_ID':AppConstants.userMobile,
-                    'Book_Name':widget.books.title.toString()
-                  };
-                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Book,map);
-                  Navigator.push(context,
-                      MaterialPageRoute(
-                         // settings: RouteSettings(name: 'BookListing'),
-                          builder: (context) => PlaceOrderScreen(widget.books)
-                      )
-                  );
-            },
-           child: Container(
-             height: 55,
-             decoration: BoxDecoration(color: Theme.of(context).primaryColor,
-               borderRadius:BorderRadius.circular(10.0),
-             ),
-             alignment: Alignment.center,
-             child: Text(getTranslated(context, LangString.buy)!,style: TextStyle(fontSize: 18, color: Colors.white),),
-           ),
+
+          // InkWell(
+          //   onTap: (){
+          //         var map = {
+          //           'Page_Name':'Books List',
+          //           'Mobile_Number':AppConstants.userMobile,
+          //           'Language':AppConstants.langCode,
+          //           'User_ID':AppConstants.userMobile,
+          //           'Book_Name':widget.books.title.toString()
+          //         };
+          //         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Book,map);
+          //         Navigator.push(context,
+          //             MaterialPageRoute(
+          //                // settings: RouteSettings(name: 'BookListing'),
+          //                 builder: (context) => PlaceOrderScreen(widget.books)
+          //             )
+          //         );
+          //   },
+          //  child: Container(
+          //    height: 55,
+          //    decoration: BoxDecoration(color: Theme.of(context).primaryColor,
+          //      borderRadius:BorderRadius.circular(10.0),
+          //    ),
+          //    alignment: Alignment.center,
+          //    child: Text(getTranslated(context, LangString.buy)!,style: TextStyle(fontSize: 18, color: Colors.white),),
+          //  ),
+          // ),
+
+          Row(
+            children: [
+              Expanded(
+                  child: InkWell(
+                    onTap: (){
+                      var map = {
+                        'Page_Name':'Books List',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'User_ID':AppConstants.userMobile,
+                        'Book_Name':widget.books.title.toString()
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Book,map);
+                      Navigator.push(context,
+                          MaterialPageRoute(
+                            // settings: RouteSettings(name: 'BookListing'),
+                              builder: (context) => PlaceOrderScreen(widget.books)
+                          )
+                      );
+                    },
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(color: Theme.of(context).primaryColor,
+                        borderRadius:BorderRadius.circular(10.0),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(getTranslated(context, LangString.buy)!,style: TextStyle(fontSize: 18, color: Colors.white),),
+                    ),
+                  ),
+              ),
+              widget.books.demoBookUrl.toString().trim().isEmpty ? SizedBox() :
+              InkWell(
+                onTap: (){
+                  AppConstants.goTo(context, DownloadViewPdf(widget.books.title.toString(), widget.books.demoBookUrl.toString()));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.black),
+                  ),
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.only(left: 5),
+                  alignment: Alignment.center,
+                  child: Text('View PDF'),
+                ),
+              )
+            ],
           ),
           SizedBox(
             height: 10,

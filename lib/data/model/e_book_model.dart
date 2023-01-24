@@ -73,7 +73,9 @@ class BookEbook {
       List<dynamic>? macro, 
       String? bannerPath, 
       String? logoPath,
-    String? status}){
+    String? status,
+    String? demoBookUrl
+  }){
     _id = id;
     _category = category;
     _title = title;
@@ -86,6 +88,7 @@ class BookEbook {
     _bannerPath = bannerPath;
     _logoPath = logoPath;
     _status = status ;
+    _demoBookUrl = demoBookUrl ;
 }
 
   BookEbook.fromJson(dynamic json) {
@@ -98,7 +101,7 @@ class BookEbook {
     }
     _title = json['title'];
     _description = json['description'];
-    _pdf = json['pdf_path'];
+    _pdf = json['pdf_path'] == null ? 'Testing' : json['pdf_path'];
     _regularPrice = json['regular_price'].toDouble();
     _salePrice = json['sale_price'].toDouble();
     _flag = json['flag'];
@@ -111,6 +114,7 @@ class BookEbook {
     _bannerPath = json['banner_path'] == null ? '' : json['banner_path'].toString().contains('http') ? json['banner_path'].toString() : AppConstants.BANNER_BASE + json['banner_path'].toString();
     _logoPath = json['logo_path'];
     _status = json['status']==null?'Published':json['status'].toString();
+    _demoBookUrl = json['demo_book_url'] == null ? '' : json['demo_book_url'].toString().contains('http') ? json['demo_book_url'].toString() : AppConstants.BANNER_BASE + json['demo_book_url'].toString();
   }
   String? _id;
   List<Category>? _category;
@@ -124,6 +128,7 @@ class BookEbook {
   String? _bannerPath;
   String? _logoPath;
   String? _status;
+  String? _demoBookUrl;
 
   String? get id => _id;
   List<Category>? get category => _category;
@@ -137,6 +142,7 @@ class BookEbook {
   String? get bannerPath => _bannerPath;
   String? get logoPath => _logoPath;
   String? get status => _status;
+  String? get demoBookUrl => _demoBookUrl;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -156,6 +162,7 @@ class BookEbook {
     map['banner_path'] = _bannerPath;
     map['logo_path'] = _logoPath;
     map['status'] = _status;
+    map['demo_book_url'] = _demoBookUrl;
     return map;
   }
 
