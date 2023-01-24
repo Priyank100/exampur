@@ -15,7 +15,6 @@ import '../utils/analytics_constants.dart';
 
 class BooksCard extends StatefulWidget {
   final BookEbook  books;
-
   const BooksCard(this.books) : super();
 
   @override
