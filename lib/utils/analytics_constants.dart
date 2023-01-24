@@ -494,4 +494,5 @@ class AnalyticsConstants {
   static String Click_class_feedback= 'Click_class_feedback';
   static String Click_rating_count= 'Click_rating_count';
   static String Submit_feedback= 'Submit–feedback';
+  static String Demo_Book_pdf= 'Demo_Book_pdf';
 }

@@ -310,8 +310,8 @@ class RateTeacheFullrBottom{
                                         API.serviceLogUrl, body: body,
                                         myHeader: header).then((response) {
                                       // print(response);
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
+                                      // Navigator.pop(context);
+                                      // Navigator.pop(context);
                                       if (response == null) {
                                         AppConstants.showBottomMessage(context,
                                             getTranslated(context,

@@ -153,6 +153,30 @@ class _BooksCardState extends State<BooksCard> {
 
           Row(
             children: [
+              widget.books.demoBookUrl.toString().trim().isEmpty ? SizedBox() :
+              InkWell(
+                onTap: (){
+                  var map = {
+                    'Page_Name':'Books List',
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':AppConstants.langCode,
+                    'User_ID':AppConstants.userMobile,
+                    'pdf_url':widget.books.demoBookUrl.toString()
+                  };
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Demo_Book_pdf, map);
+                  AppConstants.goTo(context, DownloadViewPdf(widget.books.title.toString(), widget.books.demoBookUrl.toString()));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.amber),
+                    borderRadius: BorderRadius.all(Radius.circular(8))
+                  ),
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.only(right: 5),
+                  alignment: Alignment.center,
+                  child: Text('Sample PDF'),
+                ),
+              ),
               Expanded(
                   child: InkWell(
                     onTap: (){
@@ -180,21 +204,6 @@ class _BooksCardState extends State<BooksCard> {
                       child: Text(getTranslated(context, LangString.buy)!,style: TextStyle(fontSize: 18, color: Colors.white),),
                     ),
                   ),
-              ),
-              widget.books.demoBookUrl.toString().trim().isEmpty ? SizedBox() :
-              InkWell(
-                onTap: (){
-                  AppConstants.goTo(context, DownloadViewPdf(widget.books.title.toString(), widget.books.demoBookUrl.toString()));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.black),
-                  ),
-                  padding: EdgeInsets.all(5),
-                  margin: EdgeInsets.only(left: 5),
-                  alignment: Alignment.center,
-                  child: Text('View PDF'),
-                ),
               )
             ],
           ),
