@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moengage_inbox/moengage_inbox.dart';
+// import 'package:moengage_inbox/moengage_inbox.dart';
 
 class CardInbox extends StatefulWidget {
   const CardInbox({Key? key}) : super(key: key);
