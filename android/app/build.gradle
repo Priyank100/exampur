@@ -92,5 +92,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation("com.moengage:moe-android-sdk:11.6.02")
     implementation("com.moengage:rich-notification:2.4.0")
+    implementation("com.moengage:inbox-core:2.2.0")
 
 }
