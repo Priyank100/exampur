@@ -247,17 +247,6 @@ class RateTeacheFullrBottom{
                               InkWell(
                                 onTap: () async {
                                 //  Focus.of(context).unfocus();
-                                  var map = {
-                                    'Page_Name':'Recorded_Video',
-                                    'Mobile_Number':AppConstants.userMobile,
-                                    'Language':AppConstants.langCode,
-                                    'User_ID':AppConstants.userMobile,
-                                    "topic":AppConstants.timlineName,
-                                    "class type":AppConstants.teacherRatingType == 0 ? "live":"recorded",
-                                    "rating count":val.toString()
-                                  };
-                                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Submit_feedback, map);
-                                  // AppConstants.showLoaderDialog(context);
                                   if(slectedList.isEmpty) {
                                     // print('anchal');
                                     AppConstants.showAlertDialog(
@@ -265,6 +254,18 @@ class RateTeacheFullrBottom{
                                     );
 
                                   } else {
+                                    AppConstants.showLoaderDialog(context, message: 'Please wait...');
+                                    var map = {
+                                      'Page_Name':'Recorded_Video',
+                                      'Mobile_Number':AppConstants.userMobile,
+                                      'Language':AppConstants.langCode,
+                                      'User_ID':AppConstants.userMobile,
+                                      "topic":AppConstants.timlineName,
+                                      "class type":AppConstants.teacherRatingType == 0 ? "live":"recorded",
+                                      "rating count":val.toString()
+                                    };
+                                    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Submit_feedback, map);
+
                                     var body = {
                                       "user": {
                                         "name": AppConstants.userName,
@@ -301,17 +302,12 @@ class RateTeacheFullrBottom{
                                       "message": messageController.text.trim()
                                     };
                                     Map<String, String> header = {
-                                      "x-auth-token": AppConstants
-                                          .serviceLogToken,
+                                      "x-auth-token": AppConstants.serviceLogToken,
                                       "Content-Type": "application/json",
                                       "app-version": AppConstants.versionCode
                                     };
-                                    await Service.post(
-                                        API.serviceLogUrl, body: body,
-                                        myHeader: header).then((response) {
-                                      // print(response);
-                                      // Navigator.pop(context);
-                                      // Navigator.pop(context);
+                                    await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) {
+                                      Navigator.pop(context);
                                       if (response == null) {
                                         AppConstants.showBottomMessage(context,
                                             getTranslated(context,
