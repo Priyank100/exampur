@@ -19,7 +19,7 @@ class _FreeVideoDetailState extends State<FreeVideoDetail> {
   late YoutubeMetaData _videoMetaData;
 
   bool _isPlayerReady = false;
-  bool isShow = false;
+  bool activeButton = false;
 
   @override
   void initState() {
@@ -91,12 +91,16 @@ class _FreeVideoDetailState extends State<FreeVideoDetail> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: ToggleButton(onPressedChat: (){
-
+            setState(() {
+              activeButton = true;
+            });
           },onPressedPlaylist: (){
-
+            setState(() {
+              activeButton = true;
+            });
           },),
         ),
-        Text('dxfcgvhbjnkm')
+        activeButton ?  Text('dxfcgvhbjnkm'):Text('')
       ],),
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(8),
