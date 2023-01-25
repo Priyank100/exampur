@@ -8,9 +8,9 @@ class FreeVideosRepo {
 
   FreeVideosRepo({required this.dioClient});
 
-  Future<ApiResponse> freeVideos(String url) async {
+  Future<ApiResponse> freeVideostab() async {
     try {
-      final response = await dioClient.get(url);
+      final response = await dioClient.get(API.freeVideotabUrl);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

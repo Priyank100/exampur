@@ -43,7 +43,7 @@ import 'package:moengage_flutter/moengage_flutter.dart';
 import '../../main.dart';
 import '../../provider/ConfigProvider.dart';
 import 'BannerBookDetailPage.dart';
-import 'FreeVideos/freeVideo.dart';
+import 'FreeVideos/freeVideotab.dart';
 import 'TestSeries/test_series_tab.dart';
 import 'package:provider/provider.dart';
 
@@ -647,14 +647,14 @@ class _HomeState extends State<Home> {
                   //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
                   //   },
                   // ),
-                  // SquareButton(
-                  //   image: Images.current_affair,
-                  //   title: 'Free Videos',
-                  //   color: AppColors.paidCourses,
-                  //   onPressed: () {
-                  //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideos(API.freeVideoUrl)));
-                  //   },
-                  // ),
+                  SquareButton(
+                    image: Images.current_affair,
+                    title: 'Free Videos',
+                    color: AppColors.paidCourses,
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideosTab()));
+                    },
+                  ),
                 ],
               ),
             ],

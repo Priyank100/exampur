@@ -9,6 +9,9 @@ import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/dimensions.dart';
+import 'freeVideoCoursedetail.dart';
+
 class FreeVideoListing extends StatefulWidget {
   FreeVideoListing() : super();
 
@@ -17,80 +20,63 @@ class FreeVideoListing extends StatefulWidget {
 }
 
 class _FreeVideoListingState extends State<FreeVideoListing> {
-  FreeVideoContentModel? freeVideoContentModel;
-  bool isLoading = true;
 
-  @override
-  void initState() {
-    getNotificationList();
-    super.initState();
-  }
-
-  Future<void> getNotificationList() async {
-    isLoading = true;
-    freeVideoContentModel = (await Provider.of<FreeVideoProvider>(context, listen: false).getfreeVideoContentList(context,'2'))!;
-    isLoading = false;
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-        freeVideoContentModel == null || freeVideoContentModel!.chapter!.length == 0 ?
-      AppConstants.noDataFound() :
-        ListView.builder(
-            itemCount: freeVideoContentModel!.chapter!.length,
+    return ListView.builder(
+            itemCount: 10,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return chapterButton(index);
             });
   }
   Widget chapterButton(index) {
-    return Container(
-        margin: EdgeInsets.all(8),
-        padding: EdgeInsets.all(8),
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          borderRadius:
-          BorderRadius.all(Radius.circular(12)),
-          boxShadow: const [
-            BoxShadow(
-              color: AppColors.grey,
-              offset: Offset(0.0, 0.0),
-              blurRadius: 1.0,
-              spreadRadius: 0.0,
-            ),
-          ],
-          color: AppColors.white,
-        ),
-        child:ListTile(
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(freeVideoContentModel!.chapter![index].name.toString()),
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:  [
-                  for(var i =0;i<freeVideoContentModel!.chapter![index].videoContent!.length;i++)
-                    CustomAmberButton(onPressed: (){
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => YoutubeVideo(freeVideoContentModel!.chapter![index].videoContent![i].videoUrl.toString(),
-                                  freeVideoContentModel!.chapter![index].videoContent![i].title.toString())));
-                    },
-                      text:getTranslated(context, LangString.watch)!,),
-
-                  // CustomRoundButton(onPressed: (){},
-                  //     text:getTranslated(context, LangString.viewPdf)!),
-                  //   CustomSmallerElevatedButton(
-                  //     onPressed: (){},color: AppColors.green,text: 'Give Test',
-                  //   )
-                ],)
+    return InkWell(
+      onTap: (){
+        AppConstants.goTo(context, FreeVideoDetail());
+      },
+      child: Container(
+          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.all(8),
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius:
+            BorderRadius.all(Radius.circular(12)),
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.grey,
+                offset: Offset(0.0, 0.0),
+                blurRadius: 1.0,
+                spreadRadius: 0.0,
+              ),
             ],
+            color: AppColors.white,
           ),
-        )
+          child:Row(children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.green
+              ),
+                width: 200,
+                height: 130,
+                // child: Image.network(API.homeBanner_URL + widget.listData.imagePath.toString(), fit: BoxFit.fill)
+                child: AppConstants.image('', boxfit: BoxFit.fill)
+            ),
+            SizedBox(width: 10,),
+           Flexible(child: Column(
+               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              Text('rdtfgyhjkml,.dfghjkm',style: TextStyle(fontSize: 18),),
+              SizedBox(height: 30,),
+              Text('rdtfgyhjkml,.dfghjkm'),
+                SizedBox(height: 10,)
+            ],))
+          ],)
+      ),
     );
   }
 }
