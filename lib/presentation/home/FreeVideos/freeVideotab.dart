@@ -44,7 +44,7 @@ class _FreeVideosTabState extends State<FreeVideosTab> {
               length: freeVideoTabtModel!.length,
               names:freeVideoTabtModel!.map((item) => item.name.toString()).toList(),
               title: '',
-              routes: freeVideoTabtModel!.map((e) => FreeVideoListing()).toList()
+              routes: freeVideoTabtModel!.map((e) => FreeVideoListing(e.id.toString())).toList()
 
             ),
           );

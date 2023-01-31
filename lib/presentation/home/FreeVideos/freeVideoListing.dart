@@ -9,11 +9,13 @@ import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/model/free_video_list_model.dart';
 import '../../../utils/dimensions.dart';
 import 'freeVideoCoursedetail.dart';
 
 class FreeVideoListing extends StatefulWidget {
-  FreeVideoListing() : super();
+  String ChannelId;
+  FreeVideoListing(this.ChannelId) : super();
 
   @override
   State<FreeVideoListing> createState() => _FreeVideoListingState();
@@ -21,11 +23,27 @@ class FreeVideoListing extends StatefulWidget {
 
 class _FreeVideoListingState extends State<FreeVideoListing> {
 
+  FreeVideoListModel ? freeVideoListModel;
+  bool isLoading = true;
+
+
+  Future<void> getFreeCourseList() async {
+    freeVideoListModel = (await Provider.of<FreeVideoProvider>(context, listen: false).getfreeVideoList(context,widget.ChannelId))!;
+    isLoading = false;
+    setState((){});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getFreeCourseList();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-            itemCount: 10,
+    return isLoading ? Center(child: CircularProgressIndicator(),): freeVideoListModel!.channelplaylist!.length==0 ? AppConstants.noDataFound() :ListView.builder(
+            itemCount: freeVideoListModel!.channelplaylist!.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return chapterButton(index);
@@ -34,7 +52,7 @@ class _FreeVideoListingState extends State<FreeVideoListing> {
   Widget chapterButton(index) {
     return InkWell(
       onTap: (){
-        AppConstants.goTo(context, FreeVideoDetail());
+        AppConstants.goTo(context, FreeVideoDetail(false, freeVideoListModel!.channelplaylist![index].id.toString(),'',freeVideoListModel!.name.toString(),freeVideoListModel!.channelplaylist![index].courseId.toString()));
       },
       child: Container(
           margin: EdgeInsets.all(10),
@@ -57,12 +75,12 @@ class _FreeVideoListingState extends State<FreeVideoListing> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Colors.green
+                color: Colors.white
               ),
-                width: 200,
-                height: 130,
+                width: 170,
+                height: 110,
                 // child: Image.network(API.homeBanner_URL + widget.listData.imagePath.toString(), fit: BoxFit.fill)
-                child: AppConstants.image('', boxfit: BoxFit.fill)
+                child: AppConstants.image(AppConstants.YOUTUBE_IMG.replaceAll('', ''), boxfit: BoxFit.fill)
             ),
             SizedBox(width: 10,),
            Flexible(child: Column(
@@ -70,10 +88,10 @@ class _FreeVideoListingState extends State<FreeVideoListing> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              Text('rdtfgyhjkml,.dfghjkm',style: TextStyle(fontSize: 18),),
-              SizedBox(height: 30,),
-              Text('rdtfgyhjkml,.dfghjkm'),
-                SizedBox(height: 10,)
+              Text(freeVideoListModel!.channelplaylist![index].name.toString(),style: TextStyle(fontSize: 18),),
+              SizedBox(height: 45,),
+              Text(freeVideoListModel!.name.toString(),style: TextStyle(color: Colors.amber,fontFamily: 'Noto Sans'),),
+                SizedBox(height: 5,)
             ],))
           ],)
       ),

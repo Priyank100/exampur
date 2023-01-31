@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
-import 'package:exampur_mobile/data/model/Free_video_content_model.dart';
 import 'package:exampur_mobile/data/model/free_video_list_model.dart';
 import 'package:exampur_mobile/data/model/free_video_model.dart';
 import 'package:exampur_mobile/data/model/response/Base/api_response.dart';
@@ -11,6 +10,9 @@ import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/error_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
+
+import '../data/model/free_video_content_model.dart';
+
 
 class FreeVideoProvider extends ChangeNotifier {
   final FreeVideosRepo freeVideosRepo;
@@ -23,8 +25,8 @@ class FreeVideoProvider extends ChangeNotifier {
   FreeVideoListModel _freeVideoListModel = FreeVideoListModel();
   FreeVideoListModel get freeVideoListModel => _freeVideoListModel;
 
-  FreeVideoContentModel _freeVideoContentListModel = FreeVideoContentModel();
-  FreeVideoContentModel get freeVideoContentListModel => _freeVideoContentListModel;
+  FreeVideoPlayListModel _freeVideoPlayListModel = FreeVideoPlayListModel();
+  FreeVideoPlayListModel get freeVideoPlayListModel => _freeVideoPlayListModel;
 
   Future<List<FreeVideoModel>?> getfreeVideoTab(BuildContext context,) async {
     ApiResponse apiResponse = await freeVideosRepo.freeVideostab();
@@ -34,31 +36,32 @@ class FreeVideoProvider extends ChangeNotifier {
 
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
-      AppConstants.goAndReplace(context, ErrorScreen());
+   //   AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
   }
 
 
-  Future<FreeVideoListModel?> getfreeVideoList(BuildContext context,String subjectId) async {
-    ApiResponse apiResponse = await freeVideosRepo.freeVideosList(API.freeVideoListUrl,subjectId);
+  Future<FreeVideoListModel?> getfreeVideoList(BuildContext context,String channelId) async {
+    ApiResponse apiResponse = await freeVideosRepo.freeVideosList(channelId);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _freeVideoListModel = FreeVideoListModel.fromJson(json.decode(apiResponse.response.toString()));
       return _freeVideoListModel;
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
-      AppConstants.goAndReplace(context, ErrorScreen());
+     // AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
   }
-  Future<FreeVideoContentModel?> getfreeVideoContentList(BuildContext context,String subjectId) async {
-    ApiResponse apiResponse = await freeVideosRepo.freeVideosList(API.freeVideoContentUrl,subjectId);
+
+  Future<FreeVideoPlayListModel?> getfreeVideoPlayList(BuildContext context,String playlistId) async {
+    ApiResponse apiResponse = await freeVideosRepo.freeVideosPlayList(playlistId);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      _freeVideoContentListModel = FreeVideoContentModel.fromJson(json.decode(apiResponse.response.toString()));
-      return _freeVideoContentListModel;
+      _freeVideoPlayListModel = FreeVideoPlayListModel.fromJson(json.decode(apiResponse.response.toString()));
+      return _freeVideoPlayListModel;
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
-      AppConstants.goAndReplace(context, ErrorScreen());
+      //AppConstants.goAndReplace(context, ErrorScreen());
     }
     notifyListeners();
   }

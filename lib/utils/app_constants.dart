@@ -34,6 +34,7 @@ class AppConstants {
   static String filePath    = 'storage/emulated/0/Download/Exampur';
   static String downloadMag = 'Download has been started. View your file in the download section of your phone or on the app in the "Download" section. Touch outside to close the pop-up. Your file is getting downloaded in the background.';
   static String BANNER_BASE = '';
+  static String YOUTUBE_IMG = 'https://img.youtube.com/vi/VIDEO_ID/mqdefault.jpg';
 
   static String defaultCountry = 'India';
 

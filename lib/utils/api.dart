@@ -214,8 +214,8 @@ class API {
 
   //free Videos
   static String freeVideotabUrl        = WEB_BASE_URL + 'free-videos-channel-category/';
-  static String freeVideoListUrl    = WEB_BASE_URL + 'free-videos-subject/' + 'SUBJECT_ID';
-  static String freeVideoContentUrl = WEB_BASE_URL + 'free-videos-content/' + 'SUBJECT_ID';
+  static String freeVideoListUrl    = WEB_BASE_URL + 'free-videos-playlist/'+ 'CHANNELID' +'/';
+  static String freeVideoPlaylistUrl = WEB_BASE_URL + 'playlist-videos/' + 'PLAYLISTID' + '/';
 
 
   //testSeriesWebUrl

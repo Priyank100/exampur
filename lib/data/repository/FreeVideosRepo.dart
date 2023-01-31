@@ -16,10 +16,21 @@ class FreeVideosRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-  Future<ApiResponse> freeVideosList(String url,String subjectId) async {
+  Future<ApiResponse> freeVideosList(String channelId) async {
     try {
-      String urls = url.replaceAll('SUBJECT_ID', subjectId);
+      String urls = API.freeVideoListUrl.replaceAll('CHANNELID', channelId);
       final response = await dioClient.get(urls);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  Future<ApiResponse> freeVideosPlayList(String playlistId) async {
+    try {
+      String urls = API.freeVideoPlaylistUrl.replaceAll('PLAYLISTID', playlistId);
+      final response = await dioClient.get(urls);
+      print(">>>>>>>>>>>"+response.toString());
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

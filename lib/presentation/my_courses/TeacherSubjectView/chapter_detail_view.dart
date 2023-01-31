@@ -312,6 +312,8 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   Widget WatchVideoButton(List<MaterialData> materialList, index) {
     return InkWell(
       onTap: () {
+        print('>>>>>>>>>>>>');
+        print(materialList[index].videoLink.toString());
         var map = {
           'Page_Name':'My_Courses_Recorded',
           'Mobile_Number':AppConstants.userMobile,
@@ -329,6 +331,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
         // print(materialList[index].title);
         AppConstants.timlineId =materialList[index].timeline!.id.toString() ;
         AppConstants.timlineName =materialList[index].timeline!.title.toString() ;
+
         materialList[index].timeline == null || materialList[index].timeline!.apexLink == null ?
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
                   MyMaterialVideo(materialList[index].videoLink.toString(), materialList[index].title.toString(), '',materialList[index].id.toString(),isTimlineRequired,videoQuallity: 'normal',))

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ToggleButton extends StatefulWidget {
-  final VoidCallback? onPressedChat;
-  final VoidCallback? onPressedPlaylist;
-  ToggleButton({this.onPressedChat,this.onPressedPlaylist});
+  final bool tab;
+  Function functionChat;
+  Function functionPlaylist;
+  ToggleButton(this.tab,this.functionChat, this.functionPlaylist);
   @override
   _ToggleButtonState createState() => _ToggleButtonState();
 }
@@ -26,6 +27,11 @@ class _ToggleButtonState extends State<ToggleButton> {
     xAlign = loginAlign;
     loginColor = selectedColor;
     signInColor = normalColor;
+    if(widget.tab) {
+      xAlign = signInAlign;
+      signInColor = selectedColor;
+      loginColor = normalColor;
+    }
   }
 
   @override
@@ -39,6 +45,7 @@ class _ToggleButtonState extends State<ToggleButton> {
             borderRadius: BorderRadius.all(
               Radius.circular(10.0),
             ),
+              border: Border.all(color: Colors.grey)
           ),
           child: Stack(
             children: [
@@ -53,17 +60,18 @@ class _ToggleButtonState extends State<ToggleButton> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(10.0),
                     ),
+                      border: Border.all(color: Colors.grey)
                   ),
                 ),
               ),
               GestureDetector(
                 onTap: () {
+                  this.widget.functionChat();
                   setState(() {
                     xAlign = loginAlign;
                     loginColor = selectedColor;
                     signInColor = normalColor;
                   });
-                  widget.onPressedChat;
                 },
                 // onTap: widget.onPressedChat,
                 child: Align(
@@ -73,7 +81,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                     color: Colors.transparent,
                     alignment: Alignment.center,
                     child: Text(
-                      'Chat',
+                      'Paid Course',
                       style: TextStyle(
                         color: loginColor,
                         fontSize: 18,
@@ -85,12 +93,12 @@ class _ToggleButtonState extends State<ToggleButton> {
               ),
               GestureDetector(
                 onTap: () {
+                  this.widget.functionPlaylist();
                   setState(() {
                     xAlign = signInAlign;
                     signInColor = selectedColor;
                     loginColor = normalColor;
                   });
-                  widget.onPressedPlaylist;
                 },
               //  onTap: widget.onPressedPlaylist,
                 child: Align(

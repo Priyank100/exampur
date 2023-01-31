@@ -648,9 +648,9 @@ class _HomeState extends State<Home> {
                   //   },
                   // ),
                   SquareButton(
-                    image: Images.current_affair,
+                    image: Images.FreevodImg,
                     title: 'Free Videos',
-                    color: AppColors.paidCourses,
+                    color: AppColors.grey500,
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideosTab()));
                     },

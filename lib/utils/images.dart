@@ -47,5 +47,6 @@ class Images {
   static const String newImg = 'assets/images/new.png';
   static const String offerImg = 'assets/images/offer.png';
   static const String vodImg = 'assets/images/vod.png';
+  static const String FreevodImg = 'assets/images/freevideos.png';
 
 }
