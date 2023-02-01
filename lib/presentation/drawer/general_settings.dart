@@ -21,7 +21,6 @@ class GeneralSettings extends StatefulWidget {
 class _GeneralSettingsState extends State<GeneralSettings> {
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
   String userName = '';
-  String Name ='';
   String Email='';
   String Mobile='';
   String City='';
@@ -45,7 +44,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
     Email = jsonValue[0]['data']['email_id'].toString();
-    Name = jsonValue[0]['data']['first_name'].toString();
     lastname = jsonValue[0]['data']['last_name'].toString();
     City = jsonValue[0]['data']['city'].toString();
     State = jsonValue[0]['data']['state'].toString();
@@ -94,7 +92,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 children: [
                   Text(getTranslated(context, LangString.name)!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
-                  CustomTextField(hintText:'${_nameController.text}', value: (value) {},readOnly: true),
+                  CustomTextField(hintText:'${userName}', value: (value) {},readOnly: true),
                   SizedBox(height: 10,),
                   Text(getTranslated(context,LangString.phoneNumber )!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
@@ -102,7 +100,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                   SizedBox(height: 10,),
                   Text(getTranslated(context, LangString.email)!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
-                  CustomTextField(hintText: '${_emailController.text}', value: (value) {},readOnly: true),
+                  CustomTextField(hintText: '${Email}', value: (value) {},readOnly: true),
                   SizedBox(height: 10,),
                   Text(getTranslated(context, LangString.userName)!,style: TextStyle(color: AppColors.black)),
                   SizedBox(height: 8,),

@@ -120,8 +120,8 @@ class Timeline {
     title: json["title"],
     logoPath: json["logo_path"],
     timelineStatus: json["timelineStatus"],
-    apexLink: ApexLink.fromJson(json["apex_link"]),
-    liveStreamStatus: json["liveStreamStatus"],
+      apexLink: json["apex_link"] == null ? null : ApexLink.fromJson(json["apex_link"]),
+      liveStreamStatus: json["liveStreamStatus"],
     recordingProps:  json["recordingProps"] == null ? null : RecordingProps.fromJson(json["recordingProps"])
     // RecordingProps.fromJson(json["recordingProps"]),
   );
