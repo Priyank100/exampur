@@ -97,6 +97,7 @@ class AppConstants {
   static String currentindex = '';
   static int mycourseType = 0;
   static String routeName = '';
+  static String videoId = '';
   static int teacherRatingType = 0;
   // static List<String> selectedCategoryName = [];
 

@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../SharePref/shared_pref.dart';
+import '../../utils/appBar.dart';
 
 class Help extends StatefulWidget {
   const Help({Key? key}) : super(key: key);
@@ -106,12 +107,12 @@ class HelpState extends State<Help> {
   }
 
   void sendMail(){
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     // appBar: CustomAppBar(),
+     appBar: CustomAppBar(),
       body: Form(
         key: _formKeySignUp,
         child: SingleChildScrollView(

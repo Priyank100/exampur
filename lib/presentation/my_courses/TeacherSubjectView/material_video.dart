@@ -52,6 +52,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
   String? versionCode;
   int counter = 0;
   int temp = 0;
+  bool teacherRating = false;
 
 
   Future<void> getUserData() async {
@@ -59,6 +60,9 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     userName = jsonValue[0]['data']['first_name'].toString();
     userMobile = jsonValue[0]['data']['phone'].toString();
     userEmail = jsonValue[0]['data']['email_id'].toString();
+
+    teacherRating = await SharedPref.getSharedPref(widget.vid) == 'null' ? false : true;
+
     setState(() {});
   }
 
@@ -302,8 +306,9 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
               ),
             ),
             SizedBox(height: 10,),
-            InkWell(
-              onTap: (){
+            teacherRating ? SizedBox() : InkWell(
+              onTap: () async {
+                AppConstants.videoId = widget.vid;
                 AppConstants.teacherRatingType = 1;
                 var map = {
                   'Page_Name':'Recorded_Video',
@@ -315,7 +320,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
                 };
                 AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_class_feedback, map);
                 _playerController!.pause();
-                RateTeacherBottom.rateTeacherBottomSheet(context,);
+                RateTeacherBottom.rateTeacherBottomSheet(context, this.refresh);
               },
               child: Center(
                 child: Container(height: 45,
@@ -485,5 +490,10 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
         AppConstants.printLog('video-downloading-click');
       });
     }
+  }
+
+  Future<void> refresh() async {
+    teacherRating = await SharedPref.getSharedPref(widget.vid) == 'null' ? false : true;
+    setState((){});
   }
 }

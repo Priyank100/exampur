@@ -8,7 +8,6 @@ import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,7 +41,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 
   Future<void> getSharedPrefData() async {
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
-    // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
@@ -55,9 +53,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     _nameController.text = userName;
     _emailController.text = Email;
     _cityController.text = City;
-    setState(() {
-
-    });
+    getStateList();
   }
 
   Future<String> loadJsonFromAssets() async {
@@ -69,6 +65,12 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     final StateResponse = stateJsonFromJson(jsonString);
     stateList = StateResponse.states!;
     selectedState = stateList[0].name.toString();
+
+    for(int i=0; i<stateList.length; i++) {
+      if(stateList[i].name.toString().toLowerCase() == State.toLowerCase()) {
+        selectedState = stateList[i].name.toString();
+      }
+    }
     setState(() {});
   }
 
@@ -76,7 +78,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   void initState()  {
     super.initState();
     getSharedPrefData();
-    getStateList();
   }
 
   @override
@@ -93,7 +94,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 children: [
                   Text(getTranslated(context, LangString.name)!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
-                  CustomTextField(hintText:'${Name}', value: (value) {},controller: _nameController,),
+                  CustomTextField(hintText:'${_nameController.text}', value: (value) {},readOnly: true),
                   SizedBox(height: 10,),
                   Text(getTranslated(context,LangString.phoneNumber )!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
@@ -101,7 +102,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                   SizedBox(height: 10,),
                   Text(getTranslated(context, LangString.email)!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
-                  CustomTextField(hintText: '${Email}', value: (value) {},controller: _emailController,),
+                  CustomTextField(hintText: '${_emailController.text}', value: (value) {},readOnly: true),
                   SizedBox(height: 10,),
                   Text(getTranslated(context, LangString.userName)!,style: TextStyle(color: AppColors.black)),
                   SizedBox(height: 8,),
@@ -173,16 +174,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             ),
           ),
     );
-  }
-
-  String selState() {
-    String selState = '';
-    for(int i=0; i<stateList.length; i++) {
-      if(stateList[i].toString().toLowerCase() == State.toLowerCase()) {
-        selState = stateList[i].name.toString();
-      }
-    }
-    return selState;
   }
 
   bool checkValidation(_firstName, _email, _city) {

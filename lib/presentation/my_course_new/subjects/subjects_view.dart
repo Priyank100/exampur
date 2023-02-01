@@ -12,7 +12,6 @@ import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/refreshwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../utils/delivery_detail_screen_param.dart';
 
 class SubjectsView extends StatefulWidget {

@@ -9,7 +9,7 @@ import '../../utils/analytics_constants.dart';
 import '../../utils/app_constants.dart';
 
 class RateTeacherBottom{
-  static void rateTeacherBottomSheet(context) {
+  static void rateTeacherBottomSheet(context, Function refresh) {
     IconData? _selectedIcon;
     showModalBottomSheet(
         isScrollControlled: true,
@@ -65,7 +65,7 @@ class RateTeacherBottom{
                 "rating count":rating.toString()
               };
               AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_rating_count, map);
-              RateTeacheFullrBottom.rateTeacherFullBottomSheet(context,rating);
+              RateTeacheFullrBottom.rateTeacherFullBottomSheet(context,rating, refresh);
             },
           ),
           SizedBox(height: 10,),

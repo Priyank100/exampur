@@ -5,6 +5,7 @@ import 'package:exampur_mobile/data/model/ChooseCategoryModel.dart';
 import 'package:exampur_mobile/data/model/response/home_banner_model.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/presentation/AppTutorial/app_tutorial.dart';
+import 'package:exampur_mobile/presentation/MoengageCard/card_inbox.dart';
 import 'package:exampur_mobile/presentation/authentication/otp_screen.dart';
 import 'package:exampur_mobile/presentation/authentication/terms_condition.dart';
 import 'package:exampur_mobile/presentation/demo/demo.dart';
@@ -69,7 +70,8 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
     Demo(),
     MyCourses(),
     Downloads(0),
-    Help()
+    CardInbox()
+    // Help()
   ];
 
   @override
@@ -193,17 +195,28 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                   height: 30,
                   width: 25,
                 )),
+      // ItemClass(
+      //     4,
+      //     getTranslated(context, LangString.help)!,
+      //     _currIndex == 4
+      //         ? Image.asset(Images.help,
+      //             height: 30, width: 25, color: AppColors.amber)
+      //         : Image.asset(
+      //             Images.help,
+      //             height: 30,
+      //             width: 25,
+      //           )),
       ItemClass(
           4,
-          getTranslated(context, LangString.help)!,
+          getTranslated(context, LangString.email)!,
           _currIndex == 4
-              ? Image.asset(Images.help,
-                  height: 30, width: 25, color: AppColors.amber)
+              ? Image.asset(Images.mail,
+              height: 30, width: 25, color: AppColors.amber)
               : Image.asset(
-                  Images.help,
-                  height: 30,
-                  width: 25,
-                )),
+            Images.mail,
+            height: 30,
+            width: 25
+          )),
     ];
 
     return WillPopScope(
@@ -274,6 +287,21 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
               ),
             ),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap:(){
+                  AppConstants.goTo(context, Help());
+                },
+                child: Image.asset(
+                    Images.help,
+                    height: 30,
+                    width: 25
+                )
+              ),
+            )
+          ],
         ),
         drawer: Drawer(
           elevation: 0,
