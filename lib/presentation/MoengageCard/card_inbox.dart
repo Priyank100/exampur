@@ -11,7 +11,7 @@ class CardInbox extends StatefulWidget {
 }
 
 class _CardInboxState extends State<CardInbox> {
-  MoEngageInbox moEngageInbox = MoEngageInbox();//UAIIRLJXLAVMA3I6TOFYHV8P-key
+  MoEngageInbox moEngageInbox = MoEngageInbox(); //UAIIRLJXLAVMA3I6TOFYHV8P-key
   InboxData? inboxData;
   bool isLoading = true;
 
@@ -25,6 +25,13 @@ class _CardInboxState extends State<CardInbox> {
     await moEngageInbox.fetchAllMessages().then((value) {
       inboxData = value;
       isLoading = false;
+      // print('>>>>>>>>>>>>');
+      // print(inboxData!.messages.length.toString());
+      // print(inboxData!.messages[0].campaignId);
+      // print(inboxData!.messages[0].expiry);
+      // print(inboxData!.messages[0].action.length);
+      // print(inboxData!.messages[0].action[0].actionType.name);
+      // print(encodedData);
       setState((){});
     });
   }
@@ -53,14 +60,6 @@ class _CardInboxState extends State<CardInbox> {
                             inboxData!.messages[index].media!.url.toString(),
                             boxfit: BoxFit.fill
                         )
-
-                      // child: Image.network(
-                      //   inboxData!.messages[index].media!.url.toString(),
-                      //   fit: BoxFit.fill,
-                      //   errorBuilder: (context, exception, stackTrace) {
-                      //     return Image.asset(Images.no_image);
-                      //   },
-                      // ),
                     ),
                   ),
                   Expanded(

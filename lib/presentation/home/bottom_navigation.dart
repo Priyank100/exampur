@@ -35,8 +35,10 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:exampur_mobile/presentation/home/home.dart';
+import 'package:moengage_inbox/moengage_inbox.dart';
 import 'package:provider/provider.dart';
 import '../../main.dart';
+import '../../shared/badge_icon.dart';
 
 class ItemClass {
   const ItemClass(this.index, this.label, this.icon);
@@ -208,14 +210,15 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
       //           )),
       ItemClass(
           4,
-          getTranslated(context, LangString.email)!,
+          getTranslated(context, LangString.offer)!,
           _currIndex == 4
-              ? Image.asset(Images.mail,
-              height: 30, width: 25, color: AppColors.amber)
+              ? Image.asset(Images.offerZone,
+              height: 35, width: 30, color: AppColors.amber)
               : Image.asset(
-            Images.mail,
-            height: 30,
-            width: 25
+              Images.offerZone,
+              height: 35,
+              width: 30,
+              color: AppColors.grey
           )),
     ];
 
@@ -865,7 +868,13 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
           selectedFontSize: 12,
           items: allItems.map((item) {
             return BottomNavigationBarItem(
-              icon: item.icon,
+              icon:
+              item.index == 4 ?
+              BadgeIcon(
+                icon: item.icon,
+                badgeCount: 1,
+              ) :
+              item.icon,
               label: item.label,
             );
           }).toList(),
