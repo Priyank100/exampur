@@ -869,11 +869,11 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
           items: allItems.map((item) {
             return BottomNavigationBarItem(
               icon:
-              item.index == 4 ?
-              BadgeIcon(
-                icon: item.icon,
-                badgeCount: 1,
-              ) :
+              // item.index == 4 ?
+              // BadgeIcon(
+              //   icon: item.icon,
+              //   badgeCount: 1,
+              // ) :
               item.icon,
               label: item.label,
             );
