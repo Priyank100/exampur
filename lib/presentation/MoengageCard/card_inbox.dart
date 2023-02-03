@@ -94,7 +94,7 @@ class _CardInboxState extends State<CardInbox> {
     );
   }
 
-  void bookNowPressed(int index) {
+  void bookNowPressed(int index,) {
   }
 }
 
