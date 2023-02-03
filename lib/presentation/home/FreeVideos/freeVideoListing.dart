@@ -52,7 +52,7 @@ class _FreeVideoListingState extends State<FreeVideoListing> {
   Widget chapterButton(index) {
     return InkWell(
       onTap: (){
-        AppConstants.goTo(context, FreeVideoDetail(false, freeVideoListModel!.channelplaylist![index].id.toString(),'',freeVideoListModel!.name.toString(),freeVideoListModel!.channelplaylist![index].courseId.toString()));
+        AppConstants.goTo(context, FreeVideoDetail(false, freeVideoListModel!.channelplaylist![index].id.toString(),freeVideoListModel!.channelplaylist![index].bannerLink.toString(),freeVideoListModel!.name.toString(),freeVideoListModel!.channelplaylist![index].courseId.toString()));
       },
       child: Container(
           margin: EdgeInsets.all(10),
@@ -80,7 +80,7 @@ class _FreeVideoListingState extends State<FreeVideoListing> {
                 width: 170,
                 height: 110,
                 // child: Image.network(API.homeBanner_URL + widget.listData.imagePath.toString(), fit: BoxFit.fill)
-                child: AppConstants.image(AppConstants.YOUTUBE_IMG.replaceAll('', ''), boxfit: BoxFit.fill)
+                child: AppConstants.image(AppConstants.YOUTUBE_IMG.replaceAll('VIDEO_ID',freeVideoListModel!.channelplaylist![index].bannerLink.toString()), boxfit: BoxFit.fill)
             ),
             SizedBox(width: 10,),
            Flexible(child: Column(

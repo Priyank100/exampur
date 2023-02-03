@@ -45,6 +45,7 @@ class FreeVideoProvider extends ChangeNotifier {
   Future<FreeVideoListModel?> getfreeVideoList(BuildContext context,String channelId) async {
     ApiResponse apiResponse = await freeVideosRepo.freeVideosList(channelId);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      print(apiResponse.response);
       _freeVideoListModel = FreeVideoListModel.fromJson(json.decode(apiResponse.response.toString()));
       return _freeVideoListModel;
     } else {

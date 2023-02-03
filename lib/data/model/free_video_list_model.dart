@@ -47,6 +47,7 @@ class ChannelPlaylist {
      this.slug,
      this.order,
      this.courseId,
+     this.bannerLink,
      this.created,
      this.updated,
   });
@@ -56,6 +57,7 @@ class ChannelPlaylist {
   String? slug;
   int? order;
   String? courseId;
+  String? bannerLink;
   DateTime? created;
   DateTime? updated;
 
@@ -65,6 +67,7 @@ class ChannelPlaylist {
     slug: json["slug"],
     order: json["order"],
     courseId: json["course_id"],
+    bannerLink: json["embdeed_banner"],
     created: DateTime.parse(json["created"]),
     updated: DateTime.parse(json["updated"]),
   );
@@ -75,6 +78,7 @@ class ChannelPlaylist {
     "slug": slug,
     "order": order,
     "course_id": courseId,
+    "embdeed_banner": bannerLink,
     "created": created!.toIso8601String(),
     "updated": updated!.toIso8601String(),
   };

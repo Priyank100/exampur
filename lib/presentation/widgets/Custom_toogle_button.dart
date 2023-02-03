@@ -9,7 +9,7 @@ class ToggleButton extends StatefulWidget {
   _ToggleButtonState createState() => _ToggleButtonState();
 }
 
-const double width = 300.0;
+const double width = 270.0;
 const double height = 60.0;
 const double loginAlign = -1;
 const double signInAlign = 1;

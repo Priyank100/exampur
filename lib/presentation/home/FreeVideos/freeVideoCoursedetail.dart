@@ -209,10 +209,11 @@ class _FreeVideoDetailState extends State<FreeVideoDetail> {
       child: ListView.builder(
           shrinkWrap: true,
           physics: BouncingScrollPhysics(),
-          itemCount: freeVideoPlayListModel!.videos!.length,
+         itemCount: freeVideoPlayListModel!.videos!.length,
           itemBuilder: (context, index){
         return InkWell(
           onTap: (){
+            _controller.pause();
             // print('>>>>>>>>>>>>>>>>');
             // videoId = freeVideoPlayListModel!.videos![index].videoUrl.toString();
             // print(videoId);
@@ -252,7 +253,7 @@ class _FreeVideoDetailState extends State<FreeVideoDetail> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(freeVideoPlayListModel!.videos![index].title.toString(),style: TextStyle(fontSize: 18),),
+                  Text(freeVideoPlayListModel!.videos![index].title.toString(),style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
                   SizedBox(height: 30,),
                   Text(freeVideoPlayListModel!.name.toString()),
                   SizedBox(height: 10,)
@@ -271,20 +272,36 @@ class _FreeVideoDetailState extends State<FreeVideoDetail> {
       alignment: Alignment.center,
       padding: EdgeInsets.only(bottom: 100),
      // color: Colors.red,
-      child:  InkWell(
-        onTap: (){
-          checkOutPageApi(context,widget.courseId);
-        },
-        child: Container(
-          height: 50,
-            width: 200,
-            decoration: BoxDecoration(
-              color: Colors.amber,
-              borderRadius: BorderRadius.circular(8)
+      child: Container(
+          height: 270,
+          color: Colors.white,
+          child: Column(children: [
+            Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white
+                ),
+                // child: Image.network(API.homeBanner_URL + widget.listData.imagePath.toString(), fit: BoxFit.fill)
+                child: AppConstants.image(AppConstants.YOUTUBE_IMG.replaceAll('VIDEO_ID', widget.videoId), boxfit: BoxFit.fill)
             ),
-                      alignment: Alignment.center,
-                      child: Text('Buy Now',style: TextStyle(color: Colors.white),)),
-      ),
+            InkWell(
+              onTap: (){
+                _controller.pause();
+                checkOutPageApi(context,widget.courseId);
+              },
+              child: Container(
+                  height: 50,
+                  width: 200,
+                  margin: EdgeInsets.only(top: 20),
+                  decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(8)
+                  ),
+                  alignment: Alignment.center,
+                  child: Text('Buy Now',style: TextStyle(color: Colors.white),)),
+            ),
+          ],),
+        )
     );
   }
 
