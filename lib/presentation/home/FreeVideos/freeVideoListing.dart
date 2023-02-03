@@ -9,88 +9,92 @@ import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/model/free_video_list_model.dart';
+import '../../../utils/dimensions.dart';
+import 'freeVideoCoursedetail.dart';
+
 class FreeVideoListing extends StatefulWidget {
-  FreeVideoListing() : super();
+  String ChannelId;
+  FreeVideoListing(this.ChannelId) : super();
 
   @override
   State<FreeVideoListing> createState() => _FreeVideoListingState();
 }
 
 class _FreeVideoListingState extends State<FreeVideoListing> {
-  FreeVideoContentModel? freeVideoContentModel;
+
+  FreeVideoListModel ? freeVideoListModel;
   bool isLoading = true;
+
+
+  Future<void> getFreeCourseList() async {
+    freeVideoListModel = (await Provider.of<FreeVideoProvider>(context, listen: false).getfreeVideoList(context,widget.ChannelId))!;
+    isLoading = false;
+    setState((){});
+  }
 
   @override
   void initState() {
-    getNotificationList();
+    // TODO: implement initState
     super.initState();
-  }
-
-  Future<void> getNotificationList() async {
-    isLoading = true;
-    freeVideoContentModel = (await Provider.of<FreeVideoProvider>(context, listen: false).getfreeVideoContentList(context,'2'))!;
-    isLoading = false;
-    setState(() {});
+    getFreeCourseList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ? Center(child: CircularProgressIndicator(color: AppColors.amber)) :
-        freeVideoContentModel == null || freeVideoContentModel!.chapter!.length == 0 ?
-      AppConstants.noDataFound() :
-        ListView.builder(
-            itemCount: freeVideoContentModel!.chapter!.length,
+    return isLoading ? Center(child: CircularProgressIndicator(),): freeVideoListModel!.channelplaylist!.length==0 ? AppConstants.noDataFound() :ListView.builder(
+            itemCount: freeVideoListModel!.channelplaylist!.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return chapterButton(index);
             });
   }
   Widget chapterButton(index) {
-    return Container(
-        margin: EdgeInsets.all(8),
-        padding: EdgeInsets.all(8),
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          borderRadius:
-          BorderRadius.all(Radius.circular(12)),
-          boxShadow: const [
-            BoxShadow(
-              color: AppColors.grey,
-              offset: Offset(0.0, 0.0),
-              blurRadius: 1.0,
-              spreadRadius: 0.0,
-            ),
-          ],
-          color: AppColors.white,
-        ),
-        child:ListTile(
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(freeVideoContentModel!.chapter![index].name.toString()),
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:  [
-                  for(var i =0;i<freeVideoContentModel!.chapter![index].videoContent!.length;i++)
-                    CustomAmberButton(onPressed: (){
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => YoutubeVideo(freeVideoContentModel!.chapter![index].videoContent![i].videoUrl.toString(),
-                                  freeVideoContentModel!.chapter![index].videoContent![i].title.toString())));
-                    },
-                      text:getTranslated(context, LangString.watch)!,),
-
-                  // CustomRoundButton(onPressed: (){},
-                  //     text:getTranslated(context, LangString.viewPdf)!),
-                  //   CustomSmallerElevatedButton(
-                  //     onPressed: (){},color: AppColors.green,text: 'Give Test',
-                  //   )
-                ],)
+    return InkWell(
+      onTap: (){
+        AppConstants.goTo(context, FreeVideoDetail(false, freeVideoListModel!.channelplaylist![index].id.toString(),freeVideoListModel!.channelplaylist![index].bannerLink.toString(),freeVideoListModel!.name.toString(),freeVideoListModel!.channelplaylist![index].courseId.toString()));
+      },
+      child: Container(
+          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.all(8),
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius:
+            BorderRadius.all(Radius.circular(12)),
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.grey,
+                offset: Offset(0.0, 0.0),
+                blurRadius: 1.0,
+                spreadRadius: 0.0,
+              ),
             ],
+            color: AppColors.white,
           ),
-        )
+          child:Row(children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white
+              ),
+                width: 170,
+                height: 110,
+                // child: Image.network(API.homeBanner_URL + widget.listData.imagePath.toString(), fit: BoxFit.fill)
+                child: AppConstants.image(AppConstants.YOUTUBE_IMG.replaceAll('VIDEO_ID',freeVideoListModel!.channelplaylist![index].bannerLink.toString()), boxfit: BoxFit.fill)
+            ),
+            SizedBox(width: 10,),
+           Flexible(child: Column(
+               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              Text(freeVideoListModel!.channelplaylist![index].name.toString(),style: TextStyle(fontSize: 18),),
+              SizedBox(height: 45,),
+              Text(freeVideoListModel!.name.toString(),style: TextStyle(color: Colors.amber,fontFamily: 'Noto Sans'),),
+                SizedBox(height: 5,)
+            ],))
+          ],)
+      ),
     );
   }
 }

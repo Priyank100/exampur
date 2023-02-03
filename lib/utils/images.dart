@@ -49,5 +49,6 @@ class Images {
   static const String vodImg = 'assets/images/vod.png';
   static const String mail = 'assets/images/mail.png';
   static const String offerZone = 'assets/images/offer_zone.png';
+  static const String FreevodImg = 'assets/images/freevideos.png';
 
 }
