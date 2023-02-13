@@ -36,6 +36,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
   Map<String, dynamic> map = Map();
   FlickManager? flickManager;
   late VideoPlayerController _videoPlayerController;
+  bool teacherRating = false;
 
   Future<void> getSharedPrefData() async {
     var jsonValue = jsonDecode(
@@ -45,6 +46,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
     userPhone = jsonValue[0]['data']['phone'].toString();
     // markAttendance();
     FirestoreDB.markAttendance(widget.videoId, userName, userPhone);
+    teacherRating = await SharedPref.getSharedPref(widget.videoId) == 'null' ? false : true;
     setState(() {});
   }
 
@@ -115,8 +117,9 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(getTranslated(context, LangString.LiveChat)!,style: TextStyle(fontSize: 18)),
-                  InkWell(
+                  teacherRating ? SizedBox() : InkWell(
                     onTap: (){
+                      AppConstants.videoId = widget.videoId;
                       AppConstants.teacherRatingType = 0;
                       var map = {
                         'Page_Name':'Recorded_Video',
@@ -127,7 +130,7 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                         "class type":"live"
                       };
                       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_class_feedback, map);
-                     RateTeacherBottom.rateTeacherBottomSheet(context);
+                     RateTeacherBottom.rateTeacherBottomSheet(context, this.refresh);
                     },
                     child: Container
                       (
@@ -192,12 +195,12 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
           color: AppColors.transparent,
           child:  Row(
             children: [
-              Expanded(child: CustomTextField(
+              Expanded(
+                child: CustomTextField(
                   hintText: getTranslated(context, LangString.TypeYourDoubtHere)!,
                   controller: _sendchat,
                   value: (value) {}),
               ),
-
               InkWell(
                 onTap: () {
                   FocusScope.of(context).unfocus();
@@ -215,14 +218,13 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
                     margin: EdgeInsets.all(8),
                     height: 45,
                     width: 90,
-                    decoration: BoxDecoration(color: AppColors.amber,borderRadius:  BorderRadius.all(const Radius.circular(8)),),
-
-                    child: Center(child: Text(getTranslated(context, LangString.Send)!,style: TextStyle(color: AppColors.white),))
+                    decoration: BoxDecoration(color: AppColors.amber,borderRadius:  BorderRadius.all(const Radius.circular(8))),
+                    child: Center(child: Text(getTranslated(context, LangString.Send)!,style: TextStyle(color: AppColors.white)))
                 ),
               )
-
             ],
-          ),)
+          ),
+        )
     );
   }
 
@@ -245,9 +247,13 @@ class _MyTimeTableViedoState extends State<MyTimeTableViedo> {
       'Total_Watch_Time':_videoPlayerController.value.position.inSeconds,
       'Course_Type':AppConstants.mycourseType == 0 ? 'Paid_Course' : 'Free_Course'
     };
-    // print(map);
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Stop_Live_Video,map);
     super.dispose();
+  }
+
+  Future<void> refresh() async {
+    teacherRating = await SharedPref.getSharedPref(widget.videoId) == 'null' ? false : true;
+    setState((){});
   }
 }
 

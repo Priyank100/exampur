@@ -26,6 +26,7 @@
 
   "offline_batches": "ऑफ़लाइन बैच",
   "order_date": "आर्डर की तारीख",
+  "offer": "ऑफर",
 
   "daily_quiz": "दैनिक प्रश्नोत्तरी",
   "downloads": "डाउनलोड",
@@ -267,5 +268,6 @@
 
 "offile_Course": "ऑफलाइन (कक्षा) पाठ्यक्रम",
 
-  "your_rating_help_us_improve": "आपके Rating पर हम  Action लेंगे"
+  "your_rating_help_us_improve": "आपके Rating पर हम  Action लेंगे",
+  "youTube_playlist": "यूट्यूब प्लेलिस्ट"
 }

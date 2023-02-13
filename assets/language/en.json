@@ -167,6 +167,7 @@
   "offline_batches": "Offline Batches",
   "order_date": "Order Date",
   "offile_Course": "Offline (Classroom) Course",
+  "offer": "Offer",
 
 
 
@@ -251,6 +252,7 @@
   "qualification": "Qualification",
   "quizz": "Quiz",
 
-  "your_rating_help_us_improve": "Your rating help us improve"
+  "your_rating_help_us_improve": "Your rating help us improve",
+  "youTube_playlist": "YouTube \n playlist"
 
 }

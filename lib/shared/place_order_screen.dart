@@ -292,6 +292,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: (){
+                        AnalyticsConstants.moengagePlugin.setUserAttribute('Coupon_Book',widget.books.title);
                         FocusScope.of(context).unfocus();
                         String cuponCode = _cuponCodeController.text.toUpperCase();
                        String id = widget.books.id.toString();

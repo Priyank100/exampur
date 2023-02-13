@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:exampur_mobile/Localization/language_constrants.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -10,7 +11,7 @@ import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 
 class RateTeacheFullrBottom{
-  static void rateTeacherFullBottomSheet(context,double val) {
+  static void rateTeacherFullBottomSheet(context,double val, Function refresh) {
     final ScrollController _controller = ScrollController();
     TextEditingController messageController = TextEditingController();
     IconData? _selectedIcon;
@@ -125,7 +126,7 @@ class RateTeacheFullrBottom{
                           },
                         ),
                         SizedBox(height: 10,),
-                        Text( val <= 3 ?getTranslated(context, LangString.poor)!:getTranslated(context, LangString.excellent)!,style: TextStyle(color: Colors.red,fontSize: 20),),
+                        Text( val <= 4 ?getTranslated(context, LangString.poor)!:getTranslated(context, LangString.excellent)!,style: TextStyle(color: Colors.red,fontSize: 20),),
                         Container(
                           height: MediaQuery.of(context).size.height/1.3,
                           color: Colors.grey.shade100,
@@ -134,7 +135,7 @@ class RateTeacheFullrBottom{
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(height: 10,),
-                              Text(val <= 3 ?getTranslated(context, LangString.WhatWentBad)!:getTranslated(context, LangString.WhatWentGood)!,style: TextStyle(fontSize: 20),),
+                              Text(val <= 4 ?getTranslated(context, LangString.WhatWentBad)!:getTranslated(context, LangString.WhatWentGood)!,style: TextStyle(fontSize: 20),),
                               SizedBox(height: 10,),
                               Container(
                                 height: 300,
@@ -306,7 +307,7 @@ class RateTeacheFullrBottom{
                                       "Content-Type": "application/json",
                                       "app-version": AppConstants.versionCode
                                     };
-                                    await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) {
+                                    await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) async {
                                       Navigator.pop(context);
                                       if (response == null) {
                                         AppConstants.showBottomMessage(context,
@@ -318,7 +319,9 @@ class RateTeacheFullrBottom{
                                           AppConstants.showToast(getTranslated(
                                               context,
                                               LangString.ratingTeacher)!);
+                                          await SharedPref.saveSharedPref(AppConstants.videoId, 'true');
                                           Navigator.pop(context);
+                                          refresh();
                                         } else {
                                           AppConstants.showBottomMessage(
                                               context, 'Something went wrong',
@@ -354,6 +357,7 @@ class RateTeacheFullrBottom{
     );
 
   }
+
   static  Widget textData(String title){
     return Container(
       width: 150,

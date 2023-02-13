@@ -25,6 +25,7 @@ import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
+import 'package:exampur_mobile/shared/PopUp/WelcomPopUp.dart';
 import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -43,7 +44,7 @@ import 'package:moengage_flutter/moengage_flutter.dart';
 import '../../main.dart';
 import '../../provider/ConfigProvider.dart';
 import 'BannerBookDetailPage.dart';
-import 'FreeVideos/freeVideo.dart';
+import 'FreeVideos/freeVideotab.dart';
 import 'TestSeries/test_series_tab.dart';
 import 'package:provider/provider.dart';
 
@@ -440,6 +441,7 @@ class _HomeState extends State<Home> {
                       });
                     },
                   ),
+
                 ],
               ),
               SizedBox(
@@ -447,6 +449,7 @@ class _HomeState extends State<Home> {
               ),
               Row(
                 children: [
+
                   SquareButton(
                     image: Images.dailyquiz,
                     title: getTranslated(context, LangString.Quizz),
@@ -500,6 +503,7 @@ class _HomeState extends State<Home> {
               ),
               Row(
                 children: [
+
                   SquareButton(
                     image: Images.jobalert,
                     title: getTranslated(context, 'job_alerts')!,
@@ -520,7 +524,6 @@ class _HomeState extends State<Home> {
                       ));
                     },
                   ),
-
                   SquareButton(
                     image: Images.current_affair,
                     title: getTranslated(context, 'current_affairs')!,
@@ -551,6 +554,7 @@ class _HomeState extends State<Home> {
                               builder: (_) => CurrentAffairsTab()));
                     },
                   ),
+
                   // SquareButton(
                   //   image: Images.caBytes,
                   //   title: getTranslated(context, LangString.CaBytes)!,
@@ -573,6 +577,7 @@ class _HomeState extends State<Home> {
               ),
               Row(
                 children: [
+
                   SquareButton(
                     image: Images.studymaterial,
                     title: getTranslated(context, LangString.PreviousYearPdf),
@@ -618,6 +623,7 @@ class _HomeState extends State<Home> {
               ),
               Row(
                 children: [
+
                   SquareButton(
                     image: Images.live_test,
                     title: getTranslated(context, LangString.liveTest),
@@ -641,18 +647,18 @@ class _HomeState extends State<Home> {
                   ),
                   // SquareButton(
                   //   image: Images.current_affair,
-                  //   title: 'Study Notes',
+                  //   title: 'Question of the day',
                   //   color: AppColors.paidCourses,
                   //   onPressed: () {
-                  //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
+                  //    // Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
                   //   },
                   // ),
                   // SquareButton(
-                  //   image: Images.current_affair,
+                  //   image: Images.FreevodImg,
                   //   title: 'Free Videos',
-                  //   color: AppColors.paidCourses,
+                  //   color: AppColors.blue,
                   //   onPressed: () {
-                  //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideos(API.freeVideoUrl)));
+                  //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeVideosTab()));
                   //   },
                   // ),
                 ],

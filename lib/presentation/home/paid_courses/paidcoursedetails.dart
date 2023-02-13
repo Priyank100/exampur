@@ -41,6 +41,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
   late PlayerState _playerState;
   late YoutubeMetaData _videoMetaData;
 
+
   bool _muted = false;
   bool _isPlayerReady = false;
   String message = '';
@@ -49,8 +50,17 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
   String selectedEmiPlans = '';
 
+  void addListData(){
+    if(AppConstants.titlesave.length <= 10 && !AppConstants.titlesave.contains(widget.courseData.title.toString())){
+      AppConstants.titlesave.add(widget.courseData.title.toString());
+   // print('>>>>>>>>>>>>>>>>>>');
+   // print(AppConstants.titlesave);
+    }
+  }
+
   @override
   void initState() {
+  //  addListData();
     Future.delayed(Duration.zero, () {
       AppConstants.routeName = ModalRoute.of(context)!.settings.name!;
       var map = {
@@ -119,6 +129,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
 
     }
   }
+
 
 
   @override
@@ -237,6 +248,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                             child: InkWell(
                               onTap: () async {
                                 _controller.pause();
+                                AnalyticsConstants.moengagePlugin.setUserAttribute('Demo_Course', widget.courseData.title);
                                 AppConstants.mycourseType = 2;
                                 var analytics = {
                                   'Page_Name':'Course_Details',
@@ -483,6 +495,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                     InkWell(
                       onTap: () {
                         _controller.pause();
+                        AnalyticsConstants.moengagePlugin.setUserAttribute('Buy_Course', widget.courseData.title);
                         // var dispose = {
                         //   'Page_Name':'Course_Details',
                         //   'Course_Name':widget.courseData.title.toString(),

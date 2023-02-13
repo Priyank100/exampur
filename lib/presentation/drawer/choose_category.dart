@@ -15,6 +15,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/analytics_constants.dart';
+
 class ChooseCategoryScreen extends StatefulWidget {
   final List<Data> allCategoryList;
   const ChooseCategoryScreen(this.allCategoryList) : super();
@@ -348,6 +350,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                 myList[j].isSelected = true;
                 selectedCategoryName.add(myList[j].name.toString());
                 AppConstants.selectedCategoryNameList = selectedCategoryName;
+                AnalyticsConstants.moengagePlugin.setUserAttribute('Interested_Category',AppConstants.selectedCategoryNameList.toString());
               }
             }
           }

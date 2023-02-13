@@ -8,7 +8,6 @@ import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 import 'package:exampur_mobile/utils/lang_string.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +21,6 @@ class GeneralSettings extends StatefulWidget {
 class _GeneralSettingsState extends State<GeneralSettings> {
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
   String userName = '';
-  String Name ='';
   String Email='';
   String Mobile='';
   String City='';
@@ -42,12 +40,10 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 
   Future<void> getSharedPrefData() async {
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
-    // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
     Email = jsonValue[0]['data']['email_id'].toString();
-    Name = jsonValue[0]['data']['first_name'].toString();
     lastname = jsonValue[0]['data']['last_name'].toString();
     City = jsonValue[0]['data']['city'].toString();
     State = jsonValue[0]['data']['state'].toString();
@@ -73,7 +69,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
         selectedState = stateList[i].name.toString();
       }
     }
-
     setState(() {});
   }
 
@@ -97,7 +92,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 children: [
                   Text(getTranslated(context, LangString.name)!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),
-                  CustomTextField(hintText:'${Name}', value: (value) {},readOnly: true),
+                  CustomTextField(hintText:'${userName}', value: (value) {},readOnly: true),
                   SizedBox(height: 10,),
                   Text(getTranslated(context,LangString.phoneNumber )!,style: TextStyle(color: AppColors.black,)),
                   SizedBox(height: 8,),

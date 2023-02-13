@@ -156,6 +156,7 @@ class _BooksCardState extends State<BooksCard> {
               widget.books.demoBookUrl.toString().trim().isEmpty ? SizedBox() :
               InkWell(
                 onTap: (){
+                  AnalyticsConstants.moengagePlugin.setUserAttribute('Sample_Book',widget.books.title);
                   var map = {
                     'Page_Name':'Books List',
                     'Mobile_Number':AppConstants.userMobile,
@@ -180,6 +181,7 @@ class _BooksCardState extends State<BooksCard> {
               Expanded(
                   child: InkWell(
                     onTap: (){
+                      AnalyticsConstants.moengagePlugin.setUserAttribute('Buy_Book',widget.books.title);
                       var map = {
                         'Page_Name':'Books List',
                         'Mobile_Number':AppConstants.userMobile,

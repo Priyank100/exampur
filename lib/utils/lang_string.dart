@@ -175,6 +175,7 @@ class LangString {
 
   static String offlineBatches= 'offline_batches';
   static String OrderDate= 'order_date';
+  static String offer = 'offer';
 
   static String jobAlerts= 'job_alerts';
 

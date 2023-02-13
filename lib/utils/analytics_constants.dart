@@ -495,4 +495,13 @@ class AnalyticsConstants {
   static String Click_rating_count= 'Click_rating_count';
   static String Submit_feedback= 'Submit–feedback';
   static String Demo_Book_pdf= 'Demo_Book_pdf';
+  static String click_card_bottom_nav= 'Click_Card_Bottom_Nav';
+  static String click_youtube_bottom_nav= 'Click_Youtube_Bottom_Nav';
+  static String channel_page_landed= 'Channel_Page_Landed';
+  static String Playlist_click= 'Playlist_Click';
+  static String Youtube_video_play= 'Youtube_Video_Play';
+  static String YouTube_course_detail= 'YouTube_Course_Detail';
+  static String YouTube_buy_now= 'YouTube_Buy_Now';
+  static String YouTube_click_paid_course= 'YouTube_Click_Paid_Course';
+  static String view_youtube_pdf= 'view_youtube_pdf';
 }

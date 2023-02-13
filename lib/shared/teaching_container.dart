@@ -260,6 +260,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
                             // // courseIdList.add(widget.courseData.id.toString());
                             // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;
+                      widget.courseType == 1 ? AnalyticsConstants.moengagePlugin.setUserAttribute('View_Course', widget.courseData.title): '';
                             var map = {
                               'Page_Name':'Course_List',
                               'Course_Category':widget.tabName,
@@ -329,6 +330,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                         children: [
                           CustomRoundButton(
                               onPressed: ()async{
+                                AnalyticsConstants.moengagePlugin.setUserAttribute('Buy_Course', widget.courseData.title);
                                 AppConstants.paidTabName = widget.tabName;
                                 await   FirebaseAnalytics.instance.logEvent(name:'Paid_Courdse_Details',parameters: {
                                   'Course_id':widget.courseData.id.toString().replaceAll(' ', '_'),
