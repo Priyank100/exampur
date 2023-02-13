@@ -39,6 +39,7 @@ import 'package:moengage_inbox/moengage_inbox.dart';
 import 'package:provider/provider.dart';
 import '../../main.dart';
 import '../../shared/badge_icon.dart';
+import 'FreeVideos/freeVideotab.dart';
 
 class ItemClass {
   const ItemClass(this.index, this.label, this.icon);
@@ -69,8 +70,10 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
 
   final List<Widget> widgetList = [
     Home([]),
-    Demo(),
+    // Demo(),
+    FreeVideosTab(),
     MyCourses(),
+   // FreeVideosTab(),
     Downloads(0),
     CardInbox()
     // Help()
@@ -119,6 +122,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
             allCategoriesList[j].isSelected = true;
             selectedCategoryName.add(allCategoriesList[j].name.toString());
             AppConstants.selectedCategoryNameList = selectedCategoryName;
+            AnalyticsConstants.moengagePlugin.setUserAttribute('Interested_Category',AppConstants.selectedCategoryNameList.toString());
           }
         }
       }
@@ -161,9 +165,9 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                 )),
       ItemClass(
         1,
-        getTranslated(context, 'demo')!,
+        getTranslated(context, 'youTube_playlist')!,
         FaIcon(
-          FontAwesomeIcons.graduationCap,
+          FontAwesomeIcons.youtube,size: 25,
         ),
         //Icon(BottomNavBarIcons.course_icon),
       ),
@@ -182,6 +186,22 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                   height: 30,
                   width: 25,
                 )),
+      // ItemClass(
+      //     3,
+      //     'Free Videos',
+      //     _currIndex == 3
+      //         ? Image.asset(
+      //             Images.FreevodImg,
+      //             height: 30,
+      //             width: 25,
+      //            color: AppColors.amber,
+      //           )
+      //         : Image.asset(
+      //             Images.FreevodImg,
+      //             height: 30,
+      //             width: 25,
+      //         color: AppColors.grey
+      //           )),
       ItemClass(
           3,
           getTranslated(context, LangString.downloads)!,
@@ -855,17 +875,18 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
               'User_ID':AppConstants.userMobile
             };
             AnalyticsConstants.trackEventMoEngage(
-                _currIndex == 1 ? AnalyticsConstants.Click_Demo_Bottom_Nav :
+                _currIndex == 1 ? AnalyticsConstants.click_youtube_bottom_nav :
                 _currIndex == 2 ? AnalyticsConstants.Click_My_Courses_Bottom_Nav :
-                _currIndex == 3? AnalyticsConstants.Click_Downloads_Bottom_Nav :
-                _currIndex == 4 ? AnalyticsConstants.Click_Help_Bottom_Nav :
+             //   _currIndex == 3? AnalyticsConstants.click_youtube_bottom_nav :
+                _currIndex == 3 ? AnalyticsConstants.Click_Downloads_Bottom_Nav :
+                _currIndex == 4 ? AnalyticsConstants.click_card_bottom_nav :
                 AnalyticsConstants.Home_Page, map
             );
           },
           iconSize: 20,
           selectedItemColor: AppColors.amber,
-          unselectedFontSize: 12,
-          selectedFontSize: 12,
+          unselectedFontSize: 10,
+          selectedFontSize: 10,
           items: allItems.map((item) {
             return BottomNavigationBarItem(
               icon:

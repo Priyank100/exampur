@@ -266,6 +266,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                   onTap: (){
                     FocusScope.of(context).unfocus();
                     String cuponCode = _cuponCodeController.text.toUpperCase();
+                    AnalyticsConstants.moengagePlugin.setUserAttribute('Coupon_Course',widget.title);
                     // String id = widget.paidcourseList.id.toString();
                     String id = widget.id.toString();
 

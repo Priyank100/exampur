@@ -23,6 +23,7 @@ import 'package:exampur_mobile/utils/app_constants.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/analytics_constants.dart';
@@ -133,6 +134,15 @@ class AuthProvider extends ChangeNotifier {
         AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
         AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
         AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
+       AnalyticsConstants.moengagePlugin.setUserAttribute('City',_informationModel.data!.city.toString().firstLetterCapitalize());
+       AnalyticsConstants.moengagePlugin.setUserAttribute('State',_informationModel.data!.state.toString());
+       AnalyticsConstants.moengagePlugin.setUserAttribute('Preferred_Language','English');
+       AnalyticsConstants.moengagePlugin.setUserAttribute('WhatsApp_Opt_In','Yes');
+       AnalyticsConstants.moengagePlugin.setUserAttribute('WhatsApp_Mobile_Number', AppConstants.userMobile);
+       AnalyticsConstants.moengagePlugin.setUserAttribute('Signed_Up', 'Yes');
+       AnalyticsConstants.moengagePlugin.setUserAttribute('Current_User_Status', 'signed_up_user');
+       AnalyticsConstants.moengagePlugin.setUserAttribute('Interested_Category',[]);
+       AnalyticsConstants.moengagePlugin.setUserAttribute('time',DateFormat('dd MMM yyyy, hh:mm:ss a').format(DateTime.now()).toString());
 
         await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
         AppConstants.printLog('ToKEN>> ${_informationModel.data!.authToken}');
@@ -342,4 +352,10 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+}
+
+extension StringExtension on String {
+  String firstLetterCapitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+  }
 }

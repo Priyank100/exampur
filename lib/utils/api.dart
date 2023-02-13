@@ -282,7 +282,7 @@ class API {
   static String doubtgetUrl = 'https://kzw2rwmi1d.execute-api.ap-south-1.amazonaws.com/config/doubt';
 
 
-  static String checkoutUrl = 'https://static.exampurcache.xyz/app-config/link/course-details/courseID';
+  static String checkoutUrl = BASE_URL2 +'app-config/link/course-details/courseID';
   static String offlineCounselingForm = 'https://kzw2rwmi1d.execute-api.ap-south-1.amazonaws.com/config/offline';
 
 }

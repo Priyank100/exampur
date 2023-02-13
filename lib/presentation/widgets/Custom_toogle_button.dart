@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/analytics_constants.dart';
+import '../../utils/app_constants.dart';
+
 class ToggleButton extends StatefulWidget {
   final bool tab;
   Function functionChat;
@@ -10,7 +13,7 @@ class ToggleButton extends StatefulWidget {
 }
 
 const double width = 270.0;
-const double height = 60.0;
+const double height = 45.0;
 const double loginAlign = -1;
 const double signInAlign = 1;
 const Color selectedColor = Colors.amber;
@@ -67,6 +70,15 @@ class _ToggleButtonState extends State<ToggleButton> {
               GestureDetector(
                 onTap: () {
                   this.widget.functionChat();
+                  var map = {
+                    'Page_Name':'Free Videos',
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':'en',
+                    'video name': AppConstants.channelname,
+                    'course name': AppConstants.courseName,
+                    'channel name': AppConstants.channelname
+                  };
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.YouTube_click_paid_course, map);
                   setState(() {
                     xAlign = loginAlign;
                     loginColor = selectedColor;
@@ -77,14 +89,14 @@ class _ToggleButtonState extends State<ToggleButton> {
                 child: Align(
                   alignment: Alignment(-1, 0),
                   child: Container(
-                    width: width * 0.5,
+                    width: width * 0.7,
                     color: Colors.transparent,
                     alignment: Alignment.center,
                     child: Text(
                       'Paid Course',
                       style: TextStyle(
                         color: loginColor,
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -104,14 +116,14 @@ class _ToggleButtonState extends State<ToggleButton> {
                 child: Align(
                   alignment: Alignment(1, 0),
                   child: Container(
-                    width: width * 0.5,
+                    width: width * 0.7,
                     color: Colors.transparent,
                     alignment: Alignment.center,
                     child: Text(
                       'Playlist',
                       style: TextStyle(
                         color: signInColor,
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

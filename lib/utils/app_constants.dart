@@ -28,7 +28,7 @@ class Keys {
 }
 
 class AppConstants {
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static bool isotpverify   = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -69,6 +69,7 @@ class AppConstants {
   static List<String> contentLogList = [];
   static List<Course> doubtCourseIdList = [];
   static List<CounselingCourse> offlineCounselingIdList = [];
+  static List<String> titlesave = [];
 
   // static String currentAffairesId = '61efe9771dbf84752e750373';
   // static String studyMaterialsId = '61efe9921dbf84752e750384';
@@ -100,6 +101,10 @@ class AppConstants {
   static String routeName = '';
   static String videoId = '';
   static int teacherRatingType = 0;
+
+  static String channelname = '';
+  static String coursename = '';
+  static String playlistname = '';
   // static List<String> selectedCategoryName = [];
 
   //=========================================================

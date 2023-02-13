@@ -33,7 +33,6 @@ class FreeVideoProvider extends ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       List<FreeVideoModel> myList = List<FreeVideoModel>.from(apiResponse.response!.data.map((x) => FreeVideoModel.fromJson(x)));
       return myList;
-
     } else {
       AppConstants.showBottomMessage(context, getTranslated(context, LangString.serverError), AppColors.red);
    //   AppConstants.goAndReplace(context, ErrorScreen());
@@ -45,7 +44,7 @@ class FreeVideoProvider extends ChangeNotifier {
   Future<FreeVideoListModel?> getfreeVideoList(BuildContext context,String channelId) async {
     ApiResponse apiResponse = await freeVideosRepo.freeVideosList(channelId);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      print(apiResponse.response);
+      // print(apiResponse.response);
       _freeVideoListModel = FreeVideoListModel.fromJson(json.decode(apiResponse.response.toString()));
       return _freeVideoListModel;
     } else {

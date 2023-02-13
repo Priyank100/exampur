@@ -111,6 +111,7 @@ class FirebaseDynamicLinkService {
         var isPdf = dataType == 'pdf';
         var isPreviousYearPdf = dataType == 'previous-year';
         var isCheckout = dataType == 'checkout';
+        // var isQuestion = dataType == 'questionDay';
 
         // int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 : 0;
 
@@ -239,6 +240,7 @@ class FirebaseDynamicLinkService {
           case 15:
             String courseId = deepLink.queryParameters['course-id'].toString();
             AnalyticsConstants.checkOutPageApi(context, courseId);
+
         }
 
       } else {

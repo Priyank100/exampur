@@ -1,13 +1,15 @@
 
 import 'package:exampur_mobile/presentation/home/FreeVideos/freeVideoListing.dart';
+import 'package:exampur_mobile/presentation/widgets/custom_tab_bar.dart';
 import 'package:exampur_mobile/provider/FreeVideoProvider.dart';
+import 'package:exampur_mobile/utils/analytics_constants.dart';
 
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/model/free_video_model.dart';
-import '../../widgets/custom_tab_bar.dart';
+import '../../../utils/app_constants.dart';
 
 
 class FreeVideosTab extends StatefulWidget {
@@ -28,19 +30,24 @@ class _FreeVideosTabState extends State<FreeVideosTab> {
     setState((){});
   }
 
+  void gettab(){}
   @override
   void initState() {
-    getFreeCourseTab();
+    var map = {
+      'Page_Name':'channel_page_landed',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':'en',
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.channel_page_landed, map);
+   getFreeCourseTab();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: Future.delayed(Duration.zero, () => getFreeCourseTab()),
-    builder: (context, snapshot) {
-          return Scaffold(
-            body: isLoading ? Center(child: CircularProgressIndicator()): MyCourseTabBar(
+    return Scaffold(
+            body: isLoading ? Center(child: CircularProgressIndicator()):
+            MyCourseTabBar(
               length: freeVideoTabtModel!.length,
               names:freeVideoTabtModel!.map((item) => item.name.toString()).toList(),
               title: '',
@@ -48,7 +55,7 @@ class _FreeVideosTabState extends State<FreeVideosTab> {
 
             ),
           );
-    });
+
   }
 
 }

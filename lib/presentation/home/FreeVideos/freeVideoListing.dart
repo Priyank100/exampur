@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/model/free_video_list_model.dart';
+import '../../../utils/analytics_constants.dart';
 import '../../../utils/dimensions.dart';
 import 'freeVideoCoursedetail.dart';
 
@@ -52,6 +53,8 @@ class _FreeVideoListingState extends State<FreeVideoListing> {
   Widget chapterButton(index) {
     return InkWell(
       onTap: (){
+        AppConstants.channelname = freeVideoListModel!.channelplaylist![index].name.toString();
+        AppConstants.coursename = freeVideoListModel!.name.toString();
         AppConstants.goTo(context, FreeVideoDetail(false, freeVideoListModel!.channelplaylist![index].id.toString(),freeVideoListModel!.channelplaylist![index].bannerLink.toString(),freeVideoListModel!.name.toString(),freeVideoListModel!.channelplaylist![index].courseId.toString()));
       },
       child: Container(
@@ -72,15 +75,11 @@ class _FreeVideoListingState extends State<FreeVideoListing> {
             color: AppColors.white,
           ),
           child:Row(children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white
-              ),
-                width: 170,
-                height: 110,
-                // child: Image.network(API.homeBanner_URL + widget.listData.imagePath.toString(), fit: BoxFit.fill)
-                child: AppConstants.image(AppConstants.YOUTUBE_IMG.replaceAll('VIDEO_ID',freeVideoListModel!.channelplaylist![index].bannerLink.toString()), boxfit: BoxFit.fill)
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: AppConstants.image(AppConstants.YOUTUBE_IMG.replaceAll('VIDEO_ID', freeVideoListModel!.channelplaylist![index].bannerLink.toString()),
+                  boxfit: BoxFit.fill, height: 95.0,
+                width: 150.0,),
             ),
             SizedBox(width: 10,),
            Flexible(child: Column(
@@ -88,9 +87,9 @@ class _FreeVideoListingState extends State<FreeVideoListing> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              Text(freeVideoListModel!.channelplaylist![index].name.toString(),style: TextStyle(fontSize: 18),),
+                freeVideoListModel!.channelplaylist![index].name.toString().trim().isEmpty || freeVideoListModel!.channelplaylist![index].name == 'null' ? SizedBox() : Text(freeVideoListModel!.channelplaylist![index].name.toString(),style: TextStyle(fontSize: 15,fontFamily: 'Noto Sans',fontWeight: FontWeight.bold),maxLines: 2,overflow:  TextOverflow.ellipsis,),
               SizedBox(height: 45,),
-              Text(freeVideoListModel!.name.toString(),style: TextStyle(color: Colors.amber,fontFamily: 'Noto Sans'),),
+                freeVideoListModel!.name.toString().trim().isEmpty || freeVideoListModel!.name == 'null' ? SizedBox() :  Text(freeVideoListModel!.name.toString(),style: TextStyle(color: Colors.amber,fontFamily: 'Noto Sans'),maxLines: 2,overflow: TextOverflow.ellipsis,),
                 SizedBox(height: 5,)
             ],))
           ],)
