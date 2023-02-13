@@ -55,7 +55,7 @@ class _FreeVideoListingState extends State<FreeVideoListing> {
       onTap: (){
         AppConstants.channelname = freeVideoListModel!.channelplaylist![index].name.toString();
         AppConstants.coursename = freeVideoListModel!.name.toString();
-        AppConstants.goTo(context, FreeVideoDetail(false, freeVideoListModel!.channelplaylist![index].id.toString(),freeVideoListModel!.channelplaylist![index].bannerLink.toString(),freeVideoListModel!.name.toString(),freeVideoListModel!.channelplaylist![index].courseId.toString()));
+        AppConstants.goTo(context, FreeVideoDetail(false, freeVideoListModel!.channelplaylist![index].id.toString(),freeVideoListModel!.channelplaylist![index].bannerLink.toString(),freeVideoListModel!.channelplaylist![index].name.toString(),freeVideoListModel!.channelplaylist![index].courseId.toString()));
       },
       child: Container(
           margin: EdgeInsets.all(10),

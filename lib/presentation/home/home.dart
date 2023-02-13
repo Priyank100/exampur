@@ -418,24 +418,6 @@ class _HomeState extends State<Home> {
                     },
                   ),
                   SquareButton(
-                    image: Images.Question,
-                    tagImage:Images.newImg ,
-                    title: 'Question of the day',
-                    color: Colors.lime,
-                    onPressed: () {
-                      AlertBox.WelcomeAlert4(context);
-                      // Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
-                    },
-                  ),
-
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  SquareButton(
                     image: Images.testseries,
                     title: getTranslated(context, 'test_courses')!,
                     color: AppColors.series,
@@ -459,6 +441,15 @@ class _HomeState extends State<Home> {
                       });
                     },
                   ),
+
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+
                   SquareButton(
                     image: Images.dailyquiz,
                     title: getTranslated(context, LangString.Quizz),
@@ -479,20 +470,6 @@ class _HomeState extends State<Home> {
                     },
                   ),
 
-
-
-                  // SquareButton(
-                  //     image: Images.offlinebatch,
-                  //     title: getTranslated(context, 'offline_batches')!,
-                  //     color: AppColors.brown400,
-                  //     navigateTo: OfflineCourse()),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.studymaterial,
                     title: getTranslated(context, 'study_materials')!,
@@ -513,6 +490,20 @@ class _HomeState extends State<Home> {
                           StudyMaterialNew(0)));
                     },
                   ),
+
+                  // SquareButton(
+                  //     image: Images.offlinebatch,
+                  //     title: getTranslated(context, 'offline_batches')!,
+                  //     color: AppColors.brown400,
+                  //     navigateTo: OfflineCourse()),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+
                   SquareButton(
                     image: Images.jobalert,
                     title: getTranslated(context, 'job_alerts')!,
@@ -533,30 +524,6 @@ class _HomeState extends State<Home> {
                       ));
                     },
                   ),
-
-
-                  // SquareButton(
-                  //   image: Images.caBytes,
-                  //   title: getTranslated(context, LangString.CaBytes)!,
-                  //   color: AppColors.jobAlert,
-                  //   onPressed: () {
-                  //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CaBytes()));
-                  //
-                  //     // own player testing
-                  //     /*Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
-                  //         PriyankPlayer('Priyank Video Player',
-                  //             'https://downloadexampur.appx.co.in/paid_course/0.46657945645736841649068141070.mp4')));*/
-                  //   },
-                  // ),
-
-
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.current_affair,
                     title: getTranslated(context, 'current_affairs')!,
@@ -587,6 +554,30 @@ class _HomeState extends State<Home> {
                               builder: (_) => CurrentAffairsTab()));
                     },
                   ),
+
+                  // SquareButton(
+                  //   image: Images.caBytes,
+                  //   title: getTranslated(context, LangString.CaBytes)!,
+                  //   color: AppColors.jobAlert,
+                  //   onPressed: () {
+                  //     Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CaBytes()));
+                  //
+                  //     // own player testing
+                  //     /*Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) =>
+                  //         PriyankPlayer('Priyank Video Player',
+                  //             'https://downloadexampur.appx.co.in/paid_course/0.46657945645736841649068141070.mp4')));*/
+                  //   },
+                  // ),
+
+
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+
                   SquareButton(
                     image: Images.studymaterial,
                     title: getTranslated(context, LangString.PreviousYearPdf),
@@ -606,15 +597,6 @@ class _HomeState extends State<Home> {
                                   StudyMaterialNew(1)));
                     },
                   ),
-
-
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
                   SquareButton(
                     image: Images.practice,
                     title: getTranslated(context, LangString.PracticeQuestion)!,
@@ -633,6 +615,15 @@ class _HomeState extends State<Home> {
                               builder: (_) => PracticeQuestionCategory()));
                     },
                   ),
+
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+
                   SquareButton(
                     image: Images.live_test,
                     title: getTranslated(context, LangString.liveTest),
