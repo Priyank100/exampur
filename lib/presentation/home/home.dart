@@ -423,7 +423,7 @@ class _HomeState extends State<Home> {
                     title: 'Question of the day',
                     color: Colors.lime,
                     onPressed: () {
-                      AlertBox.WelcomeAlert4(context);
+                      AlertBox.WelcomeAlert1(context);
                       // Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
                     },
                   ),

@@ -52,5 +52,6 @@ class Images {
   static const String FreevodImg = 'assets/images/freevideos.png';
   static const String youtubeImg = 'assets/images/youtube.png';
   static const String Question = 'assets/images/Question.png';
+  static const String Done = 'assets/images/done.png';
 
 }

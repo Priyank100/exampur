@@ -57,8 +57,10 @@ class _FreeVideoDetailState extends State<FreeVideoDetail> {
   Future<void> getFreePlayList() async {
     videoId = widget.videoId;
    // playlistName = widget.playlistName!;
-    freeVideoPlayListModel = (await Provider.of<FreeVideoProvider>(context, listen: false).getfreeVideoPlayList(context, widget.playListID))!;
     checkOutPagePriceApi(context,widget.courseId.toString());
+
+    freeVideoPlayListModel = (await Provider.of<FreeVideoProvider>(context, listen: false).getfreeVideoPlayList(context, widget.playListID))!;
+
    // videoId = widget.videoId.isEmpty ? freeVideoPlayListModel!.videos![0].videoUrl.toString() : widget.videoId;
     isLoading = false;
     setState((){});
