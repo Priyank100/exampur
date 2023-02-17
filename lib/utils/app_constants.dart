@@ -574,4 +574,10 @@ class AppConstants {
     num mod = pow(10.0, 2);
     return ((val * mod).round().toDouble() / mod).toStringAsFixed(2);
   }
+
+  static String timeRound(){
+    DateTime now = DateTime.now();
+    String   formattedDate = DateFormat('dd/MM/yyyy HH:mm:ss').format(now);
+     return formattedDate;
+  }
 }

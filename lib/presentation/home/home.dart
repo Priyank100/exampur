@@ -40,6 +40,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:intl/intl.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import '../../main.dart';
 import '../../provider/ConfigProvider.dart';
@@ -67,12 +68,14 @@ class _HomeState extends State<Home> {
   String TOKEN = '';
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   MoEngageFlutter moengagePlugin = MoEngageFlutter();
+
   @override
   void initState() {
     super.initState();
     getDeviceData();
     callProvider();
     getConfig();
+    checkSignUpTime();
 
     LocalNotificationService.initialize(context);
 
@@ -423,8 +426,8 @@ class _HomeState extends State<Home> {
                     title: 'Question of the day',
                     color: Colors.lime,
                     onPressed: () {
-                      AlertBox.WelcomeAlert1(context);
-                      // Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => StudyNotesList(API.studynotesUrl)));
+                      AlertBox().WelcomeAlert1(context);
+                      // Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CarouselDemo()));
                     },
                   ),
 
@@ -677,6 +680,21 @@ class _HomeState extends State<Home> {
         // ),
       ),
     );
+  }
+
+  Future<void> checkSignUpTime() async {
+   await SharedPref.getSharedPref(SharedPref.SIGNUP_TIME).then((value) async {
+     if(value != null){
+       var format = DateFormat('dd/MM/yyyy HH:mm:ss');
+       var start = format.parse(value);
+       var end = format.parse(AppConstants.timeRound());
+       if(end.difference(start).inHours >=4) {
+       AlertBox().WelcomeAlert1(context);
+       }
+       //save current time again
+      await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME,AppConstants.timeRound());
+     }
+   });
   }
 
   Future<void> getDeviceData() async {
