@@ -79,6 +79,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     setState(() {
     });
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -89,6 +90,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlerErrorFailure);
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handlerExternalWallet);
   }
+
   @override
   Widget build(BuildContext context) {
     return
@@ -512,6 +514,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
    //   ),
     );
   }
+
   couponApi(couponUrl, promoCode, id ) async {
     FocusScope.of(context).unfocus();
     AppConstants.showLoaderDialog(context);
@@ -540,6 +543,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
       }
     });
   }
+
   bool checkCoupon(_promocode){
     if (_promocode.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated(context, LangString.PromoCode_REQUIRED)!), backgroundColor:AppColors.black));
@@ -596,6 +600,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
       }
     });
   }
+
   void openCheckout() {
     var options = {
       "key": Keys.Razar_pay_key,
@@ -615,6 +620,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
       AppConstants.printLog(e.toString());
     }
   }
+
   void handlerPaymentSuccess(PaymentSuccessResponse response) {
     AppConstants.printLog("Payment success");
     AppConstants.printLog(response.orderId);
@@ -654,6 +660,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     String msg = "EXTERNAL_WALLET: " + response.walletName!;
     AppConstants.showBottomMessage(context, msg, Colors.red);
   }
+
   @override
   void dispose() {
     // TODO: implement dispose

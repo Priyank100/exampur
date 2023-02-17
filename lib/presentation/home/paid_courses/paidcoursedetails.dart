@@ -88,7 +88,7 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
     };
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Course_Detail_page,map);});
 
-    AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     AppConstants.printLog(widget.courseData.videoPath.toString());
     message = AppConstants.langCode == 'hi' ? LangString.preBookTextHi : LangString.preBookTextEng;
     String videoId = (YoutubePlayer.convertUrlToId(widget.courseData.videoPath.toString()) == null)

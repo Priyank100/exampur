@@ -329,8 +329,8 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
 
         if (jsonObject['statusCode'].toString() == '200') {
 
-          AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-          AppConstants.printLog(jsonObject);
+          // AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+          // AppConstants.printLog(jsonObject);
 
           for(int i=0; i<myList.length; i++) {
             if(myList[i].isSelected == true) {

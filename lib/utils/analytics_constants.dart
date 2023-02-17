@@ -504,4 +504,6 @@ class AnalyticsConstants {
   static String YouTube_buy_now= 'YouTube_Buy_Now';
   static String YouTube_click_paid_course= 'YouTube_Click_Paid_Course';
   static String view_youtube_pdf= 'view_youtube_pdf';
+  static String popup_course_buy= 'Popup_course_buy';
+  static String popup_book_buy= 'Popup_book_buy';
 }

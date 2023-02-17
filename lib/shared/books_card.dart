@@ -10,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
+import '../SharePref/shared_pref.dart';
+import '../data/model/course_book_popup_model.dart';
 import '../presentation/my_courses/TeacherSubjectView/DownloadPdfView.dart';
 import '../utils/analytics_constants.dart';
 
@@ -155,7 +157,24 @@ class _BooksCardState extends State<BooksCard> {
             children: [
               widget.books.demoBookUrl.toString().trim().isEmpty ? SizedBox() :
               InkWell(
-                onTap: (){
+                onTap: () async {
+
+                  await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST).then((value) async {
+                    if(value == 'null') {
+                      List<CourseBookPopupModel> courseBookPopupList = [];
+                      courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Book', uniqueId: widget.books.id.toString(), book: [widget.books]));
+                      await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                    } else {
+                      List<CourseBookPopupModel> courseBookPopupList = CourseBookPopupModel.decode(value);
+                      courseBookPopupList.removeWhere((m) => m.uniqueId == widget.books.id.toString());
+                      courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Book', uniqueId: widget.books.id.toString(), book: [widget.books]));
+                      if(courseBookPopupList.length > 5) {
+                        courseBookPopupList.removeLast();
+                      }
+                      await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                    }
+                  });
+
                   AnalyticsConstants.moengagePlugin.setUserAttribute('Sample_Book',widget.books.title);
                   var map = {
                     'Page_Name':'Books List',
@@ -180,7 +199,24 @@ class _BooksCardState extends State<BooksCard> {
               ),
               Expanded(
                   child: InkWell(
-                    onTap: (){
+                    onTap: () async {
+
+                      await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST).then((value) async {
+                        if(value == 'null') {
+                          List<CourseBookPopupModel> courseBookPopupList = [];
+                          courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Book', uniqueId: widget.books.id.toString(), book: [widget.books]));
+                          await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                        } else {
+                          List<CourseBookPopupModel> courseBookPopupList = CourseBookPopupModel.decode(value);
+                          courseBookPopupList.removeWhere((m) => m.uniqueId == widget.books.id.toString());
+                          courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Book', uniqueId: widget.books.id.toString(), book: [widget.books]));
+                          if(courseBookPopupList.length > 5) {
+                            courseBookPopupList.removeLast();
+                          }
+                          await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                        }
+                      });
+
                       AnalyticsConstants.moengagePlugin.setUserAttribute('Buy_Book',widget.books.title);
                       var map = {
                         'Page_Name':'Books List',

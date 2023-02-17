@@ -365,7 +365,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
       await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((
           response) {
        // AppConstants.printLog(header);
-        AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+       //  AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
         AppConstants.printLog(response.body);
         AppConstants.printLog('pdf-download-click');
       });

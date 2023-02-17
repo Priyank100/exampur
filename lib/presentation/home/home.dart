@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -26,6 +27,7 @@ import 'package:exampur_mobile/provider/Authprovider.dart';
 import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/shared/PopUp/WelcomPopUp.dart';
+import 'package:exampur_mobile/shared/PopUp/course_book_popup.dart';
 import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
@@ -40,7 +42,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:intl/intl.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
+import '../../data/model/course_book_popup_model.dart';
 import '../../main.dart';
 import '../../provider/ConfigProvider.dart';
 import 'BannerBookDetailPage.dart';
@@ -67,12 +71,14 @@ class _HomeState extends State<Home> {
   String TOKEN = '';
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   MoEngageFlutter moengagePlugin = MoEngageFlutter();
+
   @override
   void initState() {
     super.initState();
     getDeviceData();
     callProvider();
     getConfig();
+    checkCourseBookPopup();
 
     LocalNotificationService.initialize(context);
 
@@ -678,6 +684,41 @@ class _HomeState extends State<Home> {
       AppConstants.deviceMake = androidInfo.brand.toString();
       AppConstants.deviceOS = androidInfo.version.release.toString();
       setState(() {});
+    }
+  }
+
+  Future<void> checkCourseBookPopup() async {
+    String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST).then((data) async {
+      if(data != 'null') {
+        await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE).then((date) async {
+          if(date != 'null') {
+            if(date == currentDate) {
+              await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_COUNT).then((count) async {
+                if(int.parse(count) < 5) {
+                 int dt = int.parse(count) + 1;
+                 showNudgePopup(data, dt);
+                }
+              });
+            } else {
+              await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE, currentDate);
+              showNudgePopup(data, '1');
+            }
+          } else {
+            await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE, currentDate);
+            showNudgePopup(data, '1');
+          }
+        });
+      }
+    });
+  }
+
+  Future<void> showNudgePopup(data, count) async {
+    List<CourseBookPopupModel> courseBookPopupList = CourseBookPopupModel.decode(data);
+    if(courseBookPopupList.isNotEmpty) {
+      await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_COUNT, count.toString());
+      await Provider.of<AuthProvider>(context, listen: false).getBannerBaseUrl(context);
+      CourseBookPopup().courseBookAlert(context, userName, courseBookPopupList);
     }
   }
 }

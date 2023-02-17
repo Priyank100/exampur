@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
@@ -29,13 +30,14 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
 import 'package:http/http.dart' as http;
 
+import '../data/model/course_book_popup_model.dart';
 import '../presentation/my_courses/Feedback/feedbackView.dart';
 import '../presentation/widgets/custom_smaller_button.dart';
 import '../utils/analytics_constants.dart';
 
 class TeachingContainer extends StatefulWidget {
   PaidCourseData courseData;
- int courseType;
+  int courseType;
   String tabId;
   String tabName;
     TeachingContainer (this.courseData,this.courseType,this.tabId, this.tabName) : super();
@@ -260,7 +262,26 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
                             // // courseIdList.add(widget.courseData.id.toString());
                             // widget.courseType==1?AppConstants.sendAnalyticsItemsDetails('Paid_Course_Details',courseIdList):null;
-                      widget.courseType == 1 ? AnalyticsConstants.moengagePlugin.setUserAttribute('View_Course', widget.courseData.title): '';
+
+                            if(widget.courseType == 1 && widget.courseData.purchase==false) {
+                              await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST).then((value) async {
+                                if(value == 'null') {
+                                  List<CourseBookPopupModel> courseBookPopupList = [];
+                                  courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Course', uniqueId: widget.courseData.id.toString(), course: [widget.courseData]));
+                                  await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                                } else {
+                                  List<CourseBookPopupModel> courseBookPopupList = CourseBookPopupModel.decode(value);
+                                  courseBookPopupList.removeWhere((m) => m.uniqueId == widget.courseData.id.toString());
+                                  courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Course', uniqueId: widget.courseData.id.toString(), course: [widget.courseData]));
+                                  if(courseBookPopupList.length > 5) {
+                                    courseBookPopupList.removeLast();
+                                  }
+                                  await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                                }
+                              });
+                            }
+
+                            widget.courseType == 1 ? AnalyticsConstants.moengagePlugin.setUserAttribute('View_Course', widget.courseData.title): '';
                             var map = {
                               'Page_Name':'Course_List',
                               'Course_Category':widget.tabName,
@@ -300,7 +321,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Free_Course_Details,map);
                               AppConstants.courseName =widget.courseData.title.toString();
                               AppConstants.printLog(widget.courseData.title.toString());
-                              AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+                              // AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
                               String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
                               submitLog(widget.courseData.title.toString(), widget.courseData.id.toString(), widget.tabName.toString());
                               AppConstants.myCourseName = widget.courseData.title.toString();
@@ -330,6 +351,25 @@ class _TeachingContainerState extends State<TeachingContainer> {
                         children: [
                           CustomRoundButton(
                               onPressed: ()async{
+
+                                if(widget.courseType == 1) {
+                                  await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST).then((value) async {
+                                    if(value == 'null') {
+                                      List<CourseBookPopupModel> courseBookPopupList = [];
+                                      courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Course', uniqueId: widget.courseData.id.toString(), course: [widget.courseData]));
+                                      await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                                    } else {
+                                      List<CourseBookPopupModel> courseBookPopupList = CourseBookPopupModel.decode(value);
+                                      courseBookPopupList.removeWhere((m) => m.uniqueId == widget.courseData.id.toString());
+                                      courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Course', uniqueId: widget.courseData.id.toString(), course: [widget.courseData]));
+                                      if(courseBookPopupList.length > 5) {
+                                        courseBookPopupList.removeLast();
+                                      }
+                                      await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                                    }
+                                  });
+                                }
+
                                 AnalyticsConstants.moengagePlugin.setUserAttribute('Buy_Course', widget.courseData.title);
                                 AppConstants.paidTabName = widget.tabName;
                                 await   FirebaseAnalytics.instance.logEvent(name:'Paid_Courdse_Details',parameters: {
