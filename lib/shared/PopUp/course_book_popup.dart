@@ -36,7 +36,8 @@ class CourseBookPopup{
                       ),
                     ),
                     SizedBox(height: 10),
-                    Text('$name, you were looking for these items', textAlign: TextAlign.center),
+                    Text('$name, ${AppConstants.langCode == 'hi' ? 'आप ये course और notes देख रहें थे' : 'you were looking for these items'}',
+                        textAlign: TextAlign.center),
                     Text('Complete your purchase now', textAlign: TextAlign.center, style: TextStyle(fontSize: 12)),
                     SizedBox(height: 10),
                     Container(
@@ -187,7 +188,7 @@ class CourseBookPopup{
                                                   )
                                               )
                                           ),
-                                          child: Text('Buy Now', style: TextStyle(color: AppColors.white)),
+                                          child: Text('${AppConstants.langCode == 'hi' ? 'अभी Purchase करें' : 'Buy Now'}', style: TextStyle(color: AppColors.white)),
                                         ),
                                       ),
                                     ],
