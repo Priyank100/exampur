@@ -28,6 +28,7 @@ import 'package:exampur_mobile/provider/ChooseCategory_provider.dart';
 import 'package:exampur_mobile/provider/HomeBannerProvider.dart';
 import 'package:exampur_mobile/shared/PopUp/WelcomPopUp.dart';
 import 'package:exampur_mobile/shared/PopUp/course_book_popup.dart';
+import 'package:exampur_mobile/shared/PopUp/teacher_incentive.dart';
 import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
