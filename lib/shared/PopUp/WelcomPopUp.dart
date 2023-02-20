@@ -93,7 +93,7 @@ class AlertBox{
                                       case 1:Navigator.pop(context);break;
                                       case 2: layer = 1 ; buttonCarouselController.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.linear);break;
                                       case 3:
-                                        if(selection2 == 'Course Not available' || selection2 == 'I will purchase after notification') {
+                                        if(selection2 == 'Course Not available' || selection2 == 'I will purchase after notification' || selection2 == 'Course उपलब्ध नहीं है' || selection2 =='मैं notification के बाद खरीदूंगा') {
                                           layer = 3 ;
                                           buttonCarouselController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);
                                           selection2='';
@@ -105,7 +105,7 @@ class AlertBox{
                                     }
                                     setState((){});
                                   },
-                                    child: Container(height: 30,width: 30,child: Icon(Icons.keyboard_backspace_rounded),color: Colors.white,))),
+                                    child: Container(height: 30,width: 30,child: Icon(Icons.keyboard_backspace_rounded), decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white),))),
 
 
                             // layer == 0 ? firstLayer(context, setState) :
@@ -123,18 +123,23 @@ class AlertBox{
   }
 
   Widget firstLayer(context, setState) {
-    List <String>  dataList = [
+    List <String>  EngdataList = [
       'Yes, I want to Purchase NOTES',
       'Yes, I want to Purchase COURSE',
       'No, I don’t want to purchase',
     ];
+    List <String>  HidataList = [
+      'Yes मैं Notes खरीदना चाहता हूं',
+      'Yes मैं Course खरीदना चाहता हूं',
+      'No, मैं अभि खरीदना नहीं चाहता',
+    ];
     return Column(
         // mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Do you want to purchase PAID COURSE/NOTES from exampur app ?',style: TextStyle(fontSize: 15,color: Colors.white,fontFamily: 'Noto Sans'),textAlign: TextAlign.center,),
+          Text(AppConstants.langCode == 'hi'?'क्या आप exampur से Paid Course/Notes खरीदना चाहते हैं ?':'Do you want to purchase PAID COURSE/NOTES from exampur app ?',style: TextStyle(fontSize: 15,color: Colors.white,fontFamily: 'Noto Sans'),textAlign: TextAlign.center,),
           SizedBox(height: 20,),
           ListView.builder(
-              itemCount: dataList.length,
+              itemCount: AppConstants.langCode == 'hi'?HidataList.length:EngdataList.length,
               //physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (ctx , i){
@@ -142,16 +147,16 @@ class AlertBox{
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: LinearButton(
-                        titleText: dataList[i],
+                        titleText:AppConstants.langCode == 'hi'?HidataList[i]: EngdataList[i],
                         onpressed: (){
-                          if(dataList[i] == 'No, I don’t want to purchase'){
+                          if(EngdataList[i] == 'No, I don’t want to purchase'|| HidataList[i] == 'No, मैं अभि खरीदना नहीं चाहता'){
                             layer = 3;
                             buttonCarouselController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);
                           } else{
                             layer = 2;
                             buttonCarouselController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);
                           }
-                          selection1 = dataList[i];
+                          selection1 = AppConstants.langCode == 'hi'?HidataList[i]:EngdataList[i];
                           setState((){});
                         }
                     ),
@@ -191,28 +196,34 @@ class AlertBox{
   }
 
   Widget noUI1(context,setState) {
-    List <String>  nodataList = [
+    List <String>  noEngdataList = [
       'Course Not available',
       'I want to watch free videos only',
       'I want to attempt free test only',
       'I will purchase after notification',
     ];
+    List <String>  noHidataList = [
+      'Course उपलब्ध नहीं है',
+      'मैं केवल free वीडियो देखना चाहता हूं',
+      'मैं केवल free test देना चाहता हूं',
+      'मैं notification के बाद खरीदूंगा',
+    ];
     return   Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Can you please tell me the reason?',style: TextStyle(fontSize: 15,color: Colors.white,fontFamily: 'Noto Sans'),textAlign: TextAlign.center,),
+        Text(AppConstants.langCode == 'hi'?'क्या आप कृपया कारण बता सकते हैं':'Can you please tell me the reason?',style: TextStyle(fontSize: 15,color: Colors.white,fontFamily: 'Noto Sans'),textAlign: TextAlign.center,),
         SizedBox(height: 20,),
         loading ? CircularProgressIndicator() :  ListView.builder(
-            itemCount: nodataList.length,
+            itemCount: AppConstants.langCode == 'hi'?noHidataList.length:noEngdataList.length,
             padding: EdgeInsets.zero,
             //physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (ctx , i){
               return Padding(
                 padding: const EdgeInsets.all(8),
-                child: LinearButton(titleText: nodataList[i],onpressed: (){
-                  selection2 = nodataList[i];
-                  if(nodataList[i] == 'Course Not available' || nodataList[i] == 'I will purchase after notification'){
+                child: LinearButton(titleText: AppConstants.langCode == 'hi'?noHidataList[i]:noEngdataList[i],onpressed: (){
+                  selection2 = AppConstants.langCode == 'hi'?noHidataList[i]:noEngdataList[i];
+                  if(noEngdataList[i] == 'Course Not available' || noEngdataList[i] == 'I will purchase after notification'|| noHidataList[i] =='Course उपलब्ध नहीं है'||noHidataList[i] == 'मैं notification के बाद खरीदूंगा' ){
                     layer = 3;
                     buttonCarouselController.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.linear);
                   }

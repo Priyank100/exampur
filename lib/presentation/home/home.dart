@@ -44,8 +44,10 @@ import 'package:intl/intl.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import '../../main.dart';
 import '../../provider/ConfigProvider.dart';
+import '../../shared/PopUp/Purchase_PopUp.dart';
 import 'BannerBookDetailPage.dart';
 import 'FreeVideos/freeVideotab.dart';
+import 'QOD/qod.dart';
 import 'TestSeries/test_series_tab.dart';
 import 'package:provider/provider.dart';
 
@@ -426,8 +428,13 @@ class _HomeState extends State<Home> {
                     title: 'Question of the day',
                     color: Colors.lime,
                     onPressed: () {
-                      AlertBox().WelcomeAlert1(context);
-                      // Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CarouselDemo()));
+                     // PurschaseAlertBox().PurchaseAlert(context);
+                   //   AlertBox().WelcomeAlert1(context);
+                    // AppConstants.goTo(context, QOD());
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  TestSeriesNew(API.QuestionOfDayWebUrl, TOKEN)));
                     },
                   ),
 
