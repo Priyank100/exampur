@@ -22,6 +22,7 @@ class TeacherIncentivePopup{
         builder: (BuildContext context, StateSetter setState) {
           return AlertDialog(
               contentPadding: EdgeInsets.zero,
+              scrollable: true,
               backgroundColor: Color(0xFFF97A7B),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
               content: Container(
@@ -155,6 +156,13 @@ class TeacherIncentivePopup{
   }
 
   Future<void> submitReferralCode(context, code, setState) async {
+    FocusScope.of(context).unfocus();
+    if(code.toString().isEmpty) {
+      textController.text = '';
+      AppConstants.showAlertDialog(context, 'Please enter referral code');
+      return;
+    }
+
     setState((){loading = true;});
     var body = {
       "user": {

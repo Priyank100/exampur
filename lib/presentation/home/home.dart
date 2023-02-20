@@ -429,7 +429,7 @@ class _HomeState extends State<Home> {
                   ),
                   SquareButton(
                     image: Images.Question,
-                    tagImage:Images.newImg ,
+                    tagImage:Images.newImg,
                     title: 'Question of the day',
                     color: Colors.lime,
                     onPressed: () {
@@ -437,6 +437,7 @@ class _HomeState extends State<Home> {
                           MaterialPageRoute(
                               builder: (_) =>
                                   TestSeriesNew(API.QuestionOfDayWebUrl, TOKEN)));
+                      // TeacherIncentivePopup().teacherIncentiveAlert(context);
                     },
                   ),
 
