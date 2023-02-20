@@ -433,9 +433,6 @@ class _HomeState extends State<Home> {
                     title: 'Question of the day',
                     color: Colors.lime,
                     onPressed: () {
-                     // PurschaseAlertBox().PurchaseAlert(context);
-                   //   AlertBox().WelcomeAlert1(context);
-                    // AppConstants.goTo(context, QOD());
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
