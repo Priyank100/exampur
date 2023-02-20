@@ -35,6 +35,7 @@ class API {
   // base url for webview
   static String WEBVIEW_URL = 'https://exampur.com/e-app/login?token=TOKEN&path=/e-app/';
 
+
 //=========================================================================================================//
 
   //BannerBase
@@ -225,6 +226,7 @@ class API {
   static String attemptTestWebUrl       = WEBVIEW_URL + 'attempted-test/?lang=langCode';
   static String attemptQuizzesWebUrl    = WEBVIEW_URL + 'attempted-quiz/?lang=langCode';
   static String savedQuestionWebUrl     = WEBVIEW_URL + 'saved-question/?lang=langCode';
+  static String QuestionOfDayWebUrl     ='https://exampur.com/e-app/login/?token=TOKEN&path=/ques-of-the-day/?lang=langCode';
 
 
   //order course and combo course with upsell book
