@@ -42,7 +42,7 @@ class PurschaseAlertBox{
                               alignment: Alignment.bottomLeft,
                               child: InkWell(
                                   onTap: (){
-                                    print(layer);
+                                    // print(layer);
                                     switch (layer){
                                       case 1:Navigator.pop(context);break;
                                       case 2: layer = 1 ;  buttonCarouselController.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.linear);break;
@@ -313,7 +313,7 @@ class PurschaseAlertBox{
       "Content-Type": "application/json",
       "app-version":AppConstants.versionCode
     };
-  print(body);
+  // print(body);
     // await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) async {
     //   loading = false;
     //   if (response == null) {

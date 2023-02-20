@@ -179,7 +179,7 @@ class TeacherIncentivePopup{
     //   "Content-Type": "application/json",
     //   "app-version":AppConstants.versionCode
     // };
-    print(body);
+    // print(body);
     Future.delayed(Duration(seconds: 2), (){
       loading = false;
       _carouselController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);
