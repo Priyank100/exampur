@@ -436,11 +436,11 @@ class _HomeState extends State<Home> {
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
-                                  TestSeriesNew(API.QuestionOfDayWebUrl, TOKEN)));
+                                  TestSeriesNew(API.QuestionOfDayWebUrl, TOKEN))
+                      );
                       // TeacherIncentivePopup().teacherIncentiveAlert(context);
                     },
                   ),
-
                 ],
               ),
               SizedBox(
