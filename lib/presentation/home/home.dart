@@ -696,7 +696,7 @@ class _HomeState extends State<Home> {
 
   Future<void> checkSignUpTime() async {
    await SharedPref.getSharedPref(SharedPref.SIGNUP_TIME).then((value) async {
-     if(value != null){
+     if(value != 'null'){
        var format = DateFormat('dd/MM/yyyy HH:mm:ss');
        var start = format.parse(value);
        var end = format.parse(AppConstants.timeRound());
@@ -705,6 +705,29 @@ class _HomeState extends State<Home> {
        }
        //save current time again
       await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME,AppConstants.timeRound());
+
+     } else{
+       await SharedPref.getSharedPref(SharedPref.SIGNUP_TIME_Count).then((count) async {
+         if(count != 'null') {
+           if(int.parse(count) < 3) {
+             await SharedPref.getSharedPref(SharedPref.NONSIGNUP_TIME).then((time) async {
+               var format = DateFormat('dd/MM/yyyy HH:mm:ss');
+               var start = format.parse(time);
+               var end = format.parse(AppConstants.timeRound());
+               if(end.difference(start).inHours >= 1) {
+                 int dt = int.parse(count) + 1;
+                 AlertBox().WelcomeAlert1(context);
+                 await SharedPref.saveSharedPref(SharedPref.NONSIGNUP_TIME, AppConstants.timeRound());
+                 await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME_Count, dt.toString());
+               }
+             });
+           }
+         } else {
+           AlertBox().WelcomeAlert1(context);
+           await SharedPref.saveSharedPref(SharedPref.NONSIGNUP_TIME, AppConstants.timeRound());
+           await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME_Count,'1');
+         }
+       });
      }
    });
   }

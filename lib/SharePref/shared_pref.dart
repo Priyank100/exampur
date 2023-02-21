@@ -9,6 +9,8 @@ class SharedPref {
   static const String COURSE_BOOK_POPUP_DATE = 'course_book_popup_date';
   static const String COURSE_BOOK_POPUP_COUNT = 'course_book_popup_count';
   static const String SIGNUP_TIME       = 'signUpTime';
+  static const String NONSIGNUP_TIME       = 'nonSignUpTime';
+  static const String SIGNUP_TIME_Count       = 'signUpTimeCount';
 
   static Future saveSharedPref(String key, String value) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
