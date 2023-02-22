@@ -9,13 +9,12 @@ import '../../utils/images.dart';
 import '../../utils/lang_string.dart';
 import 'WelcomPopUp.dart';
 
-class TeacherIncentivePopup{
+class TeacherIncentivePopup {
   CarouselController _carouselController = CarouselController();
   TextEditingController textController = TextEditingController();
   bool loading = false;
 
   teacherIncentiveAlert(BuildContext context) {
-    int _current = 0;
     showDialog(
       context: context,
       builder: (ctx) => StatefulBuilder(
@@ -53,9 +52,7 @@ class TeacherIncentivePopup{
                           enlargeCenterPage: true,
                           enableInfiniteScroll: false,
                           onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
+                            // setState(() {});
                           },
                         ),
                         items: [
