@@ -41,6 +41,7 @@ class _FreeVideoDetailState extends State<FreeVideoDetail> {
  static String SalePrice = '';
  static String title = '';
  static String type = '';
+ static String banner = '';
   late YoutubePlayerController _controller;
   late TextEditingController _idController;
   late TextEditingController _seekToController;
@@ -416,7 +417,7 @@ class _FreeVideoDetailState extends State<FreeVideoDetail> {
                                 Radius.circular(10),
                               )),
                           width: double.infinity,
-                          child: AppConstants.image(AppConstants.YOUTUBE_IMG.replaceAll('VIDEO_ID', widget.videoId),height:150.0,boxfit: BoxFit.fill),
+                          child: AppConstants.image(AppConstants.BANNER_BASE + banner ,height:150.0,boxfit: BoxFit.fill),
                         ),
                       ),
                       Padding(
@@ -680,12 +681,15 @@ class _FreeVideoDetailState extends State<FreeVideoDetail> {
   static Future<void> checkOutPagePriceApi(BuildContext context,String courseID) async {
     await Service.get(API.checkoutUrl.replaceAll('courseID', courseID)).then((response) {
       AppConstants.printLog(response.body.toString());
+      print(response.body.toString());
+      print(">>>>>>>>>>>>>>>>");
       if(response != null && response.statusCode == 200) {
         var jsonObject = jsonDecode(response.body);
         if (jsonObject['statusCode'].toString() == '200') {
           SalePrice  = jsonObject['data']['sale_price'].toString();
           title  = jsonObject['data']['title'].toString();
           type  = jsonObject['data']['type'].toString();
+          banner  = jsonObject['data']['banner_path'].toString();
         }
       }
       else {
