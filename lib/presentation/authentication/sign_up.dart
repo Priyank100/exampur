@@ -549,6 +549,8 @@ class SignUpState extends State<SignUp> {
 
      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Register,map);
      await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME, AppConstants.timeRound());
+     await SharedPref.saveSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME, AppConstants.timeRound());
+     await SharedPref.saveSharedPref(SharedPref.TEACHER_INCENTIVE_FIRST, 'TRUE');
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => OtpScreen(false)));

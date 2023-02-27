@@ -30,6 +30,13 @@ class CourseBookPopup{
                       alignment: Alignment.topRight,
                       child: InkWell(
                           onTap: (){
+                            var map = {
+                              'Page_Name':'Buy_Popup',
+                              'Mobile_Number':AppConstants.userMobile,
+                              'Language':AppConstants.langCode,
+                              'User_ID':AppConstants.userMobile
+                            };
+                            AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.cross_buy_popup, map);
                             Navigator.pop(context);
                           },
                           child: Icon(Icons.close, color: AppColors.black)

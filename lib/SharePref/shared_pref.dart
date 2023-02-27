@@ -11,6 +11,8 @@ class SharedPref {
   static const String SIGNUP_TIME       = 'signUpTime';
   static const String NONSIGNUP_TIME       = 'nonSignUpTime';
   static const String SIGNUP_TIME_Count       = 'signUpTimeCount';
+  static const String TEACHER_INCENTIVE_DATETIME      = 'teacherIncentiveDateTime';
+  static const String TEACHER_INCENTIVE_FIRST      = 'teacherIncentiveFirst';
 
   static Future saveSharedPref(String key, String value) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();

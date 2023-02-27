@@ -81,6 +81,7 @@ class _HomeState extends State<Home> {
     getDeviceData();
     callProvider();
     getConfig();
+    teacherIncentiveAlert();
     checkSignUpTime();
     checkCourseBookPopup();
 
@@ -438,7 +439,6 @@ class _HomeState extends State<Home> {
                               builder: (_) =>
                                   TestSeriesNew(API.QuestionOfDayWebUrl, TOKEN))
                       );
-                      // TeacherIncentivePopup().teacherIncentiveAlert(context);
                     },
                   ),
                 ],
@@ -690,6 +690,32 @@ class _HomeState extends State<Home> {
         // ),
       ),
     );
+  }
+
+  Future<void> teacherIncentiveAlert() async {
+    await SharedPref.getSharedPref(SharedPref.TEACHER_INCENTIVE_FIRST).then((value) async {
+      if(value == 'TRUE') {
+        await SharedPref.saveSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME, AppConstants.timeRound());
+        await SharedPref.clearSharedPref(SharedPref.TEACHER_INCENTIVE_FIRST);
+        TeacherIncentivePopup().teacherIncentiveAlert(context);
+
+      } else {
+        await SharedPref.getSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME).then((dateTime) async {
+          if (dateTime != 'null') {
+            String savedDate = DateFormat('dd/MM/yyyy').format(DateFormat('dd/MM/yyyy').parse(dateTime));
+            String todayDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
+            if (savedDate == todayDate) {
+              DateTime savedTime = DateFormat('dd/MM/yyyy HH:mm:ss').parse(dateTime);
+              DateTime todayTime = DateFormat('dd/MM/yyyy HH:mm:ss').parse(AppConstants.timeRound());
+              if (todayTime.difference(savedTime).inHours >= 2) {
+                await SharedPref.saveSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME, AppConstants.timeRound());
+                TeacherIncentivePopup().teacherIncentiveAlert(context);
+              }
+            }
+          }
+        });
+      }
+    });
   }
 
   Future<void> checkSignUpTime() async {

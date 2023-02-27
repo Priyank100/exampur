@@ -7,16 +7,12 @@ import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
 import 'package:exampur_mobile/presentation/theme/custom_text_style.dart';
 import 'package:exampur_mobile/presentation/widgets/custom_text_field.dart';
 import 'package:exampur_mobile/utils/api.dart';
-import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-
 import 'package:exampur_mobile/utils/custompassword_textfield.dart';
 import 'package:exampur_mobile/utils/dimensions.dart';
 import 'package:exampur_mobile/utils/images.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../../utils/analytics_constants.dart';
 import 'landing_page.dart';
 
