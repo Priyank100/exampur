@@ -83,6 +83,7 @@ class _HomeState extends State<Home> {
     getConfig();
     checkSignUpTime();
     checkCourseBookPopup();
+  //  checkPurchaseFaliurePopUpTime();
 
     LocalNotificationService.initialize(context);
 
@@ -433,8 +434,8 @@ class _HomeState extends State<Home> {
                     title: 'Question of the day',
                     color: Colors.lime,
                     onPressed: () {
-                     // PurschaseAlertBox().PurchaseAlert(context);
-                   //   AlertBox().WelcomeAlert1(context);
+                      // PurschaseAlertBox().PurchaseAlert(context);
+                      // AlertBox().WelcomeAlert1(context);
                     // AppConstants.goTo(context, QOD());
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
@@ -442,7 +443,6 @@ class _HomeState extends State<Home> {
                                   TestSeriesNew(API.QuestionOfDayWebUrl, TOKEN)));
                     },
                   ),
-
                 ],
               ),
               SizedBox(
@@ -493,9 +493,6 @@ class _HomeState extends State<Home> {
                                   TestSeriesNew(API.quizzesWebUrl, TOKEN)));
                     },
                   ),
-
-
-
                   // SquareButton(
                   //     image: Images.offlinebatch,
                   //     title: getTranslated(context, 'offline_batches')!,
@@ -730,6 +727,22 @@ class _HomeState extends State<Home> {
        });
      }
    });
+  }
+
+  Future<void> checkPurchaseFaliurePopUpTime() async {
+    await SharedPref.getSharedPref(SharedPref.PurchaseFaliure_TIME).then((value) async {
+      if(value != 'null'){
+        var format = DateFormat('dd/MM/yyyy HH:mm:ss');
+        var start = format.parse(value);
+        var end = format.parse(AppConstants.timeRound());
+        if(end.difference(start).inHours >=1) {
+          PurschaseAlertBox().PurchaseAlert(context);
+        }
+        //save current time again
+        await SharedPref.saveSharedPref(SharedPref.PurchaseFaliure_TIME,AppConstants.timeRound());
+
+      }
+    });
   }
 
   Future<void> getDeviceData() async {

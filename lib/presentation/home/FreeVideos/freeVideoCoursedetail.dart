@@ -681,8 +681,6 @@ class _FreeVideoDetailState extends State<FreeVideoDetail> {
   static Future<void> checkOutPagePriceApi(BuildContext context,String courseID) async {
     await Service.get(API.checkoutUrl.replaceAll('courseID', courseID)).then((response) {
       AppConstants.printLog(response.body.toString());
-      print(response.body.toString());
-      print(">>>>>>>>>>>>>>>>");
       if(response != null && response.statusCode == 200) {
         var jsonObject = jsonDecode(response.body);
         if (jsonObject['statusCode'].toString() == '200') {

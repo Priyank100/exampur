@@ -506,4 +506,6 @@ class AnalyticsConstants {
   static String view_youtube_pdf= 'view_youtube_pdf';
   static String popup_course_buy= 'Popup_course_buy';
   static String popup_book_buy= 'Popup_book_buy';
+  static String Cross_signup= 'Cross_signup';
+  static String cross_purchase= 'cross_purchase';
 }

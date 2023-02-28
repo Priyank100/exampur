@@ -13,6 +13,7 @@ import 'package:exampur_mobile/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
+import '../../SharePref/shared_pref.dart';
 import '../../utils/analytics_constants.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -212,7 +213,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     AppConstants.printLog(response.orderId);
     AppConstants.printLog(response.paymentId);
     AppConstants.printLog(response.signature);
-
+    SharedPref.clearSharedPref(SharedPref.PurchaseFaliure_TIME);
     var map = {
       'Page_Name':'Check_Out_Course_Purchase',
       'Course_Category':AppConstants.paidTabName,
@@ -254,8 +255,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  void handlerErrorFailure(PaymentFailureResponse response) {
+  Future<void> handlerErrorFailure(PaymentFailureResponse response) async {
     String msg = "ERROR: " + response.code.toString() + " - " + jsonDecode(response.message!)['error']['description'];
+    await SharedPref.saveSharedPref(SharedPref.PurchaseFaliure_TIME, AppConstants.timeRound());
     AppConstants.showBottomMessage(context, msg, Colors.red);
     var map = {
       'Page_Name':'Check_Out_Course_Purchase',
