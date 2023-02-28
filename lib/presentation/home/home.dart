@@ -696,7 +696,6 @@ class _HomeState extends State<Home> {
         await SharedPref.saveSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME, AppConstants.timeRound());
         await SharedPref.clearSharedPref(SharedPref.TEACHER_INCENTIVE_FIRST);
         TeacherIncentivePopup().teacherIncentiveAlert(context);
-
       } else {
         await SharedPref.getSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME).then((dateTime) async {
           if (dateTime != 'null') {
