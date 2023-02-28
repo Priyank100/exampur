@@ -3,6 +3,7 @@ import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:flutter/material.dart';
 import '../../Localization/language_constrants.dart';
 import '../../presentation/home/paid_courses/paid_courses.dart';
+import '../../utils/analytics_constants.dart';
 import '../../utils/api.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
@@ -11,10 +12,12 @@ import '../../utils/lang_string.dart';
 
 class PurschaseAlertBox{
   int layer = 1;
+  bool isYesSelected = false;
   String selection1 = '';
   String selection2 = '';
   String selection3 = '';
   bool loading = false;
+  bool close = false;
   TextEditingController messageController = TextEditingController();
   CarouselController buttonCarouselController = CarouselController();
 
@@ -37,27 +40,40 @@ class PurschaseAlertBox{
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          layer == 1 || layer == 5 ? SizedBox():
+                      close || layer == 1 ? SizedBox() :
                           Align(
                               alignment: Alignment.bottomLeft,
                               child: InkWell(
                                   onTap: (){
-                                    // print(layer);
                                     switch (layer){
-                                      case 1:Navigator.pop(context);break;
-                                      case 2: layer = 1 ;  buttonCarouselController.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.linear);break;
-                                      case 3:layer = 3 ;
-                                      selection2='';
-                                      messageController.text = '';
-                                      buttonCarouselController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);break;
+                                      case 1:
+                                        Navigator.pop(context);
+                                        break;
+                                      case 2:
+                                        layer = 1 ;
+                                        buttonCarouselController.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.linear);break;
+                                      case 3:
+                                        layer = 2 ;
+                                        messageController.text = '';
+                                        buttonCarouselController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);break;
+                                      case 5:
+                                        layer = 1 ;
+                                        buttonCarouselController.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.linear);break;
                                     }
                                     setState((){});
                                   },
                                   child: Container(height: 30,width: 30,child: Icon(Icons.keyboard_backspace_rounded),
                                     decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white),
                                   ))),
-                          layer == 5 ? InkWell(
+                          close ? InkWell(
                               onTap: (){
+                                var map = {
+                                  'Page_Name':'cross_purchase',
+                                  'Mobile_Number':AppConstants.userMobile,
+                                  'Language':AppConstants.langCode,
+                                  'User_ID':AppConstants.userMobile
+                                };
+                                AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.cross_purchase,map);
                                 Navigator.pop(context);
                               },child: Container(
                             height: 30,width: 30,
@@ -87,18 +103,11 @@ class PurschaseAlertBox{
                               ),
                               items: [
                                 firstLayer(context, setState),
-                                layer == 2 ? yesUI(context, setState) : noUI1(context, setState),
-                                layer == 3 ? noUI2(context,setState) : finalUI1(context, setState)
+                                layer == 2 ? yesUI1(context, setState) : noUI(context, setState),
+                                layer == 3 ? yesUI2(context,setState) : SizedBox(),
+                                layer == 3 ? yesFinalUI(context,setState) : noFinalUI(context, setState),
                               ]
                           )),
-
-
-
-                      // layer == 0 ? firstLayer(context, setState) :
-                      // layer == 1 ? yesUI(context,setState) :
-                      // layer == 2 ? noUI1(context,setState) :
-                      // layer == 3 ? noUI2(context,setState) :
-                      // layer == 4 ? finalUI(context, setState) : SizedBox()
                     ],
                   ),
                 ),
@@ -108,19 +117,18 @@ class PurschaseAlertBox{
     );
   }
 
+  //layer 1
   Widget firstLayer(context, setState) {
     List <String>  dataList = [
       'Yes, Facing issue in the payment',
       'No, I will purchase later',
     ];
     return Column(
-      // mainAxisSize: MainAxisSize.min,
       children: [
         Text('You have not completed the payment. Are you facing any issue',style: TextStyle(fontSize: 15,color: Colors.white,fontFamily: 'Noto Sans'),textAlign: TextAlign.center,),
         SizedBox(height: 20,),
         ListView.builder(
             itemCount: dataList.length,
-            //physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (ctx , i){
               return
@@ -129,14 +137,14 @@ class PurschaseAlertBox{
                   child: LinearButton(
                       titleText: dataList[i],
                       onpressed: (){
+                        selection1 = dataList[i];
                         if(dataList[i] == 'Yes, Facing issue in the payment'){
-                          layer = 3;
-                          buttonCarouselController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);
-                        } else{
                           layer = 2;
                           buttonCarouselController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);
+                        } else{
+                          layer = 5;
+                          buttonCarouselController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);
                         }
-                        selection1 = dataList[i];
                         setState((){});
                       }
                   ),
@@ -146,36 +154,8 @@ class PurschaseAlertBox{
     );
   }
 
-  Widget yesUI(context,setState){
-    List <String>  YesdataList = [
-      'In next 2-3 hours',
-      'Tomorrow',
-      '2-3 dino ke baad',
-      'Facing some issue in app '
-    ];
-    return Column(
-      children: [
-        Text('Till Now, You have not purchased,By when you are planning to purchase ?',style: TextStyle(fontSize: 15,color: Colors.white,fontFamily: 'Noto Sans'),textAlign: TextAlign.center,),
-        SizedBox(height: 20,),
-        loading ? CircularProgressIndicator() :  ListView.builder(
-            itemCount: YesdataList.length,
-            // physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (ctx , i){
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: LinearButton(titleText: YesdataList[i],onpressed: (){
-                  selection2 = YesdataList[i];
-                 submitFormfeedback(context, setState);
-                }),
-              );
-            }),
-
-      ],
-    );
-  }
-
-  Widget noUI1(context,setState) {
+  //layer 2
+  Widget yesUI1(context,setState) {
     List <String>  nodataList = [
       'Forgot my UPI id',
       'Issue 2',
@@ -196,9 +176,9 @@ class PurschaseAlertBox{
               return Padding(
                 padding: const EdgeInsets.all(8),
                 child: LinearButton(titleText: nodataList[i],onpressed: (){
-                    selection2 = nodataList[i];
-                    layer = 3;
-                    buttonCarouselController.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.linear);
+                  selection2 = nodataList[i];
+                  layer = 3;
+                  buttonCarouselController.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.linear);
                   setState((){});
                 }),
               );
@@ -208,7 +188,8 @@ class PurschaseAlertBox{
     );
   }
 
-  Widget noUI2(context, setState){
+  //layer 3
+  Widget yesUI2(context, setState){
     return Column(children: [
       Text('Please explain your issue',style: TextStyle(fontSize: 15,color: Colors.white,fontFamily: 'Noto Sans'),textAlign: TextAlign.center,),
       SizedBox(height: 30,),
@@ -245,7 +226,8 @@ class PurschaseAlertBox{
               context, 'Please fill the message',
             );
           }else{
-           submitFormfeedback(context,setState);
+            FocusScope.of(context).unfocus();
+            submitFormfeedback(context,setState);
           }},
         child: Container(height: 40,width: 200,
           decoration: BoxDecoration(
@@ -259,7 +241,8 @@ class PurschaseAlertBox{
 
   }
 
-  Widget finalUI1(context, setState){
+  //layer 4
+  Widget yesFinalUI(context, setState){
     return Column(children: [
       Image.asset(Images.Done,height: 150,),
       SizedBox(height: 30,),
@@ -267,17 +250,54 @@ class PurschaseAlertBox{
       SizedBox(height: 40,),
       LinearButton(titleText: 'Retry Purchase',onpressed: (){
         Navigator.pop(context);
+        AppConstants.goTo(context, PaidCourses(1,));
       }),
     ]);
   }
 
-  Widget finalUI2(context, setState){
+  //layer 5
+  Widget noUI(context,setState){
+    List <String>  YesdataList = [
+      'In next 2-3 hours',
+      'Tomorrow',
+      '2-3 dino ke baad',
+      'Facing some issue in app '
+    ];
+    return Column(
+      children: [
+        Text('Till Now, You have not purchased,By when you are planning to purchase ?',style: TextStyle(fontSize: 15,color: Colors.white,fontFamily: 'Noto Sans'),textAlign: TextAlign.center,),
+        SizedBox(height: 20,),
+        loading ? CircularProgressIndicator() :  ListView.builder(
+            itemCount: YesdataList.length,
+            // physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (ctx , i){
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LinearButton(titleText: YesdataList[i],onpressed: (){
+                  selection2 = YesdataList[i];
+                 submitFormfeedback(context, setState);
+                }),
+              );
+            }),
+
+      ],
+    );
+  }
+
+  //layer 6
+  Widget noFinalUI(context, setState){
     return Column(children: [
       Image.asset(Images.Done,height: 150,),
       SizedBox(height: 30,),
       Text('Thank You for your input',style: TextStyle(color: Colors.white,fontSize: 15,fontFamily: 'Noto Sans'),),
       SizedBox(height: 40,),
-      Text('Purchase Now',style: TextStyle(fontFamily: 'Noto Sans'),),
+      InkWell(
+        onTap: (){
+          AppConstants.goTo(context, PaidCourses(1,));
+        },
+          child: Text('Purchase Now',style: TextStyle(fontFamily: 'Noto Sans',color: Colors.white),)),
+      SizedBox(height: 20,),
       LinearButton(titleText: 'Home',onpressed: (){
         Navigator.pop(context);
       }),
@@ -314,25 +334,25 @@ class PurschaseAlertBox{
       "app-version":AppConstants.versionCode
     };
   // print(body);
-    // await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) async {
-    //   loading = false;
-    //   if (response == null) {
-    //     AppConstants.showBottomMessage(context,
-    //         getTranslated(context,
-    //             LangString.serverError)!,
-    //         AppColors.red);
-    //   } else {
-    //     if (response.statusCode == 200) {
-    //       layer = 5;
-    //       buttonCarouselController.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.linear);
-    //     } else {
-    //       AppConstants.showBottomMessage(
-    //           context, 'Something went wrong',
-    //           AppColors.red);
-    //     }
-    //   }
-    //   setState((){});
-    // });
+    await Service.post(API.serviceLogUrl, body: body, myHeader: header).then((response) async {
+      loading = false;
+      if (response == null) {
+        AppConstants.showBottomMessage(context,
+            getTranslated(context,
+                LangString.serverError)!,
+            AppColors.red);
+      } else {
+        if (response.statusCode == 200) {
+    close = true;
+          buttonCarouselController.animateToPage(3, duration: Duration(milliseconds: 300), curve: Curves.linear);
+        } else {
+          AppConstants.showBottomMessage(
+              context, 'Something went wrong',
+              AppColors.red);
+        }
+      }
+       setState((){});
+    });
   }
 
 }

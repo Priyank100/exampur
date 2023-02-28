@@ -3,6 +3,7 @@ import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:flutter/material.dart';
 import '../../Localization/language_constrants.dart';
 import '../../presentation/home/paid_courses/paid_courses.dart';
+import '../../utils/analytics_constants.dart';
 import '../../utils/api.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
@@ -51,6 +52,13 @@ class AlertBox{
                                 //     },child: Container(height: 30,width: 30,child: Icon(Icons.keyboard_backspace_rounded),color: Colors.white,)),
                                 layer == 5 ? InkWell(
                                     onTap: (){
+                                      var map = {
+                                        'Page_Name':'Cross_signup',
+                                        'Mobile_Number':AppConstants.userMobile,
+                                        'Language':AppConstants.langCode,
+                                        'User_ID':AppConstants.userMobile
+                                      };
+                                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Cross_signup,map);
                                       Navigator.pop(context);
                                     },child: Container(
                                   height: 30,width: 30,
@@ -276,6 +284,7 @@ class AlertBox{
               context, 'Please fill the message',
             );
           }else{
+            FocusScope.of(context).unfocus();
             submitFormfeedback(context,setState);
           }},
         child: Container(height: 40,width: 200,

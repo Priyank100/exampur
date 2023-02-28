@@ -417,7 +417,7 @@ class _FreeVideoDetailState extends State<FreeVideoDetail> {
                                 Radius.circular(10),
                               )),
                           width: double.infinity,
-                          child: AppConstants.image(AppConstants.BANNER_BASE + banner,height:150.0,boxfit: BoxFit.fill),
+                          child: AppConstants.image(AppConstants.BANNER_BASE + banner ,height:150.0,boxfit: BoxFit.fill),
                         ),
                       ),
                       Padding(

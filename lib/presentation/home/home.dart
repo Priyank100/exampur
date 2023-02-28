@@ -84,6 +84,7 @@ class _HomeState extends State<Home> {
     teacherIncentiveAlert();
     checkSignUpTime();
     checkCourseBookPopup();
+    checkPurchaseFaliurePopUpTime();
 
     LocalNotificationService.initialize(context);
 
@@ -437,10 +438,10 @@ class _HomeState extends State<Home> {
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
-                                  TestSeriesNew(API.QuestionOfDayWebUrl, TOKEN))
-                      );
+                                  TestSeriesNew(API.QuestionOfDayWebUrl, TOKEN)));
                     },
                   ),
+
                 ],
               ),
               SizedBox(
@@ -491,9 +492,6 @@ class _HomeState extends State<Home> {
                                   TestSeriesNew(API.quizzesWebUrl, TOKEN)));
                     },
                   ),
-
-
-
                   // SquareButton(
                   //     image: Images.offlinebatch,
                   //     title: getTranslated(context, 'offline_batches')!,
@@ -754,6 +752,22 @@ class _HomeState extends State<Home> {
        });
      }
    });
+  }
+
+  Future<void> checkPurchaseFaliurePopUpTime() async {
+    await SharedPref.getSharedPref(SharedPref.PurchaseFaliure_TIME).then((value) async {
+      if(value != 'null'){
+        var format = DateFormat('dd/MM/yyyy HH:mm:ss');
+        var start = format.parse(value);
+        var end = format.parse(AppConstants.timeRound());
+        if(end.difference(start).inHours >=1) {
+          PurschaseAlertBox().PurchaseAlert(context);
+        }
+        //save current time again
+        await SharedPref.saveSharedPref(SharedPref.PurchaseFaliure_TIME,AppConstants.timeRound());
+
+      }
+    });
   }
 
   Future<void> getDeviceData() async {
