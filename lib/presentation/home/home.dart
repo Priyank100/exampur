@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
     teacherIncentiveAlert();
     checkSignUpTime();
     checkCourseBookPopup();
-    checkPurchaseFaliurePopUpTime();
+    checkPurchaseFailurePopUpTime();
 
     LocalNotificationService.initialize(context);
 
@@ -753,7 +753,7 @@ class _HomeState extends State<Home> {
    });
   }
 
-  Future<void> checkPurchaseFaliurePopUpTime() async {
+  Future<void> checkPurchaseFailurePopUpTime() async {
     await SharedPref.getSharedPref(SharedPref.PurchaseFaliure_TIME).then((value) async {
       if(value != 'null'){
         var format = DateFormat('dd/MM/yyyy HH:mm:ss');
