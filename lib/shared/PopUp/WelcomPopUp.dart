@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:flutter/material.dart';
 import '../../Localization/language_constrants.dart';
@@ -353,6 +354,9 @@ class AlertBox{
         if (response.statusCode == 200) {
           layer = 5;
           buttonCarouselController.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.linear);
+          await SharedPref.clearSharedPref(SharedPref.SIGNUP_TIME);
+          await SharedPref.clearSharedPref(SharedPref.SIGNUP_TIME_Count);
+          await SharedPref.clearSharedPref(SharedPref.NONSIGNUP_TIME);
         } else {
           AppConstants.showBottomMessage(
               context, 'Something went wrong',

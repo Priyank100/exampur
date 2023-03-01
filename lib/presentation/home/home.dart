@@ -81,10 +81,11 @@ class _HomeState extends State<Home> {
     getDeviceData();
     callProvider();
     getConfig();
-    teacherIncentiveAlert();
-    checkSignUpTime();
+
     checkCourseBookPopup();
-    checkPurchaseFailurePopUpTime();
+    Future.delayed(Duration(minutes: 1)).then((value) {checkSignUpTime();});
+    Future.delayed(Duration(minutes: 2)).then((value) {checkPurchaseFailurePopUpTime();});
+    Future.delayed(Duration(minutes: 3)).then((value) {teacherIncentiveAlert();});
 
     LocalNotificationService.initialize(context);
 
@@ -435,6 +436,14 @@ class _HomeState extends State<Home> {
                     title: 'Question of the day',
                     color: Colors.lime,
                     onPressed: () {
+                      var map = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.QOD_click,map);
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                               builder: (_) =>
@@ -690,85 +699,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Future<void> teacherIncentiveAlert() async {
-    await SharedPref.getSharedPref(SharedPref.TEACHER_INCENTIVE_FIRST).then((value) async {
-      if(value == 'TRUE') {
-        await SharedPref.saveSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME, AppConstants.timeRound());
-        await SharedPref.clearSharedPref(SharedPref.TEACHER_INCENTIVE_FIRST);
-        TeacherIncentivePopup().teacherIncentiveAlert(context);
-      } else {
-        await SharedPref.getSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME).then((dateTime) async {
-          if (dateTime != 'null') {
-            String savedDate = DateFormat('dd/MM/yyyy').format(DateFormat('dd/MM/yyyy').parse(dateTime));
-            String todayDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
-            if (savedDate == todayDate) {
-              DateTime savedTime = DateFormat('dd/MM/yyyy HH:mm:ss').parse(dateTime);
-              DateTime todayTime = DateFormat('dd/MM/yyyy HH:mm:ss').parse(AppConstants.timeRound());
-              if (todayTime.difference(savedTime).inHours >= 2) {
-                await SharedPref.saveSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME, AppConstants.timeRound());
-                TeacherIncentivePopup().teacherIncentiveAlert(context);
-              }
-            }
-          }
-        });
-      }
-    });
-  }
-
-  Future<void> checkSignUpTime() async {
-   await SharedPref.getSharedPref(SharedPref.SIGNUP_TIME).then((value) async {
-     if(value != 'null'){
-       var format = DateFormat('dd/MM/yyyy HH:mm:ss');
-       var start = format.parse(value);
-       var end = format.parse(AppConstants.timeRound());
-       if(end.difference(start).inHours >=4) {
-       AlertBox().WelcomeAlert1(context);
-       }
-       //save current time again
-      await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME,AppConstants.timeRound());
-
-     } else{
-       await SharedPref.getSharedPref(SharedPref.SIGNUP_TIME_Count).then((count) async {
-         if(count != 'null') {
-           if(int.parse(count) < 3) {
-             await SharedPref.getSharedPref(SharedPref.NONSIGNUP_TIME).then((time) async {
-               var format = DateFormat('dd/MM/yyyy HH:mm:ss');
-               var start = format.parse(time);
-               var end = format.parse(AppConstants.timeRound());
-               if(end.difference(start).inHours >= 1) {
-                 int dt = int.parse(count) + 1;
-                 AlertBox().WelcomeAlert1(context);
-                 await SharedPref.saveSharedPref(SharedPref.NONSIGNUP_TIME, AppConstants.timeRound());
-                 await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME_Count, dt.toString());
-               }
-             });
-           }
-         } else {
-           AlertBox().WelcomeAlert1(context);
-           await SharedPref.saveSharedPref(SharedPref.NONSIGNUP_TIME, AppConstants.timeRound());
-           await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME_Count,'1');
-         }
-       });
-     }
-   });
-  }
-
-  Future<void> checkPurchaseFailurePopUpTime() async {
-    await SharedPref.getSharedPref(SharedPref.PurchaseFaliure_TIME).then((value) async {
-      if(value != 'null'){
-        var format = DateFormat('dd/MM/yyyy HH:mm:ss');
-        var start = format.parse(value);
-        var end = format.parse(AppConstants.timeRound());
-        if(end.difference(start).inHours >=1) {
-          PurschaseAlertBox().PurchaseAlert(context);
-        }
-        //save current time again
-        await SharedPref.saveSharedPref(SharedPref.PurchaseFaliure_TIME,AppConstants.timeRound());
-
-      }
-    });
-  }
-
   Future<void> getDeviceData() async {
     if(Platform.isAndroid){
       DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -789,8 +719,8 @@ class _HomeState extends State<Home> {
             if(date == currentDate) {
               await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_COUNT).then((count) async {
                 if(int.parse(count) < 5) {
-                 int dt = int.parse(count) + 1;
-                 showNudgePopup(data, dt);
+                  int dt = int.parse(count) + 1;
+                  showNudgePopup(data, dt);
                 }
               });
             } else {
@@ -800,6 +730,84 @@ class _HomeState extends State<Home> {
           } else {
             await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE, currentDate);
             showNudgePopup(data, '1');
+          }
+        });
+      }
+    });
+  }
+
+  Future<void> checkSignUpTime() async {
+    await SharedPref.getSharedPref(SharedPref.SIGNUP_TIME).then((value) async {
+      if(value != 'null'){
+        var format = DateFormat('dd/MM/yyyy HH:mm:ss');
+        var start = format.parse(value);
+        var end = format.parse(AppConstants.timeRound());
+        if(end.difference(start).inHours >=4) {
+          AlertBox().WelcomeAlert1(context);
+        }
+        //save current time again
+        await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME,AppConstants.timeRound());
+
+      } else{
+        await SharedPref.getSharedPref(SharedPref.SIGNUP_TIME_Count).then((count) async {
+          if(count != 'null') {
+            if(int.parse(count) < 3) {
+              await SharedPref.getSharedPref(SharedPref.NONSIGNUP_TIME).then((time) async {
+                var format = DateFormat('dd/MM/yyyy HH:mm:ss');
+                var start = format.parse(time);
+                var end = format.parse(AppConstants.timeRound());
+                if(end.difference(start).inHours >= 1) {
+                  int dt = int.parse(count) + 1;
+                  AlertBox().WelcomeAlert1(context);
+                  await SharedPref.saveSharedPref(SharedPref.NONSIGNUP_TIME, AppConstants.timeRound());
+                  await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME_Count, dt.toString());
+                }
+              });
+            }
+          } else {
+            AlertBox().WelcomeAlert1(context);
+            await SharedPref.saveSharedPref(SharedPref.NONSIGNUP_TIME, AppConstants.timeRound());
+            await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME_Count,'1');
+          }
+        });
+      }
+    });
+  }
+
+  Future<void> checkPurchaseFailurePopUpTime() async {
+    await SharedPref.getSharedPref(SharedPref.PurchaseFaliure_TIME).then((value) async {
+      if(value != 'null'){
+        var format = DateFormat('dd/MM/yyyy HH:mm:ss');
+        var start = format.parse(value);
+        var end = format.parse(AppConstants.timeRound());
+        if(end.difference(start).inHours >=1) {
+          PurschaseAlertBox().PurchaseAlert(context);
+          await SharedPref.saveSharedPref(SharedPref.PurchaseFaliure_TIME,AppConstants.timeRound());
+        }
+        // await SharedPref.saveSharedPref(SharedPref.PurchaseFaliure_TIME,AppConstants.timeRound());
+      }
+    });
+  }
+
+  Future<void> teacherIncentiveAlert() async {
+    await SharedPref.getSharedPref(SharedPref.TEACHER_INCENTIVE_FIRST).then((value) async {
+      if(value == 'TRUE') {
+        await SharedPref.saveSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME, AppConstants.timeRound());
+        await SharedPref.clearSharedPref(SharedPref.TEACHER_INCENTIVE_FIRST);
+        TeacherIncentivePopup().teacherIncentiveAlert(context);
+      } else {
+        await SharedPref.getSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME).then((dateTime) async {
+          if (dateTime != 'null') {
+            String savedDate = DateFormat('dd/MM/yyyy').format(DateFormat('dd/MM/yyyy').parse(dateTime));
+            String todayDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
+            if (savedDate == todayDate) {
+              DateTime savedTime = DateFormat('dd/MM/yyyy HH:mm:ss').parse(dateTime);
+              DateTime todayTime = DateFormat('dd/MM/yyyy HH:mm:ss').parse(AppConstants.timeRound());
+              if (todayTime.difference(savedTime).inHours >= 2) {
+                await SharedPref.saveSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME, AppConstants.timeRound());
+                TeacherIncentivePopup().teacherIncentiveAlert(context);
+              }
+            }
           }
         });
       }

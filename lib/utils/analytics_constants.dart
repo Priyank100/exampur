@@ -511,4 +511,5 @@ class AnalyticsConstants {
   static String Teacher_code_cross = 'Teacher_code_cross';
   static String Cross_signup= 'Cross_signup';
   static String cross_purchase= 'cross_purchase';
+  static String QOD_click= 'QOD_click';
 }

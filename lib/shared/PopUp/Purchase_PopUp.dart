@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:flutter/material.dart';
 import '../../Localization/language_constrants.dart';
+import '../../SharePref/shared_pref.dart';
 import '../../presentation/home/paid_courses/paid_courses.dart';
 import '../../utils/analytics_constants.dart';
 import '../../utils/api.dart';
@@ -158,8 +159,8 @@ class PurschaseAlertBox{
   Widget yesUI1(context,setState) {
     List <String>  nodataList = [
       'Forgot my UPI id',
-      'Issue 2',
-      'Issue 3',
+      'App getting crashed',
+      'Payment not happening',
       'Other issue'
     ];
     return   Column(
@@ -345,6 +346,7 @@ class PurschaseAlertBox{
         if (response.statusCode == 200) {
     close = true;
           buttonCarouselController.animateToPage(3, duration: Duration(milliseconds: 300), curve: Curves.linear);
+          await SharedPref.clearSharedPref(SharedPref.PurchaseFaliure_TIME);
         } else {
           AppConstants.showBottomMessage(
               context, 'Something went wrong',
