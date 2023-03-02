@@ -332,6 +332,7 @@ class AlertBox{
         "version_code": AppConstants.versionCode
       },
       "type": "purchase-drop",
+      "log_type":"signup",
       "selection_one": selection1,
       "selection_two": selection2,
       "selection_three": selection3,
