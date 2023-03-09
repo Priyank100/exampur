@@ -2,25 +2,27 @@
 //
 //     final userInformationModel = userInformationModelFromJson(jsonString);
 
-import 'dart:convert';
-
 class UserInformationModel {
   UserInformationModel({
     this.statusCode,
     this.data,
+    this.config
   });
 
   int? statusCode;
   Data? data;
+  Config? config;
 
   factory UserInformationModel.fromJson(Map<String, dynamic> json) => UserInformationModel(
     statusCode: json["statusCode"],
     data: Data.fromJson(json["data"]),
+    config: json["config"] == null ? Config(isMaintenance: false, isMandatoryUpdate: false) : Config.fromJson(json["config"]),
   );
 
   Map<String, dynamic> toJson() => {
     "statusCode": statusCode,
     "data": data!.toJson(),
+    "config": config!.toJson(),
   };
 }
 
@@ -81,5 +83,25 @@ class Data {
     "phone_conf": phoneConf,
     "authToken": authToken,
     "count_categories": countCategories,
+  };
+}
+
+class Config {
+  Config({
+    this.isMaintenance,
+    this.isMandatoryUpdate
+  });
+
+  bool? isMaintenance;
+  bool? isMandatoryUpdate;
+
+  factory Config.fromJson(Map<String, dynamic> json) => Config(
+    isMaintenance: json["is_maintanance"] ?? false,
+    isMandatoryUpdate: json["is_mandatory_update"] ?? false,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "is_maintanance": isMaintenance,
+    "is_mandatory_update": isMandatoryUpdate,
   };
 }

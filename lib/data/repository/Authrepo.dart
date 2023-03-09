@@ -151,4 +151,14 @@ class AuthRepo {
       }
     }
   }
+
+  Future<ApiResponse> config() async {
+    try {
+      final url = '${API.config_URL}';
+      final response = await dioClient.get(url);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 }

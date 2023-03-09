@@ -4,6 +4,8 @@ import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/presentation/authentication/landing_page.dart';
 import 'package:exampur_mobile/presentation/downloads/downloads.dart';
 import 'package:exampur_mobile/provider/Authprovider.dart';
+import 'package:exampur_mobile/shared/maintenance_screen.dart';
+import 'package:exampur_mobile/shared/update_screen.dart';
 import 'package:exampur_mobile/utils/analytics_constants.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
 
@@ -106,26 +108,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future validateToken(token) async {
     if(token != null && token.toString() != 'null') {
-      // Timer(Duration(seconds: 1), ()=> Provider.of<ValidTokenProvider>(context, listen: false).tokenValidation(context)
       Timer(Duration(seconds: 1), () => Provider.of<AuthProvider>(context, listen: false).tokenValidation(context, token));
-      //  Timer(Duration(seconds: 3),
-      //          ()=>Navigator.pushReplacement(context,
-      //          MaterialPageRoute(builder:
-      //              (context) =>
-      //              BottomNavigation()
-      //          )
-      //      )
-      //  );
 
     } else {
-      Timer(Duration(seconds: 3),
-              ()=>Navigator.pushReplacement(context,
-              MaterialPageRoute(builder:
-                  (context) =>
-                  LandingPage()
-              )
-          )
-      );
+      Timer(Duration(seconds: 1), () => Provider.of<AuthProvider>(context, listen: false).userConfig(context));
+      // Timer(Duration(seconds: 3),
+      //         ()=>Navigator.pushReplacement(context,
+      //         MaterialPageRoute(builder:
+      //             (context) =>
+      //             LandingPage()
+      //         )
+      //     )
+      // );
     }
   }
 

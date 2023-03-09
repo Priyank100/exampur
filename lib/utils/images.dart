@@ -53,5 +53,7 @@ class Images {
   static const String youtubeImg = 'assets/images/youtube.png';
   static const String Question = 'assets/images/Question.png';
   static const String Done = 'assets/images/done.png';
+  static const String updateImg = 'assets/images/update.png';
+  static const String maintenanceImg = 'assets/images/maintenance.png';
 
 }

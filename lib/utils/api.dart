@@ -290,4 +290,7 @@ class API {
   // check teacher incentive referral code
   static String teacherIncentiveReferralCode_URL    = BASE_URL1 + 'user/faculty-referral';
 
+  //config
+  static String config_URL    = BASE_URL1 + 'config';
+
 }

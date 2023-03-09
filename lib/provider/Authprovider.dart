@@ -15,6 +15,8 @@ import 'package:exampur_mobile/presentation/authentication/otp_screen.dart';
 import 'package:exampur_mobile/presentation/drawer/choose_category.dart';
 import 'package:exampur_mobile/presentation/home/LandingChooseCategory.dart';
 import 'package:exampur_mobile/presentation/home/bottom_navigation.dart';
+import 'package:exampur_mobile/shared/maintenance_screen.dart';
+import 'package:exampur_mobile/shared/update_screen.dart';
 import 'package:exampur_mobile/utils/api.dart';
 import 'package:exampur_mobile/utils/app_colors.dart';
 
@@ -237,27 +239,34 @@ class AuthProvider extends ChangeNotifier {
         AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
         // AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.userMobile);
 
-        await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
-        _userData.add(_informationModel);
-        await SharedPref.saveSharedPref(SharedPref.USER_DATA, jsonEncode(_userData));
-
-        AppConstants.CATEGORY_LENGTH = _informationModel.data!.countCategories.toString();
-        AppConstants.isotpverify = _informationModel.data!.phoneConf??false;
-        if(_informationModel.data!.phoneConf == true) {
-          checkSelectCategory(context, _informationModel.data!.countCategories);
+        if(_informationModel.config!.isMaintenance == true) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => MaintenanceScreen()));
+        } else if(_informationModel.config!.isMandatoryUpdate == true) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => UpdateScreen()));
         } else {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => OtpScreen(false)));
+          await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
+          _userData.add(_informationModel);
+          await SharedPref.saveSharedPref(SharedPref.USER_DATA, jsonEncode(_userData));
+
+          AppConstants.CATEGORY_LENGTH = _informationModel.data!.countCategories.toString();
+          AppConstants.isotpverify = _informationModel.data!.phoneConf ?? false;
+          if (_informationModel.data!.phoneConf == true) {
+            checkSelectCategory(context, _informationModel.data!.countCategories);
+          } else {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => OtpScreen(false)));
+          }
         }
 
       } else {
-        // String msg = _informationModel.data.toString();
-        AppConstants.showBottomMessage(context, 'Logged Out', AppColors.black);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder:
-                (context) =>
-                LandingPage()
-            )
-        );
+        userConfig(context);
+        // // String msg = _informationModel.data.toString();
+        // AppConstants.showBottomMessage(context, 'Logged Out', AppColors.black);
+        // Navigator.pushReplacement(context,
+        //     MaterialPageRoute(builder:
+        //         (context) =>
+        //         LandingPage()
+        //     )
+        // );
       }
       notifyListeners();
     } else {
@@ -349,6 +358,46 @@ class AuthProvider extends ChangeNotifier {
       AppConstants.showBottomMessage(context, errorMessage, AppColors.red);
       notifyListeners();
       return false;
+    }
+  }
+
+  Future<void> userConfig(BuildContext context) async {
+    ApiResponse apiResponse = await authRepo.config();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      AppConstants.printLog(apiResponse.response);
+
+      var statusCode = apiResponse.response!.data['statusCode'].toString();
+
+      if (statusCode == '200') {
+        UserInformationModel informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
+
+        if(informationModel.config!.isMaintenance == true) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => MaintenanceScreen()));
+        } else if(informationModel.config!.isMandatoryUpdate == true) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => UpdateScreen()));
+        } else {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LandingPage()));
+        }
+
+      } else {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LandingPage()));
+      }
+      notifyListeners();
+    } else {
+      String errorMessage;
+      if (apiResponse.error is String) {
+        AppConstants.printLog(apiResponse.error.toString());
+        errorMessage = apiResponse.error.toString();
+      } else {
+        ErrorResponse errorResponse = apiResponse.error;
+        AppConstants.printLog(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message!;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Server Error'),
+        backgroundColor: AppColors.black,
+      ));
+      notifyListeners();
     }
   }
 
