@@ -29,6 +29,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.splashScreen);
+
+    var map = {
+      'Page_Name':'Splash_Screen'
+    };
+    AnalyticsConstants.firebaseEvent(AnalyticsConstants.splashScreenNew, map);
+
     Map<String, Object> stuff = {};
     AnalyticsConstants.logEvent(AnalyticsConstants.splashScreen,stuff);
     AnalyticsConstants.initAppFlyer();

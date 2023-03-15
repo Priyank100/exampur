@@ -292,7 +292,9 @@ class _TeachingContainerState extends State<TeachingContainer> {
                             };
                             if(widget.courseType == 1) {
                               AppConstants.paidTabName = widget.tabName;
-                              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_Details_Course,map);}
+                              AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_View_Details_Course,map);
+                              AnalyticsConstants.firebaseEvent(AnalyticsConstants.viewDetailClick, map);
+                            }
                             String courseTabType = 'Course';
                             if(widget.tabId=='combo_course'){
                               courseTabType = 'Combo';
@@ -385,6 +387,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                   'User_ID':AppConstants.userMobile,
                                 };
                                 AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Course,map);
+                                AnalyticsConstants.firebaseEvent(AnalyticsConstants.buyCourse1Click, map);
 
                                 String courseTabType = 'Course';
                                 if(widget.tabId=='combo_course'){

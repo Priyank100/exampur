@@ -330,12 +330,21 @@ class _HomeState extends State<Home> {
                     title: getTranslated(context, LangString.paidCourse)!,
                     color: AppColors.paidCourses,
                     onPressed: () {
-                      AnalyticsConstants.sendAnalyticsEvent(
-                          AnalyticsConstants.paidCourseClick);
+                      AnalyticsConstants.sendAnalyticsEvent(AnalyticsConstants.paidCourseClick);
                       Map<String, Object> stuff = {};
                       AnalyticsConstants.logEvent(AnalyticsConstants.paidCourseClick,stuff);
+
+                      var fMap = {
+                        'Page_Name':'Home_Page',
+                        'Mobile_Number':AppConstants.userMobile,
+                        'Language':AppConstants.langCode,
+                        'Course_Category':AppConstants.selectedCategoryNameList.toString(),
+                        'User_ID':AppConstants.userMobile
+                      };
+                      AnalyticsConstants.firebaseEvent(AnalyticsConstants.liveCourseClick, fMap);
+
                       Navigator.of(context, rootNavigator: true).push(
-                          MaterialPageRoute(builder: (_) => PaidCourses(1,)));
+                          MaterialPageRoute(builder: (_) => PaidCourses(1)));
                     },
                   ),
                   SquareButton(
@@ -742,13 +751,13 @@ class _HomeState extends State<Home> {
         var format = DateFormat('dd/MM/yyyy HH:mm:ss');
         var start = format.parse(value);
         var end = format.parse(AppConstants.timeRound());
-        if(end.difference(start).inHours >=4) {
+        if(end.difference(start).inHours >= 6) {
           AlertBox().WelcomeAlert1(context);
+          await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME_Count, '1');
+          await SharedPref.clearSharedPref(SharedPref.SIGNUP_TIME);
         }
-        //save current time again
-        await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME,AppConstants.timeRound());
 
-      } else{
+      } else {
         await SharedPref.getSharedPref(SharedPref.SIGNUP_TIME_Count).then((count) async {
           if(count != 'null') {
             if(int.parse(count) < 3) {
@@ -764,10 +773,6 @@ class _HomeState extends State<Home> {
                 }
               });
             }
-          } else {
-            AlertBox().WelcomeAlert1(context);
-            await SharedPref.saveSharedPref(SharedPref.NONSIGNUP_TIME, AppConstants.timeRound());
-            await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME_Count,'1');
           }
         });
       }

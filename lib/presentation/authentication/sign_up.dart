@@ -394,6 +394,13 @@ class SignUpState extends State<SignUp> {
                       children: [
                         Text("Facing problem in signing in?",style: TextStyle(color: AppColors.grey600),),
                         CustomTextButton(onPressed: () {
+
+                          var fMap = {
+                            'Page_Name':'Sign_Up',
+                            'Language':'en',
+                          };
+                          AnalyticsConstants.firebaseEvent(AnalyticsConstants.callSignUpClick, fMap);
+
                           AppConstants.makeCallEmail('tel:'+AppConstants.Mobile_number);
                         }, text: "Call us")
                       ],
@@ -540,14 +547,23 @@ class SignUpState extends State<SignUp> {
       };
       AnalyticsConstants.logEvent('USER_SIGNUP',stuff);
       // SharedPref.saveSharedPref(SharedPref.CATEGORY_LENGTH, '0');
+
+      var fMap = {
+        'Page_Name':'Sign_Up',
+        'Mobile_Number':_phoneController.text.toString(),
+        'Language':'en',
+        'User_ID':_phoneController.text.toString(),
+      };
+      AnalyticsConstants.firebaseEvent(AnalyticsConstants.registerClick, fMap);
+
       var map = {
         'Page_Name':'Sign_Up',
         'Mobile_Number':_phoneController.text.toString(),
         'Language':'en',
         'User_ID':_phoneController.text.toString(),
       };
-
      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Register,map);
+
      await SharedPref.saveSharedPref(SharedPref.SIGNUP_TIME, AppConstants.timeRound());
      await SharedPref.saveSharedPref(SharedPref.TEACHER_INCENTIVE_DATETIME, AppConstants.timeRound());
      await SharedPref.saveSharedPref(SharedPref.TEACHER_INCENTIVE_FIRST, 'TRUE');

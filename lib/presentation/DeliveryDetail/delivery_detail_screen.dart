@@ -271,9 +271,20 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                     String id = widget.id.toString();
 
                    if(checkCoupon(cuponCode)){
-                     FirebaseAnalytics.instance.logEvent(name:'PROMOCODE_APPLIED_',parameters: {
-                       'promocode':_cuponCodeController.text.toString().replaceAll(' ', '_'),
-                     });
+                     // FirebaseAnalytics.instance.logEvent(name:'PROMOCODE_APPLIED_',parameters: {
+                     //   'promocode':_cuponCodeController.text.toString().replaceAll(' ', '_'),
+                     // });
+
+                     var map = {
+                       'Page_Name':'Coupon_Page',
+                       'Course_Name':widget.title.toString(),
+                       'Promo_Code':_cuponCodeController.text.toString(),
+                       'Mobile_Number':AppConstants.userMobile,
+                       'Language':AppConstants.langCode,
+                       'User_ID':AppConstants.userMobile
+                     };
+                     AnalyticsConstants.firebaseEvent(AnalyticsConstants.applyCouponClick, map);
+
                      couponApi(API.CouponCode_URL, cuponCode,id);
                    }
                   },
@@ -308,6 +319,16 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                   'Book_Name':widget.title.toString()
                 };
                 widget.type == 'Book' ?  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Confirm_Purchase_Books,map):null;
+
+                var fMap = {
+                  'Page_Name':'Delivery_Details',
+                  'Course_Name':widget.title.toString(),
+                  'Mobile_Number':AppConstants.userMobile,
+                  'Language':AppConstants.langCode,
+                  'User_ID':AppConstants.userMobile
+                };
+                AnalyticsConstants.firebaseEvent(AnalyticsConstants.continueToBuyClick, fMap);
+
                 if(widget.pre_booktype == null ||widget.pre_booktype == 'Published')
                 {
                   if(checkValidation(_address, _state, _city, _pincode,_landmark,_promocode)) {

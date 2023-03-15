@@ -332,6 +332,15 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
           // AppConstants.printLog('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
           // AppConstants.printLog(jsonObject);
 
+          var fMap = {
+            'Page_Name':'Category_screen',
+            'Mobile_Number':AppConstants.userMobile,
+            'Language':AppConstants.langCode,
+            'User_ID':AppConstants.userMobile,
+            'Categories': selectedCategoryName.toString()
+          };
+          AnalyticsConstants.firebaseEvent(AnalyticsConstants.saveCategoryClick, fMap);
+
           for(int i=0; i<myList.length; i++) {
             if(myList[i].isSelected == true) {
               AppConstants.subscription(myList[i].id.toString());

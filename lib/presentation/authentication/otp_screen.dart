@@ -130,6 +130,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     'User_ID':AppConstants.userMobile
                   };
                   AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Skip_OTP,map);
+                  AnalyticsConstants.firebaseEvent(AnalyticsConstants.skipOTPClick, map);
+
                   if(AppConstants.CATEGORY_LENGTH == '0' || AppConstants.CATEGORY_LENGTH == 'null') {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder:
@@ -435,8 +437,15 @@ class _OtpScreenState extends State<OtpScreen> {
       'Language':'en',
       'User_ID':AppConstants.userMobile
     };
-
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Verify_OTP,map);
+
+    var fMap = {
+      'Page_Name':'OTP_Screen',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+    };
+    AnalyticsConstants.firebaseEvent(AnalyticsConstants.verifyOTPClick, fMap);
 
     AppConstants.showLoaderDialog(context);
     var body = {

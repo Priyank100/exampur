@@ -16,6 +16,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../utils/analytics_constants.dart';
 import 'bottom_navigation.dart';
 
 class LandingChooseCategory extends StatefulWidget {
@@ -247,6 +248,16 @@ class _LandingChooseCategoryState extends State<LandingChooseCategory> {
 
                                   AppConstants.printLog(selectedCategoryIdList.length.toString());
                                   if(selectedCategoryIdList.length > 0){
+
+                                    var fMap = {
+                                      'Page_Name':'Category_screen',
+                                      'Mobile_Number':AppConstants.userMobile,
+                                      'Language':AppConstants.langCode,
+                                      'User_ID':AppConstants.userMobile,
+                                      'Categories': selectedCategoryIdList.toString()
+                                    };
+                                    AnalyticsConstants.firebaseEvent(AnalyticsConstants.saveCategoryClick, fMap);
+
                                     UpdateChoosecategory(selectedCategoryIdList);
 
                                   } else {

@@ -516,6 +516,8 @@ class _PaidCourseDetailsState extends State<PaidCourseDetails> {
                           'Path_name':ModalRoute.of(context)!.settings.name
                         };
                         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Buy_Course,map);
+                        AnalyticsConstants.firebaseEvent(AnalyticsConstants.buyCourse2Click, map);
+
                         FirebaseAnalytics.instance.logEvent(name: 'Buy_Course',parameters: {
                           'Course_Id':widget.courseData.id.toString(),
                           'Course_Name':widget.courseData.title.toString()

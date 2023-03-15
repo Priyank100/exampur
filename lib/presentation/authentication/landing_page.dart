@@ -10,6 +10,8 @@ import 'package:exampur_mobile/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/analytics_constants.dart';
+
 class LandingPage extends StatefulWidget {
   @override
   LandingPageState createState() => LandingPageState();
@@ -37,6 +39,13 @@ class LandingPageState extends State<LandingPage> {
                 ),
                 SizedBox(height: 20),
                 CustomOutlinedButton(onPressed: () {
+
+                  var map = {
+                    'Page_Name':'Lets_Register',
+                    'Language':AppConstants.langCode,
+                  };
+                  AnalyticsConstants.firebaseEvent(AnalyticsConstants.letsRegisterClick, map);
+
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SignUp()));
                 }, text: "Let's Register"),
@@ -48,8 +57,12 @@ class LandingPageState extends State<LandingPage> {
                   ),
                   onPressed: () {
 
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignIn()));
+                    var map = {
+                      'Page_Name':'Login_Clicked',
+                      'Language':AppConstants.langCode,
+                    };
+                    AnalyticsConstants.firebaseEvent(AnalyticsConstants.loginClick, map);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

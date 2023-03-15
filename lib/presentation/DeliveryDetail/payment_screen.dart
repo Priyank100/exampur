@@ -139,9 +139,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       'Book_Name':widget.billingModel.itemName.toString(),
                       'Book_Price':widget.billingModel.itemAmount
                     };
-                   widget.type=='Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Pay_Now,bookmap): AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Pay_Now,map);
+                    widget.type=='Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Pay_Now,bookmap): AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Pay_Now,map);
+                    AnalyticsConstants.firebaseEvent(AnalyticsConstants.payNowClick, map);
                     openCheckout();
-                  },
+                    },
                   child: Container(
                     padding: EdgeInsets.all(10),
                     width: double.maxFinite,
@@ -214,6 +215,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
     AppConstants.printLog(response.paymentId);
     AppConstants.printLog(response.signature);
     SharedPref.clearSharedPref(SharedPref.PurchaseFaliure_TIME);
+
+    SharedPref.clearSharedPref(SharedPref.SIGNUP_TIME);
+    SharedPref.clearSharedPref(SharedPref.SIGNUP_TIME_Count);
+    SharedPref.clearSharedPref(SharedPref.NONSIGNUP_TIME);
+
     var map = {
       'Page_Name':'Check_Out_Course_Purchase',
       'Course_Category':AppConstants.paidTabName,
@@ -238,7 +244,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
       'Book_Name':widget.billingModel.itemName.toString(),
       'Book_Price':widget.billingModel.itemAmount
     };
-  widget.type == 'Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Successful,bookmap):  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Successful,map);
+    widget.type == 'Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Successful,bookmap):
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Successful,map);
+    AnalyticsConstants.firebaseEvent(AnalyticsConstants.purchaseSuccess, map);
 
     Navigator.pushReplacement(
         context,
@@ -285,6 +293,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     };
     widget.type == 'Book'?AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Failed,bookmap):
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Purchase_Failed,map);
+    AnalyticsConstants.firebaseEvent(AnalyticsConstants.purchaseFailed, map);
   }
 
   void handlerExternalWallet(ExternalWalletResponse response) {

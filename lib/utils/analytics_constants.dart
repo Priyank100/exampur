@@ -36,8 +36,7 @@ import 'lang_string.dart';
 class AnalyticsConstants {
   static MoEngageFlutter moengagePlugin = MoEngageFlutter();
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static FirebaseAnalyticsObserver observer =
-  FirebaseAnalyticsObserver(analytics: analytics);
+  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
 
   static String splashScreen              = 'Splash_Screen';
   static String loginScreen               = 'Login_Screen';
@@ -55,11 +54,36 @@ class AnalyticsConstants {
   static String demoClick                 = 'Demo_Clicked';
   static String myCoursesClick            = 'My_Courses_Clicked';
   static String downloadsClick            = 'Downloads_Clicked';
-  static String prebookClick            = 'PreBookClicked';
+  static String prebookClick              = 'Pre_Book_Clicked';
+
+  static String splashScreenNew           = 'New_Splash_Screen';
+  static String loginClick                = 'New_Login_Clicked';
+  static String letsRegisterClick         = 'New_Lets_Register_Clicked';
+  static String registerClick             = 'New_Register_Clicked';
+  static String callSignUpClick           = 'New_Call_Signup_Clicked';
+  static String verifyOTPClick            = 'New_Verify_OTP_Clicked';
+  static String skipOTPClick              = 'New_Skip_OTP_Clicked';
+  static String saveCategoryClick         = 'New_Save_Category_Clicked';
+  static String liveCourseClick           = 'New_Live_Course_Clicked';
+  static String viewDetailClick           = 'New_View_Detail_Clicked';
+  static String buyCourse1Click           = 'New_Buy_Course_1_Clicked';
+  static String buyCourse2Click           = 'New_Buy_Course_2_Clicked'; // (inside view detail)
+  static String applyCouponClick          = 'New_Apply_Coupon_Clicked'; // (after putting in coupon code)
+  static String continueToBuyClick        = 'New_Continue_To_Buy_Clicked';
+  static String payNowClick               = 'New_Pay_Now_Clicked';
+  static String purchaseSuccess           = 'New_Purchase_Successful';
+  static String purchaseFailed            = 'New_Purchase_Failed';
 
   static void sendAnalyticsEvent(String clickName) async {
     await analytics.logEvent(
       name: clickName,
+    );
+  }
+
+  static void firebaseEvent(String clickName, Map<String, dynamic> mapData) async {
+    await analytics.logEvent(
+      name: clickName,
+      parameters: mapData
     );
   }
 
