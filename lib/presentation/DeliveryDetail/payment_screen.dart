@@ -214,6 +214,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     AppConstants.printLog(response.orderId);
     AppConstants.printLog(response.paymentId);
     AppConstants.printLog(response.signature);
+
     SharedPref.clearSharedPref(SharedPref.PurchaseFaliure_TIME);
 
     SharedPref.clearSharedPref(SharedPref.SIGNUP_TIME);

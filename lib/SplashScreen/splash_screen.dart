@@ -71,6 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
       // String storeVersion = UpgradeAlert().upgrader.currentAppStoreVersion().toString();
       bool isUpdateAvailable = UpgradeAlert().upgrader.isUpdateAvailable();
       if(isUpdateAvailable) {
+        await SharedPref.clearSharedPref(SharedPref.SIGNUP_TIME_Count);
         AppConstants.showUpdateAlert(
             context,
             "New version of this application is available now. So update the application first",
