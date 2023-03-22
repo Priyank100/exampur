@@ -217,6 +217,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
     SharedPref.clearSharedPref(SharedPref.PurchaseFaliure_TIME);
 
+    SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST);
+    SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE);
+    SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_COUNT);
+    SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_72HRS);
+
     SharedPref.clearSharedPref(SharedPref.SIGNUP_TIME);
     SharedPref.clearSharedPref(SharedPref.SIGNUP_TIME_Count);
     SharedPref.clearSharedPref(SharedPref.NONSIGNUP_TIME);

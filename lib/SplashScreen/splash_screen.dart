@@ -25,6 +25,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  int i = 0;
+  List<String> loadingTextList = ['Loading Popular Courses', 'Loading Youtube Videos', 'Loading 1000+ Mock Tests'];
+  String loadingText = 'Loading Popular Courses';
+  Timer? timer;
 
   @override
   void initState() {
@@ -41,6 +45,12 @@ class _SplashScreenState extends State<SplashScreen> {
      // AnalyticsConstants.moEngageInitialize(context);
     checkInternet();
     super.initState();
+
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      loadingText = loadingTextList[i];
+      i == 2 ? i = 0 : i++;
+      setState((){});
+    });
   }
 
   Future<void> checkInternet() async {
@@ -88,15 +98,42 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Container(
-        height: double.infinity,
-        width: double.infinity,
-        child: FittedBox(
-          fit: BoxFit.fill,
-          child: Image.asset(
-            Images.splash_img,
+      body:  Stack(
+        children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: Image.asset(
+                Images.splash_img,
+              ),
+            ),
           ),
-        ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              margin: EdgeInsets.only(bottom: 150),
+              child: Column(
+                children: [
+                  Text(loadingText, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.only(left: 50, right: 50),
+                    child: LinearProgressIndicator(
+                      minHeight: 10,
+                      color: Colors.red,
+                      backgroundColor: Colors.red[200],
+                      // value: 0.2,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -128,6 +165,12 @@ class _SplashScreenState extends State<SplashScreen> {
       //     )
       // );
     }
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   int getExtendedVersionNumber(String version) {

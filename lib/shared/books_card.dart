@@ -164,6 +164,7 @@ class _BooksCardState extends State<BooksCard> {
                       List<CourseBookPopupModel> courseBookPopupList = [];
                       courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Book', uniqueId: widget.books.id.toString(), book: [widget.books]));
                       await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                      await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_72HRS, AppConstants.timeRound());
                     } else {
                       List<CourseBookPopupModel> courseBookPopupList = CourseBookPopupModel.decode(value);
                       courseBookPopupList.removeWhere((m) => m.uniqueId == widget.books.id.toString());
@@ -206,11 +207,12 @@ class _BooksCardState extends State<BooksCard> {
                           List<CourseBookPopupModel> courseBookPopupList = [];
                           courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Book', uniqueId: widget.books.id.toString(), book: [widget.books]));
                           await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                          await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_72HRS, AppConstants.timeRound());
                         } else {
                           List<CourseBookPopupModel> courseBookPopupList = CourseBookPopupModel.decode(value);
                           courseBookPopupList.removeWhere((m) => m.uniqueId == widget.books.id.toString());
                           courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Book', uniqueId: widget.books.id.toString(), book: [widget.books]));
-                          if(courseBookPopupList.length > 5) {
+                          if(courseBookPopupList.length > 3) {
                             courseBookPopupList.removeLast();
                           }
                           await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));

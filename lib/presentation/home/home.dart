@@ -721,26 +721,46 @@ class _HomeState extends State<Home> {
 
   Future<void> checkCourseBookPopup() async {
     String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-    await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST).then((data) async {
-      if(data != 'null') {
-        await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE).then((date) async {
-          if(date != 'null') {
-            if(date == currentDate) {
-              await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_COUNT).then((count) async {
-                if(int.parse(count) < 5) {
-                  int dt = int.parse(count) + 1;
-                  showNudgePopup(data, dt);
+    await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_72HRS).then((hour72Date) async {
+      if(hour72Date != 'null') {
+        var format = DateFormat('dd/MM/yyyy HH:mm:ss');
+        var start = format.parse(hour72Date);
+        var today = format.parse(AppConstants.timeRound());
+        if(today.difference(start).inHours < 72) {
+          await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST).then((data) async {
+            if(data != 'null') {
+              await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE).then((date) async {
+                if(date != 'null') {
+                  if(date == currentDate) {
+                    await SharedPref.getSharedPref(SharedPref.COURSE_BOOK_POPUP_COUNT).then((count) async {
+                      if(int.parse(count) < 5) {
+                        int dt = int.parse(count) + 1;
+                        showNudgePopup(data, dt);
+                      }
+                    });
+                  } else {
+                    await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE, currentDate);
+                    showNudgePopup(data, '1');
+                  }
+                } else {
+                  await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE, currentDate);
+                  showNudgePopup(data, '1');
                 }
               });
-            } else {
-              await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE, currentDate);
-              showNudgePopup(data, '1');
             }
-          } else {
-            await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE, currentDate);
-            showNudgePopup(data, '1');
-          }
-        });
+          });
+
+        } else {
+          SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST);
+          SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE);
+          SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_COUNT);
+          SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_72HRS);
+        }
+      } else {
+        SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST);
+        SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_DATE);
+        SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_COUNT);
+        SharedPref.clearSharedPref(SharedPref.COURSE_BOOK_POPUP_72HRS);
       }
     });
   }

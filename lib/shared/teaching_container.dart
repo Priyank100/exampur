@@ -269,11 +269,12 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                   List<CourseBookPopupModel> courseBookPopupList = [];
                                   courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Course', uniqueId: widget.courseData.id.toString(), course: [widget.courseData]));
                                   await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                                  await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_72HRS, AppConstants.timeRound());
                                 } else {
                                   List<CourseBookPopupModel> courseBookPopupList = CourseBookPopupModel.decode(value);
                                   courseBookPopupList.removeWhere((m) => m.uniqueId == widget.courseData.id.toString());
                                   courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Course', uniqueId: widget.courseData.id.toString(), course: [widget.courseData]));
-                                  if(courseBookPopupList.length > 5) {
+                                  if(courseBookPopupList.length > 3) {
                                     courseBookPopupList.removeLast();
                                   }
                                   await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
@@ -347,7 +348,6 @@ class _TeachingContainerState extends State<TeachingContainer> {
                         Icon(Icons.check_circle, color: AppColors.green, size: 15),
                         Text('Already Purchased', style: TextStyle(color: AppColors.green, fontSize: 12))
                       ]):
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -360,6 +360,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
                                       List<CourseBookPopupModel> courseBookPopupList = [];
                                       courseBookPopupList.insert(0,CourseBookPopupModel(dataType: 'Course', uniqueId: widget.courseData.id.toString(), course: [widget.courseData]));
                                       await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_LIST, CourseBookPopupModel.encode(courseBookPopupList));
+                                      await SharedPref.saveSharedPref(SharedPref.COURSE_BOOK_POPUP_72HRS, AppConstants.timeRound());
                                     } else {
                                       List<CourseBookPopupModel> courseBookPopupList = CourseBookPopupModel.decode(value);
                                       courseBookPopupList.removeWhere((m) => m.uniqueId == widget.courseData.id.toString());
