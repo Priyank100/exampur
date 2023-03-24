@@ -28,7 +28,7 @@ class Keys {
 }
 
 class AppConstants {
-  static bool isPrint       = true;
+  static bool isPrint       = false;
   static bool isotpverify   = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -65,6 +65,7 @@ class AppConstants {
   static List<String> selectedCategoryList = [];
   static List<String> selectedCategoryNameList = [];
 
+  static int homeIndex = 0;
 
   static List<String> contentLogList = [];
   static List<Course> doubtCourseIdList = [];

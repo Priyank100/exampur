@@ -521,6 +521,7 @@ class AnalyticsConstants {
   static String Demo_Book_pdf= 'Demo_Book_pdf';
   static String click_card_bottom_nav= 'Click_Card_Bottom_Nav';
   static String click_youtube_bottom_nav= 'Click_Youtube_Bottom_Nav';
+  static String offer_tab_Bottom_Nav= 'offer_bottom_nav';
   static String channel_page_landed= 'Channel_Page_Landed';
   static String Playlist_click= 'Playlist_Click';
   static String Youtube_video_play= 'Youtube_Video_Play';
@@ -536,4 +537,6 @@ class AnalyticsConstants {
   static String Cross_signup= 'Cross_signup';
   static String cross_purchase= 'cross_purchase';
   static String QOD_click= 'QOD_click';
+  static String E_Bookclick= 'E_book_click';
+  static String Banner_offer= 'Banner_offer';
 }

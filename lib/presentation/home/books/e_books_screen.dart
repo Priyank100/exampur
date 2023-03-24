@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/analytics_constants.dart';
+
 class EBooksScreen extends StatefulWidget {
   // final List<Data> eBooksList;
   // const EBooksScreen(this.eBooksList) : super();
@@ -40,6 +42,13 @@ class _EBooksScreenState extends State<EBooksScreen> {
 
   @override
   void initState() {
+    var map = {
+      'Page_Name':'Books List',
+      'Mobile_Number':AppConstants.userMobile,
+      'Language':AppConstants.langCode,
+      'User_ID':AppConstants.userMobile,
+    };
+    AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.E_Bookclick,map);
     scrollController.addListener(pagination);
     isLoad = 0;
     getBooksList(page);

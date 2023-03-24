@@ -7,25 +7,19 @@ import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.
 import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
 import 'package:exampur_mobile/shared/place_order_screen.dart';
 import 'package:exampur_mobile/utils/analytics_constants.dart';
-import 'package:exampur_mobile/utils/lang_string.dart';
 import 'package:exampur_mobile/utils/app_constants.dart';
-
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:exampur_mobile/data/model/paid_course_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
-
 import '../presentation/home/books/books_ebooks.dart';
 import '../presentation/home/current_affairs_new/current_affairs_tab.dart';
-import '../presentation/home/home.dart';
 import '../presentation/home/paid_courses/offline_courses.dart';
 import '../presentation/home/paid_courses/paid_courses.dart';
 import '../presentation/home/study_material_new/study_material_new.dart';
 import '../presentation/home/test_series_new/test_series_new.dart';
 import '../presentation/my_courses/TeacherSubjectView/DownloadPdfView.dart';
 import '../presentation/my_courses/TeacherSubjectView/material_video.dart';
-import '../presentation/my_courses/Timeline/TimeTableVideo.dart';
 
 class FirebaseDynamicLinkService {
   static String uriPrefix = 'https://edudrive.page.link';
@@ -69,10 +63,10 @@ class FirebaseDynamicLinkService {
     return _linkMessage;
   }
 
-  static Future<void> initDynamicLink(BuildContext context) async {
+  static Future<void> initDynamicLink(BuildContext context, {Function? function}) async {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData? dynamicLink) async {
-          handleDeepLink(context, dynamicLink!);
+          handleDeepLink(context, dynamicLink!, fn: function);
         },
         onError: (OnLinkErrorException e) async{
           AppConstants.printLog('link error');
@@ -82,11 +76,11 @@ class FirebaseDynamicLinkService {
 
     final PendingDynamicLinkData? data = await FirebaseDynamicLinks.instance.getInitialLink();
 
-    handleDeepLink(context, data!);
+    handleDeepLink(context, data!, fn: function);
 
   }
 
-  static handleDeepLink(BuildContext context, PendingDynamicLinkData dataLink) async {
+  static handleDeepLink(BuildContext context, PendingDynamicLinkData dataLink, {Function? fn}) async {
     try{
       final Uri deepLink = dataLink.link;
 
@@ -112,43 +106,50 @@ class FirebaseDynamicLinkService {
         var isPreviousYearPdf = dataType == 'previous-year';
         var isCheckout = dataType == 'checkout';
         // var isQuestion = dataType == 'questionDay';
+        var isOffer = dataType == 'offers';
 
         // int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 : 0;
 
         int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 : isCurrentAffairs ? 5 :
                         isLiveTest || isQuiz ? 6 : isBookList ? 7 : isEBookList ? 8 : isOfflineCourses ? 9 :
                         isPaidCourses ? 10 : isRecordedVideo ? 11 : isLiveVideo ? 12 : isPdf ? 13 :
-                        isPreviousYearPdf ? 14 : isCheckout ? 15 : 0;
+                        isPreviousYearPdf ? 14 : isCheckout ? 15 : isOffer ? 16 : 0;
 
 
-        switch(condition) {
+        switch (condition) {
           case 1:
             String type = deepLink.queryParameters['type'].toString();
-            PaidCourseData courseData = PaidCourseData.fromJson(json.decode(data));
-            if(type == '1' || type == '2' || type == '3') {
+            PaidCourseData courseData = PaidCourseData.fromJson(
+                json.decode(data));
+            if (type == '1' || type == '2' || type == '3') {
               return Navigator.push(context, MaterialPageRoute(
-                  settings:RouteSettings(name: 'Direct'+type),
+                  settings: RouteSettings(name: 'Direct' + type),
                   builder: (context) =>
-                      PaidCourseDetails('Course',courseData, int.parse(type.toString()))
+                      PaidCourseDetails(
+                          'Course', courseData, int.parse(type.toString()))
               ));
             } else {
               String token = await SharedPref.getSharedPref(SharedPref.TOKEN);
               return Navigator.push(context, MaterialPageRoute(
                   builder: (context) =>
-                      MyCourseTabView(courseData.id.toString(),courseData.title.toString(),courseData.testSeriesLink.toString().replaceAll('and', '&'),token)
+                      MyCourseTabView(
+                          courseData.id.toString(), courseData.title.toString(),
+                          courseData.testSeriesLink.toString().replaceAll(
+                              'and', '&'), token)
               ));
             }
 
           case 2:
             BookEbook bookData = BookEbook.fromJson(json.decode(data));
             return Navigator.push(context, MaterialPageRoute(
-               // settings: RouteSettings(name: 'Direct'),
+              // settings: RouteSettings(name: 'Direct'),
                 builder: (context) =>
                     PlaceOrderScreen(bookData)
             ));
 
           case 3:
-            One2OneCourses one2OneData = One2OneCourses.fromJson(json.decode(data));
+            One2OneCourses one2OneData = One2OneCourses.fromJson(
+                json.decode(data));
             return Navigator.push(context, MaterialPageRoute(
                 builder: (context) =>
                     One2OneVideo(one2OneData)
@@ -156,11 +157,13 @@ class FirebaseDynamicLinkService {
 
           case 4:
             String type = deepLink.queryParameters['type'].toString();
-            PaidCourseData courseData = PaidCourseData.fromJson(json.decode(data));
+            PaidCourseData courseData = PaidCourseData.fromJson(
+                json.decode(data));
             return Navigator.push(context, MaterialPageRoute(
                 settings: RouteSettings(name: 'Direct'),
                 builder: (context) =>
-                    PaidCourseDetails('Combo',courseData, int.parse(type.toString()))
+                    PaidCourseDetails(
+                        'Combo', courseData, int.parse(type.toString()))
             ));
 
           case 5:
@@ -197,7 +200,8 @@ class FirebaseDynamicLinkService {
             ));
 
           case 10:
-            String categoryId = deepLink.queryParameters['category-id'].toString();
+            String categoryId = deepLink.queryParameters['category-id']
+                .toString();
             return Navigator.push(context, MaterialPageRoute(
                 builder: (context) =>
                     PaidCourses(1, categoryId: categoryId)
@@ -206,21 +210,23 @@ class FirebaseDynamicLinkService {
           case 11:
             String title = deepLink.queryParameters['title'].toString();
             String vid = deepLink.queryParameters['vid'].toString();
-            bool contentLog = deepLink.queryParameters['contentLog'].toString().toLowerCase()=='true'?true:false;
+            bool contentLog = deepLink.queryParameters['contentLog']
+                .toString()
+                .toLowerCase() == 'true' ? true : false;
             String url = deepLink.queryParameters['url'].toString();
             return Navigator.push(context, MaterialPageRoute(
                 builder: (context) =>
-                    MyMaterialVideo(url,title,'',vid,contentLog)
+                    MyMaterialVideo(url, title, '', vid, contentLog)
             ));
 
           case 12:
-            // String url = deepLink.queryParameters['url'].toString();
-            // String title = deepLink.queryParameters['title'].toString();
-            // String vid = deepLink.queryParameters['vid'].toString();
-            // return Navigator.push(context, MaterialPageRoute(
-            //     builder: (context) =>
-            //         MyTimeTableViedo(url, title, vid)
-            // ));
+          // String url = deepLink.queryParameters['url'].toString();
+          // String title = deepLink.queryParameters['title'].toString();
+          // String vid = deepLink.queryParameters['vid'].toString();
+          // return Navigator.push(context, MaterialPageRoute(
+          //     builder: (context) =>
+          //         MyTimeTableViedo(url, title, vid)
+          // ));
 
           case 13:
             String title = deepLink.queryParameters['title'].toString();
@@ -234,13 +240,18 @@ class FirebaseDynamicLinkService {
             String tabId = deepLink.queryParameters['tab-id'].toString();
             return Navigator.push(context, MaterialPageRoute(
                 builder: (context) =>
-                    StudyMaterialNew(1,tabId: tabId)
+                    StudyMaterialNew(1, tabId: tabId)
             ));
 
           case 15:
             String courseId = deepLink.queryParameters['course-id'].toString();
             AnalyticsConstants.checkOutPageApi(context, courseId);
+            break;
 
+          case 16:
+            AppConstants.homeIndex = 4;
+            fn!();
+            break;
         }
 
       } else {

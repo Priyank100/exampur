@@ -10,77 +10,105 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../SharePref/shared_pref.dart';
+import '../../../data/model/response/home_banner_model.dart';
+import '../../../utils/analytics_constants.dart';
+import '../../../utils/api.dart';
+import '../BannerBookDetailPage.dart';
+import '../banner_link_detail_page.dart';
+import '../test_series_new/test_series_new.dart';
+
 class CaBytes extends StatefulWidget {
-  CaBytes({
-    Key? key,
-  }) : super(key: key);
+  final List<BannerData>? bannerList;
+  CaBytes({this.bannerList}) : super();
 
   @override
   _CaBytesState createState() => _CaBytesState();
 }
 
 class _CaBytesState extends State<CaBytes> {
-  int page = 0;
-  bool isLoading=false;
-  List<Data> caBytesList = [];
-
-  Future<void> callProvider(pageNo) async {
-    isLoading=true;
-    String encodeCat = AppConstants.encodeCategory();
-    List<Data> list=  (await Provider.of<CABytesProvider>(context, listen: false)
-        .getCaBytesList(context,encodeCat, pageNo))!;
-    if(list.length > 0) {
-      page += 10;
-      caBytesList = caBytesList + list;
-    }
-    isLoading=false;
-    setState(() {});
-  }
+  CarouselController controller = CarouselController();
+  bool lastPage = false;
+  // int page = 0;
+  // bool isLoading=false;
+  // List<Data> caBytesList = [];
+  //
+  // Future<void> callProvider(pageNo) async {
+  //   isLoading=true;
+  //   String encodeCat = AppConstants.encodeCategory();
+  //   List<Data> list=  (await Provider.of<CABytesProvider>(context, listen: false)
+  //       .getCaBytesList(context,encodeCat, pageNo))!;
+  //   if(list.length > 0) {
+  //     page += 10;
+  //     caBytesList = caBytesList + list;
+  //   }
+  //   isLoading=false;
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
     super.initState();
-    callProvider(page);
+    //  callProvider(page);
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(),
-        body:isLoading? Center(child:LoadingIndicator(context)):caBytesList.length==0?
+      // appBar: CustomAppBar(),
+        body: widget.bannerList == null ? Center(child: CircularProgressIndicator()) :
+        widget.bannerList!.length==0 ?
         AppConstants.noDataFound():
-        CarouselSlider(
-          options: CarouselOptions(
-            height: double.maxFinite,
-            viewportFraction: 1,
-            aspectRatio: 2.0,
-            enlargeCenterPage: true,
-            scrollDirection: Axis.vertical,
-            enableInfiniteScroll: false,
-            onPageChanged: (index, reason) {
-              if(index==caBytesList.length-1){
+        ListView.builder(
+            itemCount: widget.bannerList!.length,
+            itemBuilder: (BuildContext context, i){
+              return InkWell(
+                onTap: () async {
+                  var map = {
+                    'Page_Name':'Home_Page',
+                    'Banner_Rank': (i+1).toString(),
+                    'Banner_Name':widget.bannerList![i].title.toString(),
+                    'Mobile_Number':AppConstants.userMobile,
+                    'Language':AppConstants.langCode,
+                    'User_ID':AppConstants.userMobile,
+                  };
+                  AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Banner_offer,map);
 
-                callProvider(page);
-              }
-            },
-          ),
-          items: caBytesList.map((i) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Container(
+                  AppConstants.paidTabName = widget.bannerList![i].id.toString();
+                  AppConstants.currentindex = i.toString();
+                  widget.bannerList![i].type=='Course' || widget.bannerList![i].type=='Combo Course'?
+                  Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+                      settings: RouteSettings(name: 'Home_page'),
+                      builder: (_) => BannerLinkDetailPage(widget.bannerList![i].type.toString(),widget.bannerList![i].link.toString()))):
+                  widget.bannerList![i].type=='Book'?
+                  Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => BannerLinkBookDetailPage(widget.bannerList![i].type.toString(),widget.bannerList![i].link.toString())
+                  )):
+                  // Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                  //     BannerDetailPage(item.link.toString(),item.title.toString())
+                  // ));
+
+                  widget.bannerList![i].type=='External'&& widget.bannerList![i].link=='Live Test Page' ?
+                  await SharedPref.getSharedPref(SharedPref.TOKEN).then((token) async {
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (_) =>
+                                TestSeriesNew(API.liveTestWebUrl, token)));
+                  }) :
+                  AppConstants.makeCallEmail(widget.bannerList![i].link.toString());
+                },
+                child: Container(
                     margin: EdgeInsets.all(8),
                     padding: EdgeInsets.all(2),
                     decoration: BoxDecoration(color: AppColors.transparent,
-                      //  border: Border.all(width: 3,color: AppColors.red)
+                        border: Border.all(width: 2,color: AppColors.red)
                     ),
-                    child: i.imagePath.toString().contains('http') ?
-                    AppConstants.image(i.imagePath.toString(), boxfit: BoxFit.fill) :
-                    AppConstants.image(AppConstants.BANNER_BASE + i.imagePath.toString(), boxfit: BoxFit.fill)
-                );
-              },
-            );
-          } ).toList(),
-        )
+                    child:widget.bannerList![i].imagePath.toString().contains('http') ?
+                    AppConstants.image(widget.bannerList![i].imagePath.toString(), boxfit: BoxFit.fill) :
+                    AppConstants.image(AppConstants.BANNER_BASE + widget.bannerList![i].imagePath.toString(), boxfit: BoxFit.fill)
+                ),
+              );
+            })
     );
   }
 }
