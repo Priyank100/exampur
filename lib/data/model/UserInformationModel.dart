@@ -33,9 +33,9 @@ class Data {
     this.firstName,
     this.lastName,
     this.language,
-    this.emailId,
-    this.city,
-    this.state,
+    // this.emailId,
+    // this.city,
+    // this.state,
     this.country,
     this.phoneConf,
     this.authToken,
@@ -47,9 +47,9 @@ class Data {
   String? firstName;
   String? lastName;
   String? language;
-  String? emailId;
-  String? city;
-  String? state;
+  // String? emailId;
+  // String? city;
+  // String? state;
   String? country;
   bool? phoneConf;
   String? authToken;
@@ -61,9 +61,9 @@ class Data {
     firstName: json["first_name"],
     lastName: json["last_name"],
     language: json["language"],
-    emailId: json["email_id"],
-    city: json["city"],
-    state: json["state"],
+    // emailId: json["email_id"],
+    // city: json["city"],
+    // state: json["state"],
     country: json["country"],
     phoneConf: json["phone_conf"],
     authToken: json["authToken"],
@@ -76,9 +76,9 @@ class Data {
     "first_name": firstName,
     "last_name": lastName,
     "language": language,
-    "email_id": emailId,
-    "city": city,
-    "state": state,
+    // "email_id": emailId,
+    // "city": city,
+    // "state": state,
     "country": country,
     "phone_conf": phoneConf,
     "authToken": authToken,

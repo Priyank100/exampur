@@ -311,7 +311,8 @@ class PurschaseAlertBox{
     var body = {
       "user": {
         "name": AppConstants.userName,
-        "email": AppConstants.Email,
+        // "email": AppConstants.Email,
+        "email": AppConstants.userMobile + '@nill.com',
         "mobile": AppConstants.userMobile
       },
       "device": {

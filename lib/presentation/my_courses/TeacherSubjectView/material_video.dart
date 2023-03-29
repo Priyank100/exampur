@@ -47,7 +47,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
   String? deviceOS;
   String? userName;
   String? userMobile;
-  String? userEmail;
+  // String? userEmail;
   String? versionName;
   String? versionCode;
   int counter = 0;
@@ -59,7 +59,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     userMobile = jsonValue[0]['data']['phone'].toString();
-    userEmail = jsonValue[0]['data']['email_id'].toString();
+  //  userEmail = jsonValue[0]['data']['email_id'].toString();
 
     teacherRating = await SharedPref.getSharedPref(widget.vid) == 'null' ? false : true;
 
@@ -407,7 +407,8 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
       var body = {
         "user": {
           "name": userName,
-          "email": userEmail,
+          // "email": userEmail,
+          "email":userMobile! + '@nill.com',
           "mobile": userMobile
         },
         "device": {
@@ -453,7 +454,8 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
       var body = {
         "user": {
           "name": userName,
-          "email": userEmail,
+          // "email": userEmail,
+          "email": userMobile! + '@nill.com',
           "mobile": userMobile
         },
         "device": {

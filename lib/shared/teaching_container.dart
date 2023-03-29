@@ -52,7 +52,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
   String? deviceOS;
   String? userName;
   String? userMobile;
-  String? userEmail;
+  // String? userEmail;
   String? versionName;
   String? versionCode;
   String message = '';
@@ -61,7 +61,7 @@ class _TeachingContainerState extends State<TeachingContainer> {
     var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     userMobile = jsonValue[0]['data']['phone'].toString();
-    userEmail = jsonValue[0]['data']['email_id'].toString();
+  //  userEmail = jsonValue[0]['data']['email_id'].toString();
     setState(() {});
   }
 
@@ -483,7 +483,8 @@ class _TeachingContainerState extends State<TeachingContainer> {
       "user":{
         "name":userName,
        // "id":'',
-        "email":userEmail,
+       //  "email":userEmail,
+        "email":userMobile! + '@nill.com',
         "mobile":userMobile
       },
       "device":{

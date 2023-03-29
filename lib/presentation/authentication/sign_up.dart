@@ -32,36 +32,36 @@ class SignUp extends StatefulWidget {
 
 class SignUpState extends State<SignUp> {
   late TextEditingController _nameController;
-  late TextEditingController _emailController;
+  // late TextEditingController _emailController;
   late TextEditingController _passwordController;
   late TextEditingController _userNameController;
   late TextEditingController _phoneController;
-  late TextEditingController _cityController;
-  late TextEditingController _dobController;
+  // late TextEditingController _cityController;
+  // late TextEditingController _dobController;
   late GlobalKey<FormState> _formKeySignUp;
   bool _isCheckTerms = false;
 
-  String selectedState='';
-  List<States> stateList = [];
+  // String selectedState='';
+  // List<States> stateList = [];
 
-  String selectedDate = 'D.O.B';
+  // String selectedDate = 'D.O.B';
 
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/LocalJson/State.json');
   }
 
-  void getStateList() async {
-    String jsonString = await loadJsonFromAssets();
-    final StateResponse = stateJsonFromJson(jsonString);
-    stateList = StateResponse.states!;
-    selectedState = stateList[0].name.toString();
-    setState(() {});
-  }
+  // void getStateList() async {
+  //   String jsonString = await loadJsonFromAssets();
+  //   final StateResponse = stateJsonFromJson(jsonString);
+  //   stateList = StateResponse.states!;
+  //   selectedState = stateList[0].name.toString();
+  //   setState(() {});
+  // }
   FocusNode _nameNode = FocusNode();
   FocusNode _emailNode = FocusNode();
   FocusNode _passwordNode = FocusNode();
   FocusNode _phoneNode = FocusNode();
-  FocusNode _cityNode = FocusNode();
+//  FocusNode _cityNode = FocusNode();
   @override
   void initState() {
     super.initState();
@@ -72,21 +72,21 @@ class SignUpState extends State<SignUp> {
     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Sign_Up,map);
     _formKeySignUp = GlobalKey<FormState>();
     _nameController = TextEditingController();
-    _emailController = TextEditingController();
+    // _emailController = TextEditingController();
     _phoneController = TextEditingController();
     _passwordController = TextEditingController();
     _userNameController = TextEditingController();
-    _cityController = TextEditingController();
-    _dobController = TextEditingController();
+   // _cityController = TextEditingController();
+   //  _dobController = TextEditingController();
 
     _nameNode.addListener(onFocusChange1);
     _emailNode.addListener(onFocusChange2);
     _passwordNode.addListener(onFocusChange3);
     _phoneNode.addListener(onFocusChange4);
-    _cityNode.addListener(onFocusChange5);
+  //  _cityNode.addListener(onFocusChange5);
 
 
-    getStateList();
+   // getStateList();
   }
 
 
@@ -133,33 +133,33 @@ class SignUpState extends State<SignUp> {
 
       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_Mobile_Number,map);
     }}
-  void onFocusChange5() {
-    if(!_cityNode.hasFocus) {
-      var map = {
-        'Page_Name':'Sign_Up',
-        'Mobile_Number':_phoneController.text.toString(),
-        'Language':'en',
-        'User_ID':_phoneController.text.toString()
-      };
-
-      AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_City,map);
-    }}
+  // void onFocusChange5() {
+  //   if(!_cityNode.hasFocus) {
+  //     var map = {
+  //       'Page_Name':'Sign_Up',
+  //       'Mobile_Number':_phoneController.text.toString(),
+  //       'Language':'en',
+  //       'User_ID':_phoneController.text.toString()
+  //     };
+  //
+  //     AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Enter_City,map);
+  //   }}
 
   @override
   void dispose() {
     _nameController.dispose();
-    _emailController.dispose();
-    _cityController.dispose();
+    // _emailController.dispose();
+    //_cityController.dispose();
     _userNameController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
-    _dobController.dispose();
+    // _dobController.dispose();
 
     _nameNode.removeListener(onFocusChange1);
     _emailNode.removeListener(onFocusChange2);
     _passwordNode.removeListener(onFocusChange3);
     _phoneNode.removeListener(onFocusChange4);
-    _cityNode.removeListener(onFocusChange5);
+   // _cityNode.removeListener(onFocusChange5);
 
 
 
@@ -199,43 +199,43 @@ class SignUpState extends State<SignUp> {
                         controller: _nameController,
                         focusNode: _nameNode,
                         value: (value) {}),
-                    SizedBox(
-                      height: 15,
-                    ),
+                    // SizedBox(
+                    //   height: 15,
+                    // ),
+                    //
+                    // InkWell(
+                    //   onTap: () async {
+                    //     String date = await AppConstants.selectDate(context, 'dd/MM/yyyy');
+                    //     if(date.isNotEmpty) {
+                    //       setState(() {
+                    //         selectedDate = date;
+                    //       });
+                    //     }
+                    //   },
+                    //   child: Container(
+                    //       width: double.infinity,
+                    //       padding: EdgeInsets.all(10),
+                    //       decoration: BoxDecoration(
+                    //         color: AppColors.grey300,
+                    //         borderRadius:  BorderRadius.all(const Radius.circular(8)),
+                    //         boxShadow: [
+                    //           BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
+                    //         ],
+                    //       ),
+                    //       child: Text(selectedDate)
+                    //   ),
+                    // ),
 
-                    InkWell(
-                      onTap: () async {
-                        String date = await AppConstants.selectDate(context, 'dd/MM/yyyy');
-                        if(date.isNotEmpty) {
-                          setState(() {
-                            selectedDate = date;
-                          });
-                        }
-                      },
-                      child: Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: AppColors.grey300,
-                            borderRadius:  BorderRadius.all(const Radius.circular(8)),
-                            boxShadow: [
-                              BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
-                            ],
-                          ),
-                          child: Text(selectedDate)
-                      ),
-                    ),
 
-
-                    SizedBox(
-                      height: 15,
-                    ),
-                    CustomTextField(
-                        hintText: "E-mail",
-                        controller: _emailController,
-                        focusNode: _emailNode,
-                        textInputType: TextInputType.emailAddress,
-                        value: (value) {}),
+                    // SizedBox(
+                    //   height: 15,
+                    // ),
+                    // CustomTextField(
+                    //     hintText: "E-mail",
+                    //     controller: _emailController,
+                    //     focusNode: _emailNode,
+                    //     textInputType: TextInputType.emailAddress,
+                    //     value: (value) {}),
                     SizedBox(
                       height: 15,
                     ),
@@ -268,55 +268,55 @@ class SignUpState extends State<SignUp> {
                         ],
                         value: (value) {}),
 
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: AppColors.grey300,
-                        borderRadius:  BorderRadius.all(const Radius.circular(8)),
-                        boxShadow: [
-                          BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1))
-                        ],
-                      ),
-                      padding: EdgeInsets.only(left: 10),
-                      child: DropdownButton(
-                        underline: SizedBox(),
-                        isExpanded: true,
-                        value: selectedState,
-                        items: stateList.map((value) {
-                          return DropdownMenuItem(
-                            value: value.name,
-                            child: Text(value.name.toString()),
-                          );
-                        }).toList(),
-                        onChanged: (selected) {
-                          if(selected != null){
-                            var map = {
-                              'Page_Name':'Sign_Up',
-                              'Language':'en',
+                    // SizedBox(
+                    //   height: 15,
+                    // ),
+                    // Container(
+                    //   width: double.infinity,
+                    //   height: 50,
+                    //   decoration: BoxDecoration(
+                    //     color: AppColors.grey300,
+                    //     borderRadius:  BorderRadius.all(const Radius.circular(8)),
+                    //     boxShadow: [
+                    //       BoxShadow(color: AppColors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1))
+                    //     ],
+                    //   ),
+                    //   padding: EdgeInsets.only(left: 10),
+                    //   child: DropdownButton(
+                    //     underline: SizedBox(),
+                    //     isExpanded: true,
+                    //     value: selectedState,
+                    //     items: stateList.map((value) {
+                    //       return DropdownMenuItem(
+                    //         value: value.name,
+                    //         child: Text(value.name.toString()),
+                    //       );
+                    //     }).toList(),
+                    //     onChanged: (selected) {
+                    //       if(selected != null){
+                    //         var map = {
+                    //           'Page_Name':'Sign_Up',
+                    //           'Language':'en',
+                    //
+                    //         };
+                    //        AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_State,map);
+                    //       }
+                    //       setState(() {
+                    //         selectedState = selected.toString();
+                    //       });
+                    //     },
+                    //   ),
+                    // ),
 
-                            };
-                           AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_State,map);
-                          }
-                          setState(() {
-                            selectedState = selected.toString();
-                          });
-                        },
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 15,
-                    ),
-
-                    CustomTextField(
-                        hintText: "City",
-                        controller: _cityController,
-                        focusNode: _cityNode,
-                        value: (value) {}),
+                    // SizedBox(
+                    //   height: 15,
+                    // ),
+                    //
+                    // CustomTextField(
+                    //     hintText: "City",
+                    //     controller: _cityController,
+                    //     focusNode: _cityNode,
+                    //     value: (value) {}),
 
                     SizedBox(
                       height: 10,
@@ -416,12 +416,12 @@ class SignUpState extends State<SignUp> {
       _formKeySignUp.currentState!.save();
 
       String _name = _nameController.text.trim();
-      String _email = _emailController.text.trim();
+      // String _email = _emailController.text.trim();
       String _password = _passwordController.text.trim();
       String _userName = _userNameController.text.trim();
       String _phone = _phoneController.text.trim();
-      String _city = _cityController.text.trim();
-      String _dob = _dobController.text.trim();
+     // String _city = _cityController.text.trim();
+     //  String _dob = _dobController.text.trim();
 
       if (_name.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -432,21 +432,23 @@ class SignUpState extends State<SignUp> {
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      } else if (selectedDate == 'D.O.B') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please enter your Date of Birth'),
-          backgroundColor: AppColors.black,
-          margin: EdgeInsets.all(20),
-          behavior: SnackBarBehavior.floating,
-        ));
-      } else if (_email.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please enter your Email Id'),
-          backgroundColor: AppColors.black,
-          margin: EdgeInsets.all(20),
-          behavior: SnackBarBehavior.floating,
-        ));
       }
+      // else if (selectedDate == 'D.O.B') {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Please enter your Date of Birth'),
+      //     backgroundColor: AppColors.black,
+      //     margin: EdgeInsets.all(20),
+      //     behavior: SnackBarBehavior.floating,
+      //   ));
+      // }
+      // else if (_email.isEmpty) {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Please enter your Email Id'),
+      //     backgroundColor: AppColors.black,
+      //     margin: EdgeInsets.all(20),
+      //     behavior: SnackBarBehavior.floating,
+      //   ));
+      // }
       // else if (!AppConstants.isEmailValid(_email)) {
       //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //     content: Text('Please enter valid Email Id'),
@@ -492,21 +494,23 @@ class SignUpState extends State<SignUp> {
           margin: EdgeInsets.all(20),
           behavior: SnackBarBehavior.floating,
         ));
-      } else if (selectedState=='Select States') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please select State'),
-          backgroundColor: AppColors.black,
-          margin: EdgeInsets.all(20),
-          behavior: SnackBarBehavior.floating,
-        ));
-      } else if (_city.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please enter City'),
-          backgroundColor: AppColors.black,
-          margin: EdgeInsets.all(20),
-          behavior: SnackBarBehavior.floating,
-        ));
-      } else if (!_isCheckTerms) {
+      }
+      // else if (selectedState=='Select States') {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Please select State'),
+      //     backgroundColor: AppColors.black,
+      //     margin: EdgeInsets.all(20),
+      //     behavior: SnackBarBehavior.floating,
+      //   ));
+      // } else if (_city.isEmpty) {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Please enter City'),
+      //     backgroundColor: AppColors.black,
+      //     margin: EdgeInsets.all(20),
+      //     behavior: SnackBarBehavior.floating,
+      //   ));
+      // }
+      else if (!_isCheckTerms) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Agree the Terms and Conditions to proceed.'),
           backgroundColor: AppColors.black,
@@ -516,13 +520,13 @@ class SignUpState extends State<SignUp> {
       } else {
         CreateUserbody.phoneExt = '91';
         CreateUserbody.firstName = _name;
-        CreateUserbody.emailId = _email;
-        CreateUserbody.dob = selectedDate;
+        // CreateUserbody.emailId = _email;
+        // CreateUserbody.dob = selectedDate;
         CreateUserbody.password = _password;
         CreateUserbody.phone = _phone;
         CreateUserbody.lastName = 'null';
-        CreateUserbody.state = selectedState;
-        CreateUserbody.city = _city;
+        CreateUserbody.state =  AppConstants.defaultState;
+        CreateUserbody.city =  AppConstants.defaultCity;
         CreateUserbody.country = AppConstants.defaultCountry;
         CreateUserbody.language = 'English';
 
@@ -537,13 +541,15 @@ class SignUpState extends State<SignUp> {
     if (isRoute) {
       await FirebaseAnalytics.instance.logEvent(name: 'USER_SIGNUP',parameters: {
         'Name':_nameController.text.toString(),
-        'Email':_emailController.text.toString(),
+         // 'Email':_emailController.text.toString(),
+         'Email':_phoneController.text.toString() + '@nill.com',
         // 'Phone':_phoneController.text.toString(),
 
       });
       Map<String, Object> stuff = {
         'Name':_nameController.text.toString(),
-        'Email':_emailController.text.toString(),
+        // 'Email':_emailController.text.toString(),
+        'Email':_phoneController.text.toString() + '@nill.com',
       };
       AnalyticsConstants.logEvent('USER_SIGNUP',stuff);
       // SharedPref.saveSharedPref(SharedPref.CATEGORY_LENGTH, '0');

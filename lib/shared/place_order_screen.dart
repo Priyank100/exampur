@@ -57,10 +57,10 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   bool isCouponValid = false;
   String userName = '';
   String Name ='';
-  String Email='';
+  // String Email='';
   String Mobile='';
-  String City='A';
-  String State='A';
+  // String City='A';
+  // String State='A';
   String LandMark='a';
   String Pincode='123456';
   String Address='A';
@@ -72,7 +72,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
-    Email = jsonValue[0]['data']['email_id'].toString();
+  //  Email = jsonValue[0]['data']['email_id'].toString();
     Name = jsonValue[0]['data']['first_name'].toString();
    // City = jsonValue[0]['data']['city'].toString();
    // State = jsonValue[0]['data']['state'].toString();
@@ -561,8 +561,10 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
       "book_id": widget.books.id.toString(),
       "promo_code": _promocode,
       "billing_address": Address,
-      "billing_city":  City,
-      "billing_state": State,
+    // "billing_city":  City,
+    // "billing_state": State,
+    "billing_city":  AppConstants.defaultCity,
+    "billing_state":  AppConstants.defaultState,
       "billing_country": AppConstants.defaultCountry,
       "billing_landmark":LandMark,
       "billing_pincode":  Pincode
@@ -577,13 +579,15 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
          deliveryUpsellModel = DeliveryUpsellModel.fromJson(jsonObject);
           AppConstants.printLog(jsonObject['data']);
               // print(deliveryUpsellModel!.data!.amount.toString());
-        openCheckout();
-     //
-     //     Navigator.pushReplacement(
-     //         context,
-     //         MaterialPageRoute(
-     //             builder: (context) => BookDeliveryAddress(widget.books.id.toString(),isCouponValid ? _cuponCodeController.text.toUpperCase() : '',deliveryUpsellModel!.data!.orderNo.toString(),deliveryUpsellModel!.data!.orderId.toString(),'response.paymentId','response.signature',widget.books.title.toString(),type:'Book')
-     //         ));
+
+        openCheckout();  // isko rakhna
+
+         // Navigator.pushReplacement( // isko hatana hh
+         //     context,
+         //     MaterialPageRoute(
+         //         builder: (context) => BookDeliveryAddress(widget.books.id.toString(),isCouponValid ? _cuponCodeController.text.toUpperCase() : '',deliveryUpsellModel!.data!.orderNo.toString(),deliveryUpsellModel!.data!.orderId.toString(),'response.paymentId','response.signature',widget.books.title.toString(),type:'Book')
+         //     ));
+
           // Navigator.push(context, MaterialPageRoute(builder: (context) =>
           //     BookPaymentSceen(widget.books.id.toString(),
           //       widget.books.title.toString(),isCouponValid ? _cuponCodeController.text.toUpperCase() : '',deliveryUpsellModel)
@@ -611,7 +615,9 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
       "timeout": "180",
       "theme.color": "#d19d0f",
       "currency": "INR",
-      "prefill": {"contact":  Mobile.toString(), "email": Email.toString()},
+      "prefill": {"contact":  Mobile.toString(),
+        //"email": Email.toString()
+      },
     };
 
     try {

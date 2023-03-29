@@ -35,8 +35,8 @@ class AuthProvider extends ChangeNotifier {
 
   AuthProvider({required this.authRepo});
 
-  UserInfo _userInfo=UserInfo();
-  UserInfo get userInfo => _userInfo;
+  // UserInfo _userInfo=UserInfo();
+  // UserInfo get userInfo => _userInfo;
 
   UserInformationModel _informationModel=UserInformationModel();
   UserInformationModel get informationModel =>_informationModel;
@@ -63,11 +63,12 @@ class AuthProvider extends ChangeNotifier {
         //MoEngage
         AppConstants.userName = _informationModel.data!.firstName.toString();
         AppConstants.userMobile = _informationModel.data!.phone.toString();
-        AppConstants.Email = _informationModel.data!.emailId.toString();
+        // AppConstants.Email = _informationModel.data!.emailId.toString();
         AppConstants.Id = _informationModel.data!.phone.toString();
         AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
         AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
-        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+        //AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.userMobile + '@nill.com');
         AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
 
         await SharedPref.saveSharedPref(SharedPref.TOKEN, _informationModel.data!.authToken.toString());
@@ -130,14 +131,15 @@ class AuthProvider extends ChangeNotifier {
         //MoEngage
         AppConstants.userName = _informationModel.data!.firstName.toString();
         AppConstants.userMobile = _informationModel.data!.phone.toString();
-        AppConstants.Email = _informationModel.data!.emailId.toString();
+       // AppConstants.Email = _informationModel.data!.emailId.toString();
         AppConstants.Id = _informationModel.data!.phone.toString();
         AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
         AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
-        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+       // AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.userMobile + '@nill.com');
         AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
-       AnalyticsConstants.moengagePlugin.setUserAttribute('City',_informationModel.data!.city.toString().firstLetterCapitalize());
-       AnalyticsConstants.moengagePlugin.setUserAttribute('State',_informationModel.data!.state.toString());
+       // AnalyticsConstants.moengagePlugin.setUserAttribute('City',_informationModel.data!.city.toString().firstLetterCapitalize());
+       // AnalyticsConstants.moengagePlugin.setUserAttribute('State',_informationModel.data!.state.toString());
        AnalyticsConstants.moengagePlugin.setUserAttribute('Preferred_Language','English');
        AnalyticsConstants.moengagePlugin.setUserAttribute('WhatsApp_Opt_In','Yes');
        AnalyticsConstants.moengagePlugin.setUserAttribute('WhatsApp_Mobile_Number', AppConstants.userMobile);
@@ -231,11 +233,12 @@ class AuthProvider extends ChangeNotifier {
         //MoEngage
         AppConstants.userName = _informationModel.data!.firstName.toString();
         AppConstants.userMobile = _informationModel.data!.phone.toString();
-        AppConstants.Email = _informationModel.data!.emailId.toString();
+       // AppConstants.Email = _informationModel.data!.emailId.toString();
         AppConstants.Id = _informationModel.data!.phone.toString();
         AnalyticsConstants.moengagePlugin.setUserName(AppConstants.userName);
         AnalyticsConstants.moengagePlugin.setPhoneNumber(AppConstants.userMobile);
-        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+       // AnalyticsConstants.moengagePlugin.setEmail(AppConstants.Email);
+        AnalyticsConstants.moengagePlugin.setEmail(AppConstants.userMobile + '@nill.com');
         AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
         // AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.userMobile);
 

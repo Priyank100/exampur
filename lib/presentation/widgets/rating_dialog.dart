@@ -33,7 +33,7 @@ class _RatingDialogState extends State<RatingDialog> {
   List<RateModel> rateList = [];
   String? userName = '';
   String? userMobile = '';
-  String? userEmail = '';
+  // String? userEmail = '';
   String deviceModel = '';
   String deviceMake = '';
   String deviceOS = '';
@@ -63,7 +63,7 @@ class _RatingDialogState extends State<RatingDialog> {
     var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     userMobile = jsonValue[0]['data']['phone'].toString();
-    userEmail = jsonValue[0]['data']['email_id'].toString();
+  //  userEmail = jsonValue[0]['data']['email_id'].toString();
     setState(() {});
   }
 
@@ -163,7 +163,8 @@ class _RatingDialogState extends State<RatingDialog> {
     {
       "user":{
         "name":userName,
-        "email":userEmail,
+        // "email":userEmail,
+        "email":userMobile! +'@nill.com',
         "mobile":userMobile
       },
       "device":{
@@ -181,7 +182,8 @@ class _RatingDialogState extends State<RatingDialog> {
     {
       "user":{
         "name":userName,
-        "email":userEmail,
+        // "email":userEmail,
+        "email":userMobile !+'@nill.com',
         "mobile":userMobile
       },
       "device":{
@@ -224,7 +226,7 @@ class _RatingDialogState extends State<RatingDialog> {
                   RatingFeedback(
                       userName,
                       userMobile,
-                      userEmail,
+                      // userEmail,
                       deviceModel,
                       deviceMake,
                       deviceOS,

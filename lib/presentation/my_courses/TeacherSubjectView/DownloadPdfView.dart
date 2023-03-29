@@ -43,7 +43,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
   String? deviceOS;
   String? userName;
   String? userMobile;
-  String? userEmail;
+  // String? userEmail;
   String? versionName;
   String? versionCode;
 
@@ -95,7 +95,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     userMobile = jsonValue[0]['data']['phone'].toString();
-    userEmail = jsonValue[0]['data']['email_id'].toString();
+  //  userEmail = jsonValue[0]['data']['email_id'].toString();
     setState(() {});
   }
 
@@ -334,7 +334,8 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
       var body = {
         "user": {
           "name": userName,
-          "email": userEmail,
+          // "email": userEmail,
+          "email": userMobile! + '@nill.com',
           "mobile": userMobile
         },
         "device": {

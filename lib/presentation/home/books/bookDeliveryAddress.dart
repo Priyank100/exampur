@@ -35,7 +35,7 @@ class BookDeliveryAddress extends StatefulWidget {
 class _BookDeliveryAddressState extends State<BookDeliveryAddress> {
   String userName = '';
   String Name ='';
-  String Email='';
+  // String Email='';
   String Mobile='';
   // String City='';
   // String State='';
@@ -49,6 +49,7 @@ class _BookDeliveryAddressState extends State<BookDeliveryAddress> {
   final TextEditingController _billingPincodeController = TextEditingController();
   final TextEditingController _cuponCodeController = TextEditingController();
   final TextEditingController _billinglandMarkController = TextEditingController();
+  final TextEditingController _billingWhatsappController = TextEditingController();
   Future<String> loadJsonFromAssets() async {
     return await rootBundle.loadString('assets/LocalJson/State.json');
   }
@@ -58,7 +59,7 @@ class _BookDeliveryAddressState extends State<BookDeliveryAddress> {
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
-    Email = jsonValue[0]['data']['email_id'].toString();
+ //   Email = jsonValue[0]['data']['email_id'].toString();
     Name = jsonValue[0]['data']['first_name'].toString();
     // City = jsonValue[0]['data']['city'].toString();
     // State = jsonValue[0]['data']['state'].toString();
@@ -150,7 +151,7 @@ class _BookDeliveryAddressState extends State<BookDeliveryAddress> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15.0),
+              padding: const EdgeInsets.only(top: 15.0,bottom: 10),
               child: TextUse(
                 image: Icons.location_city,
                 title: getTranslated(context, LangString.state),
@@ -177,7 +178,7 @@ class _BookDeliveryAddressState extends State<BookDeliveryAddress> {
                 ],
               ),
 
-              padding: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 10,),
 
               child: DropdownButton(
                 underline: SizedBox(),
@@ -214,6 +215,23 @@ class _BookDeliveryAddressState extends State<BookDeliveryAddress> {
                 value: (value) {},
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 15.0),
+            //   child: TextUse(
+            //     image: Icons.whatsapp,
+            //     title:'WhatsApp',
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 15.0),
+            //   child: CustomTextField(
+            //     hintText: 'WhatsApp Number',
+            //     textInputType: TextInputType.number,
+            //     maxLength: 10,
+            //     controller: _billingWhatsappController,
+            //     value: (value) {},
+            //   ),
+            // ),
             InkWell(
               onTap:  (){
                 FocusScope.of(context).unfocus();
@@ -223,6 +241,8 @@ class _BookDeliveryAddressState extends State<BookDeliveryAddress> {
                 String _state = _billingStateController.text.trim();
                 String _landmark = _billinglandMarkController.text.trim();
                 String _promocode = _cuponCodeController.text.trim();
+               // String _whatsApp = _billingWhatsappController.text.trim();
+
                 var map = {
                   'Page_Name':'Delivery_Details',
                   'Mobile_Number':AppConstants.userMobile,
@@ -231,7 +251,7 @@ class _BookDeliveryAddressState extends State<BookDeliveryAddress> {
                   'Book_Name':widget.bookTitle.toString()
                 };
             AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Confirm_Purchase_Books,map);
-                if(checkValidation(_address, _state, _city, _pincode,)) {
+                if(checkValidation(_address, _state, _city, _pincode)) {
                   saveDeliveryAddress(true, _address, _pincode, _city, selectedState);
                 }
       },
@@ -284,6 +304,19 @@ class _BookDeliveryAddressState extends State<BookDeliveryAddress> {
       ));
       return false;
     }
+    // else if (widget.type == 'Book' && _whatsApp.isEmpty) {
+    //   AppConstants.showBottomMessage(context,getTranslated(context, LangString.Please_WhatsApp_Number)!, AppColors.black);
+    //   return false;
+    // }
+    // else if (widget.type == 'Book' && _whatsApp.length < 6) {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: Text(getTranslated(context, LangString.Please_10WhatsApp_Number)!),
+    //     backgroundColor: AppColors.black,
+    //     margin: EdgeInsets.all(20),
+    //     behavior: SnackBarBehavior.floating,
+    //   ));
+    //   return false;
+    // }
   else {
       return true;
     }
@@ -302,6 +335,7 @@ class _BookDeliveryAddressState extends State<BookDeliveryAddress> {
       "billing_country": AppConstants.defaultCountry,
     //  "billing_landmark":_landmark,
       "billing_pincode":  _pincode
+     // "billing_whatsapp":  _whatsApp
     };
     url = API.new_update_address_book.replaceAll('ORDER_ID', widget.orderId.toString());
     await Service.patch(url, body: param).then((response) async {

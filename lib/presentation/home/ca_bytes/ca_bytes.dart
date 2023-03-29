@@ -12,15 +12,16 @@ import 'package:provider/provider.dart';
 
 import '../../../SharePref/shared_pref.dart';
 import '../../../data/model/response/home_banner_model.dart';
-import '../../../utils/analytics_constants.dart';
 import '../../../utils/api.dart';
 import '../BannerBookDetailPage.dart';
 import '../banner_link_detail_page.dart';
 import '../test_series_new/test_series_new.dart';
 
 class CaBytes extends StatefulWidget {
-  final List<BannerData>? bannerList;
-  CaBytes({this.bannerList}) : super();
+  final List<BannerData> bannerList;
+  CaBytes(this.bannerList,
+
+  ) : super();
 
   @override
   _CaBytesState createState() => _CaBytesState();
@@ -49,7 +50,7 @@ class _CaBytesState extends State<CaBytes> {
   @override
   void initState() {
     super.initState();
-    //  callProvider(page);
+  //  callProvider(page);
 
   }
 

@@ -138,6 +138,8 @@
   "preBookAlertSuccessHead" :"Pre-booking Successful",
   "preBookAlertAlreadyHead": "Already Pre-booked",
   "poor": "Poor",
+  "Please_WhatsApp_Number": "WhatsApp Number MUST BE REQUIRED ",
+  "Please_10WhatsApp_Number": "Please enter 10 Digit WhatsApp Number",
 
 
   "name": "Name",

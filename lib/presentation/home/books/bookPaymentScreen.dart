@@ -30,20 +30,20 @@ class BookPaymentSceen extends StatefulWidget {
 class _BookPaymentSceenState extends State<BookPaymentSceen> {
   String userName = '';
   String Name ='';
-  String Email='';
+  // String Email='';
   String Mobile='';
-  String City='';
-  String State='';
+  // String City='';
+  // String State='';
   late Razorpay razorpay;
   Future<void> getSharedPrefData() async {
     var jsonValue =  jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
-    Email = jsonValue[0]['data']['email_id'].toString();
+  //  Email = jsonValue[0]['data']['email_id'].toString();
     Name = jsonValue[0]['data']['first_name'].toString();
-    City = jsonValue[0]['data']['city'].toString();
-    State = jsonValue[0]['data']['state'].toString();
+    // City = jsonValue[0]['data']['city'].toString();
+    // State = jsonValue[0]['data']['state'].toString();
     setState(() {
     });
   }
@@ -82,7 +82,7 @@ class _BookPaymentSceenState extends State<BookPaymentSceen> {
       Divider(),
       textUse(getTranslated(context, LangString.name)!, userName.toString()),
       textUse(getTranslated(context, LangString.phoneNumber)!, Mobile.toString()),
-      textUse(getTranslated(context, LangString.email)!, Email.toString()),
+      // textUse(getTranslated(context, LangString.email)!, Email.toString()),
       textUse(getTranslated(context, LangString.country)!, AppConstants.defaultCountry),
       Divider(),
       textUse(getTranslated(context, LangString.book_name)!, widget.bookName),
@@ -106,11 +106,11 @@ class _BookPaymentSceenState extends State<BookPaymentSceen> {
            openCheckout();
 
             //isko hatna hhh
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => BookDeliveryAddress(widget.id.toString(),widget.couponCode,widget.deliveryUpsellModel.data!.orderNo.toString(),widget.deliveryUpsellModel.data!.orderId.toString(),'response.paymentId','response.signature',widget.bookName,type:'Book')
-                ));
+            // Navigator.pushReplacement(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => BookDeliveryAddress(widget.id.toString(),widget.couponCode,widget.deliveryUpsellModel.data!.orderNo.toString(),widget.deliveryUpsellModel.data!.orderId.toString(),'response.paymentId','response.signature',widget.bookName,type:'Book')
+            //     ));
           },
           child: Container(
             padding: EdgeInsets.all(10),
@@ -146,7 +146,9 @@ class _BookPaymentSceenState extends State<BookPaymentSceen> {
       "timeout": "180",
       "theme.color": "#d19d0f",
       "currency": "INR",
-      "prefill": {"contact":  Mobile.toString(), "email": Email.toString()},
+      "prefill": {"contact":  Mobile.toString(),
+        // "email": Email.toString()
+      },
     };
 
     try {

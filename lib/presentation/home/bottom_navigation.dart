@@ -76,7 +76,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
     MyCourses(),
    // FreeVideosTab(),
     Downloads(0),
-    CaBytes()
+    CaBytes([])
    // CardInbox()
     // Help()
   ];
@@ -134,8 +134,11 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
         }
       }
       bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context, AppConstants.encodeCategory()))!;
+
       widgetList[0] = Home(bannerList);
-      widgetList[4] = CaBytes(bannerList: bannerList);
+      widgetList[4] = CaBytes(bannerList);
+
+
 
       var map = {
         'Page_Name':'Home_Page',
@@ -145,7 +148,9 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
         'Course_Category':AppConstants.selectedCategoryNameList
       };
       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Home_Page,map);
+
       _currIndex = AppConstants.homeIndex;
+
       setState(() {});
     });
   }

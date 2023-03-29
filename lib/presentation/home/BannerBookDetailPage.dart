@@ -90,10 +90,10 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
   bool isCouponValid = false;
   String userName = '';
   String Name ='';
-  String Email='';
+  // String Email='';
   String Mobile='';
-  String City='A';
-  String State='A';
+  // String City='A';
+  // String State='A';
   String LandMark='a';
   String Pincode='123456';
   String Address='A';
@@ -108,7 +108,7 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
-    Email = jsonValue[0]['data']['email_id'].toString();
+   // Email = jsonValue[0]['data']['email_id'].toString();
     Name = jsonValue[0]['data']['first_name'].toString();
     // City = jsonValue[0]['data']['city'].toString();
     // State = jsonValue[0]['data']['state'].toString();
@@ -449,8 +449,10 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
       "book_id": widget.bookDetailData!.id.toString(),
       "promo_code": _promocode,
       "billing_address": Address,
-      "billing_city":  City,
-      "billing_state": State,
+      // "billing_city":  City,
+      // "billing_state": State,
+      "billing_city":  AppConstants.defaultCity,
+      "billing_state": AppConstants.defaultState,
       "billing_country": AppConstants.defaultCountry,
       "billing_landmark":LandMark,
       "billing_pincode":  Pincode
@@ -491,7 +493,8 @@ class _BookBannerDetailState extends State<BookBannerDetail> {
       "timeout": "180",
       "theme.color": "#d19d0f",
       "currency": "INR",
-      "prefill": {"contact":  Mobile.toString(), "email": Email.toString()},
+     // "prefill": {"contact":  Mobile.toString(), "email": Email.toString()},
+      "prefill": {"contact":  Mobile.toString()},
     };
 
     try {

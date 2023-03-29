@@ -149,6 +149,8 @@ class LangString {
   static String preBookSubTextEng = 'Get additional X% discount on pre-booking';
   static String preBookSubTextHi = 'प्री-बुकिंग पर अतिरिक्त X% छूट पाएं';
   static String poor = 'poor';
+  static String Please_WhatsApp_Number = 'Please_WhatsApp_Number';
+  static String Please_10WhatsApp_Number = 'Please_10WhatsApp_Number';
 
 
 
