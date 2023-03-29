@@ -17,14 +17,14 @@ import 'package:flutter/services.dart';
 class RatingFeedback extends StatefulWidget {
   final String? userName;
   final String? userMobile;
-  final String? userEmail;
+  // final String? userEmail;
   final String deviceModel;
   final String deviceMake;
   final String deviceOS;
   final String versionName;
   final String versionCode;
   const RatingFeedback(
-      this.userName, this.userMobile, this.userEmail,
+      this.userName, this.userMobile, /*this.userEmail,*/
       this.deviceModel, this.deviceMake, this.deviceOS,
       this.versionName, this.versionCode) : super();
 
@@ -134,7 +134,8 @@ class RatingFeedbackState extends State<RatingFeedback> {
     var body = {
       "user":{
         "name":widget.userName,
-        "email":widget.userEmail,
+        // "email":widget.userEmail,
+        "email":widget.userMobile! + '@nill.com',
         "mobile":widget.userMobile
       },
       "device":{

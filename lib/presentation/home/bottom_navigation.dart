@@ -40,6 +40,7 @@ import 'package:provider/provider.dart';
 import '../../main.dart';
 import '../../shared/badge_icon.dart';
 import 'FreeVideos/freeVideotab.dart';
+import 'ca_bytes/ca_bytes.dart';
 
 class ItemClass {
   const ItemClass(this.index, this.label, this.icon);
@@ -75,7 +76,8 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
     MyCourses(),
    // FreeVideosTab(),
     Downloads(0),
-    CardInbox()
+    CaBytes([])
+   // CardInbox()
     // Help()
   ];
 
@@ -127,7 +129,11 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
         }
       }
       bannerList = (await Provider.of<HomeBannerProvider>(context, listen: false).getHomeBannner(context, AppConstants.encodeCategory()))!;
+
       widgetList[0] = Home(bannerList);
+      widgetList[4] = CaBytes(bannerList);
+
+
 
       var map = {
         'Page_Name':'Home_Page',
@@ -137,6 +143,8 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
         'Course_Category':AppConstants.selectedCategoryNameList
       };
       AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Home_Page,map);
+
+      _currIndex = AppConstants.homeIndex;
 
       setState(() {});
     });
@@ -879,7 +887,7 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                 _currIndex == 2 ? AnalyticsConstants.Click_My_Courses_Bottom_Nav :
              //   _currIndex == 3? AnalyticsConstants.click_youtube_bottom_nav :
                 _currIndex == 3 ? AnalyticsConstants.Click_Downloads_Bottom_Nav :
-                _currIndex == 4 ? AnalyticsConstants.click_card_bottom_nav :
+                _currIndex == 4 ? AnalyticsConstants.offer_tab_Bottom_Nav :
                 AnalyticsConstants.Home_Page, map
             );
           },

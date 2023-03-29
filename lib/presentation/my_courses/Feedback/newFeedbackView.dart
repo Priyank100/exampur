@@ -27,7 +27,7 @@ class NewFeedbackView extends StatefulWidget {
 
 class _NewFeedbackViewState extends State<NewFeedbackView> {
   String? userName;
-  String? userEmail;
+  // String? userEmail;
   String? userMobile;
   String? deviceModel;
   String? deviceMake;
@@ -62,7 +62,7 @@ class _NewFeedbackViewState extends State<NewFeedbackView> {
     var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     userMobile = jsonValue[0]['data']['phone'].toString();
-    userEmail = jsonValue[0]['data']['email_id'].toString();
+  //  userEmail = jsonValue[0]['data']['email_id'].toString();
     setState(() {});
   }
 
@@ -204,7 +204,8 @@ class _NewFeedbackViewState extends State<NewFeedbackView> {
     var body = {
       "user": {
         "name": userName,
-        "email": userEmail,
+       // "email": userEmail,
+        "email": userMobile! + '@nill.com',
         "mobile": userMobile
       },
       "device": {

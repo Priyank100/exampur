@@ -47,7 +47,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
   String? deviceOS;
   String? userName;
   String? userMobile;
-  String? userEmail;
+  // String? userEmail;
   String? versionName;
   String? versionCode;
   String noVideoLink = 'https://cdn.exampur.xyz/No+video+available+here.+This+is+a+Special+PDF.+Please+clink+on+View+PDF+to+access+the+material.mp4';
@@ -95,7 +95,7 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
     var jsonValue = jsonDecode(await SharedPref.getSharedPref(SharedPref.USER_DATA));
     userName = jsonValue[0]['data']['first_name'].toString();
     userMobile = jsonValue[0]['data']['phone'].toString();
-    userEmail = jsonValue[0]['data']['email_id'].toString();
+   // userEmail = jsonValue[0]['data']['email_id'].toString();
     setState(() {});
   }
 
@@ -605,7 +605,8 @@ class _ChapterDetailViewState extends State<ChapterDetailView> {
       var body = {
         "user": {
           "name": userName,
-          "email": userEmail,
+          // "email": userEmail,
+          "email": userMobile! + '@nill.com',
           "mobile": userMobile
         },
         "device": {

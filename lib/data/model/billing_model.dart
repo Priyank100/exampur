@@ -1,6 +1,6 @@
 class BillingModel {
   String? name;
-  String? eMail;
+  // String? eMail;
   String? mobile;
   String? address;
   String? city;
@@ -11,12 +11,12 @@ class BillingModel {
   String? itemName;
   String? itemAmount;
 
-  BillingModel(this.name, this.eMail, this.mobile, this.address, this.city, this.state, this.country,
+  BillingModel(this.name, /*this.eMail,*/ this.mobile, this.address, this.city, this.state, this.country,
       this.pincode,this.landmark, this.itemName, this.itemAmount);
 
   BillingModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
-    eMail = json['eMail'];
+  //  eMail = json['eMail'];
     mobile = json['mobile'];
     address = json['address'];
     city = json['city'];
@@ -31,7 +31,7 @@ class BillingModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
-    data['eMail'] = this.eMail;
+   // data['eMail'] = this.eMail;
     data['mobile'] = this.mobile;
     data['address'] = this.address;
     data['city'] = this.city;

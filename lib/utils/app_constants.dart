@@ -36,7 +36,10 @@ class AppConstants {
   static String BANNER_BASE = '';
   static String YOUTUBE_IMG = 'https://img.youtube.com/vi/VIDEO_ID/mqdefault.jpg';
 
-  static String defaultCountry = 'India';
+  // static String defaultCountry = 'India';
+  static String defaultCountry = 'Nill';
+  static String defaultCity = 'Nill';
+  static String defaultState = 'Nill';
 
   static String Mobile_number = '9873111552';
   static String offline_call  = '9054993549';
@@ -65,6 +68,8 @@ class AppConstants {
   static List<String> selectedCategoryList = [];
   static List<String> selectedCategoryNameList = [];
 
+  static int homeIndex = 0;
+
 
   static List<String> contentLogList = [];
   static List<Course> doubtCourseIdList = [];
@@ -88,7 +93,7 @@ class AppConstants {
   // for moengage ------------------------------------
   static String userName = '';
   static String userMobile = '';
-  static String Email = '';
+ // static String Email = '';
   static String Id = '';
   static String courseName = '';
   static String subjectId = '';

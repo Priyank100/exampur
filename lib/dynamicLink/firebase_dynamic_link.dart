@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:exampur_mobile/SharePref/shared_pref.dart';
 import 'package:exampur_mobile/data/model/one2_one_models.dart';
 import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
+import 'package:exampur_mobile/presentation/home/ca_bytes/ca_bytes.dart';
 import 'package:exampur_mobile/presentation/home/exampurone2one/one2oneViedo.dart';
 import 'package:exampur_mobile/presentation/home/paid_courses/paidcoursedetails.dart';
 import 'package:exampur_mobile/presentation/my_courses/myCoursetabview.dart';
@@ -17,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:exampur_mobile/data/model/e_book_model.dart';
 
 import '../presentation/home/books/books_ebooks.dart';
+import '../presentation/home/bottom_navigation.dart';
 import '../presentation/home/current_affairs_new/current_affairs_tab.dart';
 import '../presentation/home/home.dart';
 import '../presentation/home/paid_courses/offline_courses.dart';
@@ -112,13 +114,14 @@ class FirebaseDynamicLinkService {
         var isPreviousYearPdf = dataType == 'previous-year';
         var isCheckout = dataType == 'checkout';
         // var isQuestion = dataType == 'questionDay';
+        var isOffer = dataType == 'offers';
 
         // int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 : 0;
 
         int condition = isCourses ? 1 : isBooks ? 2 : isOne2One ? 3 : isCombo ? 4 : isCurrentAffairs ? 5 :
                         isLiveTest || isQuiz ? 6 : isBookList ? 7 : isEBookList ? 8 : isOfflineCourses ? 9 :
                         isPaidCourses ? 10 : isRecordedVideo ? 11 : isLiveVideo ? 12 : isPdf ? 13 :
-                        isPreviousYearPdf ? 14 : isCheckout ? 15 : 0;
+                        isPreviousYearPdf ? 14 : isCheckout ? 15 : isOffer ? 16 : 0;
 
 
         switch(condition) {
@@ -240,6 +243,12 @@ class FirebaseDynamicLinkService {
           case 15:
             String courseId = deepLink.queryParameters['course-id'].toString();
             AnalyticsConstants.checkOutPageApi(context, courseId);
+            break;
+
+          case 16:
+            AppConstants.homeIndex = 4;
+           break;
+             //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => BottomNavigation(currentIndex: 4)), (route) => false);
 
         }
 

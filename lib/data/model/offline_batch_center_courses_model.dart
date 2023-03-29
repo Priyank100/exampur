@@ -117,20 +117,21 @@ class CenterDetails {
       int? phone, 
       int? phoneExt, 
       String? address, 
-      String? city, 
+      // String? city,
       String? country, 
       String? pincode, 
-      String? state,}){
+      // String? state,
+  }){
     _id = id;
     _description = description;
     _name = name;
     _phone = phone;
     _phoneExt = phoneExt;
     _address = address;
-    _city = city;
+    // _city = city;
     _country = country;
     _pincode = pincode;
-    _state = state;
+    // _state = state;
 }
 
   CenterDetails.fromJson(dynamic json) {
@@ -140,10 +141,10 @@ class CenterDetails {
     _phone = json['phone'];
     _phoneExt = json['phone_ext'];
     _address = json['address'];
-    _city = json['city'];
+    // _city = json['city'];
     _country = json['country'];
     _pincode = json['pincode'];
-    _state = json['state'];
+    // _state = json['state'];
   }
   String? _id;
   String? _description;
@@ -151,10 +152,10 @@ class CenterDetails {
   int? _phone;
   int? _phoneExt;
   String? _address;
-  String? _city;
+  // String? _city;
   String? _country;
   String? _pincode;
-  String? _state;
+  // String? _state;
 
   String? get id => _id;
   String? get description => _description;
@@ -162,10 +163,10 @@ class CenterDetails {
   int? get phone => _phone;
   int? get phoneExt => _phoneExt;
   String? get address => _address;
-  String? get city => _city;
+  // String? get city => _city;
   String? get country => _country;
   String? get pincode => _pincode;
-  String? get state => _state;
+  // String? get state => _state;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -175,10 +176,10 @@ class CenterDetails {
     map['phone'] = _phone;
     map['phone_ext'] = _phoneExt;
     map['address'] = _address;
-    map['city'] = _city;
+    // map['city'] = _city;
     map['country'] = _country;
     map['pincode'] = _pincode;
-    map['state'] = _state;
+    // map['state'] = _state;
     return map;
   }
 

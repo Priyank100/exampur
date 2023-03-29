@@ -84,7 +84,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
                 textUse(getTranslated(context, LangString.name)!, widget.billingModel.name.toString()),
                 textUse(getTranslated(context, LangString.phoneNumber)!, widget.billingModel.mobile.toString()),
-                textUse(getTranslated(context, LangString.email)!, widget.billingModel.eMail.toString()),
+                // textUse(getTranslated(context, LangString.email)!, widget.billingModel.eMail.toString()),
                 widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ? SizedBox() :  textUse(getTranslated(context, LangString.address)!, widget.billingModel.address.toString()),
                 widget.billingModel.city.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, LangString.city)!, widget.billingModel.city.toString()),
                 widget.billingModel.state.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, LangString.state)!, widget.billingModel.state.toString()),
@@ -199,7 +199,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
       "timeout": "180",
       "theme.color": "#d19d0f",
       "currency": "INR",
-      "prefill": {"contact":  widget.billingModel.mobile.toString(), "email": widget.billingModel.eMail.toString()},
+      // "prefill": {"contact":  widget.billingModel.mobile.toString(), "email": widget.billingModel.eMail.toString()},
+      "prefill": {"contact":  widget.billingModel.mobile.toString()},
     };
 
     try {

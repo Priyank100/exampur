@@ -43,10 +43,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
   String userName = '';
   String Name ='';
-  String Email='';
+  // String Email='';
   String Mobile='';
-  String City='';
-  String State='';
+  // String City='';
+  // String State='';
   String LandMark='';
   bool isCouponValid = false;
   String preBookTypeCoupon = '';
@@ -68,13 +68,13 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     // AppConstants.printLog('priyank>> ${jsonValue.toString()}');
     userName = jsonValue[0]['data']['first_name'].toString();
     Mobile = jsonValue[0]['data']['phone'].toString();
-    Email = jsonValue[0]['data']['email_id'].toString();
+    // Email = jsonValue[0]['data']['email_id'].toString();
     Name = jsonValue[0]['data']['first_name'].toString();
-    City = jsonValue[0]['data']['city'].toString();
-    State = jsonValue[0]['data']['state'].toString();
+    // City = jsonValue[0]['data']['city'].toString();
+    // State = jsonValue[0]['data']['state'].toString();
 
-    _billingCityController.text = City;
-    _billingStateController.text = State;
+    // _billingCityController.text = City;
+    // _billingStateController.text = State;
 
     setState(() {
     });
@@ -606,7 +606,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           if (status == "Pending" || status == 'EMI') {
             BillingModel billingModel = BillingModel(
                 Name,
-                Email,
+                // Email,
                 Mobile,
                 _address,
                 _city,

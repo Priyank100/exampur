@@ -60,48 +60,49 @@ class CenterListModel {
   CenterListModel({
       String? id, 
       String? name, 
-      String? city, 
+      // String? city,
       String? country, 
       String? pincode, 
-      String? state,}){
+      // String? state,
+  }){
     _id = id;
     _name = name;
-    _city = city;
+    // _city = city;
     _country = country;
     _pincode = pincode;
-    _state = state;
+    // _state = state;
 }
 
   CenterListModel.fromJson(dynamic json) {
     _id = json['_id'];
     _name = json['name'];
-    _city = json['city'];
+    // _city = json['city'];
     _country = json['country'];
     _pincode = json['pincode'];
-    _state = json['state'];
+    // _state = json['state'];
   }
   String? _id;
   String? _name;
-  String? _city;
+  // String? _city;
   String? _country;
   String? _pincode;
-  String? _state;
+  // String? _state;
 
   String? get id => _id;
   String? get name => _name;
-  String? get city => _city;
+  // String? get city => _city;
   String? get country => _country;
   String? get pincode => _pincode;
-  String? get state => _state;
+  // String? get state => _state;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['_id'] = _id;
     map['name'] = _name;
-    map['city'] = _city;
+    // map['city'] = _city;
     map['country'] = _country;
     map['pincode'] = _pincode;
-    map['state'] = _state;
+    // map['state'] = _state;
     return map;
   }
 
