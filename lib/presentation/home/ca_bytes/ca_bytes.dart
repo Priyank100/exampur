@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../../../SharePref/shared_pref.dart';
 import '../../../data/model/response/home_banner_model.dart';
+import '../../../utils/analytics_constants.dart';
 import '../../../utils/api.dart';
 import '../BannerBookDetailPage.dart';
 import '../banner_link_detail_page.dart';
@@ -59,7 +60,7 @@ class _CaBytesState extends State<CaBytes> {
     return Scaffold(
       // appBar: CustomAppBar(),
         body: widget.bannerList == null ? Center(child: CircularProgressIndicator()) :
-        widget.bannerList!.length==0 ?
+        widget.bannerList.length==0 ?
         AppConstants.noDataFound():
         ListView.builder(
             itemCount: widget.bannerList!.length,

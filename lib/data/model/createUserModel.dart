@@ -2,7 +2,7 @@ class CreateUserModel {
   String? phoneExt;
   String? phone;
   String? password;
- // String? emailId;
+ String? emailId;
   String? firstName;
   String? lastName;
   String? language;
@@ -15,7 +15,7 @@ class CreateUserModel {
       {this.phoneExt,
         this.phone,
         this.password,
-      //  this.emailId,
+       this.emailId,
         this.firstName,
         this.lastName,
         this.language,
@@ -29,7 +29,7 @@ class CreateUserModel {
     phoneExt = json['phone_ext'];
     phone = json['phone'];
     password = json['password'];
-   // emailId = json['email_id'];
+   emailId = json['email_id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
     language = json['language'];
@@ -44,7 +44,7 @@ class CreateUserModel {
     data['phone_ext'] = this.phoneExt;
     data['phone'] = this.phone;
     data['password'] = this.password;
-   // data['email_id'] = this.emailId;
+   data['email_id'] = this.emailId;
     data['first_name'] = this.firstName;
     data['last_name'] = this.lastName;
     data['language'] = this.language;

@@ -88,7 +88,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ? SizedBox() :  textUse(getTranslated(context, LangString.address)!, widget.billingModel.address.toString()),
                 widget.billingModel.city.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, LangString.city)!, widget.billingModel.city.toString()),
                 widget.billingModel.state.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, LangString.state)!, widget.billingModel.state.toString()),
-                widget.billingModel.country.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, LangString.country)!, widget.billingModel.country.toString()),
+                // widget.billingModel.country.toString().isEmpty ? SizedBox() : textUse(getTranslated(context, LangString.country)!, widget.billingModel.country.toString()),
                 widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ? SizedBox(): textUse(getTranslated(context, LangString.pinCode)!, widget.billingModel.pincode.toString()),
                 widget.type == 'Course' || widget.type == 'Combo' || widget.type == 'TestSeries' ?SizedBox(): textUse(getTranslated(context, LangString.landmarkTehsil)!, widget.billingModel.landmark.toString()),
 

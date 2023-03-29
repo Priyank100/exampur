@@ -39,7 +39,7 @@ class SignUpState extends State<SignUp> {
   // late TextEditingController _cityController;
   // late TextEditingController _dobController;
   late GlobalKey<FormState> _formKeySignUp;
-  bool _isCheckTerms = false;
+  bool _isCheckTerms = true;
 
   // String selectedState='';
   // List<States> stateList = [];
@@ -240,12 +240,16 @@ class SignUpState extends State<SignUp> {
                       height: 15,
                     ),
 
-                    CustomPasswordTextField(
-                      hintTxt: 'Password',
-                      controller: _passwordController,
-                      focusNode: _passwordNode,
-                      textInputAction: TextInputAction.next,
-                    ),
+                    CustomTextField(
+                        hintText: "Phone number",
+                        controller: _phoneController,
+                        focusNode: _phoneNode,
+                        textInputType: TextInputType.number,
+                        maxLength: 10,
+                        textInputFormatter: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        value: (value) {}),
 
                     SizedBox(
                       height: 15,
@@ -257,16 +261,13 @@ class SignUpState extends State<SignUp> {
                     // SizedBox(
                     //   height: 15,
                     // ),
-                    CustomTextField(
-                        hintText: "Phone number",
-                        controller: _phoneController,
-                        focusNode: _phoneNode,
-                        textInputType: TextInputType.number,
-                        maxLength: 10,
-                        textInputFormatter: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        value: (value) {}),
+
+                    CustomPasswordTextField(
+                      hintTxt: 'Password',
+                      controller: _passwordController,
+                      focusNode: _passwordNode,
+                      textInputAction: TextInputAction.next,
+                    ),
 
                     // SizedBox(
                     //   height: 15,
@@ -518,13 +519,21 @@ class SignUpState extends State<SignUp> {
           behavior: SnackBarBehavior.floating,
         ));
       } else {
+        var fName = '';
+        var lName = 'null';
+        if(_name.contains(" ")) {
+          fName = _name.split(" ")[0];
+          lName = _name.split(" ").sublist(1).join(" ");
+        } else {
+          fName = _name;
+        }
         CreateUserbody.phoneExt = '91';
-        CreateUserbody.firstName = _name;
-        // CreateUserbody.emailId = _email;
+        CreateUserbody.firstName = fName;
+        CreateUserbody.lastName = lName;
+        CreateUserbody.emailId = _phone + '@nill.com';
         // CreateUserbody.dob = selectedDate;
         CreateUserbody.password = _password;
         CreateUserbody.phone = _phone;
-        CreateUserbody.lastName = 'null';
         CreateUserbody.state =  AppConstants.defaultState;
         CreateUserbody.city =  AppConstants.defaultCity;
         CreateUserbody.country = AppConstants.defaultCountry;
