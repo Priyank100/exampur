@@ -24,7 +24,8 @@ import '../presentation/my_courses/TeacherSubjectView/DownloadPdfView.dart';
 import '../presentation/my_courses/TeacherSubjectView/material_video.dart';
 
 class FirebaseDynamicLinkService {
-  static String uriPrefix = 'https://edudrive.page.link';
+  // static String uriPrefix = 'https://edudrive.page.link';
+  static String uriPrefix = 'https://dlink.exampur.com';
   // static String fallbackUrl = 'https://www.exampur.com';
   static String fallbackUrl = 'https://play.google.com/store/apps/details?id=com.edudrive.exampur';
   static String exampurTitle = 'Exampur';

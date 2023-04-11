@@ -63,6 +63,11 @@
                 <data
                     android:host="link.exampur.com"
                     android:scheme="https" />
+
+                <data
+                    android:host="dlink.exampur.com"
+                    android:scheme="https" />
+
             </intent-filter>
 
             <meta-data
