@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class Keys {
 }
 
 class AppConstants {
-  static bool isPrint       = false;
+  static bool isPrint       = true;
   static bool isotpverify   = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -406,17 +407,25 @@ class AppConstants {
   }
 
   static Future<void> checkPermission(BuildContext context, Permission permission, Function callback) async {
-    var status = await permission.status;
-    if (status.isGranted) {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    var os = androidInfo.version.release.toString();
+
+    if(int.parse(os) >= 13) {
       callback();
     } else {
-      await permission.request().then((value) async {
-        if(value.isGranted) {
-          callback();
-        } else {
-          AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
-        }
-      });
+      var status = await permission.status;
+      if (status.isGranted) {
+        callback();
+      } else {
+        await permission.request().then((value) async {
+          if(value.isGranted) {
+            callback();
+          } else {
+            AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
+          }
+        });
+      }
     }
   }
 

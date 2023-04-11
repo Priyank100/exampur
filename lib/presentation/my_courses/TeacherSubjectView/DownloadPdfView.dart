@@ -272,28 +272,43 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
   }*/
 
   Future<void> openPermissionDialog() async {
-    await Permission.storage.request().then((value) async {
-      if(value.isGranted) {
-        AppConstants.createExampurFolder();
-        // downloadPdfFile();
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    var os = androidInfo.version.release.toString();
 
-        var fileName = widget.pdfTitle.replaceAll(' ', '_').replaceAll(RegExp('[^A-Za-z0-9_]'), '');
-        File safeFile = File(urlPDFPath);
-        await safeFile.copy('${Directory(AppConstants.filePath).path}/' + fileName + '.pdf').then((value) {
-          AppConstants.showBottomMessage(context, 'File has been downloaded successfully', AppColors.black);
-        });
+    if(int.parse(os) >= 13) {
+      AppConstants.createExampurFolder();
+      // downloadPdfFile();
 
-      } else {
-        AppConstants.showAlertDialogWithButton(
-            context,
-            "To download this file, click on 'Continue' to allow the storage permission from setting",
-                () async {
-              Navigator.pop(context);
-              await openAppSettings();
-            }
-        );
-      }
-    });
+      var fileName = widget.pdfTitle.replaceAll(' ', '_').replaceAll(RegExp('[^A-Za-z0-9_]'), '');
+      File safeFile = File(urlPDFPath);
+      await safeFile.copy('${Directory(AppConstants.filePath).path}/' + fileName + '.pdf').then((value) {
+        AppConstants.showBottomMessage(context, 'File has been downloaded successfully', AppColors.black);
+      });
+    } else {
+      await Permission.storage.request().then((value) async {
+        if(value.isGranted) {
+          AppConstants.createExampurFolder();
+          // downloadPdfFile();
+
+          var fileName = widget.pdfTitle.replaceAll(' ', '_').replaceAll(RegExp('[^A-Za-z0-9_]'), '');
+          File safeFile = File(urlPDFPath);
+          await safeFile.copy('${Directory(AppConstants.filePath).path}/' + fileName + '.pdf').then((value) {
+            AppConstants.showBottomMessage(context, 'File has been downloaded successfully', AppColors.black);
+          });
+
+        } else {
+          AppConstants.showAlertDialogWithButton(
+              context,
+              "To download this file, click on 'Continue' to allow the storage permission from setting",
+                  () async {
+                Navigator.pop(context);
+                await openAppSettings();
+              }
+          );
+        }
+      });
+    }
   }
 
   void downloadPdfFile() async {

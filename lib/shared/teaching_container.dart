@@ -31,6 +31,7 @@ import 'package:share/share.dart';
 import 'package:http/http.dart' as http;
 
 import '../data/model/course_book_popup_model.dart';
+import '../presentation/home/paid_courses/FreeCourseDetail.dart';
 import '../presentation/my_courses/Feedback/feedbackView.dart';
 import '../presentation/widgets/custom_smaller_button.dart';
 import '../utils/analytics_constants.dart';
@@ -330,7 +331,8 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               AppConstants.myCourseName = widget.courseData.title.toString();
                               AppConstants.myCourseId= widget.courseData.id.toString();
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                  MyCourseTabView(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)
+                              FreeCourseDetail(widget.courseData.id.toString(),token,widget.tabId)
+                              //  MyCourseTabView(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)
                               ));
                             }
                           },text: getTranslated(context, LangString.viewDetails)!,)
