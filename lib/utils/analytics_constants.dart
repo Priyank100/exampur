@@ -362,6 +362,16 @@ class AnalyticsConstants {
             ];
             AppConstants.goTo(context, TestSeriesNew(urlData[1], token));
           }
+//======================================Youtube========================================//
+          else if(screenName == 'youtube') {
+            print('>>>>>>>>>>>' + actiondata[1]);
+            // AppConstants.makeCallEmail("${actiondata[1]}");
+          }
+//======================================GoogleForm========================================//
+          else if(screenName == 'google-form') {
+            // print('>>>>>>>>>>>' + actiondata[1]);
+            // AppConstants.makeCallEmail(message.data['action']);
+          }
 //===============================================================================================
         },
         onInAppShown: _onInAppShown,
