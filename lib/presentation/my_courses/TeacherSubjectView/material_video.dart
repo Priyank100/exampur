@@ -22,6 +22,7 @@ import '../../../SharePref/shared_pref.dart';
 import '../../../utils/analytics_constants.dart';
 import '../../../utils/api.dart';
 import '../../../utils/images.dart';
+import '../../home/paid_courses/paid_courses.dart';
 import '../../widgets/custom_rateTeacherBottomsheet.dart';
 
 class MyMaterialVideo extends StatefulWidget {
@@ -31,9 +32,10 @@ class MyMaterialVideo extends StatefulWidget {
   String vid;
   bool isTimlineRequired;
   String? videoQuallity;
+  String? tabId;
 
 
-  MyMaterialVideo(this.url, this.title, this.download,this.vid,this.isTimlineRequired, {this.videoQuallity}) : super();
+  MyMaterialVideo(this.url, this.title, this.download,this.vid,this.isTimlineRequired, {this.videoQuallity,this.tabId}) : super();
 
   @override
   _MyMaterialVideoState createState() => _MyMaterialVideoState();
@@ -345,28 +347,60 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
             )
           ],
         ),
+      bottomNavigationBar:AppConstants.mycourseType == 0 ? SizedBox() : AppConstants.mycourseType == 1?InkWell(
+          onTap: (){
+    Navigator.push(context, MaterialPageRoute(
+    builder: (context) =>
+    PaidCourses(1, categoryId:widget.tabId )
+    ));
+    },
+        child:
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 50,
+          padding: EdgeInsets.all(15),
+          margin: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+              color: Colors.amber,
+              borderRadius: BorderRadius.all(Radius.circular(50))
+          ),
+          alignment: Alignment.center,
+          child: Text('Explore Live Courses',style: TextStyle(color: Colors.white),),
+        )):SizedBox()
       ),
     );
 
   }
 
   Future<void> openPermissionDialog() async {
-    await Permission.storage.request().then((value) async {
-      if(value.isGranted) {
-        AppConstants.createExampurFolder();
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    var os = androidInfo.version.release.toString();
+
+    if(int.parse(os) >= 13) {
+      AppConstants.createExampurFolder();
       widget.isTimlineRequired == true ?  videoDownloadClickLog():null;
-        requestVideoDownload();
-      } else {
-        AppConstants.showAlertDialogWithButton(
-            context,
-            "To download this file, click on 'Continue' to allow the storage permission from setting",
-                () async {
-              Navigator.pop(context);
-              await openAppSettings();
-            }
-        );
-      }
-    });
+      requestVideoDownload();
+    } else {
+      await Permission.storage.request().then((value) async {
+        if(value.isGranted) {
+          AppConstants.createExampurFolder();
+          widget.isTimlineRequired == true ?  videoDownloadClickLog():null;
+          requestVideoDownload();
+        } else {
+          AppConstants.showAlertDialogWithButton(
+              context,
+              "To download this file, click on 'Continue' to allow the storage permission from setting",
+                  () async {
+                Navigator.pop(context);
+                await openAppSettings();
+              }
+          );
+        }
+      });
+    }
+
+
   }
 
   Future<void> requestVideoDownload() async {

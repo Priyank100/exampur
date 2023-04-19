@@ -25,7 +25,6 @@ class API {
   static String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
   static String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 
-
   // call if BASE_URL1 got error-429
   static String BASE_URL1_U = 'https://qvjplseirk.execute-api.ap-northeast-1.amazonaws.com/';
 

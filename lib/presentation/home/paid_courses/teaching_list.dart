@@ -1,4 +1,5 @@
 import 'package:exampur_mobile/data/model/paid_course_model_new.dart';
+import 'package:exampur_mobile/presentation/home/paid_courses/paid_courses.dart';
 import 'package:exampur_mobile/presentation/widgets/loading_indicator.dart';
 import 'package:exampur_mobile/provider/PaidCourseProvider.dart';
 import 'package:exampur_mobile/shared/teaching_container.dart';
@@ -100,12 +101,47 @@ class _TeachingListState extends State<TeachingList> {
         isLoad==0 ? Center(child:LoadingIndicator(context)) :
         freeCourseList.length==0 ? AppConstants.noDataFound() : listing(freeCourseList),
 
-      bottomNavigationBar: isLoading ? Container(
-         // padding: EdgeInsets.all(8),
-          height:40,
-          width: 40,
-          child: Center(child: LoadingIndicator(context))) :
-      SizedBox(),
+      //    floatingActionButton: widget.courseType == 1? SizedBox():  FloatingActionButton.extended(
+      //
+      //   onPressed: (){
+      //     Navigator.push(context, MaterialPageRoute(
+      //         builder: (context) =>
+      //             PaidCourses(1, categoryId:widget.tabId )
+      //     ));
+      //   },
+      //   label: Text('Explore Live Courses',style: TextStyle(color: Colors.white),),
+      //  // icon: Icon(Icons.live_tv),
+      // ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          isLoading ? Container(
+            // padding: EdgeInsets.all(8),
+              height:40,
+              width: 40,
+              child: Center(child: LoadingIndicator(context))) :
+          SizedBox(),
+          widget.courseType == 1? SizedBox():   InkWell(
+                onTap: (){
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) =>
+                PaidCourses(1, categoryId:widget.tabId )
+        ));
+      },
+          child:
+            Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.all(15),
+            margin: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: Colors.amber,
+              borderRadius: BorderRadius.all(Radius.circular(50))
+            ),
+            alignment: Alignment.center,
+            child: Text('Explore Live Courses',style: TextStyle(color: Colors.white),),
+          ))
+        ],
+      )
     );
   }
 

@@ -147,6 +147,8 @@ class _SplashScreenState extends State<SplashScreen> {
     await SharedPref.getSharedPref(SharedPref.TOKEN).then((value) {
       AppConstants.printLog('TOKEN>> $value');
       validateToken(value);
+    }).catchError((error){
+      validateToken('null');
     });
   }
 

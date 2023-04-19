@@ -26,11 +26,13 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
 import 'package:http/http.dart' as http;
 
 import '../data/model/course_book_popup_model.dart';
+import '../presentation/home/paid_courses/FreeCourseDetail.dart';
 import '../presentation/my_courses/Feedback/feedbackView.dart';
 import '../presentation/widgets/custom_smaller_button.dart';
 import '../utils/analytics_constants.dart';
@@ -256,7 +258,8 @@ class _TeachingContainerState extends State<TeachingContainer> {
                              AppConstants.goTo(context, MyWebView(selectedUrl:widget.courseData.offlineWeblink));
 
                          }
-                              },text: 'Free counselling form',color: Colors.green,):SizedBox(),
+                              },text: 'Free counselling form',color: Colors.green,):
+                           SizedBox(),
                           CustomRoundButton(onPressed: () async {
                             AppConstants.mycourseType = 1;
                             // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];
@@ -330,7 +333,8 @@ class _TeachingContainerState extends State<TeachingContainer> {
                               AppConstants.myCourseName = widget.courseData.title.toString();
                               AppConstants.myCourseId= widget.courseData.id.toString();
                               Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                  MyCourseTabView(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)
+                              FreeCourseDetail(widget.courseData.id.toString(),token,widget.tabId)
+                              //  MyCourseTabView(widget.courseData.id.toString(),widget.courseData.title.toString(),widget.courseData.testSeriesLink.toString(),token)
                               ));
                             }
                           },text: getTranslated(context, LangString.viewDetails)!,)

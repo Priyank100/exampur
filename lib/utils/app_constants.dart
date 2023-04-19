@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
 import '../Localization/language_constrants.dart';
 import '../SharePref/shared_pref.dart';
+import '../data/model/CourseBookRatingModel.dart';
 import '../data/model/DoubtCourseIdModel.dart';
 import '../data/model/OfflineCounselingModel.dart';
 import '../presentation/widgets/rating_dialog.dart';
@@ -110,7 +112,10 @@ class AppConstants {
   static String channelname = '';
   static String coursename = '';
   static String playlistname = '';
-  // static List<String> selectedCategoryName = [];
+
+  static List<CourseBookRatingModel> coursebookRatingList = [
+    CourseBookRatingModel(id:'6433b571083a4b58f7f45d21',rating: '4.82' )
+  ];
 
   //=========================================================
 
@@ -406,17 +411,25 @@ class AppConstants {
   }
 
   static Future<void> checkPermission(BuildContext context, Permission permission, Function callback) async {
-    var status = await permission.status;
-    if (status.isGranted) {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    var os = androidInfo.version.release.toString();
+
+    if(int.parse(os) >= 13) {
       callback();
     } else {
-      await permission.request().then((value) async {
-        if(value.isGranted) {
-          callback();
-        } else {
-          AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
-        }
-      });
+      var status = await permission.status;
+      if (status.isGranted) {
+        callback();
+      } else {
+        await permission.request().then((value) async {
+          if(value.isGranted) {
+            callback();
+          } else {
+            AppConstants.showBottomMessage(context, 'To download, allow permission', AppColors.black);
+          }
+        });
+      }
     }
   }
 
