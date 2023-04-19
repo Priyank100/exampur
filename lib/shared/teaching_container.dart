@@ -26,6 +26,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
 import 'package:http/http.dart' as http;
@@ -257,7 +258,8 @@ class _TeachingContainerState extends State<TeachingContainer> {
                              AppConstants.goTo(context, MyWebView(selectedUrl:widget.courseData.offlineWeblink));
 
                          }
-                              },text: 'Free counselling form',color: Colors.green,):SizedBox(),
+                              },text: 'Free counselling form',color: Colors.green,):
+                           SizedBox(),
                           CustomRoundButton(onPressed: () async {
                             AppConstants.mycourseType = 1;
                             // List<String> courseIdList = [widget.courseData.id.toString(),widget.courseData.title.toString()];

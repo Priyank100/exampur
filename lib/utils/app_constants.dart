@@ -14,6 +14,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
 import '../Localization/language_constrants.dart';
 import '../SharePref/shared_pref.dart';
+import '../data/model/CourseBookRatingModel.dart';
 import '../data/model/DoubtCourseIdModel.dart';
 import '../data/model/OfflineCounselingModel.dart';
 import '../presentation/widgets/rating_dialog.dart';
@@ -29,7 +30,7 @@ class Keys {
 }
 
 class AppConstants {
-  static bool isPrint       = true;
+  static bool isPrint       = false;
   static bool isotpverify   = false;
   static String langCode    = 'en';
   static String filePath    = 'storage/emulated/0/Download/Exampur';
@@ -111,7 +112,10 @@ class AppConstants {
   static String channelname = '';
   static String coursename = '';
   static String playlistname = '';
-  // static List<String> selectedCategoryName = [];
+
+  static List<CourseBookRatingModel> coursebookRatingList = [
+    CourseBookRatingModel(id:'6433b571083a4b58f7f45d21',rating: '4.82' )
+  ];
 
   //=========================================================
 
