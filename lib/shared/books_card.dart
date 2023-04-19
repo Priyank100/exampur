@@ -126,7 +126,7 @@ class _BooksCardState extends State<BooksCard> {
             ),
             ),
                 child: Row(children: [
-                  Text('4.82',style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text('4.8',style: TextStyle(fontWeight: FontWeight.bold),),
                   SizedBox(width: 5,),
                   RatingBar.builder(
                     itemSize: 18,
