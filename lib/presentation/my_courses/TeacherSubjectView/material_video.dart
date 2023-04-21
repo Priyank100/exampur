@@ -365,11 +365,11 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
               borderRadius: BorderRadius.all(Radius.circular(50))
           ),
           alignment: Alignment.center,
-          child: Text('Explore Live Courses',style: TextStyle(color: Colors.white),),
-        )):SizedBox()
+          child: Text('Explore Live Courses',style: TextStyle(color: Colors.white)),
+        )
+      ):SizedBox()
       ),
     );
-
   }
 
   Future<void> openPermissionDialog() async {
@@ -377,7 +377,7 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     var os = androidInfo.version.release.toString();
 
-    if(int.parse(os) >= 13) {
+    if(double.parse(os) >= 13.0) {
       AppConstants.createExampurFolder();
       widget.isTimlineRequired == true ?  videoDownloadClickLog():null;
       requestVideoDownload();
@@ -399,8 +399,6 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
         }
       });
     }
-
-
   }
 
   Future<void> requestVideoDownload() async {

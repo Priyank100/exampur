@@ -26,25 +26,6 @@ class BooksCard extends StatefulWidget {
 }
 
 class _BooksCardState extends State<BooksCard> {
-  CourseBookRatingModel? contentCourseId;
-  bool isShowRating = false;
-
-  void getCheckRatingList(){
-    AppConstants.coursebookRatingList.forEach((ratingModel) {
-      if (ratingModel.id == widget.books.id) {
-        isShowRating = true;
-        setState((){});
-      }
-    });
-
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getCheckRatingList();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,38 +96,6 @@ class _BooksCardState extends State<BooksCard> {
           AppConstants.image(widget.books.bannerPath.toString()) :
           AppConstants.image(AppConstants.BANNER_BASE + widget.books.bannerPath.toString()),
           SizedBox(height: 10),
-        Align(
-          alignment: Alignment.topLeft,
-            child:Container(
-              width: 200,
-              padding: EdgeInsets.all(8),
-            decoration: BoxDecoration( color: Colors.amber.shade50,
-            borderRadius: BorderRadius.all(
-              Radius.circular(30),
-            ),
-            ),
-                child: Row(children: [
-                  Text('4.8',style: TextStyle(fontWeight: FontWeight.bold),),
-                  SizedBox(width: 5,),
-                  RatingBar.builder(
-                    itemSize: 18,
-                    initialRating: 3,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    ignoreGestures: true,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
-                    itemBuilder: (context, _) => Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (rating) {
-                      print(rating);
-                    },
-                  ),
-                ],)
-          )),
           Text(
             widget.books.title.toString(),
             softWrap: true,

@@ -364,13 +364,19 @@ class AnalyticsConstants {
           }
 //======================================Youtube========================================//
           else if(screenName == 'youtube') {
-            print('>>>>>>>>>>>' + actiondata[1]);
-            // AppConstants.makeCallEmail("${actiondata[1]}");
+            List<String> youtubeData = [
+              actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
+              actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
+            ];
+            AppConstants.makeCallEmail(youtubeData[1]);
           }
 //======================================GoogleForm========================================//
           else if(screenName == 'google-form') {
-            // print('>>>>>>>>>>>' + actiondata[1]);
-            // AppConstants.makeCallEmail(message.data['action']);
+            List<String> formData = [
+              actiondata[1].substring(0, actiondata[1].indexOf("=")).trim(),
+              actiondata[1].substring(actiondata[1].indexOf("=") + 1).trim()
+            ];
+            AppConstants.makeCallEmail(formData[1]);
           }
 //===============================================================================================
         },

@@ -276,7 +276,7 @@ class _DownloadViewPdfState extends State<DownloadViewPdf> {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     var os = androidInfo.version.release.toString();
 
-    if(int.parse(os) >= 13) {
+    if(double.parse(os) >= 13.0) {
       AppConstants.createExampurFolder();
       // downloadPdfFile();
 

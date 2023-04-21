@@ -415,7 +415,7 @@ class AppConstants {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     var os = androidInfo.version.release.toString();
 
-    if(int.parse(os) >= 13) {
+    if(double.parse(os) >= 13.0) {
       callback();
     } else {
       var status = await permission.status;
