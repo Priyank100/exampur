@@ -582,8 +582,9 @@ class AppConstants {
     );
   }
 
+  static double courseDemoPercent = 0;
   static int unlockItem(int listLength) {
-    double unlock = (30 / 100) * listLength;
+    double unlock = (AppConstants.courseDemoPercent / 100) * listLength;
     int num = unlock.round();
     return num;
   }
@@ -596,6 +597,6 @@ class AppConstants {
   static String timeRound(){
     DateTime now = DateTime.now();
     String   formattedDate = DateFormat('dd/MM/yyyy HH:mm:ss').format(now);
-     return formattedDate;
+    return formattedDate;
   }
 }

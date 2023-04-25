@@ -242,6 +242,7 @@ class AuthProvider extends ChangeNotifier {
         AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.Id);
         // AnalyticsConstants.moengagePlugin.setUniqueId(AppConstants.userMobile);
 
+        AppConstants.courseDemoPercent = double.parse(_informationModel.config!.courseDemoPercent.toString());
         if(_informationModel.config!.isMaintenance == true) {
           Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => MaintenanceScreen()));
         } else if(_informationModel.config!.isMandatoryUpdate == true) {
@@ -374,6 +375,7 @@ class AuthProvider extends ChangeNotifier {
       if (statusCode == '200') {
         UserInformationModel informationModel = UserInformationModel.fromJson(json.decode(apiResponse.response.toString()));
 
+        AppConstants.courseDemoPercent = double.parse(informationModel.config!.courseDemoPercent.toString());
         if(informationModel.config!.isMaintenance == true) {
           Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => MaintenanceScreen()));
         } else if(informationModel.config!.isMandatoryUpdate == true) {

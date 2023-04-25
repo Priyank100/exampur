@@ -89,19 +89,23 @@ class Data {
 class Config {
   Config({
     this.isMaintenance,
-    this.isMandatoryUpdate
+    this.isMandatoryUpdate,
+    this.courseDemoPercent
   });
 
   bool? isMaintenance;
   bool? isMandatoryUpdate;
+  String? courseDemoPercent;
 
   factory Config.fromJson(Map<String, dynamic> json) => Config(
     isMaintenance: json["is_maintanance"] ?? false,
     isMandatoryUpdate: json["is_mandatory_update"] ?? false,
+    courseDemoPercent: json["course_demo_percent"] == null ? '0' : json["course_demo_percent"].toString(),
   );
 
   Map<String, dynamic> toJson() => {
     "is_maintanance": isMaintenance,
     "is_mandatory_update": isMandatoryUpdate,
+    "course_demo_percent": courseDemoPercent,
   };
 }
