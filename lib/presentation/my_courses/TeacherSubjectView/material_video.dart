@@ -376,7 +376,14 @@ class _MyMaterialVideoState extends State<MyMaterialVideo> {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     var os = androidInfo.version.release.toString();
-    os = os.split(".").take(2).join('.');
+    os = os.split(".").take(1).join('.');
+    os = os.split(" ").take(1).join("");
+    os = os.replaceAll(new RegExp(r'[^0-9]'),'');
+
+    //-------last option-----------------
+    // int sdk = androidInfo.version.sdkInt ?? 0;
+    // if(sdk >= 33) {}
+    //-----------------------------------
 
     if(double.parse(os) >= 13.0) {
       AppConstants.createExampurFolder();

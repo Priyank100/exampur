@@ -414,7 +414,9 @@ class AppConstants {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     var os = androidInfo.version.release.toString();
-    os = os.split(".").take(2).join('.');
+    os = os.split(".").take(1).join('.');
+    os = os.split(" ").take(1).join("");
+    os = os.replaceAll(new RegExp(r'[^0-9]'),'');
 
     if(double.parse(os) >= 13.0) {
       callback();
