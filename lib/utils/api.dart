@@ -21,7 +21,11 @@ class API {
   // static String BASE_URL1 = 'https://api-auth-prod.exampur.xyz/';
   // static String BASE_URL2 = 'https://api-static-prod.exampur.xyz/';
 
+  // testing Sushin sir
+  // static String BASE_URL1 = 'https://waz1woptxk.execute-api.ap-south-1.amazonaws.com/';
+  // static String BASE_URL2 = 'https://9grx7m0vt0.execute-api.ap-south-1.amazonaws.com/';
 
+  // PlayStore-Live
   static String BASE_URL1 = 'https://5asmwawww1.execute-api.ap-south-1.amazonaws.com/';
   static String BASE_URL2 = 'https://alvf81kry3.execute-api.ap-south-1.amazonaws.com/';
 

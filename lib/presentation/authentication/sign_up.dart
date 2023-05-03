@@ -555,12 +555,12 @@ class SignUpState extends State<SignUp> {
         // 'Phone':_phoneController.text.toString(),
 
       });
-      Map<String, Object> stuff = {
-        'Name':_nameController.text.toString(),
-        // 'Email':_emailController.text.toString(),
-        'Email':_phoneController.text.toString() + '@nill.com',
-      };
-      AnalyticsConstants.logEvent('USER_SIGNUP',stuff);
+      // Map<String, Object> stuff = {
+      //   'Name':_nameController.text.toString(),
+      //   // 'Email':_emailController.text.toString(),
+      //   'Email':_phoneController.text.toString() + '@nill.com',
+      // };
+      // AnalyticsConstants.logEvent('USER_SIGNUP',stuff);
       // SharedPref.saveSharedPref(SharedPref.CATEGORY_LENGTH, '0');
 
       var fMap = {

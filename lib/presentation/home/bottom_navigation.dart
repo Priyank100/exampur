@@ -287,8 +287,8 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                   FocusScope.of(context).unfocus();
                   AnalyticsConstants.sendAnalyticsEvent(
                       AnalyticsConstants.sideBarClick);
-                  Map<String, Object> stuff = {};
-                  AnalyticsConstants.logEvent(AnalyticsConstants.sideBarClick,stuff);
+                  // Map<String, Object> stuff = {};
+                  // AnalyticsConstants.logEvent(AnalyticsConstants.sideBarClick,stuff);
                   Scaffold.of(context).openDrawer();
                 });
           }),
@@ -805,8 +805,8 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                         AnalyticsConstants.trackEventMoEngage(AnalyticsConstants.Click_Log_Out_Side_Nav,map);
                         AnalyticsConstants.sendAnalyticsEvent(
                             AnalyticsConstants.logoutClick);
-                        Map<String, Object> stuff = {};
-                        AnalyticsConstants.logEvent(AnalyticsConstants.logoutClick,stuff);
+                        // Map<String, Object> stuff = {};
+                        // AnalyticsConstants.logEvent(AnalyticsConstants.logoutClick,stuff);
                         SharedPref.clearSharedPref(SharedPref.TOKEN);
                         SharedPref.clearSharedPref(SharedPref.USER_DATA);
                         Locale _locale = await setLocale('en');
@@ -876,10 +876,10 @@ class _BottomNavigationState extends State<BottomNavigation> with TickerProvider
                   : _currIndex == 2
                       ? AnalyticsConstants.myCoursesClick
                       : AnalyticsConstants.downloadsClick);
-              Map<String, Object> stuff = {};
-              AnalyticsConstants.logEvent(_currIndex == 1?AnalyticsConstants.demoClick:_currIndex == 2
-                  ?AnalyticsConstants.myCoursesClick:AnalyticsConstants.downloadsClick,stuff
-              );
+              // Map<String, Object> stuff = {};
+              // AnalyticsConstants.logEvent(_currIndex == 1?AnalyticsConstants.demoClick:_currIndex == 2
+              //     ?AnalyticsConstants.myCoursesClick:AnalyticsConstants.downloadsClick,stuff
+              // );
             }
             var map = {
               'Page_Name':'Home_Page',

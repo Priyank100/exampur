@@ -75,9 +75,9 @@ bool isLoading =false;
 
                         //for sendAnalyticsEventfor Appflyer
                           Map<String, Object> stuff = {};
-                          item.type=='Course' || item.type=='Combo Course' ? AnalyticsConstants.logEvent(AnalyticsConstants.bannerCourseClick,stuff):
-                          item.type=='Book'? AnalyticsConstants.logEvent(AnalyticsConstants.bannerBookClick,stuff):
-                          AnalyticsConstants.logEvent(AnalyticsConstants.bannerExternalLinksClick,stuff);
+                          // item.type=='Course' || item.type=='Combo Course' ? AnalyticsConstants.logEvent(AnalyticsConstants.bannerCourseClick,stuff):
+                          // item.type=='Book'? AnalyticsConstants.logEvent(AnalyticsConstants.bannerBookClick,stuff):
+                          // AnalyticsConstants.logEvent(AnalyticsConstants.bannerExternalLinksClick,stuff);
 
                           if( item.type=='External'){
                             var map = {

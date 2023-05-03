@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:exampur_mobile/data/datasource/remote/http/services.dart';
 import 'package:exampur_mobile/dynamicLink/firebase_dynamic_link.dart';
 import 'package:exampur_mobile/utils/api.dart';
@@ -87,9 +86,9 @@ class AnalyticsConstants {
     );
   }
 
-  static AppsflyerSdk? appsflyerSdk;
+  // static AppsflyerSdk? appsflyerSdk;
 
-  static void initAppFlyer() {
+  /*static void initAppFlyer() {
     AppsFlyerOptions appsFlyerOptions = AppsFlyerOptions(
       afDevKey: 'fTnrQRnV94zciX3oyNoNu',
       appId: 'com.edudrive.exampur',
@@ -101,9 +100,9 @@ class AnalyticsConstants {
       registerOnAppOpenAttributionCallback: true,
       registerOnDeepLinkingCallback: true,
     );
-  }
+  }*/
 
-  static void logEvent(String eventName, Map? eventValues) async {
+  /*static void logEvent(String eventName, Map? eventValues) async {
     bool? result;
     try {
       result = await appsflyerSdk!.logEvent(eventName, eventValues);
@@ -112,7 +111,7 @@ class AnalyticsConstants {
     } on Exception catch (e) {
       AppConstants.printLog("Error: $e");
     }
-  }
+  }*/
 
   late BuildContext context;
 

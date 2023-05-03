@@ -40,8 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
     AnalyticsConstants.firebaseEvent(AnalyticsConstants.splashScreenNew, map);
 
     Map<String, Object> stuff = {};
-    AnalyticsConstants.logEvent(AnalyticsConstants.splashScreen,stuff);
-    AnalyticsConstants.initAppFlyer();
+    // AnalyticsConstants.logEvent(AnalyticsConstants.splashScreen,stuff);
+    // AnalyticsConstants.initAppFlyer();
      // AnalyticsConstants.moEngageInitialize(context);
     checkInternet();
     super.initState();
